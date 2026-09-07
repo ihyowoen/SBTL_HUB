@@ -1,4 +1,4 @@
-name: Materialize R7 production Prompt 0.8 temp
+name: Materialize R7 production Prompt 0.8 R6 temp
 
 on:
   pull_request:
@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  materialize-and-push-production:
+  materialize-and-push-production-r6:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout builder source
@@ -45,7 +45,7 @@ jobs:
           test "$(git hash-object data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
           test -z "$(git status --porcelain)"
 
-      - name: Download exact machine-PASS 0.7C R5 package
+      - name: Download exact machine-PASS 0.7C R6 package
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -54,38 +54,48 @@ jobs:
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/10005686515/zip \
-            -o /tmp/r7-stage-0-7c-validated-r5.zip
-          echo "d259ccb0bf784017681788e2d4e317a58fa9b6ae155a9eed9e265c869da7c123  /tmp/r7-stage-0-7c-validated-r5.zip" | sha256sum -c -
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/10006974750/zip \
+            -o /tmp/r7-stage-0-7c-validated-r6.zip
+          echo "ab7ccb61a43ac5f49fbd93245dc9ad39af14b17fae75901013af5d1fa875f7f1  /tmp/r7-stage-0-7c-validated-r6.zip" | sha256sum -c -
           mkdir -p work/runs/2026-09-06/r7-20260903-production-r1
-          unzip -q /tmp/r7-stage-0-7c-validated-r5.zip -d work/runs/2026-09-06/r7-20260903-production-r1
+          unzip -q /tmp/r7-stage-0-7c-validated-r6.zip -d work/runs/2026-09-06/r7-20260903-production-r1
           test -s work/runs/2026-09-06/r7-20260903-production-r1/card-run.json
           test -s work/runs/2026-09-06/r7-20260903-production-r1/stage-0-7c.json
           python - <<'PY'
           import hashlib,json
-          root='work/runs/2026-09-06/r7-20260903-production-r1'
-          run=json.load(open(root+'/card-run.json',encoding='utf-8'))
-          c=json.load(open(root+'/stage-0-7c.json',encoding='utf-8'))
-          sha='a1957c8cac140083029bbcff41e96980c740a03ab8d47bfefae55a8e91fc240c'
+          from pathlib import Path
+          root=Path('work/runs/2026-09-06/r7-20260903-production-r1')
+          run=json.load(open(root/'card-run.json',encoding='utf-8'))
+          c=json.load(open(root/'stage-0-7c.json',encoding='utf-8'))
+          expected='82b5055b8410525fc2246b898bedf43cf0a6169c00828036e289576c020f54ab'
           def stable(v):
             if isinstance(v,list): return [stable(x) for x in v]
             if isinstance(v,dict): return {k:stable(v[k]) for k in sorted(v)}
             return v
+          def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
           op_sha=hashlib.sha256(json.dumps(stable(run['operations']),ensure_ascii=False,separators=(',',':')).encode('utf-8')).hexdigest()
-          assert op_sha==sha
-          assert c['reviewed_operations_sha256']==sha
-          assert c['operation_freeze']['operations_sha256']==sha
+          assert op_sha==expected
+          assert c['reviewed_operations_sha256']==expected
+          assert c['operation_freeze']['operations_sha256']==expected
           assert c['operation_freeze']['insert']==33
           assert c['operation_freeze']['update']==0
           assert c['operation_freeze']['related_add']==4
-          print('RESULT: PASS_EXACT_0_7C_R5_ARTIFACT_IMPORT')
+          assert c['review_corrections_r6']['status']=='PASS'
+          assert c['hash_chain_rebinding_r6']['status']=='PASS'
+          p=root/'stages'
+          assert sha(p/'stage-c.json')=='cf908afe889ed5a93566017d1000654e53c977261e1f3296a50c0101fe5452c6'
+          assert sha(p/'stage-0-4.json')=='d7a6d79e624f6cbfe63b456b7139e1022e90ba52f817f194435bb3e39e6011d2'
+          assert sha(p/'stage-0-5.json')=='c30c50934f29ff7a8dd960fc7c64fb0e66263e49a5a066485f6e6329e431f55c'
+          assert sha(p/'stage-0-6.json')=='8a52693ecf8da9cf6ef1c8d4ca320e82781f2cd393fd34c5285a59d05c677cf9'
+          assert sha(p/'stage-0-7.json')=='462b4720786f1ead62b7a6ea4f9ed3bf5a35f9697c9f7edbea2c97b9a12a2ec9'
+          print('RESULT: PASS_EXACT_0_7C_R6_ARTIFACT_IMPORT')
           PY
 
-      - name: Materialize and fully validate Prompt 0.8 production result
+      - name: Materialize and fully validate Prompt 0.8 R6 production result
         working-directory: work
         run: |
           set -euo pipefail
-          python ../builder/validation_temp/20260903-r7-0-8/materialize_production_0_8_r5.py
+          python ../builder/validation_temp/20260903-r7-0-8/materialize_production_0_8_r6.py
 
       - name: Active workflow regression suite
         working-directory: work
@@ -121,11 +131,11 @@ jobs:
             esac
           done
 
-      - name: Upload production diff diagnostic
+      - name: Upload R6 production diff diagnostic
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: r7-0-8-production-diff-diagnostic
+          name: r7-0-8-r6-production-diff-diagnostic
           path: |
             /tmp/r7-production-diff-check.txt
             /tmp/r7-production-status.txt
@@ -134,7 +144,7 @@ jobs:
             /tmp/r7-production-changed-paths.txt
           if-no-files-found: warn
 
-      - name: Commit validated R5 production package only after all gates pass
+      - name: Commit validated R6 production package only after all gates pass
         working-directory: work
         run: |
           set -euo pipefail
@@ -142,6 +152,6 @@ jobs:
           git config user.email "hyowoen@hotmail.com"
           git add data/cards.full.json public/data/cards.json runs/2026-09-06/r7-20260903-production-r1
           git diff --cached --check
-          git commit -m "Publish governed Sep 3 R7 33 cards R5 review corrections"
+          git commit -m "Publish governed Sep 3 R7 33 cards R6 review corrections"
           git push origin HEAD:chatgpt/production-20260903-r7-33
           echo "RESULT: PRODUCTION_BRANCH_PUSHED $(git rev-parse HEAD)"

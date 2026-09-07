@@ -109,11 +109,26 @@ jobs:
         working-directory: work
         run: |
           set -euo pipefail
-          git diff --check
-          mapfile -t changed < <(git status --porcelain=v1 | sed -E 's/^.. //')
+          set +e
+          git diff --check > /tmp/r7-production-diff-check.txt 2>&1
+          diff_check_rc=$?
+          set -e
+          git status --porcelain=v1 -uall | tee /tmp/r7-production-status.txt
+          git diff --name-only | tee /tmp/r7-production-tracked.txt
+          git ls-files --others --exclude-standard | tee /tmp/r7-production-untracked.txt
+          {
+            git diff --name-only
+            git ls-files --others --exclude-standard
+          } | awk 'NF && !seen[$0]++' > /tmp/r7-production-changed-paths.txt
+          mapfile -t changed < /tmp/r7-production-changed-paths.txt
           test ${#changed[@]} -gt 0
-          printf 'Changed paths:\n'
+          printf 'Changed paths (file-granular):\n'
           printf ' - %s\n' "${changed[@]}"
+          if [ "$diff_check_rc" -ne 0 ]; then
+            cat /tmp/r7-production-diff-check.txt >&2
+            echo "FAIL: git diff --check" >&2
+            exit "$diff_check_rc"
+          fi
           for path in "${changed[@]}"; do
             case "$path" in
               data/cards.full.json|public/data/cards.json|runs/2026-09-06/r7-20260903-production-r1/*) ;;
@@ -125,6 +140,20 @@ jobs:
           test -f runs/2026-09-06/r7-20260903-production-r1/card-run.json
           test -f runs/2026-09-06/r7-20260903-production-r1/stage-0-8.json
           test -f runs/2026-09-06/r7-20260903-production-r1/card-run-audit.json
+          echo "RESULT: PASS_PRODUCTION_DIFF_ALLOWLIST"
+
+      - name: Upload production diff diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r7-0-8-production-diff-diagnostic
+          path: |
+            /tmp/r7-production-diff-check.txt
+            /tmp/r7-production-status.txt
+            /tmp/r7-production-tracked.txt
+            /tmp/r7-production-untracked.txt
+            /tmp/r7-production-changed-paths.txt
+          if-no-files-found: warn
 
       - name: Commit validated production package only after all gates pass
         working-directory: work

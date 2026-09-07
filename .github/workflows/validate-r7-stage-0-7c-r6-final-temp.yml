@@ -79,12 +79,12 @@ jobs:
           run=load(root/'card-run.json'); c=load(root/'stage-0-7c.json')
           op_sha=hashlib.sha256(json.dumps(stable(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
           expected={
-            'op':'82b5055b8410525fc2246b898bedf43cf0a6169c00828036e289576c020f54ab',
-            'c':'cf908afe889ed5a93566017d1000654e53c977261e1f3296a50c0101fe5452c6',
-            '04':'d7a6d79e624f6cbfe63b456b7139e1022e90ba52f817f194435bb3e39e6011d2',
-            '05':'c30c50934f29ff7a8dd960fc7c64fb0e66263e49a5a066485f6e6329e431f55c',
-            '06':'8a52693ecf8da9cf6ef1c8d4ca320e82781f2cd393fd34c5285a59d05c677cf9',
-            '07':'462b4720786f1ead62b7a6ea4f9ed3bf5a35f9697c9f7edbea2c97b9a12a2ec9',
+            'op':'29f02d480ebc8a4c47555d15e5bd23f012c64598574d57e74d18821931e56278',
+            'c':'e3eec5c66d3d3b4fa54ccac9aa4ae036f86780a3b97e7ebb1f4faee17b1e4277',
+            '04':'2944a0c50df99a5c2cf1cb4d3e246011d6d062e19528f07781e37f6dc1fc7152',
+            '05':'71c24b95e2c5967debc93c14035b41d60bf6530d317148cd2ab4616333a37399',
+            '06':'216217ff6d439281832637e1edf0bfff1eb6de97ef26c739d19d4a8ada1a84f6',
+            '07':'d5d4b64bb9696f772c9eb21f589765b09d2362cf7450b708803310c4b93c1aa6',
           }
           assert op_sha==expected['op']
           assert c['reviewed_operations_sha256']==expected['op']

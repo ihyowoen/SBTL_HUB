@@ -9,11 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Verify frozen baseline
         run: |
           set -euo pipefail
           test "${{ github.event.pull_request.base.sha }}" = "5317bec055b88a26cffb136e7844eb488ae4db0d"
           test "$(git hash-object data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+          test "$(git rev-parse 5317bec055b88a26cffb136e7844eb488ae4db0d:data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
       - name: Download certified Stage A and 0.1P source artifacts
         env:
           GITHUB_TOKEN: ${{ github.token }}

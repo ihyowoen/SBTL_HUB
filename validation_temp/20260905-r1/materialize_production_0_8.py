@@ -6,7 +6,7 @@ from pathlib import Path
 RUN_ID='card-run-2026-09-07-r7-20260905-production-r1'
 BASE_MAIN='eb1a311ed378fcdf547b52ad5da0652cb9f1fc62'
 BASE_BLOB='707fe5ea9836a0c2341771397da32c818a95cbed'
-OPS_SHA='236b86f3a0cc7c0a862074884dc06303b0875a73337067e4d8e7a2f3d8e2ed86'
+OPS_SHA='7899d373343332dac7b4e9e7000edc439a9c2b28ff5990f3d0d7088efbe1cd3e'
 RUN_ROOT=Path('runs/2026-09-07/r7-20260905-production-r1')
 CARD_RUN=RUN_ROOT/'card-run.json'
 STAGE08=RUN_ROOT/'stage-0-8.json'
@@ -66,13 +66,13 @@ assert freeze['expected_before']==BEFORE and freeze['expected_after']==AFTER
 assert freeze['operation_drift_allowed'] is False
 
 expected_hashes={
-    'stage_a':'bafd91ebcbd5fcdc246c8fcc0ee1865d2489e77f94d9f1723f9da34a41f74bee',
-    'stage_b':'c0407a7ab09cfdc501ef19f474598903a815d23e5a551566152f96efb96350f2',
-    'stage_c':'a1861b35f9865f2a4672e9d2ecc300d3a771d31d24ca2f319dc063a6cb76c961',
-    'stage_0_4':'6549427c4babdf94c38ff10a58bb9038fe46637e6b0c60d97c41e550bd2c6b33',
-    'stage_0_5':'eccffdc19d1b2b9426896ccaf795189f38a37f4f2dfabc89f8c5c8bc15e7ba74',
-    'stage_0_6':'e8c277544369405d6be14bafb14bec7f024b313145ef81de2bfb802f33fe809d',
-    'stage_0_7':'34a9f92858646da3b5d42d97011a772b2be0dba504f9dab12de22ee6ee57c8cb',
+    'stage_a':'5e2a35eba6f58155d3e8ce128c1cc2f72122a80295d188619cbcc64ae1b29d0e',
+    'stage_b':'33dcc9600bc5ef60478f4bd8f22c129d22bbf83508676707cbb7b6e6be6583cd',
+    'stage_c':'ce699c68e81af7b29a73e350fc710d66328e42c96951291262db377f09e4ecda',
+    'stage_0_4':'c6dd3d2b5493360daf16a0d1b1a55593dbcc163f1be6bba027f7296906289972',
+    'stage_0_5':'ab5b6033dc105a014ae9616e5f90098b197cd741c8889eeef06197d960436da9',
+    'stage_0_6':'132e169d4685ad475e98c632e9b9624bc74e7612df2f26fbe3daf04b54c7c06f',
+    'stage_0_7':'ca69e3952e0a617c312d951cdcb8a96244b5ab4188670c0eececbdbe0df0dd08',
 }
 paths={
     'stage_a':RUN_ROOT/'stages/stage-a.json',
@@ -85,14 +85,20 @@ paths={
 }
 for key,path in paths.items(): assert sha256(path)==expected_hashes[key],(key,sha256(path),expected_hashes[key])
 assert c07['hash_chain']==expected_hashes
+assert c07['round_6_operation_binding']['reviewed_operations_sha256']==OPS_SHA
+assert c07['round_6_operation_binding']['stage_hashes']==expected_hashes
+assert c07['round_6_operation_binding']['binding_authority']=='independent_0_7c_r11_verified_source_discovery_ledger'
+assert c07['codex_p2_remediation']['status']=='PASS'
+assert c07['codex_p2_remediation']['review_id']==5130980362
 s4=load(paths['stage_0_4']); s5=load(paths['stage_0_5']); s6=load(paths['stage_0_6']); s7=load(paths['stage_0_7'])
 assert s4['stage_c_artifact_sha256']==expected_hashes['stage_c']
 assert s5['stage_0_4_artifact_sha256']==expected_hashes['stage_0_4']
 assert s6['input_0_5_sha256']==expected_hashes['stage_0_5']
 assert s7['input_0_6_sha256']==expected_hashes['stage_0_6']
 
-CERTIFIED_ARTIFACT_ID=10013536223
-CERTIFIED_ARTIFACT_SHA='4e8e4c4ab9c1f5be09320ef9c0901b796a186143b01ea9659a1a8a85dc9d97b3'
+CERTIFIED_WORKFLOW_RUN_ID=34129245202
+CERTIFIED_ARTIFACT_ID=10021379057
+CERTIFIED_ARTIFACT_SHA='5fe2a7ba0bec2a99d09a2456d6568cad5d769fe0b8cdcc4ffc31b086c2d8deb8'
 
 dump(AUDIT,{'schema':'card_run_audit_v1','status':'PASS','temporary_materialization_only':True})
 dump(STAGE08,{'stage':'0.8','status':'PASS','temporary_materialization_only':True})
@@ -106,8 +112,15 @@ by_id={c['id']:c for c in full['cards']}
 insert_ids=[op['card']['id'] for op in run['operations']['insert']]
 assert len(insert_ids)==9 and len(set(insert_ids))==9
 assert all(cid in by_id for cid in insert_ids)
+assert '2026-09-04_GL_01' in insert_ids and '2026-09-04_EU_01' not in insert_ids
 assert not run['operations']['update'] and not run['operations']['related_add']
 operation_ids=list(insert_ids)
+
+eng=by_id['2026-09-04_GL_01']
+assert eng.get('source_spec_id')=='STD26_R8_005' and eng.get('region')=='GL'
+anson=by_id['2026-09-03_US_04']
+assert anson['date_role']['event_date']=='2026-09-03'
+assert anson['date_role']['event_date_source_url']=='https://inlandportauthority.utah.gov/board-info/'
 
 merge_items=[]
 for cid in operation_ids:
@@ -140,9 +153,10 @@ stage08={
     'reviewed_operations_sha256':OPS_SHA,
     'independent_completeness_ref':str(RUN_ROOT/'stage-0-7c.json'),
     'certified_0_7c':{
-        'workflow_run_id':34108930897,'artifact_id':CERTIFIED_ARTIFACT_ID,
+        'workflow_run_id':CERTIFIED_WORKFLOW_RUN_ID,'artifact_id':CERTIFIED_ARTIFACT_ID,
         'artifact_zip_sha256':CERTIFIED_ARTIFACT_SHA,
     },
+    'codex_p2_remediation':c07['codex_p2_remediation'],
     'operation_counts':{'insert':9,'update':0,'related_add':0},
     'id_ledger':{'schema':'prompt_0_8_current_run_id_ledger_v1','ids':insert_ids,'operation_ids':operation_ids},
     'github_merge_ready':merge_items,
@@ -175,8 +189,10 @@ audit={
     'zero_deletion_assertion':True,'zero_related_remove_assertion':True,
     'full_output_sha256':sha256(FULL),'lean_output_sha256':sha256(LEAN),
     'provisional_output_hashes':False,'output_binding_status':'PASS',
+    'certified_0_7c_workflow_run_id':CERTIFIED_WORKFLOW_RUN_ID,
     'certified_0_7c_artifact_id':CERTIFIED_ARTIFACT_ID,
     'certified_0_7c_artifact_zip_sha256':CERTIFIED_ARTIFACT_SHA,
+    'codex_p2_remediation':c07['codex_p2_remediation'],
 }
 dump(AUDIT,audit)
 
@@ -205,8 +221,10 @@ sh('node','scripts/lean_cards.mjs','--check')
 audit=load(AUDIT)
 assert audit['full_output_sha256']==sha256(FULL)
 assert audit['lean_output_sha256']==sha256(LEAN)
+assert audit['reviewed_operations_sha256']==OPS_SHA
+assert audit['certified_0_7c_artifact_id']==CERTIFIED_ARTIFACT_ID
 assert len(load(FULL)['cards'])==AFTER
-print('RESULT: PASS_PROMPT_0_8_PRODUCTION_MATERIALIZATION')
+print('RESULT: PASS_PROMPT_0_8_PRODUCTION_MATERIALIZATION_R11')
 print('RUN_ID',RUN_ID)
 print('OPS_SHA',OPS_SHA)
 print('COUNTS insert=9 update=0 related_add=0 before=1569 after=1578')

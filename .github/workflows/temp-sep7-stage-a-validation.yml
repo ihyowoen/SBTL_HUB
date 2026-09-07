@@ -26,6 +26,54 @@ jobs:
           python /tmp/sep7-stage-a-validation/materialize_r6.py /tmp/sep7-stage-a-validation/stage-a-r1.json /tmp/sep7-stage-a-validation/stage-a-r6.json
           test "$(sha256sum /tmp/sep7-stage-a-validation/stage-a-r6.json | awk '{print $1}')" = "47a357854ce66a15b1bb3d664533c08093959a3e5e0eace1ffdb7e1acd85b8db"
 
+      - name: Export complete Stage A lineage findings for diagnosis
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, re
+          from collections import Counter
+          from validation_scripts import stage_lineage_contract_check as active
+          from validation_scripts import stage_lineage_contract_check_v3_compat as compat
+
+          path='/tmp/sep7-stage-a-validation/stage-a-r6.json'
+          with open(path, encoding='utf-8') as fh:
+              data=json.load(fh)
+
+          v4=list(active.validate_stage_a_v4_payload(data, require_contract=True))
+          v4.extend(active.validate_stage_a_v4_hardening_payload(data, require_contract=True))
+          docs=list(active._validate_active_required_docs(data))
+          projected=active._project_full_stage_a_for_v3_compat(data)
+          pre=list(compat.prevalidate_full_stage_a_artifact(projected))
+          full=list(compat.validate_full_stage_a_artifact(projected, compat._compat_module))
+
+          payload={'v4':v4,'active_docs':docs,'v3_preflight':pre,'v3_full':full}
+          with open('/tmp/sep7-stage-a-validation/full-lineage-findings.json','w',encoding='utf-8') as fh:
+              json.dump(payload,fh,ensure_ascii=False,indent=2)
+              fh.write('\n')
+
+          def normalize(msg):
+              s=msg
+              s=re.sub(r'^(STD26_[^:]+|REV_NR_[^:]+|SUP_NR_[^:]+|decision_ledger\[\d+\](?: story [^:]+)?|review_pool_resolution_ledger\[\d+\]|[^:]+\[\d+\]):\s*','',s)
+              s=re.sub(r'\bSTD26_[A-Z0-9_]+\b','<SPEC>',s)
+              s=re.sub(r'\b(?:REV_NR|SUP_NR)_\d+_[A-Z0-9]+\b','<ITEM>',s)
+              s=re.sub(r'\bE\d{4}\b','<EVENT>',s)
+              s=re.sub(r'\b\d+\b','<N>',s)
+              return s
+
+          summary={}
+          for name, rows in payload.items():
+              summary[name+'_count']=len(rows)
+              summary[name+'_types']=Counter(normalize(x) for x in rows).most_common()
+          with open('/tmp/sep7-stage-a-validation/full-lineage-summary.json','w',encoding='utf-8') as fh:
+              json.dump(summary,fh,ensure_ascii=False,indent=2)
+              fh.write('\n')
+          print(json.dumps({k:v for k,v in summary.items() if k.endswith('_count')},ensure_ascii=False))
+          print('top_v3_full_types=')
+          for typ,count in summary['v3_full_types'][:30]:
+              print(count, typ)
+          PY
+
       - name: Run current-main Stage A machine gates on R6
         shell: bash
         run: |

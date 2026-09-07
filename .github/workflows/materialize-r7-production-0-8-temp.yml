@@ -54,9 +54,9 @@ jobs:
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/10006974750/zip \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/10008078919/zip \
             -o /tmp/r7-stage-0-7c-validated-r6.zip
-          echo "ab7ccb61a43ac5f49fbd93245dc9ad39af14b17fae75901013af5d1fa875f7f1  /tmp/r7-stage-0-7c-validated-r6.zip" | sha256sum -c -
+          echo "3c5d1f674d6854fc6ca87c7a6da655f3ea5afe6f93b700fcf13c65a906781ce4  /tmp/r7-stage-0-7c-validated-r6.zip" | sha256sum -c -
           mkdir -p work/runs/2026-09-06/r7-20260903-production-r1
           unzip -q /tmp/r7-stage-0-7c-validated-r6.zip -d work/runs/2026-09-06/r7-20260903-production-r1
           test -s work/runs/2026-09-06/r7-20260903-production-r1/card-run.json
@@ -67,7 +67,7 @@ jobs:
           root=Path('work/runs/2026-09-06/r7-20260903-production-r1')
           run=json.load(open(root/'card-run.json',encoding='utf-8'))
           c=json.load(open(root/'stage-0-7c.json',encoding='utf-8'))
-          expected='82b5055b8410525fc2246b898bedf43cf0a6169c00828036e289576c020f54ab'
+          expected='29f02d480ebc8a4c47555d15e5bd23f012c64598574d57e74d18821931e56278'
           def stable(v):
             if isinstance(v,list): return [stable(x) for x in v]
             if isinstance(v,dict): return {k:stable(v[k]) for k in sorted(v)}
@@ -83,11 +83,11 @@ jobs:
           assert c['review_corrections_r6']['status']=='PASS'
           assert c['hash_chain_rebinding_r6']['status']=='PASS'
           p=root/'stages'
-          assert sha(p/'stage-c.json')=='cf908afe889ed5a93566017d1000654e53c977261e1f3296a50c0101fe5452c6'
-          assert sha(p/'stage-0-4.json')=='d7a6d79e624f6cbfe63b456b7139e1022e90ba52f817f194435bb3e39e6011d2'
-          assert sha(p/'stage-0-5.json')=='c30c50934f29ff7a8dd960fc7c64fb0e66263e49a5a066485f6e6329e431f55c'
-          assert sha(p/'stage-0-6.json')=='8a52693ecf8da9cf6ef1c8d4ca320e82781f2cd393fd34c5285a59d05c677cf9'
-          assert sha(p/'stage-0-7.json')=='462b4720786f1ead62b7a6ea4f9ed3bf5a35f9697c9f7edbea2c97b9a12a2ec9'
+          assert sha(p/'stage-c.json')=='e3eec5c66d3d3b4fa54ccac9aa4ae036f86780a3b97e7ebb1f4faee17b1e4277'
+          assert sha(p/'stage-0-4.json')=='2944a0c50df99a5c2cf1cb4d3e246011d6d062e19528f07781e37f6dc1fc7152'
+          assert sha(p/'stage-0-5.json')=='71c24b95e2c5967debc93c14035b41d60bf6530d317148cd2ab4616333a37399'
+          assert sha(p/'stage-0-6.json')=='216217ff6d439281832637e1edf0bfff1eb6de97ef26c739d19d4a8ada1a84f6'
+          assert sha(p/'stage-0-7.json')=='d5d4b64bb9696f772c9eb21f589765b09d2362cf7450b708803310c4b93c1aa6'
           print('RESULT: PASS_EXACT_0_7C_R6_ARTIFACT_IMPORT')
           PY
 

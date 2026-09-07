@@ -3,7 +3,7 @@ import hashlib, json
 from pathlib import Path
 
 R5_SHA='a1957c8cac140083029bbcff41e96980c740a03ab8d47bfefae55a8e91fc240c'
-R6_SHA='82b5055b8410525fc2246b898bedf43cf0a6169c00828036e289576c020f54ab'
+R6_SHA='29f02d480ebc8a4c47555d15e5bd23f012c64598574d57e74d18821931e56278'
 WRAPPER=Path('../builder/validation_temp/20260903-r7-0-8/materialize_production_0_8_r5.py')
 if not WRAPPER.exists():
     WRAPPER=Path('validation_temp/20260903-r7-0-8/materialize_production_0_8_r5.py')
@@ -16,7 +16,7 @@ ROOT=Path('runs/2026-09-06/r7-20260903-production-r1')
 
 def load(path): return json.loads(Path(path).read_text(encoding='utf-8-sig'))
 def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
-def allowed_single_source(v): return v is True or (isinstance(v,dict) and v.get('allowed') is True)
+def allowed_single_source(v): return isinstance(v,dict) and v.get('allowed') is True and bool(v.get('reason')) and bool(v.get('mitigation') or v.get('scope_limits'))
 
 run=load(ROOT/'card-run.json')
 c07=load(ROOT/'stage-0-7c.json')
@@ -28,11 +28,11 @@ stage08=load(ROOT/'stage-0-8.json')
 audit=load(ROOT/'card-run-audit.json')
 
 expected={
-  'stage_c':'cf908afe889ed5a93566017d1000654e53c977261e1f3296a50c0101fe5452c6',
-  'stage_0_4':'d7a6d79e624f6cbfe63b456b7139e1022e90ba52f817f194435bb3e39e6011d2',
-  'stage_0_5':'c30c50934f29ff7a8dd960fc7c64fb0e66263e49a5a066485f6e6329e431f55c',
-  'stage_0_6':'8a52693ecf8da9cf6ef1c8d4ca320e82781f2cd393fd34c5285a59d05c677cf9',
-  'stage_0_7':'462b4720786f1ead62b7a6ea4f9ed3bf5a35f9697c9f7edbea2c97b9a12a2ec9',
+  'stage_c':'e3eec5c66d3d3b4fa54ccac9aa4ae036f86780a3b97e7ebb1f4faee17b1e4277',
+  'stage_0_4':'2944a0c50df99a5c2cf1cb4d3e246011d6d062e19528f07781e37f6dc1fc7152',
+  'stage_0_5':'71c24b95e2c5967debc93c14035b41d60bf6530d317148cd2ab4616333a37399',
+  'stage_0_6':'216217ff6d439281832637e1edf0bfff1eb6de97ef26c739d19d4a8ada1a84f6',
+  'stage_0_7':'d5d4b64bb9696f772c9eb21f589765b09d2362cf7450b708803310c4b93c1aa6',
 }
 assert c07['reviewed_operations_sha256']==R6_SHA
 assert c07['operation_freeze']['operations_sha256']==R6_SHA

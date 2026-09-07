@@ -58,9 +58,9 @@ jobs:
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/10013554175/zip \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/10013536223/zip \
             -o /tmp/sep5-r8-0-7c.zip
-          echo "6fde3a4cec01c3ae741b9b78f2cea7643f761766f230dbc40dc5eeb32a942b9c  /tmp/sep5-r8-0-7c.zip" | sha256sum -c -
+          echo "4e8e4c4ab9c1f5be09320ef9c0901b796a186143b01ea9659a1a8a85dc9d97b3  /tmp/sep5-r8-0-7c.zip" | sha256sum -c -
           mkdir -p work/runs/2026-09-07/r7-20260905-production-r1
           unzip -q /tmp/sep5-r8-0-7c.zip -d work/runs/2026-09-07/r7-20260905-production-r1
           test -s work/runs/2026-09-07/r7-20260905-production-r1/card-run.json
@@ -71,15 +71,15 @@ jobs:
           root=Path('work/runs/2026-09-07/r7-20260905-production-r1')
           run=json.load(open(root/'card-run.json',encoding='utf-8'))
           c=json.load(open(root/'stage-0-7c.json',encoding='utf-8'))
-          expected_ops='c77ad924c2c07abccd5659b4e262ed183e86dcae272ff32379ae8ecf034921a2'
+          expected_ops='236b86f3a0cc7c0a862074884dc06303b0875a73337067e4d8e7a2f3d8e2ed86'
           expected_hashes={
-            'stage_a':'3c6295f6935581705b20522c746344097312afb561266381558019fa1d7af6c1',
-            'stage_b':'3625c169d9f95e3ef85b3cbcb09d845de4ebf5a42dfe33239351639409d8557e',
-            'stage_c':'fc7eaa5169158fc47a843a4db47251ab26e425ab40e2bd84828b99db22f3591e',
-            'stage_0_4':'3da0e9ca5f5719d2c853c44eb837892b58d4f946474ebf851759dede9c877911',
-            'stage_0_5':'98d2aced0d1bc62ed8a3b3a4a228d46b382403e4ec63d62bf242a53cec927680',
-            'stage_0_6':'5495e7aa197a4d46719504bb95a340f33d957bddf26e07985373d3b73c758405',
-            'stage_0_7':'05be0c74a11beff32de4dba55889310a2c74b1a34c512dcc1fba0fd93e080b47',
+            'stage_a':'bafd91ebcbd5fcdc246c8fcc0ee1865d2489e77f94d9f1723f9da34a41f74bee',
+            'stage_b':'c0407a7ab09cfdc501ef19f474598903a815d23e5a551566152f96efb96350f2',
+            'stage_c':'a1861b35f9865f2a4672e9d2ecc300d3a771d31d24ca2f319dc063a6cb76c961',
+            'stage_0_4':'6549427c4babdf94c38ff10a58bb9038fe46637e6b0c60d97c41e550bd2c6b33',
+            'stage_0_5':'eccffdc19d1b2b9426896ccaf795189f38a37f4f2dfabc89f8c5c8bc15e7ba74',
+            'stage_0_6':'e8c277544369405d6be14bafb14bec7f024b313145ef81de2bfb802f33fe809d',
+            'stage_0_7':'34a9f92858646da3b5d42d97011a772b2be0dba504f9dab12de22ee6ee57c8cb',
           }
           def stable(v):
             if isinstance(v,list): return [stable(x) for x in v]

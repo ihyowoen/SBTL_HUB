@@ -13,11 +13,15 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Inspect runtime Related contract
+      - name: Inspect validation_temp and runtime Related contract
         run: |
           set -euo pipefail
-          echo '=== grep predecessor/basis ==='
+          echo '=== validation_temp predecessor/basis ==='
+          grep -R -n -C 8 --exclude-dir=.git -E 'predecessor_basis|basis mapping|mapping per related_id' validation_temp | head -n 500 || true
+          echo '=== all repo predecessor/basis ==='
           grep -R -n -C 6 --exclude-dir=.git -E 'predecessor_basis|basis mapping|mapping per related_id' validation_scripts docs schemas scripts data/cards.full.json | head -n 500 || true
+          echo '=== R3 builder relevant commands ==='
+          grep -R -n -C 5 -E 'related_lifecycle|predecessor|basis|check_card' validation_temp/20260903-r7-0-8 validation_temp/20260903-r7-0-7c | head -n 500 || true
           echo '=== runtime callable provenance/constants ==='
           python - <<'PY'
           import inspect, types
@@ -26,28 +30,6 @@ jobs:
           print('check_card_module',m.check_card.__module__)
           print('check_card_sourcefile',inspect.getsourcefile(m.check_card))
           print('check_card_firstlineno',m.check_card.__code__.co_firstlineno)
-          seen=set()
-          def walk_module(mod,label,depth=0):
-              if id(mod) in seen or depth>5: return
-              seen.add(id(mod))
-              print('MODULE',label,getattr(mod,'__file__',None),getattr(mod,'__name__',None))
-              for name,v in vars(mod).items():
-                  if isinstance(v,types.FunctionType):
-                      const=' | '.join(str(x) for x in v.__code__.co_consts if isinstance(x,str))
-                      if 'basis' in const.lower() or 'predecessor' in const.lower():
-                          print('FUNC',label,name,'line',v.__code__.co_firstlineno,'consts',const[:5000])
-                  elif isinstance(v,types.ModuleType) and name in {'_impl','_base','_prior'}:
-                      walk_module(v,label+'.'+name,depth+1)
-          walk_module(m,'public')
-          PY
-          echo '=== canonical predecessor_basis count ==='
-          python - <<'PY'
-          import json
-          d=json.load(open('data/cards.full.json',encoding='utf-8-sig'))
-          rows=[]
-          for c in d['cards']:
-              lin=c.get('related_lineage') or {}
-              if 'predecessor_basis' in lin: rows.append({'id':c.get('id'),'related':c.get('related'),'lineage':lin})
-          print('count',len(rows))
-          print(rows[:5])
+          const=' | '.join(str(x) for x in m.check_card.__code__.co_consts if isinstance(x,str))
+          print('public_check_card_consts',const[:12000])
           PY

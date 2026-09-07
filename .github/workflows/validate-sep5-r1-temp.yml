@@ -35,10 +35,10 @@ jobs:
           print('RESULT: PASS_FROZEN_SEP5_BASELINE')
           PY
 
-      - name: Materialize operation-bound Sep5 chain R9 Codex remediation
+      - name: Materialize operation-bound Sep5 chain R10 Codex remediation
         run: |
           set -euo pipefail
-          python validation_temp/20260905-r1/materialize_r9.py
+          python validation_temp/20260905-r1/materialize_r10.py
 
       - name: Validate Stage A full contract
         run: |
@@ -120,6 +120,7 @@ jobs:
           assert q['hash_chain']==expected
           assert q['round_6_operation_binding']['reviewed_operations_sha256']==ops
           assert q['round_6_operation_binding']['stage_hashes']==expected
+          assert q['round_6_operation_binding']['binding_authority']=='independent_0_7c_r10_pre_0_8'
           assert json.load(open(root/'stages/stage-0-4.json'))['stage_c_artifact_sha256']==expected['stage_c']
           assert json.load(open(root/'stages/stage-0-5.json'))['stage_0_4_artifact_sha256']==expected['stage_0_4']
           assert json.load(open(root/'stages/stage-0-6.json'))['input_0_5_sha256']==expected['stage_0_5']
@@ -128,7 +129,7 @@ jobs:
           eng=[x['card'] for x in inserts if x.get('card',{}).get('spec_id')=='STD26_R8_005']
           assert len(eng)==1 and eng[0]['region']=='GL' and eng[0]['id']=='2026-09-04_GL_01'
           assert q['codex_p2_remediation']['status']=='PASS'
-          print('RESULT: PASS_EXACT_SEP5_R9_OPERATION_AND_STAGE_FREEZE')
+          print('RESULT: PASS_EXACT_SEP5_R10_OPERATION_AND_STAGE_FREEZE')
           print('OPS_SHA',ops)
           print('HASH_CHAIN',json.dumps(expected,sort_keys=True))
           PY
@@ -138,10 +139,10 @@ jobs:
           set -euo pipefail
           python validation_scripts/run_active_workflow_tests.py
 
-      - name: Upload validated Sep5 R9 package
+      - name: Upload validated Sep5 R10 package
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: sep5-r1-stage-0-7c-validated-r9
+          name: sep5-r1-stage-0-7c-validated-r10
           path: runs/2026-09-07/r7-20260905-production-r1/**
           if-no-files-found: error

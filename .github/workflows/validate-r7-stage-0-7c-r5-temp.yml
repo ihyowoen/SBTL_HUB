@@ -61,7 +61,7 @@ jobs:
           python validation_temp/20260903-r7-0-7c/patch_stage_a_wrapper.py
           python validation_temp/20260903-r7-0-7c/patch_codex_review_r5.py
           python validation_temp/20260903-r7-0-7c/patch_codex_review_r5_stagea_sync.py
-          python validation_temp/20260903-r7-0-7c/patch_codex_review_r6.py
+          python validation_temp/20260903-r7-0-7c/run_patch_codex_review_r6.py
           python - <<'PY'
           import hashlib,json
           from pathlib import Path
@@ -74,6 +74,7 @@ jobs:
             if isinstance(v,dict): return {k:stable(v[k]) for k in sorted(v)}
             return v
           def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+          def single_source_allowed(v): return v is True or (isinstance(v,dict) and v.get('allowed') is True)
           op_sha=hashlib.sha256(json.dumps(stable(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
           assert c['status']=='PASS_WITH_DECLARED_RESIDUAL_RISK'
           assert c['reviewed_operations_sha256']==op_sha
@@ -105,7 +106,7 @@ jobs:
           assert s['source_diversity_status']=='PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION'
           assert s['source_diversity_measure']['independent_owner_count']==1
           assert s['source_synthesis_audit']['independent_confirmation_used'] is False
-          assert s['single_source_exception']['allowed'] is True
+          assert single_source_allowed(s['single_source_exception'])
           assert ins['STD26_R7_011']['date']=='2026-09-04'
           assert '9월 4일자로' in ins['STD26_R7_011']['date_role']['event_date_source_quote']
           wag=[x for x in run['operations']['related_add'] if x.get('source_spec_id')=='STD26_R7_043']

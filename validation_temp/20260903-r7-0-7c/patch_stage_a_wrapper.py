@@ -86,3 +86,44 @@ s.update({
 out['summary']=s
 OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print('RESULT: MATERIALIZED_FULL_STAGE_A_PRODUCTION33 events=33 stories=45 strict=33 original=21 promoted=12')
+
+# Production operation-binding normalization only: the validated C→0.7 wrappers already
+# preserve relation_type + counterpart IDs, but the earlier compact wrapper omitted the
+# exact lineage reason / event-stage relationship / direction required by the V4 binding
+# contract. Restore those fields directly from the already frozen related_add operations.
+# No visible card field, evidence package, selection judgment, final ID, or operation changes.
+run=json.loads((ROOT/'card-run.json').read_text(encoding='utf-8'))
+related_ops=run['operations']['related_add']
+assert len(related_ops)==3
+STAGE_BUCKETS={
+    'stage-c.json':'accepted_fact_safe',
+    'stage-0-4.json':'addable_merge_safe',
+    'stage-0-5.json':'evidence_complete_and_source_claim_covered',
+    'stage-0-6.json':'content_enriched_and_language_polished',
+    'stage-0-7.json':'publish_ready',
+}
+patched=0
+for filename,bucket in STAGE_BUCKETS.items():
+    path=ROOT/'stages'/filename
+    payload=json.loads(path.read_text(encoding='utf-8'))
+    rows=payload.get(bucket)
+    assert isinstance(rows,list), (filename,bucket)
+    for op in related_ops:
+        sid=op['source_spec_id']; target=op['target_id']
+        matches=[row for row in rows if row.get('source_spec_id')==sid]
+        assert len(matches)==1, (filename,sid,len(matches))
+        row=matches[0]
+        lineage=row.get('related_lineage')
+        assert isinstance(lineage,dict), (filename,sid,'missing related_lineage')
+        # The earlier validated chain must already have classified this as the same direct lineage.
+        assert lineage.get('relation_type')==op['relation_type'], (filename,sid,lineage.get('relation_type'),op['relation_type'])
+        ids=lineage.get('related_ids')
+        assert isinstance(ids,list) and target in ids, (filename,sid,target,ids)
+        lineage['status']='PASS'
+        lineage['reason']=op['lineage_reason']
+        lineage['event_stage_relationship']=op['event_stage_relationship']
+        lineage['direction']=op['direction']
+        patched+=1
+    path.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+assert patched==15
+print('RESULT: PRESERVED_OPERATION_RELATED_LINEAGE C_TO_0_7 rows=15 ops=3 visible_fields_changed=0 operation_changed=0')

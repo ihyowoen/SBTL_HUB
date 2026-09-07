@@ -59,6 +59,7 @@ jobs:
           python validation_temp/20260903-r7-0-7c/patch_followup_contract_projection_r3.py
           python validation_temp/20260903-r7-0-7c/patch_stage_a_wrapper.py
           python validation_temp/20260903-r7-0-7c/patch_codex_review_r5.py
+          python validation_temp/20260903-r7-0-7c/patch_codex_review_r5_stagea_sync.py
           python - <<'PY'
           import hashlib,json
           root='runs/2026-09-06/r7-20260903-production-r1'
@@ -96,6 +97,7 @@ jobs:
           wag=[x for x in run['operations']['related_add'] if x.get('source_spec_id')=='STD26_R7_043']
           assert len(wag)==1 and wag[0]['target_id']=='2026-07-14_GL_02' and wag[0]['relation_type']=='distinct_follow_up'
           assert len(a['strict_passed_spec'])==33 and len(a['decision_ledger'])==45
+          assert set(a['summary']['follow_up_candidate_ids'])=={'STD26_R7_003','STD26_R7_015','STD26_R7_043'}
           print('RESULT: PASS_0_7C_R5_CODEX_REVIEW_CORRECTION', {'operations_sha256':sha,'related_add':4})
           PY
 

@@ -1,0 +1,171 @@
+name: Materialize Sep5 production Prompt 0.8 temp
+
+on:
+  push:
+    branches: [chatgpt/validate-20260905-r1]
+    paths:
+      - .github/workflows/materialize-sep5-production-0-8-temp.yml
+      - validation_temp/20260905-r1/materialize_production_0_8.py
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: sep5-production-0-8-materialization
+  cancel-in-progress: false
+
+jobs:
+  materialize-and-push-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout builder source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: builder
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Checkout clean production branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/production-20260905-r8-9
+          path: work
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Verify production branch and live main equal exact frozen baseline
+        working-directory: work
+        run: |
+          set -euo pipefail
+          git fetch origin main --quiet
+          BASE=eb1a311ed378fcdf547b52ad5da0652cb9f1fc62
+          BLOB=707fe5ea9836a0c2341771397da32c818a95cbed
+          test "$(git rev-parse HEAD)" = "$BASE"
+          test "$(git rev-parse origin/main)" = "$BASE"
+          test "$(git rev-parse ${BASE}:data/cards.full.json)" = "$BLOB"
+          test "$(git hash-object data/cards.full.json)" = "$BLOB"
+          test -z "$(git status --porcelain)"
+          echo "RESULT: PASS_EXACT_FROZEN_MAIN_NO_DRIFT"
+
+      - name: Download exact certified 0.7C artifact
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/10013554175/zip \
+            -o /tmp/sep5-r8-0-7c.zip
+          echo "6fde3a4cec01c3ae741b9b78f2cea7643f761766f230dbc40dc5eeb32a942b9c  /tmp/sep5-r8-0-7c.zip" | sha256sum -c -
+          mkdir -p work/runs/2026-09-07/r7-20260905-production-r1
+          unzip -q /tmp/sep5-r8-0-7c.zip -d work/runs/2026-09-07/r7-20260905-production-r1
+          test -s work/runs/2026-09-07/r7-20260905-production-r1/card-run.json
+          test -s work/runs/2026-09-07/r7-20260905-production-r1/stage-0-7c.json
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('work/runs/2026-09-07/r7-20260905-production-r1')
+          run=json.load(open(root/'card-run.json',encoding='utf-8'))
+          c=json.load(open(root/'stage-0-7c.json',encoding='utf-8'))
+          expected_ops='c77ad924c2c07abccd5659b4e262ed183e86dcae272ff32379ae8ecf034921a2'
+          expected_hashes={
+            'stage_a':'3c6295f6935581705b20522c746344097312afb561266381558019fa1d7af6c1',
+            'stage_b':'3625c169d9f95e3ef85b3cbcb09d845de4ebf5a42dfe33239351639409d8557e',
+            'stage_c':'fc7eaa5169158fc47a843a4db47251ab26e425ab40e2bd84828b99db22f3591e',
+            'stage_0_4':'3da0e9ca5f5719d2c853c44eb837892b58d4f946474ebf851759dede9c877911',
+            'stage_0_5':'98d2aced0d1bc62ed8a3b3a4a228d46b382403e4ec63d62bf242a53cec927680',
+            'stage_0_6':'5495e7aa197a4d46719504bb95a340f33d957bddf26e07985373d3b73c758405',
+            'stage_0_7':'05be0c74a11beff32de4dba55889310a2c74b1a34c512dcc1fba0fd93e080b47',
+          }
+          def stable(v):
+            if isinstance(v,list): return [stable(x) for x in v]
+            if isinstance(v,dict): return {k:stable(v[k]) for k in sorted(v)}
+            return v
+          def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+          op_sha=hashlib.sha256(json.dumps(stable(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+          assert op_sha==expected_ops
+          assert c['reviewed_operations_sha256']==expected_ops
+          assert c['operation_freeze']['operations_sha256']==expected_ops
+          assert c['operation_freeze']['insert']==9 and c['operation_freeze']['update']==0 and c['operation_freeze']['related_add']==0
+          assert c['operation_freeze']['expected_before']==1569 and c['operation_freeze']['expected_after']==1578
+          assert c['hash_chain']==expected_hashes
+          paths={
+            'stage_a':root/'stages/stage-a.json','stage_b':root/'stages/stage-b.json','stage_c':root/'stages/stage-c.json',
+            'stage_0_4':root/'stages/stage-0-4.json','stage_0_5':root/'stages/stage-0-5.json',
+            'stage_0_6':root/'stages/stage-0-6.json','stage_0_7':root/'stages/stage-0-7.json',
+          }
+          for key,path in paths.items(): assert sha(path)==expected_hashes[key],(key,sha(path))
+          print('RESULT: PASS_EXACT_CERTIFIED_0_7C_ARTIFACT_IMPORT')
+          PY
+
+      - name: Materialize and fully validate Prompt 0.8 production result
+        working-directory: work
+        run: |
+          set -euo pipefail
+          python ../builder/validation_temp/20260905-r1/materialize_production_0_8.py
+
+      - name: Active workflow regression suite
+        working-directory: work
+        run: |
+          set -euo pipefail
+          python validation_scripts/run_active_workflow_tests.py
+
+      - name: Recheck live main before production commit
+        working-directory: work
+        run: |
+          set -euo pipefail
+          git fetch origin main --quiet
+          test "$(git rev-parse origin/main)" = "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62"
+          echo "RESULT: PASS_PRECOMMIT_MAIN_STILL_FROZEN"
+
+      - name: Enforce production diff allowlist
+        working-directory: work
+        run: |
+          set -euo pipefail
+          set +e
+          git diff --check > /tmp/sep5-production-diff-check.txt 2>&1
+          rc=$?
+          set -e
+          git status --porcelain=v1 -uall | tee /tmp/sep5-production-status.txt
+          git diff --name-only | tee /tmp/sep5-production-tracked.txt
+          git ls-files --others --exclude-standard | tee /tmp/sep5-production-untracked.txt
+          { git diff --name-only; git ls-files --others --exclude-standard; } | awk 'NF && !seen[$0]++' > /tmp/sep5-production-changed-paths.txt
+          mapfile -t changed < /tmp/sep5-production-changed-paths.txt
+          test ${#changed[@]} -gt 0
+          if [ "$rc" -ne 0 ]; then cat /tmp/sep5-production-diff-check.txt >&2; exit "$rc"; fi
+          for path in "${changed[@]}"; do
+            case "$path" in
+              data/cards.full.json|public/data/cards.json|runs/2026-09-07/r7-20260905-production-r1/*) ;;
+              *) echo "FAIL: undeclared production path $path" >&2; exit 1 ;;
+            esac
+          done
+          echo "RESULT: PASS_PRODUCTION_DIFF_ALLOWLIST"
+
+      - name: Upload production diff diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sep5-0-8-production-diff-diagnostic
+          path: |
+            /tmp/sep5-production-diff-check.txt
+            /tmp/sep5-production-status.txt
+            /tmp/sep5-production-tracked.txt
+            /tmp/sep5-production-untracked.txt
+            /tmp/sep5-production-changed-paths.txt
+          if-no-files-found: warn
+
+      - name: Commit validated production package only after all gates pass
+        working-directory: work
+        run: |
+          set -euo pipefail
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git add data/cards.full.json public/data/cards.json runs/2026-09-07/r7-20260905-production-r1
+          git diff --cached --check
+          git commit -m "Publish governed Sep 5 R8 9 cards"
+          git push origin HEAD:chatgpt/production-20260905-r8-9
+          echo "RESULT: PRODUCTION_BRANCH_PUSHED $(git rev-parse HEAD)"

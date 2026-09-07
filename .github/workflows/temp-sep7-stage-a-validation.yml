@@ -20,7 +20,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p /tmp/sep7-stage-a-validation
-          cat tmp/sep7-stage-a-validation/artifact.part0[12] | tr -d '\r\n' | base64 -d | xz -dc > /tmp/sep7-stage-a-validation/stage-a-r1.json
+          cat tmp/sep7-stage-a-validation/artifact.part0[1-6] | tr -d '\r\n' | base64 -d | xz -dc > /tmp/sep7-stage-a-validation/stage-a-r1.json
           test "$(sha256sum /tmp/sep7-stage-a-validation/stage-a-r1.json | awk '{print $1}')" = "fb96bda5f896cb2d73e63cc76dbdb78d7d631fb547b1f919a8bc2a5a8973bd37"
           python - <<'PY'
           import json

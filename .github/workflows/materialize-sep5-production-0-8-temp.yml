@@ -42,7 +42,7 @@ jobs:
           set -euo pipefail
           git fetch origin main chatgpt/production-20260905-r8-9 --quiet
           BASE=eb1a311ed378fcdf547b52ad5da0652cb9f1fc62
-          OLD_HEAD=7466afe22d0a7c7016d34d71e8e0837c63256970
+          OLD_HEAD=04a586f33a1fa4797f690429d5301013f431876b
           BLOB=707fe5ea9836a0c2341771397da32c818a95cbed
           test "$(git rev-parse HEAD)" = "$BASE"
           test "$(git rev-parse origin/main)" = "$BASE"
@@ -126,7 +126,7 @@ jobs:
           set -euo pipefail
           git fetch origin main chatgpt/production-20260905-r8-9 --quiet
           test "$(git rev-parse origin/main)" = "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62"
-          test "$(git rev-parse origin/chatgpt/production-20260905-r8-9)" = "7466afe22d0a7c7016d34d71e8e0837c63256970"
+          test "$(git rev-parse origin/chatgpt/production-20260905-r8-9)" = "04a586f33a1fa4797f690429d5301013f431876b"
           echo "RESULT: PASS_PRECOMMIT_MAIN_AND_OLD_HEAD_STILL_FROZEN"
 
       - name: Enforce production diff allowlist
@@ -173,7 +173,7 @@ jobs:
           git config user.email "hyowoen@hotmail.com"
           git add data/cards.full.json public/data/cards.json runs/2026-09-07/r7-20260905-production-r1
           git diff --cached --check
-          git commit -m "Publish governed Sep 5 R8 9 cards (Codex P2 remediated)"
+          git commit -m "Publish governed Sep 5 R8 9 cards (Codex P2 remediated R11)"
           NEW_HEAD=$(git rev-parse HEAD)
-          git push --force-with-lease=refs/heads/chatgpt/production-20260905-r8-9:7466afe22d0a7c7016d34d71e8e0837c63256970 origin HEAD:refs/heads/chatgpt/production-20260905-r8-9
+          git push --force-with-lease=refs/heads/chatgpt/production-20260905-r8-9:04a586f33a1fa4797f690429d5301013f431876b origin HEAD:refs/heads/chatgpt/production-20260905-r8-9
           echo "RESULT: PRODUCTION_BRANCH_REPLACED_R11 ${NEW_HEAD}"

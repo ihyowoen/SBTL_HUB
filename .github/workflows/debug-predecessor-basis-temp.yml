@@ -1,0 +1,35 @@
+name: Debug predecessor_basis contract temp
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/debug-predecessor-basis-temp.yml
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Print active predecessor_basis contract locations
+        run: |
+          set -euo pipefail
+          echo '=== grep predecessor_basis ==='
+          grep -R -n -C 8 --exclude-dir=.git 'predecessor_basis' validation_scripts docs schemas scripts data/cards.full.json | head -n 500 || true
+          echo '=== grep exact diagnostic ==='
+          grep -R -n -C 8 --exclude-dir=.git 'one basis mapping\|basis mapping per related\|mapping per related_id' validation_scripts docs schemas scripts | head -n 300 || true
+          echo '=== sample canonical cards carrying predecessor_basis ==='
+          python - <<'PY'
+          import json
+          d=json.load(open('data/cards.full.json',encoding='utf-8-sig'))
+          rows=[]
+          for c in d['cards']:
+              lin=c.get('related_lineage') or {}
+              if 'predecessor_basis' in lin:
+                  rows.append({'id':c.get('id'),'related':c.get('related'),'related_lineage':lin})
+          print('count',len(rows))
+          import pprint
+          pprint.pp(rows[:10], width=160)
+          PY

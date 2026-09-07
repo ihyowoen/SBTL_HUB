@@ -1,0 +1,24 @@
+name: Inspect Sep5 template temp
+on:
+  push:
+    branches: [chatgpt/validate-20260905-r1]
+    paths:
+      - .github/workflows/inspect-sep5-template-temp.yml
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect current accepted card and validator registry
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('data/cards.full.json',encoding='utf-8'))
+          c=next(x for x in d['cards'] if x.get('id')=='2026-09-02_GL_01')
+          print('CARD_KEYS',sorted(c))
+          print('CARD_JSON_BEGIN')
+          print(json.dumps(c,ensure_ascii=False,indent=2))
+          print('CARD_JSON_END')
+          PY

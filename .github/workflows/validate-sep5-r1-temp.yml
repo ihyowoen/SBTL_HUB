@@ -35,10 +35,10 @@ jobs:
           print('RESULT: PASS_FROZEN_SEP5_BASELINE')
           PY
 
-      - name: Materialize operation-bound Sep5 chain R12
+      - name: Materialize operation-bound Sep5 chain R13
         run: |
           set -euo pipefail
-          python validation_temp/20260905-r1/materialize_r12.py
+          python validation_temp/20260905-r1/materialize_r13.py
 
       - name: Validate Stage A full contract
         run: |
@@ -94,7 +94,7 @@ jobs:
           node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
           node scripts/validate_card_run_relations.mjs --run "$RUN"
 
-      - name: Verify exact operation stage bytes and ID allocation binding
+      - name: Verify exact operation stage bytes, nested round-six binding, and ID allocation
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -119,8 +119,13 @@ jobs:
           assert q['reviewed_operations_sha256']==ops
           assert q['operation_freeze']['operations_sha256']==ops
           assert q['hash_chain']==expected
-          assert q['round_6_operation_binding']['reviewed_operations_sha256']==ops
-          assert q['round_6_operation_binding']['stage_hashes']==expected
+          top=q['round_6_operation_binding']
+          nested=q['six_round_review']['round_6_operation_binding']
+          assert top==nested
+          assert top['reviewed_operations_sha256']==ops
+          assert top['stage_hashes']==expected
+          assert top['binding_authority']=='independent_0_7c_r13_nested_round6_reconciled'
+          assert q['codex_p2_remediation']['nested_round_6_binding_status']=='PASS'
           assert json.load(open(root/'stages/stage-0-4.json'))['stage_c_artifact_sha256']==expected['stage_c']
           assert json.load(open(root/'stages/stage-0-5.json'))['stage_0_4_artifact_sha256']==expected['stage_0_4']
           assert json.load(open(root/'stages/stage-0-6.json'))['input_0_5_sha256']==expected['stage_0_5']
@@ -132,7 +137,7 @@ jobs:
           assert '2026-09-04_EU_01' not in alloc['id_map'].values()
           assert q['codex_p2_remediation']['status']=='PASS'
           assert q['codex_p2_remediation']['id_allocation_status']=='PASS'
-          print('RESULT: PASS_EXACT_SEP5_R12_OPERATION_STAGE_AND_ID_ALLOCATION_FREEZE')
+          print('RESULT: PASS_EXACT_SEP5_R13_OPERATION_STAGE_NESTED_ROUND6_AND_ID_ALLOCATION_FREEZE')
           print('OPS_SHA',ops)
           print('HASH_CHAIN',json.dumps(expected,sort_keys=True))
           PY
@@ -142,10 +147,10 @@ jobs:
           set -euo pipefail
           python validation_scripts/run_active_workflow_tests.py
 
-      - name: Upload validated Sep5 R12 package
+      - name: Upload validated Sep5 R13 package
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: sep5-r1-stage-0-7c-validated-r12
+          name: sep5-r1-stage-0-7c-validated-r13
           path: runs/2026-09-07/r7-20260905-production-r1/**
           if-no-files-found: error

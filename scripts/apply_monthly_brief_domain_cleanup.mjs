@@ -1,5 +1,7 @@
 import fs from "node:fs";
 
+// One-time source migration helper. Final PR removes this file after the validated
+// source commit is materialized on the cleanup branch.
 function replaceOnce(text, from, to, label) {
   const first = text.indexOf(from);
   if (first < 0) throw new Error(`${label}: anchor not found`);

@@ -1,7 +1,7 @@
 From https://github.com/ihyowoen/SBTL_HUB
  * branch              main       -> FETCH_HEAD
 == frozen baseline aa7400ae67b221d1ddd5e198293762caec389303; live main b425151b348ed294ef1c4d5a6546cbe97f588137 has identical canonical blob 920646b6b335f211bcd224962f8ac0cc42cd3a4f ==
-== execute governed v9 chain with frozen-base v12 apply repair ==
+== execute governed v9 chain with frozen-base v13 apply repair ==
 == lock current main ==
 From https://github.com/ihyowoen/SBTL_HUB
  * branch              main       -> FETCH_HEAD
@@ -33,5 +33,5 @@ P003 2026-09-02_EU_04 Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·C
 operations 21 3 hash b6e6c6c075f2d0abbf6d0b57ab30817d200f884ec9c27972ecff3f54f1c29f66
 stage hashes {'stage-0-7.json': '7cc1a90320a253874b34a047b51211825c5c3e4bee19655deac421d73a60fe6e', 'stage-0-5.json': 'f277130444965efeff9b1259628724b5b54ae57a9b2b18ef84801938c84df71b', 'stage-a.json': '5159753f57a85dbccfe62cea381a80169258f5367c1fe0fecfa54c08384a69b4', 'stage-b.json': '090ffb6308d4cc97b91613bbe900cf0f2bca19d5b959ead216f334dc95ea43c3', 'stage-0-4.json': '3d506964fe9233df03165ff0807c6d97d315d4f90449656c67af7fb54d040882', 'stage-0-6.json': 'b11d0b25b9307b1083eadd8436867d6a80dd49b99c2ab9e0cd6fa278be9d68d9', 'stage-c.json': '09d6868b462ce8f40463b0c06f64f7d863d0967889148455930b06e9f2bf0275', 'stage-a-promotion3.json': 'ad644988d14e76d3da27b2762efb75dab3105a6ef48c34bb047e25911a2cbadd'}
 PASS strict18 projection sha256=8925b0a5736bb40de036f2e668cbfa66a2cd934b285ea34d7499d889a0523f6e story_count=50 strict_count=18
-== normalize exact invalid Related path and rebind operation freeze ==
-unexpected Related patch path remains: related_add[0].patches[7] /related_lineage/fresh_follow_up_anchor
+== normalize exact invalid Related paths and rebind operation freeze ==
+unexpected Related patch path remains: related_add[0].patches[8] /related_lineage/incremental_fact_vs_predecessor

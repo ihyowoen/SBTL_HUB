@@ -7,7 +7,7 @@
   "required": ["schema_version", "items"],
   "properties": {
     "schema_version": { "const": "strategic-brief.v1" },
-    "generated_at": { "type": ["string", "null"], "format": "date" },
+    "updated_at": { "type": ["string", "null"], "format": "date" },
     "items": {
       "type": "array",
       "items": { "$ref": "#/$defs/brief" }
@@ -33,6 +33,7 @@
         "source_card_ids",
         "structural_signals",
         "refs",
+        "qc",
         "approval"
       ],
       "properties": {
@@ -42,7 +43,7 @@
         "revision": { "type": "integer", "minimum": 1 },
         "status": { "enum": ["published", "revised"] },
         "publication_class": { "const": "official_editorial" },
-        "publication_mode": { "const": "manual_editorial" },
+        "publication_mode": { "const": "editorial_curated" },
         "published_at": { "type": "string", "format": "date" },
         "title": { "type": "string", "minLength": 1 },
         "executive_diagnosis": { "type": "string", "minLength": 1 },
@@ -120,6 +121,20 @@
               "date": { "type": "string", "format": "date" },
               "url": { "type": "string" }
             }
+          }
+        },
+        "qc": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["evidence_status", "red_team_status", "editorial_coherence_status", "language_terminology_status"],
+          "properties": {
+            "evidence_status": { "const": "PASS" },
+            "red_team_status": { "const": "PASS" },
+            "editorial_coherence_status": { "const": "PASS" },
+            "language_terminology_status": { "const": "PASS" },
+            "reviewed_at": { "type": "string", "format": "date" },
+            "reviewer_role": { "type": "string", "minLength": 1 },
+            "notes": { "type": "string" }
           }
         },
         "approval": {

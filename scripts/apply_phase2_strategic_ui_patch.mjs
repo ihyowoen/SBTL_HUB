@@ -80,7 +80,7 @@ app = replaceTextCount(app, '>📮 브리프</span>', '>⚡ 빠른 분석 보관
 app = replaceTextCount(app, '🔄 새 브리프 만드는 중…', '🔄 새 빠른 분석 만드는 중…', 1, "quick generation status");
 app = replaceTextCount(app, '📈 발행 후 {Number(shown.month.slice(5))}월 기사', '📈 생성 후 {Number(shown.month.slice(5))}월 기사', 1, "quick drift label");
 app = replaceTextCount(app, '>새 재료로 재발행</button>', '>새 재료로 다시 분석</button>', 1, "quick drift action");
-app = replaceOnce(app, '${copiedWeekly ? "복사됨 ✓" : "브리프 복사 (출처 각주 포함)"}', '${copiedWeekly ? "복사됨 ✓" : "빠른 분석 복사 (출처 각주 포함)"}', "quick copy button");
+app = replaceOnce(app, '{copiedWeekly ? "복사됨 ✓" : "브리프 복사 (출처 각주 포함)"}', '{copiedWeekly ? "복사됨 ✓" : "빠른 분석 복사 (출처 각주 포함)"}', "quick copy button");
 app = replaceOnce(
   app,
   '`[SBTL ${shown.period === "monthly" ? "월간" : "주간"} 브리프] ${shown.scope_label || "내워치"} · ${shown.generated_at}\n\n${String(shown.narrative || "")}`',

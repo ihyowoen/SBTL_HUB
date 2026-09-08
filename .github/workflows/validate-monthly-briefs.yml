@@ -9,12 +9,15 @@ on:
       - "scripts/validate_monthly_briefs.mjs"
       - "src/MonthlyBriefPanel.jsx"
       - "src/monthlyBriefSelection.js"
+      - "src/quickAnalysisLabels.js"
+      - "src/kang.js"
       - "lib/chat/appCommand.js"
       - "src/App.jsx"
       - "__tests__/monthlyBriefPublication.test.js"
       - "__tests__/monthlyBriefProductBoundary.test.js"
       - "__tests__/monthlyBriefSelection.test.js"
       - "__tests__/monthlyBriefActiveDomain.test.js"
+      - "__tests__/quickAnalysisLabels.test.js"
       - "product/MONTHLY_BRIEF_EDITORIAL_CONTRACT.md"
       - "package.json"
       - "package-lock.json"
@@ -29,12 +32,15 @@ on:
       - "scripts/validate_monthly_briefs.mjs"
       - "src/MonthlyBriefPanel.jsx"
       - "src/monthlyBriefSelection.js"
+      - "src/quickAnalysisLabels.js"
+      - "src/kang.js"
       - "lib/chat/appCommand.js"
       - "src/App.jsx"
       - "__tests__/monthlyBriefPublication.test.js"
       - "__tests__/monthlyBriefProductBoundary.test.js"
       - "__tests__/monthlyBriefSelection.test.js"
       - "__tests__/monthlyBriefActiveDomain.test.js"
+      - "__tests__/quickAnalysisLabels.test.js"
       - "product/MONTHLY_BRIEF_EDITORIAL_CONTRACT.md"
       - "package.json"
       - "package-lock.json"
@@ -63,4 +69,4 @@ jobs:
         run: npm run validate:monthly-briefs
 
       - name: Run Monthly Brief publication boundary tests
-        run: npx vitest run __tests__/monthlyBriefPublication.test.js __tests__/monthlyBriefProductBoundary.test.js __tests__/monthlyBriefSelection.test.js __tests__/monthlyBriefActiveDomain.test.js
+        run: npx vitest run __tests__/monthlyBriefPublication.test.js __tests__/monthlyBriefProductBoundary.test.js __tests__/monthlyBriefSelection.test.js __tests__/monthlyBriefActiveDomain.test.js __tests__/quickAnalysisLabels.test.js

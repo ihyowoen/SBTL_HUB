@@ -5,8 +5,10 @@ on:
     paths:
       - "public/data/monthly_briefs.json"
       - "lib/brief/monthlyPublication.js"
+      - "lib/brief/monthlyProvenance.js"
       - "schemas/monthly-brief.v1.schema.json"
       - "scripts/validate_monthly_briefs.mjs"
+      - "api/brief.js"
       - "src/MonthlyBriefPanel.jsx"
       - "src/monthlyBriefSelection.js"
       - "src/quickAnalysisLabels.js"
@@ -14,6 +16,7 @@ on:
       - "lib/chat/appCommand.js"
       - "src/App.jsx"
       - "__tests__/monthlyBriefPublication.test.js"
+      - "__tests__/monthlyBriefProvenance.test.js"
       - "__tests__/monthlyBriefProductBoundary.test.js"
       - "__tests__/monthlyBriefSelection.test.js"
       - "__tests__/monthlyBriefActiveDomain.test.js"
@@ -28,8 +31,10 @@ on:
     paths:
       - "public/data/monthly_briefs.json"
       - "lib/brief/monthlyPublication.js"
+      - "lib/brief/monthlyProvenance.js"
       - "schemas/monthly-brief.v1.schema.json"
       - "scripts/validate_monthly_briefs.mjs"
+      - "api/brief.js"
       - "src/MonthlyBriefPanel.jsx"
       - "src/monthlyBriefSelection.js"
       - "src/quickAnalysisLabels.js"
@@ -37,6 +42,7 @@ on:
       - "lib/chat/appCommand.js"
       - "src/App.jsx"
       - "__tests__/monthlyBriefPublication.test.js"
+      - "__tests__/monthlyBriefProvenance.test.js"
       - "__tests__/monthlyBriefProductBoundary.test.js"
       - "__tests__/monthlyBriefSelection.test.js"
       - "__tests__/monthlyBriefActiveDomain.test.js"
@@ -55,6 +61,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -69,4 +77,4 @@ jobs:
         run: npm run validate:monthly-briefs
 
       - name: Run Monthly Brief publication boundary tests
-        run: npx vitest run __tests__/monthlyBriefPublication.test.js __tests__/monthlyBriefProductBoundary.test.js __tests__/monthlyBriefSelection.test.js __tests__/monthlyBriefActiveDomain.test.js __tests__/quickAnalysisLabels.test.js
+        run: npx vitest run __tests__/monthlyBriefPublication.test.js __tests__/monthlyBriefProvenance.test.js __tests__/monthlyBriefProductBoundary.test.js __tests__/monthlyBriefSelection.test.js __tests__/monthlyBriefActiveDomain.test.js __tests__/quickAnalysisLabels.test.js

@@ -1,0 +1,63 @@
+name: apply-monthly-brief-domain-cleanup-once
+
+on:
+  push:
+    branches:
+      - chatgpt/monthly-brief-domain-cleanup-20260908
+    paths:
+      - "scripts/apply_monthly_brief_domain_cleanup.mjs"
+      - ".github/workflows/apply-monthly-brief-domain-cleanup-once.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: ${{ !contains(github.event.head_commit.message, '[monthly-domain-applied]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/monthly-brief-domain-cleanup-20260908
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Apply Monthly Brief domain cleanup
+        run: node scripts/apply_monthly_brief_domain_cleanup.mjs
+
+      - name: Diff integrity
+        run: git diff --check
+
+      - name: Validate official Monthly Brief library
+        run: npm run validate:monthly-briefs
+
+      - name: Full unit test suite
+        run: npm test
+
+      - name: Production build
+        run: npm run build
+
+      - name: Assert active HUB domain has no Strategic/VOL identity
+        run: |
+          if grep -En "StrategicBrief|strategic_show|strategic-brief|strategic_briefs|VOL\." \
+            src/App.jsx lib/chat/appCommand.js src/MonthlyBriefPanel.jsx src/monthlyBriefSelection.js \
+            lib/brief/monthlyPublication.js product/MONTHLY_BRIEF_EDITORIAL_CONTRACT.md \
+            schemas/monthly-brief.v1.schema.json __tests__/monthlyBrief*.test.js; then
+            echo "Legacy Strategic/VOL identity remains in active Monthly Brief domain" >&2
+            exit 1
+          fi
+
+      - name: Commit validated cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Replace Strategic/VOL domain with SBTL Monthly Brief [monthly-domain-applied]"
+          git push origin HEAD:chatgpt/monthly-brief-domain-cleanup-20260908

@@ -1,0 +1,41 @@
+name: TEMP Sep 7 baseline rebind scan
+
+on:
+  push:
+    branches:
+      - chatgpt/production-20260907-r7-21-baseline-rebind-work
+    paths:
+      - tmp/sep7-baseline-rebind-trigger.txt
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan frozen baseline bindings
+        shell: bash
+        run: |
+          set -euo pipefail
+          OLD=aa7400ae67b221d1ddd5e198293762caec389303
+          NEW=b425151b348ed294ef1c4d5a6546cbe97f588137
+          RUN=runs/2026-09-08/sep7-r7-current-main-production-r1
+          git config user.name ihyowoen
+          git config user.email hyowoen@hotmail.com
+          {
+            echo "OLD=$OLD"
+            echo "NEW=$NEW"
+            echo "== exact old-SHA occurrences in run tree =="
+            grep -RFn "$OLD" "$RUN" || true
+            echo "== base_main_commit_sha fields =="
+            grep -RFn 'base_main_commit_sha' "$RUN" || true
+            echo "== base_full_blob_sha fields =="
+            grep -RFn 'base_full_blob_sha' "$RUN" || true
+          } > tmp/sep7-baseline-rebind-scan.txt
+          git add tmp/sep7-baseline-rebind-scan.txt
+          git commit -m "Capture Sep 7 baseline rebind scan"
+          git push origin HEAD:chatgpt/production-20260907-r7-21-baseline-rebind-work

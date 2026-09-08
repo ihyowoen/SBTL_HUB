@@ -1,0 +1,76 @@
+{
+  "schema": "sep5_prompt_0_1p_r5_extension_v1",
+  "status": "LOCKED",
+  "base_main_commit_sha": "aa7400ae67b221d1ddd5e198293762caec389303",
+  "base_canonical_blob_sha": "920646b6b335f211bcd224962f8ac0cc42cd3a4f",
+  "base_canonical_count": 1578,
+  "prior_r4_commit_sha": "4364c62ffdc854e997624a3c704b1a52a97b1e2f",
+  "prior_authorized_candidate_count": 83,
+  "added_candidate_count": 4,
+  "final_authorized_candidate_count": 87,
+  "authorization": "user_explicit_2026-09-08_promote_review_pool",
+  "candidates": [
+    {
+      "review_item_id": "SEP5_P01P_CURATED_FOSU_JINLI",
+      "story_id": "CN_2026-09-05_C10",
+      "spec_id": "STD26_R8P_005",
+      "source_event_id": "SEP5P_005_FOSU_JINLI",
+      "region": "CN",
+      "event_date": "2026-09-03",
+      "title": "佛塑科技·金力新能源, 80억㎡ 분리막 증설안 이사회 승인…주주총회 승인 대기",
+      "primary_url": "https://paper.cnstock.com/html/2026-09/04/content_2265079.htm",
+      "support_urls": [
+        "https://epaper.cs.com.cn/zgzqb/html/2026-09/04/nw.D110000zgzqb_20260904_1-B033.htm"
+      ],
+      "bounded_fact": "佛塑科技 이사회는 2026년 9월 3일 韶关 40억㎡/년 습식 분리막 프로젝트(약 33.47억위안)와 武安 40억㎡/년 코팅 분리막 프로젝트(약 38.11억위안)를 승인했다. 두 투자안은 주주총회 승인이 아직 필요하다.",
+      "stage_limit": "board_approved_proposal_shareholder_approval_pending",
+      "baseline_relation": "new_unrelated"
+    },
+    {
+      "review_item_id": "SEP5_P01P_CURATED_LI_AUTO_SUNWODA",
+      "story_id": "CN_2026-09-04_C26",
+      "spec_id": "STD26_R8P_006",
+      "source_event_id": "SEP5P_006_LI_AUTO_SUNWODA",
+      "region": "CN",
+      "event_date": "2026-09-04",
+      "title": "理想汽车, 欣旺达动力에 26.5억위안 전략증자…완료 후 직접 8.79%",
+      "primary_url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12585331&stockid=300207",
+      "support_urls": [
+        "https://www.nbd.com.cn/articles/2026-09-04/4573133.html",
+        "https://www.cls.cn/detail/2474636"
+      ],
+      "bounded_fact": "欣旺达 이사회는 2026년 9월 4일 北京理想汽车의 欣旺达动力 26.5억위안 C++ 라운드 증자를 승인했다. 증자 완료 후 理想汽车의 직접 지분은 8.79%가 되며 欣旺达动力는 계속 연결대상 자회사로 남는다. 공시 시점에는 투자자·대상회사 등이 증자계약을 체결할 예정이라고 기재됐다.",
+      "stage_limit": "board_approved_strategic_investment_agreement_execution_pending",
+      "baseline_relation": "new_unrelated"
+    },
+    {
+      "review_item_id": "SEP5_P01P_CURATED_CN_RE_SHIPMENTS",
+      "story_id": "GL_2026-09-04_C12",
+      "spec_id": "STD26_R8P_007",
+      "source_event_id": "SEP5P_007_CN_RE_SHIPMENTS",
+      "region": "GL",
+      "event_date": "2026-09-04",
+      "title": "중국 일부 희토류 공급업체, 지정학·컴플라이언스 우려로 미국향 일부 출하 중단",
+      "primary_url": "https://www.reuters.com/business/aerospace-defense/china-rare-earth-firms-halt-some-us-shipments-over-geopolitical-worries-sources-2026-09-04/",
+      "support_urls": [],
+      "bounded_fact": "Reuters는 2026년 9월 4일 복수 소식통을 인용해 중국의 일부 희토류 공급업체들이 미국향 일부 출하를 중단했다고 보도했다. 이는 중국 전체 또는 정부의 포괄적 수출금지로 해석하지 않는다.",
+      "stage_limit": "source_reported_behavior_some_suppliers_not_countrywide_ban",
+      "baseline_relation": "new_unrelated"
+    },
+    {
+      "review_item_id": "SEP5_P01P_CURATED_HUNGARY_WATCHDOG",
+      "story_id": "GL_2026-09-03_C13",
+      "spec_id": "STD26_R8P_008",
+      "source_event_id": "SEP5P_008_HUNGARY_WATCHDOG",
+      "region": "EU",
+      "event_date": "2026-09-03",
+      "title": "헝가리, 배터리 환경감독 강화…최대 50억포린트·three-strikes 벌금 체계 구체화",
+      "primary_url": "https://www.reuters.com/sustainability/climate-energy/hungary-create-watchdog-oversee-ev-battery-plants-boost-fines-polluters-2026-09-03/",
+      "support_urls": [],
+      "bounded_fact": "2026년 9월 3일 발표된 헝가리 환경감독 강화안은 배터리 제조·재활용·폐기 감독, 최대 50억포린트 벌금, 5년 내 3회 위반 시 최소 연간 순매출의 0.5% 벌금이라는 구체적 체계를 제시했다.",
+      "stage_limit": "policy_implementation_details_follow_up",
+      "baseline_relation": "distinct_follow_up",
+      "predecessor_card_id": "2026-07-06_KR_05"
+    }
+  ]
+}

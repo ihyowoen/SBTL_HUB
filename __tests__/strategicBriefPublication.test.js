@@ -45,6 +45,14 @@ function sample(overrides = {}) {
       { n: 1, id: "2026-08-01_US_01", title: "미국 카드", date: "2026-08-01", url: "https://example.com/a" },
       { n: 2, id: "2026-08-02_CN_01", title: "중국 카드", date: "2026-08-02", url: "https://example.com/b" },
     ],
+    qc: {
+      evidence_status: "PASS",
+      red_team_status: "PASS",
+      editorial_coherence_status: "PASS",
+      language_terminology_status: "PASS",
+      reviewed_at: "2026-09-08",
+      reviewer_role: "editorial_red_team",
+    },
     approval: {
       status: "APPROVED",
       approved_at: "2026-09-08",
@@ -55,7 +63,7 @@ function sample(overrides = {}) {
 }
 
 describe("official Strategic Brief publication boundary", () => {
-  it("accepts a fully approved manual editorial issue", () => {
+  it("accepts a fully approved editorially curated issue", () => {
     const item = sample();
     expect(validateStrategicBriefItem(item)).toEqual([]);
     expect(isOfficialStrategicBrief(item)).toBe(true);
@@ -66,6 +74,26 @@ describe("official Strategic Brief publication boundary", () => {
     const errors = validateStrategicBriefItem(item).join("\n");
     expect(errors).toContain("publication_class");
     expect(errors).toContain("publication_mode");
+    expect(isOfficialStrategicBrief(item)).toBe(false);
+  });
+
+  it("allows automation-assisted production only after editorial curation", () => {
+    const item = sample({ publication_mode: "manual_editorial" });
+    expect(validateStrategicBriefItem(item).join("\n")).toContain("publication_mode");
+    expect(isOfficialStrategicBrief(item)).toBe(false);
+  });
+
+  it("requires all four publication QC gates to pass", () => {
+    const item = sample({
+      qc: {
+        evidence_status: "PASS",
+        red_team_status: "FAIL",
+        editorial_coherence_status: "PASS",
+        language_terminology_status: "PASS",
+      },
+    });
+    const errors = validateStrategicBriefItem(item).join("\n");
+    expect(errors).toContain("red_team_status");
     expect(isOfficialStrategicBrief(item)).toBe(false);
   });
 

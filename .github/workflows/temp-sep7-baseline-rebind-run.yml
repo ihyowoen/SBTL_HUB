@@ -110,9 +110,8 @@ jobs:
           node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN_PATH" --full data/cards.full.json --ledger tmp/sep7-rebind-0-8-ledger.json
           python3 validation_scripts/stage_artifact_contract_check.py 0.8 "$RUN/stage-0-8.json"
 
-          echo '== current-baseline governed apply verification =='
-          git show "$NEW:data/cards.full.json" > tmp/sep7-rebind-base.json
-          node scripts/apply_card_run.mjs --run "$RUN_PATH" --baseline tmp/sep7-rebind-base.json --canonical-path data/cards.full.json --output data/cards.full.json --report "$RUN/apply-report.json" --lean-path public/data/cards.json --base-main-sha "$NEW" --verify
+          echo '== current-baseline governed apply verification (exact PR invocation) =='
+          node scripts/apply_card_run.mjs --run "$RUN_PATH" --baseline data/cards.full.json --canonical-path data/cards.full.json --output data/cards.full.json --report "$RUN/apply-report.json" --lean-path public/data/cards.json --base-main-sha "$NEW" --verify
           node scripts/lean_cards.mjs --check
           PYTHONPATH=. python3 validation_scripts/run_active_workflow_tests.py
           git diff --check

@@ -40,12 +40,15 @@ if f'BASE_MAIN={FROZEN_MAIN}' not in s:
 validate_marker="echo '== validate pre-apply governed chain =='"
 apply_marker="echo '== apply against locked baseline =='"
 
-normalize=r'''echo '== normalize exact invalid Related path and rebind operation freeze =='
+normalize=r'''echo '== normalize exact invalid Related paths and rebind operation freeze =='
 python - <<'PYNORM'
 import hashlib,json,pathlib
 runp=pathlib.Path('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json')
 run=json.loads(runp.read_text())
-BLOCKED='/related_lineage/fresh_follow_up_anchor_class'
+BLOCKED={
+ '/related_lineage/fresh_follow_up_anchor_class',
+ '/related_lineage/fresh_follow_up_anchor',
+}
 ALLOWED={
  '/related/-',
  '/related_ids/-',
@@ -86,8 +89,8 @@ for i,op in enumerate(run['operations']['related_add']):
         if not isinstance(patch,dict):
             raise SystemExit(f'related_add[{i}].patches[{j}] not object')
         path=patch.get('path')
-        if path==BLOCKED:
-            removed.append((i,j,patch.get('card_id')))
+        if path in BLOCKED:
+            removed.append((i,j,patch.get('card_id'),path))
             continue
         if path not in ALLOWED:
             raise SystemExit(f'unexpected Related patch path remains: related_add[{i}].patches[{j}] {path}')
@@ -114,7 +117,7 @@ run=json.loads(runp.read_text())
 for i,op in enumerate(run['operations']['related_add']):
     for j,patch in enumerate(op['patches']):
         path=patch.get('path')
-        if path==BLOCKED or path not in ALLOWED:
+        if path in BLOCKED or path not in ALLOWED:
             raise SystemExit(f'apply-incompatible Related path persisted: related_add[{i}].patches[{j}] {path}')
 
 print('removed_exact_blocker_patches=',removed)
@@ -156,5 +159,5 @@ s=s.replace(apply_marker,preapply+apply_marker,1)
 p.write_text(s)
 PY
 
-echo '== execute governed v9 chain with frozen-base v12 apply repair =='
+echo '== execute governed v9 chain with frozen-base v13 apply repair =='
 bash tmp/sep7-production21-bootstrap/run_v9.sh

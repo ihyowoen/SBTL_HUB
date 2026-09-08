@@ -31,6 +31,15 @@ describe("SBTL Monthly Brief product boundary", () => {
     });
   });
 
+  it("preserves the calendar month in the advertised 월별 빠른 분석 wording", () => {
+    expect(detectAppCommand("2026년 8월 월별 빠른 분석 만들어줘", [], opts(AUGUST))).toEqual({
+      type: "brief_now",
+      scope: "all",
+      period: "monthly",
+      month: "2026-08",
+    });
+  });
+
   it("routes the official Monthly Brief reader by month identity", () => {
     expect(detectAppCommand("월간 브리프 보여줘", [], opts())).toEqual({ type: "monthly_show" });
     expect(detectAppCommand("2026년 8월 월간 브리프 보여줘", [], opts())).toEqual({ type: "monthly_show", month: "2026-08" });

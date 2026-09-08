@@ -93,7 +93,18 @@ Every official issue MUST carry enough provenance to reconstruct its editorial b
 
 The baseline SHA records are publication provenance, not a claim that the card database can never change after publication.
 
-## 5. Drift policy
+## 5. Publication merge gate
+
+An official Strategic Brief change is publishable only through a reviewed pull request whose current head passes the `validate-strategic-briefs` workflow.
+
+- direct writes to `main` are outside this publication contract;
+- a stale green check from an older commit does not authorize a newer head;
+- the official artifact MUST NOT be treated as published until the validated PR head is merged;
+- GitHub branch/ruleset configuration SHOULD require this check where repository administration permits it.
+
+This repository-level contract remains mandatory even when GitHub branch protection is not technically enabled.
+
+## 6. Drift policy
 
 Late card additions, corrections or backfilled events after publication are a **review signal**, not an automatic rewrite command.
 
@@ -104,7 +115,7 @@ If the source-month universe changes after publication:
 - automated regeneration MUST NOT replace it;
 - material changes are handled by an explicit editorial revision (`revision` increment and status `revised`) or by the next issue.
 
-## 6. Reader and UX contract
+## 7. Reader and UX contract
 
 Target product terminology:
 
@@ -117,13 +128,13 @@ The official reader MUST prefer the official static artifact and MUST NOT fall b
 
 Absence of an official issue means `편집 중 / 아직 발행되지 않음`, not `generate one automatically`.
 
-## 7. API boundary
+## 8. API boundary
 
 `/api/brief` is an exploratory synthesis engine. It may generate analysis over any allowed time window, including a calendar month, but its output is non-official by definition.
 
 Future API/UI work SHOULD carry an explicit `publication_class` or equivalent metadata so this distinction is visible end-to-end. Any request that attempts to mint an official editorial issue directly through the automatic generator must be rejected.
 
-## 8. Red-team rationale
+## 9. Red-team rationale
 
 A blanket ban on `period=monthly` was rejected because `monthly` currently encodes both a time window and a product identity. Blocking the period would remove useful 30-day/calendar-month research, region/theme comparisons and custom analytical compositions.
 

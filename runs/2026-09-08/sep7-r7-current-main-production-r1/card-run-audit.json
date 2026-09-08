@@ -1,0 +1,60 @@
+{
+  "schema": "card_run_audit_v1",
+  "status": "PASS",
+  "audit_complete": true,
+  "reviewer_independence": "SEPARATE_PASS",
+  "run_id": "card-run-2026-09-08-sep7-r7-current-main-production-r1",
+  "base_main_commit_sha": "aa7400ae67b221d1ddd5e198293762caec389303",
+  "base_full_blob_sha": "920646b6b335f211bcd224962f8ac0cc42cd3a4f",
+  "document_universe_manifest_ref": "runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-0c.json",
+  "independent_completeness_ref": "runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-7c.json",
+  "reviewed_operations_sha256": "271a4bc41d42a871826b096dc0d69896b6fe3c4131116393486df198dbf0083d",
+  "expected_before": 1578,
+  "expected_after": 1599,
+  "inserted_ids": [
+    "2026-09-07_GL_01",
+    "2026-09-07_KR_01",
+    "2026-09-02_KR_01",
+    "2026-08-28_KR_01",
+    "2026-09-04_GL_03",
+    "2026-09-04_CN_01",
+    "2026-09-06_CN_01",
+    "2026-09-04_CN_04",
+    "2026-09-01_EU_01",
+    "2026-09-03_GL_02",
+    "2026-09-04_CN_02",
+    "2026-09-04_GL_02",
+    "2026-09-04_GL_04",
+    "2026-09-07_JP_01",
+    "2026-09-04_JP_01",
+    "2026-09-04_JP_02",
+    "2026-09-02_GL_07",
+    "2026-09-07_CN_01",
+    "2026-09-03_CN_01",
+    "2026-09-04_CN_03",
+    "2026-09-02_EU_04"
+  ],
+  "updated_ids": [],
+  "related_additions": [
+    {
+      "source_id": "2026-09-07_GL_01",
+      "target_id": "2026-08-05_GL_01",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-09-04_GL_03",
+      "target_id": "2026-08-14_GL_01",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-09-07_JP_01",
+      "target_id": "2026-07-21_JP_02",
+      "direction": "directional"
+    }
+  ],
+  "zero_deletion_assertion": true,
+  "zero_related_remove_assertion": true,
+  "full_output_sha256": "aa7227ce0b657a892130df73ce2400ac58608545c8e0c8e8120ecda59155da03",
+  "lean_output_sha256": "bd39ee4ce75aa6251d212844b2492e9dcabe2ca9d8d24d7fa4c28f9687496708"
+}

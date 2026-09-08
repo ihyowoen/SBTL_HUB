@@ -1,0 +1,56 @@
+name: apply-phase2-strategic-ui-patch
+
+on:
+  push:
+    branches:
+      - chatgpt/strategic-brief-ui-split-20260908
+    paths:
+      - "scripts/apply_phase2_strategic_ui_patch.mjs"
+      - ".github/workflows/apply-phase2-strategic-ui-patch.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: ${{ !contains(github.event.head_commit.message, '[phase2-patch-applied]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/strategic-brief-ui-split-20260908
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Apply deterministic source patch
+        run: node scripts/apply_phase2_strategic_ui_patch.mjs
+
+      - name: Diff integrity
+        run: git diff --check
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Build application
+        run: npm run build
+
+      - name: Commit patched sources
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/App.jsx lib/chat/appCommand.js api/brief.js
+          if git diff --cached --quiet; then
+            echo "No source changes to commit"
+            exit 0
+          fi
+          git commit -m "Split official Strategic Brief from quick analysis [phase2-patch-applied]"
+          git push origin HEAD:chatgpt/strategic-brief-ui-split-20260908

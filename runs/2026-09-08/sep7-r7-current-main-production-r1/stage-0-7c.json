@@ -1,0 +1,95 @@
+{
+  "schema": "stage_0_7c_independent_completeness_v4_operation_bound_r1",
+  "stage": "0.7C",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "completeness_status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "run_id": "card-run-2026-09-08-sep7-r7-current-main-production-r1",
+  "base_main_commit_sha": "aa7400ae67b221d1ddd5e198293762caec389303",
+  "base_full_blob_sha": "920646b6b335f211bcd224962f8ac0cc42cd3a4f",
+  "document_universe_manifest_ref": "runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-0c.json",
+  "reviewed_operations_sha256": "271a4bc41d42a871826b096dc0d69896b6fe3c4131116393486df198dbf0083d",
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "material_exclusions": [
+    {
+      "source_spec_id": "STD26_0907_A_011",
+      "disposition": "canonical_same_event_duplicate"
+    },
+    {
+      "source_spec_id": "STD26_0907_A_012",
+      "disposition": "canonical_same_event_duplicate"
+    },
+    {
+      "source_spec_id": "STD26_0907_A_014",
+      "disposition": "canonical_same_event_duplicate"
+    },
+    {
+      "source_spec_id": "STD26_0907_A_016",
+      "disposition": "canonical_same_event_duplicate"
+    },
+    {
+      "source_spec_id": "STD26_0907_A_021",
+      "disposition": "canonical_same_event_duplicate"
+    },
+    {
+      "source_spec_id": "STD26_0907_A_004",
+      "disposition": "upstream_return"
+    },
+    {
+      "source_spec_id": "STD26_0907_A_013",
+      "disposition": "upstream_return"
+    },
+    {
+      "source_spec_id": "STD26_0907_A_020",
+      "disposition": "upstream_return"
+    },
+    {
+      "source_spec_id": "STD26_0907_A_022",
+      "disposition": "upstream_return"
+    }
+  ],
+  "known_unknowns": [
+    "Four upstream-return items remain outside this production chain until independently corrected at Stage A; 38 Prompt 0.1P non-promotions remain outside Stage B."
+  ],
+  "residual_risks": [
+    "Prompt 0.1P was completed for all 41 candidate-review items; exactly 3 were promoted through ordinary Stage A gates and 38 were retained outside Stage B. Watchlist/context remains carry-forward and is not silently promoted."
+  ],
+  "reviewer_independence": "SEPARATE_PASS",
+  "prompt_0_8_authorized": true,
+  "operation_freeze": {
+    "status": "PASS",
+    "reviewed_operations_sha256": "271a4bc41d42a871826b096dc0d69896b6fe3c4131116393486df198dbf0083d",
+    "insert_count": 21,
+    "update_count": 0,
+    "related_add_count": 3
+  },
+  "hash_chain": {
+    "status": "PASS",
+    "stage_a_sha256": "5159753f57a85dbccfe62cea381a80169258f5367c1fe0fecfa54c08384a69b4",
+    "stage_a_promotion3_sha256": "ad644988d14e76d3da27b2762efb75dab3105a6ef48c34bb047e25911a2cbadd",
+    "stage_b_sha256": "090ffb6308d4cc97b91613bbe900cf0f2bca19d5b959ead216f334dc95ea43c3",
+    "stage_c_sha256": "09d6868b462ce8f40463b0c06f64f7d863d0967889148455930b06e9f2bf0275",
+    "stage_0_4_sha256": "3d506964fe9233df03165ff0807c6d97d315d4f90449656c67af7fb54d040882",
+    "stage_0_5_sha256": "f277130444965efeff9b1259628724b5b54ae57a9b2b18ef84801938c84df71b",
+    "stage_0_6_sha256": "b11d0b25b9307b1083eadd8436867d6a80dd49b99c2ab9e0cd6fa278be9d68d9",
+    "stage_0_7_sha256": "7cc1a90320a253874b34a047b51211825c5c3e4bee19655deac421d73a60fe6e"
+  },
+  "six_round_review": {
+    "status": "PASS",
+    "round_count": 6,
+    "blocking_findings": 0
+  },
+  "round_6_operation_binding": {
+    "status": "PASS",
+    "reviewed_operations_sha256": "271a4bc41d42a871826b096dc0d69896b6fe3c4131116393486df198dbf0083d"
+  },
+  "codex_p2_remediation": {
+    "status": "PASS",
+    "note": "No unresolved P2 finding in this current-main bounded continuation."
+  }
+}

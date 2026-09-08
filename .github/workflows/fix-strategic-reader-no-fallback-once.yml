@@ -1,0 +1,42 @@
+name: fix-strategic-reader-no-fallback-once
+
+on:
+  push:
+    branches:
+      - chatgpt/strategic-brief-ui-split-20260908
+    paths:
+      - "scripts/fix_strategic_reader_no_fallback.mjs"
+      - ".github/workflows/fix-strategic-reader-no-fallback-once.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: ${{ !contains(github.event.head_commit.message, '[strategic-no-fallback]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/strategic-brief-ui-split-20260908
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - name: Apply strict no-fallback patch
+        run: node scripts/fix_strategic_reader_no_fallback.mjs
+      - name: Diff integrity
+        run: git diff --check
+      - name: Unit tests
+        run: npm test
+      - name: Production build
+        run: npm run build
+      - name: Commit no-fallback fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/StrategicBriefPanel.jsx
+          git commit -m "Enforce strict official Strategic Brief request selection [strategic-no-fallback]"
+          git push origin HEAD:chatgpt/strategic-brief-ui-split-20260908

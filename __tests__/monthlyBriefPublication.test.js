@@ -119,6 +119,18 @@ describe("official SBTL Monthly Brief publication boundary", () => {
     expect(validateMonthlyBriefItem(sample({ qc: { ...sample().qc, notes: "ok" }, approval: { ...sample().approval, notes: "ok" } }))).toEqual([]);
   });
 
+  it("rejects explicit nulls for optional fields that do not allow null in the schema", () => {
+    const cases = [
+      ["watch", sample({ watch: null })],
+      ["refs[0].url", (() => { const item = sample(); item.refs[0].url = null; return item; })()],
+      ["qc.reviewed_at", sample({ qc: { ...sample().qc, reviewed_at: null } })],
+      ["qc.reviewer_role", sample({ qc: { ...sample().qc, reviewer_role: null } })],
+      ["qc.notes", sample({ qc: { ...sample().qc, notes: null } })],
+      ["approval.notes", sample({ approval: { ...sample().approval, notes: null } })],
+    ];
+    for (const [field, item] of cases) expect(validateMonthlyBriefItem(item).join("\n"), field).toContain(field);
+  });
+
   it("requires baseline provenance and real calendar dates", () => {
     const item = sample({
       published_at: "2026-02-31",

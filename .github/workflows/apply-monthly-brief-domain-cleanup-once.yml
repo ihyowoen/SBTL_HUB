@@ -48,11 +48,29 @@ jobs:
         run: |
           if grep -En "StrategicBrief|strategic_show|strategic-brief|strategic_briefs|VOL\." \
             src/App.jsx lib/chat/appCommand.js src/MonthlyBriefPanel.jsx src/monthlyBriefSelection.js \
-            lib/brief/monthlyPublication.js product/MONTHLY_BRIEF_EDITORIAL_CONTRACT.md \
-            schemas/monthly-brief.v1.schema.json __tests__/monthlyBrief*.test.js; then
-            echo "Legacy Strategic/VOL identity remains in active Monthly Brief domain" >&2
+            lib/brief/monthlyPublication.js schemas/monthly-brief.v1.schema.json \
+            package.json public/data/monthly_briefs.json; then
+            echo "Legacy Strategic/VOL identity remains in active Monthly Brief runtime" >&2
             exit 1
           fi
+          for legacy in \
+            product/STRATEGIC_BRIEF_EDITORIAL_CONTRACT.md \
+            public/data/strategic_briefs.json \
+            schemas/strategic-brief.v1.schema.json \
+            lib/brief/strategicPublication.js \
+            scripts/validate_strategic_briefs.mjs \
+            src/StrategicBriefPanel.jsx \
+            src/strategicBriefSelection.js \
+            __tests__/strategicBriefPublication.test.js \
+            __tests__/strategicBriefProductBoundary.test.js \
+            __tests__/strategicBriefSelection.test.js \
+            __tests__/strategicBriefEditionCommand.test.js \
+            .github/workflows/validate-strategic-briefs.yml; do
+            if test -e "$legacy"; then
+              echo "Obsolete Strategic Brief path still exists: $legacy" >&2
+              exit 1
+            fi
+          done
 
       - name: Commit validated cleanup
         run: |

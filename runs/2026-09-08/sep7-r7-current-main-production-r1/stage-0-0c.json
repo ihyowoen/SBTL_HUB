@@ -1,0 +1,1421 @@
+{
+  "schema": "stage_0_0c_coverage_discovery_v4_current_main_continuation_r1",
+  "stage": "0.0C",
+  "status": "PASS",
+  "run_id": "card-run-2026-09-08-sep7-r7-current-main-production-r1",
+  "document_universe_manifest_ref": "runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-0d.json",
+  "base_full_blob_sha": "920646b6b335f211bcd224962f8ac0cc42cd3a4f",
+  "original_input_accounted": true,
+  "stage_a_authorized": true,
+  "input_story_count": 27,
+  "input_filename": "Sep 7 Stage A R7 strict universe after exact R7 machine PASS",
+  "input_sha256": "0d9679a136a92d395f1c99f432ce35342e28d5f231294afd5ad77f2a03299bd9",
+  "input_triage_counts": {
+    "strict_input": 27
+  },
+  "input_region_counts": {},
+  "original_input_ledger": [
+    {
+      "candidate_id": "STD26_0907_A_001",
+      "source_spec_id": "STD26_0907_A_001",
+      "story_id": "STD26_0907_A_001",
+      "source_story_ids": [
+        "KR_2026-09-07_C09",
+        "TF_0064"
+      ],
+      "title": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_002",
+      "source_spec_id": "STD26_0907_A_002",
+      "story_id": "STD26_0907_A_002",
+      "source_story_ids": [
+        "KR_2026-09-07_C29",
+        "KR_2026-09-07_C31",
+        "KR_2026-09-07_C34",
+        "KR_2026-09-07_C39",
+        "KR_2026-09-07_C38",
+        "KR_2026-09-07_C37",
+        "KR_2026-09-07_C36",
+        "KR_2026-09-07_C35",
+        "KR_2026-09-07_C32",
+        "KR_2026-09-07_C30",
+        "KR_2026-09-07_C28",
+        "KR_2026-09-07_C33",
+        "KR_2026-09-07_C27",
+        "TF_0070"
+      ],
+      "title": "LG에너지솔루션·서울대, LMR 40Ah급 셀 가스 억제 연구 — 883회 후 초기 에너지 92.2% 유지",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_003",
+      "source_spec_id": "STD26_0907_A_003",
+      "story_id": "STD26_0907_A_003",
+      "source_story_ids": [
+        "KR_2026-09-07_C86",
+        "KR_2026-09-06_C48",
+        "KR_2026-09-06_C47",
+        "KR_2026-09-06_C35",
+        "KR_2026-09-06_C08",
+        "KR_2026-09-06_C05",
+        "KR_2026-09-06_C37",
+        "KR_2026-09-06_C07",
+        "KR_2026-09-06_C22",
+        "KR_2026-09-06_C46",
+        "KR_2026-09-06_C45",
+        "KR_2026-09-06_C06",
+        "KR_2026-09-06_C20",
+        "KR_2026-09-06_C18",
+        "KR_2026-09-06_C09",
+        "TF_0053"
+      ],
+      "title": "KDB미래전략연구소, 한국 희토류 공급망 대안으로 고려아연 제련·도시광산 역량 조명",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_004",
+      "source_spec_id": "STD26_0907_A_004",
+      "story_id": "STD26_0907_A_004",
+      "source_story_ids": [
+        "KR_2026-09-07_C56"
+      ],
+      "title": "세방전지, 현대차 HEV·LG에너지솔루션 ESS 배터리팩 장기수주 보도 — 합산 조단위",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_005",
+      "source_spec_id": "STD26_0907_A_005",
+      "story_id": "STD26_0907_A_005",
+      "source_story_ids": [
+        "KR_2026-09-07_C157"
+      ],
+      "title": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_006",
+      "source_spec_id": "STD26_0907_A_006",
+      "story_id": "STD26_0907_A_006",
+      "source_story_ids": [
+        "GL_2026-09-06_C03",
+        "KR_2026-09-07_C115"
+      ],
+      "title": "브라질 법원, Sigma Lithium Grota do Cirilo 광산 환경허가·채굴활동 중단 명령",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_007",
+      "source_spec_id": "STD26_0907_A_007",
+      "story_id": "STD26_0907_A_007",
+      "source_story_ids": [
+        "CN_2026-09-07_C13"
+      ],
+      "title": "Li Auto, Sunwoda Power에 26.5억위안 전략투자 — 증자 후 8.79% 지분",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_008",
+      "source_spec_id": "STD26_0907_A_008",
+      "story_id": "STD26_0907_A_008",
+      "source_story_ids": [
+        "CN_2026-09-06_C03"
+      ],
+      "title": "INPOW, 587Ah ESS 대형셀 양산 라인오프 — 6.5GWh 전용라인 가동 주장",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_009",
+      "source_spec_id": "STD26_0907_A_009",
+      "story_id": "STD26_0907_A_009",
+      "source_story_ids": [
+        "CN_2026-09-05_C03",
+        "CN_2026-09-04_C06"
+      ],
+      "title": "Xiaomi, CALB·Sunwoda와 배터리 전략협력 발표 — ‘Dragonscale’ 배터리 체계 공개",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_010",
+      "source_spec_id": "STD26_0907_A_010",
+      "story_id": "STD26_0907_A_010",
+      "source_story_ids": [
+        "EU_2026-09-04_C06"
+      ],
+      "title": "Luminus·I4B, 벨기에 Navagne 150MW/600MWh BESS 준공·가동",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_011",
+      "source_spec_id": "STD26_0907_A_011",
+      "story_id": "STD26_0907_A_011",
+      "source_story_ids": [
+        "EU_2026-09-04_C07"
+      ],
+      "title": "ENGIE, 글로벌 저장 포트폴리오 운영·건설 10.7GW — 7~8월 유럽 BESS +1.1GW/3.3GWh",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_012",
+      "source_spec_id": "STD26_0907_A_012",
+      "story_id": "STD26_0907_A_012",
+      "source_story_ids": [
+        "EU_2026-09-04_C08"
+      ],
+      "title": "Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_013",
+      "source_spec_id": "STD26_0907_A_013",
+      "story_id": "STD26_0907_A_013",
+      "source_story_ids": [
+        "EU_2026-09-04_C01"
+      ],
+      "title": "AES Andes, 칠레 Cristales 340MW/1,360MWh BESS 시험 개시",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_014",
+      "source_spec_id": "STD26_0907_A_014",
+      "story_id": "STD26_0907_A_014",
+      "source_story_ids": [
+        "EU_2026-09-04_C04"
+      ],
+      "title": "크로아티아, 가정용 배터리 첫 보조금 공모 — 히트펌프·태양광·BESS에 €38m",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_015",
+      "source_spec_id": "STD26_0907_A_015",
+      "story_id": "STD26_0907_A_015",
+      "source_story_ids": [
+        "GL_2026-09-04_C15",
+        "EU_2026-09-04_C18"
+      ],
+      "title": "인도 CEA, 2027년 7월부터 신규 태양광·풍력에 배터리 저장 의무화 제안",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_016",
+      "source_spec_id": "STD26_0907_A_016",
+      "story_id": "STD26_0907_A_016",
+      "source_story_ids": [
+        "GL_2026-09-04_C12"
+      ],
+      "title": "Equinor 계열 East Point Energy, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_017",
+      "source_spec_id": "STD26_0907_A_017",
+      "story_id": "STD26_0907_A_017",
+      "source_story_ids": [
+        "GL_2026-09-04_C08"
+      ],
+      "title": "CNESA: 중국 H1 신규 에너지저장 배치 22GW/59GWh로 첫 감소, 해외수주 +83%",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_018",
+      "source_spec_id": "STD26_0907_A_018",
+      "story_id": "STD26_0907_A_018",
+      "source_story_ids": [
+        "GL_2026-09-04_C07"
+      ],
+      "title": "중국 희토류 공급사 일부, 제재 리스크 우려로 미국향 출하 거부",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_019",
+      "source_spec_id": "STD26_0907_A_019",
+      "story_id": "STD26_0907_A_019",
+      "source_story_ids": [
+        "GL_2026-09-04_C09"
+      ],
+      "title": "중국 배터리업체 협상으로 인도네시아 MHP 코발트 payable 약 90%→67~70% 하락",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_020",
+      "source_spec_id": "STD26_0907_A_020",
+      "story_id": "STD26_0907_A_020",
+      "source_story_ids": [
+        "GL_2026-09-04_C25"
+      ],
+      "title": "Tesla Megapack 3, 텍사스 Brookshire 생산 개시 보도",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_021",
+      "source_spec_id": "STD26_0907_A_021",
+      "story_id": "STD26_0907_A_021",
+      "source_story_ids": [
+        "US_2026-09-04_C07"
+      ],
+      "title": "PG&E·Rewiring America·Google, Bay Area SHARE VPP 출범 — 약 12MW/최대 2.1만 DER 목표",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_022",
+      "source_spec_id": "STD26_0907_A_022",
+      "story_id": "STD26_0907_A_022",
+      "source_story_ids": [
+        "US_2026-09-04_C01"
+      ],
+      "title": "미·캐나다·멕시코 서부, I-5 전기트럭 BC2BC 충전회랑 출범 — 초기 20개 EV 충전소",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_023",
+      "source_spec_id": "STD26_0907_A_023",
+      "story_id": "STD26_0907_A_023",
+      "source_story_ids": [
+        "JP_2026-09-07_C02"
+      ],
+      "title": "Tensor Energy, 저압계통 ESS aggregation 신청 5,000건·250MW·1GWh 돌파",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_024",
+      "source_spec_id": "STD26_0907_A_024",
+      "story_id": "STD26_0907_A_024",
+      "source_story_ids": [
+        "DISC_JP_BATTERY_STABLE_SUPPLY_CONSULT_20260904"
+      ],
+      "title": "Japan METI opens consultation on amendment to battery stable-supply policy under Economic Security Promotion Act",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_025",
+      "source_spec_id": "STD26_0907_A_025",
+      "story_id": "STD26_0907_A_025",
+      "source_story_ids": [
+        "DISC_JP_CRITICAL_MINERALS_STABLE_SUPPLY_CONSULT_20260904"
+      ],
+      "title": "Japan METI opens consultation on amendment to critical-minerals stable-supply policy",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_026",
+      "source_spec_id": "STD26_0907_A_026",
+      "story_id": "STD26_0907_A_026",
+      "source_story_ids": [
+        "DISC_BR_CRITICAL_MINERALS_BILL_SENATE_20260903"
+      ],
+      "title": "Brazil Senate passes critical/strategic minerals support legislation; presidential signature still pending",
+      "accounted": true
+    },
+    {
+      "candidate_id": "STD26_0907_A_027",
+      "source_spec_id": "STD26_0907_A_027",
+      "story_id": "STD26_0907_A_027",
+      "source_story_ids": [
+        "KR_2026-09-07_C151"
+      ],
+      "title": "중국, 신규 배터리·ESS 제조 프로젝트 승인 일시중단 보도 — 기존 승인·건설 프로젝트는 지속",
+      "accounted": true
+    }
+  ],
+  "discovered_missing_candidates": [],
+  "existing_card_reinforcements": [],
+  "must_report_candidate_ledger": [
+    {
+      "candidate_id": "STD26_0907_A_001",
+      "source_spec_id": "STD26_0907_A_001",
+      "story_id": "STD26_0907_A_001",
+      "source_story_ids": [
+        "KR_2026-09-07_C09",
+        "TF_0064"
+      ],
+      "title": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_002",
+      "source_spec_id": "STD26_0907_A_002",
+      "story_id": "STD26_0907_A_002",
+      "source_story_ids": [
+        "KR_2026-09-07_C29",
+        "KR_2026-09-07_C31",
+        "KR_2026-09-07_C34",
+        "KR_2026-09-07_C39",
+        "KR_2026-09-07_C38",
+        "KR_2026-09-07_C37",
+        "KR_2026-09-07_C36",
+        "KR_2026-09-07_C35",
+        "KR_2026-09-07_C32",
+        "KR_2026-09-07_C30",
+        "KR_2026-09-07_C28",
+        "KR_2026-09-07_C33",
+        "KR_2026-09-07_C27",
+        "TF_0070"
+      ],
+      "title": "LG에너지솔루션·서울대, LMR 40Ah급 셀 가스 억제 연구 — 883회 후 초기 에너지 92.2% 유지",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_003",
+      "source_spec_id": "STD26_0907_A_003",
+      "story_id": "STD26_0907_A_003",
+      "source_story_ids": [
+        "KR_2026-09-07_C86",
+        "KR_2026-09-06_C48",
+        "KR_2026-09-06_C47",
+        "KR_2026-09-06_C35",
+        "KR_2026-09-06_C08",
+        "KR_2026-09-06_C05",
+        "KR_2026-09-06_C37",
+        "KR_2026-09-06_C07",
+        "KR_2026-09-06_C22",
+        "KR_2026-09-06_C46",
+        "KR_2026-09-06_C45",
+        "KR_2026-09-06_C06",
+        "KR_2026-09-06_C20",
+        "KR_2026-09-06_C18",
+        "KR_2026-09-06_C09",
+        "TF_0053"
+      ],
+      "title": "KDB미래전략연구소, 한국 희토류 공급망 대안으로 고려아연 제련·도시광산 역량 조명",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_004",
+      "source_spec_id": "STD26_0907_A_004",
+      "story_id": "STD26_0907_A_004",
+      "source_story_ids": [
+        "KR_2026-09-07_C56"
+      ],
+      "title": "세방전지, 현대차 HEV·LG에너지솔루션 ESS 배터리팩 장기수주 보도 — 합산 조단위",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_005",
+      "source_spec_id": "STD26_0907_A_005",
+      "story_id": "STD26_0907_A_005",
+      "source_story_ids": [
+        "KR_2026-09-07_C157"
+      ],
+      "title": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_006",
+      "source_spec_id": "STD26_0907_A_006",
+      "story_id": "STD26_0907_A_006",
+      "source_story_ids": [
+        "GL_2026-09-06_C03",
+        "KR_2026-09-07_C115"
+      ],
+      "title": "브라질 법원, Sigma Lithium Grota do Cirilo 광산 환경허가·채굴활동 중단 명령",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_007",
+      "source_spec_id": "STD26_0907_A_007",
+      "story_id": "STD26_0907_A_007",
+      "source_story_ids": [
+        "CN_2026-09-07_C13"
+      ],
+      "title": "Li Auto, Sunwoda Power에 26.5억위안 전략투자 — 증자 후 8.79% 지분",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_008",
+      "source_spec_id": "STD26_0907_A_008",
+      "story_id": "STD26_0907_A_008",
+      "source_story_ids": [
+        "CN_2026-09-06_C03"
+      ],
+      "title": "INPOW, 587Ah ESS 대형셀 양산 라인오프 — 6.5GWh 전용라인 가동 주장",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_009",
+      "source_spec_id": "STD26_0907_A_009",
+      "story_id": "STD26_0907_A_009",
+      "source_story_ids": [
+        "CN_2026-09-05_C03",
+        "CN_2026-09-04_C06"
+      ],
+      "title": "Xiaomi, CALB·Sunwoda와 배터리 전략협력 발표 — ‘Dragonscale’ 배터리 체계 공개",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_010",
+      "source_spec_id": "STD26_0907_A_010",
+      "story_id": "STD26_0907_A_010",
+      "source_story_ids": [
+        "EU_2026-09-04_C06"
+      ],
+      "title": "Luminus·I4B, 벨기에 Navagne 150MW/600MWh BESS 준공·가동",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_011",
+      "source_spec_id": "STD26_0907_A_011",
+      "story_id": "STD26_0907_A_011",
+      "source_story_ids": [
+        "EU_2026-09-04_C07"
+      ],
+      "title": "ENGIE, 글로벌 저장 포트폴리오 운영·건설 10.7GW — 7~8월 유럽 BESS +1.1GW/3.3GWh",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_012",
+      "source_spec_id": "STD26_0907_A_012",
+      "story_id": "STD26_0907_A_012",
+      "source_story_ids": [
+        "EU_2026-09-04_C08"
+      ],
+      "title": "Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_013",
+      "source_spec_id": "STD26_0907_A_013",
+      "story_id": "STD26_0907_A_013",
+      "source_story_ids": [
+        "EU_2026-09-04_C01"
+      ],
+      "title": "AES Andes, 칠레 Cristales 340MW/1,360MWh BESS 시험 개시",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_014",
+      "source_spec_id": "STD26_0907_A_014",
+      "story_id": "STD26_0907_A_014",
+      "source_story_ids": [
+        "EU_2026-09-04_C04"
+      ],
+      "title": "크로아티아, 가정용 배터리 첫 보조금 공모 — 히트펌프·태양광·BESS에 €38m",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_015",
+      "source_spec_id": "STD26_0907_A_015",
+      "story_id": "STD26_0907_A_015",
+      "source_story_ids": [
+        "GL_2026-09-04_C15",
+        "EU_2026-09-04_C18"
+      ],
+      "title": "인도 CEA, 2027년 7월부터 신규 태양광·풍력에 배터리 저장 의무화 제안",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_016",
+      "source_spec_id": "STD26_0907_A_016",
+      "story_id": "STD26_0907_A_016",
+      "source_story_ids": [
+        "GL_2026-09-04_C12"
+      ],
+      "title": "Equinor 계열 East Point Energy, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_017",
+      "source_spec_id": "STD26_0907_A_017",
+      "story_id": "STD26_0907_A_017",
+      "source_story_ids": [
+        "GL_2026-09-04_C08"
+      ],
+      "title": "CNESA: 중국 H1 신규 에너지저장 배치 22GW/59GWh로 첫 감소, 해외수주 +83%",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_018",
+      "source_spec_id": "STD26_0907_A_018",
+      "story_id": "STD26_0907_A_018",
+      "source_story_ids": [
+        "GL_2026-09-04_C07"
+      ],
+      "title": "중국 희토류 공급사 일부, 제재 리스크 우려로 미국향 출하 거부",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_019",
+      "source_spec_id": "STD26_0907_A_019",
+      "story_id": "STD26_0907_A_019",
+      "source_story_ids": [
+        "GL_2026-09-04_C09"
+      ],
+      "title": "중국 배터리업체 협상으로 인도네시아 MHP 코발트 payable 약 90%→67~70% 하락",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_020",
+      "source_spec_id": "STD26_0907_A_020",
+      "story_id": "STD26_0907_A_020",
+      "source_story_ids": [
+        "GL_2026-09-04_C25"
+      ],
+      "title": "Tesla Megapack 3, 텍사스 Brookshire 생산 개시 보도",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_021",
+      "source_spec_id": "STD26_0907_A_021",
+      "story_id": "STD26_0907_A_021",
+      "source_story_ids": [
+        "US_2026-09-04_C07"
+      ],
+      "title": "PG&E·Rewiring America·Google, Bay Area SHARE VPP 출범 — 약 12MW/최대 2.1만 DER 목표",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_022",
+      "source_spec_id": "STD26_0907_A_022",
+      "story_id": "STD26_0907_A_022",
+      "source_story_ids": [
+        "US_2026-09-04_C01"
+      ],
+      "title": "미·캐나다·멕시코 서부, I-5 전기트럭 BC2BC 충전회랑 출범 — 초기 20개 EV 충전소",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_023",
+      "source_spec_id": "STD26_0907_A_023",
+      "story_id": "STD26_0907_A_023",
+      "source_story_ids": [
+        "JP_2026-09-07_C02"
+      ],
+      "title": "Tensor Energy, 저압계통 ESS aggregation 신청 5,000건·250MW·1GWh 돌파",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_024",
+      "source_spec_id": "STD26_0907_A_024",
+      "story_id": "STD26_0907_A_024",
+      "source_story_ids": [
+        "DISC_JP_BATTERY_STABLE_SUPPLY_CONSULT_20260904"
+      ],
+      "title": "Japan METI opens consultation on amendment to battery stable-supply policy under Economic Security Promotion Act",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_025",
+      "source_spec_id": "STD26_0907_A_025",
+      "story_id": "STD26_0907_A_025",
+      "source_story_ids": [
+        "DISC_JP_CRITICAL_MINERALS_STABLE_SUPPLY_CONSULT_20260904"
+      ],
+      "title": "Japan METI opens consultation on amendment to critical-minerals stable-supply policy",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_026",
+      "source_spec_id": "STD26_0907_A_026",
+      "story_id": "STD26_0907_A_026",
+      "source_story_ids": [
+        "DISC_BR_CRITICAL_MINERALS_BILL_SENATE_20260903"
+      ],
+      "title": "Brazil Senate passes critical/strategic minerals support legislation; presidential signature still pending",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    },
+    {
+      "candidate_id": "STD26_0907_A_027",
+      "source_spec_id": "STD26_0907_A_027",
+      "story_id": "STD26_0907_A_027",
+      "source_story_ids": [
+        "KR_2026-09-07_C151"
+      ],
+      "title": "중국, 신규 배터리·ESS 제조 프로젝트 승인 일시중단 보도 — 기존 승인·건설 프로젝트는 지속",
+      "reason": "Previously strict Stage A candidate requires terminal current-main disposition before Stage B."
+    }
+  ],
+  "known_unknowns": [
+    "Four upstream returns require a future corrected Stage A pass before they can re-enter the production chain."
+  ],
+  "residual_coverage_risks": [
+    "This continuation is bounded to the previously machine-validated 27 strict events; review/treasure pools remain separately governed and are not silently promoted."
+  ],
+  "terminal_discovery_disposition_ledger": [
+    {
+      "candidate_id": "STD26_0907_A_001",
+      "source_spec_id": "STD26_0907_A_001",
+      "story_id": "STD26_0907_A_001",
+      "source_story_ids": [
+        "KR_2026-09-07_C09",
+        "TF_0064"
+      ],
+      "title": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_002",
+      "source_spec_id": "STD26_0907_A_002",
+      "story_id": "STD26_0907_A_002",
+      "source_story_ids": [
+        "KR_2026-09-07_C29",
+        "KR_2026-09-07_C31",
+        "KR_2026-09-07_C34",
+        "KR_2026-09-07_C39",
+        "KR_2026-09-07_C38",
+        "KR_2026-09-07_C37",
+        "KR_2026-09-07_C36",
+        "KR_2026-09-07_C35",
+        "KR_2026-09-07_C32",
+        "KR_2026-09-07_C30",
+        "KR_2026-09-07_C28",
+        "KR_2026-09-07_C33",
+        "KR_2026-09-07_C27",
+        "TF_0070"
+      ],
+      "title": "LG에너지솔루션·서울대, LMR 40Ah급 셀 가스 억제 연구 — 883회 후 초기 에너지 92.2% 유지",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_003",
+      "source_spec_id": "STD26_0907_A_003",
+      "story_id": "STD26_0907_A_003",
+      "source_story_ids": [
+        "KR_2026-09-07_C86",
+        "KR_2026-09-06_C48",
+        "KR_2026-09-06_C47",
+        "KR_2026-09-06_C35",
+        "KR_2026-09-06_C08",
+        "KR_2026-09-06_C05",
+        "KR_2026-09-06_C37",
+        "KR_2026-09-06_C07",
+        "KR_2026-09-06_C22",
+        "KR_2026-09-06_C46",
+        "KR_2026-09-06_C45",
+        "KR_2026-09-06_C06",
+        "KR_2026-09-06_C20",
+        "KR_2026-09-06_C18",
+        "KR_2026-09-06_C09",
+        "TF_0053"
+      ],
+      "title": "KDB미래전략연구소, 한국 희토류 공급망 대안으로 고려아연 제련·도시광산 역량 조명",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_004",
+      "source_spec_id": "STD26_0907_A_004",
+      "story_id": "STD26_0907_A_004",
+      "source_story_ids": [
+        "KR_2026-09-07_C56"
+      ],
+      "title": "세방전지, 현대차 HEV·LG에너지솔루션 ESS 배터리팩 장기수주 보도 — 합산 조단위",
+      "terminal_disposition": "RETURN_STAGE_A",
+      "disposition": "RETURN_STAGE_A",
+      "reason": "Sep 7 reporting mixes a new Hyundai HEV award with an LGES JF2 ESS relationship already public in June; event identity requires upstream split."
+    },
+    {
+      "candidate_id": "STD26_0907_A_005",
+      "source_spec_id": "STD26_0907_A_005",
+      "story_id": "STD26_0907_A_005",
+      "source_story_ids": [
+        "KR_2026-09-07_C157"
+      ],
+      "title": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_006",
+      "source_spec_id": "STD26_0907_A_006",
+      "story_id": "STD26_0907_A_006",
+      "source_story_ids": [
+        "GL_2026-09-06_C03",
+        "KR_2026-09-07_C115"
+      ],
+      "title": "브라질 법원, Sigma Lithium Grota do Cirilo 광산 환경허가·채굴활동 중단 명령",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_007",
+      "source_spec_id": "STD26_0907_A_007",
+      "story_id": "STD26_0907_A_007",
+      "source_story_ids": [
+        "CN_2026-09-07_C13"
+      ],
+      "title": "Li Auto, Sunwoda Power에 26.5억위안 전략투자 — 증자 후 8.79% 지분",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_008",
+      "source_spec_id": "STD26_0907_A_008",
+      "story_id": "STD26_0907_A_008",
+      "source_story_ids": [
+        "CN_2026-09-06_C03"
+      ],
+      "title": "INPOW, 587Ah ESS 대형셀 양산 라인오프 — 6.5GWh 전용라인 가동 주장",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_009",
+      "source_spec_id": "STD26_0907_A_009",
+      "story_id": "STD26_0907_A_009",
+      "source_story_ids": [
+        "CN_2026-09-05_C03",
+        "CN_2026-09-04_C06"
+      ],
+      "title": "Xiaomi, CALB·Sunwoda와 배터리 전략협력 발표 — ‘Dragonscale’ 배터리 체계 공개",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_010",
+      "source_spec_id": "STD26_0907_A_010",
+      "story_id": "STD26_0907_A_010",
+      "source_story_ids": [
+        "EU_2026-09-04_C06"
+      ],
+      "title": "Luminus·I4B, 벨기에 Navagne 150MW/600MWh BESS 준공·가동",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_011",
+      "source_spec_id": "STD26_0907_A_011",
+      "story_id": "STD26_0907_A_011",
+      "source_story_ids": [
+        "EU_2026-09-04_C07"
+      ],
+      "title": "ENGIE, 글로벌 저장 포트폴리오 운영·건설 10.7GW — 7~8월 유럽 BESS +1.1GW/3.3GWh",
+      "terminal_disposition": "EXCLUDE_CANONICAL_SAME_EVENT_DUPLICATE",
+      "disposition": "EXCLUDE_CANONICAL_SAME_EVENT_DUPLICATE",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_012",
+      "source_spec_id": "STD26_0907_A_012",
+      "story_id": "STD26_0907_A_012",
+      "source_story_ids": [
+        "EU_2026-09-04_C08"
+      ],
+      "title": "Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수",
+      "terminal_disposition": "EXCLUDE_CANONICAL_SAME_EVENT_DUPLICATE",
+      "disposition": "EXCLUDE_CANONICAL_SAME_EVENT_DUPLICATE",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_013",
+      "source_spec_id": "STD26_0907_A_013",
+      "story_id": "STD26_0907_A_013",
+      "source_story_ids": [
+        "EU_2026-09-04_C01"
+      ],
+      "title": "AES Andes, 칠레 Cristales 340MW/1,360MWh BESS 시험 개시",
+      "terminal_disposition": "RETURN_STAGE_A",
+      "disposition": "RETURN_STAGE_A",
+      "reason": "September secondary coverage is stale for the claimed testing-start anchor; a July sector report already listed Cristales BESS as undergoing testing."
+    },
+    {
+      "candidate_id": "STD26_0907_A_014",
+      "source_spec_id": "STD26_0907_A_014",
+      "story_id": "STD26_0907_A_014",
+      "source_story_ids": [
+        "EU_2026-09-04_C04"
+      ],
+      "title": "크로아티아, 가정용 배터리 첫 보조금 공모 — 히트펌프·태양광·BESS에 €38m",
+      "terminal_disposition": "EXCLUDE_CANONICAL_SAME_EVENT_DUPLICATE",
+      "disposition": "EXCLUDE_CANONICAL_SAME_EVENT_DUPLICATE",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_015",
+      "source_spec_id": "STD26_0907_A_015",
+      "story_id": "STD26_0907_A_015",
+      "source_story_ids": [
+        "GL_2026-09-04_C15",
+        "EU_2026-09-04_C18"
+      ],
+      "title": "인도 CEA, 2027년 7월부터 신규 태양광·풍력에 배터리 저장 의무화 제안",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_016",
+      "source_spec_id": "STD26_0907_A_016",
+      "story_id": "STD26_0907_A_016",
+      "source_story_ids": [
+        "GL_2026-09-04_C12"
+      ],
+      "title": "Equinor 계열 East Point Energy, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시",
+      "terminal_disposition": "EXCLUDE_CANONICAL_SAME_EVENT_DUPLICATE",
+      "disposition": "EXCLUDE_CANONICAL_SAME_EVENT_DUPLICATE",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_017",
+      "source_spec_id": "STD26_0907_A_017",
+      "story_id": "STD26_0907_A_017",
+      "source_story_ids": [
+        "GL_2026-09-04_C08"
+      ],
+      "title": "CNESA: 중국 H1 신규 에너지저장 배치 22GW/59GWh로 첫 감소, 해외수주 +83%",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_018",
+      "source_spec_id": "STD26_0907_A_018",
+      "story_id": "STD26_0907_A_018",
+      "source_story_ids": [
+        "GL_2026-09-04_C07"
+      ],
+      "title": "중국 희토류 공급사 일부, 제재 리스크 우려로 미국향 출하 거부",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_019",
+      "source_spec_id": "STD26_0907_A_019",
+      "story_id": "STD26_0907_A_019",
+      "source_story_ids": [
+        "GL_2026-09-04_C09"
+      ],
+      "title": "중국 배터리업체 협상으로 인도네시아 MHP 코발트 payable 약 90%→67~70% 하락",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_020",
+      "source_spec_id": "STD26_0907_A_020",
+      "story_id": "STD26_0907_A_020",
+      "source_story_ids": [
+        "GL_2026-09-04_C25"
+      ],
+      "title": "Tesla Megapack 3, 텍사스 Brookshire 생산 개시 보도",
+      "terminal_disposition": "RETURN_STAGE_A",
+      "disposition": "RETURN_STAGE_A",
+      "reason": "Megapack 3 production began Aug 6; Sep 4 coverage is stale republication for the claimed production-start event."
+    },
+    {
+      "candidate_id": "STD26_0907_A_021",
+      "source_spec_id": "STD26_0907_A_021",
+      "story_id": "STD26_0907_A_021",
+      "source_story_ids": [
+        "US_2026-09-04_C07"
+      ],
+      "title": "PG&E·Rewiring America·Google, Bay Area SHARE VPP 출범 — 약 12MW/최대 2.1만 DER 목표",
+      "terminal_disposition": "EXCLUDE_CANONICAL_SAME_EVENT_DUPLICATE",
+      "disposition": "EXCLUDE_CANONICAL_SAME_EVENT_DUPLICATE",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_022",
+      "source_spec_id": "STD26_0907_A_022",
+      "story_id": "STD26_0907_A_022",
+      "source_story_ids": [
+        "US_2026-09-04_C01"
+      ],
+      "title": "미·캐나다·멕시코 서부, I-5 전기트럭 BC2BC 충전회랑 출범 — 초기 20개 EV 충전소",
+      "terminal_disposition": "RETURN_STAGE_A",
+      "disposition": "RETURN_STAGE_A",
+      "reason": "BC2BC official launch occurred Aug 26; Sep 4 coverage is republication without a new qualifying anchor."
+    },
+    {
+      "candidate_id": "STD26_0907_A_023",
+      "source_spec_id": "STD26_0907_A_023",
+      "story_id": "STD26_0907_A_023",
+      "source_story_ids": [
+        "JP_2026-09-07_C02"
+      ],
+      "title": "Tensor Energy, 저압계통 ESS aggregation 신청 5,000건·250MW·1GWh 돌파",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_024",
+      "source_spec_id": "STD26_0907_A_024",
+      "story_id": "STD26_0907_A_024",
+      "source_story_ids": [
+        "DISC_JP_BATTERY_STABLE_SUPPLY_CONSULT_20260904"
+      ],
+      "title": "Japan METI opens consultation on amendment to battery stable-supply policy under Economic Security Promotion Act",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_025",
+      "source_spec_id": "STD26_0907_A_025",
+      "story_id": "STD26_0907_A_025",
+      "source_story_ids": [
+        "DISC_JP_CRITICAL_MINERALS_STABLE_SUPPLY_CONSULT_20260904"
+      ],
+      "title": "Japan METI opens consultation on amendment to critical-minerals stable-supply policy",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_026",
+      "source_spec_id": "STD26_0907_A_026",
+      "story_id": "STD26_0907_A_026",
+      "source_story_ids": [
+        "DISC_BR_CRITICAL_MINERALS_BILL_SENATE_20260903"
+      ],
+      "title": "Brazil Senate passes critical/strategic minerals support legislation; presidential signature still pending",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    },
+    {
+      "candidate_id": "STD26_0907_A_027",
+      "source_spec_id": "STD26_0907_A_027",
+      "story_id": "STD26_0907_A_027",
+      "source_story_ids": [
+        "KR_2026-09-07_C151"
+      ],
+      "title": "중국, 신규 배터리·ESS 제조 프로젝트 승인 일시중단 보도 — 기존 승인·건설 프로젝트는 지속",
+      "terminal_disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "disposition": "STAGE_B_ELIGIBLE_AFTER_CURRENT_MAIN_DELTA",
+      "reason": "Current-main bounded delta revalidation completed."
+    }
+  ],
+  "regional_coverage_matrix": {
+    "korea": {
+      "status": "searched"
+    },
+    "north_america": {
+      "status": "searched"
+    },
+    "china": {
+      "status": "searched"
+    },
+    "japan": {
+      "status": "searched"
+    },
+    "europe": {
+      "status": "searched"
+    },
+    "material_global_markets": {
+      "status": "searched"
+    }
+  },
+  "topic_coverage_matrix": {
+    "cells_chemistries": {
+      "status": "searched"
+    },
+    "materials_components": {
+      "status": "searched"
+    },
+    "pouch_pouch_film_demand": {
+      "status": "searched"
+    },
+    "ess_bess": {
+      "status": "searched"
+    },
+    "ev_charging": {
+      "status": "searched"
+    },
+    "manufacturing_capacity_utilisation": {
+      "status": "searched"
+    },
+    "grid_ai_data_centre_power": {
+      "status": "searched"
+    },
+    "critical_minerals_refining": {
+      "status": "searched"
+    },
+    "recycling": {
+      "status": "searched"
+    },
+    "policy_trade_sanctions_subsidies_localisation": {
+      "status": "searched"
+    },
+    "competitors_customers": {
+      "status": "searched"
+    },
+    "prices_costs_margins": {
+      "status": "searched"
+    },
+    "financing": {
+      "status": "searched"
+    },
+    "safety_recall_commissioning_operation": {
+      "status": "searched"
+    }
+  },
+  "baseline_follow_up_candidates": [
+    {
+      "candidate_id": "STD26_0907_A_001",
+      "source_spec_id": "STD26_0907_A_001",
+      "story_id": "STD26_0907_A_001",
+      "source_story_ids": [
+        "KR_2026-09-07_C09",
+        "TF_0064"
+      ],
+      "title": "SNE Research, 1~7월 글로벌 EV 배터리 725.2GWh…전년比 20.4% 증가"
+    },
+    {
+      "candidate_id": "STD26_0907_A_006",
+      "source_spec_id": "STD26_0907_A_006",
+      "story_id": "STD26_0907_A_006",
+      "source_story_ids": [
+        "GL_2026-09-06_C03",
+        "KR_2026-09-07_C115"
+      ],
+      "title": "브라질 법원, Sigma Lithium Grota do Cirilo 환경허가·채굴활동 중단 명령"
+    },
+    {
+      "candidate_id": "STD26_0907_A_023",
+      "source_spec_id": "STD26_0907_A_023",
+      "story_id": "STD26_0907_A_023",
+      "source_story_ids": [
+        "JP_2026-09-07_C02"
+      ],
+      "title": "Tensor Energy, 저압계통 ESS 신청 5,000건·250MW·1GWh 돌파"
+    }
+  ],
+  "existing_card_update_candidates": [],
+  "correction_or_reversal_candidates": [],
+  "treasure_rescue_candidates": [],
+  "searched_but_no_material_event_ledger": [],
+  "source_universe_expansion_ledger": [
+    {
+      "candidate_id": "STD26_0907_A_001",
+      "source_spec_id": "STD26_0907_A_001",
+      "story_id": "STD26_0907_A_001",
+      "source_story_ids": [
+        "KR_2026-09-07_C09",
+        "TF_0064"
+      ],
+      "title": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_002",
+      "source_spec_id": "STD26_0907_A_002",
+      "story_id": "STD26_0907_A_002",
+      "source_story_ids": [
+        "KR_2026-09-07_C29",
+        "KR_2026-09-07_C31",
+        "KR_2026-09-07_C34",
+        "KR_2026-09-07_C39",
+        "KR_2026-09-07_C38",
+        "KR_2026-09-07_C37",
+        "KR_2026-09-07_C36",
+        "KR_2026-09-07_C35",
+        "KR_2026-09-07_C32",
+        "KR_2026-09-07_C30",
+        "KR_2026-09-07_C28",
+        "KR_2026-09-07_C33",
+        "KR_2026-09-07_C27",
+        "TF_0070"
+      ],
+      "title": "LG에너지솔루션·서울대, LMR 40Ah급 셀 가스 억제 연구 — 883회 후 초기 에너지 92.2% 유지",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_003",
+      "source_spec_id": "STD26_0907_A_003",
+      "story_id": "STD26_0907_A_003",
+      "source_story_ids": [
+        "KR_2026-09-07_C86",
+        "KR_2026-09-06_C48",
+        "KR_2026-09-06_C47",
+        "KR_2026-09-06_C35",
+        "KR_2026-09-06_C08",
+        "KR_2026-09-06_C05",
+        "KR_2026-09-06_C37",
+        "KR_2026-09-06_C07",
+        "KR_2026-09-06_C22",
+        "KR_2026-09-06_C46",
+        "KR_2026-09-06_C45",
+        "KR_2026-09-06_C06",
+        "KR_2026-09-06_C20",
+        "KR_2026-09-06_C18",
+        "KR_2026-09-06_C09",
+        "TF_0053"
+      ],
+      "title": "KDB미래전략연구소, 한국 희토류 공급망 대안으로 고려아연 제련·도시광산 역량 조명",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_004",
+      "source_spec_id": "STD26_0907_A_004",
+      "story_id": "STD26_0907_A_004",
+      "source_story_ids": [
+        "KR_2026-09-07_C56"
+      ],
+      "title": "세방전지, 현대차 HEV·LG에너지솔루션 ESS 배터리팩 장기수주 보도 — 합산 조단위",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_005",
+      "source_spec_id": "STD26_0907_A_005",
+      "story_id": "STD26_0907_A_005",
+      "source_story_ids": [
+        "KR_2026-09-07_C157"
+      ],
+      "title": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_006",
+      "source_spec_id": "STD26_0907_A_006",
+      "story_id": "STD26_0907_A_006",
+      "source_story_ids": [
+        "GL_2026-09-06_C03",
+        "KR_2026-09-07_C115"
+      ],
+      "title": "브라질 법원, Sigma Lithium Grota do Cirilo 광산 환경허가·채굴활동 중단 명령",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_007",
+      "source_spec_id": "STD26_0907_A_007",
+      "story_id": "STD26_0907_A_007",
+      "source_story_ids": [
+        "CN_2026-09-07_C13"
+      ],
+      "title": "Li Auto, Sunwoda Power에 26.5억위안 전략투자 — 증자 후 8.79% 지분",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_008",
+      "source_spec_id": "STD26_0907_A_008",
+      "story_id": "STD26_0907_A_008",
+      "source_story_ids": [
+        "CN_2026-09-06_C03"
+      ],
+      "title": "INPOW, 587Ah ESS 대형셀 양산 라인오프 — 6.5GWh 전용라인 가동 주장",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_009",
+      "source_spec_id": "STD26_0907_A_009",
+      "story_id": "STD26_0907_A_009",
+      "source_story_ids": [
+        "CN_2026-09-05_C03",
+        "CN_2026-09-04_C06"
+      ],
+      "title": "Xiaomi, CALB·Sunwoda와 배터리 전략협력 발표 — ‘Dragonscale’ 배터리 체계 공개",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_010",
+      "source_spec_id": "STD26_0907_A_010",
+      "story_id": "STD26_0907_A_010",
+      "source_story_ids": [
+        "EU_2026-09-04_C06"
+      ],
+      "title": "Luminus·I4B, 벨기에 Navagne 150MW/600MWh BESS 준공·가동",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_011",
+      "source_spec_id": "STD26_0907_A_011",
+      "story_id": "STD26_0907_A_011",
+      "source_story_ids": [
+        "EU_2026-09-04_C07"
+      ],
+      "title": "ENGIE, 글로벌 저장 포트폴리오 운영·건설 10.7GW — 7~8월 유럽 BESS +1.1GW/3.3GWh",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_012",
+      "source_spec_id": "STD26_0907_A_012",
+      "story_id": "STD26_0907_A_012",
+      "source_story_ids": [
+        "EU_2026-09-04_C08"
+      ],
+      "title": "Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_013",
+      "source_spec_id": "STD26_0907_A_013",
+      "story_id": "STD26_0907_A_013",
+      "source_story_ids": [
+        "EU_2026-09-04_C01"
+      ],
+      "title": "AES Andes, 칠레 Cristales 340MW/1,360MWh BESS 시험 개시",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_014",
+      "source_spec_id": "STD26_0907_A_014",
+      "story_id": "STD26_0907_A_014",
+      "source_story_ids": [
+        "EU_2026-09-04_C04"
+      ],
+      "title": "크로아티아, 가정용 배터리 첫 보조금 공모 — 히트펌프·태양광·BESS에 €38m",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_015",
+      "source_spec_id": "STD26_0907_A_015",
+      "story_id": "STD26_0907_A_015",
+      "source_story_ids": [
+        "GL_2026-09-04_C15",
+        "EU_2026-09-04_C18"
+      ],
+      "title": "인도 CEA, 2027년 7월부터 신규 태양광·풍력에 배터리 저장 의무화 제안",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_016",
+      "source_spec_id": "STD26_0907_A_016",
+      "story_id": "STD26_0907_A_016",
+      "source_story_ids": [
+        "GL_2026-09-04_C12"
+      ],
+      "title": "Equinor 계열 East Point Energy, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_017",
+      "source_spec_id": "STD26_0907_A_017",
+      "story_id": "STD26_0907_A_017",
+      "source_story_ids": [
+        "GL_2026-09-04_C08"
+      ],
+      "title": "CNESA: 중국 H1 신규 에너지저장 배치 22GW/59GWh로 첫 감소, 해외수주 +83%",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_018",
+      "source_spec_id": "STD26_0907_A_018",
+      "story_id": "STD26_0907_A_018",
+      "source_story_ids": [
+        "GL_2026-09-04_C07"
+      ],
+      "title": "중국 희토류 공급사 일부, 제재 리스크 우려로 미국향 출하 거부",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_019",
+      "source_spec_id": "STD26_0907_A_019",
+      "story_id": "STD26_0907_A_019",
+      "source_story_ids": [
+        "GL_2026-09-04_C09"
+      ],
+      "title": "중국 배터리업체 협상으로 인도네시아 MHP 코발트 payable 약 90%→67~70% 하락",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_020",
+      "source_spec_id": "STD26_0907_A_020",
+      "story_id": "STD26_0907_A_020",
+      "source_story_ids": [
+        "GL_2026-09-04_C25"
+      ],
+      "title": "Tesla Megapack 3, 텍사스 Brookshire 생산 개시 보도",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_021",
+      "source_spec_id": "STD26_0907_A_021",
+      "story_id": "STD26_0907_A_021",
+      "source_story_ids": [
+        "US_2026-09-04_C07"
+      ],
+      "title": "PG&E·Rewiring America·Google, Bay Area SHARE VPP 출범 — 약 12MW/최대 2.1만 DER 목표",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_022",
+      "source_spec_id": "STD26_0907_A_022",
+      "story_id": "STD26_0907_A_022",
+      "source_story_ids": [
+        "US_2026-09-04_C01"
+      ],
+      "title": "미·캐나다·멕시코 서부, I-5 전기트럭 BC2BC 충전회랑 출범 — 초기 20개 EV 충전소",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_023",
+      "source_spec_id": "STD26_0907_A_023",
+      "story_id": "STD26_0907_A_023",
+      "source_story_ids": [
+        "JP_2026-09-07_C02"
+      ],
+      "title": "Tensor Energy, 저압계통 ESS aggregation 신청 5,000건·250MW·1GWh 돌파",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_024",
+      "source_spec_id": "STD26_0907_A_024",
+      "story_id": "STD26_0907_A_024",
+      "source_story_ids": [
+        "DISC_JP_BATTERY_STABLE_SUPPLY_CONSULT_20260904"
+      ],
+      "title": "Japan METI opens consultation on amendment to battery stable-supply policy under Economic Security Promotion Act",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_025",
+      "source_spec_id": "STD26_0907_A_025",
+      "story_id": "STD26_0907_A_025",
+      "source_story_ids": [
+        "DISC_JP_CRITICAL_MINERALS_STABLE_SUPPLY_CONSULT_20260904"
+      ],
+      "title": "Japan METI opens consultation on amendment to critical-minerals stable-supply policy",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_026",
+      "source_spec_id": "STD26_0907_A_026",
+      "story_id": "STD26_0907_A_026",
+      "source_story_ids": [
+        "DISC_BR_CRITICAL_MINERALS_BILL_SENATE_20260903"
+      ],
+      "title": "Brazil Senate passes critical/strategic minerals support legislation; presidential signature still pending",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    },
+    {
+      "candidate_id": "STD26_0907_A_027",
+      "source_spec_id": "STD26_0907_A_027",
+      "story_id": "STD26_0907_A_027",
+      "source_story_ids": [
+        "KR_2026-09-07_C151"
+      ],
+      "title": "중국, 신규 배터리·ESS 제조 프로젝트 승인 일시중단 보도 — 기존 승인·건설 프로젝트는 지속",
+      "source": "Sep 7 exact Stage A R7 strict universe; current-main bounded delta revalidation",
+      "discovery_type": "carried_current_run_strict_candidate"
+    }
+  ]
+}

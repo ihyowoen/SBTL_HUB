@@ -1,0 +1,102 @@
+name: TEMP Sep 7 promote rebound production
+
+on:
+  push:
+    branches:
+      - chatgpt/production-20260907-r7-21-baseline-rebind-work
+    paths:
+      - tmp/sep7-promote-rebound-trigger.txt
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Verify rebound production tree and force-update PR head
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          NEW=b425151b348ed294ef1c4d5a6546cbe97f588137
+          BLOB=920646b6b335f211bcd224962f8ac0cc42cd3a4f
+          FULL=59a008e9de72531d37afbfec1985ee038439bae3fb7c8e68cebdfc69a2641f9c
+          LEAN=bd39ee4ce75aa6251d212844b2492e9dcabe2ca9d8d24d7fa4c28f9687496708
+          RUN=runs/2026-09-08/sep7-r7-current-main-production-r1
+          RUN_PATH="$RUN/card-run.json"
+          TARGET=chatgpt/production-20260907-r7-21-merge-ready
+
+          git config user.name ihyowoen
+          git config user.email hyowoen@hotmail.com
+          git fetch origin main "$TARGET" --force
+          test "$(git rev-parse origin/main)" = "$NEW"
+          test "$(git rev-parse "$NEW:data/cards.full.json")" = "$BLOB"
+          test "$(sha256sum data/cards.full.json | awk '{print $1}')" = "$FULL"
+          test "$(sha256sum public/data/cards.json | awk '{print $1}')" = "$LEAN"
+
+          node - "$RUN_PATH" "$NEW" "$BLOB" <<'NODE'
+          const fs=require('fs');
+          const [runPath,main,blob]=process.argv.slice(2);
+          const r=JSON.parse(fs.readFileSync(runPath,'utf8'));
+          if(r.base_main_commit_sha!==main) throw new Error(`base main mismatch ${r.base_main_commit_sha}`);
+          if(r.base_full_blob_sha!==blob) throw new Error(`base blob mismatch ${r.base_full_blob_sha}`);
+          if(r.expected_before!==1578 || r.expected_after!==1599) throw new Error('count contract mismatch');
+          if((r.operations?.insert||[]).length!==21) throw new Error('insert count mismatch');
+          if((r.operations?.update||[]).length!==0) throw new Error('update count mismatch');
+          if((r.operations?.related_add||[]).length!==3) throw new Error('related_add count mismatch');
+          if((r.operations?.delete||[]).length!==0) throw new Error('delete count mismatch');
+          console.log('PASS run invariants 1578->1599 / insert21 update0 delete0 related_add3');
+          NODE
+
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN_PATH"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN_PATH" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits_dispatch.mjs --run "$RUN_PATH" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/apply_card_run.mjs --run "$RUN_PATH" --base-main-sha "$NEW" --verify
+          node scripts/lean_cards.mjs --check
+          PYTHONPATH=. python3 validation_scripts/run_active_workflow_tests.py
+          git diff --check
+
+          TMP="$(mktemp -d)"
+          trap 'rm -rf "$TMP"' EXIT
+          mkdir -p "$TMP/data" "$TMP/public/data" "$TMP/run"
+          cp data/cards.full.json "$TMP/data/cards.full.json"
+          cp public/data/cards.json "$TMP/public/data/cards.json"
+          cp -a "$RUN/." "$TMP/run/"
+
+          git checkout --detach "$NEW"
+          mkdir -p data public/data "$RUN"
+          cp "$TMP/data/cards.full.json" data/cards.full.json
+          cp "$TMP/public/data/cards.json" public/data/cards.json
+          cp -a "$TMP/run/." "$RUN/"
+
+          git add data/cards.full.json public/data/cards.json "$RUN"
+          python3 - <<'PY'
+          import subprocess,sys
+          allowed_exact={'data/cards.full.json','public/data/cards.json'}
+          prefix='runs/2026-09-08/sep7-r7-current-main-production-r1/'
+          names=subprocess.check_output(['git','diff','--cached','--name-only'],text=True).splitlines()
+          bad=[p for p in names if p not in allowed_exact and not p.startswith(prefix)]
+          if bad:
+              print('FAIL unexpected production commit paths:',*bad,sep='\n',file=sys.stderr); sys.exit(1)
+          if not names:
+              print('FAIL empty production commit',file=sys.stderr); sys.exit(1)
+          print(f'PASS production-only staged paths={len(names)}')
+          PY
+          git diff --cached --check
+          git commit -m "Publish governed Sep 7 production run (21 cards)"
+          NEW_HEAD="$(git rev-parse HEAD)"
+          git push --force origin "HEAD:$TARGET"
+          echo "PROMOTED_HEAD=$NEW_HEAD"
+          echo 'PASS promoted rebound production-only tree to PR head'

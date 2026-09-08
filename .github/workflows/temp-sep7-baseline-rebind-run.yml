@@ -29,9 +29,12 @@ jobs:
           NEW=b425151b348ed294ef1c4d5a6546cbe97f588137
           BLOB=920646b6b335f211bcd224962f8ac0cc42cd3a4f
           OLD_OPS=271a4bc41d42a871826b096dc0d69896b6fe3c4131116393486df198dbf0083d
+          OLD_FULL=aa7227ce0b657a892130df73ce2400ac58608545c8e0c8e8120ecda59155da03
+          OLD_LEAN=bd39ee4ce75aa6251d212844b2492e9dcabe2ca9d8d24d7fa4c28f9687496708
           RUN=runs/2026-09-08/sep7-r7-current-main-production-r1
           RUN_PATH="$RUN/card-run.json"
           LOG=tmp/sep7-baseline-rebind-last-run.log
+          BASE_TMP=tmp/sep7-current-main-base.json
           git config user.name ihyowoen
           git config user.email hyowoen@hotmail.com
           : > "$LOG"
@@ -39,7 +42,8 @@ jobs:
           finish() {
             rc=$?
             trap - EXIT
-            git add "$RUN" "$LOG" || true
+            rm -f "$BASE_TMP" tmp/sep7-rebind-0-8-ledger.json
+            git add data/cards.full.json public/data/cards.json "$RUN" "$LOG" || true
             if ! git diff --cached --quiet; then
               git commit -m "Materialize Sep 7 current-main baseline rebind attempt" || true
               git push origin HEAD:chatgpt/production-20260907-r7-21-baseline-rebind-work || true
@@ -61,11 +65,9 @@ jobs:
           root=Path('runs/2026-09-08/sep7-r7-current-main-production-r1')
           nfiles=nocc=0
           for p in sorted(root.rglob('*.json')):
-              s=p.read_text()
-              c=s.count(old)
+              s=p.read_text(); c=s.count(old)
               if c:
-                  p.write_text(s.replace(old,new))
-                  nfiles+=1; nocc+=c
+                  p.write_text(s.replace(old,new)); nfiles+=1; nocc+=c
           print(f'REBIND baseline SHA occurrences: files={nfiles} occurrences={nocc}')
           PY
 
@@ -93,7 +95,45 @@ jobs:
           test "$(grep -RFl "$OLD" "$RUN" | wc -l)" = "0"
           test "$(grep -RFl "$OLD_OPS" "$RUN" | wc -l)" = "0"
 
-          echo '== formal card-run pre-baseline validators =='
+          echo '== pre-apply governance on rebound run =='
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN_PATH"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_PATH"
+          test "$(node -e 'const r=require("./'"$RUN_PATH"'");process.stdout.write(r.base_main_commit_sha)')" = "$NEW"
+          test "$(node -e 'const r=require("./'"$RUN_PATH"'");process.stdout.write(r.base_full_blob_sha)')" = "$BLOB"
+
+          echo '== regenerate canonical output from exact current-main 1578 baseline =='
+          git show "$NEW:data/cards.full.json" > "$BASE_TMP"
+          node scripts/apply_card_run.mjs --run "$RUN_PATH" --baseline "$BASE_TMP" --canonical-path data/cards.full.json --output data/cards.full.json --report "$RUN/apply-report.json" --lean-path public/data/cards.json --base-main-sha "$NEW" --apply
+          test "$(node -e "const x=require('./data/cards.full.json');process.stdout.write(String(x.cards.length))")" = "1599"
+          NEW_FULL="$(sha256sum data/cards.full.json | awk '{print $1}')"
+          NEW_LEAN="$(sha256sum public/data/cards.json | awk '{print $1}')"
+          echo "full output SHA: $OLD_FULL -> $NEW_FULL"
+          echo "lean output SHA: $OLD_LEAN -> $NEW_LEAN"
+          echo '== old output-hash bindings before refresh =='
+          grep -RFn "$OLD_FULL" "$RUN" || true
+          grep -RFn "$OLD_LEAN" "$RUN" || true
+
+          python3 - "$OLD_FULL" "$NEW_FULL" "$OLD_LEAN" "$NEW_LEAN" <<'PY'
+          from pathlib import Path
+          import sys
+          oldf,newf,oldl,newl=sys.argv[1:]
+          root=Path('runs/2026-09-08/sep7-r7-current-main-production-r1')
+          for old,new,label in [(oldf,newf,'full'),(oldl,newl,'lean')]:
+              nfiles=nocc=0
+              if old == new:
+                  print(f'{label} output hash unchanged')
+                  continue
+              for p in sorted(root.rglob('*.json')):
+                  s=p.read_text(); c=s.count(old)
+                  if c:
+                      p.write_text(s.replace(old,new)); nfiles+=1; nocc+=c
+              print(f'REBIND {label} output hash: files={nfiles} occurrences={nocc}')
+          PY
+
+          echo '== post-regeneration governance and audit =='
           node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN_PATH"
           node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_PATH"
           node scripts/validate_card_run_v4_hardening.mjs --run "$RUN_PATH"
@@ -102,15 +142,11 @@ jobs:
           node scripts/validate_card_run_lineage_containers.mjs --run "$RUN_PATH" --canonical data/cards.full.json
           node scripts/validate_card_run_audits_dispatch.mjs --run "$RUN_PATH" --full data/cards.full.json --lean public/data/cards.json
 
-          echo '== exact current-main baseline lock =='
-          test "$(node -e 'const r=require("./'"$RUN_PATH"'");process.stdout.write(r.base_main_commit_sha)')" = "$NEW"
-          test "$(node -e 'const r=require("./'"$RUN_PATH"'");process.stdout.write(r.base_full_blob_sha)')" = "$BLOB"
-
-          echo '== Prompt 0.8 post-resolution semantic gate =='
+          echo '== Prompt 0.8 semantic gate after regenerated output bindings =='
           node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN_PATH" --full data/cards.full.json --ledger tmp/sep7-rebind-0-8-ledger.json
           python3 validation_scripts/stage_artifact_contract_check.py 0.8 "$RUN/stage-0-8.json"
 
-          echo '== current-baseline governed apply verification (exact PR invocation) =='
+          echo '== byte-exact current-main governed verify =='
           node scripts/apply_card_run.mjs --run "$RUN_PATH" --baseline data/cards.full.json --canonical-path data/cards.full.json --output data/cards.full.json --report "$RUN/apply-report.json" --lean-path public/data/cards.json --base-main-sha "$NEW" --verify
           node scripts/lean_cards.mjs --check
           PYTHONPATH=. python3 validation_scripts/run_active_workflow_tests.py

@@ -1,7 +1,7 @@
 From https://github.com/ihyowoen/SBTL_HUB
  * branch              main       -> FETCH_HEAD
 == frozen baseline aa7400ae67b221d1ddd5e198293762caec389303; live main b425151b348ed294ef1c4d5a6546cbe97f588137 has identical canonical blob 920646b6b335f211bcd224962f8ac0cc42cd3a4f ==
-== execute governed v9 chain with frozen-base v15 apply repair ==
+== execute governed v9 chain with frozen-base v16 apply repair ==
 == lock current main ==
 From https://github.com/ihyowoen/SBTL_HUB
  * branch              main       -> FETCH_HEAD
@@ -3611,7 +3611,7 @@ test_shared_js_loader_is_lazy_and_fail_closed_at_call_site (_sbtl_workflow_test_
 test_v4_production_binding_still_requires_insert_source_spec_id (_sbtl_workflow_test_134_test_workflow_v4_coverage_axes_contract.WorkflowV4CoverageAxesContractTest.test_v4_production_binding_still_requires_insert_source_spec_id) ... ok
 
 ----------------------------------------------------------------------
-Ran 709 tests in 3.426s
+Ran 709 tests in 4.554s
 
 OK
 WORKFLOW_TEST_CLASSIFICATION_V4
@@ -3632,25 +3632,4 @@ public 크기 6.41MB → 6.48MB
 PASS: card-run-2026-09-08-sep7-r7-current-main-production-r1 applied — 1578 → 1599
 REPORT: /home/runner/work/SBTL_HUB/SBTL_HUB/runs/2026-09-08/sep7-r7-current-main-production-r1/apply-report.json
 == generate audit and post-apply checks ==
-{
-  "status": "PASS",
-  "run_path": "runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json",
-  "validated_audit_count": 1,
-  "audits": [
-    {
-      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/card-run-audit.json",
-      "markers": [
-        {
-          "field": "status",
-          "raw": "PASS",
-          "normalized": "PASS"
-        }
-      ],
-      "reviewed_operations_sha256": "271a4bc41d42a871826b096dc0d69896b6fe3c4131116393486df198dbf0083d",
-      "full_output_sha256": "aa7227ce0b657a892130df73ce2400ac58608545c8e0c8e8120ecda59155da03",
-      "lean_output_sha256": "bd39ee4ce75aa6251d212844b2492e9dcabe2ca9d8d24d7fa4c28f9687496708"
-    }
-  ]
-}
-PASS: 1 independent run audits are bound to this run and submitted outputs
-FAIL [BLOCKED_PROMPT_0_8_ARTIFACT]: expected exactly one stage=0.8 artifact, found 0
+FAIL [BLOCKED_RUN_AUDIT_INVALID]: audit_refs[1].schema: prompt_0_8_merge_prep_v4_operation_bound_r1 != card_run_audit_v1

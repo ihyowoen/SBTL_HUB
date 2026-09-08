@@ -38,10 +38,10 @@ jobs:
           print('RESULT: PASS_SEP5_PROMOTION_BASELINE_AND_UNIVERSE')
           PY
 
-      - name: Materialize authorized Prompt 0.1P Stage A R3
+      - name: Materialize authorized Prompt 0.1P Stage A R4
         run: |
           set -euo pipefail
-          python validation_temp/20260905-promotion-r1/materialize_promotion_stage_a_r3.py
+          python validation_temp/20260905-promotion-r1/materialize_promotion_stage_a_r4.py
 
       - name: Validate promoted Stage A through active contracts
         run: |
@@ -83,6 +83,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: sep5-prompt-0-1p-stage-a-r3
+          name: sep5-prompt-0-1p-stage-a-r4
           path: validation_temp/20260905-promotion-r1/out/**
           if-no-files-found: error

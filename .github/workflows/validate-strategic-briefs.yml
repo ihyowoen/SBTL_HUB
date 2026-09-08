@@ -1,0 +1,52 @@
+name: validate-strategic-briefs
+
+on:
+  pull_request:
+    paths:
+      - "public/data/strategic_briefs.json"
+      - "lib/brief/strategicPublication.js"
+      - "schemas/strategic-brief.v1.schema.json"
+      - "scripts/validate_strategic_briefs.mjs"
+      - "__tests__/strategicBriefPublication.test.js"
+      - "product/STRATEGIC_BRIEF_EDITORIAL_CONTRACT.md"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/validate-strategic-briefs.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "public/data/strategic_briefs.json"
+      - "lib/brief/strategicPublication.js"
+      - "schemas/strategic-brief.v1.schema.json"
+      - "scripts/validate_strategic_briefs.mjs"
+      - "__tests__/strategicBriefPublication.test.js"
+      - "product/STRATEGIC_BRIEF_EDITORIAL_CONTRACT.md"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/validate-strategic-briefs.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate official Strategic Brief library
+        run: npm run validate:strategic-briefs
+
+      - name: Run Strategic Brief publication boundary tests
+        run: npx vitest run __tests__/strategicBriefPublication.test.js

@@ -15,6 +15,10 @@
 
 import { callLLM } from "../lib/chat/llm.js";
 
+export function isOfficialPublicationRequest(payload) {
+  return payload?.publication_class === "official_editorial" || payload?.publication_mode === "editorial_curated";
+}
+
 const MAX_CARDS = 40;
 // 6 = 지역별 구성이 6리전 전부를 축으로 보낼 수 있게(R13 — topK=4는 매달 두 지역을
 // 떨궜다: 2026-06엔 한국(30장)이 통째로 빠짐). 축 시장(전체)은 클라가 topK 3~5로 보냄.
@@ -223,6 +227,9 @@ export default async function handler(req, res) {
   if (typeof payload === "string") {
     try { payload = JSON.parse(payload); } catch { payload = null; }
   }
+  if (isOfficialPublicationRequest(payload)) {
+    return res.status(409).json({ ok: false, error: "official-publication-not-supported", publication_class: "exploratory_auto" });
+  }
   const scopeLabel = clip(payload?.scopeLabel, 120) || "선택 범위";
 
   // ---- 입력 구성: 축 모드 vs flat 모드 ----
@@ -314,7 +321,7 @@ export default async function handler(req, res) {
 
   if (!attempt.parsed?.narrative) {
     // JSON 파싱 실패 시 원문 텍스트라도 반환 (클라이언트가 fallback 렌더)
-    return res.status(200).json({ ok: true, narrative: clip(attempt.raw, 2000), watch: [], degraded: true, provider: attempt.provider });
+    return res.status(200).json({ ok: true, publication_class: "exploratory_auto", narrative: clip(attempt.raw, 2000), watch: [], degraded: true, provider: attempt.provider });
   }
 
   // 축 모드의 문단 구분(\n\n)은 살려야 한다 — clip이 개행을 공백으로 뭉개므로 문단별 clip.
@@ -325,6 +332,7 @@ export default async function handler(req, res) {
     .slice(0, 4800);
   return res.status(200).json({
     ok: true,
+    publication_class: "exploratory_auto",
     narrative,
     watch: Array.isArray(attempt.parsed.watch) ? attempt.parsed.watch.slice(0, 4).map((w) => clip(w, 240)) : [],
     retried: retried || undefined,

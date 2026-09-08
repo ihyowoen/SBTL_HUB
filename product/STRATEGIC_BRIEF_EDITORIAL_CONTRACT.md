@@ -40,7 +40,7 @@ They MUST NOT:
 
 The official monthly Strategic Brief MUST be separately produced and published as an approved static artifact.
 
-It is expected to include a human-led / editor-led deep-dive process such as:
+It is expected to include an editor-led deep-dive process such as:
 
 1. lock the source card baseline;
 2. review the full monthly card universe and material late additions;
@@ -50,12 +50,12 @@ It is expected to include a human-led / editor-led deep-dive process such as:
 6. form higher-order structural-signal candidates;
 7. test counter-evidence, regional divergence and alternative explanations;
 8. validate important numbers, dates, policy stages and causal wording;
-9. write the executive diagnosis and structural signals;
-10. perform editorial and factual red-team QC;
+9. write the executive diagnosis, structural signals and conclusion;
+10. perform evidence QC, red-team QC, editorial-coherence QC and language/terminology QC;
 11. explicitly approve the issue;
 12. commit the approved artifact for publication.
 
-The automated axis/LLM brief engine MAY be used as an analyst assistant during steps 2–6. It is not the publisher.
+Automated tools, including the axis engine, LLM synthesis and research assistants, MAY be used throughout preparation. They are analyst/editorial aids, not the publication authority. The decisive requirement is editorial curation and approval, not the absence of automation during production.
 
 ## 3. Canonical official publication channel
 
@@ -69,23 +69,27 @@ The file MUST validate against:
 
 The automated brief library (`public/data/briefs.json`), browser/localStorage brief archive, and `/api/brief` outputs are NOT authoritative sources for official Strategic Brief publication.
 
-## 4. Required provenance
+## 4. Required provenance and quality state
 
-Every official issue MUST carry enough provenance to reconstruct its editorial baseline:
+Every official issue MUST carry enough provenance to reconstruct its editorial baseline and publication state:
 
 - edition (`VOL.xx`);
 - month;
 - revision;
 - publication date;
 - `publication_class=official_editorial`;
-- `publication_mode=manual_editorial`;
+- `publication_mode=editorial_curated`;
 - source `main` commit SHA;
 - source `data/cards.full.json` blob SHA;
 - source month card count;
 - source card IDs used by the issue;
-- explicit approval metadata;
 - structural signals and their supporting card IDs;
-- reference list.
+- public reference list;
+- explicit approval metadata;
+- `qc.evidence_status=PASS`;
+- `qc.red_team_status=PASS`;
+- `qc.editorial_coherence_status=PASS`;
+- `qc.language_terminology_status=PASS`.
 
 The baseline SHA records are publication provenance, not a claim that the card database can never change after publication.
 
@@ -123,7 +127,9 @@ Future API/UI work SHOULD carry an explicit `publication_class` or equivalent me
 
 A blanket ban on `period=monthly` was rejected because `monthly` currently encodes both a time window and a product identity. Blocking the period would remove useful 30-day/calendar-month research, region/theme comparisons and custom analytical compositions.
 
-The durable boundary is therefore **authority, not duration**:
+A purely manual-production requirement was also rejected. Quality comes from governed editorial selection, verification, red-team challenge and approval; forbidding automated research or drafting assistance would remove useful tooling without creating a stronger control.
+
+The durable boundary is therefore **authority, not duration or tool usage**:
 
 `automated monthly-window analysis != official monthly Strategic Brief`
 

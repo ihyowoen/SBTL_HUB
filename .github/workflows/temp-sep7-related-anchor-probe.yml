@@ -1,0 +1,33 @@
+name: TEMP Sep 7 Related anchor specificity probe
+
+on:
+  push:
+    branches:
+      - chatgpt/production-20260907-r7-21-baseline-rebind-work
+    paths:
+      - tmp/sep7-related-anchor-probe-trigger.txt
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe exact Related subject-specificity policy
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          PYTHONPATH=. python3 - <<'PY'
+          from validation_scripts.related_lifecycle_check import item_specific_lineage_assertion
+          cases = {
+            'sne_current': 'SNE Research extended the measured period from H1 to Jan–Jul 2026, reporting 725.2GWh and 20.4% growth.',
+            'sne_v1': 'SNE Research Jan–Jul 2026 EV-battery dataset extended the H1 608.5GWh predecessor measurement to 725.2GWh and added July as a new measured month.',
+            'sne_v2': "SNE Research's Jan–Jul 2026 EV-battery dataset extended the H1 608.5GWh predecessor measurement to 725.2GWh and added July as a new measured month.",
+            'jp_current': 'Tensor Energy reported 5,000 low-voltage ESS applications totaling 250MW/1GWh on Sep 7.',
+            'jp_v1': "Tensor Energy's Sep 7 low-voltage ESS application pipeline reached 5,000 cases totaling 250MW/1GWh, versus the predecessor's 1,000-unit 2028 aggregation plan.",
+            'jp_v2': 'Tensor Energy low-voltage ESS Program 5000 reached 5,000 applications totaling 250MW/1GWh on Sep 7, versus the predecessor 1,000-unit 2028 aggregation plan.',
+          }
+          for k,v in cases.items():
+              print(f'{k}={item_specific_lineage_assertion(v)} :: {v}')
+          assert item_specific_lineage_assertion(cases['sne_v2'])
+          assert item_specific_lineage_assertion(cases['jp_v1'])
+          PY

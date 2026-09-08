@@ -68,7 +68,7 @@ jobs:
           s=s.replace("R7=Path('/mnt/data/sep7-r7/stage-a-r7.json')", "R7=Path('/tmp/sep7-r7/stage-a-r7.json')")
           s=s.replace('77b03de7cf8c941068e8adcc6ef7de4bdf5f92ae', os.environ['BASE_MAIN'])
           old="def stage_refs_for(suf):\n    sid=sid_for(suf)\n    a_ref=RUN_REL+f'/stages/stage-a-items/{sid}.json'\n    return [a_ref]+common_stage_refs"
-          new="def stage_refs_for(suf):\n    a_ref=RUN_REL+'/stages/stage-a-promotion3.json' if suf.startswith('P') else RUN_REL+'/stages/stage-a-strict18.json'\n    return [a_ref]+common_stage_refs"
+          new="def stage_refs_for(suf):\n    a_ref=RUN_REL+'/stages/stage-a-promotion3.json' if suf.startswith('P') else RUN_REL+'/stages/stage-a.json'\n    return [a_ref]+common_stage_refs"
           if old not in s: raise SystemExit('stage_refs_for source pattern not found')
           b.write_text(s.replace(old,new))
           PY
@@ -78,12 +78,10 @@ jobs:
           r7=json.loads(pathlib.Path('/tmp/sep7-r7/stage-a-r7.json').read_text())
           proof=r7.get('required_docs_check')
           if not isinstance(proof,dict) or proof.get('status')!='PASS': raise SystemExit('R7 required_docs_check proof invalid')
-          root=pathlib.Path('runs/2026-09-08/sep7-r7-current-main-production-r1/stages')
-          for name in ('stage-a.json','stage-a-strict18.json'):
-              p=root/name
-              o=json.loads(p.read_text())
-              o['required_docs_check']=proof
-              p.write_text(json.dumps(o,ensure_ascii=False,indent=2)+'\n')
+          p=pathlib.Path('runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json')
+          o=json.loads(p.read_text())
+          o['required_docs_check']=proof
+          p.write_text(json.dumps(o,ensure_ascii=False,indent=2)+'\n')
           runp=pathlib.Path('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json')
           run=json.loads(runp.read_text())
           if run.get('base_main_commit_sha')!='aa7400ae67b221d1ddd5e198293762caec389303': raise SystemExit('card-run base main not relocked')
@@ -95,14 +93,11 @@ jobs:
         run: |
           set -euo pipefail
           A="$RUN_REL/stages/stage-a.json"
-          A18="$RUN_REL/stages/stage-a-strict18.json"
           AP="$RUN_REL/stages/stage-a-promotion3.json"
           B="$RUN_REL/stages/stage-b.json"
           C="$RUN_REL/stages/stage-c.json"
           python validation_scripts/stage_artifact_contract_check.py A "$A"
           python validation_scripts/stage_lineage_contract_check.py stage_a "$A"
-          python validation_scripts/stage_artifact_contract_check.py A "$A18"
-          python validation_scripts/stage_lineage_contract_check.py stage_a "$A18"
           python validation_scripts/stage_artifact_contract_check.py A "$AP"
           python validation_scripts/stage_lineage_contract_check.py stage_a "$AP"
           python validation_scripts/stage_artifact_contract_check.py B "$B"

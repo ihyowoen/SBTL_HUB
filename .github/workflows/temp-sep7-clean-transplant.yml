@@ -76,7 +76,7 @@ jobs:
           for(const [i,op] of (run.operations.related_add||[]).entries()) for(const [j,p] of (op.patches||[]).entries()) if(!allowed.has(p.path)) bad.push([i,j,p.path]);
           if(bad.length) throw new Error('invalid Related paths '+JSON.stringify(bad));
           const report=JSON.parse(fs.readFileSync('runs/2026-09-08/sep7-r7-current-main-production-r1/apply-report.json','utf8'));
-          if(report.status!=='VERIFIED'||report.actual_before!==1578||report.actual_after!==1599) throw new Error('apply report not VERIFIED 1578->1599');
+          if(report.status!=='VERIFIED'||report.expected_before!==1578||report.expected_after!==1599||report.insert_count!==21||report.update_count!==0||report.related_add_count!==3||report.delete_count!==0||report.github_merge_ready!==true) throw new Error('apply report not VERIFIED/MERGE_READY 1578->1599');
           NODE
 
           echo '== repo-native validation on clean current-main branch =='
@@ -91,7 +91,7 @@ jobs:
 
           echo '== remove transport-only bootstrap files =='
           rm -f .github/workflows/temp-sep7-clean-transplant.yml tmp/sep7-clean-transplant-trigger.txt "$LOG"
-          git add -A data/cards.full.json public/data/cards.json "$RUN_REL" .github/workflows/temp-sep7-clean-transplant.yml tmp/sep7-clean-transplant-trigger.txt
+          git add -A data/cards.full.json public/data/cards.json "$RUN_REL" .github/workflows/temp-sep7-clean-transplant.yml tmp/sep7-clean-transplant-trigger.txt "$LOG"
           git diff --cached --check
           git commit -m "Publish governed Sep 7 production run (21 cards)"
 

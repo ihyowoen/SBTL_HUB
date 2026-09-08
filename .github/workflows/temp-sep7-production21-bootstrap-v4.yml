@@ -1,0 +1,26 @@
+name: TEMP Sep 7 production21 bootstrap v4
+
+on:
+  push:
+    branches:
+      - chatgpt/production-20260907-r7-21
+    paths:
+      - tmp/sep7-production21-bootstrap/trigger-v4.txt
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  governed-production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate, apply, audit, and commit governed Sep 7 production run
+        shell: bash
+        run: bash tmp/sep7-production21-bootstrap/run_v4.sh

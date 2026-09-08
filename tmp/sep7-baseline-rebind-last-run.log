@@ -1,0 +1,2838 @@
+From https://github.com/ihyowoen/SBTL_HUB
+ * branch              main       -> FETCH_HEAD
+PASS canonical baseline bytes unchanged across main movement
+REBIND baseline SHA occurrences: files=15 occurrences=206
+reviewed operations SHA: 271a4bc41d42a871826b096dc0d69896b6fe3c4131116393486df198dbf0083d -> 4cae248411762e50e0398f29815cc7f811892fba0fd6d96791e5220972223dc2
+REBIND operation hash occurrences: files=3 occurrences=27
+== formal card-run pre-baseline validators ==
+{
+  "status": "PASS",
+  "schema": "schemas/card-run.v1.schema.json",
+  "instance": "runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json"
+}
+{
+  "status": "PASS",
+  "run_path": "runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json",
+  "output_updated": "2026-09-08T11:30:00+09:00",
+  "validated_stage_artifact_count": 168,
+  "allowed_statuses": [
+    "ACCEPTED_FACT_SAFE",
+    "ACCEPTED_FACT_SAFE_AFTER_CONTROLLED_RESCUE",
+    "ADDABLE_MERGE_SAFE",
+    "CONTENT_ENRICHED",
+    "CONTENT_ENRICHED_AND_LANGUAGE_TERMINOLOGY_POLISHED",
+    "EVIDENCE_COMPLETE",
+    "EVIDENCE_COMPLETE_AND_SOURCE_CLAIM_COVERED",
+    "GITHUB_MERGE_READY",
+    "LANGUAGE_TERMINOLOGY_POLISHED",
+    "PASS",
+    "PASSED",
+    "PASS_WITH_DECLARED_RESIDUAL_RISK",
+    "PASS_WITH_NOTES",
+    "PASS_WITH_WARNINGS",
+    "PUBLISH_READY",
+    "SOURCE_CLAIM_COVERED",
+    "VERIFIED"
+  ],
+  "completeness_binding": {
+    "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-7c.json",
+    "run_id": "card-run-2026-09-08-sep7-r7-current-main-production-r1",
+    "reviewed_operations_sha256": "4cae248411762e50e0398f29815cc7f811892fba0fd6d96791e5220972223dc2"
+  },
+  "artifacts": [
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a-promotion3.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a-promotion3.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a-promotion3.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    }
+  ]
+}
+PASS: 168 stage artifacts pass; Stage 0.7C is bound to card-run-2026-09-08-sep7-r7-current-main-production-r1; output_updated is RFC3339
+{
+  "status": "PASS",
+  "stage_artifacts_validated": 168,
+  "operations_with_complete_stage_chain": 24,
+  "authoritative_binding": "PASS"
+}
+PASS: formal V4 hardening; stage artifacts validated=168; operations=24; baseline/Related binding=PASS
+{
+  "status": "PASS",
+  "run_path": "runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json",
+  "validated_artifact_count": 171,
+  "artifacts": [
+    {
+      "kind": "run_level_governance",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-0d.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "run_level_governance",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-0c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "run_level_governance",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-7c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+          "normalized": "PASS_WITH_DECLARED_RESIDUAL_RISK"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a-promotion3.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a-promotion3.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a-promotion3.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-b.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-c.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-4.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-5.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-6.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    },
+    {
+      "kind": "operation_stage",
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-0-7.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ]
+    }
+  ]
+}
+PASS: 171 artifacts have passing status markers and explicit current-run stage/baseline bindings
+{
+  "status": "PASS",
+  "run_path": "runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json",
+  "related_add_count": 3,
+  "lifecycle_contract": [
+    "/related/-",
+    "/related_lineage/related_ids/-",
+    "/related_lineage/relation_type",
+    "/related_lineage/reason",
+    "/related_lineage/event_stage_relationship",
+    "/related_lineage/direction"
+  ],
+  "unsupported_paths": [
+    "/related_ids/-"
+  ]
+}
+PASS: 3 related_add operations carry complete published and lineage patches
+{
+  "status": "PASS",
+  "run_path": "runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json",
+  "canonical_path": "data/cards.full.json",
+  "related_add_count": 3,
+  "checked_sides": 3
+}
+PASS: 3 relation sides have initialized array containers
+{
+  "status": "PASS",
+  "run_path": "runs/2026-09-08/sep7-r7-current-main-production-r1/.audit-only-2531-1788851917448.json",
+  "validated_audit_count": 1,
+  "audits": [
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/card-run-audit.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ],
+      "reviewed_operations_sha256": "4cae248411762e50e0398f29815cc7f811892fba0fd6d96791e5220972223dc2",
+      "full_output_sha256": "aa7227ce0b657a892130df73ce2400ac58608545c8e0c8e8120ecda59155da03",
+      "lean_output_sha256": "bd39ee4ce75aa6251d212844b2492e9dcabe2ca9d8d24d7fa4c28f9687496708"
+    }
+  ]
+}
+PASS: 1 independent run audits are bound to this run and submitted outputs
+== exact current-main baseline lock ==
+== Prompt 0.8 post-resolution semantic gate ==
+runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-8.json{
+  "status": "PASS",
+  "stage": "0.8",
+  "item_count": 21,
+  "missing_count": 0,
+  "findings": []
+}
+== current-baseline governed apply verification ==
+FAIL [VERIFY_NOT_APPLIED]: canonical full이 byte-exact expected output이 아님: READY_TO_APPLY

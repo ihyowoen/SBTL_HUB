@@ -1,9 +1,9 @@
 From https://github.com/ihyowoen/SBTL_HUB
  * branch              main       -> FETCH_HEAD
 PASS canonical baseline bytes unchanged across main movement
-REBIND baseline SHA occurrences: files=15 occurrences=206
+REBIND baseline SHA occurrences: files=0 occurrences=0
 reviewed operations SHA: 271a4bc41d42a871826b096dc0d69896b6fe3c4131116393486df198dbf0083d -> 4cae248411762e50e0398f29815cc7f811892fba0fd6d96791e5220972223dc2
-REBIND operation hash occurrences: files=3 occurrences=27
+REBIND operation hash occurrences: files=0 occurrences=0
 == formal card-run pre-baseline validators ==
 {
   "status": "PASS",
@@ -2806,7 +2806,7 @@ PASS: 3 related_add operations carry complete published and lineage patches
 PASS: 3 relation sides have initialized array containers
 {
   "status": "PASS",
-  "run_path": "runs/2026-09-08/sep7-r7-current-main-production-r1/.audit-only-2531-1788851917448.json",
+  "run_path": "runs/2026-09-08/sep7-r7-current-main-production-r1/.audit-only-2591-1788852082856.json",
   "validated_audit_count": 1,
   "audits": [
     {
@@ -2834,5 +2834,5 @@ runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-8.json{
   "missing_count": 0,
   "findings": []
 }
-== current-baseline governed apply verification ==
-FAIL [VERIFY_NOT_APPLIED]: canonical full이 byte-exact expected output이 아님: READY_TO_APPLY
+== current-baseline governed apply verification (exact PR invocation) ==
+FAIL [BLOCKED_UNDECLARED_CARD_DIFF]: working full이 declared main baseline도 expected output도 아님

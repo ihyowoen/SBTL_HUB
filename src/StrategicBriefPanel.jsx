@@ -1,8 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-
-const OFFICIAL_CLASS = "official_editorial";
-const OFFICIAL_MODE = "editorial_curated";
-const PUBLIC_STATUSES = new Set(["published", "revised"]);
+import { isOfficialStrategicBrief, validateStrategicBriefLibrary } from "../lib/brief/strategicPublication.js";
 
 function theme(dark) {
   return dark
@@ -14,16 +11,6 @@ function issueRank(a, b) {
   return String(b?.month || "").localeCompare(String(a?.month || ""))
     || Number(b?.revision || 0) - Number(a?.revision || 0)
     || String(b?.published_at || "").localeCompare(String(a?.published_at || ""));
-}
-
-function isOfficial(item) {
-  if (!item || item.publication_class !== OFFICIAL_CLASS || item.publication_mode !== OFFICIAL_MODE || !PUBLIC_STATUSES.has(item.status)) return false;
-  if (item.approval?.status !== "APPROVED") return false;
-  const q = item.qc || {};
-  return q.evidence_status === "PASS"
-    && q.red_team_status === "PASS"
-    && q.editorial_coherence_status === "PASS"
-    && q.language_terminology_status === "PASS";
 }
 
 function monthCount(cards, month) {
@@ -55,7 +42,11 @@ export default function StrategicBriefPanel({ dark = true, cards = [], seed = nu
     let alive = true;
     fetch("/data/strategic_briefs.json", { cache: "no-store" })
       .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
-      .then((j) => { if (alive) { setLibrary(j && Array.isArray(j.items) ? j : { items: [] }); setLoadError(false); } })
+      .then((j) => {
+        const errors = validateStrategicBriefLibrary(j);
+        if (errors.length) throw new Error(`invalid official library: ${errors[0]}`);
+        if (alive) { setLibrary(j); setLoadError(false); }
+      })
       .catch(() => { if (alive) { setLibrary({ items: [] }); setLoadError(true); } });
     return () => { alive = false; };
   }, []);
@@ -67,7 +58,7 @@ export default function StrategicBriefPanel({ dark = true, cards = [], seed = nu
     return () => clearTimeout(timer);
   }, [seed?.nonce]);
 
-  const items = useMemo(() => (library?.items || []).filter(isOfficial).slice().sort(issueRank), [library]);
+  const items = useMemo(() => (library?.items || []).filter(isOfficialStrategicBrief).slice().sort(issueRank), [library]);
 
   useEffect(() => {
     if (!items.length) { setSelectedId(null); return; }

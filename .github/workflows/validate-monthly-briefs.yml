@@ -14,6 +14,7 @@ on:
       - "__tests__/monthlyBriefPublication.test.js"
       - "__tests__/monthlyBriefProductBoundary.test.js"
       - "__tests__/monthlyBriefSelection.test.js"
+      - "__tests__/monthlyBriefActiveDomain.test.js"
       - "product/MONTHLY_BRIEF_EDITORIAL_CONTRACT.md"
       - "package.json"
       - "package-lock.json"
@@ -33,6 +34,7 @@ on:
       - "__tests__/monthlyBriefPublication.test.js"
       - "__tests__/monthlyBriefProductBoundary.test.js"
       - "__tests__/monthlyBriefSelection.test.js"
+      - "__tests__/monthlyBriefActiveDomain.test.js"
       - "product/MONTHLY_BRIEF_EDITORIAL_CONTRACT.md"
       - "package.json"
       - "package-lock.json"
@@ -61,4 +63,4 @@ jobs:
         run: npm run validate:monthly-briefs
 
       - name: Run Monthly Brief publication boundary tests
-        run: npx vitest run __tests__/monthlyBriefPublication.test.js __tests__/monthlyBriefProductBoundary.test.js __tests__/monthlyBriefSelection.test.js
+        run: npx vitest run __tests__/monthlyBriefPublication.test.js __tests__/monthlyBriefProductBoundary.test.js __tests__/monthlyBriefSelection.test.js __tests__/monthlyBriefActiveDomain.test.js

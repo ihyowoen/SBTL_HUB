@@ -6,6 +6,8 @@ OLD_MAIN=aa7400ae67b221d1ddd5e198293762caec389303
 NEW_PROJ_SHA=2fdaa3e892351d04a814d7853d49a629e65074b0e193095a88999dbf4b7f1079
 
 echo '== sync branch workspace to current main =='
+git config user.name ihyowoen
+git config user.email hyowoen@hotmail.com
 git fetch origin main
 test "$(git rev-parse origin/main)" = "$NEW_MAIN"
 test "$(git rev-parse "$NEW_MAIN:data/cards.full.json")" = "$BLOB"
@@ -19,16 +21,11 @@ OLD_MAIN='aa7400ae67b221d1ddd5e198293762caec389303'
 NEW_PROJ_SHA='2fdaa3e892351d04a814d7853d49a629e65074b0e193095a88999dbf4b7f1079'
 OLD_PROJ_SHA='8925b0a5736bb40de036f2e668cbfa66a2cd934b285ea34d7499d889a0523f6e'
 
-# Current-main relock for the canonical run builder/apply wrapper.
 p=Path('tmp/sep7-production21-bootstrap/run_v4.sh')
 s=p.read_text()
 if OLD_MAIN not in s:
     raise SystemExit('run_v4 old-main binding missing')
 s=s.replace(OLD_MAIN,NEW_MAIN)
-
-# Builder currently emits extra fresh-anchor metadata patches that formal hardening
-# tolerates but apply_card_run correctly rejects. Remove all non-lifecycle Related
-# patch paths, then recompute and propagate the exact reviewed-operations hash.
 marker="echo '== validate pre-apply governed chain =='"
 normalize=r'''echo '== normalize Related apply paths and operation freeze =='
 python - <<'PYNORM'
@@ -66,7 +63,6 @@ if not removed:
     raise SystemExit('expected at least one non-lifecycle Related patch to normalize')
 if oldhash==newhash:
     raise SystemExit('operation hash did not change after Related normalization')
-
 def replace_hash(x):
     if isinstance(x,dict): return {k:replace_hash(v) for k,v in x.items()}
     if isinstance(x,list): return [replace_hash(v) for v in x]
@@ -94,8 +90,6 @@ if marker not in s:
 s=s.replace(marker,normalize+marker,1)
 p.write_text(s)
 
-# The strict18 projection is deterministic from exact R7; rebind it to the new
-# main commit while preserving the unchanged canonical blob.
 p=Path('tmp/sep7-production21-bootstrap/materialize_original18.py')
 s=p.read_text()
 if "MAIN='aa7400ae67b221d1ddd5e198293762caec389303'" not in s:
@@ -103,9 +97,6 @@ if "MAIN='aa7400ae67b221d1ddd5e198293762caec389303'" not in s:
 s=s.replace("MAIN='aa7400ae67b221d1ddd5e198293762caec389303'",f"MAIN='{NEW_MAIN}'")
 p.write_text(s)
 
-# v8 upgrades the base materializer and P3 baseline before v9 applies the complete
-# Related candidate template. Point those upgrades at the current main and the
-# independently reproduced strict18 projection SHA.
 p=Path('tmp/sep7-production21-bootstrap/run_v8.sh')
 s=p.read_text()
 if OLD_PROJ_SHA not in s:

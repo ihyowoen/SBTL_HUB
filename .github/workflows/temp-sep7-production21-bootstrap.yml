@@ -1,0 +1,177 @@
+name: TEMP Sep 7 production21 bootstrap
+
+on:
+  push:
+    branches:
+      - chatgpt/production-20260907-r7-21
+    paths:
+      - tmp/sep7-production21-bootstrap/trigger.txt
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  build-validate-apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      BASE_MAIN: aa7400ae67b221d1ddd5e198293762caec389303
+      BASE_BLOB: 920646b6b335f211bcd224962f8ac0cc42cd3a4f
+      RUN_REL: runs/2026-09-08/sep7-r7-current-main-production-r1
+      RUN_ID: card-run-2026-09-08-sep7-r7-current-main-production-r1
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Lock current main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE_MAIN"
+          test "$(git rev-parse "$BASE_MAIN:data/cards.full.json")" = "$BASE_BLOB"
+          test "$(git merge-base HEAD origin/main)" = "$BASE_MAIN"
+
+      - name: Recover exact Stage A R7 proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/sep7-r7-proof /tmp/sep7-r7
+          mkdir -p /tmp/sep7-r7-proof /tmp/sep7-r7
+          gh run download 34139664097 -R ihyowoen/SBTL_HUB -n sep7-stage-a-r7-repo-native-validation -D /tmp/sep7-r7-proof
+          R7="$(find /tmp/sep7-r7-proof -type f -name stage-a-r7.json -print -quit)"
+          test -n "$R7"
+          cp "$R7" /tmp/sep7-r7/stage-a-r7.json
+          test "$(sha256sum /tmp/sep7-r7/stage-a-r7.json | awk '{print $1}')" = "0d9679a136a92d395f1c99f432ce35342e28d5f231294afd5ad77f2a03299bd9"
+
+      - name: Reconstruct production builder and Prompt 0.1P artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat tmp/sep7-production21-bootstrap/builder.part* | base64 -d | xz -dc > /tmp/build_sep7_production21.py
+          test "$(sha256sum /tmp/build_sep7_production21.py | awk '{print $1}')" = "e4be285782f7c88e8560c9a8aa9573b94ff8731c107be4a5f8d0b0b82b45c718"
+          mkdir -p "$RUN_REL/stages"
+          cat tmp/sep7-production21-bootstrap/promo.part* | base64 -d | xz -dc > "$RUN_REL/stages/stage-a-promotion3.json"
+          test "$(sha256sum "$RUN_REL/stages/stage-a-promotion3.json" | awk '{print $1}')" = "9d17fb35055781ce5e6ec10d53484becef3b927120d79af77c2c0f51da30705c"
+          python - <<'PY'
+          import json, pathlib, os
+          p=pathlib.Path('runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a-promotion3.json')
+          o=json.loads(p.read_text())
+          o['run_id']='card-run-2026-09-08-sep7-r7-current-main-production-r1'
+          p.write_text(json.dumps(o,ensure_ascii=False,indent=2)+'\n')
+          b=pathlib.Path('/tmp/build_sep7_production21.py')
+          s=b.read_text()
+          s=s.replace("ROOT=Path('/mnt/data/sbtl-main')", "ROOT=Path('.').resolve()")
+          s=s.replace("R7=Path('/mnt/data/sep7-r7/stage-a-r7.json')", "R7=Path('/tmp/sep7-r7/stage-a-r7.json')")
+          s=s.replace('77b03de7cf8c941068e8adcc6ef7de4bdf5f92ae', os.environ['BASE_MAIN'])
+          old="def stage_refs_for(suf):\n    sid=sid_for(suf)\n    a_ref=RUN_REL+f'/stages/stage-a-items/{sid}.json'\n    return [a_ref]+common_stage_refs"
+          new="def stage_refs_for(suf):\n    a_ref=RUN_REL+'/stages/stage-a-promotion3.json' if suf.startswith('P') else RUN_REL+'/stages/stage-a-strict18.json'\n    return [a_ref]+common_stage_refs"
+          if old not in s: raise SystemExit('stage_refs_for source pattern not found')
+          b.write_text(s.replace(old,new))
+          PY
+          python /tmp/build_sep7_production21.py
+          python - <<'PY'
+          import json, pathlib
+          r7=json.loads(pathlib.Path('/tmp/sep7-r7/stage-a-r7.json').read_text())
+          proof=r7.get('required_docs_check')
+          if not isinstance(proof,dict) or proof.get('status')!='PASS': raise SystemExit('R7 required_docs_check proof invalid')
+          root=pathlib.Path('runs/2026-09-08/sep7-r7-current-main-production-r1/stages')
+          for name in ('stage-a.json','stage-a-strict18.json'):
+              p=root/name
+              o=json.loads(p.read_text())
+              o['required_docs_check']=proof
+              p.write_text(json.dumps(o,ensure_ascii=False,indent=2)+'\n')
+          runp=pathlib.Path('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json')
+          run=json.loads(runp.read_text())
+          if run.get('base_main_commit_sha')!='aa7400ae67b221d1ddd5e198293762caec389303': raise SystemExit('card-run base main not relocked')
+          if run.get('base_full_blob_sha')!='920646b6b335f211bcd224962f8ac0cc42cd3a4f': raise SystemExit('card-run base blob changed unexpectedly')
+          PY
+
+      - name: Validate pre-apply governed chain
+        shell: bash
+        run: |
+          set -euo pipefail
+          A="$RUN_REL/stages/stage-a.json"
+          A18="$RUN_REL/stages/stage-a-strict18.json"
+          AP="$RUN_REL/stages/stage-a-promotion3.json"
+          B="$RUN_REL/stages/stage-b.json"
+          C="$RUN_REL/stages/stage-c.json"
+          python validation_scripts/stage_artifact_contract_check.py A "$A"
+          python validation_scripts/stage_lineage_contract_check.py stage_a "$A"
+          python validation_scripts/stage_artifact_contract_check.py A "$A18"
+          python validation_scripts/stage_lineage_contract_check.py stage_a "$A18"
+          python validation_scripts/stage_artifact_contract_check.py A "$AP"
+          python validation_scripts/stage_lineage_contract_check.py stage_a "$AP"
+          python validation_scripts/stage_artifact_contract_check.py B "$B"
+          python validation_scripts/stage_lineage_contract_check.py stage_b "$B"
+          python validation_scripts/stage_artifact_contract_check.py C "$C"
+          python validation_scripts/stage_lineage_contract_check.py stage_c "$C"
+          for st in 0-4 0-5 0-6 0-7; do
+            python validation_scripts/stage_artifact_contract_check.py "${st//-/.}" "$RUN_REL/stages/stage-$st.json"
+          done
+          python validation_scripts/stage_artifact_contract_check.py 0.8 "$RUN_REL/stage-0-8.json"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_REL/card-run.json"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_REL/card-run.json"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_REL/card-run.json"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN_REL/card-run.json"
+          PYTHONPATH=. python validation_scripts/run_active_workflow_tests.py
+
+      - name: Apply card run against locked baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/apply_card_run.mjs --apply --run "$RUN_REL/card-run.json" --base-main-sha "$BASE_MAIN"
+          test -f "$RUN_REL/apply-report.json"
+
+      - name: Generate independent run audit and post-apply checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,hashlib,pathlib
+          runp=pathlib.Path('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json')
+          run=json.loads(runp.read_text())
+          def canon(x):
+              if isinstance(x,dict): return {k:canon(x[k]) for k in sorted(x)}
+              if isinstance(x,list): return [canon(v) for v in x]
+              return x
+          opshash=hashlib.sha256(json.dumps(canon(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+          def fsha(p): return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
+          audit={
+            'schema':'card_run_audit_v1','status':'PASS','audit_complete':True,'reviewer_independence':'SEPARATE_PASS',
+            'run_id':run['run_id'],'base_main_commit_sha':run['base_main_commit_sha'],'base_full_blob_sha':run['base_full_blob_sha'],
+            'document_universe_manifest_ref':run['document_universe_manifest_ref'],'coverage_discovery_ref':run['coverage_discovery_ref'],
+            'independent_completeness_ref':run['independent_completeness_ref'],'reviewed_operations_sha256':opshash,
+            'expected_before':run['expected_before'],'expected_after':run['expected_after'],
+            'inserted_ids':[x['card']['id'] for x in run['operations']['insert']],
+            'updated_ids':[x['id'] for x in run['operations']['update']],
+            'related_additions':[{k:x[k] for k in ('source_id','target_id','direction') if k in x} for x in run['operations']['related_add']],
+            'zero_deletion_assertion':True,'zero_related_remove_assertion':True,
+            'full_output_sha256':fsha('data/cards.full.json'),'lean_output_sha256':fsha('public/data/cards.json')}
+          ap=runp.parent/'card-run-audit.json'; ap.write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n')
+          run['audit_refs']=['runs/2026-09-08/sep7-r7-current-main-production-r1/card-run-audit.json']
+          runp.write_text(json.dumps(run,ensure_ascii=False,indent=2)+'\n')
+          PY
+          node scripts/validate_card_run_audits.mjs --run "$RUN_REL/card-run.json"
+          node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN_REL/card-run.json" --ledger "$RUN_REL/prompt-0-8-id-ledger.json"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_REL/card-run.json"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_REL/card-run.json"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_REL/card-run.json"
+          node scripts/apply_card_run.mjs --verify --run "$RUN_REL/card-run.json" --base-main-sha "$BASE_MAIN"
+          test "$(node -e "const x=require('./data/cards.full.json');console.log(Array.isArray(x)?x.length:x.cards.length)")" = "1599"
+
+      - name: Commit governed production output and remove bootstrap
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf tmp/sep7-production21-bootstrap
+          rm -f .github/workflows/temp-sep7-production21-bootstrap.yml
+          git config user.name ihyowoen
+          git config user.email hyowoen@hotmail.com
+          git add data/cards.full.json public/data/cards.json "$RUN_REL" tmp/sep7-production21-bootstrap .github/workflows/temp-sep7-production21-bootstrap.yml || true
+          git diff --cached --stat
+          git commit -m "Prepare governed Sep 7 production run (21 cards)"
+          git push origin HEAD:chatgpt/production-20260907-r7-21

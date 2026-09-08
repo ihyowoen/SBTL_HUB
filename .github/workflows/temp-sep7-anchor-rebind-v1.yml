@@ -1,0 +1,182 @@
+name: TEMP Sep 7 anchor semantic rebind v1
+
+on:
+  push:
+    branches:
+      - chatgpt/production-20260907-r7-21-baseline-rebind-work
+    paths:
+      - tmp/sep7-anchor-rebind-trigger.txt
+
+permissions:
+  contents: write
+
+jobs:
+  rebind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Rebind two item-specific follow-up anchors and revalidate full governed run
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          MAIN=b425151b348ed294ef1c4d5a6546cbe97f588137
+          BLOB=920646b6b335f211bcd224962f8ac0cc42cd3a4f
+          RUN=runs/2026-09-08/sep7-r7-current-main-production-r1
+          RUN_PATH="$RUN/card-run.json"
+          BASE_TMP=tmp/sep7-anchor-rebind-base.json
+          LEDGER=tmp/sep7-anchor-rebind-0-8-ledger.json
+          LOG=tmp/sep7-anchor-rebind-last-run.log
+          OLD_SNE='SNE Research extended the measured period from H1 to Jan–Jul 2026, reporting 725.2GWh and 20.4% growth.'
+          NEW_SNE='SNE Research Jan–Jul 2026 EV-battery dataset extended the H1 608.5GWh predecessor measurement to 725.2GWh and added July as a new measured month.'
+          OLD_JP='Tensor Energy reported 5,000 low-voltage ESS applications totaling 250MW/1GWh on Sep 7.'
+          NEW_JP='Tensor Energy 5,000-case low-voltage grid-connected ESS application milestone totals 250MW/1GWh on Sep 7.'
+
+          git config user.name ihyowoen
+          git config user.email hyowoen@hotmail.com
+          : > "$LOG"
+          exec > >(tee -a "$LOG") 2>&1
+          finish() {
+            rc=$?
+            trap - EXIT
+            rm -f "$BASE_TMP" "$LEDGER"
+            git add data/cards.full.json public/data/cards.json "$RUN" "$LOG" || true
+            if ! git diff --cached --quiet; then
+              git commit -m "Materialize Sep 7 item-specific follow-up anchor rebind" || true
+              git push origin HEAD:chatgpt/production-20260907-r7-21-baseline-rebind-work || true
+            fi
+            exit "$rc"
+          }
+          trap finish EXIT
+
+          git fetch origin main --force
+          test "$(git rev-parse origin/main)" = "$MAIN"
+          test "$(git rev-parse "$MAIN:data/cards.full.json")" = "$BLOB"
+
+          OLD_OPS="$(node - <<'NODE'
+          const fs=require('fs'),crypto=require('crypto');
+          const r=JSON.parse(fs.readFileSync('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json','utf8'));
+          const stable=v=>Array.isArray(v)?v.map(stable):(v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v);
+          process.stdout.write(crypto.createHash('sha256').update(JSON.stringify(stable(r.operations))).digest('hex'));
+          NODE
+          )"
+          OLD_FULL="$(sha256sum data/cards.full.json | awk '{print $1}')"
+          OLD_LEAN="$(sha256sum public/data/cards.json | awk '{print $1}')"
+          echo "OLD_OPS=$OLD_OPS"
+          echo "OLD_FULL=$OLD_FULL"
+          echo "OLD_LEAN=$OLD_LEAN"
+
+          python3 - "$OLD_SNE" "$NEW_SNE" "$OLD_JP" "$NEW_JP" <<'PY'
+          from pathlib import Path
+          import sys
+          old_sne,new_sne,old_jp,new_jp=sys.argv[1:]
+          root=Path('runs/2026-09-08/sep7-r7-current-main-production-r1')
+          total=0
+          for old,new,label in [(old_sne,new_sne,'SNE'),(old_jp,new_jp,'JP')]:
+              files=occ=0
+              for p in sorted(root.rglob('*.json')):
+                  s=p.read_text(); c=s.count(old)
+                  if c:
+                      p.write_text(s.replace(old,new)); files+=1; occ+=c
+              print(f'ANCHOR_REBIND {label}: files={files} occurrences={occ}')
+              if occ == 0:
+                  raise SystemExit(f'no {label} anchor occurrences found')
+              total += occ
+          print(f'ANCHOR_REBIND total_occurrences={total}')
+          PY
+
+          NEW_OPS="$(node - <<'NODE'
+          const fs=require('fs'),crypto=require('crypto');
+          const r=JSON.parse(fs.readFileSync('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json','utf8'));
+          const stable=v=>Array.isArray(v)?v.map(stable):(v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v);
+          process.stdout.write(crypto.createHash('sha256').update(JSON.stringify(stable(r.operations))).digest('hex'));
+          NODE
+          )"
+          test "$NEW_OPS" != "$OLD_OPS"
+          echo "OPS_REBIND $OLD_OPS -> $NEW_OPS"
+          python3 - "$OLD_OPS" "$NEW_OPS" <<'PY'
+          from pathlib import Path
+          import sys
+          old,new=sys.argv[1:]
+          root=Path('runs/2026-09-08/sep7-r7-current-main-production-r1')
+          files=occ=0
+          for p in sorted(root.rglob('*.json')):
+              s=p.read_text(); c=s.count(old)
+              if c:
+                  p.write_text(s.replace(old,new)); files+=1; occ+=c
+          print(f'OPS_HASH_REBIND files={files} occurrences={occ}')
+          PY
+
+          CHECK_OPS="$(node - <<'NODE'
+          const fs=require('fs'),crypto=require('crypto');
+          const r=JSON.parse(fs.readFileSync('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json','utf8'));
+          const stable=v=>Array.isArray(v)?v.map(stable):(v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v);
+          process.stdout.write(crypto.createHash('sha256').update(JSON.stringify(stable(r.operations))).digest('hex'));
+          NODE
+          )"
+          test "$CHECK_OPS" = "$NEW_OPS"
+
+          echo '== pre-apply governance after anchor rebind =='
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN_PATH"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_PATH"
+
+          echo '== regenerate exact canonical from current-main 1578 baseline =='
+          git show "$MAIN:data/cards.full.json" > "$BASE_TMP"
+          node scripts/apply_card_run.mjs --run "$RUN_PATH" --baseline "$BASE_TMP" --canonical-path data/cards.full.json --output data/cards.full.json --report "$RUN/apply-report.json" --lean-path public/data/cards.json --base-main-sha "$MAIN" --apply
+          test "$(node -e "const x=require('./data/cards.full.json');process.stdout.write(String(x.cards.length))")" = "1599"
+          NEW_FULL="$(sha256sum data/cards.full.json | awk '{print $1}')"
+          NEW_LEAN="$(sha256sum public/data/cards.json | awk '{print $1}')"
+          echo "FULL_REBIND $OLD_FULL -> $NEW_FULL"
+          echo "LEAN_REBIND $OLD_LEAN -> $NEW_LEAN"
+
+          python3 - "$OLD_FULL" "$NEW_FULL" "$OLD_LEAN" "$NEW_LEAN" <<'PY'
+          from pathlib import Path
+          import sys
+          oldf,newf,oldl,newl=sys.argv[1:]
+          root=Path('runs/2026-09-08/sep7-r7-current-main-production-r1')
+          for old,new,label in [(oldf,newf,'full'),(oldl,newl,'lean')]:
+              if old == new:
+                  print(f'{label} hash unchanged'); continue
+              files=occ=0
+              for p in sorted(root.rglob('*.json')):
+                  s=p.read_text(); c=s.count(old)
+                  if c:
+                      p.write_text(s.replace(old,new)); files+=1; occ+=c
+              print(f'{label.upper()}_HASH_REBIND files={files} occurrences={occ}')
+          PY
+
+          echo '== semantic + full governed validation =='
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN_PATH"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN_PATH" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits_dispatch.mjs --run "$RUN_PATH" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN_PATH" --full data/cards.full.json --ledger "$LEDGER"
+          python3 validation_scripts/stage_artifact_contract_check.py 0.8 "$RUN/stage-0-8.json"
+          node scripts/apply_card_run.mjs --run "$RUN_PATH" --baseline data/cards.full.json --canonical-path data/cards.full.json --output data/cards.full.json --report "$RUN/apply-report.json" --lean-path public/data/cards.json --base-main-sha "$MAIN" --verify
+          node scripts/lean_cards.mjs --check
+          PYTHONPATH=. python3 validation_scripts/run_active_workflow_tests.py
+          git diff --check
+
+          FINAL_OPS="$(node - <<'NODE'
+          const fs=require('fs'),crypto=require('crypto');
+          const r=JSON.parse(fs.readFileSync('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json','utf8'));
+          const stable=v=>Array.isArray(v)?v.map(stable):(v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v);
+          process.stdout.write(crypto.createHash('sha256').update(JSON.stringify(stable(r.operations))).digest('hex'));
+          NODE
+          )"
+          test "$FINAL_OPS" = "$NEW_OPS"
+          echo "FINAL_OPS=$FINAL_OPS"
+          echo "FINAL_FULL=$(sha256sum data/cards.full.json | awk '{print $1}')"
+          echo "FINAL_LEAN=$(sha256sum public/data/cards.json | awk '{print $1}')"
+          echo 'PASS FULL SEP7 ITEM-SPECIFIC ANCHOR REBIND VALIDATION'

@@ -111,6 +111,14 @@ describe("official SBTL Monthly Brief publication boundary", () => {
     expect(isOfficialMonthlyBrief(item)).toBe(false);
   });
 
+  it("keeps runtime notes typing aligned with the JSON schema", () => {
+    const badQc = sample({ qc: { ...sample().qc, notes: { text: "bad" } } });
+    const badApproval = sample({ approval: { ...sample().approval, notes: ["bad"] } });
+    expect(validateMonthlyBriefItem(badQc).join("\n")).toContain("qc.notes");
+    expect(validateMonthlyBriefItem(badApproval).join("\n")).toContain("approval.notes");
+    expect(validateMonthlyBriefItem(sample({ qc: { ...sample().qc, notes: "ok" }, approval: { ...sample().approval, notes: "ok" } }))).toEqual([]);
+  });
+
   it("requires baseline provenance and real calendar dates", () => {
     const item = sample({
       published_at: "2026-02-31",

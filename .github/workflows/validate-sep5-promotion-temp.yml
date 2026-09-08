@@ -1,0 +1,88 @@
+name: Validate Sep5 Prompt 0.1P temp
+
+on:
+  push:
+    branches: [chatgpt/promotion-20260905-r1]
+    paths:
+      - validation_temp/20260905-promotion-r1/**
+      - .github/workflows/validate-sep5-promotion-temp.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-promotion-stage-a:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout promotion branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify exact post-merge baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=77b03de7cf8c941068e8adcc6ef7de4bdf5f92ae
+          BLOB=920646b6b335f211bcd224962f8ac0cc42cd3a4f
+          test "$(git rev-parse ${BASE}:data/cards.full.json)" = "$BLOB"
+          test "$(git hash-object data/cards.full.json)" = "$BLOB"
+          python - <<'PY'
+          import json
+          p=json.load(open('data/cards.full.json',encoding='utf-8'))
+          assert p['total']==1578 and len(p['cards'])==1578
+          u=json.load(open('validation_temp/20260905-promotion-r1/promotion-universe.json',encoding='utf-8'))
+          assert u['authorized_candidate_count']==83
+          assert len(u['review_queue_story_ids'])==78
+          assert len(u['curated_holds'])==5
+          print('RESULT: PASS_SEP5_PROMOTION_BASELINE_AND_UNIVERSE')
+          PY
+
+      - name: Materialize authorized Prompt 0.1P Stage A
+        run: |
+          set -euo pipefail
+          python validation_temp/20260905-promotion-r1/materialize_promotion_stage_a.py
+
+      - name: Validate promoted Stage A through active contracts
+        run: |
+          set -euo pipefail
+          A=validation_temp/20260905-promotion-r1/out/stage-a-promotion.json
+          python validation_scripts/stage_artifact_contract_check.py A "$A"
+          python validation_scripts/stage_lineage_contract_check.py stage_a "$A"
+
+      - name: Fail closed on promotion accounting
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('validation_temp/20260905-promotion-r1/out')
+          a=json.load(open(root/'stage-a-promotion.json',encoding='utf-8'))
+          l=json.load(open(root/'promotion-review-ledger.json',encoding='utf-8'))
+          assert a['status']=='PASS'
+          assert a['baseline_count']==1578
+          assert a['candidate_promotion_contract']['candidate_count']==83
+          assert a['candidate_promotion_contract']['promoted_count']==4
+          assert a['candidate_promotion_contract']['retained_count']==79
+          assert len(a['strict_passed_spec'])==4
+          assert len(a['decision_ledger'])==6
+          assert l['candidate_count']==83 and len(l['items'])==83
+          assert sum(x['disposition']=='PROMOTE_TO_STRICT' for x in l['items'])==4
+          assert sum(x['disposition']!='PROMOTE_TO_STRICT' for x in l['items'])==79
+          ids={x['spec_id'] for x in a['strict_passed_spec']}
+          assert ids=={'STD26_R8P_001','STD26_R8P_002','STD26_R8P_003','STD26_R8P_004'}
+          print('RESULT: PASS_PROMOTION83_TERMINAL_ACCOUNTING')
+          PY
+
+      - name: Active workflow regression suite
+        run: |
+          set -euo pipefail
+          python validation_scripts/run_active_workflow_tests.py
+
+      - name: Upload Prompt 0.1P Stage A package
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sep5-prompt-0-1p-stage-a-r1
+          path: validation_temp/20260905-promotion-r1/out/**
+          if-no-files-found: error

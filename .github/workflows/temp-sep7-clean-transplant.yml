@@ -23,6 +23,22 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          LOG=tmp/sep7-clean-transplant-last-run.log
+          finish() {
+            rc=$?
+            trap - EXIT
+            if [ "$rc" -ne 0 ]; then
+              git config user.name ihyowoen
+              git config user.email hyowoen@hotmail.com
+              git add "$LOG" || true
+              git commit -m "Capture clean Sep 7 transplant failure" || true
+              git push origin HEAD:chatgpt/production-20260907-r7-21-clean || true
+            fi
+            exit "$rc"
+          }
+          trap finish EXIT
+          exec > >(tee "$LOG") 2>&1
+
           SOURCE=6a6be4201cac7a3855ad431ba6868956826c6da0
           BASE_MAIN=b425151b348ed294ef1c4d5a6546cbe97f588137
           FROZEN_MAIN=aa7400ae67b221d1ddd5e198293762caec389303
@@ -31,9 +47,12 @@ jobs:
 
           git config user.name ihyowoen
           git config user.email hyowoen@hotmail.com
-          git fetch origin main chatgpt/production-20260907-r7-21
+          git fetch origin \
+            +refs/heads/main:refs/remotes/origin/main \
+            +refs/heads/chatgpt/production-20260907-r7-21:refs/remotes/origin/production-source
 
           test "$(git rev-parse origin/main)" = "$BASE_MAIN"
+          test "$(git rev-parse origin/production-source)" = "$SOURCE"
           test "$(git rev-parse "$BASE_MAIN:data/cards.full.json")" = "$BASE_BLOB"
           test "$(git rev-parse "$FROZEN_MAIN:data/cards.full.json")" = "$BASE_BLOB"
           git merge-base --is-ancestor "$BASE_MAIN" HEAD
@@ -71,7 +90,7 @@ jobs:
           git diff --check
 
           echo '== remove transport-only bootstrap files =='
-          rm -f .github/workflows/temp-sep7-clean-transplant.yml tmp/sep7-clean-transplant-trigger.txt
+          rm -f .github/workflows/temp-sep7-clean-transplant.yml tmp/sep7-clean-transplant-trigger.txt "$LOG"
           git add -A data/cards.full.json public/data/cards.json "$RUN_REL" .github/workflows/temp-sep7-clean-transplant.yml tmp/sep7-clean-transplant-trigger.txt
           git diff --cached --check
           git commit -m "Publish governed Sep 7 production run (21 cards)"
@@ -91,3 +110,4 @@ jobs:
           PY
 
           git push origin HEAD:chatgpt/production-20260907-r7-21-clean
+          trap - EXIT

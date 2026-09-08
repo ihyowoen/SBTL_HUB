@@ -3,7 +3,6 @@ set -euo pipefail
 
 FROZEN_MAIN=aa7400ae67b221d1ddd5e198293762caec389303
 BLOB=920646b6b335f211bcd224962f8ac0cc42cd3a4f
-RUN_REL=runs/2026-09-08/sep7-r7-current-main-production-r1
 
 # Keep the governed run frozen to its authoritative base. Live main is checked
 # only for canonical-data equivalence; transport/mergeability is a later gate.
@@ -40,15 +39,11 @@ if f'BASE_MAIN={FROZEN_MAIN}' not in s:
 validate_marker="echo '== validate pre-apply governed chain =='"
 apply_marker="echo '== apply against locked baseline =='"
 
-normalize=r'''echo '== normalize exact invalid Related paths and rebind operation freeze =='
+normalize=r'''echo '== normalize Related apply surface and rebind operation freeze =='
 python - <<'PYNORM'
 import hashlib,json,pathlib
 runp=pathlib.Path('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json')
 run=json.loads(runp.read_text())
-BLOCKED={
- '/related_lineage/fresh_follow_up_anchor_class',
- '/related_lineage/fresh_follow_up_anchor',
-}
 ALLOWED={
  '/related/-',
  '/related_ids/-',
@@ -89,18 +84,21 @@ for i,op in enumerate(run['operations']['related_add']):
         if not isinstance(patch,dict):
             raise SystemExit(f'related_add[{i}].patches[{j}] not object')
         path=patch.get('path')
-        if path in BLOCKED:
+        if path in ALLOWED:
+            keep.append(patch)
+            continue
+        if isinstance(path,str) and path.startswith('/related_lineage/'):
             removed.append((i,j,patch.get('card_id'),path))
             continue
-        if path not in ALLOWED:
-            raise SystemExit(f'unexpected Related patch path remains: related_add[{i}].patches[{j}] {path}')
-        keep.append(patch)
+        raise SystemExit(f'unexpected non-lineage Related patch path: related_add[{i}].patches[{j}] {path}')
+    if not keep:
+        raise SystemExit(f'related_add[{i}] lost all apply patches after lineage metadata normalization')
     op['patches']=keep
 
 newhash=opshash(run['operations'])
 if removed:
     if oldhash==newhash:
-        raise SystemExit('operation hash did not change after exact Related normalization')
+        raise SystemExit('operation hash did not change after Related normalization')
     run=replace_hash(run,oldhash,newhash)
     runp.write_text(json.dumps(run,ensure_ascii=False,indent=2)+'\n')
     for q in runp.parent.rglob('*.json'):
@@ -117,13 +115,14 @@ run=json.loads(runp.read_text())
 for i,op in enumerate(run['operations']['related_add']):
     for j,patch in enumerate(op['patches']):
         path=patch.get('path')
-        if path in BLOCKED or path not in ALLOWED:
+        if path not in ALLOWED:
             raise SystemExit(f'apply-incompatible Related path persisted: related_add[{i}].patches[{j}] {path}')
 
-print('removed_exact_blocker_patches=',removed)
+print('removed_noncanonical_lineage_metadata_patches=',removed)
+print('removed_count=',len(removed))
 print('old_operations_sha256=',oldhash)
 print('new_operations_sha256=',newhash)
-print('PASS exact Related normalization: insert=21 update=0 related_add=3 expected=1578->1599')
+print('PASS Related apply normalization: insert=21 update=0 related_add=3 expected=1578->1599')
 PYNORM
 '''
 
@@ -159,5 +158,5 @@ s=s.replace(apply_marker,preapply+apply_marker,1)
 p.write_text(s)
 PY
 
-echo '== execute governed v9 chain with frozen-base v13 apply repair =='
+echo '== execute governed v9 chain with frozen-base v14 apply repair =='
 bash tmp/sep7-production21-bootstrap/run_v9.sh

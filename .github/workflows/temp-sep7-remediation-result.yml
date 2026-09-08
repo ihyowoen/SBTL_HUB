@@ -1,0 +1,45 @@
+name: TEMP Sep 7 remediation result capture
+
+on:
+  push:
+    branches:
+      - chatgpt/sep7-anchor-remediation-result
+    paths:
+      - tmp/sep7-remediation-result-trigger.txt
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Execute validated remediation script and capture result commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('.github/workflows/temp-sep7-anchor-rebind-v1.yml')
+          lines=p.read_text().splitlines()
+          start=next(i for i,l in enumerate(lines) if l.strip()=='run: |')+1
+          block=[]
+          for l in lines[start:]:
+              if l.startswith('          '):
+                  block.append(l[10:])
+              elif not l.strip():
+                  block.append('')
+              else:
+                  break
+          s='\n'.join(block)+'\n'
+          s=s.replace('HEAD:chatgpt/production-20260907-r7-21-baseline-rebind-work','HEAD:chatgpt/sep7-anchor-remediation-result')
+          Path('/tmp/remediate.sh').write_text(s)
+          PY
+          bash /tmp/remediate.sh

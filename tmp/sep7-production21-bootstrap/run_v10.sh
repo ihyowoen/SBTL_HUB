@@ -36,6 +36,14 @@ s=s.replace(old,new,1)
 if f'BASE_MAIN={FROZEN_MAIN}' not in s:
     raise SystemExit('run_v4 frozen base binding changed unexpectedly')
 
+# Successful governed runs retain both the independent card-run audit and the
+# Prompt 0.8 merge-prep artifact. Never replace the latter after apply.
+old="run['audit_refs']=[str(ap)]"
+new="run['audit_refs']=list(dict.fromkeys([str(ap), *run.get('audit_refs',[])]))"
+if old not in s:
+    raise SystemExit('run_v4 post-apply audit_refs overwrite target missing')
+s=s.replace(old,new,1)
+
 validate_marker="echo '== validate pre-apply governed chain =='"
 apply_marker="echo '== apply against locked baseline =='"
 
@@ -109,9 +117,6 @@ for i,op in enumerate(run['operations']['related_add']):
         raise SystemExit(f'related_add[{i}] lost all apply patches after lineage metadata normalization')
     op['patches']=keep
 
-# apply_card_run permits metadata add or replace, but add must only target a
-# missing key. Builder lineage objects already carry placeholder metadata, so
-# normalize each scalar metadata op against the exact pre-Related candidate state.
 state=load_base_cards()
 for ins in run['operations']['insert']:
     card=ins['card']
@@ -134,8 +139,6 @@ for i,op in enumerate(run['operations']['related_add']):
                 patch['op']=desired
             rl[key]=json.loads(json.dumps(patch.get('value')))
         elif path in EDGE:
-            # Edge ops remain append-only. Detect true duplicate edges rather than
-            # silently weakening the declared Related operation.
             if patch.get('op')!='add':
                 raise SystemExit(f'related_add[{i}].patches[{j}] edge op must remain add: {path}')
             if path=='/related/-':
@@ -226,5 +229,5 @@ s=s.replace(apply_marker,preapply+apply_marker,1)
 p.write_text(s)
 PY
 
-echo '== execute governed v9 chain with frozen-base v15 apply repair =='
+echo '== execute governed v9 chain with frozen-base v16 apply repair =='
 bash tmp/sep7-production21-bootstrap/run_v9.sh

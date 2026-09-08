@@ -1,11 +1,11 @@
-name: TEMP Sep 7 production21 bootstrap v8
+name: TEMP Sep 7 production21 bootstrap v9
 
 on:
   push:
     branches:
       - chatgpt/production-20260907-r7-21
     paths:
-      - tmp/sep7-production21-bootstrap/trigger-v8.txt
+      - tmp/sep7-production21-bootstrap/trigger-v9.txt
 
 permissions:
   contents: write
@@ -23,4 +23,4 @@ jobs:
           fetch-depth: 0
       - name: Validate, apply, audit, and commit governed Sep 7 production run
         shell: bash
-        run: bash tmp/sep7-production21-bootstrap/run_v8.sh
+        run: bash tmp/sep7-production21-bootstrap/run_v9.sh

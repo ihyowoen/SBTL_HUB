@@ -162,6 +162,17 @@ export default function MonthlyBriefPanel({ dark = true, cards = [], seed = null
               <div>source cards {shown.source_card_ids?.length || 0} · refs {shown.refs?.length || 0}</div>
               <div>main {shortSha(shown.source_baseline?.main_commit_sha)} · full {shortSha(shown.source_baseline?.full_blob_sha)}</div>
               <div>QC evidence/red-team/coherence/language = PASS · approval {shown.approval?.approved_at}</div>
+              <div style={{ marginTop: 7, paddingTop: 7, borderTop: `1px dashed ${t.brd}`, display: "flex", flexDirection: "column", gap: 5 }}>
+                {(shown.refs || []).map((r) => (
+                  <div key={r.id} style={{ display: "flex", gap: 6, alignItems: "baseline", minWidth: 0 }}>
+                    <span style={{ flexShrink: 0, color: t.cyan }}>[{r.n}]</span>
+                    {r.url
+                      ? <a href={r.url} target="_blank" rel="noreferrer" style={{ color: t.tx, textDecorationColor: t.brd, wordBreak: "keep-all" }}>{r.title}</a>
+                      : <span style={{ color: t.tx, wordBreak: "keep-all" }}>{r.title}</span>}
+                    <span style={{ flexShrink: 0, color: t.sub }}>{r.date}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </details>
 

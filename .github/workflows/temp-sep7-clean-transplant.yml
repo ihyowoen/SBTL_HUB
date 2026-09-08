@@ -1,0 +1,93 @@
+name: TEMP Sep 7 clean production transplant
+
+on:
+  push:
+    branches:
+      - chatgpt/production-20260907-r7-21-clean
+    paths:
+      - tmp/sep7-clean-transplant-trigger.txt
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  transplant-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Transplant exact governed output onto current main and verify
+        shell: bash
+        run: |
+          set -euo pipefail
+          SOURCE=6a6be4201cac7a3855ad431ba6868956826c6da0
+          BASE_MAIN=b425151b348ed294ef1c4d5a6546cbe97f588137
+          FROZEN_MAIN=aa7400ae67b221d1ddd5e198293762caec389303
+          BASE_BLOB=920646b6b335f211bcd224962f8ac0cc42cd3a4f
+          RUN_REL=runs/2026-09-08/sep7-r7-current-main-production-r1
+
+          git config user.name ihyowoen
+          git config user.email hyowoen@hotmail.com
+          git fetch origin main chatgpt/production-20260907-r7-21
+
+          test "$(git rev-parse origin/main)" = "$BASE_MAIN"
+          test "$(git rev-parse "$BASE_MAIN:data/cards.full.json")" = "$BASE_BLOB"
+          test "$(git rev-parse "$FROZEN_MAIN:data/cards.full.json")" = "$BASE_BLOB"
+          git merge-base --is-ancestor "$BASE_MAIN" HEAD
+
+          echo '== transplant exact successful production tree =='
+          git checkout "$SOURCE" -- data/cards.full.json public/data/cards.json "$RUN_REL"
+
+          echo '== exact governed-output assertions =='
+          test "$(git rev-parse "$SOURCE:data/cards.full.json")" = "$(git hash-object data/cards.full.json)"
+          test "$(git rev-parse "$SOURCE:public/data/cards.json")" = "$(git hash-object public/data/cards.json)"
+          test "$(node -e "const x=require('./data/cards.full.json');console.log(Array.isArray(x)?x.length:x.cards.length)")" = "1599"
+          node - <<'NODE'
+          const fs=require('fs');
+          const run=JSON.parse(fs.readFileSync('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json','utf8'));
+          if(run.expected_before!==1578||run.expected_after!==1599) throw new Error('cardinality drift');
+          if(run.operations.insert.length!==21) throw new Error('insert drift');
+          if(run.operations.update.length!==0) throw new Error('update drift');
+          if((run.operations.related_add||[]).length!==3) throw new Error('related_add drift');
+          const allowed=new Set(['/related/-','/related_ids/-','/related_lineage/related_ids/-','/related_lineage/relation_type','/related_lineage/reason','/related_lineage/event_stage_relationship','/related_lineage/direction']);
+          const bad=[];
+          for(const [i,op] of (run.operations.related_add||[]).entries()) for(const [j,p] of (op.patches||[]).entries()) if(!allowed.has(p.path)) bad.push([i,j,p.path]);
+          if(bad.length) throw new Error('invalid Related paths '+JSON.stringify(bad));
+          const report=JSON.parse(fs.readFileSync('runs/2026-09-08/sep7-r7-current-main-production-r1/apply-report.json','utf8'));
+          if(report.status!=='VERIFIED'||report.actual_before!==1578||report.actual_after!==1599) throw new Error('apply report not VERIFIED 1578->1599');
+          NODE
+
+          echo '== repo-native validation on clean current-main branch =='
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_REL/card-run.json"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_REL/card-run.json"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_REL/card-run.json"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN_REL/card-run.json"
+          node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN_REL/card-run.json" --ledger "$RUN_REL/prompt-0-8-id-ledger.json"
+          node scripts/apply_card_run.mjs --verify --run "$RUN_REL/card-run.json" --base-main-sha "$FROZEN_MAIN"
+          PYTHONPATH=. python validation_scripts/run_active_workflow_tests.py
+          git diff --check
+
+          echo '== remove transport-only bootstrap files =='
+          rm -f .github/workflows/temp-sep7-clean-transplant.yml tmp/sep7-clean-transplant-trigger.txt
+          git add -A data/cards.full.json public/data/cards.json "$RUN_REL" .github/workflows/temp-sep7-clean-transplant.yml tmp/sep7-clean-transplant-trigger.txt
+          git diff --cached --check
+          git commit -m "Publish governed Sep 7 production run (21 cards)"
+
+          echo '== final tree diff must contain production output only =='
+          python - <<'PY'
+          import subprocess
+          base='b425151b348ed294ef1c4d5a6546cbe97f588137'
+          names=subprocess.check_output(['git','diff','--name-only',f'{base}..HEAD'],text=True).splitlines()
+          allowed_exact={'data/cards.full.json','public/data/cards.json'}
+          allowed_prefix='runs/2026-09-08/sep7-r7-current-main-production-r1/'
+          bad=[p for p in names if p not in allowed_exact and not p.startswith(allowed_prefix)]
+          if bad: raise SystemExit(f'unexpected final clean-branch paths: {bad}')
+          if 'data/cards.full.json' not in names or 'public/data/cards.json' not in names:
+              raise SystemExit('canonical/lean output missing from final diff')
+          print('PASS clean transport diff; changed paths=',len(names))
+          PY
+
+          git push origin HEAD:chatgpt/production-20260907-r7-21-clean

@@ -25,6 +25,7 @@ function sample(overrides = {}) {
     published_at: "2026-09-08",
     title: "VOL.10 — STRATEGIC BRIEFING",
     executive_diagnosis: "수요와 공급망의 재편을 월간 카드 전체에서 재검증한 편집 진단이다.",
+    conclusion: "자동화는 탐색을 돕고, 공식 결론은 편집 검증을 거쳐 발행한다.",
     source_baseline: {
       main_commit_sha: "1".repeat(40),
       full_blob_sha: "2".repeat(40),
@@ -68,11 +69,21 @@ describe("official Strategic Brief publication boundary", () => {
     expect(isOfficialStrategicBrief(item)).toBe(false);
   });
 
-  it("requires immutable baseline provenance for a public issue", () => {
+  it("requires baseline provenance for a public issue", () => {
     const item = sample({ source_baseline: { main_commit_sha: "bad", full_blob_sha: "bad", source_month_count: 100 } });
     const errors = validateStrategicBriefItem(item).join("\n");
     expect(errors).toContain("main_commit_sha");
     expect(errors).toContain("full_blob_sha");
+  });
+
+  it("rejects impossible calendar dates", () => {
+    const item = sample({ published_at: "2026-02-31" });
+    expect(validateStrategicBriefItem(item).join("\n")).toContain("real YYYY-MM-DD calendar date");
+  });
+
+  it("requires a conclusion instead of allowing a structural-signal list to stand in for the issue-level judgment", () => {
+    const item = sample({ conclusion: "" });
+    expect(validateStrategicBriefItem(item).join("\n")).toContain("conclusion");
   });
 
   it("rejects structural-signal evidence outside the governed source set", () => {
@@ -82,9 +93,45 @@ describe("official Strategic Brief publication boundary", () => {
     expect(validateStrategicBriefItem(item).join("\n")).toContain("must exist in source_card_ids");
   });
 
-  it("rejects source cards without public reference rows", () => {
-    const item = sample({ refs: [{ n: 1, id: "2026-08-01_US_01", title: "미국 카드", date: "2026-08-01" }] });
-    expect(validateStrategicBriefItem(item).join("\n")).toContain("must have a matching refs[].id entry");
+  it("applies the same governed-source rule to regional signals", () => {
+    const item = sample({
+      regional_signals: [{ title: "북미", summary: "지역 요약", card_ids: ["UNKNOWN_CARD"] }],
+    });
+    expect(validateStrategicBriefItem(item).join("\n")).toContain("regional_signals[0].card_ids[0]");
+  });
+
+  it("requires refs to be a one-to-one, contiguous public resolution table", () => {
+    const item = sample({
+      refs: [
+        { n: 2, id: "2026-08-01_US_01", title: "미국 카드", date: "2026-08-01" },
+        { n: 3, id: "2026-08-01_US_01", title: "중복 카드", date: "2026-08-01" },
+      ],
+    });
+    const errors = validateStrategicBriefItem(item).join("\n");
+    expect(errors).toContain("must equal 1");
+    expect(errors).toContain("must be unique");
+    expect(errors).toContain("must have a matching refs[].id entry");
+  });
+
+  it("rejects detached refs that are outside source_card_ids", () => {
+    const item = sample({
+      refs: [
+        { n: 1, id: "2026-08-01_US_01", title: "미국 카드", date: "2026-08-01" },
+        { n: 2, id: "DETACHED", title: "분리 카드", date: "2026-08-02" },
+      ],
+    });
+    expect(validateStrategicBriefItem(item).join("\n")).toContain("must exist in source_card_ids");
+  });
+
+  it("requires editorial approval before publication and keeps approval no later than publication", () => {
+    const item = sample({ approval: { status: "APPROVED", approved_at: "2026-09-09", reviewer_role: "editorial_owner" } });
+    expect(validateStrategicBriefItem(item).join("\n")).toContain("cannot be later than published_at");
+  });
+
+  it("reserves published for revision 1 and revised for later revisions", () => {
+    expect(validateStrategicBriefItem(sample({ revision: 2, status: "published" })).join("\n")).toContain("revision 1");
+    expect(validateStrategicBriefItem(sample({ revision: 1, status: "revised" })).join("\n")).toContain("revision >= 2");
+    expect(validateStrategicBriefItem(sample({ revision: 2, status: "revised" }))).toEqual([]);
   });
 
   it("keeps edition/revision and month/revision unique", () => {

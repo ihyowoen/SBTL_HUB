@@ -1,7 +1,7 @@
 From https://github.com/ihyowoen/SBTL_HUB
  * branch              main       -> FETCH_HEAD
 == frozen baseline aa7400ae67b221d1ddd5e198293762caec389303; live main b425151b348ed294ef1c4d5a6546cbe97f588137 has identical canonical blob 920646b6b335f211bcd224962f8ac0cc42cd3a4f ==
-== execute governed v9 chain with frozen-base v14 apply repair ==
+== execute governed v9 chain with frozen-base v15 apply repair ==
 == lock current main ==
 From https://github.com/ihyowoen/SBTL_HUB
  * branch              main       -> FETCH_HEAD
@@ -33,11 +33,13 @@ P003 2026-09-02_EU_04 Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·C
 operations 21 3 hash b6e6c6c075f2d0abbf6d0b57ab30817d200f884ec9c27972ecff3f54f1c29f66
 stage hashes {'stage-0-7.json': '7cc1a90320a253874b34a047b51211825c5c3e4bee19655deac421d73a60fe6e', 'stage-0-5.json': 'f277130444965efeff9b1259628724b5b54ae57a9b2b18ef84801938c84df71b', 'stage-a.json': '5159753f57a85dbccfe62cea381a80169258f5367c1fe0fecfa54c08384a69b4', 'stage-b.json': '090ffb6308d4cc97b91613bbe900cf0f2bca19d5b959ead216f334dc95ea43c3', 'stage-0-4.json': '3d506964fe9233df03165ff0807c6d97d315d4f90449656c67af7fb54d040882', 'stage-0-6.json': 'b11d0b25b9307b1083eadd8436867d6a80dd49b99c2ab9e0cd6fa278be9d68d9', 'stage-c.json': '09d6868b462ce8f40463b0c06f64f7d863d0967889148455930b06e9f2bf0275', 'stage-a-promotion3.json': 'ad644988d14e76d3da27b2762efb75dab3105a6ef48c34bb047e25911a2cbadd'}
 PASS strict18 projection sha256=8925b0a5736bb40de036f2e668cbfa66a2cd934b285ea34d7499d889a0523f6e story_count=50 strict_count=18
-== normalize Related apply surface and rebind operation freeze ==
+== normalize Related apply surface/op semantics and rebind operation freeze ==
 removed_noncanonical_lineage_metadata_patches= [(0, 6, '2026-09-07_GL_01', '/related_lineage/fresh_follow_up_anchor_class'), (0, 7, '2026-09-07_GL_01', '/related_lineage/fresh_follow_up_anchor'), (0, 8, '2026-09-07_GL_01', '/related_lineage/incremental_fact_vs_predecessor'), (0, 9, '2026-09-07_GL_01', '/related_lineage/changed_judgment_vs_predecessor'), (1, 6, '2026-09-04_GL_03', '/related_lineage/fresh_follow_up_anchor_class'), (1, 7, '2026-09-04_GL_03', '/related_lineage/fresh_follow_up_anchor'), (1, 8, '2026-09-04_GL_03', '/related_lineage/incremental_fact_vs_predecessor'), (1, 9, '2026-09-04_GL_03', '/related_lineage/changed_judgment_vs_predecessor'), (2, 6, '2026-09-07_JP_01', '/related_lineage/fresh_follow_up_anchor_class'), (2, 7, '2026-09-07_JP_01', '/related_lineage/fresh_follow_up_anchor'), (2, 8, '2026-09-07_JP_01', '/related_lineage/incremental_fact_vs_predecessor'), (2, 9, '2026-09-07_JP_01', '/related_lineage/changed_judgment_vs_predecessor')]
 removed_count= 12
+normalized_metadata_ops= [(0, 4, '2026-09-07_GL_01', '/related_lineage/event_stage_relationship', 'add', 'replace'), (0, 5, '2026-09-07_GL_01', '/related_lineage/direction', 'add', 'replace'), (1, 4, '2026-09-04_GL_03', '/related_lineage/event_stage_relationship', 'add', 'replace'), (1, 5, '2026-09-04_GL_03', '/related_lineage/direction', 'add', 'replace'), (2, 4, '2026-09-07_JP_01', '/related_lineage/event_stage_relationship', 'add', 'replace'), (2, 5, '2026-09-07_JP_01', '/related_lineage/direction', 'add', 'replace')]
+normalized_metadata_op_count= 6
 old_operations_sha256= b6e6c6c075f2d0abbf6d0b57ab30817d200f884ec9c27972ecff3f54f1c29f66
-new_operations_sha256= 18fa215c5fe7be15d39c22e620437ac1ffa827a6b9b9d04d487858ab046b185e
+new_operations_sha256= 271a4bc41d42a871826b096dc0d69896b6fe3c4131116393486df198dbf0083d
 PASS Related apply normalization: insert=21 update=0 related_add=3 expected=1578->1599
 PASS related_prepass[0] spec=STD26_0907_A_001 counterpart=2026-08-05_GL_01 type=distinct_follow_up
 PASS related_prepass[1] spec=STD26_0907_A_006 counterpart=2026-08-14_GL_01 type=distinct_follow_up
@@ -2028,7 +2030,7 @@ PASS: 171 artifacts have passing status markers and explicit current-run stage/b
   "completeness_binding": {
     "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/stage-0-7c.json",
     "run_id": "card-run-2026-09-08-sep7-r7-current-main-production-r1",
-    "reviewed_operations_sha256": "18fa215c5fe7be15d39c22e620437ac1ffa827a6b9b9d04d487858ab046b185e"
+    "reviewed_operations_sha256": "271a4bc41d42a871826b096dc0d69896b6fe3c4131116393486df198dbf0083d"
   },
   "artifacts": [
     {
@@ -3609,7 +3611,7 @@ test_shared_js_loader_is_lazy_and_fail_closed_at_call_site (_sbtl_workflow_test_
 test_v4_production_binding_still_requires_insert_source_spec_id (_sbtl_workflow_test_134_test_workflow_v4_coverage_axes_contract.WorkflowV4CoverageAxesContractTest.test_v4_production_binding_still_requires_insert_source_spec_id) ... ok
 
 ----------------------------------------------------------------------
-Ran 709 tests in 3.025s
+Ran 709 tests in 3.426s
 
 OK
 WORKFLOW_TEST_CLASSIFICATION_V4
@@ -3622,6 +3624,33 @@ WORKFLOW_TEST_CLASSIFICATION_V4
 - production_v4_entrypoint_monkeypatches: 0
 RESULT: PASS_ACTIVE_WORKFLOW_TESTS_V4
 == hard assert final serialized Related apply contract ==
-PASS final serialized Related contract: invalid_paths=0 insert=21 related_add=3 1578->1599
+PASS final serialized Related contract: invalid_patches=0 insert=21 related_add=3 1578->1599
 == apply against locked baseline ==
-FAIL [DUPLICATE_RELATED_EDGE]: 이미 존재하는 관계 경로: /related_lineage/event_stage_relationship
+canonical full 1599장 → public projection KEEP 16
+public 크기 6.41MB → 6.48MB
+완료: data/cards.full.json은 변경하지 않고 public/data/cards.json만 정확 직렬화로 재생성
+PASS: card-run-2026-09-08-sep7-r7-current-main-production-r1 applied — 1578 → 1599
+REPORT: /home/runner/work/SBTL_HUB/SBTL_HUB/runs/2026-09-08/sep7-r7-current-main-production-r1/apply-report.json
+== generate audit and post-apply checks ==
+{
+  "status": "PASS",
+  "run_path": "runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json",
+  "validated_audit_count": 1,
+  "audits": [
+    {
+      "reference": "runs/2026-09-08/sep7-r7-current-main-production-r1/card-run-audit.json",
+      "markers": [
+        {
+          "field": "status",
+          "raw": "PASS",
+          "normalized": "PASS"
+        }
+      ],
+      "reviewed_operations_sha256": "271a4bc41d42a871826b096dc0d69896b6fe3c4131116393486df198dbf0083d",
+      "full_output_sha256": "aa7227ce0b657a892130df73ce2400ac58608545c8e0c8e8120ecda59155da03",
+      "lean_output_sha256": "bd39ee4ce75aa6251d212844b2492e9dcabe2ca9d8d24d7fa4c28f9687496708"
+    }
+  ]
+}
+PASS: 1 independent run audits are bound to this run and submitted outputs
+FAIL [BLOCKED_PROMPT_0_8_ARTIFACT]: expected exactly one stage=0.8 artifact, found 0

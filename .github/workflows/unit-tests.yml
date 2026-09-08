@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "src/**"
+      - "api/**"
+      - "lib/**"
       - "__tests__/**"
       - "ops/**"
       - "scripts/**"
@@ -15,6 +17,8 @@ on:
       - main
     paths:
       - "src/**"
+      - "api/**"
+      - "lib/**"
       - "__tests__/**"
       - "ops/**"
       - "scripts/**"

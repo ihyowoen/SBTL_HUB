@@ -1,0 +1,37 @@
+From https://github.com/ihyowoen/SBTL_HUB
+ * branch              main       -> FETCH_HEAD
+== frozen baseline aa7400ae67b221d1ddd5e198293762caec389303; live main b425151b348ed294ef1c4d5a6546cbe97f588137 has identical canonical blob 920646b6b335f211bcd224962f8ac0cc42cd3a4f ==
+== execute governed v9 chain with frozen-base v12 apply repair ==
+== lock current main ==
+From https://github.com/ihyowoen/SBTL_HUB
+ * branch              main       -> FETCH_HEAD
+== recover exact Stage A R7 proof ==
+== reconstruct builder and Prompt 0.1P artifact ==
+RUN runs/2026-09-08/sep7-r7-current-main-production-r1
+IDs
+001 2026-09-07_GL_01 SNE Research, 1~7월 글로벌 EV 배터리 725.2GWh…전년比 20.4% 증가
+002 2026-09-07_KR_01 LG에너지솔루션·서울대, LMR 40Ah급 셀 가스 억제…883회 후 에너지 92.2% 유지
+003 2026-09-02_KR_01 KDB미래전략연구소, 희토류 공급망 대안으로 국내 제련·도시광산 역량 제시
+005 2026-08-28_KR_01 코스모신소재, 피노에 150억원 지분투자 계약…취득 후 3.13%
+006 2026-09-04_GL_03 브라질 법원, Sigma Lithium Grota do Cirilo 환경허가·채굴활동 중단 명령
+007 2026-09-04_CN_01 Li Auto, Sunwoda Power에 26.5억위안 전략투자…증자 후 8.79%
+008 2026-09-06_CN_01 INPOW, 587Ah ESS 대형셀 양산 라인오프…6.5GWh 전용라인 가동
+009 2026-09-04_CN_04 Xiaomi, CALB·Sunwoda와 배터리 전략협력…‘Dragonscale’ 체계 공개
+010 2026-09-01_EU_01 Luminus, 벨기에 Navagne 150MW/600MWh BESS 준공·가동
+015 2026-09-03_GL_02 인도 CEA, 2027년 7월부터 신규 태양광·풍력에 배터리 저장 의무화 초안
+017 2026-09-04_CN_02 CNESA: 중국 H1 신규 에너지저장 21.81GW/58.60GWh 감소…해외수주 298GWh
+018 2026-09-04_GL_02 중국 희토류 공급사 일부, 제재 리스크 우려로 미국향 출하 거부
+019 2026-09-04_GL_04 인도네시아 MHP 코발트 payable 90%대→67~70%…중국 구매협상 할인 확대
+023 2026-09-07_JP_01 Tensor Energy, 저압계통 ESS 신청 5,000건·250MW·1GWh 돌파
+024 2026-09-04_JP_01 일본 METI, 경제안보법상 배터리 안정공급 정책 개정안 의견수렴 개시
+025 2026-09-04_JP_02 일본 METI, 경제안보법상 핵심광물 안정공급 정책 개정안 의견수렴 개시
+026 2026-09-02_GL_07 브라질 상원, 핵심·전략광물 지원법안 승인…대통령 서명 단계로
+027 2026-09-07_CN_01 중국, 신규 배터리·ESS 제조 프로젝트 승인 일시중단 보도
+P001 2026-09-03_CN_01 펑청우셴, 이빈 54GWh ESS 셀 공장 첫 생산설비 반입
+P002 2026-09-04_CN_03 협신리튬, 5.5세대 C20 고압실 LFP 상업양산·안정공급 개시
+P003 2026-09-02_EU_04 Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억
+operations 21 3 hash b6e6c6c075f2d0abbf6d0b57ab30817d200f884ec9c27972ecff3f54f1c29f66
+stage hashes {'stage-0-7.json': '7cc1a90320a253874b34a047b51211825c5c3e4bee19655deac421d73a60fe6e', 'stage-0-5.json': 'f277130444965efeff9b1259628724b5b54ae57a9b2b18ef84801938c84df71b', 'stage-a.json': '5159753f57a85dbccfe62cea381a80169258f5367c1fe0fecfa54c08384a69b4', 'stage-b.json': '090ffb6308d4cc97b91613bbe900cf0f2bca19d5b959ead216f334dc95ea43c3', 'stage-0-4.json': '3d506964fe9233df03165ff0807c6d97d315d4f90449656c67af7fb54d040882', 'stage-0-6.json': 'b11d0b25b9307b1083eadd8436867d6a80dd49b99c2ab9e0cd6fa278be9d68d9', 'stage-c.json': '09d6868b462ce8f40463b0c06f64f7d863d0967889148455930b06e9f2bf0275', 'stage-a-promotion3.json': 'ad644988d14e76d3da27b2762efb75dab3105a6ef48c34bb047e25911a2cbadd'}
+PASS strict18 projection sha256=8925b0a5736bb40de036f2e668cbfa66a2cd934b285ea34d7499d889a0523f6e story_count=50 strict_count=18
+== normalize exact invalid Related path and rebind operation freeze ==
+unexpected Related patch path remains: related_add[0].patches[7] /related_lineage/fresh_follow_up_anchor

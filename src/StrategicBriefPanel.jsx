@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { isOfficialStrategicBrief, validateStrategicBriefLibrary } from "../lib/brief/strategicPublication.js";
+import { selectStrategicIssue } from "./strategicBriefSelection.js";
 
 function theme(dark) {
   return dark
@@ -63,13 +64,15 @@ export default function StrategicBriefPanel({ dark = true, cards = [], seed = nu
   useEffect(() => {
     if (!items.length) { setSelectedId(null); return; }
     if (requested) {
-      const exact = items.find((it) => (!requested.edition || it.edition === requested.edition) && (!requested.month || it.month === requested.month));
-      if (exact) { setSelectedId(exact.id); return; }
+      const { issue } = selectStrategicIssue(items, requested, selectedId);
+      setSelectedId(issue?.id || null);
+      return;
     }
     setSelectedId((cur) => items.some((it) => it.id === cur) ? cur : items[0].id);
   }, [items, requested]);
 
-  const shown = items.find((it) => it.id === selectedId) || items[0] || null;
+  const { issue: shown, requestMissing } = selectStrategicIssue(items, requested, selectedId);
+  const requestedLabel = requested?.edition || (requested?.month ? `${requested.month} 월간 전략 브리핑` : "요청한 공식 월간 전략 브리핑");
   const refById = useMemo(() => new Map((shown?.refs || []).map((r) => [r.id, r])), [shown]);
   const nowMonthCount = shown ? monthCount(cards, shown.month) : null;
   const baselineCount = Number.isInteger(shown?.source_baseline?.source_month_count) ? shown.source_baseline.source_month_count : null;
@@ -85,7 +88,13 @@ export default function StrategicBriefPanel({ dark = true, cards = [], seed = nu
 
       {!library && !loadError && <div style={{ borderRadius: 12, padding: "13px 14px", background: t.card2, border: `1px solid ${t.brd}`, fontSize: 11, color: t.sub }}>공식 발행본 확인 중…</div>}
       {loadError && <div style={{ borderRadius: 12, padding: "13px 14px", background: t.card2, border: `1px dashed ${t.brd}`, fontSize: 11, color: t.sub, lineHeight: 1.6 }}>공식 월간 전략 브리핑 정본을 불러오지 못했습니다. 자동 분석으로 대체하지 않습니다.</div>}
-      {library && !loadError && items.length === 0 && (
+      {library && !loadError && requestMissing && (
+        <div style={{ borderRadius: 12, padding: "14px", background: t.card2, border: `1px solid ${t.brd}` }}>
+          <div style={{ fontSize: 13, fontWeight: 900, color: t.tx }}>편집 중 · {requestedLabel} 공식 발행본 없음</div>
+          <div style={{ marginTop: 5, fontSize: 11, color: t.sub, lineHeight: 1.65, wordBreak: "keep-all" }}>요청한 공식본이 없어서 다른 VOL이나 자동 분석으로 대체하지 않습니다. 승인 후 이 자리에 표시됩니다.</div>
+        </div>
+      )}
+      {library && !loadError && !requested && items.length === 0 && (
         <div style={{ borderRadius: 12, padding: "14px", background: t.card2, border: `1px solid ${t.brd}` }}>
           <div style={{ fontSize: 13, fontWeight: 900, color: t.tx }}>편집 중 · 아직 공식 발행본 없음</div>
           <div style={{ marginTop: 5, fontSize: 11, color: t.sub, lineHeight: 1.65, wordBreak: "keep-all" }}>공식 VOL.xx가 승인되기 전에는 자동으로 월간 전략 브리핑을 만들지 않습니다. 아래 빠른 분석은 조사·탐색용으로만 사용할 수 있습니다.</div>
@@ -168,7 +177,7 @@ export default function StrategicBriefPanel({ dark = true, cards = [], seed = nu
 
           {items.length > 1 && (
             <div style={{ marginTop: 10, display: "flex", gap: 6, flexWrap: "wrap" }}>
-              {items.map((it) => <button key={it.id} onClick={() => setSelectedId(it.id)} aria-pressed={shown.id === it.id} style={{ borderRadius: 999, padding: "5px 9px", border: `1px solid ${shown.id === it.id ? t.cyan : t.brd}`, background: shown.id === it.id ? t.cyan : "transparent", color: shown.id === it.id ? "#000" : t.sub, fontSize: 9.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{it.edition}{it.revision > 1 ? ` R${it.revision}` : ""}</button>)}
+              {items.map((it) => <button key={it.id} onClick={() => { setRequested(null); setSelectedId(it.id); }} aria-pressed={shown.id === it.id} style={{ borderRadius: 999, padding: "5px 9px", border: `1px solid ${shown.id === it.id ? t.cyan : t.brd}`, background: shown.id === it.id ? t.cyan : "transparent", color: shown.id === it.id ? "#000" : t.sub, fontSize: 9.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{it.edition}{it.revision > 1 ? ` R${it.revision}` : ""}</button>)}
             </div>
           )}
         </div>

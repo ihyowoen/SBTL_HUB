@@ -1,0 +1,21 @@
+From https://github.com/ihyowoen/SBTL_HUB
+ * [new branch]        chatgpt/production-20260907-r7-21 -> origin/production-source
+== transplant exact successful production tree ==
+== exact governed-output assertions ==
+[stdin]:12
+if(report.status!=='VERIFIED'||report.actual_before!==1578||report.actual_after!==1599) throw new Error('apply report not VERIFIED 1578->1599');
+                                                                                        ^
+
+Error: apply report not VERIFIED 1578->1599
+    at [stdin]:12:95
+    at runScriptInThisContext (node:internal/vm:209:10)
+    at node:internal/process/execution:446:12
+    at [stdin]-wrapper:6:24
+    at runScriptInContext (node:internal/process/execution:444:60)
+    at evalFunction (node:internal/process/execution:279:30)
+    at evalTypeScript (node:internal/process/execution:291:3)
+    at node:internal/main/eval_stdin:53:5
+    at Socket.<anonymous> (node:internal/process/execution:201:5)
+    at Socket.emit (node:events:531:35)
+
+Node.js v22.23.2

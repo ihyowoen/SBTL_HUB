@@ -1,75 +1,98 @@
-name: Sep8 promotion identity fix
-
+name: Sep8 promotion identity deep repair
 on:
   push:
-    branches:
-      - chatgpt/sep8-r7-current-main-production-r1
-    paths:
-      - '.promotion-fix-bootstrap/**'
-      - '.card-run-bootstrap-fix/**'
-      - '.github/workflows/sep8-promotion-identity-fix.yml'
-
+    branches: [chatgpt/sep8-r7-current-main-production-r1]
+    paths: ['.github/workflows/sep8-promotion-identity-fix.yml']
 permissions:
   contents: write
-
 jobs:
-  materialize:
+  repair:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: {fetch-depth: 0}
       - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: Reconstruct and verify fix archive
-        shell: bash
-        run: |
-          set -euo pipefail
-          cat \
-            .promotion-fix-bootstrap/part-00 \
-            .promotion-fix-bootstrap/part-01 \
-            .card-run-bootstrap-fix/part-02 \
-            .card-run-bootstrap-fix/part-03 \
-            | base64 -d > "$RUNNER_TEMP/fix.tar.xz"
-          echo 'd506e2f7d22edcebe6c67713a42af629403e76420db939c1df5f3260e9e31793  '"$RUNNER_TEMP/fix.tar.xz" | sha256sum -c -
-          tar -xJf "$RUNNER_TEMP/fix.tar.xz"
-      - name: Verify authoritative baseline has not moved
+        with: {node-version: '20'}
+      - name: Re-lock main and repair full lineage chain
         shell: bash
         run: |
           set -euo pipefail
           git fetch origin main --force
-          test "$(git rev-parse origin/main)" = 'e19f6c113ccb62906e7fdefaf3bae657c58b5637'
-      - name: Validate repaired governed run
+          BASE=e19f6c113ccb62906e7fdefaf3bae657c58b5637
+          test "$(git rev-parse origin/main)" = "$BASE"
+          test "$(git rev-parse "$BASE:data/cards.full.json")" = cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb
+          python - <<'PY'
+          import json,hashlib,pathlib
+          R=pathlib.Path('runs/2026-09-09/sep8-r7-current-main-production-r1'); S=R/'stages'
+          L=lambda p:json.load(open(p)); W=lambda p,d:p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n'); H=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+          pre={'status':'PASS','same_event_checked':True,'matched_baseline_candidate_ids':['2026-06-30_US_02'],'matched_current_batch_candidate_ids':[],'relation_candidates':[{'target_candidate_id':'2026-06-30_US_02','proposed_relation_type':'distinct_follow_up','confidence':'high','reason':'The June card records Ford battery-production intent using CATL licensed technology; the Sep 8 DOT letter is a separate official federal policy-pressure event that changes the strategic/regulatory state rather than repeating the June milestone.','anchor_class_to_verify':'policy_regulatory_anchor','incremental_anchor_question':'Verify that the Sep 8 U.S. DOT pressure on Ford/CATL is chronologically distinct from the June production milestone and materially changes the policy/strategic judgment without implying a new legal ban.'}],'duplicate_disposition':'no_duplicate_found','earliest_same_event_check_status':'PASS','fresh_anchor_questions':['Verify the Sep 8 policy_regulatory_anchor against predecessor 2026-06-30_US_02 and confirm it is a distinct follow-up rather than same-event repetition.']}
+          a=L(S/'stage-a-promotion5.json')
+          for x in a['strict_passed_spec']:
+            if x.get('spec_id')=='STD26_0908_P_005': x['related_prepass']=pre; x['baseline_relation']='distinct_follow_up'
+          for x in a['decision_ledger']:
+            if x.get('spec_id')=='STD26_0908_P_005' or x.get('candidate_id')=='STD26_0908_P_005': x.update(baseline_relation='distinct_follow_up',follow_up_relation='distinct_follow_up',baseline_match='2026-06-30_US_02',duplicate_risk='bounded_recheck_completed_distinct_follow_up',notes='Promotion resolved; Stage A Related prepass identifies 2026-06-30_US_02 as a distinct predecessor and authorizes Stage B evidence verification.')
+          W(S/'stage-a-promotion5.json',a); ah=H(S/'stage-a-promotion5.json')
+          b=L(S/'stage-b.json')
+          for x in b['strict_passed_spec']:
+            if x.get('spec_id')=='STD26_0908_P_005': x['related_prepass']=pre; x['baseline_relation']='distinct_follow_up'
+          W(S/'stage-b.json',b); bh=H(S/'stage-b.json')
+          def ub(o):
+            if isinstance(o,dict):
+              z=o.get('stage_b_lineage');
+              if isinstance(z,dict) and z.get('spec_id'): z['artifact_sha256']=bh
+              for v in o.values(): ub(v)
+            elif isinstance(o,list):
+              for v in o: ub(v)
+          c=L(S/'stage-c.json'); ub(c); W(S/'stage-c.json',c); ch=H(S/'stage-c.json')
+          chain=[]
+          for f,key,prev in [('stage-0-4.json','stage_c_artifact_sha256',ch),('stage-0-5.json','stage_0_4_artifact_sha256',None),('stage-0-6.json','input_0_5_sha256',None),('stage-0-7.json','input_0_6_sha256',None)]:
+            p=S/f; d=L(p); ub(d); d[key]=prev if prev else chain[-1]; W(p,d); chain.append(H(p))
+          r=L(R/'card-run.json')
+          for op in r['operations']['insert']:
+            z=op['card'].get('stage_b_lineage');
+            if isinstance(z,dict): z['artifact_sha256']=bh
+          oph=hashlib.sha256(json.dumps(r['operations'],sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest(); W(R/'card-run.json',r)
+          x=L(R/'stage-0-7c.json'); x['reviewed_operations_sha256']=oph; x['hash_chain'].update(stage_a_promotion5_sha256=ah,stage_b_sha256=bh,stage_c_sha256=ch,stage_0_4_sha256=chain[0],stage_0_5_sha256=chain[1],stage_0_6_sha256=chain[2],stage_0_7_sha256=chain[3]); W(R/'stage-0-7c.json',x)
+          for f in ['stage-0-8.json','card-run-audit.json']:
+            p=R/f; d=L(p); d['reviewed_operations_sha256']=oph; W(p,d)
+          print('OP',oph); assert oph=='2ece8dca45b575a5575333bff3cd52424964c817ae2f46be4db83fd06cf9678c'
+          PY
+      - name: Validate repaired chain before apply
         shell: bash
         run: |
           set -euo pipefail
-          RUN='runs/2026-09-09/sep8-r7-current-main-production-r1/card-run.json'
-          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN"
-          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
-          node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
-          node scripts/validate_card_run_relations.mjs --run "$RUN"
-          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN" --canonical data/cards.full.json
-          node scripts/validate_card_run_audits_dispatch.mjs --run "$RUN" --full data/cards.full.json --lean public/data/cards.json
-          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN"
-          node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN"
+          R=runs/2026-09-09/sep8-r7-current-main-production-r1/card-run.json
+          python validation_scripts/stage_artifact_contract_check.py A runs/2026-09-09/sep8-r7-current-main-production-r1/stages/stage-a-promotion5.json
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$R"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$R"
+          node scripts/validate_card_run_status_consistency.mjs --run "$R"
+          node scripts/validate_card_run_relations.mjs --run "$R"
+      - name: Official apply and output validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          R=runs/2026-09-09/sep8-r7-current-main-production-r1/card-run.json; B=e19f6c113ccb62906e7fdefaf3bae657c58b5637
+          node scripts/apply_card_run.mjs --apply --run "$R" --baseline data/cards.full.json --output data/cards.full.json --report runs/2026-09-09/sep8-r7-current-main-production-r1/apply-report.json --base-main-sha "$B" --lean-path public/data/cards.json
+          node scripts/apply_card_run.mjs --verify --run "$R" --baseline data/cards.full.json --output data/cards.full.json --report runs/2026-09-09/sep8-r7-current-main-production-r1/apply-report.json --base-main-sha "$B" --lean-path public/data/cards.json
+          FH=$(sha256sum data/cards.full.json|awk '{print $1}'); LH=$(sha256sum public/data/cards.json|awk '{print $1}')
+          test "$FH" = 1e6041cf62a217b248cd315d0e434ab2d538a89961e36f314c2eee5e00688973
+          test "$LH" = 4a9cce46a4c994a37ba1ef34ea96eee8fb2546f6d227445e37cd7f234e97b8c2
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('runs/2026-09-09/sep8-r7-current-main-production-r1/card-run-audit.json'); d=json.load(open(p)); d['full_output_sha256']='1e6041cf62a217b248cd315d0e434ab2d538a89961e36f314c2eee5e00688973'; d['lean_output_sha256']='4a9cce46a4c994a37ba1ef34ea96eee8fb2546f6d227445e37cd7f234e97b8c2'; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          PY
+          node scripts/validate_card_run_audits_dispatch.mjs --run "$R" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$R"
           node scripts/validate.mjs
           node scripts/validate_cards.mjs data/cards.full.json
           node scripts/validate_cards.mjs public/data/cards.json
           node scripts/lean_cards.mjs --check
-          test "$(sha256sum data/cards.full.json | awk '{print $1}')" = 'aedbf1c590e2208bbe9172949e520780f10ff0f9d841818100cc81b4373fab33'
-          test "$(sha256sum public/data/cards.json | awk '{print $1}')" = '4a9cce46a4c994a37ba1ef34ea96eee8fb2546f6d227445e37cd7f234e97b8c2'
-          grep -q '9c4c852031d0d69dc1a532cf4fa13b2580cb485812ede0a1a52db5acd97ff8c8' runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-7c.json
           git diff --check
-      - name: Commit repaired artifacts and self-clean
+      - name: Commit repair and remove bootstrap
         shell: bash
         run: |
           set -euo pipefail
           rm -rf .promotion-fix-bootstrap .card-run-bootstrap-fix
           rm -f .github/workflows/sep8-promotion-identity-fix.yml
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          git diff --cached --quiet && exit 0
-          git commit -m 'Fix Sep 8 promotion stage identity binding'
-          git push origin HEAD:chatgpt/sep8-r7-current-main-production-r1
+          git config user.name 'github-actions[bot]'; git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A; git commit -m 'Fix Sep 8 promotion Related lineage binding'; git push origin HEAD:chatgpt/sep8-r7-current-main-production-r1

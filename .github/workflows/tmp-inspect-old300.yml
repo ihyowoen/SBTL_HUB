@@ -1,4 +1,4 @@
-name: tmp-inspect-old300
+name: tmp-remediate-monthly-review
 on:
   push:
     branches: [chatgpt/publish-monthly-brief-2026-08]
@@ -7,21 +7,74 @@ on:
   workflow_dispatch:
 
 jobs:
-  inspect:
+  remediate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Inspect locked Old 300 card
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Apply evidence-boundary remediation
         shell: bash
         run: |
-          git show e46f85c7be99548894549b97eea4bfcb0c9a3c66:data/cards.full.json > /tmp/cards.json
           node <<'NODE'
           const fs = require('fs');
-          const raw = JSON.parse(fs.readFileSync('/tmp/cards.json','utf8'));
-          const cards = Array.isArray(raw) ? raw : (raw.cards || raw.items || []);
-          const card = cards.find(c => c.id === '2026-08-05_US_03');
-          if (!card) throw new Error('target card not found');
-          console.log(JSON.stringify(card, null, 2));
+
+          const provPath = 'lib/brief/monthlyProvenance.js';
+          let prov = fs.readFileSync(provPath, 'utf8');
+          const oldHelper = `function cardPrimaryUrl(card) {\n  if (Array.isArray(card?.urls)) {\n    const first = card.urls.find((value) => typeof value === "string" && value.trim());\n    if (first) return first.trim();\n  }\n  return typeof card?.url === "string" ? card.url.trim() : "";\n}\n`;
+          const newHelper = `function cardPrimaryUrl(card) {\n  if (Array.isArray(card?.urls)) {\n    const first = card.urls.find((value) => typeof value === "string" && value.trim());\n    if (first) return first.trim();\n  }\n  return typeof card?.url === "string" ? card.url.trim() : "";\n}\n\nfunction cardTitleSupportingUrls(card) {\n  const mapped = new Set();\n  for (const source of Array.isArray(card?.fact_sources) ? card.fact_sources : []) {\n    const supports = Array.isArray(source?.supports) ? source.supports : [];\n    if (!supports.includes("title")) continue;\n    for (const candidate of [source?.source_url, source?.source_url_canonical]) {\n      if (typeof candidate === "string" && candidate.trim()) mapped.add(candidate.trim());\n    }\n  }\n  if (mapped.size) return mapped;\n  const primary = cardPrimaryUrl(card);\n  return primary ? new Set([primary]) : new Set();\n}\n`;
+          if (!prov.includes(oldHelper)) throw new Error('provenance helper anchor not found');
+          prov = prov.replace(oldHelper, newHelper);
+          const oldUrlBlock = `      const expectedUrl = cardPrimaryUrl(card);\n      if (ref.title !== expectedTitle) {\n        errors.push(\`${refPath}.title: expected locked card title \${JSON.stringify(expectedTitle)}, got \${JSON.stringify(ref.title)}\`);\n      }\n      if (ref.date !== expectedDate) {\n        errors.push(\`${refPath}.date: expected locked card date \${JSON.stringify(expectedDate)}, got \${JSON.stringify(ref.date)}\`);\n      }\n      if (Object.prototype.hasOwnProperty.call(ref, "url") && ref.url !== expectedUrl) {\n        errors.push(\`${refPath}.url: expected locked card primary URL \${JSON.stringify(expectedUrl)}, got \${JSON.stringify(ref.url)}\`);\n      }`;
+          const newUrlBlock = `      const allowedTitleUrls = cardTitleSupportingUrls(card);\n      if (ref.title !== expectedTitle) {\n        errors.push(\`${refPath}.title: expected locked card title \${JSON.stringify(expectedTitle)}, got \${JSON.stringify(ref.title)}\`);\n      }\n      if (ref.date !== expectedDate) {\n        errors.push(\`${refPath}.date: expected locked card date \${JSON.stringify(expectedDate)}, got \${JSON.stringify(ref.date)}\`);\n      }\n      if (Object.prototype.hasOwnProperty.call(ref, "url") && !allowedTitleUrls.has(ref.url)) {\n        errors.push(\`${refPath}.url: expected locked card title-supporting governed evidence URL, got \${JSON.stringify(ref.url)}\`);\n      }`;
+          if (!prov.includes(oldUrlBlock)) throw new Error('provenance URL block anchor not found');
+          fs.writeFileSync(provPath, prov.replace(oldUrlBlock, newUrlBlock));
+
+          const testPath = '__tests__/monthlyBriefProvenance.test.js';
+          let test = fs.readFileSync(testPath, 'utf8');
+          const oldA = `{ id: "AUG_A", date: "2026-08-10", title: "August A", urls: ["https://example.com/a"] },`;
+          const newA = `{\n      id: "AUG_A",\n      date: "2026-08-10",\n      title: "August A",\n      urls: ["https://example.com/a"],\n      fact_sources: [\n        { source_url: "https://example.com/a-title", supports: ["title", "fact"] },\n        { source_url: "https://example.com/a-context", supports: ["sub"] },\n      ],\n    },`;
+          if (!test.includes(oldA)) throw new Error('test snapshot anchor not found');
+          test = test.replace(oldA, newA);
+          const testAnchor = `  it("allows an omitted optional reference URL while still binding title and date", () => {`;
+          const addedTests = `  it("accepts a governed alternate source that explicitly supports the locked card title", () => {\n    const lib = library();\n    lib.items[0].refs[0].url = "https://example.com/a-title";\n    expect(validateMonthlyBriefProvenance(lib, resolver())).toEqual([]);\n  });\n\n  it("rejects a governed source that does not support the locked card title", () => {\n    const lib = library();\n    lib.items[0].refs[0].url = "https://example.com/a-context";\n    const errors = validateMonthlyBriefProvenance(lib, resolver()).join("\\n");\n    expect(errors).toContain("refs[0].url");\n    expect(errors).toContain("title-supporting governed evidence URL");\n  });\n\n`;
+          if (!test.includes(testAnchor)) throw new Error('test insertion anchor not found');
+          fs.writeFileSync(testPath, test.replace(testAnchor, addedTests + testAnchor));
+
+          const briefPath = 'public/data/monthly_briefs.json';
+          const brief = JSON.parse(fs.readFileSync(briefPath, 'utf8'));
+          const item = brief.items.find(x => x.id === 'monthly-brief-2026-08-r1');
+          if (!item) throw new Error('monthly brief issue not found');
+          item.what_changed = "8월에는 ‘EV 둔화와 ESS 성장’만으로는 산업 변화를 설명하기 어려워졌다. EV 배터리 수요도 성장하고 있지만, ESS 관련 수요와 투자는 장기계약·은행금융·착공·상업운전으로 이어졌고 생산 측에서는 공장 생산개시와 제품 믹스 계획이 확인됐다. 따라서 앞으로는 단순 출하량보다 COD·가동률·장기계약 집행·현지조달 적격성·세후 원가와 수익성을 함께 봐야 한다.";
+          const old300 = item.refs.find(r => r.id === '2026-08-05_US_03');
+          if (!old300) throw new Error('Old 300 ref not found');
+          old300.url = 'https://www.pv-magazine.com/2026/08/06/orsted-turns-on-500-mwh-battery-project-with-co-located-solar-in-texas/';
+          fs.writeFileSync(briefPath, JSON.stringify(brief, null, 2) + '\n');
+
+          const auditPath = 'runs/2026-09-09/monthly-brief-2026-08-editorial-audit.json';
+          const audit = JSON.parse(fs.readFileSync(auditPath, 'utf8'));
+          audit.qc.review_remediation = "PASS — Lansing production start is separated from planned product mix; `what_changed` now distinguishes ESS contract/finance/construction/COD execution from production-start/product-mix planning; black-mass wording is narrowed to the governed one-year export restriction; Old 300 public citation is bound to the governed pv magazine source that explicitly supports the title/commercial-operation claim; the Jianxiawo post-month-enriched ref is removed from official August evidence; non-canonical EU liquidity counterevidence carries source provenance; the September China approval-pause signal is bound to canonical card 2026-09-06_CN_02.";
+          fs.writeFileSync(auditPath, JSON.stringify(audit, null, 2) + '\n');
           NODE
+      - name: Targeted provenance tests
+        run: npx vitest run __tests__/monthlyBriefProvenance.test.js
+      - name: Validate official Monthly Brief library
+        run: npm run validate:monthly-briefs
+      - name: Production build
+        run: npm run build
+      - name: Commit validated source changes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/brief/monthlyProvenance.js __tests__/monthlyBriefProvenance.test.js public/data/monthly_briefs.json runs/2026-09-09/monthly-brief-2026-08-editorial-audit.json
+          git diff --cached --check
+          git commit -m "fix: bind Monthly Brief claims to governed evidence"
+          git push origin HEAD:chatgpt/publish-monthly-brief-2026-08

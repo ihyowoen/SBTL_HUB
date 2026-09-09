@@ -1,0 +1,46 @@
+name: apply-pr348-round6-once
+
+on:
+  push:
+    branches:
+      - chatgpt/monthly-brief-domain-cleanup-20260908
+    paths:
+      - "scripts/apply_pr348_round6_fixes.mjs"
+      - ".github/workflows/apply-pr348-round6-once.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: ${{ !contains(github.event.head_commit.message, '[pr348-round6-applied]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/monthly-brief-domain-cleanup-20260908
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - name: Apply round6 fixes
+        run: node scripts/apply_pr348_round6_fixes.mjs
+      - name: Diff integrity
+        run: git diff --check
+      - name: Targeted Monthly Brief tests
+        run: npx vitest run __tests__/monthlyBriefProductBoundary.test.js __tests__/quickAnalysisLabels.test.js __tests__/monthlyBriefPublication.test.js
+      - name: Validate official Monthly Brief library
+        run: npm run validate:monthly-briefs
+      - name: Full unit tests
+        run: npm test
+      - name: Production build
+        run: npm run build
+      - name: Commit validated round6 fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/chat/appCommand.js src/quickAnalysisLabels.js src/kang.js lib/brief/monthlyPublication.js __tests__/monthlyBriefProductBoundary.test.js __tests__/quickAnalysisLabels.test.js __tests__/monthlyBriefPublication.test.js
+          git commit -m "Address PR348 Codex round6 findings [pr348-round6-applied]"
+          git push origin HEAD:chatgpt/monthly-brief-domain-cleanup-20260908

@@ -3,6 +3,14 @@ export function matchesMonthlyBriefRequest(item, requested) {
   return item.month === requested.month;
 }
 
+export function monthlyBriefSeedState(seed) {
+  if (!seed || seed.view !== "monthly" || !seed.nonce) return null;
+  return {
+    requested: seed.month ? { month: seed.month } : null,
+    resetSelection: true,
+  };
+}
+
 export function selectMonthlyBrief(items = [], requested = null, selectedId = null) {
   const safe = Array.isArray(items) ? items : [];
   if (requested?.month) {

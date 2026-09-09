@@ -1,0 +1,66 @@
+name: Sep8 card-run bootstrap
+
+on:
+  push:
+    branches:
+      - chatgpt/sep8-r7-current-main-production-r1
+    paths:
+      - '.card-run-bootstrap/**'
+      - '.github/workflows/sep8-card-run-bootstrap.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sep8-card-run-bootstrap
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct and verify run archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .card-run-bootstrap/part-* | base64 -d > "$RUNNER_TEMP/sep8-run-bootstrap.tar.xz"
+          echo 'ee4b314a5846f33e7cebed154c4b0bea5e24cb666bad2b64b214d836b2afae0f  '"$RUNNER_TEMP/sep8-run-bootstrap.tar.xz" | sha256sum -c -
+          tar -xJf "$RUNNER_TEMP/sep8-run-bootstrap.tar.xz" -C .
+
+      - name: Re-lock authoritative main
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE='e19f6c113ccb62906e7fdefaf3bae657c58b5637'
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$BASE"
+          test "$(git rev-parse "$BASE:data/cards.full.json")" = 'cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb'
+
+      - name: Apply governed card run
+        shell: bash
+        run: |
+          set -euo pipefail
+          RUN='runs/2026-09-09/sep8-r7-current-main-production-r1/card-run.json'
+          BASE='e19f6c113ccb62906e7fdefaf3bae657c58b5637'
+          node scripts/apply_card_run.mjs --apply --run "$RUN" --baseline data/cards.full.json --output data/cards.full.json --report runs/2026-09-09/sep8-r7-current-main-production-r1/apply-report.json --base-main-sha "$BASE" --lean-path public/data/cards.json
+          node scripts/apply_card_run.mjs --verify --run "$RUN" --baseline data/cards.full.json --output data/cards.full.json --report runs/2026-09-09/sep8-r7-current-main-production-r1/apply-report.json --base-main-sha "$BASE" --lean-path public/data/cards.json
+          echo 'aedbf1c590e2208bbe9172949e520780f10ff0f9d841818100cc81b4373fab33  data/cards.full.json' | sha256sum -c -
+          echo '4a9cce46a4c994a37ba1ef34ea96eee8fb2546f6d227445e37cd7f234e97b8c2  public/data/cards.json' | sha256sum -c -
+
+      - name: Commit final production branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .card-run-bootstrap
+          rm -f .github/workflows/sep8-card-run-bootstrap.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --quiet && { echo 'No changes to commit'; exit 0; }
+          git commit -m 'Add Sep 8 production cards'
+          git push origin HEAD:chatgpt/sep8-r7-current-main-production-r1

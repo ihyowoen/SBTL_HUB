@@ -1,0 +1,94 @@
+name: tmp-a027-date-id-migration
+
+on:
+  push:
+    branches:
+      - chatgpt/a027-date-id-migration-work
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Materialize governed event-date ID migration
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE_SHA='250d6848b97f62ab1960ae55b065d54d0777c1d1'
+          BASE_BLOB='0e30034280304895c3d5cb9ad450bbabbeffb432'
+          [[ "$(git rev-parse "$BASE_SHA:data/cards.full.json")" == "$BASE_BLOB" ]]
+          git show "$BASE_SHA:data/cards.full.json" > /tmp/cards.full.base.json
+          python3 - <<'PY'
+          import copy, datetime, json, pathlib
+          p=pathlib.Path('data/cards.full.json')
+          doc=json.loads(p.read_text(encoding='utf-8'))
+          old='2026-09-07_CN_01'; new='2026-09-06_CN_02'
+          cards=doc['cards']; ids={c['id'] for c in cards}
+          assert old in ids, f'missing {old}'
+          assert new not in ids, f'collision {new}'
+          # No other canonical card may point at the migrating ID; Related mutation belongs to a different governed path.
+          refs=[]
+          for c in cards:
+              if c['id']==old: continue
+              if old in (c.get('related') or []): refs.append((c['id'],'related'))
+              if old in (c.get('related_ids') or []): refs.append((c['id'],'related_ids'))
+              rl=c.get('related_lineage') or {}
+              if isinstance(rl,dict):
+                  for k in ('related_ids','target_ids','related_candidate_ids'):
+                      v=rl.get(k)
+                      if isinstance(v,list) and old in v: refs.append((c['id'],f'related_lineage.{k}'))
+                  for k in ('target_id','predecessor_id','successor_id'):
+                      if rl.get(k)==old: refs.append((c['id'],f'related_lineage.{k}'))
+          assert not refs, f'inbound relation refs block migration: {refs}'
+          c=next(c for c in cards if c['id']==old)
+          before=copy.deepcopy(c)
+          assert c['date']=='2026-09-07'
+          c['id']=new
+          c['date']='2026-09-06'
+          # Migration contract permits only id/date/region at card level.
+          diffs=[k for k in sorted(set(before)|set(c)) if before.get(k)!=c.get(k)]
+          assert diffs==['date','id'], diffs
+          now=datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace('+00:00','Z')
+          doc['updated']=now; doc['total']=len(cards)
+          p.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          out=pathlib.Path('direct-adds/2026-09-09-a027-date-id-migration'); out.mkdir(parents=True,exist_ok=True)
+          manifest={
+            'schema':'manual_direct_add_v2','status':'PASS','direct_add_id':'A027_DATE_ID_MIGRATION_20260909_R1',
+            'review_mode':'already_reviewed_bounded_direct_add','formal_full_run_claimed':False,
+            'base_main_commit_sha':BASE_SHA if False else '250d6848b97f62ab1960ae55b065d54d0777c1d1',
+            'base_full_blob_sha':'0e30034280304895c3d5cb9ad450bbabbeffb432',
+            'expected_before':len(cards),'expected_after':len(cards),'output_updated':now,
+            'operations':{'add':[],'update':[],'id_migration':[{'old_id':old,'new_id':new,'reason':'Representative event date correction: original Cailianshe report was published on 2026-09-06 before the Reuters 2026-09-07 re-report.'}]},
+            'editorial_attestation':{'policy_version':'EMBEDDED_NEWS_VALUE_SELECTION_V4','additions':[],'updates':[]}
+          }
+          (out/'direct-add.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'old_id':old,'new_id':new,'changed_fields':diffs,'inbound_related_refs':refs,'output_updated':now},ensure_ascii=False,indent=2))
+          PY
+          node scripts/lean_cards.mjs
+          MANIFEST='direct-adds/2026-09-09-a027-date-id-migration/direct-add.json'
+          node scripts/validate_json_schema_subset.mjs --schema schemas/manual-direct-add.v2.schema.json --instance "$MANIFEST"
+          node scripts/validate_manual_direct_add.mjs --manifest "$MANIFEST" --base /tmp/cards.full.base.json --full data/cards.full.json
+          node scripts/validate_manual_direct_add_v4_hardening.mjs --manifest "$MANIFEST" --base /tmp/cards.full.base.json --full data/cards.full.json
+          node scripts/validate.mjs
+          CARDS_ALLOW_DELETE=1 node scripts/validate_cards.mjs data/cards.full.json
+          CARDS_ALLOW_DELETE=1 node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          git diff --check
+      - name: Commit migration result
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/cards.full.json public/data/cards.json direct-adds/2026-09-09-a027-date-id-migration/direct-add.json
+          git commit -m 'fix: migrate A027 to Sep 6 representative-date ID'
+          git push

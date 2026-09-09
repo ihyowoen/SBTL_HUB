@@ -1633,12 +1633,10 @@
       "region": "NA",
       "axis": "supply_chain",
       "itemsCovered": [
-        "NA-034",
-        "NA-019",
-        "NA-020"
+        "NA-034"
       ],
       "sweepKind": "verify",
-      "result": "§842 신규 2028.01.01·표준 2029.01.01·기존 2031.01.30 재진술"
+      "result": "§842 신규 2028.01.01·표준 2029.01.01·기존 2031.01.30 재진술 — NA-019(§154)·NA-020(§805/1260H)은 이 결과가 다루지 않아 제외(Codex 지적)"
     },
     {
       "query": "USTR Section 301 forced labor tariffs 60 economies effective July 24 2026 Korea 12.5%",
@@ -1997,11 +1995,9 @@
     },
     {
       "url": "https://www.mhlw.go.jp/stf/newpage_46844.html",
-      "itemsCovered": [
-        "JP-016"
-      ],
+      "itemsCovered": [],
       "tier": "primary-meta",
-      "what": "化審法 施行令 개정 — 각의 2024.12.13·공포 2024.12.18·시행 2025.02.18/06.18 (UV-328·메톡시클로르·데클로란플러스). 2026.06.17 건은 이 문서 범위 밖"
+      "what": "化審法 施行令 개정 — 각의 2024.12.13·공포 2024.12.18·시행 2025.02.18/06.18 (UV-328·메톡시클로르·데클로란플러스). 2026.06.17 건은 이 문서 범위 밖 — JP-016 근거로 쓰지 않음(범위 밖, Codex 지적)"
     },
     {
       "url": "https://jtst.mot.gov.cn/gb/search/gbDetailed?id=2b1cda8cb1c9445e4a0337f5667d9095",
@@ -2138,20 +2134,21 @@
     "webSearchCap": 200,
     "webSearchUsed": 200,
     "webFetchUsed": 36,
-    "note": "**실측 — 한 세션의 WebSearch 는 200회에서 강제 차단된다.** 오늘 200회를 전부 썼고 마지막 배치(CN 표적 25건 등)는 차단됐다. RUNBOOK 요구량 379~381 검색/일의 약 53% 가 도구 상한이다. 예산을 '늘린다'는 결정은 이 상한을 올리는 것(CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION) 또는 세션을 나누는 것이지, 오케스트레이터가 더 돌리는 문제가 아니다.",
-    "blockedQueries": 31
+    "note": "**실측 — 한 세션의 WebSearch 는 200회에서 강제 차단된다.** 오늘 200회를 전부 썼고 마지막 배치(CN 표적 25건 등)는 차단됐다. RUNBOOK 요구량 379~381 검색/일의 약 53% 가 도구 상한이다. 예산을 '늘린다'는 결정은 이 상한을 올리는 것(CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION) 또는 세션을 나누는 것이지, 오케스트레이터가 더 돌리는 문제가 아니다. **원장 기록 199 vs 카운터 200 — 1회 미기록**(재구성 불가). 요구량 대비 비율은 기록 기준으로 읽을 것.",
+    "blockedQueries": 31,
+    "webSearchRecorded": 199
   },
   "verifyCounts": {
-    "derivedFrom": "public/data/tracker_data.json (승인 반영 후 재생성)",
+    "derivedFrom": "public/data/tracker_data.json (Codex 반영 후 재생성)",
     "totalItems": 204,
     "thisRun": {
-      "secondary": 120,
+      "secondary": 118,
       "search": 22,
-      "primary-meta": 22,
+      "primary-meta": 21,
       "primary-doc": 5
     },
-    "thisRunTotal": 169,
-    "carriedOver": 35
+    "thisRunTotal": 166,
+    "carriedOver": 38
   },
   "statusDistribution": {
     "ACTIVE": 116,
@@ -2280,12 +2277,14 @@
   },
   "coverageOfDay": {
     "contractBasis": "RUNBOOK RD-2 — 전 항목이 당일 원장에 최소 1회 명중. 미명중 잔존 = run 미완.",
-    "hitToday": 169,
-    "missToday": 35,
+    "hitToday": 166,
+    "missToday": 38,
     "total": 204,
     "missIds": [
       "NA-003",
       "NA-006",
+      "NA-019",
+      "NA-020",
       "EU-013",
       "EU-032",
       "CN-003",
@@ -2304,6 +2303,7 @@
       "KR-022",
       "JP-003",
       "JP-009",
+      "JP-016",
       "CN-039",
       "NA-035",
       "CN-041",
@@ -2324,12 +2324,14 @@
   },
   "partialReason": {
     "why": "전 항목 당일 명중 미달 — WebSearch 세션 상한 200회에서 차단됐다. 셀 전수 스윕 90 은 완주.",
-    "arithmetic": "검색 199회(스윕 90·표적 109) + 원문 열람 24건 → 당일 명중 153/188. 차단된 표적 검색 31건은 원장에 기록하지 않았다(실행되지 않은 검색은 근거가 아니다).",
+    "arithmetic": "검색 199회(스윕 90·표적 109) + 원문 열람 24건 → 당일 명중(승인 16건 편입·Codex 원복 3건 후) 166/204. 차단된 표적 검색 31건은 원장에 기록하지 않았다(실행되지 않은 검색은 근거가 아니다).",
     "unverifiedScope": {
-      "staleCount": 35,
+      "staleCount": 38,
       "staleIds": [
         "NA-003",
         "NA-006",
+        "NA-019",
+        "NA-020",
         "EU-013",
         "EU-032",
         "CN-003",
@@ -2348,6 +2350,7 @@
         "KR-022",
         "JP-003",
         "JP-009",
+        "JP-016",
         "CN-039",
         "NA-035",
         "CN-041",
@@ -2716,5 +2719,21 @@
       "NA/waste_ship"
     ],
     "note": "신규 16건은 발굴 근거 등급을 그대로 verify.method 로 달았다(primary-doc 2·primary-meta 9·secondary 5). 2차 근거 5건(CN-049·GL-010·KR-032·NA-051·NA-053)은 원문 대조를 이월한다."
-  }
+  },
+  "reviewResponse": [
+    {
+      "reviewer": "Codex",
+      "commit": "3199ebfd",
+      "findings": 5,
+      "accepted": 5,
+      "items": [
+        "NA-019·NA-020 — §842 검색 결과가 §154·§805 를 다루지 않음. 스탬프 원복(2026-08-29 유지)",
+        "JP-016 — 2024.12 정령 원문은 PFHxS 건 범위 밖. 스탬프 원복(2026-09-02 유지)",
+        "EU-026 — detail 의 9/2 단락이 새 판단과 정반대. 삭제 대신 2026-09-09 재판단 단락으로 대체 명시",
+        "meta.snapshotNote — 9/2 수치 그대로였음. 데이터에서 재생성",
+        "RUNBOOK — 기록 199 를 200 으로 적음. 199/200 분리 기재"
+      ],
+      "lesson": "한 검색이 한 항목을 '대신' 확인해 주지 않는다. 결과 본문이 그 항목의 규범을 진술하지 않으면 itemsCovered 에 넣지 않는다 — 9/2 KR-004/006 과 같은 유형의 세 번째 반복."
+    }
+  ]
 }

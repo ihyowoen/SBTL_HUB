@@ -23,46 +23,129 @@ jobs:
       - name: Apply evidence-boundary remediation
         shell: bash
         run: |
-          node <<'NODE'
-          const fs = require('fs');
+          python3 <<'PY'
+          import json
+          from pathlib import Path
 
-          const provPath = 'lib/brief/monthlyProvenance.js';
-          let prov = fs.readFileSync(provPath, 'utf8');
-          const oldHelper = `function cardPrimaryUrl(card) {\n  if (Array.isArray(card?.urls)) {\n    const first = card.urls.find((value) => typeof value === "string" && value.trim());\n    if (first) return first.trim();\n  }\n  return typeof card?.url === "string" ? card.url.trim() : "";\n}\n`;
-          const newHelper = `function cardPrimaryUrl(card) {\n  if (Array.isArray(card?.urls)) {\n    const first = card.urls.find((value) => typeof value === "string" && value.trim());\n    if (first) return first.trim();\n  }\n  return typeof card?.url === "string" ? card.url.trim() : "";\n}\n\nfunction cardTitleSupportingUrls(card) {\n  const mapped = new Set();\n  for (const source of Array.isArray(card?.fact_sources) ? card.fact_sources : []) {\n    const supports = Array.isArray(source?.supports) ? source.supports : [];\n    if (!supports.includes("title")) continue;\n    for (const candidate of [source?.source_url, source?.source_url_canonical]) {\n      if (typeof candidate === "string" && candidate.trim()) mapped.add(candidate.trim());\n    }\n  }\n  if (mapped.size) return mapped;\n  const primary = cardPrimaryUrl(card);\n  return primary ? new Set([primary]) : new Set();\n}\n`;
-          if (!prov.includes(oldHelper)) throw new Error('provenance helper anchor not found');
-          prov = prov.replace(oldHelper, newHelper);
-          const oldUrlBlock = `      const expectedUrl = cardPrimaryUrl(card);\n      if (ref.title !== expectedTitle) {\n        errors.push(\`${refPath}.title: expected locked card title \${JSON.stringify(expectedTitle)}, got \${JSON.stringify(ref.title)}\`);\n      }\n      if (ref.date !== expectedDate) {\n        errors.push(\`${refPath}.date: expected locked card date \${JSON.stringify(expectedDate)}, got \${JSON.stringify(ref.date)}\`);\n      }\n      if (Object.prototype.hasOwnProperty.call(ref, "url") && ref.url !== expectedUrl) {\n        errors.push(\`${refPath}.url: expected locked card primary URL \${JSON.stringify(expectedUrl)}, got \${JSON.stringify(ref.url)}\`);\n      }`;
-          const newUrlBlock = `      const allowedTitleUrls = cardTitleSupportingUrls(card);\n      if (ref.title !== expectedTitle) {\n        errors.push(\`${refPath}.title: expected locked card title \${JSON.stringify(expectedTitle)}, got \${JSON.stringify(ref.title)}\`);\n      }\n      if (ref.date !== expectedDate) {\n        errors.push(\`${refPath}.date: expected locked card date \${JSON.stringify(expectedDate)}, got \${JSON.stringify(ref.date)}\`);\n      }\n      if (Object.prototype.hasOwnProperty.call(ref, "url") && !allowedTitleUrls.has(ref.url)) {\n        errors.push(\`${refPath}.url: expected locked card title-supporting governed evidence URL, got \${JSON.stringify(ref.url)}\`);\n      }`;
-          if (!prov.includes(oldUrlBlock)) throw new Error('provenance URL block anchor not found');
-          fs.writeFileSync(provPath, prov.replace(oldUrlBlock, newUrlBlock));
+          prov_path = Path('lib/brief/monthlyProvenance.js')
+          prov = prov_path.read_text()
+          old_helper = '''function cardPrimaryUrl(card) {
+            if (Array.isArray(card?.urls)) {
+              const first = card.urls.find((value) => typeof value === "string" && value.trim());
+              if (first) return first.trim();
+            }
+            return typeof card?.url === "string" ? card.url.trim() : "";
+          }
+          '''
+          new_helper = '''function cardPrimaryUrl(card) {
+            if (Array.isArray(card?.urls)) {
+              const first = card.urls.find((value) => typeof value === "string" && value.trim());
+              if (first) return first.trim();
+            }
+            return typeof card?.url === "string" ? card.url.trim() : "";
+          }
 
-          const testPath = '__tests__/monthlyBriefProvenance.test.js';
-          let test = fs.readFileSync(testPath, 'utf8');
-          const oldA = `{ id: "AUG_A", date: "2026-08-10", title: "August A", urls: ["https://example.com/a"] },`;
-          const newA = `{\n      id: "AUG_A",\n      date: "2026-08-10",\n      title: "August A",\n      urls: ["https://example.com/a"],\n      fact_sources: [\n        { source_url: "https://example.com/a-title", supports: ["title", "fact"] },\n        { source_url: "https://example.com/a-context", supports: ["sub"] },\n      ],\n    },`;
-          if (!test.includes(oldA)) throw new Error('test snapshot anchor not found');
-          test = test.replace(oldA, newA);
-          const testAnchor = `  it("allows an omitted optional reference URL while still binding title and date", () => {`;
-          const addedTests = `  it("accepts a governed alternate source that explicitly supports the locked card title", () => {\n    const lib = library();\n    lib.items[0].refs[0].url = "https://example.com/a-title";\n    expect(validateMonthlyBriefProvenance(lib, resolver())).toEqual([]);\n  });\n\n  it("rejects a governed source that does not support the locked card title", () => {\n    const lib = library();\n    lib.items[0].refs[0].url = "https://example.com/a-context";\n    const errors = validateMonthlyBriefProvenance(lib, resolver()).join("\\n");\n    expect(errors).toContain("refs[0].url");\n    expect(errors).toContain("title-supporting governed evidence URL");\n  });\n\n`;
-          if (!test.includes(testAnchor)) throw new Error('test insertion anchor not found');
-          fs.writeFileSync(testPath, test.replace(testAnchor, addedTests + testAnchor));
+          function cardTitleSupportingUrls(card) {
+            const mapped = new Set();
+            for (const source of Array.isArray(card?.fact_sources) ? card.fact_sources : []) {
+              const supports = Array.isArray(source?.supports) ? source.supports : [];
+              if (!supports.includes("title")) continue;
+              for (const candidate of [source?.source_url, source?.source_url_canonical]) {
+                if (typeof candidate === "string" && candidate.trim()) mapped.add(candidate.trim());
+              }
+            }
+            if (mapped.size) return mapped;
+            const primary = cardPrimaryUrl(card);
+            return primary ? new Set([primary]) : new Set();
+          }
+          '''
+          old_helper = '\n'.join(line[10:] if line.startswith('          ') else line for line in old_helper.splitlines()) + '\n'
+          new_helper = '\n'.join(line[10:] if line.startswith('          ') else line for line in new_helper.splitlines()) + '\n'
+          if old_helper not in prov:
+              raise SystemExit('provenance helper anchor not found')
+          prov = prov.replace(old_helper, new_helper, 1)
 
-          const briefPath = 'public/data/monthly_briefs.json';
-          const brief = JSON.parse(fs.readFileSync(briefPath, 'utf8'));
-          const item = brief.items.find(x => x.id === 'monthly-brief-2026-08-r1');
-          if (!item) throw new Error('monthly brief issue not found');
-          item.what_changed = "8월에는 ‘EV 둔화와 ESS 성장’만으로는 산업 변화를 설명하기 어려워졌다. EV 배터리 수요도 성장하고 있지만, ESS 관련 수요와 투자는 장기계약·은행금융·착공·상업운전으로 이어졌고 생산 측에서는 공장 생산개시와 제품 믹스 계획이 확인됐다. 따라서 앞으로는 단순 출하량보다 COD·가동률·장기계약 집행·현지조달 적격성·세후 원가와 수익성을 함께 봐야 한다.";
-          const old300 = item.refs.find(r => r.id === '2026-08-05_US_03');
-          if (!old300) throw new Error('Old 300 ref not found');
-          old300.url = 'https://www.pv-magazine.com/2026/08/06/orsted-turns-on-500-mwh-battery-project-with-co-located-solar-in-texas/';
-          fs.writeFileSync(briefPath, JSON.stringify(brief, null, 2) + '\n');
+          old_url = '''      const expectedUrl = cardPrimaryUrl(card);
+                if (ref.title !== expectedTitle) {
+                  errors.push(`${refPath}.title: expected locked card title ${JSON.stringify(expectedTitle)}, got ${JSON.stringify(ref.title)}`);
+                }
+                if (ref.date !== expectedDate) {
+                  errors.push(`${refPath}.date: expected locked card date ${JSON.stringify(expectedDate)}, got ${JSON.stringify(ref.date)}`);
+                }
+                if (Object.prototype.hasOwnProperty.call(ref, "url") && ref.url !== expectedUrl) {
+                  errors.push(`${refPath}.url: expected locked card primary URL ${JSON.stringify(expectedUrl)}, got ${JSON.stringify(ref.url)}`);
+                }'''
+          new_url = '''      const allowedTitleUrls = cardTitleSupportingUrls(card);
+                if (ref.title !== expectedTitle) {
+                  errors.push(`${refPath}.title: expected locked card title ${JSON.stringify(expectedTitle)}, got ${JSON.stringify(ref.title)}`);
+                }
+                if (ref.date !== expectedDate) {
+                  errors.push(`${refPath}.date: expected locked card date ${JSON.stringify(expectedDate)}, got ${JSON.stringify(ref.date)}`);
+                }
+                if (Object.prototype.hasOwnProperty.call(ref, "url") && !allowedTitleUrls.has(ref.url)) {
+                  errors.push(`${refPath}.url: expected locked card title-supporting governed evidence URL, got ${JSON.stringify(ref.url)}`);
+                }'''
+          old_url = '\n'.join(line[6:] if line.startswith('      ') else line for line in old_url.splitlines())
+          new_url = '\n'.join(line[6:] if line.startswith('      ') else line for line in new_url.splitlines())
+          if old_url not in prov:
+              raise SystemExit('provenance URL block anchor not found')
+          prov_path.write_text(prov.replace(old_url, new_url, 1))
 
-          const auditPath = 'runs/2026-09-09/monthly-brief-2026-08-editorial-audit.json';
-          const audit = JSON.parse(fs.readFileSync(auditPath, 'utf8'));
-          audit.qc.review_remediation = "PASS — Lansing production start is separated from planned product mix; `what_changed` now distinguishes ESS contract/finance/construction/COD execution from production-start/product-mix planning; black-mass wording is narrowed to the governed one-year export restriction; Old 300 public citation is bound to the governed pv magazine source that explicitly supports the title/commercial-operation claim; the Jianxiawo post-month-enriched ref is removed from official August evidence; non-canonical EU liquidity counterevidence carries source provenance; the September China approval-pause signal is bound to canonical card 2026-09-06_CN_02.";
-          fs.writeFileSync(auditPath, JSON.stringify(audit, null, 2) + '\n');
-          NODE
+          test_path = Path('__tests__/monthlyBriefProvenance.test.js')
+          test = test_path.read_text()
+          old_a = '    { id: "AUG_A", date: "2026-08-10", title: "August A", urls: ["https://example.com/a"] },'
+          new_a = '''    {
+              id: "AUG_A",
+              date: "2026-08-10",
+              title: "August A",
+              urls: ["https://example.com/a"],
+              fact_sources: [
+                { source_url: "https://example.com/a-title", supports: ["title", "fact"] },
+                { source_url: "https://example.com/a-context", supports: ["sub"] },
+              ],
+            },'''
+          new_a = '\n'.join(line[8:] if line.startswith('        ') else line for line in new_a.splitlines())
+          if old_a not in test:
+              raise SystemExit('test snapshot anchor not found')
+          test = test.replace(old_a, new_a, 1)
+          anchor = '  it("allows an omitted optional reference URL while still binding title and date", () => {'
+          added = '''  it("accepts a governed alternate source that explicitly supports the locked card title", () => {
+              const lib = library();
+              lib.items[0].refs[0].url = "https://example.com/a-title";
+              expect(validateMonthlyBriefProvenance(lib, resolver())).toEqual([]);
+            });
+
+            it("rejects a governed source that does not support the locked card title", () => {
+              const lib = library();
+              lib.items[0].refs[0].url = "https://example.com/a-context";
+              const errors = validateMonthlyBriefProvenance(lib, resolver()).join("\\n");
+              expect(errors).toContain("refs[0].url");
+              expect(errors).toContain("title-supporting governed evidence URL");
+            });
+
+          '''
+          added = '\n'.join(line[10:] if line.startswith('          ') else line for line in added.splitlines())
+          if anchor not in test:
+              raise SystemExit('test insertion anchor not found')
+          test_path.write_text(test.replace(anchor, added + anchor, 1))
+
+          brief_path = Path('public/data/monthly_briefs.json')
+          brief = json.loads(brief_path.read_text())
+          item = next((x for x in brief['items'] if x.get('id') == 'monthly-brief-2026-08-r1'), None)
+          if not item:
+              raise SystemExit('monthly brief issue not found')
+          item['what_changed'] = '8월에는 ‘EV 둔화와 ESS 성장’만으로는 산업 변화를 설명하기 어려워졌다. EV 배터리 수요도 성장하고 있지만, ESS 관련 수요와 투자는 장기계약·은행금융·착공·상업운전으로 이어졌고 생산 측에서는 공장 생산개시와 제품 믹스 계획이 확인됐다. 따라서 앞으로는 단순 출하량보다 COD·가동률·장기계약 집행·현지조달 적격성·세후 원가와 수익성을 함께 봐야 한다.'
+          old300 = next((r for r in item['refs'] if r.get('id') == '2026-08-05_US_03'), None)
+          if not old300:
+              raise SystemExit('Old 300 ref not found')
+          old300['url'] = 'https://www.pv-magazine.com/2026/08/06/orsted-turns-on-500-mwh-battery-project-with-co-located-solar-in-texas/'
+          brief_path.write_text(json.dumps(brief, ensure_ascii=False, indent=2) + '\n')
+
+          audit_path = Path('runs/2026-09-09/monthly-brief-2026-08-editorial-audit.json')
+          audit = json.loads(audit_path.read_text())
+          audit['qc']['review_remediation'] = 'PASS — Lansing production start is separated from planned product mix; `what_changed` distinguishes ESS contract/finance/construction/COD execution from production-start/product-mix planning; black-mass wording is narrowed to the governed one-year export restriction; Old 300 public citation is bound to the governed pv magazine source that explicitly supports the title/commercial-operation claim; the Jianxiawo post-month-enriched ref is removed from official August evidence; non-canonical EU liquidity counterevidence carries source provenance; the September China approval-pause signal is bound to canonical card 2026-09-06_CN_02.'
+          audit_path.write_text(json.dumps(audit, ensure_ascii=False, indent=2) + '\n')
+          PY
       - name: Targeted provenance tests
         run: npx vitest run __tests__/monthlyBriefProvenance.test.js
       - name: Validate official Monthly Brief library

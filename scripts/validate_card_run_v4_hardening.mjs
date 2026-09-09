@@ -406,7 +406,11 @@ function validateRun(run, root = ".") {
   validateCompleteness(run, root);
 
   const canonicalSpecMap = loadCanonicalSpecMap(root);
-  const baselineSpecIds = new Set(canonicalSpecMap.values());
+  const workingTreeSpecCardIds = new Map();
+  for (const [existingCardId, existingSpecId] of canonicalSpecMap.entries()) {
+    if (!workingTreeSpecCardIds.has(existingSpecId)) workingTreeSpecCardIds.set(existingSpecId, new Set());
+    workingTreeSpecCardIds.get(existingSpecId).add(existingCardId);
+  }
   const insertedSpecMap = new Map();
   const insertedSpecIds = new Set();
   for (const [insertIndex, operation] of (run.operations?.insert || []).entries()) {
@@ -414,7 +418,10 @@ function validateRun(run, root = ".") {
     const cardId = operation.card.id.trim();
     const specId = operation.card.source_spec_id.trim();
     if (insertedSpecIds.has(specId)) fail("BLOCKED_OPERATION_IDENTITY", `insert[${insertIndex}] reuses source_spec_id=${specId} within the same run`);
-    if (baselineSpecIds.has(specId)) fail("BLOCKED_OPERATION_IDENTITY", `insert[${insertIndex}] reuses source_spec_id=${specId} already present in canonical inventory`);
+    const workingTreeCardIds = workingTreeSpecCardIds.get(specId);
+    if (workingTreeCardIds && [...workingTreeCardIds].some((existingCardId) => existingCardId !== cardId)) {
+      fail("BLOCKED_OPERATION_IDENTITY", `insert[${insertIndex}] reuses source_spec_id=${specId} already present on a different canonical card`);
+    }
     insertedSpecIds.add(specId);
     insertedSpecMap.set(cardId, specId);
   }

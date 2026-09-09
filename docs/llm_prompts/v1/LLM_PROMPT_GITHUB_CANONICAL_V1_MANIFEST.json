@@ -6,18 +6,104 @@
   "cards_json_change": false,
   "canonical_paths": {
     "launcher": "docs/llm_prompts/v1/00_NEW_RUN_MASTER_PROMPT.md",
-    "governance_docs": ["docs/WORKFLOW.md", "docs/OPERATIONS.md", "docs/FACT_DISCIPLINE.md", "docs/DOCUMENT_UNIVERSE_POLICY.md", "docs/RUN_GOVERNANCE_INDEX.md", "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md", "docs/RELATED_LIFECYCLE_CONTRACT.md", "docs/SOURCE_AUDIT_CONTRACT.md", "docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md", "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md", "docs/CARD_ID_STANDARD.md", "docs/CARD_INCREMENTAL_RUN_CONTRACT.md", "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md", "docs/PROMPT_ABC_DEFAULT_MODE.md"],
-    "stage_prompts": ["docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md", "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md", "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md", "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md", "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md", "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md", "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md", "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md", "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md", "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md", "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md", "docs/llm_prompts/v1/09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md", "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md", "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md", "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md", "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md", "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md"],
+    "governance_docs": [
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/DOCUMENT_UNIVERSE_POLICY.md",
+      "docs/RUN_GOVERNANCE_INDEX.md",
+      "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md",
+      "docs/SOURCE_AUDIT_CONTRACT.md",
+      "docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/CARD_INCREMENTAL_RUN_CONTRACT.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md"
+    ],
+    "stage_prompts": [
+      "docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md",
+      "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
+      "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
+      "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md",
+      "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md",
+      "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md",
+      "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
+      "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
+      "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+      "docs/llm_prompts/v1/09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md",
+      "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
+      "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
+      "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
+      "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md"
+    ],
     "lifecycle_registry": "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json",
     "manual_direct_add_contract": "docs/MANUAL_DIRECT_ADD_V2.md",
     "manual_direct_add_schema": "schemas/manual-direct-add.v2.schema.json",
     "manual_direct_add_validator": "scripts/validate_manual_direct_add.mjs",
-    "runtime_contract_files": ["scripts/lean_cards.mjs", ".github/workflows/lean-cards.yml", ".github/workflows/workflow-contract-validation.yml", ".github/workflows/apply-card-run.yml"],
-    "validation_scripts": ["validation_scripts/date_role_alignment_check.py", "validation_scripts/story_id_lineage_check.py", "validation_scripts/related_lineage_check.py", "validation_scripts/date_role_freshness_check.py", "validation_scripts/evidence_qc_v8_check.py", "validation_scripts/related_lifecycle_check.py", "validation_scripts/stage_artifact_contract_check.py", "validation_scripts/run_workflow_contract_suite.py", "validation_scripts/workflow_v4_architecture_check.py"]
+    "runtime_contract_files": [
+      "scripts/lean_cards.mjs",
+      ".github/workflows/lean-cards.yml",
+      ".github/workflows/workflow-contract-validation.yml",
+      ".github/workflows/apply-card-run.yml"
+    ],
+    "validation_scripts": [
+      "validation_scripts/date_role_alignment_check.py",
+      "validation_scripts/story_id_lineage_check.py",
+      "validation_scripts/related_lineage_check.py",
+      "validation_scripts/date_role_freshness_check.py",
+      "validation_scripts/evidence_qc_v8_check.py",
+      "validation_scripts/related_lifecycle_check.py",
+      "validation_scripts/stage_artifact_contract_check.py",
+      "validation_scripts/run_workflow_contract_suite.py",
+      "validation_scripts/workflow_v4_architecture_check.py",
+      "validation_scripts/stage_a_full_v3_completeness.py",
+      "validation_scripts/stage_a_full_v3_completeness_review4943607439.py",
+      "validation_scripts/stage_a_full_v3_completeness_review4943656188.py",
+      "validation_scripts/stage_a_full_v3_completeness_review4943656188_final.py",
+      "validation_scripts/stage_a_full_v3_completeness_review4943777463.py",
+      "validation_scripts/stage_a_full_v3_completeness_review4943878732.py",
+      "validation_scripts/stage_a_full_v3_completeness_review4945466862.py",
+      "validation_scripts/stage_a_full_v3_completeness_review4945668766.py",
+      "validation_scripts/stage_a_full_v3_completeness_review4945713246.py",
+      "validation_scripts/stage_a_v4_contract.py",
+      "validation_scripts/stage_a_v4_hardening.py",
+      "validation_scripts/stage_lineage_contract_check.py",
+      "validation_scripts/stage_lineage_contract_check_base.py",
+      "validation_scripts/stage_lineage_contract_check_review4860866998_base.py",
+      "validation_scripts/stage_lineage_contract_check_review4868891584_base.py",
+      "validation_scripts/stage_lineage_contract_check_review4869324626_base.py",
+      "validation_scripts/stage_lineage_contract_check_semantic.py",
+      "validation_scripts/stage_lineage_contract_check_v3_compat.py",
+      "validation_scripts/v3_contract.py",
+      "validation_scripts/v3_contract_review4871719239_base.py",
+      "validation_scripts/v3_stage_contract_flow_check.py",
+      "validation_scripts/v3_stage_contracts.py"
+    ]
   },
-  "canonical_baseline": {"full":"data/cards.full.json","public_projection":"public/data/cards.json","public_projection_is_canonical":false,"export_direction":"full_to_public_only"},
-  "formal_run_operations": ["insert","update","related_add"],
-  "formal_run_forbidden_operations": ["delete","related_remove","public_to_full_ingest"],
-  "mutation_modes": ["formal_card_run","manual_direct_add_v2"],
+  "canonical_baseline": {
+    "full": "data/cards.full.json",
+    "public_projection": "public/data/cards.json",
+    "public_projection_is_canonical": false,
+    "export_direction": "full_to_public_only"
+  },
+  "formal_run_operations": [
+    "insert",
+    "update",
+    "related_add"
+  ],
+  "formal_run_forbidden_operations": [
+    "delete",
+    "related_remove",
+    "public_to_full_ingest"
+  ],
+  "mutation_modes": [
+    "formal_card_run",
+    "manual_direct_add_v2"
+  ],
   "mutation_modes_mutually_exclusive_in_one_data_pr": true
 }

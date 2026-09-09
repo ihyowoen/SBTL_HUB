@@ -13,6 +13,7 @@ from typing import Any, Mapping
 
 CANONICAL_POLICY_VERSION = "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
 CANONICAL_POLICY_FILE = "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md"
+V4_POLICY_VERSION = "EMBEDDED_NEWS_VALUE_SELECTION_V4"
 
 SCORE_COMPONENT_LIMITS = {
     "market_structure_competition": 25,
@@ -228,6 +229,32 @@ def _candidate_id(item: Mapping[str, Any], fallback: str) -> str:
         or item.get("story_id")
         or fallback
     )
+
+
+def _validate_denominator_gap_compat(
+    item: Mapping[str, Any],
+    label: str,
+    messages: list[str],
+) -> None:
+    """Preserve frozen V3 booleans while honoring the active V4 text contract."""
+    if "denominator_gap" not in item:
+        return
+    denominator_gap = item.get("denominator_gap")
+    if item.get("selection_policy_version") == V4_POLICY_VERSION:
+        denominator = item.get("systemic_scale_denominator")
+        denominator_present = isinstance(denominator, str) and bool(denominator.strip())
+        if denominator_present:
+            if denominator_gap not in (None, "", [], {}):
+                messages.append(
+                    f"{label}: V4 denominator_gap must be empty when systemic_scale_denominator is supplied"
+                )
+        elif not isinstance(denominator_gap, str) or not denominator_gap.strip():
+            messages.append(
+                f"{label}: V4 denominator_gap must be a non-empty explanation when systemic_scale_denominator is absent"
+            )
+        return
+    if not isinstance(denominator_gap, bool):
+        messages.append(f"{label}: V3 denominator_gap must be boolean")
 
 
 def _score_classification(score: int) -> str:
@@ -489,8 +516,7 @@ def _validate_full_candidate(
         if field not in item:
             messages.append(f"{label}: missing Prompt 0.1S field {field}")
 
-    if "denominator_gap" in item and not isinstance(item.get("denominator_gap"), bool):
-        messages.append(f"{label}: denominator_gap must be boolean")
+    _validate_denominator_gap_compat(item, label, messages)
     if "denominator_used" in item and not isinstance(item.get("denominator_used"), str):
         messages.append(f"{label}: denominator_used must be string")
     if "baseline_follow_up_relation" in item and not isinstance(item.get("baseline_follow_up_relation"), str):

@@ -1,0 +1,68 @@
+{
+  "schema": "independent_completeness_review_v4_operation_bound_r1",
+  "stage": "0.7C",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "completeness_status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "run_id": "card-run-2026-09-04-r6-combined9-production-r1",
+  "base_main_commit_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "base_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "document_universe_manifest_ref": "runs/2026-09-04/r6-combined9-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-04/r6-combined9-production-r1/stage-0-0c.json",
+  "reviewed_operations_sha256": "94ba16582bbd8ec13db59713a4b463976cbaf97dba0ae6f1cc396adafd852e8b",
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "material_exclusions": [],
+  "known_unknowns": [],
+  "residual_risks": [
+    "Absolute global completeness beyond the two cryptographically bound source-run coverage universes and registry-defined search axes is not claimed.",
+    "Any post-review change to main, canonical blob, or the exact operations object invalidates this authorization and requires a fresh 0.7C review."
+  ],
+  "reviewer_independence": "SEPARATE_PASS",
+  "prompt_0_8_authorized": true,
+  "six_round_review": {
+    "round_1_universe_accounting": {
+      "status": "PASS",
+      "observations": 632,
+      "corrected_events": 395,
+      "raw_attachment_binding": "PASS",
+      "unassigned_observations": 0
+    },
+    "round_2_baseline_duplicate_reinforcement_followup": {
+      "status": "PASS",
+      "basis": "Prompt 0.4 combined9 exact/canonical URL, title, event fingerprint and Related revalidation",
+      "operation_items": 9
+    },
+    "round_3_event_stage_and_lineage": {
+      "status": "PASS",
+      "related_add_count": 2,
+      "provisional_related_remaining": 0
+    },
+    "round_4_fact_claim_completeness": {
+      "status": "PASS",
+      "basis": "Prompt 0.5 evidence-complete/source-claim-covered + Prompt 0.7 final QC",
+      "publish_ready_items": 9
+    },
+    "round_5_news_value_scoring_caps_urgency": {
+      "status": "PASS",
+      "basis": "formal Stage A V4 strict route plus authorized 0.1P promotion; no silent V3 authority reuse"
+    },
+    "round_6_exclusion_and_rescue_red_team": {
+      "status": "PASS",
+      "formal_stage_a_event_universe": 395,
+      "candidate_review_pool_promoted": 2,
+      "candidate_review_pool_terminal_or_retained": 14,
+      "material_unaccounted_candidate_count": 0
+    }
+  },
+  "evidence_bindings": {
+    "raw_attachment_binding_ref": "runs/2026-09-03/raw_input_chat_attachment_binding_20260831_20260901_R2.json",
+    "event_universe_gate_ref": "runs/2026-09-03/current_event_universe_replay_gate_20260903_R6.json",
+    "stage_a_all_batches_ref": "runs/2026-09-03/stage_a_formal_r6_all_batches_20260903_R1.json",
+    "promotion_review_ref": "runs/2026-09-03/stage_a_prompt_0_1p_r6_promotion16_20260903_R1.json",
+    "final_qc_ref": "runs/2026-09-03/prompt_0_7_r6_combined9_20260903_R1.json"
+  }
+}

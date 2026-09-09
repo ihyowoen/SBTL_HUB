@@ -1,0 +1,102 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "PR350_POSTMERGE_EVIDENCE_REMEDIATION_20260909_R1",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "bc44c2ce1dad6eeaa1130b3d27d8a67b96b4cc5b",
+  "base_full_blob_sha": "d0ddd099eb7f9f336f52725ee66e26c322fa5478",
+  "expected_before": 1599,
+  "expected_after": 1599,
+  "output_updated": "2026-09-09T03:19:55Z",
+  "operations": {
+    "add": [],
+    "update": [
+      "2026-08-28_KR_01",
+      "2026-09-04_CN_04",
+      "2026-09-04_GL_04",
+      "2026-09-07_JP_01",
+      "2026-09-02_GL_07"
+    ],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [],
+    "updates": [
+      {
+        "id": "2026-08-28_KR_01",
+        "change_type": "evidence_update",
+        "changed_fields": [
+          "date_role",
+          "fact_sources",
+          "source_discovery_ledger",
+          "source_diversity_roles",
+          "urls"
+        ],
+        "reason": "Replace a Stocksori AI summary misclassified as filing original_data with the actual PINO DART filing while preserving the represented investment event.",
+        "evidence_review_summary": "Post-merge red-team review of PR #350 verified the represented event and visible claims, then corrected source identity/discovery/owner metadata using durable original or independent sources without changing event identity, visible claims, Related, or event_fingerprint."
+      },
+      {
+        "id": "2026-09-04_CN_04",
+        "change_type": "evidence_update",
+        "changed_fields": [
+          "alternative_source_search_audit",
+          "claim_map",
+          "date_role",
+          "fact_sources",
+          "single_source_exception",
+          "source_discovery_ledger",
+          "source_diversity_measure",
+          "source_diversity_roles",
+          "source_diversity_status",
+          "source_published_date",
+          "source_synthesis_audit",
+          "urls"
+        ],
+        "reason": "Retire an avoidable single-source exception by adding a same-day independent CNR report that covers the same Xiaomi/CALB/Sunwoda announcement and design roles.",
+        "evidence_review_summary": "Post-merge red-team review of PR #350 verified the represented event and visible claims, then corrected source identity/discovery/owner metadata using durable original or independent sources without changing event identity, visible claims, Related, or event_fingerprint."
+      },
+      {
+        "id": "2026-09-04_GL_04",
+        "change_type": "evidence_update",
+        "changed_fields": [
+          "fact_sources",
+          "source_discovery_ledger"
+        ],
+        "reason": "Normalize a Reuters wire story syndicated on Kitco to Reuters as the editorial owner; no claim or event content changes.",
+        "evidence_review_summary": "Post-merge red-team review of PR #350 verified the represented event and visible claims, then corrected source identity/discovery/owner metadata using durable original or independent sources without changing event identity, visible claims, Related, or event_fingerprint."
+      },
+      {
+        "id": "2026-09-07_JP_01",
+        "change_type": "evidence_update",
+        "changed_fields": [
+          "fact_sources",
+          "source_discovery_ledger"
+        ],
+        "reason": "Correct the RE ENERGY BUSINESS NAVI display identity and record its distinct analytical contribution rather than generic corroboration.",
+        "evidence_review_summary": "Post-merge red-team review of PR #350 verified the represented event and visible claims, then corrected source identity/discovery/owner metadata using durable original or independent sources without changing event identity, visible claims, Related, or event_fingerprint."
+      },
+      {
+        "id": "2026-09-02_GL_07",
+        "change_type": "evidence_update",
+        "changed_fields": [
+          "alternative_source_search_audit",
+          "claim_map",
+          "date_role",
+          "fact_sources",
+          "single_source_exception",
+          "source_discovery_ledger",
+          "source_diversity_measure",
+          "source_diversity_roles",
+          "source_diversity_status",
+          "source_published_date",
+          "source_synthesis_audit",
+          "urls"
+        ],
+        "reason": "Add the official Brazil Federal Senate source that existed before QC and retire the unnecessary AP-only source exception.",
+        "evidence_review_summary": "Post-merge red-team review of PR #350 verified the represented event and visible claims, then corrected source identity/discovery/owner metadata using durable original or independent sources without changing event identity, visible claims, Related, or event_fingerprint."
+      }
+    ]
+  }
+}

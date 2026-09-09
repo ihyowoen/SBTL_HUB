@@ -1,0 +1,87 @@
+{
+  "schema": "independent_completeness_review_v4_operation_bound_r1",
+  "stage": "0.7C",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "completeness_status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "run_id": "card-run-2026-09-04-input-20260902-current13-r1",
+  "base_main_commit_sha": "dff7349272013757e08c87b37754ec996156059a",
+  "base_full_blob_sha": "81243ad6ca7e88b703d2eeb31c08ed60f8d6853d",
+  "document_universe_manifest_ref": "runs/2026-09-04/input-20260902-current13-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-04/input-20260902-current13-production-r1/stage-0-0c.json",
+  "reviewed_operations_sha256": "ad84b810fbd7e6b4d76f4fe65bdc14c10808677d09cb3e8579ba76cc3a67cf6f",
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "material_exclusions": [
+    {
+      "item": "Greenvolt Poland 400MW/1.6GWh €218m financing",
+      "disposition": "same_event_existing_canonical",
+      "canonical_target_id": "2026-08-27_EU_03",
+      "reason": "Prompt 0.4 found the same canonical URL and same financing event already represented in current main; it is excluded from insert operations."
+    }
+  ],
+  "known_unknowns": [],
+  "residual_risks": [
+    "Absolute global completeness beyond the registry-defined search axes, the cryptographically bound 2026-09-02 input universe, and the governed cutoff is not claimed.",
+    "Developments published after the 2026-09-02 15:34 KST source-universe cutoff are intentionally excluded and belong to the next run.",
+    "Semantic clustering residual risk is non-zero even after flagged high-risk joins were adjudicated; any later evidence of a hidden same-event merge requires reopening the affected operation.",
+    "Any post-review change to main, canonical blob, or the exact operations object invalidates this authorization and requires a fresh 0.7C review."
+  ],
+  "reviewer_independence": "SEPARATE_PASS",
+  "prompt_0_8_authorized": true,
+  "six_round_review": {
+    "round_1_universe_accounting": {
+      "status": "PASS",
+      "observations": 454,
+      "corrected_events": 320,
+      "unassigned_observations": 0,
+      "duplicate_observation_membership": 0
+    },
+    "round_2_baseline_duplicate_reinforcement_followup": {
+      "status": "PASS",
+      "stage_c_fact_safe": 14,
+      "addable_merge_safe": 13,
+      "same_event_duplicate_hold": 1,
+      "duplicate_hold_target": "2026-08-27_EU_03"
+    },
+    "round_3_event_stage_and_lineage": {
+      "status": "PASS",
+      "new_unrelated_insert_count": 12,
+      "distinct_follow_up_insert_count": 1,
+      "related_add_count": 1,
+      "provisional_related_remaining": 0
+    },
+    "round_4_fact_claim_completeness": {
+      "status": "PASS",
+      "evidence_complete_items": 13,
+      "content_polished_items": 13,
+      "publish_ready_items": 13,
+      "evidence_qc_flags": 0
+    },
+    "round_5_news_value_scoring_caps_urgency": {
+      "status": "PASS",
+      "formal_stage_a_strict": 4,
+      "candidate_review_pool": 87,
+      "prompt_0_1p_promoted": 10,
+      "prompt_0_1p_retained": 77,
+      "balance_forcing_used": false
+    },
+    "round_6_exclusion_and_rescue_red_team": {
+      "status": "PASS",
+      "must_report_discovered_count": 4,
+      "must_report_accounted_count": 4,
+      "material_unaccounted_candidate_count": 0,
+      "greenvolt_duplicate_resolved_at_0_4": true
+    }
+  },
+  "evidence_bindings": {
+    "input_audit_ref": "external-local-audit:input_audit_20260902_124928_CURRENT_MAIN_dff7349.json",
+    "event_universe_ref": "external-local-audit:authoritative_event_universe_20260904_INPUT_20260902_CURRENT_MAIN_dff7349_R2.json",
+    "stage_a_all_batches_ref": "external-local-audit:stage_a_formal_20260904_all_batches_R1.json",
+    "promotion_review_ref": "runs/2026-09-04/input-20260902-current13-production-r1/stages/stage-a-promotion10.json",
+    "final_qc_ref": "runs/2026-09-04/input-20260902-current13-production-r1/stages/stage-0-7-current13.json"
+  }
+}

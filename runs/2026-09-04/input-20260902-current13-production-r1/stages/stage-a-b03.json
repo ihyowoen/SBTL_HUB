@@ -1,0 +1,1072 @@
+{
+  "stage": "stage_a",
+  "status": "PASS",
+  "run_tag": "20260904_INPUT_20260902_FORMAL_STAGE_A_R2_B03",
+  "run_label": "Formal Stage A V4 — 2026-09-02 15:34 KST bounded new run — Batch 03/13",
+  "source_prompt_file": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+  "source_prompt_sha256": "617b775d8ce711b7631073f4a335d385ee6e474efa80d6948435d2434af8461e",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "source_prompt_authority": "uploaded_or_repo_source_file_prompt",
+  "source_prompt_provenance_status": "PASS",
+  "input_file": "authoritative_event_universe_20260904_INPUT_20260902_CURRENT_MAIN_dff7349_R2.json",
+  "baseline_file": "data/cards.full.json",
+  "baseline_source_declaration": "current GitHub main dff7349272013757e08c87b37754ec996156059a, canonical blob 81243ad6ca7e88b703d2eeb31c08ed60f8d6853d, 1523 cards",
+  "baseline_count": 1523,
+  "github_main_sync_required_later": false,
+  "source_universe": "Authoritative 320-event / 454-observation current-run universe; Batch 03 covers ordinals 51-75.",
+  "story_count": 4,
+  "event_count": 2,
+  "original_status_counts": {
+    "KEEP": 4
+  },
+  "integrity_summary": {
+    "status": "PASS",
+    "main_sha": "dff7349272013757e08c87b37754ec996156059a",
+    "canonical_blob_sha": "81243ad6ca7e88b703d2eeb31c08ed60f8d6853d",
+    "authoritative_event_universe_sha256": "4805ca9881d759dd2cf22314c2a4498b82f5b5830d604130395b628d521c6190",
+    "membership_sha256": "5bcfaaf608e848d66a268df3527d739b85611cc6149cc38fce4359801a69fa9e",
+    "duplicate_event_membership": 0,
+    "unassigned_event_membership": 0
+  },
+  "recommended_for": [
+    "Stage B evidence package construction for strict_passed_spec[] only",
+    "separate Prompt 0.1P review-pool handling for candidate_review_pool[] only"
+  ],
+  "stage_a_validity_status": "PASS",
+  "artifact_consistency_status": "PASS",
+  "csv_schema_status": "PASS",
+  "review_pool_partition_status": "PASS",
+  "strict_pass_gate_metadata_status": "PASS",
+  "baseline_duplicate_screen_status": "PASS",
+  "review_pool_carry_forward_ledger_status": "PASS",
+  "next_call_recommendation": {
+    "recommended_next_call": "Stage B r0",
+    "recommended_prompt_id": "Prompt 0.2",
+    "recommended_input_universe": "Stage A strict_passed_spec[] only",
+    "reason": "Formal Batch 03 has 2 strict Stage A V4 specs and all Stage A safety/accounting gates pass; review pools are explicitly excluded from Stage B.",
+    "pending_parallel_or_followup_call": "review_pool/treasure triage",
+    "pending_prompt_id": "authorized review_pool/treasure promotion protocol, not Prompt 0.2",
+    "pending_input_universe": "candidate_review_pool[] + eligible treasure/review-only universe",
+    "pending_reason": "Stage B may process strict_passed_spec[] only; review_pool/treasure remains open and must not be treated as exhausted.",
+    "blocked_items_summary": []
+  },
+  "required_docs_check": {
+    "docs_expected": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md"
+    ],
+    "docs_read_from_github_main": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md"
+    ],
+    "docs_missing_or_unreadable": [],
+    "status": "PASS",
+    "authority_note": "The integrated V4 Stage A prompt is the sole active selection authority. Superseded Structural V3 policy/addendum and PROMPT_ABC_SUPPORTING_RULES are not persisted as active authority; current main supplies frozen V3 document-presence aliases only in a private compatibility projection."
+  },
+  "lane_sanity_rules_applied": [
+    "selector_only_no_external_web_search",
+    "no_new_article_body_fetch",
+    "source_bound_observation_identity",
+    "current_main_event_duplicate_gate_pass",
+    "rescue_before_delete",
+    "V4_score_caps_machine_checked",
+    "upstream_repeat_not_treated_as_final_duplicate"
+  ],
+  "dropped_treasure_hunt": {
+    "performed": false,
+    "trigger_reason": "0.0C coverage discovery already locked upstream; Stage A performs no external treasure hunt.",
+    "sample_strategy": "not_applicable_at_formal_selector",
+    "sample_size": 0,
+    "sampled_story_ids": [],
+    "rescued_count": 0,
+    "rescue_ids": [],
+    "non_sampled_dropped_count": 0,
+    "non_sampled_ledger_policy": "All source-bound observations in this batch are represented exactly once in the decision ledger."
+  },
+  "summary": {
+    "legacy_keep_count": 0,
+    "strict_passed_spec_count": 2,
+    "needs_review_count": 0,
+    "rejected_count": 0,
+    "existing_reinforcement_count": 0,
+    "support_source_only_count": 0,
+    "duplicate_or_reinforcement_count": 0,
+    "stale_discarded_count": 0,
+    "stale_warm_review_count": 0,
+    "total_ledger_count": 4,
+    "ledger_matches_story_count": true,
+    "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+    "structural_selector_policy_file": "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
+    "structural_selector_policy_sha": "826974044eac88f2e80c972dcfa8493cd508cbc31e3a7ca0a0482f244d82c6fe",
+    "credibility_cardability_value_urgency_separated": true,
+    "industry_first_weighting_applied": true,
+    "core_industrial_weight_total": 70,
+    "multi_anchor_class_model_applied": true,
+    "mandatory_structural_lenses_applied": true,
+    "anchor_class_counts": {
+      "execution_event_anchor": 2,
+      "policy_regulatory_anchor": 1,
+      "strategic_behavior_anchor": 2,
+      "technology_commercialization_anchor": 1,
+      "data_financial_anchor": 1
+    },
+    "structural_lens_coverage_counts": {
+      "technology_transition_commercialization": 1,
+      "battery_ESS_supply_chain": 1
+    },
+    "decision_value_classification_counts": {
+      "material_industry_signal": 2
+    },
+    "critical_structural_candidate_ids": [],
+    "high_decision_value_candidate_ids": [],
+    "high_value_review_pool_ids": [],
+    "structural_signal_review_pool_ids": [],
+    "earnings_deep_dive_pool_ids": [],
+    "follow_up_candidate_ids": [],
+    "zero_coverage_domains": [],
+    "execution_or_formality_bias_findings": [],
+    "technology_validation_gap_ids": [
+      "STD26_N2_B03_062"
+    ],
+    "legal_policy_stage_gap_ids": [],
+    "search_before_delete_applied": true,
+    "earnings_call_qna_rule_applied": true,
+    "follow_up_probability_review_applied": true,
+    "portfolio_coverage_audit_applied": true,
+    "structural_value_selector_status": "PASS",
+    "portfolio_coverage_audit_status": "PASS",
+    "earnings_call_qna_audit_status": "PASS",
+    "follow_up_repromotion_audit_status": "PASS",
+    "execution_event_bias_audit_status": "PASS",
+    "content_depth_audit_status": "PASS",
+    "decision_ledger_count": 4,
+    "selection_route_counts": {
+      "execution_anchor_route": 2
+    },
+    "formal_event_count": 2,
+    "source_bound_observation_count": 4
+  },
+  "legacy_keep": [],
+  "strict_passed_spec": [
+    {
+      "source_origin": "2026-09-02 bounded authoritative event universe (raw + 0.0C discovery)",
+      "source_story_ids": [
+        "CN_2026-09-02_C09",
+        "CN_2026-09-01_C27"
+      ],
+      "original_story_ids": [
+        "CN_2026-09-02_C09",
+        "CN_2026-09-01_C27"
+      ],
+      "merge_status": "multi_observation_event",
+      "merged_story_ids": [
+        "CN_2026-09-01_C27"
+      ],
+      "region": "CN",
+      "representative_date": "2026-09-02",
+      "representative_source": "中国能源网",
+      "source_tier_estimate": "single_source_candidate",
+      "cat": "battery_ess_industrial_signal",
+      "sub_cat": "policy",
+      "signal_estimate": "material",
+      "signal_rubric_estimate": {
+        "status": "material_industry_signal",
+        "score": 66
+      },
+      "strategic_lens": [
+        "US_EU_CN_policy"
+      ],
+      "primary_url": "https://www.china5e.com/news/news-1208635-1.html",
+      "urls": [
+        "https://www.china5e.com/news/news-1208635-1.html",
+        "https://www.china5e.com/news/news-1208557-1.html"
+      ],
+      "event_anchor": "production_start",
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "execution_anchor_type": "production_start",
+      "execution_anchor_strength": "strong",
+      "baseline_relation": "new",
+      "duplicate_risk": "resolved_by_current_main_event_reconciliation",
+      "staleness_decision": "current",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "CN_2026-09-02_C09",
+          "url": "https://www.china5e.com/news/news-1208635-1.html",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "CN_2026-09-01_C27",
+          "url": "https://www.china5e.com/news/news-1208557-1.html",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://www.china5e.com/news/news-1208557-1.html"
+      ],
+      "source_domain_candidates": [
+        "china5e.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": true,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external web search or new article-body fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "anchor_classes": [
+        "execution_event_anchor",
+        "policy_regulatory_anchor",
+        "strategic_behavior_anchor",
+        "technology_commercialization_anchor"
+      ],
+      "incremental_information": "The 2026-09-02 bounded source packet newly establishes or materially updates 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 relative to the current-main canonical comparison.",
+      "decision_relevance": "The reported current stage of 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 can change sourcing, market-access, investment, capacity, technology, grid or risk-monitoring decisions; unresolved elements remain explicitly bounded.",
+      "baseline_expectation_changed": "The current-run baseline must account for the source-bound signal represented by 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线, subject to the stated uncertainty and canonical relation treatment.",
+      "evidence_needed_for_stage_b": [
+        "Official contract, filing, permit, exchange notice or company source confirming the exact production_start stage, named actors, quantified terms, event date 2026-09-02, operative schedule and current status for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线."
+      ],
+      "next_confirmation_points": [
+        "First production, shipment, construction, closing, capacity or operating metric after 2026-09-02 would confirm the execution judgment for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线; cancellation, missed deadline or lower delivered volume would weaken it."
+      ],
+      "why_execution_event_not_required": null,
+      "structural_non_execution_reason": null,
+      "prior_state": "Before this 2026-09-02 bounded intake, 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 had not received a final disposition in this new run against current main.",
+      "new_verified_fact": "The supplied source-bound observations report the current-stage fact described as 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线.",
+      "changed_judgment": "The new-run judgment changes from unadjudicated intake to strict_passed_spec for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线.",
+      "uncertainty_resolved": "Event identity, date-window inclusion and the reported direction of 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 are sufficiently resolved for this Stage A disposition.",
+      "remaining_uncertainty": "Stage B must verify the exact operative stage, named actors, date, scope, quantified terms and first measurable implementation for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线.",
+      "decision_news_value_score": 66,
+      "decision_value_breakdown": {
+        "market_structure_competition": 15,
+        "supply_demand_price_utilisation": 18,
+        "technology_performance_safety": 12,
+        "cashflow_asset_value": 5,
+        "law_policy_market_access": 10,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "systemic_scale_denominator": null,
+      "denominator_used": "No defensible market-wide denominator is claimed; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "immediate",
+        "action_required": "Use the strict_passed_spec disposition for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 and do not bypass the specified evidence/review gate.",
+        "decision_deadline": "2026-09-02"
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 before drafting."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "event_date": "2026-09-02",
+        "source_published_date": "2026-09-02",
+        "visible_quote_date": "2026-09-02",
+        "basis": "Authoritative event-universe representative date; Stage B must verify body-level date semantics."
+      },
+      "technology_evidence_level": "commercial_scale_or_long_duration_field",
+      "policy_stage": 4,
+      "novelty_cap_basis": "none",
+      "title_raw": "吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线",
+      "summary_hint": "吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线",
+      "context_text": "Formal Stage A Batch 03 adjudication of 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 using only the supplied source-bound packet.",
+      "why_now": "吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 is inside the bounded 2026-08-20 to 2026-09-02 source universe and requires a current-run disposition.",
+      "market_relevance": "吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 is evaluated for battery/ESS, critical-material, grid, supply-chain, policy, technology or industrial-strategy relevance.",
+      "source_priority_notes": "Stage B must verify supplied source candidates; Stage A performed zero external web search and zero new article-body fetch.",
+      "upstream_labels": {
+        "triage_status": "source_bound_current_run",
+        "matched_buckets": [
+          "curated"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR2_20260902_E0062",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-02",
+        "publication_date": "2026-09-02",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "structural_value_lenses": [
+        "technology_transition_commercialization"
+      ],
+      "baseline_follow_up_relation": "new",
+      "portfolio_coverage_contribution": [
+        "technology_transition"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": "production_start",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Stage B must verify the exact operative stage, named actors, date, scope, quantified terms and first measurable implementation for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线.",
+      "spec_id": "STD26_N2_B03_062",
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 passes lane, anchor, incremental-information, decision-value, freshness, duplicate and full-schema viability checks within the source-bound packet.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The supplied packet supports a current independently cardable anchor for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 with bounded Stage B verification targets."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "production_start",
+        "anchor_strength": "strong",
+        "stage_precision_note": "The current stage for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 is explicit enough for strict Stage A selection; claim-level evidence remains Stage B work."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "Current-main event reconciliation is closed; 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 is not a same-event duplicate or existing-card reinforcement."
+      },
+      "editorial_red_team_override_applied": false,
+      "editorial_red_team_override_reason": null,
+      "legal_policy_stage": "stage_4_implementation_budget_guidance_or_registry",
+      "legal_instrument_type": "official implementation guidance, budget, registry or effective administrative instrument",
+      "competent_authority": "Authority identified in the source-bound packet; exact instrument authority must be verified in Stage B.",
+      "procedural_status": "stage_4_implementation_budget_guidance_or_registry",
+      "adoption_date": "2026-09-02",
+      "publication_date": "2026-09-02",
+      "effective_date": "2026-09-02",
+      "mandatory_application_date": "2026-09-02",
+      "affected_entities": [
+        "Battery/ESS or relevant market participants described in the source-bound packet."
+      ],
+      "affected_products_or_activities": [
+        "Battery/ESS products, market access, taxation, procurement, infrastructure or transport activity described in the item."
+      ],
+      "geographic_scope": "Jurisdiction named in the item.",
+      "extraterritorial_effect": "unknown_stage_a",
+      "budget_or_funding_source": "not_established_in_stage_a_source_packet",
+      "implementation_mechanism": "Verify the primary legal/policy instrument and operative implementation mechanism in Stage B.",
+      "administrative_readiness": "Current stage is source-bound Stage A metadata only; verify in Stage B.",
+      "exemptions_and_thresholds": [],
+      "transition_and_grandfathering": [],
+      "noncompliance_consequences": [],
+      "appeal_or_litigation_risk": "unknown_stage_a",
+      "reversibility_risk": "unknown_stage_a",
+      "precedent_scope": "Item-specific jurisdiction only; no broader precedent claimed at Stage A.",
+      "legal_policy_transmission_chain": [
+        "instrument/guidance",
+        "covered battery/ESS activity",
+        "cost, qualification, market-access or operating response"
+      ],
+      "next_implementation_trigger": "Verify exact official instrument, effective application and first observable implementation in Stage B.",
+      "legal_policy_score_cap_exception": {
+        "applied": false,
+        "basis": null,
+        "evidence": null
+      }
+    },
+    {
+      "source_origin": "2026-09-02 bounded authoritative event universe (raw + 0.0C discovery)",
+      "source_story_ids": [
+        "CN_2026-09-02_C10",
+        "EU_2026-09-01_C20"
+      ],
+      "original_story_ids": [
+        "CN_2026-09-02_C10",
+        "EU_2026-09-01_C20"
+      ],
+      "merge_status": "multi_observation_event",
+      "merged_story_ids": [
+        "EU_2026-09-01_C20"
+      ],
+      "region": "EU",
+      "representative_date": "2026-09-01",
+      "representative_source": "ESS News RSS",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "cat": "battery_ess_industrial_signal",
+      "sub_cat": "strategy_execution",
+      "signal_estimate": "material",
+      "signal_rubric_estimate": {
+        "status": "material_industry_signal",
+        "score": 55
+      },
+      "strategic_lens": [
+        "battery_ESS_supply_chain"
+      ],
+      "primary_url": "https://chuneng.ofweek.com/news/2026-09/ART-180226-12000-30701144.html",
+      "urls": [
+        "https://chuneng.ofweek.com/news/2026-09/ART-180226-12000-30701144.html",
+        "https://www.ess-news.com/2026/09/01/leag-starts-building-1-6-gwh-battery-storage-system"
+      ],
+      "event_anchor": "construction_start",
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "execution_anchor_type": "construction_start",
+      "execution_anchor_strength": "strong",
+      "baseline_relation": "new",
+      "duplicate_risk": "resolved_by_current_main_event_reconciliation",
+      "staleness_decision": "current",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "CN_2026-09-02_C10",
+          "url": "https://chuneng.ofweek.com/news/2026-09/ART-180226-12000-30701144.html",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "EU_2026-09-01_C20",
+          "url": "https://www.ess-news.com/2026/09/01/leag-starts-building-1-6-gwh-battery-storage-system",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://www.ess-news.com/2026/09/01/leag-starts-building-1-6-gwh-battery-storage-system"
+      ],
+      "source_domain_candidates": [
+        "chuneng.ofweek.com",
+        "ess-news.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 2,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": true,
+        "context_candidate_present": true,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external web search or new article-body fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "anchor_classes": [
+        "execution_event_anchor",
+        "data_financial_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "incremental_information": "The 2026-09-02 bounded source packet newly establishes or materially updates Leag starts building 1.6 GWh battery storage system relative to the current-main canonical comparison.",
+      "decision_relevance": "The reported current stage of Leag starts building 1.6 GWh battery storage system can change sourcing, market-access, investment, capacity, technology, grid or risk-monitoring decisions; unresolved elements remain explicitly bounded.",
+      "baseline_expectation_changed": "The current-run baseline must account for the source-bound signal represented by Leag starts building 1.6 GWh battery storage system, subject to the stated uncertainty and canonical relation treatment.",
+      "evidence_needed_for_stage_b": [
+        "Official contract, filing, permit, exchange notice or company source confirming the exact construction_start stage, named actors, quantified terms, event date 2026-09-01, operative schedule and current status for Leag starts building 1.6 GWh battery storage system."
+      ],
+      "next_confirmation_points": [
+        "First production, shipment, construction, closing, capacity or operating metric after 2026-09-01 would confirm the execution judgment for Leag starts building 1.6 GWh battery storage system; cancellation, missed deadline or lower delivered volume would weaken it."
+      ],
+      "why_execution_event_not_required": null,
+      "structural_non_execution_reason": null,
+      "prior_state": "Before this 2026-09-02 bounded intake, Leag starts building 1.6 GWh battery storage system had not received a final disposition in this new run against current main.",
+      "new_verified_fact": "The supplied source-bound observations report the current-stage fact described as Leag starts building 1.6 GWh battery storage system.",
+      "changed_judgment": "The new-run judgment changes from unadjudicated intake to strict_passed_spec for Leag starts building 1.6 GWh battery storage system.",
+      "uncertainty_resolved": "Event identity, date-window inclusion and the reported direction of Leag starts building 1.6 GWh battery storage system are sufficiently resolved for this Stage A disposition.",
+      "remaining_uncertainty": "Stage B must verify the exact operative stage, named actors, date, scope, quantified terms and first measurable implementation for Leag starts building 1.6 GWh battery storage system.",
+      "decision_news_value_score": 55,
+      "decision_value_breakdown": {
+        "market_structure_competition": 14,
+        "supply_demand_price_utilisation": 25,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 10,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "systemic_scale_denominator": null,
+      "denominator_used": "No defensible market-wide denominator is claimed; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Use the strict_passed_spec disposition for Leag starts building 1.6 GWh battery storage system and do not bypass the specified evidence/review gate.",
+        "decision_deadline": null
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for Leag starts building 1.6 GWh battery storage system before drafting."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "event_date": "2026-09-01",
+        "source_published_date": "2026-09-01",
+        "visible_quote_date": "2026-09-01",
+        "basis": "Authoritative event-universe representative date; Stage B must verify body-level date semantics."
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "title_raw": "Leag starts building 1.6 GWh battery storage system",
+      "summary_hint": "Leag starts building 1.6 GWh battery storage system",
+      "context_text": "Formal Stage A Batch 03 adjudication of Leag starts building 1.6 GWh battery storage system using only the supplied source-bound packet.",
+      "why_now": "Leag starts building 1.6 GWh battery storage system is inside the bounded 2026-08-20 to 2026-09-02 source universe and requires a current-run disposition.",
+      "market_relevance": "Leag starts building 1.6 GWh battery storage system is evaluated for battery/ESS, critical-material, grid, supply-chain, policy, technology or industrial-strategy relevance.",
+      "source_priority_notes": "Stage B must verify supplied source candidates; Stage A performed zero external web search and zero new article-body fetch.",
+      "upstream_labels": {
+        "triage_status": "source_bound_current_run",
+        "matched_buckets": [
+          "curated"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR2_20260902_E0069",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-01",
+        "publication_date": "2026-09-01",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "structural_value_lenses": [
+        "battery_ESS_supply_chain"
+      ],
+      "baseline_follow_up_relation": "new",
+      "portfolio_coverage_contribution": [
+        "supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "spec_id": "STD26_N2_B03_069",
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "Leag starts building 1.6 GWh battery storage system passes lane, anchor, incremental-information, decision-value, freshness, duplicate and full-schema viability checks within the source-bound packet.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The supplied packet supports a current independently cardable anchor for Leag starts building 1.6 GWh battery storage system with bounded Stage B verification targets."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "construction_start",
+        "anchor_strength": "strong",
+        "stage_precision_note": "The current stage for Leag starts building 1.6 GWh battery storage system is explicit enough for strict Stage A selection; claim-level evidence remains Stage B work."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "Current-main event reconciliation is closed; Leag starts building 1.6 GWh battery storage system is not a same-event duplicate or existing-card reinforcement."
+      },
+      "editorial_red_team_override_applied": false,
+      "editorial_red_team_override_reason": null
+    }
+  ],
+  "candidate_review_pool": [],
+  "watchlist_context_pool": [],
+  "reject_or_support_only_pool": [],
+  "review_pool": [],
+  "review_pool_partition_summary": {
+    "candidate_review_pool": 0,
+    "watchlist_context_pool": 0,
+    "reject_or_support_only_pool": 0,
+    "total_review_items": 0,
+    "strict_passed_spec": 2,
+    "event_total": 2
+  },
+  "review_pool_resolution_ledger": [],
+  "rejected": [],
+  "existing_reinforcement": [],
+  "support_source_only": [],
+  "dropped_treasure_hunt_result": [],
+  "decision_ledger": [
+    {
+      "story_id": "CN_2026-09-02_C09",
+      "original_story_id": "CN_2026-09-02_C09",
+      "upstream_status": "KEEP",
+      "upstream_drop_reason": null,
+      "headline": "吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线",
+      "site": "中国能源网",
+      "url": "https://www.china5e.com/news/news-1208635-1.html",
+      "integrity_group_id": "NR2_20260902_E0062",
+      "integrity_is_best": true,
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Formal Stage A current-run Batch 03 disposition for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线: strict_passed_spec.",
+      "spec_id": "STD26_N2_B03_062",
+      "review_pool_item_id": null,
+      "merged_into_spec_id": "STD26_N2_B03_062",
+      "baseline_match": {
+        "duplicate_disposition": "no_duplicate_found",
+        "matched_baseline_candidate_ids": [],
+        "relation_candidates": [],
+        "reason": "No exact source URL hit and no high-similarity canonical title candidate in current-main screen.",
+        "top_baseline_title_candidates": []
+      },
+      "baseline_relation": "new",
+      "duplicate_risk": "resolved_by_current_main_event_reconciliation",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Current-run source story_id is unique within the authoritative 454-observation universe.",
+      "anchor_classes": [
+        "execution_event_anchor",
+        "policy_regulatory_anchor",
+        "strategic_behavior_anchor",
+        "technology_commercialization_anchor"
+      ],
+      "news_value_basis": "吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线",
+      "structural_value_lenses": [
+        "technology_transition_commercialization"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Official contract, filing, permit, exchange notice or company source confirming the exact production_start stage, named actors, quantified terms, event date 2026-09-02, operative schedule and current status for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "The 2026-09-02 bounded source packet newly establishes or materially updates 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 relative to the current-main canonical comparison.",
+      "decision_relevance": "The reported current stage of 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 can change sourcing, market-access, investment, capacity, technology, grid or risk-monitoring decisions; unresolved elements remain explicitly bounded.",
+      "baseline_expectation_changed": "The current-run baseline must account for the source-bound signal represented by 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线, subject to the stated uncertainty and canonical relation treatment.",
+      "follow_up_relation": "new",
+      "next_confirmation_points": [
+        "First production, shipment, construction, closing, capacity or operating metric after 2026-09-02 would confirm the execution judgment for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线; cancellation, missed deadline or lower delivered volume would weaken it."
+      ],
+      "portfolio_coverage_contribution": [
+        "technology_transition"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": null,
+      "review_pool_repromotion_precondition": null,
+      "decision_news_value_score": 66,
+      "decision_value_breakdown": {
+        "market_structure_competition": 15,
+        "supply_demand_price_utilisation": 18,
+        "technology_performance_safety": 12,
+        "cashflow_asset_value": 5,
+        "law_policy_market_access": 10,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "Before this 2026-09-02 bounded intake, 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 had not received a final disposition in this new run against current main.",
+      "new_verified_fact": "The supplied source-bound observations report the current-stage fact described as 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线.",
+      "changed_judgment": "The new-run judgment changes from unadjudicated intake to strict_passed_spec for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线.",
+      "uncertainty_resolved": "Event identity, date-window inclusion and the reported direction of 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 are sufficiently resolved for this Stage A disposition.",
+      "remaining_uncertainty": "Stage B must verify the exact operative stage, named actors, date, scope, quantified terms and first measurable implementation for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线.",
+      "denominator_used": "No defensible market-wide denominator is claimed; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "immediate",
+        "action_required": "Use the strict_passed_spec disposition for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 and do not bypass the specified evidence/review gate.",
+        "decision_deadline": "2026-09-02"
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "production_start",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Stage B must verify the exact operative stage, named actors, date, scope, quantified terms and first measurable implementation for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线.",
+      "legal_policy_stage": "stage_4_implementation_budget_guidance_or_registry"
+    },
+    {
+      "story_id": "CN_2026-09-01_C27",
+      "original_story_id": "CN_2026-09-01_C27",
+      "upstream_status": "KEEP",
+      "upstream_drop_reason": null,
+      "headline": "松原长岭100MW/200MWh构网型储能电站顺利并网",
+      "site": "中国能源网",
+      "url": "https://www.china5e.com/news/news-1208557-1.html",
+      "integrity_group_id": "NR2_20260902_E0062",
+      "integrity_is_best": false,
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Formal Stage A current-run Batch 03 disposition for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线: strict_passed_spec.",
+      "spec_id": "STD26_N2_B03_062",
+      "review_pool_item_id": null,
+      "merged_into_spec_id": "STD26_N2_B03_062",
+      "baseline_match": {
+        "duplicate_disposition": "no_duplicate_found",
+        "matched_baseline_candidate_ids": [],
+        "relation_candidates": [],
+        "reason": "No exact source URL hit and no high-similarity canonical title candidate in current-main screen.",
+        "top_baseline_title_candidates": []
+      },
+      "baseline_relation": "new",
+      "duplicate_risk": "resolved_by_current_main_event_reconciliation",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Current-run source story_id is unique within the authoritative 454-observation universe.",
+      "anchor_classes": [
+        "execution_event_anchor",
+        "policy_regulatory_anchor",
+        "strategic_behavior_anchor",
+        "technology_commercialization_anchor"
+      ],
+      "news_value_basis": "吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线",
+      "structural_value_lenses": [
+        "technology_transition_commercialization"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Official contract, filing, permit, exchange notice or company source confirming the exact production_start stage, named actors, quantified terms, event date 2026-09-02, operative schedule and current status for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "The 2026-09-02 bounded source packet newly establishes or materially updates 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 relative to the current-main canonical comparison.",
+      "decision_relevance": "The reported current stage of 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 can change sourcing, market-access, investment, capacity, technology, grid or risk-monitoring decisions; unresolved elements remain explicitly bounded.",
+      "baseline_expectation_changed": "The current-run baseline must account for the source-bound signal represented by 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线, subject to the stated uncertainty and canonical relation treatment.",
+      "follow_up_relation": "new",
+      "next_confirmation_points": [
+        "First production, shipment, construction, closing, capacity or operating metric after 2026-09-02 would confirm the execution judgment for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线; cancellation, missed deadline or lower delivered volume would weaken it."
+      ],
+      "portfolio_coverage_contribution": [
+        "technology_transition"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": null,
+      "review_pool_repromotion_precondition": null,
+      "decision_news_value_score": 66,
+      "decision_value_breakdown": {
+        "market_structure_competition": 15,
+        "supply_demand_price_utilisation": 18,
+        "technology_performance_safety": 12,
+        "cashflow_asset_value": 5,
+        "law_policy_market_access": 10,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "Before this 2026-09-02 bounded intake, 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 had not received a final disposition in this new run against current main.",
+      "new_verified_fact": "The supplied source-bound observations report the current-stage fact described as 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线.",
+      "changed_judgment": "The new-run judgment changes from unadjudicated intake to strict_passed_spec for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线.",
+      "uncertainty_resolved": "Event identity, date-window inclusion and the reported direction of 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 are sufficiently resolved for this Stage A disposition.",
+      "remaining_uncertainty": "Stage B must verify the exact operative stage, named actors, date, scope, quantified terms and first measurable implementation for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线.",
+      "denominator_used": "No defensible market-wide denominator is claimed; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "immediate",
+        "action_required": "Use the strict_passed_spec disposition for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线 and do not bypass the specified evidence/review gate.",
+        "decision_deadline": "2026-09-02"
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "production_start",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Stage B must verify the exact operative stage, named actors, date, scope, quantified terms and first measurable implementation for 吉林省首个构网型储能电站并网投产 长岭产“超级充电宝”上线.",
+      "legal_policy_stage": "stage_4_implementation_budget_guidance_or_registry"
+    },
+    {
+      "story_id": "CN_2026-09-02_C10",
+      "original_story_id": "CN_2026-09-02_C10",
+      "upstream_status": "KEEP",
+      "upstream_drop_reason": null,
+      "headline": "喜讯！储能龙头德国1.6GWh大型项目开工",
+      "site": "OFweek储能网",
+      "url": "https://chuneng.ofweek.com/news/2026-09/ART-180226-12000-30701144.html",
+      "integrity_group_id": "NR2_20260902_E0069",
+      "integrity_is_best": false,
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Formal Stage A current-run Batch 03 disposition for Leag starts building 1.6 GWh battery storage system: strict_passed_spec.",
+      "spec_id": "STD26_N2_B03_069",
+      "review_pool_item_id": null,
+      "merged_into_spec_id": "STD26_N2_B03_069",
+      "baseline_match": {
+        "duplicate_disposition": "no_duplicate_found",
+        "matched_baseline_candidate_ids": [],
+        "relation_candidates": [],
+        "reason": "No exact source URL hit and no high-similarity canonical title candidate in current-main screen.",
+        "top_baseline_title_candidates": []
+      },
+      "baseline_relation": "new",
+      "duplicate_risk": "resolved_by_current_main_event_reconciliation",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Current-run source story_id is unique within the authoritative 454-observation universe.",
+      "anchor_classes": [
+        "execution_event_anchor",
+        "data_financial_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "news_value_basis": "Leag starts building 1.6 GWh battery storage system",
+      "structural_value_lenses": [
+        "battery_ESS_supply_chain"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Official contract, filing, permit, exchange notice or company source confirming the exact construction_start stage, named actors, quantified terms, event date 2026-09-01, operative schedule and current status for Leag starts building 1.6 GWh battery storage system."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "The 2026-09-02 bounded source packet newly establishes or materially updates Leag starts building 1.6 GWh battery storage system relative to the current-main canonical comparison.",
+      "decision_relevance": "The reported current stage of Leag starts building 1.6 GWh battery storage system can change sourcing, market-access, investment, capacity, technology, grid or risk-monitoring decisions; unresolved elements remain explicitly bounded.",
+      "baseline_expectation_changed": "The current-run baseline must account for the source-bound signal represented by Leag starts building 1.6 GWh battery storage system, subject to the stated uncertainty and canonical relation treatment.",
+      "follow_up_relation": "new",
+      "next_confirmation_points": [
+        "First production, shipment, construction, closing, capacity or operating metric after 2026-09-01 would confirm the execution judgment for Leag starts building 1.6 GWh battery storage system; cancellation, missed deadline or lower delivered volume would weaken it."
+      ],
+      "portfolio_coverage_contribution": [
+        "supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": null,
+      "review_pool_repromotion_precondition": null,
+      "decision_news_value_score": 55,
+      "decision_value_breakdown": {
+        "market_structure_competition": 14,
+        "supply_demand_price_utilisation": 25,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 10,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "Before this 2026-09-02 bounded intake, Leag starts building 1.6 GWh battery storage system had not received a final disposition in this new run against current main.",
+      "new_verified_fact": "The supplied source-bound observations report the current-stage fact described as Leag starts building 1.6 GWh battery storage system.",
+      "changed_judgment": "The new-run judgment changes from unadjudicated intake to strict_passed_spec for Leag starts building 1.6 GWh battery storage system.",
+      "uncertainty_resolved": "Event identity, date-window inclusion and the reported direction of Leag starts building 1.6 GWh battery storage system are sufficiently resolved for this Stage A disposition.",
+      "remaining_uncertainty": "Stage B must verify the exact operative stage, named actors, date, scope, quantified terms and first measurable implementation for Leag starts building 1.6 GWh battery storage system.",
+      "denominator_used": "No defensible market-wide denominator is claimed; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Use the strict_passed_spec disposition for Leag starts building 1.6 GWh battery storage system and do not bypass the specified evidence/review gate.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "legal_policy_stage": "not_applicable"
+    },
+    {
+      "story_id": "EU_2026-09-01_C20",
+      "original_story_id": "EU_2026-09-01_C20",
+      "upstream_status": "KEEP",
+      "upstream_drop_reason": null,
+      "headline": "Leag starts building 1.6 GWh battery storage system",
+      "site": "ESS News RSS",
+      "url": "https://www.ess-news.com/2026/09/01/leag-starts-building-1-6-gwh-battery-storage-system",
+      "integrity_group_id": "NR2_20260902_E0069",
+      "integrity_is_best": true,
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Formal Stage A current-run Batch 03 disposition for Leag starts building 1.6 GWh battery storage system: strict_passed_spec.",
+      "spec_id": "STD26_N2_B03_069",
+      "review_pool_item_id": null,
+      "merged_into_spec_id": "STD26_N2_B03_069",
+      "baseline_match": {
+        "duplicate_disposition": "no_duplicate_found",
+        "matched_baseline_candidate_ids": [],
+        "relation_candidates": [],
+        "reason": "No exact source URL hit and no high-similarity canonical title candidate in current-main screen.",
+        "top_baseline_title_candidates": []
+      },
+      "baseline_relation": "new",
+      "duplicate_risk": "resolved_by_current_main_event_reconciliation",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Current-run source story_id is unique within the authoritative 454-observation universe.",
+      "anchor_classes": [
+        "execution_event_anchor",
+        "data_financial_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "news_value_basis": "Leag starts building 1.6 GWh battery storage system",
+      "structural_value_lenses": [
+        "battery_ESS_supply_chain"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Official contract, filing, permit, exchange notice or company source confirming the exact construction_start stage, named actors, quantified terms, event date 2026-09-01, operative schedule and current status for Leag starts building 1.6 GWh battery storage system."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "The 2026-09-02 bounded source packet newly establishes or materially updates Leag starts building 1.6 GWh battery storage system relative to the current-main canonical comparison.",
+      "decision_relevance": "The reported current stage of Leag starts building 1.6 GWh battery storage system can change sourcing, market-access, investment, capacity, technology, grid or risk-monitoring decisions; unresolved elements remain explicitly bounded.",
+      "baseline_expectation_changed": "The current-run baseline must account for the source-bound signal represented by Leag starts building 1.6 GWh battery storage system, subject to the stated uncertainty and canonical relation treatment.",
+      "follow_up_relation": "new",
+      "next_confirmation_points": [
+        "First production, shipment, construction, closing, capacity or operating metric after 2026-09-01 would confirm the execution judgment for Leag starts building 1.6 GWh battery storage system; cancellation, missed deadline or lower delivered volume would weaken it."
+      ],
+      "portfolio_coverage_contribution": [
+        "supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": null,
+      "review_pool_repromotion_precondition": null,
+      "decision_news_value_score": 55,
+      "decision_value_breakdown": {
+        "market_structure_competition": 14,
+        "supply_demand_price_utilisation": 25,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 10,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "Before this 2026-09-02 bounded intake, Leag starts building 1.6 GWh battery storage system had not received a final disposition in this new run against current main.",
+      "new_verified_fact": "The supplied source-bound observations report the current-stage fact described as Leag starts building 1.6 GWh battery storage system.",
+      "changed_judgment": "The new-run judgment changes from unadjudicated intake to strict_passed_spec for Leag starts building 1.6 GWh battery storage system.",
+      "uncertainty_resolved": "Event identity, date-window inclusion and the reported direction of Leag starts building 1.6 GWh battery storage system are sufficiently resolved for this Stage A disposition.",
+      "remaining_uncertainty": "Stage B must verify the exact operative stage, named actors, date, scope, quantified terms and first measurable implementation for Leag starts building 1.6 GWh battery storage system.",
+      "denominator_used": "No defensible market-wide denominator is claimed; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Use the strict_passed_spec disposition for Leag starts building 1.6 GWh battery storage system and do not bypass the specified evidence/review gate.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "legal_policy_stage": "not_applicable"
+    }
+  ],
+  "formal_stage_a_batch": {
+    "batch": 3,
+    "batch_count_total": 13,
+    "ordinal_start": 51,
+    "ordinal_end": 75,
+    "event_count": 2,
+    "strict_count": 2,
+    "candidate_review_count": 0,
+    "watchlist_count": 0,
+    "reject_or_support_only_count": 0,
+    "formal_stage_a_external_web_search_count": 0,
+    "formal_stage_a_new_article_body_fetch_count": 0,
+    "adjudication_method": "source_bound_prompt_0_1_v4_rule_encoded_item_level_judgment; current-main duplicate screen locked; rescue-before-delete retained through first-class review pools"
+  },
+  "run_id": "card-run-2026-09-04-input-20260902-current13-r1",
+  "base_main_commit_sha": "dff7349272013757e08c87b37754ec996156059a",
+  "base_full_blob_sha": "81243ad6ca7e88b703d2eeb31c08ed60f8d6853d"
+}

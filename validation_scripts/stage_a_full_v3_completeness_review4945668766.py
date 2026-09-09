@@ -21,6 +21,8 @@ looks_like_full_stage_a_artifact = _previous.looks_like_full_stage_a_artifact
 prevalidate_full_stage_a_artifact = _previous.prevalidate_full_stage_a_artifact
 
 _SOURCE_PROMPT_VERSION = "structural_default_review_pool_partition_20260506"
+_SOURCE_PROMPT_V4_VERSION = "STAGE_A_INTEGRATED_SELECTOR_V4_20260901"
+_V4_POLICY_VERSION = "EMBEDDED_NEWS_VALUE_SELECTION_V4"
 _SOURCE_PROMPT_AUTHORITY = "uploaded_or_repo_source_file_prompt"
 _SOURCE_PROMPT_FIELDS = (
     "source_prompt_file",
@@ -91,6 +93,26 @@ def _repository_prompt_path(value: Any) -> Path | None:
     return candidate if candidate.is_file() else None
 
 
+def _artifact_uses_v4_source_prompt(data: Mapping[str, Any]) -> bool:
+    for pool in (
+        "strict_passed_spec",
+        "candidate_review_pool",
+        "watchlist_context_pool",
+        "reject_or_support_only_pool",
+    ):
+        values = data.get(pool)
+        if not isinstance(values, list):
+            continue
+        for item in values:
+            if isinstance(item, Mapping) and item.get("selection_policy_version") == _V4_POLICY_VERSION:
+                return True
+    return False
+
+
+def _expected_source_prompt_version(data: Mapping[str, Any]) -> str:
+    return _SOURCE_PROMPT_V4_VERSION if _artifact_uses_v4_source_prompt(data) else _SOURCE_PROMPT_VERSION
+
+
 def _validate_source_prompt_provenance(
     data: Mapping[str, Any], messages: list[str]
 ) -> None:
@@ -101,10 +123,12 @@ def _validate_source_prompt_provenance(
         messages.append("full Stage A artifact source_prompt_file must be a non-empty string")
     if "source_prompt_sha256" in data and not _valid_sha256(data.get("source_prompt_sha256")):
         messages.append("full Stage A artifact source_prompt_sha256 must be a 64-character hexadecimal SHA-256")
-    if "source_prompt_version" in data and data.get("source_prompt_version") != _SOURCE_PROMPT_VERSION:
-        messages.append(
-            f"full Stage A artifact source_prompt_version must be {_SOURCE_PROMPT_VERSION}"
-        )
+    if "source_prompt_version" in data:
+        expected_version = _expected_source_prompt_version(data)
+        if data.get("source_prompt_version") != expected_version:
+            messages.append(
+                f"full Stage A artifact source_prompt_version must be {expected_version}"
+            )
     if "source_prompt_authority" in data and data.get("source_prompt_authority") != _SOURCE_PROMPT_AUTHORITY:
         messages.append(
             f"full Stage A artifact source_prompt_authority must be {_SOURCE_PROMPT_AUTHORITY}"

@@ -1,0 +1,137 @@
+{
+  "schema": "independent_completeness_review_v4_operation_bound_r1",
+  "stage": "0.7C",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "completeness_status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "run_id": "card-run-2026-09-07-r7-20260905-production-r1",
+  "base_main_commit_sha": "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62",
+  "base_full_blob_sha": "707fe5ea9836a0c2341771397da32c818a95cbed",
+  "document_universe_manifest_ref": "runs/2026-09-07/r7-20260905-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-07/r7-20260905-production-r1/stage-0-0c.json",
+  "reviewed_operations_sha256": "6c2ac63e2711adc7247d7dcf9cfbd685be971e11c6ae7790cedbb11d5157c2dd",
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "material_exclusions": [
+    "Prior-R7 ProLogium, Amazon Bairnsdale and MN8/Google/Eos repeats excluded as canonical duplicates/reinforcements.",
+    "ENGIE Chile Libelula/Los Loros already represented in the Sep.2 production run.",
+    "Ionic Rare Earths-USSM remains review-only because its 50:50 JV term sheet is non-binding.",
+    "AES Andes Cristales testing is not treated as a fresh Sep.4 event because prior reporting already placed the asset in testing."
+  ],
+  "known_unknowns": [],
+  "residual_risks": [
+    "Absolute global completeness beyond the supplied 385-row intake and targeted discovery is not claimed."
+  ],
+  "reviewer_independence": "SEPARATE_PASS",
+  "prompt_0_8_authorized": true,
+  "operation_freeze": {
+    "status": "PASS",
+    "operations_sha256": "6c2ac63e2711adc7247d7dcf9cfbd685be971e11c6ae7790cedbb11d5157c2dd",
+    "insert": 9,
+    "update": 0,
+    "related_add": 0,
+    "expected_before": 1569,
+    "expected_after": 1578,
+    "operation_drift_allowed": false
+  },
+  "hash_chain": {
+    "stage_a": "5e2a35eba6f58155d3e8ce128c1cc2f72122a80295d188619cbcc64ae1b29d0e",
+    "stage_b": "e4b5bffda22ed7bbaaa807b37b6038c61cec512d765ea036a2cb124f47a6a998",
+    "stage_c": "e5ddc8380ee0881830854248a7ff4377021854d76ff3a1f839c4a99f65f4cd77",
+    "stage_0_4": "5ca34fa2b130f7ae0bb84ff0e9abc2af03650f5fc86e4bf8ad0cbc3b6a026f22",
+    "stage_0_5": "480d678454370d982e314786bc154cf83860d01106ed05e06e66a3a109837805",
+    "stage_0_6": "a4ad98a341e95f176ce4af45f00da2f877d615f0df38ca15b6bbd712b7167188",
+    "stage_0_7": "30c6739cf8fbb7b84d15d4f7cca7e5e3d3534383abf9236171808e4dc4474e01"
+  },
+  "six_round_review": {
+    "round_1_universe_accounting": {
+      "status": "PASS",
+      "input_source_rows": 385,
+      "unaccounted": 0
+    },
+    "round_2_baseline_duplicate_reinforcement_followup": {
+      "status": "PASS",
+      "strict_events": 9,
+      "final_operations": {
+        "insert": 9,
+        "update": 0,
+        "related_add": 0
+      }
+    },
+    "round_3_event_stage_lineage": {
+      "status": "PASS",
+      "new_unrelated_events": 9,
+      "unresolved_related_targets": 0
+    },
+    "round_4_fact_claim_completeness": {
+      "status": "PASS",
+      "body_verified_cards": 9,
+      "unsupported_visible_claim_count": 0
+    },
+    "round_5_news_value": {
+      "status": "PASS",
+      "strict_events": 9,
+      "non_binding_or_stale_items_not_promoted": true
+    },
+    "round_6_operation_binding": {
+      "status": "PASS",
+      "reviewed_operations_sha256": "6c2ac63e2711adc7247d7dcf9cfbd685be971e11c6ae7790cedbb11d5157c2dd",
+      "stage_hashes": {
+        "stage_a": "5e2a35eba6f58155d3e8ce128c1cc2f72122a80295d188619cbcc64ae1b29d0e",
+        "stage_b": "e4b5bffda22ed7bbaaa807b37b6038c61cec512d765ea036a2cb124f47a6a998",
+        "stage_c": "e5ddc8380ee0881830854248a7ff4377021854d76ff3a1f839c4a99f65f4cd77",
+        "stage_0_4": "5ca34fa2b130f7ae0bb84ff0e9abc2af03650f5fc86e4bf8ad0cbc3b6a026f22",
+        "stage_0_5": "480d678454370d982e314786bc154cf83860d01106ed05e06e66a3a109837805",
+        "stage_0_6": "a4ad98a341e95f176ce4af45f00da2f877d615f0df38ca15b6bbd712b7167188",
+        "stage_0_7": "30c6739cf8fbb7b84d15d4f7cca7e5e3d3534383abf9236171808e4dc4474e01"
+      },
+      "binding_authority": "independent_0_7c_r13_nested_round6_reconciled"
+    }
+  },
+  "round_6_operation_binding": {
+    "status": "PASS",
+    "reviewed_operations_sha256": "6c2ac63e2711adc7247d7dcf9cfbd685be971e11c6ae7790cedbb11d5157c2dd",
+    "stage_hashes": {
+      "stage_a": "5e2a35eba6f58155d3e8ce128c1cc2f72122a80295d188619cbcc64ae1b29d0e",
+      "stage_b": "e4b5bffda22ed7bbaaa807b37b6038c61cec512d765ea036a2cb124f47a6a998",
+      "stage_c": "e5ddc8380ee0881830854248a7ff4377021854d76ff3a1f839c4a99f65f4cd77",
+      "stage_0_4": "5ca34fa2b130f7ae0bb84ff0e9abc2af03650f5fc86e4bf8ad0cbc3b6a026f22",
+      "stage_0_5": "480d678454370d982e314786bc154cf83860d01106ed05e06e66a3a109837805",
+      "stage_0_6": "a4ad98a341e95f176ce4af45f00da2f877d615f0df38ca15b6bbd712b7167188",
+      "stage_0_7": "30c6739cf8fbb7b84d15d4f7cca7e5e3d3534383abf9236171808e4dc4474e01"
+    },
+    "binding_authority": "independent_0_7c_r13_nested_round6_reconciled"
+  },
+  "codex_p2_remediation": {
+    "status": "PASS",
+    "review_id": 5130980362,
+    "fixed": [
+      "stage_a_nested_hash_binding",
+      "engie_global_region_and_id",
+      "six_single_source_bounded_search_audits",
+      "six_single_source_discovery_ledger_rows",
+      "anson_exact_event_date_evidence",
+      "id_allocation_ledger_rebound_to_governed_insert_ids",
+      "nested_six_round_review_round_6_operation_binding_rebound",
+      "top_level_and_nested_round_6_binding_identity_asserted"
+    ],
+    "engie_corrected_id": "2026-09-04_GL_01",
+    "anson_event_date": "2026-09-03",
+    "single_source_search_audit_spec_ids": [
+      "STD26_R8_001",
+      "STD26_R8_002",
+      "STD26_R8_005",
+      "STD26_R8_007",
+      "STD26_R8_008",
+      "STD26_R8_009"
+    ],
+    "source_audit_contract_ref": "docs/SOURCE_AUDIT_CONTRACT.md sections 6-7",
+    "id_allocation_status": "PASS",
+    "id_allocation_ref": "runs/2026-09-07/r7-20260905-production-r1/id-allocation.json",
+    "nested_round_6_binding_status": "PASS",
+    "binding_authority": "independent_0_7c_r13_nested_round6_reconciled"
+  }
+}

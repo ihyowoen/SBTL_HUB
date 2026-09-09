@@ -1,0 +1,540 @@
+{
+  "stage": "stage_c",
+  "status": "PASS",
+  "strict_gate_acceptance_guard_applied": true,
+  "accepted_pool_lineage_status": "PASS",
+  "run_tag": "20260903_R6_STAGE_C_PROMOTION2_R1",
+  "source_prompt_file": "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
+  "source_prompt_version": "STAGE_C_V4_20260829",
+  "source_prompt_sha256": "d764357cf0834266d4b6828538d042750dc1ea47c76f8d423b3b817e204a0c69",
+  "stage_b_artifact": "runs/2026-09-03/stage_b_r6_promotion2_20260903_R1.json",
+  "stage_b_artifact_sha256": "906316d2bc6e5c990bb69c7d7967b332713dd34297fe03320159a8fe41f492f1",
+  "input_draft_count": 2,
+  "accepted_fact_safe": [
+    {
+      "id": "2026-08-31_GL_02",
+      "source_spec_id": "STD26_R6_P01P_006",
+      "region": "GL",
+      "date": "2026-08-31",
+      "cat": "Materials",
+      "sub_cat": "Argentina lithium brine / binding farm-in",
+      "signal": "high",
+      "title": "라이온타운, 아르헨티나 Centenario 리튬 염호 최대 100% earn-in 계약",
+      "sub": "4년간 US$40m 프로젝트 지출…초기 US$5m 현금+US$10m 주식, 단계별 투자 연동",
+      "gate": "리튬 염호 진입이 탐색 단계가 아니라 구속력 있는 단계형 farm-in 계약으로 전환됐다.",
+      "fact": "Liontown은 NEXT Lithium과 아르헨티나 Salta의 Centenario 리튬 염호 프로젝트에 대해 최대 100% 지분을 확보할 수 있는 binding farm-in agreement를 체결했다. 계약은 4년간 US$40m 프로젝트 지출을 요구하며, 계약이 unconditional이 되면 초기 대가로 US$5m 현금과 US$10m 상당 Liontown 주식을 지급한다.",
+      "implication": [
+        "Liontown이 Kathleen Valley의 경암 리튬 중심 포트폴리오에 아르헨티나 염호 옵션을 추가하면서 원료·지역 다변화가 실제 계약 단계로 들어갔다.",
+        "다만 100% 지분은 즉시 취득이 아니라 단계별 earn-in 결과에 달려 있으므로 후속 탐사성과·마일스톤 지급·지분상승을 추적해야 한다."
+      ],
+      "urls": [
+        "https://www.liontown.com/latest-news/liontown-to-earn-up-to-100-of-the-centenario-lithium-brine-project-in-argentina/",
+        "https://www.globenewswire.com/news-release/2026/09/01/3354112/0/en/next-lithium-partners-with-liontown-for-the-development-and-100-sale-of-the-centenario-lithium-project.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "id": "P2-006-P1",
+          "owner": "Liontown",
+          "role": "acquirer_primary_release",
+          "url": "https://www.liontown.com/latest-news/liontown-to-earn-up-to-100-of-the-centenario-lithium-brine-project-in-argentina/",
+          "published": "2026-08-31",
+          "summary": "Liontown confirms the binding farm-in, staged path to 100%, US$40m four-year project expenditure and initial US$5m cash plus US$10m shares.",
+          "domain": "liontown.com",
+          "fetched": true,
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "source_quote": "executed a binding farm-in agreement with Next Lithium Corp. to earn up to a 100% interest",
+          "source_quote_status": "body_quote_verified",
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "short_verified_quote_plus_paraphrase"
+        },
+        {
+          "id": "P2-006-P2",
+          "owner": "NEXT Lithium",
+          "role": "counterparty_primary_release",
+          "url": "https://www.globenewswire.com/news-release/2026/09/01/3354112/0/en/next-lithium-partners-with-liontown-for-the-development-and-100-sale-of-the-centenario-lithium-project.html",
+          "published": "2026-09-01",
+          "summary": "NEXT independently confirms the binding agreement, four-year US$40m expenditure and initial consideration terms.",
+          "domain": "globenewswire.com",
+          "fetched": true,
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "source_quote": "US$40 million (C$55 million) in project expenditure over a four-year period.",
+          "source_quote_status": "body_quote_verified",
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "short_verified_quote_plus_paraphrase"
+        }
+      ],
+      "related_evidence_review": {
+        "same_event_check": "PASS",
+        "earliest_event_date_check": "PASS",
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_candidate_ids": [],
+        "matched_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": null,
+        "changed_judgment": null,
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "production_related_ids": [],
+        "note": "No prior/current duplicate or lineage target established at Stage B."
+      },
+      "date_role": {
+        "representative_event_date": "2026-08-31",
+        "role": "binding farm-in agreement announcement/execution",
+        "stage_a_representative_date": "2026-08-31",
+        "source_publication_dates": [
+          "2026-08-31",
+          "2026-09-01"
+        ],
+        "status": "PASS",
+        "note": "Current event/signal anchor date is preserved separately from each source publication date."
+      },
+      "stage_b_only": true,
+      "stage_b_fact_safety_not_declared": true,
+      "stage_b_publish_readiness_not_declared": true,
+      "state": "accepted_fact_safe",
+      "spec_id": "STD26_R6_P01P_006",
+      "source_story_ids": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C19",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C20",
+        "20260901::orig:20260901_123511:GL_2026-09-01_C05",
+        "20260901::orig:20260901_123511:GL_2026-09-01_C07",
+        "20260901::orig:20260901_123511:GL_2026-09-01_C08"
+      ],
+      "stage_c_only": true,
+      "strict_gate_acceptance_guard_applied": true,
+      "accepted_pool_lineage_status": "PASS",
+      "stage_b_lineage": {
+        "status": "PASS",
+        "artifact": "runs/2026-09-03/stage_b_r6_promotion2_20260903_R1.json",
+        "artifact_sha256": "906316d2bc6e5c990bb69c7d7967b332713dd34297fe03320159a8fe41f492f1",
+        "spec_id": "STD26_R6_P01P_006",
+        "draft_status": "draft",
+        "draft_blocked": false
+      },
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "anchor_classes": [
+        "execution_event_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "prior_state": "Before this intake, Liontown Resources Executes Farm-In Agreement for Argentina Lithium Brine Project - marketscreener.com had not received a final R6 Formal Stage A disposition in this run.",
+      "new_verified_fact": "Bounded research resolves the execution/scale gap: Liontown executed a binding farm-in with a staged earn-in to 100%, US$40m project expenditure over four years and initial consideration of US$5m cash plus US$10m shares; counterparty independently confirms the binding agreement and project footprint.",
+      "changed_judgment": "The current-run judgment changes from unadjudicated intake to strict_passed_spec for Liontown Resources Executes Farm-In Agreement for Argentina Lithium Brine Project - marketscreener.com.",
+      "uncertainty_resolved": "The recorded Prompt 0.1P promotion question was resolved by bounded research without changing the original decision-value score.",
+      "remaining_uncertainty": "Stage B must verify claim-level evidence, source ownership and precise operative terms before drafting.",
+      "execution_anchor_type": "farm_in_agreement",
+      "execution_anchor_strength": "moderate",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "route_validation": {
+        "status": "PASS",
+        "active_route": "execution_anchor_route",
+        "exactly_one_active_route": true,
+        "anchor_evidence_source_ids": [
+          "P2-006-P1",
+          "P2-006-P2"
+        ],
+        "stage_a_before_after_chain_preserved": true
+      },
+      "visible_field_fact_safe": {
+        "status": "PASS",
+        "title": "PASS",
+        "sub": "PASS",
+        "gate": "PASS",
+        "fact": "PASS",
+        "implication": "PASS_BOUNDED_STRATEGIC_INFERENCE",
+        "claim_map_count": 3,
+        "unsupported_visible_claim_count": 0,
+        "unsupported_causality_count": 0,
+        "unsupported_quote_count": 0
+      },
+      "claim_map": [
+        {
+          "claim_id": "P2-006-C1",
+          "claim": "Liontown과 NEXT Lithium은 Centenario 프로젝트에 대해 Liontown이 최대 100% 지분을 earn-in할 수 있는 binding farm-in agreement를 체결했다.",
+          "supported_by_source_ids": [
+            "P2-006-P1",
+            "P2-006-P2"
+          ],
+          "visible": true,
+          "status": "SUPPORTED"
+        },
+        {
+          "claim_id": "P2-006-C2",
+          "claim": "계약상 프로젝트 지출은 4년간 US$40m이다.",
+          "supported_by_source_ids": [
+            "P2-006-P1",
+            "P2-006-P2"
+          ],
+          "visible": true,
+          "status": "SUPPORTED"
+        },
+        {
+          "claim_id": "P2-006-C3",
+          "claim": "계약이 unconditional이 될 때 초기 대가는 US$5m 현금과 US$10m 상당 Liontown 주식이다.",
+          "supported_by_source_ids": [
+            "P2-006-P1",
+            "P2-006-P2"
+          ],
+          "visible": true,
+          "status": "SUPPORTED"
+        }
+      ],
+      "source_conflicts": [],
+      "source_diversity_status": "PASS_MULTI_OWNER",
+      "source_diversity_measure": {
+        "unique_urls": 2,
+        "unique_domains": 2,
+        "independent_owner_count": 2
+      },
+      "source_diversity_roles": {
+        "acquirer_primary_release": 1,
+        "counterparty_primary_release": 1
+      },
+      "source_synthesis_applied": true,
+      "source_synthesis_fields": [
+        "title",
+        "sub",
+        "gate",
+        "fact",
+        "implication"
+      ],
+      "source_synthesis_audit": {
+        "status": "PASS",
+        "primary_or_official_controls_operative_facts": true,
+        "independent_confirmation_used": true,
+        "conflicts_explicitly_resolved": true
+      },
+      "single_source_exception": false,
+      "source_published_date": "2026-08-31",
+      "visible_quote_date": "not_applicable_no_visible_quotes",
+      "stage_c_red_team": {
+        "source_direction_and_independence": "PASS",
+        "numbers_dates_entities_counterparties": "PASS",
+        "event_stage_and_date_role": "PASS",
+        "same_event_duplicate_check": "PASS",
+        "stale_republication_check": "PASS",
+        "selected_anchor_evidence": "PASS",
+        "policy_earnings_technology_caveats": "PASS",
+        "causality_and_strategic_overreach": "PASS",
+        "visible_field_consistency": "PASS",
+        "full_schema_viability": "PASS",
+        "related_evidence": "PASS"
+      },
+      "unresolved_downstream_issues": [
+        "A first earn-in milestone filing reporting payment, ownership percentage and project resource or capacity metric would strengthen or weaken the judgment that the signed Centenario farm-in materially changes Liontown's lithium supply option value."
+      ],
+      "fact_safe_at_stage_c": true,
+      "addable_merge_safe": false,
+      "evidence_complete": false,
+      "source_claim_covered": false,
+      "content_enriched": false,
+      "language_terminology_polished": false,
+      "publish_ready": false,
+      "github_merge_ready": false,
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "provisional_current_batch_candidate_ids": [],
+        "reason": "Prompt 0.1P and Stage B duplicate/lineage review identified no canonical or current-run predecessor for this promoted event.",
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": null,
+        "changed_judgment": null,
+        "same_event_check": "PASS",
+        "earliest_date_check": "PASS",
+        "rejected_relation_candidates": [],
+        "chronology_exception": null
+      }
+    },
+    {
+      "id": "2026-08-31_GL_03",
+      "source_spec_id": "STD26_R6_P01P_024",
+      "region": "GL",
+      "date": "2026-08-31",
+      "cat": "Materials",
+      "sub_cat": "lithium earnings / ESS-linked demand",
+      "signal": "high",
+      "title": "리튬 업계 실적 반등에 ESS 수요·가격 회복 가시화",
+      "sub": "Ganfeng H1 흑자전환·Albemarle Q2 Energy Storage 매출 78% 증가",
+      "gate": "ESS 수요와 리튬 가격 회복이 단순 전망이 아니라 주요 업체의 최신 실적 지표에 반영됐다.",
+      "fact": "Ganfeng Lithium은 2026년 상반기 매출 약 RMB23.1bn과 순이익 약 RMB4.26bn을 기록해 전년 동기 적자에서 흑자로 전환했다. Albemarle의 2026년 2분기 Energy Storage 부문은 매출 US$1.277bn으로 전년 동기 대비 77.9% 증가했고, 판매량은 11.0%, 평균 실현가격은 60.5% 상승했다. 두 사례는 최근 리튬 업황 개선이 가격과 ESS 관련 수요 지표에 동시에 나타나고 있음을 보여준다.",
+      "implication": [
+        "EV 외 ESS가 리튬 수요의 추가 축으로 커지면서 가격 회복 시 광산·정제·배터리 밸류체인의 실적 레버리지가 커질 수 있다.",
+        "다만 Ganfeng과 Albemarle의 실적 개선에는 가격·물량·비용 등 복수 요인이 작용하므로 ESS 수요 하나만으로 업계 전체 수익성 회복을 설명하면 안 된다."
+      ],
+      "urls": [
+        "https://www.albemarle.com/au/en/news/albemarle-reports-second-quarter-2026-results",
+        "https://news.metal.com/newscontent/104086807-smm-analysis-feng-lithium-returned-to-profit-in-h1-2026-with-resource-and-capacity-dual-drivers-delivering-notable-results",
+        "https://www.marketscreener.com/news/ganfeng-lithium-group-co-ltd-reports-earnings-results-for-the-half-year-ended-june-30-2026-ce7858dfd181ff2c"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "id": "P2-024-P1",
+          "owner": "Albemarle",
+          "role": "issuer_primary_earnings_release",
+          "url": "https://www.albemarle.com/au/en/news/albemarle-reports-second-quarter-2026-results",
+          "published": "2026-08-05",
+          "summary": "Albemarle reports Q2 Energy Storage sales of US$1.2767bn, volume +11.0%, average realized price +60.5%, and adjusted EBITDA +229.3%.",
+          "domain": "albemarle.com",
+          "fetched": true,
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "source_quote": "Energy Storage net sales for the second quarter of 2026 were $1.3 billion",
+          "source_quote_status": "body_quote_verified",
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "short_verified_quote_plus_paraphrase"
+        },
+        {
+          "id": "P2-024-I1",
+          "owner": "Shanghai Metals Market",
+          "role": "independent_results_analysis",
+          "url": "https://news.metal.com/newscontent/104086807-smm-analysis-feng-lithium-returned-to-profit-in-h1-2026-with-resource-and-capacity-dual-drivers-delivering-notable-results",
+          "published": "2026-08-30",
+          "summary": "SMM reports Ganfeng H1 revenue RMB23.097bn and net profit RMB4.257bn, a swing from loss to profit.",
+          "domain": "news.metal.com",
+          "fetched": true,
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "source_quote": "H1 revenue of 23.097 billion yuan, a 175.75% YoY surge",
+          "source_quote_status": "body_quote_verified",
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "short_verified_quote_plus_paraphrase"
+        },
+        {
+          "id": "P2-024-I2",
+          "owner": "S&P Capital IQ via MarketScreener",
+          "role": "independent_results_confirmation",
+          "url": "https://www.marketscreener.com/news/ganfeng-lithium-group-co-ltd-reports-earnings-results-for-the-half-year-ended-june-30-2026-ce7858dfd181ff2c",
+          "published": "2026-08-28",
+          "summary": "Independent earnings feed confirms Ganfeng H1 revenue RMB23.09695bn and net income RMB4.25716bn versus a prior-year net loss.",
+          "domain": "marketscreener.com",
+          "fetched": true,
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "source_quote": "Net income was CNY 4,257.16 million compared to net loss",
+          "source_quote_status": "body_quote_verified",
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "short_verified_quote_plus_paraphrase"
+        }
+      ],
+      "related_evidence_review": {
+        "same_event_check": "PASS",
+        "earliest_event_date_check": "PASS",
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_candidate_ids": [],
+        "matched_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": null,
+        "changed_judgment": null,
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "production_related_ids": [],
+        "note": "No prior/current duplicate or lineage target established at Stage B."
+      },
+      "date_role": {
+        "representative_event_date": "2026-08-31",
+        "role": "cross-issuer lithium earnings signal publication",
+        "stage_a_representative_date": "2026-08-31",
+        "source_publication_dates": [
+          "2026-08-05",
+          "2026-08-28",
+          "2026-08-30"
+        ],
+        "status": "PASS",
+        "note": "Current event/signal anchor date is preserved separately from each source publication date."
+      },
+      "stage_b_only": true,
+      "stage_b_fact_safety_not_declared": true,
+      "stage_b_publish_readiness_not_declared": true,
+      "state": "accepted_fact_safe",
+      "spec_id": "STD26_R6_P01P_024",
+      "source_story_ids": [
+        "20260831::orig:20260831_143419:GL_2026-08-31_C04",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C21",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C22"
+      ],
+      "stage_c_only": true,
+      "strict_gate_acceptance_guard_applied": true,
+      "accepted_pool_lineage_status": "PASS",
+      "stage_b_lineage": {
+        "status": "PASS",
+        "artifact": "runs/2026-09-03/stage_b_r6_promotion2_20260903_R1.json",
+        "artifact_sha256": "906316d2bc6e5c990bb69c7d7967b332713dd34297fe03320159a8fe41f492f1",
+        "spec_id": "STD26_R6_P01P_024",
+        "draft_status": "draft",
+        "draft_blocked": false
+      },
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "structural_non_execution_route",
+      "anchor_classes": [
+        "data_financial_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "prior_state": "Before this intake, Lithium miners post big profits as battery storage demand surges - Mining.com had not received a final R6 Formal Stage A disposition in this run.",
+      "new_verified_fact": "Issuer-level interim filings plus independent demand evidence resolve the earnings-source gap: multiple lithium producers reported stronger H1 results while Albemarle quantified sharply higher lithium demand driven primarily by stationary storage. The original score remains 60; promotion reflects evidence resolution, not score inflation.",
+      "changed_judgment": "The current-run judgment changes from unadjudicated intake to strict_passed_spec for Lithium miners post big profits as battery storage demand surges - Mining.com.",
+      "uncertainty_resolved": "The recorded Prompt 0.1P promotion question was resolved by bounded research without changing the original decision-value score.",
+      "remaining_uncertainty": "Stage B must verify claim-level evidence, source ownership and precise operative terms before drafting.",
+      "execution_anchor_type": null,
+      "execution_anchor_strength": null,
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "route_validation": {
+        "status": "PASS",
+        "active_route": "structural_non_execution_route",
+        "exactly_one_active_route": true,
+        "anchor_evidence_source_ids": [
+          "P2-024-P1",
+          "P2-024-I1"
+        ],
+        "stage_a_before_after_chain_preserved": true
+      },
+      "visible_field_fact_safe": {
+        "status": "PASS",
+        "title": "PASS",
+        "sub": "PASS",
+        "gate": "PASS",
+        "fact": "PASS",
+        "implication": "PASS_BOUNDED_STRATEGIC_INFERENCE",
+        "claim_map_count": 3,
+        "unsupported_visible_claim_count": 0,
+        "unsupported_causality_count": 0,
+        "unsupported_quote_count": 0
+      },
+      "claim_map": [
+        {
+          "claim_id": "P2-024-C1",
+          "claim": "Ganfeng Lithium의 2026년 상반기 매출은 약 RMB23.1bn, 순이익은 약 RMB4.26bn으로 전년 동기 적자에서 흑자로 전환했다.",
+          "supported_by_source_ids": [
+            "P2-024-I1",
+            "P2-024-I2"
+          ],
+          "visible": true,
+          "status": "SUPPORTED"
+        },
+        {
+          "claim_id": "P2-024-C2",
+          "claim": "Albemarle의 2026년 2분기 Energy Storage 매출은 US$1.2767bn으로 전년 동기 대비 77.9% 증가했다.",
+          "supported_by_source_ids": [
+            "P2-024-P1"
+          ],
+          "visible": true,
+          "status": "SUPPORTED"
+        },
+        {
+          "claim_id": "P2-024-C3",
+          "claim": "Albemarle의 해당 분기 Energy Storage 판매량은 11.0%, 평균 실현가격은 60.5% 전년 대비 상승했다.",
+          "supported_by_source_ids": [
+            "P2-024-P1"
+          ],
+          "visible": true,
+          "status": "SUPPORTED"
+        }
+      ],
+      "source_conflicts": [],
+      "source_diversity_status": "PASS_MULTI_OWNER",
+      "source_diversity_measure": {
+        "unique_urls": 3,
+        "unique_domains": 3,
+        "independent_owner_count": 3
+      },
+      "source_diversity_roles": {
+        "issuer_primary_earnings_release": 1,
+        "independent_results_analysis": 1,
+        "independent_results_confirmation": 1
+      },
+      "source_synthesis_applied": true,
+      "source_synthesis_fields": [
+        "title",
+        "sub",
+        "gate",
+        "fact",
+        "implication"
+      ],
+      "source_synthesis_audit": {
+        "status": "PASS",
+        "primary_or_official_controls_operative_facts": true,
+        "independent_confirmation_used": true,
+        "conflicts_explicitly_resolved": true
+      },
+      "single_source_exception": false,
+      "source_published_date": "2026-08-05",
+      "visible_quote_date": "not_applicable_no_visible_quotes",
+      "stage_c_red_team": {
+        "source_direction_and_independence": "PASS",
+        "numbers_dates_entities_counterparties": "PASS",
+        "event_stage_and_date_role": "PASS",
+        "same_event_duplicate_check": "PASS",
+        "stale_republication_check": "PASS",
+        "selected_anchor_evidence": "PASS",
+        "policy_earnings_technology_caveats": "PASS",
+        "causality_and_strategic_overreach": "PASS",
+        "visible_field_consistency": "PASS",
+        "full_schema_viability": "PASS",
+        "related_evidence": "PASS"
+      },
+      "unresolved_downstream_issues": [
+        "The next quarterly filing reporting lithium sales volume, realised price, unit cost and ESS-linked demand would strengthen or weaken the judgment that storage demand is a persistent sector earnings driver rather than a one-period price effect."
+      ],
+      "fact_safe_at_stage_c": true,
+      "addable_merge_safe": false,
+      "evidence_complete": false,
+      "source_claim_covered": false,
+      "content_enriched": false,
+      "language_terminology_polished": false,
+      "publish_ready": false,
+      "github_merge_ready": false,
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "provisional_current_batch_candidate_ids": [],
+        "reason": "Prompt 0.1P and Stage B duplicate/lineage review identified no canonical or current-run predecessor for this promoted event.",
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": null,
+        "changed_judgment": null,
+        "same_event_check": "PASS",
+        "earliest_date_check": "PASS",
+        "rejected_relation_candidates": [],
+        "chronology_exception": null
+      }
+    }
+  ],
+  "accepted_fact_safe_with_warnings": [],
+  "revise_required": [],
+  "rejected": [],
+  "support_source_only": [],
+  "deferred_review_pool": [],
+  "review_pool_deferred": [],
+  "summary": {
+    "input": 2,
+    "accepted_fact_safe": 2,
+    "revise_required": 0,
+    "rejected": 0,
+    "support_source_only": 0,
+    "deferred_review_pool": 0,
+    "fact_safe_count": 2,
+    "addable_merge_safe_count": 0,
+    "publish_ready_count": 0
+  },
+  "next_authorized_stage": "Prompt 0.4 Baseline Revalidation",
+  "run_id": "card-run-2026-09-04-r6-combined9-production-r1",
+  "base_main_commit_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "base_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "formal_run_binding": {
+    "status": "PASS",
+    "source_artifact": "runs/2026-09-03/stage_c_r6_promotion2_20260903_R1.json",
+    "source_artifact_sha256": "381b723ce6b3f0390593b05ea05e81c6298b62d4170bf7e8eb826bfce027305a",
+    "binding_only_no_re_adjudication": true,
+    "stage_b_legacy_shape_projected": false
+  }
+}

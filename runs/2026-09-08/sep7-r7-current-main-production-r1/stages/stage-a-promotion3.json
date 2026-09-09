@@ -1,0 +1,1611 @@
+{
+  "stage": "stage_a",
+  "status": "PASS",
+  "run_tag": "20260908_SEP7_PROMPT_0_1P_PROMOTION3_R1",
+  "run_label": "Sep 7 intake Prompt 0.1P bounded review-pool promotion against current main 77b03de7; 41 reviewed, 3 promoted.",
+  "source_prompt_file": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+  "source_prompt_sha256": "617b775d8ce711b7631073f4a335d385ee6e474efa80d6948435d2434af8461e",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "source_prompt_authority": "uploaded_or_repo_source_file_prompt",
+  "source_prompt_provenance_status": "PASS",
+  "input_file": "runs/2026-09-08/sep7-r7-current-main-production-r1/stages/stage-a.json#candidate_review_pool",
+  "baseline_file": "data/cards.full.json",
+  "baseline_source_declaration": "current main 77b03de7cf8c941068e8adcc6ef7de4bdf5f92ae; canonical blob 920646b6b335f211bcd224962f8ac0cc42cd3a4f; 1578 cards",
+  "baseline_count": 1578,
+  "github_main_sync_required_later": true,
+  "source_universe": "41 authorized candidate_review_pool items from Sep 7 R7 Stage A; Prompt 0.1P bounded research completed; 3 ordinary strict specs re-emitted.",
+  "story_count": 3,
+  "event_count": 3,
+  "original_status_counts": {
+    "review_promoted": 3
+  },
+  "integrity_summary": {
+    "status": "PASS",
+    "main_sha": "77b03de7cf8c941068e8adcc6ef7de4bdf5f92ae",
+    "canonical_blob_sha": "920646b6b335f211bcd224962f8ac0cc42cd3a4f",
+    "promotion_candidate_count": 41,
+    "promoted_event_count": 3,
+    "retained_count": 38,
+    "duplicate_event_membership": 0,
+    "unassigned_event_membership": 0
+  },
+  "recommended_for": [
+    "Stage B evidence package construction for Prompt 0.1P promoted strict_passed_spec[] only"
+  ],
+  "stage_a_validity_status": "PASS",
+  "artifact_consistency_status": "PASS",
+  "csv_schema_status": "PASS",
+  "review_pool_partition_status": "PASS",
+  "strict_pass_gate_metadata_status": "PASS",
+  "baseline_duplicate_screen_status": "PASS",
+  "review_pool_carry_forward_ledger_status": "PASS",
+  "next_call_recommendation": {
+    "recommended_next_call": "Stage B r0",
+    "recommended_prompt_id": "Prompt 0.2",
+    "recommended_input_universe": "Stage A strict_passed_spec[] only",
+    "reason": "Three of 41 candidate-review items satisfy the ordinary Stage A strict contract after bounded Prompt 0.1P research; 38 remain outside Stage B.",
+    "pending_parallel_or_followup_call": "none",
+    "pending_prompt_id": "authorized review_pool/treasure promotion protocol, not Prompt 0.2",
+    "pending_input_universe": "candidate_review_pool[] + eligible treasure/review-only universe",
+    "pending_reason": "This Prompt 0.1P artifact terminally accounts the authorized 41-item candidate_review_pool; Stage B may process only the three emitted strict_passed_spec rows.",
+    "blocked_items_summary": []
+  },
+  "required_docs_check": {
+    "docs_expected": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md"
+    ],
+    "docs_read_from_github_main": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md"
+    ],
+    "governance_closure_reused_by_exact_docs_subtree_identity": "39cde756e243c12dc4fa0ae56c7247955ed529b3",
+    "docs_missing_or_unreadable": [],
+    "status": "PASS",
+    "authority_note": "Integrated Stage A V4 is active authority; frozen V3 metadata below is a compatibility replay projection only and does not replace the V4 editorial artifact."
+  },
+  "lane_sanity_rules_applied": [
+    "authorized_candidate_review_pool_only",
+    "bounded_prompt_0_1p_research",
+    "ordinary_stage_a_v4_re_emission",
+    "current_main_1578_duplicate_related_screen",
+    "score_caps_machine_checked",
+    "no_score_inflation_for_source_recovery"
+  ],
+  "dropped_treasure_hunt": {
+    "performed": false,
+    "trigger_reason": "Prompt 0.1P is authorized candidate-review promotion only; no new coverage discovery is performed.",
+    "sample_strategy": "not_applicable",
+    "sample_size": 0,
+    "sampled_story_ids": [],
+    "rescued_count": 0,
+    "rescue_ids": [],
+    "non_sampled_dropped_count": 0,
+    "non_sampled_ledger_policy": "All 41 authorized candidate-review items are terminally accounted in candidate_promotion_contract.promotion_ledger."
+  },
+  "summary": {
+    "legacy_keep_count": 0,
+    "strict_passed_spec_count": 3,
+    "needs_review_count": 0,
+    "rejected_count": 0,
+    "existing_reinforcement_count": 0,
+    "support_source_only_count": 0,
+    "duplicate_or_reinforcement_count": 0,
+    "stale_discarded_count": 0,
+    "stale_warm_review_count": 0,
+    "total_ledger_count": 3,
+    "ledger_matches_story_count": true,
+    "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+    "structural_selector_policy_file": "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
+    "structural_selector_policy_sha": "826974044eac88f2e80c972dcfa8493cd508cbc31e3a7ca0a0482f244d82c6fe",
+    "credibility_cardability_value_urgency_separated": true,
+    "industry_first_weighting_applied": true,
+    "core_industrial_weight_total": 70,
+    "multi_anchor_class_model_applied": true,
+    "mandatory_structural_lenses_applied": true,
+    "anchor_class_counts": {
+      "execution_event_anchor": 2,
+      "technology_commercialization_anchor": 1,
+      "data_financial_anchor": 1,
+      "strategic_behavior_anchor": 1
+    },
+    "structural_lens_coverage_counts": {
+      "market_structure_supply_chain_execution": 3,
+      "technology_transition_commercialization": 1,
+      "critical_minerals_supply": 1,
+      "data_financial_signal": 1
+    },
+    "decision_value_classification_counts": {
+      "material_industry_signal": 3
+    },
+    "critical_structural_candidate_ids": [],
+    "high_decision_value_candidate_ids": [],
+    "high_value_review_pool_ids": [],
+    "structural_signal_review_pool_ids": [],
+    "earnings_deep_dive_pool_ids": [],
+    "follow_up_candidate_ids": [],
+    "zero_coverage_domains": [],
+    "execution_or_formality_bias_findings": [],
+    "technology_validation_gap_ids": [
+      "STD26_0907_P_002"
+    ],
+    "legal_policy_stage_gap_ids": [],
+    "search_before_delete_applied": true,
+    "earnings_call_qna_rule_applied": true,
+    "follow_up_probability_review_applied": true,
+    "portfolio_coverage_audit_applied": true,
+    "structural_value_selector_status": "PASS",
+    "portfolio_coverage_audit_status": "PASS",
+    "earnings_call_qna_audit_status": "NOT_APPLICABLE",
+    "follow_up_repromotion_audit_status": "PASS",
+    "execution_event_bias_audit_status": "PASS",
+    "content_depth_audit_status": "PASS",
+    "decision_ledger_count": 3,
+    "selection_route_counts": {
+      "execution_anchor_route": 2,
+      "structural_non_execution_route": 1
+    },
+    "formal_event_count": 3,
+    "source_bound_observation_count": 3,
+    "candidate_review_pool_count": 0,
+    "watchlist_context_pool_count": 0,
+    "reject_or_support_only_pool_count": 0
+  },
+  "legacy_keep": [],
+  "strict_passed_spec": [
+    {
+      "spec_id": "STD26_0907_P_001",
+      "source_event_id": "NR_20260907_E0150",
+      "source_origin": "authorized_prompt_0_1P_bounded_research_from_candidate_review_pool",
+      "source_story_ids": [
+        "CN_2026-09-07_C05"
+      ],
+      "original_story_ids": [
+        "CN_2026-09-07_C05"
+      ],
+      "primary_url": "https://www.china5e.com/news/news-1208834-1.html",
+      "urls": [
+        "https://www.china5e.com/news/news-1208834-1.html",
+        "https://cbgc.scol.com.cn/news/7916910"
+      ],
+      "same_event_source_cluster": [
+        {
+          "story_id": "CN_2026-09-07_C05",
+          "url": "https://www.china5e.com/news/news-1208834-1.html",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "merge_status": "single_observation_event",
+      "merged_story_ids": [],
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "decision_news_value_score": 57,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 22,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track the next measurable execution milestone for 鹏程无限, 이빈 54GWh ESS 셀 공장 첫 생산설비 반입.",
+        "decision_deadline": null
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "systemic_scale_denominator": null,
+      "denominator_gap": "No defensible market-wide denominator is locked at Prompt 0.1P for 鹏程无限, 이빈 54GWh ESS 셀 공장 첫 생산설비 반입; systemic scale is capped at 2/5.",
+      "prior_state": "鹏程无限, 이빈 54GWh ESS 셀 공장 첫 생산설비 반입 was retained in candidate_review_pool because the operative execution/commercialization stage was unresolved.",
+      "new_verified_fact": "9월 3일 이빈 저장산업단지의 鹏程无限 ESS 셀 프로젝트에 첫 6세트 생산설비가 반입돼 프로젝트가 건설 단계에서 설비 설치·조정 단계로 이동했다. 총투자 48억위안, 총계획 54GWh이며 1기 프로젝트는 11월 시험생산, 연내 전면 가동을 목표로 한다.",
+      "changed_judgment": "Prompt 0.1P changes REV_NR_20260907_E0150 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolves the execution/commercialization question.",
+      "uncertainty_resolved": "The current event date, stage, scale and distinctness needed for Stage A promotion are resolved sufficiently for Stage B admission.",
+      "remaining_uncertainty": "11월 시험생산과 연내 전면가동이 실제로 시작되면 실행 판단이 강화되고, 설비 설치·라인 연동 또는 시험생산 지연은 약화시킨다.",
+      "incremental_information": "9월 3일 이빈 저장산업단지의 鹏程无限 ESS 셀 프로젝트에 첫 6세트 생산설비가 반입돼 프로젝트가 건설 단계에서 설비 설치·조정 단계로 이동했다. 총투자 48억위안, 총계획 54GWh이며 1기 프로젝트는 11월 시험생산, 연내 전면 가동을 목표로 한다.",
+      "baseline_expectation_changed": "The current 1,578-card baseline has no same-event card, and the newly verified milestone establishes a distinct current execution/commercialization state.",
+      "decision_relevance": "54GWh급 ESS 셀 제조 프로젝트가 단순 투자·연말 목표에서 실제 생산설비 설치 단계로 이동해 중국 대형 ESS 셀 공급능력 확장 가능성을 높였다.",
+      "evidence_needed_for_stage_b": [
+        "Official filing or government document confirming the 2026-09-03 production-equipment installation stage, RMB 4.8 billion investment, and 54 GWh planned annual capacity for the Pengcheng Wuxian Yibin ESS cell project.",
+        "Independent report confirming the 2026-09-03 first production-equipment arrival, 54 GWh planned capacity, November 2026 trial production schedule, and year-end 2026 production status for the Yibin ESS cell project."
+      ],
+      "next_confirmation_points": [
+        "November 2026 trial production or year-end 2026 production start would strengthen the judgment that the 54 GWh Yibin ESS cell project has moved into execution; a delayed production schedule or cancellation would weaken that judgment."
+      ],
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the next measurable stage after 2026-09-03 for 鹏程无限, 이빈 54GWh ESS 셀 공장 첫 생산설비 반입."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_date": "2026-09-03",
+        "event_date": "2026-09-03",
+        "publication_dates": [
+          "2026-09-03"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://cbgc.scol.com.cn/news/7916910",
+        "source_quote_emitted": false,
+        "note": "Prompt 0.1P bounded research resolves the operative event date; Stage B must re-verify body evidence."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "production_equipment_installation_start",
+        "anchor_strength": "strong",
+        "stage_precision_note": "9월 3일 이빈 저장산업단지의 鹏程无限 ESS 셀 프로젝트에 첫 6세트 생산설비가 반입돼 프로젝트가 건설 단계에서 설비 설치·조정 단계로 이동했다. 총투자 48억위안, 총계획 54GWh이며 1기 프로젝트는 11월 시험생산, 연내 전면 가동을 목표로 한다."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "Current-main 1,578-card baseline screen found no same-event canonical card."
+      },
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "Prompt 0.1P resolved the recorded promotion condition for REV_NR_20260907_E0150: 9월 3일 이빈 저장산업단지의 鹏程无限 ESS 셀 프로젝트에 첫 6세트 생산설비가 반입돼 프로젝트가 건설 단계에서 설비 설치·조정 단계로 이동했다. 총투자 48억위안, 총계획 54GWh이며 1기 프로젝트는 11월 시험생산, 연내 전면 가동을 목표로 한다.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Bounded research established a current execution/commercialization anchor and a viable Stage B source path."
+      },
+      "execution_anchor_type": "production_equipment_installation_start",
+      "execution_anchor_strength": "strong",
+      "structural_value_override_applied": false,
+      "structural_selector_policy_version": null,
+      "structural_value_override_reason": null,
+      "structural_non_execution_reason": null,
+      "why_execution_event_not_required": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "screened_current_main_no_unresolved_same_event",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "source_access_risk": "requires_stage_b_body_verification",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "support_source_candidates": [
+        "https://cbgc.scol.com.cn/news/7916910",
+        "https://www.china5e.com/news/news-1208834-1.html"
+      ],
+      "source_domain_candidates": [
+        "cbgc.scol.com.cn",
+        "www.china5e.com"
+      ],
+      "source_cluster_preserved": true,
+      "source_diversity_path": {
+        "status": "uncertain",
+        "candidate_owner_availability": "known_or_to_verify",
+        "compatibility_source_status": "candidate_sources_preserved_for_stage_b"
+      },
+      "support_source_candidates_accounted": true,
+      "region": "CN",
+      "representative_date": "2026-09-03",
+      "representative_source": "川观新闻/宜宾发布",
+      "source_tier_estimate": "stage_a_promotion_research_source_candidate",
+      "cat": "Battery",
+      "sub_cat": "battery",
+      "signal_estimate": "high",
+      "signal_rubric_estimate": "material_industry_signal",
+      "strategic_lens": [
+        "market_structure_supply_chain_execution"
+      ],
+      "event_anchor": "鹏程无限, 이빈 54GWh ESS 셀 공장 첫 생산설비 반입",
+      "title_raw": "鹏程无限, 이빈 54GWh ESS 셀 공장 첫 생산설비 반입",
+      "summary_hint": "9월 3일 이빈 저장산업단지의 鹏程无限 ESS 셀 프로젝트에 첫 6세트 생산설비가 반입돼 프로젝트가 건설 단계에서 설비 설치·조정 단계로 이동했다. 총투자 48억위안, 총계획 54GWh이며 1기 프로젝트는 11월 시험생산, 연내 전면 가동을 목표로 한다.",
+      "context_text": "宜宾首个储能电芯项目预计今年底投产!",
+      "why_now": "Prompt 0.1P bounded research resolved the candidate review condition with a source-bound milestone dated 2026-09-03.",
+      "market_relevance": "54GWh급 ESS 셀 제조 프로젝트가 단순 투자·연말 목표에서 실제 생산설비 설치 단계로 이동해 중국 대형 ESS 셀 공급능력 확장 가능성을 높였다.",
+      "source_priority_notes": "Stage B must fetch the strongest source-owner/official body first, then independent same-event confirmation; Prompt 0.1P evidence is promotion evidence, not evidence-complete card proof.",
+      "upstream_labels": {
+        "triage_status": "review",
+        "matched_buckets": [
+          "20260907_input",
+          "candidate_review_pool",
+          "authorized_0.1P"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR_20260907_E0150",
+        "integrity_is_best": true,
+        "drop_reason_overridden": true
+      },
+      "staleness": {
+        "event_date": "2026-09-03",
+        "publication_date": "2026-09-03",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "denominator_used": "Named project/product commercialization milestone only; no market-wide denominator asserted.",
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "earnings_ir_deck_available": "unknown",
+      "earnings_call_available": "unknown",
+      "earnings_qna_available": "unknown",
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved measurable milestone, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": null,
+      "technology_validation_gap": null,
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "baseline_match": []
+    },
+    {
+      "spec_id": "STD26_0907_P_002",
+      "source_event_id": "NR_20260907_E0142",
+      "source_origin": "authorized_prompt_0_1P_bounded_research_from_candidate_review_pool",
+      "source_story_ids": [
+        "CN_2026-09-07_C19"
+      ],
+      "original_story_ids": [
+        "CN_2026-09-07_C19"
+      ],
+      "primary_url": "https://libattery.ofweek.com/2026-09/ART-36002-8120-30701878.html",
+      "urls": [
+        "https://libattery.ofweek.com/2026-09/ART-36002-8120-30701878.html",
+        "https://finance.eastmoney.com/a/202609043865718667.html"
+      ],
+      "same_event_source_cluster": [
+        {
+          "story_id": "CN_2026-09-07_C19",
+          "url": "https://libattery.ofweek.com/2026-09/ART-36002-8120-30701878.html",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "merge_status": "single_observation_event",
+      "merged_story_ids": [],
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "anchor_classes": [
+        "execution_event_anchor",
+        "technology_commercialization_anchor"
+      ],
+      "decision_news_value_score": 57,
+      "decision_value_breakdown": {
+        "market_structure_competition": 15,
+        "supply_demand_price_utilisation": 16,
+        "technology_performance_safety": 16,
+        "cashflow_asset_value": 5,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 1
+      },
+      "decision_value_classification": "material_industry_signal",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track the next measurable execution milestone for 协鑫锂电, 5.5세대 C20 고압실 LFP 상업양산·안정공급 개시.",
+        "decision_deadline": null
+      },
+      "technology_evidence_level": "commercial_scale_or_long_duration_field",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "systemic_scale_denominator": null,
+      "denominator_gap": "No defensible market-wide denominator is locked at Prompt 0.1P for 协鑫锂电, 5.5세대 C20 고압실 LFP 상업양산·안정공급 개시; systemic scale is capped at 2/5.",
+      "prior_state": "协鑫锂电, 5.5세대 C20 고압실 LFP 상업양산·안정공급 개시 was retained in candidate_review_pool because the operative execution/commercialization stage was unresolved.",
+      "new_verified_fact": "9월 4일 세계동력배터리대회에서 协鑫锂电가 5.5세대 C20 고압실 LFP 양극재를 공식 출시했고, 회사 측 설명과 상하이증권보 보도에 따르면 산업화 검증을 완료해 상업양산 및 규모화 안정공급 단계에 진입했다.",
+      "changed_judgment": "Prompt 0.1P changes REV_NR_20260907_E0142 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolves the execution/commercialization question.",
+      "uncertainty_resolved": "The current event date, stage, scale and distinctness needed for Stage A promotion are resolved sufficiently for Stage B admission.",
+      "remaining_uncertainty": "실제 고객사 인증·출하 물량과 분기별 생산/판매 데이터가 확인되면 상업화 판단이 강화되고, 양산이 샘플성 공급에 그치면 약화된다.",
+      "incremental_information": "9월 4일 세계동력배터리대회에서 协鑫锂电가 5.5세대 C20 고압실 LFP 양극재를 공식 출시했고, 회사 측 설명과 상하이증권보 보도에 따르면 산업화 검증을 완료해 상업양산 및 규모화 안정공급 단계에 진입했다.",
+      "baseline_expectation_changed": "The current 1,578-card baseline has no same-event card, and the newly verified milestone establishes a distinct current execution/commercialization state.",
+      "decision_relevance": "고압실 LFP의 성능 발표가 샘플·파일럿 수준이 아니라 상업양산·안정공급 단계로 확인되면서 고급 동력·고속충전용 LFP 소재 경쟁의 실제 공급단계가 한 단계 전진했다.",
+      "evidence_needed_for_stage_b": [
+        "Official company document confirming the 2026-09-04 C20 commercial mass-production stage, industrial-validation status, stable-supply status, and 2.73 g/cm3 compaction-density metric for GCL Lithium.",
+        "Independent report confirming the 2026-09-04 C20 commercial production start, industrial validation, and stable supply to battery customers, including any production or shipment metric that verifies commercialization scale."
+      ],
+      "next_confirmation_points": [
+        "A later shipment volume, customer qualification, or production-utilisation metric would strengthen the judgment that C20 has reached commercial-scale supply; lack of customer adoption or a production rollback would weaken that judgment."
+      ],
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the next measurable stage after 2026-09-04 for 协鑫锂电, 5.5세대 C20 고압실 LFP 상업양산·안정공급 개시."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_date": "2026-09-04",
+        "event_date": "2026-09-04",
+        "publication_dates": [
+          "2026-09-04"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://finance.eastmoney.com/a/202609043865718667.html",
+        "source_quote_emitted": false,
+        "note": "Prompt 0.1P bounded research resolves the operative event date; Stage B must re-verify body evidence."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "commercial_mass_production_start",
+        "anchor_strength": "strong",
+        "stage_precision_note": "9월 4일 세계동력배터리대회에서 协鑫锂电가 5.5세대 C20 고압실 LFP 양극재를 공식 출시했고, 회사 측 설명과 상하이증권보 보도에 따르면 산업화 검증을 완료해 상업양산 및 규모화 안정공급 단계에 진입했다."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "Current-main 1,578-card baseline screen found no same-event canonical card."
+      },
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "Prompt 0.1P resolved the recorded promotion condition for REV_NR_20260907_E0142: 9월 4일 세계동력배터리대회에서 协鑫锂电가 5.5세대 C20 고압실 LFP 양극재를 공식 출시했고, 회사 측 설명과 상하이증권보 보도에 따르면 산업화 검증을 완료해 상업양산 및 규모화 안정공급 단계에 진입했다.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Bounded research established a current execution/commercialization anchor and a viable Stage B source path."
+      },
+      "execution_anchor_type": "commercial_mass_production_start",
+      "execution_anchor_strength": "strong",
+      "structural_value_override_applied": false,
+      "structural_selector_policy_version": null,
+      "structural_value_override_reason": null,
+      "structural_non_execution_reason": null,
+      "why_execution_event_not_required": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "screened_current_main_no_unresolved_same_event",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "source_access_risk": "requires_stage_b_body_verification",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "support_source_candidates": [
+        "https://finance.eastmoney.com/a/202609043865718667.html",
+        "https://libattery.ofweek.com/2026-09/ART-36002-8120-30701878.html"
+      ],
+      "source_domain_candidates": [
+        "finance.eastmoney.com",
+        "libattery.ofweek.com"
+      ],
+      "source_cluster_preserved": true,
+      "source_diversity_path": {
+        "status": "uncertain",
+        "candidate_owner_availability": "known_or_to_verify",
+        "compatibility_source_status": "candidate_sources_preserved_for_stage_b"
+      },
+      "support_source_candidates_accounted": true,
+      "region": "CN",
+      "representative_date": "2026-09-04",
+      "representative_source": "上海证券报/协鑫集团",
+      "source_tier_estimate": "stage_a_promotion_research_source_candidate",
+      "cat": "Battery",
+      "sub_cat": "battery",
+      "signal_estimate": "high",
+      "signal_rubric_estimate": "material_industry_signal",
+      "strategic_lens": [
+        "technology_transition_commercialization",
+        "market_structure_supply_chain_execution"
+      ],
+      "event_anchor": "协鑫锂电, 5.5세대 C20 고압실 LFP 상업양산·안정공급 개시",
+      "title_raw": "协鑫锂电, 5.5세대 C20 고압실 LFP 상업양산·안정공급 개시",
+      "summary_hint": "9월 4일 세계동력배터리대회에서 协鑫锂电가 5.5세대 C20 고압실 LFP 양극재를 공식 출시했고, 회사 측 설명과 상하이증권보 보도에 따르면 산업화 검증을 완료해 상업양산 및 규모화 안정공급 단계에 진입했다.",
+      "context_text": "首发即量产！协鑫锂电5.5代“极擎C20”高压实磷酸铁锂重磅发布",
+      "why_now": "Prompt 0.1P bounded research resolved the candidate review condition with a source-bound milestone dated 2026-09-04.",
+      "market_relevance": "고압실 LFP의 성능 발표가 샘플·파일럿 수준이 아니라 상업양산·안정공급 단계로 확인되면서 고급 동력·고속충전용 LFP 소재 경쟁의 실제 공급단계가 한 단계 전진했다.",
+      "source_priority_notes": "Stage B must fetch the strongest source-owner/official body first, then independent same-event confirmation; Prompt 0.1P evidence is promotion evidence, not evidence-complete card proof.",
+      "upstream_labels": {
+        "triage_status": "review",
+        "matched_buckets": [
+          "20260907_input",
+          "candidate_review_pool",
+          "authorized_0.1P"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR_20260907_E0142",
+        "integrity_is_best": true,
+        "drop_reason_overridden": true
+      },
+      "staleness": {
+        "event_date": "2026-09-04",
+        "publication_date": "2026-09-04",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "structural_value_lenses": [
+        "technology_transition_commercialization",
+        "market_structure_supply_chain_execution"
+      ],
+      "denominator_used": "Named project/product commercialization milestone only; no market-wide denominator asserted.",
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "technology_transition_commercialization",
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "earnings_ir_deck_available": "unknown",
+      "earnings_call_available": "unknown",
+      "earnings_qna_available": "unknown",
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved measurable milestone, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": "production_start",
+      "technology_score_cap_applied": true,
+      "technology_validation_gap": "Stage B must verify that C20 commercial mass production and stable supply are source-backed and must not infer customer shipment volume beyond verified evidence.",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "baseline_match": []
+    },
+    {
+      "spec_id": "STD26_0907_P_003",
+      "source_event_id": "NR_20260907_E0140",
+      "source_origin": "authorized_prompt_0_1P_bounded_research_from_candidate_review_pool",
+      "source_story_ids": [
+        "EU_2026-09-04_C23"
+      ],
+      "original_story_ids": [
+        "EU_2026-09-04_C23"
+      ],
+      "primary_url": "https://www.electrive.com/2026/09/04/vulcan-advances-ludwig-lithium-project",
+      "urls": [
+        "https://www.electrive.com/2026/09/04/vulcan-advances-ludwig-lithium-project",
+        "https://markets.ft.markitdigital.com/data/announce/detail?dockey=600-202609021755DGAP____CORPNEWS_corporate_2392992_en-1"
+      ],
+      "same_event_source_cluster": [
+        {
+          "story_id": "EU_2026-09-04_C23",
+          "url": "https://www.electrive.com/2026/09/04/vulcan-advances-ludwig-lithium-project",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "merge_status": "single_observation_event",
+      "merged_story_ids": [],
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "structural_non_execution_route",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "anchor_classes": [
+        "data_financial_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "decision_news_value_score": 56,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 17,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 10,
+        "law_policy_market_access": 4,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track financing, permitting and FID progression for Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억.",
+        "decision_deadline": null
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "systemic_scale_denominator": null,
+      "denominator_gap": "No defensible market-wide denominator is locked at Prompt 0.1P for Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억; systemic scale is capped at 2/5.",
+      "prior_state": "Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억 was retained in candidate_review_pool because the exact project-stage economics and financing state were unresolved.",
+      "new_verified_fact": "Vulcan은 9월 2일 독일 Project Ludwig PFS 완료를 발표했다. 세전 NPV8 €26억·IRR 25%, CAPEX €12.6억, 배터리급 탄산리튬 기준 생산 2.11만t/년을 제시했고, Lionheart 대비 자본집약도 15% 절감과 자산단위 금융전략 착수를 밝혔다.",
+      "changed_judgment": "Prompt 0.1P changes REV_NR_20260907_E0140 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolves the PFS economics/resource/financing question.",
+      "uncertainty_resolved": "PFS completion date, project-scale economics, resource update and financing initiation are sufficiently source-bound for Stage A promotion.",
+      "remaining_uncertainty": "Lionheart 가동 이후 Ludwig의 허가·금융약정·FID가 실제 진전되면 공급확률 판단이 강화되고, CAPEX 상승·허가 지연·FID 연기는 약화시킨다.",
+      "incremental_information": "Vulcan은 9월 2일 독일 Project Ludwig PFS 완료를 발표했다. 세전 NPV8 €26억·IRR 25%, CAPEX €12.6억, 배터리급 탄산리튬 기준 생산 2.11만t/년을 제시했고, Lionheart 대비 자본집약도 15% 절감과 자산단위 금융전략 착수를 밝혔다.",
+      "baseline_expectation_changed": "The current 1,578-card baseline has no same-event card; the completed PFS materially changes the probability/economics state of Project Ludwig.",
+      "decision_relevance": "유럽 현지 지열리튬의 2단계 프로젝트가 개념·탐사에서 정량 PFS와 금융 준비 단계로 이동해 장기 유럽 배터리급 리튬 공급의 프로젝트 확률과 경제성 판단을 높였다.",
+      "evidence_needed_for_stage_b": [
+        "Official filing or issuer document confirming the 2026-09-02 Project Ludwig PFS completion, pre-tax NPV8 of EUR 2.6 billion, IRR of 25.0%, total CAPEX of EUR 1.26 billion, and 21,100 tpa lithium-carbonate production case.",
+        "Independent report confirming the Project Ludwig PFS economics, resource update, financing strategy, and current pre-FID project stage as of 2026-09-02."
+      ],
+      "next_confirmation_points": [
+        "A binding financing agreement, permit approval, or FID for Project Ludwig would strengthen the judgment that the project probability has increased; financing withdrawal, permit delay, or FID deferral would weaken that judgment."
+      ],
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the next financing/FID milestone after 2026-09-02 for Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_date": "2026-09-02",
+        "event_date": "2026-09-02",
+        "publication_dates": [
+          "2026-09-02"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://markets.ft.markitdigital.com/data/announce/detail?dockey=600-202609021755DGAP____CORPNEWS_corporate_2392992_en-1",
+        "source_quote_emitted": false,
+        "note": "Prompt 0.1P bounded research resolves the PFS completion date; Stage B must re-verify body evidence."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "structural_non_execution",
+        "anchor_strength": "unknown",
+        "stage_precision_note": "PFS completion changes project economics/resource/financing state without claiming FID or construction."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "Current-main 1,578-card baseline screen found no same-event canonical card."
+      },
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "Prompt 0.1P resolved the recorded promotion condition for REV_NR_20260907_E0140: Vulcan은 9월 2일 독일 Project Ludwig PFS 완료를 발표했다. 세전 NPV8 €26억·IRR 25%, CAPEX €12.6억, 배터리급 탄산리튬 기준 생산 2.11만t/년을 제시했고, Lionheart 대비 자본집약도 15% 절감과 자산단위 금융전략 착수를 밝혔다.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Bounded issuer-level PFS evidence establishes a material data/financial and strategic state change with a viable Stage B source path."
+      },
+      "execution_anchor_type": null,
+      "execution_anchor_strength": null,
+      "structural_value_override_applied": true,
+      "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "structural_value_override_reason": "Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억 establishes a decision-relevant PFS economics/resource/financing state change without requiring a construction or production event.",
+      "structural_non_execution_reason": "Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억 establishes a decision-relevant PFS economics/resource/financing state change without requiring a construction or production event.",
+      "why_execution_event_not_required": "The selected anchors are data_financial_anchor and strategic_behavior_anchor; a completed PFS with quantified economics/resource and financing initiation can independently change project probability and supply expectations.",
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "screened_current_main_no_unresolved_same_event",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "source_access_risk": "requires_stage_b_body_verification",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "support_source_candidates": [
+        "https://markets.ft.markitdigital.com/data/announce/detail?dockey=600-202609021755DGAP____CORPNEWS_corporate_2392992_en-1",
+        "https://www.electrive.com/2026/09/04/vulcan-advances-ludwig-lithium-project"
+      ],
+      "source_domain_candidates": [
+        "markets.ft.markitdigital.com",
+        "www.electrive.com"
+      ],
+      "source_cluster_preserved": true,
+      "source_diversity_path": {
+        "status": "uncertain",
+        "candidate_owner_availability": "known_or_to_verify",
+        "compatibility_source_status": "candidate_sources_preserved_for_stage_b"
+      },
+      "support_source_candidates_accounted": true,
+      "region": "EU",
+      "representative_date": "2026-09-02",
+      "representative_source": "Vulcan Energy/EQS",
+      "source_tier_estimate": "stage_a_promotion_research_source_candidate",
+      "cat": "Critical Minerals",
+      "sub_cat": "lithium_project",
+      "signal_estimate": "high",
+      "signal_rubric_estimate": "material_industry_signal",
+      "strategic_lens": [
+        "critical_minerals_supply",
+        "data_financial_signal",
+        "market_structure_supply_chain_execution"
+      ],
+      "event_anchor": "Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억",
+      "title_raw": "Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억",
+      "summary_hint": "Vulcan은 9월 2일 독일 Project Ludwig PFS 완료를 발표했다. 세전 NPV8 €26억·IRR 25%, CAPEX €12.6억, 배터리급 탄산리튬 기준 생산 2.11만t/년을 제시했고, Lionheart 대비 자본집약도 15% 절감과 자산단위 금융전략 착수를 밝혔다.",
+      "context_text": "Vulcan advances Ludwig lithium project",
+      "why_now": "Prompt 0.1P bounded research found a source-bound PFS completion dated 2026-09-02.",
+      "market_relevance": "유럽 현지 지열리튬의 2단계 프로젝트가 개념·탐사에서 정량 PFS와 금융 준비 단계로 이동해 장기 유럽 배터리급 리튬 공급의 프로젝트 확률과 경제성 판단을 높였다.",
+      "source_priority_notes": "Stage B must fetch the issuer PFS announcement/filing first and independently confirm project-stage framing; do not treat PFS as FID/construction.",
+      "upstream_labels": {
+        "triage_status": "review",
+        "matched_buckets": [
+          "20260907_input",
+          "candidate_review_pool",
+          "authorized_0.1P"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR_20260907_E0140",
+        "integrity_is_best": true,
+        "drop_reason_overridden": true
+      },
+      "staleness": {
+        "event_date": "2026-09-02",
+        "publication_date": "2026-09-02",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "structural_value_lenses": [
+        "critical_minerals_supply",
+        "data_financial_signal",
+        "market_structure_supply_chain_execution"
+      ],
+      "denominator_used": "Named Project Ludwig PFS only; no market-wide denominator asserted.",
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "critical_minerals_supply",
+        "data_financial_signal",
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "earnings_ir_deck_available": "unknown",
+      "earnings_call_available": "unknown",
+      "earnings_qna_available": "unknown",
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on quantified PFS/resource/financing state change, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "baseline_match": [],
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": null,
+      "technology_validation_gap": null
+    }
+  ],
+  "candidate_review_pool": [],
+  "watchlist_context_pool": [],
+  "reject_or_support_only_pool": [],
+  "review_pool": [],
+  "review_pool_partition_summary": {
+    "candidate_review_pool": 0,
+    "watchlist_context_pool": 0,
+    "reject_or_support_only_pool": 0,
+    "total_review_items": 0,
+    "strict_passed_spec": 3,
+    "event_total": 3
+  },
+  "review_pool_resolution_ledger": [],
+  "rejected": [],
+  "existing_reinforcement": [],
+  "support_source_only": [],
+  "dropped_treasure_hunt_result": [],
+  "decision_ledger": [
+    {
+      "candidate_id": "RAW_CN_2026-09-07_C05",
+      "story_id": "CN_2026-09-07_C05",
+      "source_event_id": "NR_20260907_E0150",
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Prompt 0.1P promotion PASS for STD26_0907_P_001: 9월 3일 이빈 저장산업단지의 鹏程无限 ESS 셀 프로젝트에 첫 6세트 생산설비가 반입돼 프로젝트가 건설 단계에서 설비 설치·조정 단계로 이동했다. 총투자 48억위안, 총계획 54GWh이며 1기 프로젝트는 11월 시험생산, 연내 전면 가동을 목표로 한다.",
+      "upstream_status": "review_promoted",
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "news_value_basis": "54GWh급 ESS 셀 제조 프로젝트가 단순 투자·연말 목표에서 실제 생산설비 설치 단계로 이동해 중국 대형 ESS 셀 공급능력 확장 가능성을 높였다.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Official filing or government document confirming the 2026-09-03 production-equipment installation stage, RMB 4.8 billion investment, and 54 GWh planned annual capacity for the Pengcheng Wuxian Yibin ESS cell project.",
+        "Independent report confirming the 2026-09-03 first production-equipment arrival, 54 GWh planned capacity, November 2026 trial production schedule, and year-end 2026 production status for the Yibin ESS cell project."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "9월 3일 이빈 저장산업단지의 鹏程无限 ESS 셀 프로젝트에 첫 6세트 생산설비가 반입돼 프로젝트가 건설 단계에서 설비 설치·조정 단계로 이동했다. 총투자 48억위안, 총계획 54GWh이며 1기 프로젝트는 11월 시험생산, 연내 전면 가동을 목표로 한다.",
+      "decision_relevance": "54GWh급 ESS 셀 제조 프로젝트가 단순 투자·연말 목표에서 실제 생산설비 설치 단계로 이동해 중국 대형 ESS 셀 공급능력 확장 가능성을 높였다.",
+      "baseline_expectation_changed": "The current 1,578-card baseline has no same-event card, and the newly verified milestone establishes a distinct current execution/commercialization state.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "November 2026 trial production or year-end 2026 production start would strengthen the judgment that the 54 GWh Yibin ESS cell project has moved into execution; a delayed production schedule or cancellation would weaken that judgment."
+      ],
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "structural_signal_review",
+      "review_pool_repromotion_precondition": "Prompt 0.1P promotion condition resolved by bounded research.",
+      "decision_news_value_score": 57,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 22,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "鹏程无限, 이빈 54GWh ESS 셀 공장 첫 생산설비 반입 was retained in candidate_review_pool because the operative execution/commercialization stage was unresolved.",
+      "new_verified_fact": "9월 3일 이빈 저장산업단지의 鹏程无限 ESS 셀 프로젝트에 첫 6세트 생산설비가 반입돼 프로젝트가 건설 단계에서 설비 설치·조정 단계로 이동했다. 총투자 48억위안, 총계획 54GWh이며 1기 프로젝트는 11월 시험생산, 연내 전면 가동을 목표로 한다.",
+      "changed_judgment": "Prompt 0.1P changes REV_NR_20260907_E0150 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolves the execution/commercialization question.",
+      "uncertainty_resolved": "The current event date, stage, scale and distinctness needed for Stage A promotion are resolved sufficiently for Stage B admission.",
+      "remaining_uncertainty": "11월 시험생산과 연내 전면가동이 실제로 시작되면 실행 판단이 강화되고, 설비 설치·라인 연동 또는 시험생산 지연은 약화시킨다.",
+      "denominator_used": "Named project/product commercialization milestone only; no market-wide denominator asserted.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Prompt 0.1P for 鹏程无限, 이빈 54GWh ESS 셀 공장 첫 생산설비 반입; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track the next measurable execution milestone for 鹏程无限, 이빈 54GWh ESS 셀 공장 첫 생산설비 반입.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved measurable milestone, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": null,
+      "technology_validation_gap": null,
+      "legal_policy_stage": null,
+      "upstream_drop_reason": null,
+      "headline": "宜宾首个储能电芯项目预计今年底投产!",
+      "site": "www.china5e.com",
+      "url": "https://www.china5e.com/news/news-1208834-1.html",
+      "integrity_group_id": "NR_20260907_E0150",
+      "integrity_is_best": null,
+      "spec_id": "STD26_0907_P_001",
+      "merged_into_spec_id": "STD26_0907_P_001",
+      "baseline_match": {
+        "duplicate_disposition": "no_duplicate_found",
+        "matched_baseline_candidate_ids": [],
+        "relation_candidates": [],
+        "reason": "Current main 1,578-card exact URL/title/event screen found no same-event canonical card.",
+        "top_baseline_title_candidates": []
+      },
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "resolved_by_current_main_event_reconciliation",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Prompt 0.1P promoted source observation; ordinary Stage A strict schema re-emitted."
+    },
+    {
+      "candidate_id": "RAW_CN_2026-09-07_C19",
+      "story_id": "CN_2026-09-07_C19",
+      "source_event_id": "NR_20260907_E0142",
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Prompt 0.1P promotion PASS for STD26_0907_P_002: 9월 4일 세계동력배터리대회에서 协鑫锂电가 5.5세대 C20 고압실 LFP 양극재를 공식 출시했고, 회사 측 설명과 상하이증권보 보도에 따르면 산업화 검증을 완료해 상업양산 및 규모화 안정공급 단계에 진입했다.",
+      "upstream_status": "review_promoted",
+      "anchor_classes": [
+        "execution_event_anchor",
+        "technology_commercialization_anchor"
+      ],
+      "news_value_basis": "고압실 LFP의 성능 발표가 샘플·파일럿 수준이 아니라 상업양산·안정공급 단계로 확인되면서 고급 동력·고속충전용 LFP 소재 경쟁의 실제 공급단계가 한 단계 전진했다.",
+      "structural_value_lenses": [
+        "technology_transition_commercialization",
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Official company document confirming the 2026-09-04 C20 commercial mass-production stage, industrial-validation status, stable-supply status, and 2.73 g/cm3 compaction-density metric for GCL Lithium.",
+        "Independent report confirming the 2026-09-04 C20 commercial production start, industrial validation, and stable supply to battery customers, including any production or shipment metric that verifies commercialization scale."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "9월 4일 세계동력배터리대회에서 协鑫锂电가 5.5세대 C20 고압실 LFP 양극재를 공식 출시했고, 회사 측 설명과 상하이증권보 보도에 따르면 산업화 검증을 완료해 상업양산 및 규모화 안정공급 단계에 진입했다.",
+      "decision_relevance": "고압실 LFP의 성능 발표가 샘플·파일럿 수준이 아니라 상업양산·안정공급 단계로 확인되면서 고급 동력·고속충전용 LFP 소재 경쟁의 실제 공급단계가 한 단계 전진했다.",
+      "baseline_expectation_changed": "The current 1,578-card baseline has no same-event card, and the newly verified milestone establishes a distinct current execution/commercialization state.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A later shipment volume, customer qualification, or production-utilisation metric would strengthen the judgment that C20 has reached commercial-scale supply; lack of customer adoption or a production rollback would weaken that judgment."
+      ],
+      "portfolio_coverage_contribution": [
+        "technology_transition_commercialization",
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "structural_signal_review",
+      "review_pool_repromotion_precondition": "Prompt 0.1P promotion condition resolved by bounded research.",
+      "decision_news_value_score": 57,
+      "decision_value_breakdown": {
+        "market_structure_competition": 15,
+        "supply_demand_price_utilisation": 16,
+        "technology_performance_safety": 16,
+        "cashflow_asset_value": 5,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 1
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "协鑫锂电, 5.5세대 C20 고압실 LFP 상업양산·안정공급 개시 was retained in candidate_review_pool because the operative execution/commercialization stage was unresolved.",
+      "new_verified_fact": "9월 4일 세계동력배터리대회에서 协鑫锂电가 5.5세대 C20 고압실 LFP 양극재를 공식 출시했고, 회사 측 설명과 상하이증권보 보도에 따르면 산업화 검증을 완료해 상업양산 및 규모화 안정공급 단계에 진입했다.",
+      "changed_judgment": "Prompt 0.1P changes REV_NR_20260907_E0142 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolves the execution/commercialization question.",
+      "uncertainty_resolved": "The current event date, stage, scale and distinctness needed for Stage A promotion are resolved sufficiently for Stage B admission.",
+      "remaining_uncertainty": "실제 고객사 인증·출하 물량과 분기별 생산/판매 데이터가 확인되면 상업화 판단이 강화되고, 양산이 샘플성 공급에 그치면 약화된다.",
+      "denominator_used": "Named project/product commercialization milestone only; no market-wide denominator asserted.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Prompt 0.1P for 协鑫锂电, 5.5세대 C20 고압실 LFP 상업양산·안정공급 개시; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track the next measurable execution milestone for 协鑫锂电, 5.5세대 C20 고압실 LFP 상업양산·안정공급 개시.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved measurable milestone, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "production_start",
+      "technology_score_cap_applied": true,
+      "technology_validation_gap": "Stage B must verify that C20 commercial mass production and stable supply are source-backed and must not infer customer shipment volume beyond verified evidence.",
+      "legal_policy_stage": null,
+      "upstream_drop_reason": null,
+      "headline": "首发即量产！协鑫锂电5.5代“极擎C20”高压实磷酸铁锂重磅发布",
+      "site": "libattery.ofweek.com",
+      "url": "https://libattery.ofweek.com/2026-09/ART-36002-8120-30701878.html",
+      "integrity_group_id": "NR_20260907_E0142",
+      "integrity_is_best": null,
+      "spec_id": "STD26_0907_P_002",
+      "merged_into_spec_id": "STD26_0907_P_002",
+      "baseline_match": {
+        "duplicate_disposition": "no_duplicate_found",
+        "matched_baseline_candidate_ids": [],
+        "relation_candidates": [],
+        "reason": "Current main 1,578-card exact URL/title/event screen found no same-event canonical card.",
+        "top_baseline_title_candidates": []
+      },
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "resolved_by_current_main_event_reconciliation",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Prompt 0.1P promoted source observation; ordinary Stage A strict schema re-emitted."
+    },
+    {
+      "candidate_id": "RAW_EU_2026-09-04_C23",
+      "story_id": "EU_2026-09-04_C23",
+      "source_event_id": "NR_20260907_E0140",
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Prompt 0.1P promotion PASS for STD26_0907_P_003: Vulcan은 9월 2일 독일 Project Ludwig PFS 완료를 발표했다. 세전 NPV8 €26억·IRR 25%, CAPEX €12.6억, 배터리급 탄산리튬 기준 생산 2.11만t/년을 제시했고, Lionheart 대비 자본집약도 15% 절감과 자산단위 금융전략 착수를 밝혔다.",
+      "upstream_status": "review_promoted",
+      "anchor_classes": [
+        "data_financial_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "news_value_basis": "유럽 현지 지열리튬의 2단계 프로젝트가 개념·탐사에서 정량 PFS와 금융 준비 단계로 이동해 장기 유럽 배터리급 리튬 공급의 프로젝트 확률과 경제성 판단을 높였다.",
+      "structural_value_lenses": [
+        "critical_minerals_supply",
+        "data_financial_signal",
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": true,
+      "structural_value_override_reason": "Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억 establishes a decision-relevant PFS economics/resource/financing state change without requiring a construction or production event.",
+      "evidence_needed_for_stage_b": [
+        "Official filing or issuer document confirming the 2026-09-02 Project Ludwig PFS completion, pre-tax NPV8 of EUR 2.6 billion, IRR of 25.0%, total CAPEX of EUR 1.26 billion, and 21,100 tpa lithium-carbonate production case.",
+        "Independent report confirming the Project Ludwig PFS economics, resource update, financing strategy, and current pre-FID project stage as of 2026-09-02."
+      ],
+      "why_execution_event_not_required": "The selected anchors are data_financial_anchor and strategic_behavior_anchor; a completed PFS with quantified economics/resource and financing initiation can independently change project probability and supply expectations.",
+      "incremental_information": "Vulcan은 9월 2일 독일 Project Ludwig PFS 완료를 발표했다. 세전 NPV8 €26억·IRR 25%, CAPEX €12.6억, 배터리급 탄산리튬 기준 생산 2.11만t/년을 제시했고, Lionheart 대비 자본집약도 15% 절감과 자산단위 금융전략 착수를 밝혔다.",
+      "decision_relevance": "유럽 현지 지열리튬의 2단계 프로젝트가 개념·탐사에서 정량 PFS와 금융 준비 단계로 이동해 장기 유럽 배터리급 리튬 공급의 프로젝트 확률과 경제성 판단을 높였다.",
+      "baseline_expectation_changed": "The current 1,578-card baseline has no same-event card; the completed PFS materially changes the probability/economics state of Project Ludwig.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A binding financing agreement, permit approval, or FID for Project Ludwig would strengthen the judgment that the project probability has increased; financing withdrawal, permit delay, or FID deferral would weaken that judgment."
+      ],
+      "portfolio_coverage_contribution": [
+        "critical_minerals_supply",
+        "data_financial_signal",
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "structural_signal_review",
+      "review_pool_repromotion_precondition": "Prompt 0.1P promotion condition resolved by bounded research.",
+      "decision_news_value_score": 56,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 17,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 10,
+        "law_policy_market_access": 4,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억 was retained in candidate_review_pool because the exact project-stage economics and financing state were unresolved.",
+      "new_verified_fact": "Vulcan은 9월 2일 독일 Project Ludwig PFS 완료를 발표했다. 세전 NPV8 €26억·IRR 25%, CAPEX €12.6억, 배터리급 탄산리튬 기준 생산 2.11만t/년을 제시했고, Lionheart 대비 자본집약도 15% 절감과 자산단위 금융전략 착수를 밝혔다.",
+      "changed_judgment": "Prompt 0.1P changes REV_NR_20260907_E0140 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolves the PFS economics/resource/financing question.",
+      "uncertainty_resolved": "PFS completion date, project-scale economics, resource update and financing initiation are sufficiently source-bound for Stage A promotion.",
+      "remaining_uncertainty": "Lionheart 가동 이후 Ludwig의 허가·금융약정·FID가 실제 진전되면 공급확률 판단이 강화되고, CAPEX 상승·허가 지연·FID 연기는 약화시킨다.",
+      "denominator_used": "Named Project Ludwig PFS only; no market-wide denominator asserted.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Prompt 0.1P for Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track financing, permitting and FID progression for Vulcan, Project Ludwig PFS 완료…세전 NPV €26억·CAPEX €12.6억.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on quantified PFS/resource/financing state change, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": null,
+      "technology_validation_gap": null,
+      "legal_policy_stage": null,
+      "upstream_drop_reason": null,
+      "headline": "Vulcan advances Ludwig lithium project",
+      "site": "www.electrive.com",
+      "url": "https://www.electrive.com/2026/09/04/vulcan-advances-ludwig-lithium-project",
+      "integrity_group_id": "NR_20260907_E0140",
+      "integrity_is_best": null,
+      "spec_id": "STD26_0907_P_003",
+      "merged_into_spec_id": "STD26_0907_P_003",
+      "baseline_match": {
+        "duplicate_disposition": "no_duplicate_found",
+        "matched_baseline_candidate_ids": [],
+        "relation_candidates": [],
+        "reason": "Current main 1,578-card exact URL/title/event screen found no same-event canonical card.",
+        "top_baseline_title_candidates": []
+      },
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "resolved_by_current_main_event_reconciliation",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Prompt 0.1P promoted source observation; ordinary Stage A strict schema re-emitted."
+    }
+  ],
+  "formal_stage_a_batch": {
+    "batch": "0.1P",
+    "batch_count_total": 1,
+    "ordinal_start": 1,
+    "ordinal_end": 41,
+    "decision_batches_committed_before_this": 0,
+    "event_count": 3,
+    "strict_count": 3,
+    "candidate_review_count": 0,
+    "watchlist_count": 0,
+    "reject_or_support_only_count": 0,
+    "formal_stage_a_external_web_search_count": "bounded_prompt_0_1p_research",
+    "formal_stage_a_new_article_body_fetch_count": "bounded_prompt_0_1p_research",
+    "adjudication_method": "PROMPT_0_1P_V4_20260829 bounded research then ordinary Stage A strict re-emission"
+  },
+  "candidate_promotion_contract": {
+    "prompt_file": "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md",
+    "prompt_sha256": "86c5ab36d12dab6e4021315ff13b8241f0c0428eac09fceb4dfb3bbd998f74b3",
+    "prompt_version": "PROMPT_0_1P_V4_20260829",
+    "candidate_count": 41,
+    "promoted_count": 3,
+    "retained_count": 38,
+    "score_inflation_for_source_recovery": false,
+    "promotion_ledger": [
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0161",
+        "ordinal": 1,
+        "original_score": 35,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Official IEC/SAC timing places the standard-project initiation on 2026-08-21; Sep 4/7 coverage is stale republication, not a fresh strict event.",
+        "evidence": [
+          "https://libattery.ofweek.com/2026-09/ART-36001-8480-30701559.html"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0157",
+        "ordinal": 2,
+        "original_score": 42,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Official H1 financials resolve the numbers, but the earnings mix/margin update remains standard monitoring below the 55-point strict threshold.",
+        "evidence": [
+          "https://libattery.ofweek.com/2026-09/ART-36001-12003-30701692.html"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0156",
+        "ordinal": 3,
+        "original_score": 44,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "The RMB1bn registered-capital entity is a sales/trading company; no material production capacity or supply execution is established.",
+        "evidence": [
+          "https://libattery.ofweek.com/2026-09/ART-36007-8120-30701656.html"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0146",
+        "ordinal": 4,
+        "original_score": 39,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "The cross-industry solid-state investment remains early/speculative and does not establish production, customer qualification, or a material supply milestone.",
+        "evidence": [
+          "https://chuneng.ofweek.com/news/2026-09/ART-180220-12003-30701797.html"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0150",
+        "ordinal": 5,
+        "original_score": 35,
+        "disposition": "PROMOTE_TO_STRICT",
+        "promoted_spec_id": "STD26_0907_P_001",
+        "reason": "Physical first production-equipment arrival into a 54GWh/RMB4.8bn cell plant resolves the execution-stage question.",
+        "evidence": [
+          "https://cbgc.scol.com.cn/news/7916910",
+          "https://www.china5e.com/news/news-1208834-1.html"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0147",
+        "ordinal": 6,
+        "original_score": 37,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "The Zhejiang frequency-regulation item remains consultation/draft policy; policy-stage-1 cap keeps total decision value at or below 54.",
+        "evidence": [
+          "https://chuneng.ofweek.com/news/2026-09/ART-180222-8420-30701836.html"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0142",
+        "ordinal": 7,
+        "original_score": 47,
+        "disposition": "PROMOTE_TO_STRICT",
+        "promoted_spec_id": "STD26_0907_P_002",
+        "reason": "Industrial validation completed and commercial mass production/stable supply are independently reported, resolving the commercialization-stage question.",
+        "evidence": [
+          "https://finance.eastmoney.com/a/202609043865718667.html",
+          "https://libattery.ofweek.com/2026-09/ART-36002-8120-30701878.html"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0208",
+        "ordinal": 8,
+        "original_score": 40,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "EU waste-export expansion remains a proposal/delegated-act planning item and indirect to battery supply; no final market-access change is established.",
+        "evidence": [
+          "https://www.reuters.com/"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0025",
+        "ordinal": 9,
+        "original_score": 44,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Ecopro humanoid-battery item remains strategy/roadmap without named customer order, qualification, or production milestone.",
+        "evidence": [
+          "https://news.dealsitetv.com/articles/175669"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0125",
+        "ordinal": 10,
+        "original_score": 43,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Furo/Luox is a pilot optimization project; scale and commercial adoption are insufficient for strict promotion.",
+        "evidence": [
+          "https://www.ess-news.com/2026/09/04/furo-and-luox-energy-launch-pilot-for-15-minute-optimization-of-commercial-batteries"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0136",
+        "ordinal": 11,
+        "original_score": 35,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "The C&I storage item is a market target/partnership without a named deployed project or binding execution milestone.",
+        "evidence": [
+          "https://www.ess-news.com/2026/09/04/horizonte-group-metelligent-and-einklang-target-battery-storage-for-ci-customers"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0135",
+        "ordinal": 12,
+        "original_score": 35,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Hungary penalties/watchdog changes remain announced/planned rather than a final operative instrument; policy-stage cap applies.",
+        "evidence": [
+          "https://battery-news.de/en/2026/09/04/hungary-tightens-environmental-penalties-for-battery-manufacturers"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0132",
+        "ordinal": 13,
+        "original_score": 37,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Norvento expansion remains market-entry/product positioning without a named utility-scale contract, financing, construction or operation anchor.",
+        "evidence": [
+          "https://www.ess-news.com/2026/09/04/norvento-targets-utility-scale-energy-storage-in-latin-america"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0137",
+        "ordinal": 14,
+        "original_score": 35,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Stellantis remanufactured HV-battery range is commercial aftermarket execution but lacks scale, economics and battery-supply impact needed for 55+ decision value.",
+        "evidence": [
+          "https://www.electrive.com/2026/09/04/stellantis-selling-refurbished-high-voltage-batteries"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0140",
+        "ordinal": 15,
+        "original_score": 35,
+        "disposition": "PROMOTE_TO_STRICT",
+        "promoted_spec_id": "STD26_0907_P_003",
+        "reason": "Issuer PFS quantifies resource/economics/capex and starts asset-level financing strategy, resolving the project-stage probability/economics question.",
+        "evidence": [
+          "https://markets.ft.markitdigital.com/data/announce/detail?dockey=600-202609021755DGAP____CORPNEWS_corporate_2392992_en-1",
+          "https://www.electrive.com/2026/09/04/vulcan-advances-ludwig-lithium-project"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0119",
+        "ordinal": 16,
+        "original_score": 35,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Vale Base Metals IPO shelving is credible strategic context, but it does not reach the strict decision-value threshold for the battery/critical-minerals portfolio.",
+        "evidence": [
+          "https://www.miningweekly.com/article/brazils-vale-drops-ipo-plans-for-critical-minerals-unit-the-globe-and-mail-reports-2026-09-04"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0116",
+        "ordinal": 17,
+        "original_score": 37,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "CIRCUIT4EU is a broad recycling consortium; current evidence does not establish battery-specific scale or an irreversible execution milestone sufficient for strict promotion.",
+        "evidence": [
+          "https://www.miningweekly.com/article/eu-launches-large-scale-critical-minerals-recycling-venture-circuit4eu-2026-09-04"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0109",
+        "ordinal": 18,
+        "original_score": 44,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Current main already contains the same Stoney Creek land-ownership event (2026-09-03_GL_01); do not promote a duplicate.",
+        "evidence": [
+          "https://www.energy-storage.news/energy-vault-secures-full-land-ownership-for-1gwh-stoney-creek-bess-in-australia"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0112",
+        "ordinal": 19,
+        "original_score": 43,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "The South America critical-minerals story combines multiple deals/context rather than one clean independently cardable current event.",
+        "evidence": [
+          "https://www.mining.com/new-deals-sharpen-south-americas-critical-minerals-edge"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0113",
+        "ordinal": 20,
+        "original_score": 39,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "The U.S. lithium-mines item is thematic/contextual rather than a single fresh execution or structural state change.",
+        "evidence": [
+          "https://www.northernminer.com/news/new-us-lithium-mines-are-coming/1003894448"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0101",
+        "ordinal": 21,
+        "original_score": 40,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Brazil critical-minerals policy is already represented by the original strict A026 event; this review item is support/reinforcement, not a separate card.",
+        "evidence": [
+          "https://rareearthexchanges.com/news/brazil-critical-minerals-downstream-policy"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0100",
+        "ordinal": 22,
+        "original_score": 41,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "The Poland exploration-program explainer lacks sufficiently verified official scope/budget and remains below strict decision value.",
+        "evidence": [
+          "https://rareearthexchanges.com/news/poland-critical-minerals-exploration-kppsk"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0098",
+        "ordinal": 23,
+        "original_score": 35,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "EDF 4GWh pumped hydro is storage-adjacent but outside the core battery/ESS card lane and remains pre-approval/development context.",
+        "evidence": [
+          "https://www.energy-storage.news/edf-power-solutions-australia-seeks-epbc-act-approval-for-4gwh-pumped-hydro-plant"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0090",
+        "ordinal": 24,
+        "original_score": 37,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "GREEN CHORD is a product/package launch without named deployment, order volume or systemic market effect.",
+        "evidence": [
+          "https://prtimes.jp/main/html/rd/p/000000038.000071823.html"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0093",
+        "ordinal": 25,
+        "original_score": 35,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "PowerX/Smart Energy is an MOU with future project targets; no current binding deployment anchor is established.",
+        "evidence": [
+          "https://www.kankyo-business.jp/news/a93e88a7-3df0-4a35-a1a7-e12e49660e37"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0088",
+        "ordinal": 26,
+        "original_score": 43,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "FoloFly FKT order opening is commercial but lacks order volume/supplier/systemic battery impact and remains below the strict threshold.",
+        "evidence": [
+          "https://response.jp/article/2026/09/07/416246.html"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0019",
+        "ordinal": 27,
+        "original_score": 50,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "KAIST finding is academic measurement-method research; no commercialization/customer/field validation milestone.",
+        "evidence": [
+          "https://www.todayenergy.kr/news/articleView.html?idxno=302601"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0072",
+        "ordinal": 28,
+        "original_score": 47,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Hyundai solid-state item is patent/research stage and the underlying patent is not a fresh September execution milestone.",
+        "evidence": [
+          "https://www.theguru.co.kr/news/article.html?no=106733"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0024",
+        "ordinal": 29,
+        "original_score": 45,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Low-temperature MnO2 anode result remains laboratory research under the technology score cap.",
+        "evidence": [
+          "https://www.fnnews.com/news/202609071407147547"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0028",
+        "ordinal": 30,
+        "original_score": 43,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Korean critical-minerals dependency report is primarily contextual/older data and does not establish a fresh policy or execution state change.",
+        "evidence": [
+          "https://www.dailian.co.kr/news/view/1687300/%ED%9D%AC%ED%86%A0%EB%A5%98-%EB%93%B1-%ED%95%B5%EC%8B%AC%EA%B4%91%EB%AC%BC-%ED%95%B4%EC%99%B8%EC%9D%98%EC%A1%B4-%EC%B5%9C%EB%8C%80-1-2026"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0052",
+        "ordinal": 31,
+        "original_score": 36,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "S&K Polytech passed an unnamed customer performance test, but adoption/order remains pending and customer identity/scale unresolved.",
+        "evidence": [
+          "https://www.newsis.com/view/NISX20260907_0003778501"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0032",
+        "ordinal": 32,
+        "original_score": 42,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "L&F CB is only under consideration; no board resolution, filing or issuance execution is established.",
+        "evidence": [
+          "https://www.donga.com/news/Economy/article/all/20260907/134619198/1"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0021",
+        "ordinal": 33,
+        "original_score": 49,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Carbon-powder anode performance remains laboratory-stage research under the technology cap.",
+        "evidence": [
+          "https://www.etnews.com/20260907000213"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0046",
+        "ordinal": 34,
+        "original_score": 37,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Kwangwoon/Volta/HiNa sodium-ion agreement is an MOU/pre-commercial collaboration without deployment or production.",
+        "evidence": [
+          "https://www.etnews.com/20260907000214"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0203",
+        "ordinal": 35,
+        "original_score": 54,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "SVOLT Dubai matrix is a trade-show product showcase without named orders/deployment; current score is capped at standard monitoring.",
+        "evidence": [
+          "https://www.svolt.cn/news/259"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0194",
+        "ordinal": 36,
+        "original_score": 54,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "The Japan household PV/storage survey is useful demand context but remains survey data at the 54-point review ceiling, not an execution or market-wide benchmark sufficient for strict.",
+        "evidence": [
+          "https://prtimes.jp/main/html/rd/p/000000144.000086246.html"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0193",
+        "ordinal": 37,
+        "original_score": 42,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Current main already contains the July EcoProBM solid-electrolyte pilot/customer-validation lineage; September coverage adds no sufficiently fresh execution anchor.",
+        "evidence": [
+          "https://www.ecopro.co.kr/sub0401/view/id/2184"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0165",
+        "ordinal": 38,
+        "original_score": 54,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "PVFARM commercial platform launch lacks named utility-scale customer/deployment and remains product-launch context.",
+        "evidence": [
+          "https://pv-magazine-usa.com/2026/09/04/pvfarm-launches-commercial-platform-for-utility-scale-solar-and-storage-optimization"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0015",
+        "ordinal": 39,
+        "original_score": 35,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Glencore all-electric Sudbury milestone lacks a sufficiently material battery/ESS-specific incremental anchor for independent cardability.",
+        "evidence": [
+          "https://electrek.co/2026/09/04/glencore-reaches-new-depth-milestone-at-its-all-electric-nickel-mine"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0006",
+        "ordinal": 40,
+        "original_score": 44,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Pure Lithium 9,315-cycle result remains laboratory testing; technology-stage cap prevents strict promotion.",
+        "evidence": [
+          "https://chargedevs.com/newswire/pure-lithiums-advanced-anode-battery-passes-9315-cycles-in-lab-testing"
+        ]
+      },
+      {
+        "review_pool_item_id": "REV_NR_20260907_E0013",
+        "ordinal": 41,
+        "original_score": 37,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Aptera TÜV solar-generation validation is a niche vehicle test with limited battery-industry/systemic relevance.",
+        "evidence": [
+          "https://pv-magazine-usa.com/2026/09/04/tuv-rheinland-validates-4-kwh-generation-in-apteras-solar-electric-vehicle"
+        ]
+      }
+    ]
+  },
+  "run_id": "card-run-2026-09-08-sep7-r7-current-main-production-r1",
+  "base_main_commit_sha": "b425151b348ed294ef1c4d5a6546cbe97f588137",
+  "base_full_blob_sha": "920646b6b335f211bcd224962f8ac0cc42cd3a4f"
+}

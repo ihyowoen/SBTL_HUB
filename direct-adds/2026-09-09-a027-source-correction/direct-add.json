@@ -1,0 +1,48 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "A027_SOURCE_CORRECTION_20260909_R1",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "d348296e65fe41423e6419058c58b1d7fedd89ee",
+  "base_full_blob_sha": "83a996cd788e7195863318a348effa6310559583",
+  "expected_before": 1599,
+  "expected_after": 1599,
+  "output_updated": "2026-09-09T03:52:41Z",
+  "operations": {
+    "add": [],
+    "update": [
+      "2026-09-06_CN_02"
+    ],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [],
+    "updates": [
+      {
+        "id": "2026-09-06_CN_02",
+        "change_type": "correction",
+        "changed_fields": [
+          "alternative_source_search_audit",
+          "claim_map",
+          "date_role",
+          "event_fingerprint",
+          "fact",
+          "fact_sources",
+          "new_verified_fact",
+          "single_source_exception",
+          "source_discovery_ledger",
+          "source_diversity_measure",
+          "source_diversity_roles",
+          "source_diversity_status",
+          "source_published_date",
+          "source_synthesis_audit",
+          "urls"
+        ],
+        "reason": "Post-merge source correction: replace Reuters-only/single-source framing with the Sep 6 original Cailianshe report, retain Reuters as dependent international relay/context, add independent Sep 8 Jiemian company-level confirmation, and source-lock the visible fact and event-date provenance without changing event identity.",
+        "evidence_review_summary": "Cailianshe original report (Sep 6 14:54) establishes the event date and scope; Reuters (Sep 7) is a relay/context source citing Cailianshe; Jiemian (Sep 8) separately confirms the situation with multiple battery companies. No formal ministry rule text was found, so that uncertainty remains explicit."
+      }
+    ]
+  }
+}

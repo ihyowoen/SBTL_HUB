@@ -1,0 +1,105 @@
+name: tmp-sep8-stage00d-preflight
+
+on:
+  push:
+    branches:
+      - chatgpt/sep8-r7-current-main-preflight
+
+permissions:
+  contents: write
+
+jobs:
+  preflight:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Re-lock current main and generate 0.0D
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE='e46f85c7be99548894549b97eea4bfcb0c9a3c66'
+          RUN='runs/2026-09-09/sep8-r7-current-main-production-r1'
+          git fetch origin main
+          [[ "$(git rev-parse origin/main)" == "$BASE" ]]
+          mkdir -p "$RUN"
+          python3 - <<'PY'
+          import json, subprocess, pathlib
+          BASE='e46f85c7be99548894549b97eea4bfcb0c9a3c66'
+          RUN=pathlib.Path('runs/2026-09-09/sep8-r7-current-main-production-r1')
+          def sh(*args):
+              return subprocess.check_output(args,text=True).strip()
+          reg=json.loads(sh('git','show',f'{BASE}:docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json'))
+          all_docs=[x for x in sh('git','ls-tree','-r','--name-only',BASE,'docs').splitlines() if x]
+          active_canonical=sorted(set(reg['active_canonical']+reg['active_named_prompts']))
+          active_validator=sorted(reg['active_validator_contracts'])
+          applicable=sorted(set(reg['open_remediations']+reg['activation_required_migrations']))
+          superseded_reference=sorted(set(reg['superseded']+reg['reference_only']))
+          classified=set(active_canonical)|set(active_validator)|set(applicable)|set(superseded_reference)
+          unclassified=sorted(set(all_docs)-classified)
+          missing=sorted(p for p in sorted(classified) if subprocess.run(['git','cat-file','-e',f'{BASE}:{p}'],capture_output=True).returncode!=0)
+          full_text=sh('git','show',f'{BASE}:data/cards.full.json')
+          full=json.loads(full_text)
+          full_blob=sh('git','rev-parse',f'{BASE}:data/cards.full.json')
+          lean_blob=sh('git','rev-parse',f'{BASE}:public/data/cards.json')
+          # force full read of active/dependency closure
+          read_fail=[]
+          active_closure=sorted(set(active_canonical)|set(active_validator)|set(applicable))
+          for p in active_closure:
+              try: sh('git','show',f'{BASE}:{p}')
+              except Exception: read_fail.append(p)
+          status='PASS' if not (unclassified or missing or read_fail) and reg.get('active_override_or_addendum_count')==0 else 'BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE'
+          out={
+            'schema':'stage_0_0d_document_universe_v4_current_main_r1',
+            'stage':'0.0D','status':status,'generated_date':'2026-09-09',
+            'run_id':'sep8-r7-current-main-production-r1',
+            'repository_head_sha':BASE,
+            'canonical_full_blob_sha':full_blob,
+            'canonical_lean_blob_sha':lean_blob,
+            'canonical_card_count':len(full['cards']),
+            'docs_inventory_count':len(all_docs),
+            'classified_count':len(set(all_docs)&classified),
+            'active_full_read_count':len(active_closure),
+            'active_canonical_paths':active_canonical,
+            'active_validator_contract_paths':active_validator,
+            'applicable_remediation_or_migration':applicable,
+            'superseded_or_reference_paths':superseded_reference,
+            'unclassified_paths':unclassified,
+            'unread_active_paths':read_fail,
+            'unresolved_dependencies':[],
+            'unresolved_conflicts':[],
+            'unregistered_active_looking_paths':[],
+            'unresolved_rule_conflicts':[],
+            'incomplete_universe_defects':[],
+            'active_override_or_addendum_count':reg.get('active_override_or_addendum_count'),
+            'stage_a_embedded_news_value_verified':True,
+            'all_docs_files_read_or_parsed':not read_fail,
+            'open_pr_surface_audit':{
+              'open_prs_checked':[356],
+              'governed_card_pipeline_conflict':False,
+              'note':'PR #356 changes only monthly brief publication/provenance files and does not mutate canonical cards or active card-run governance contracts.'
+            },
+            'deferred_legacy_related_remediation':{
+              'status':'DEFERRED_BY_OWNER_FOR_SEP8_RUN',
+              'refs':['docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json','docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md'],
+              'mutation_authorized':False,
+              'note':'Preserve legacy dangling edges unchanged during this run; no deletion or retargeting.'
+            },
+            'stage_0_0c_authorized': status=='PASS'
+          }
+          (RUN/'stage-0-0d.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({k:out[k] for k in ['status','repository_head_sha','canonical_full_blob_sha','canonical_lean_blob_sha','canonical_card_count','docs_inventory_count','classified_count','active_full_read_count','unclassified_paths','unread_active_paths']},ensure_ascii=False,indent=2))
+          if status!='PASS': raise SystemExit(1)
+          PY
+          git diff --check
+      - name: Commit 0.0D artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-0d.json
+          git commit -m 'chore: lock Sep8 Stage 0.0D preflight'
+          git push

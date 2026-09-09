@@ -1,0 +1,45 @@
+name: tmp-atomic-date-contract-runner
+
+on:
+  push:
+    branches:
+      - chatgpt/manual-direct-add-atomic-date-migration-work
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Apply patch
+        run: python3 .tmp/atomic_date_contract_patch.py
+      - name: Validate
+        run: |
+          set -euo pipefail
+          node --check scripts/validate_manual_direct_add.mjs
+          node --check scripts/validate_manual_direct_add_v4_hardening.mjs
+          node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v2.schema.json","utf8"))'
+          node scripts/validate_json_schema_subset.mjs --self-test
+          node scripts/validate_manual_direct_add.mjs --self-test
+          node scripts/validate_manual_direct_add_v4_hardening.mjs --self-test
+          node scripts/apply_card_run_test.mjs
+          git diff --check
+      - name: Commit tested changes
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add schemas/manual-direct-add.v2.schema.json scripts/validate_manual_direct_add.mjs scripts/validate_manual_direct_add_v4_hardening.mjs docs/MANUAL_DIRECT_ADD_V2.md
+          if git diff --cached --quiet; then
+            echo 'No production changes to commit'
+            exit 0
+          fi
+          git commit -m 'fix: require atomic representative-date migration metadata'
+          git push

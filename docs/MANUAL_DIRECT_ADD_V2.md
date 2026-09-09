@@ -102,7 +102,11 @@ Updates do not require an artificial new-card news-value score.
 
 `id_migration` is one-to-one and count-neutral. The validator requires the old ID to disappear, the new ID to appear, and stable identity evidence to remain. Migration reason must be explicit.
 
-A migration is an **identity correction, not a content-update bypass**. The replacement card may differ only in `id`, `date`, and `region`. URLs, facts, title, taxonomy, evidence, event fingerprint, Related state, and every other top-level content/audit field must remain byte-equivalent at the JSON-value level. If content also needs correction, perform that as a separately governed operation rather than hiding it inside `id_migration`.
+A migration is an **identity correction, not a content-update bypass**. Ordinarily the replacement card may differ only in `id`, `date`, and `region`.
+
+When a representative-date migration changes `date` and the card already carries `date_role` and/or `event_fingerprint`, the migration must be atomic: declare `synchronized_fields` for those existing date-bearing containers and update them in the same canonical state. The only permitted synchronized nested changes are `date_role.representative_event_date`, `date_role.representative_date`, `date_role.event_date`, and `event_fingerprint.event_date`, and each must equal the migrated top-level `date`. A date-changing migration that leaves those containers stale is blocked.
+
+This synchronization exception does not permit content or evidence mutation. URLs, facts, title, taxonomy, source/evidence rows, Related state, and all non-date fingerprint/date-role fields must remain byte-equivalent. Any additional evidence/content correction remains a separately governed operation. This prevents publication of an internally contradictory intermediate canonical state while preserving the narrow migration boundary.
 
 ## 7. What CI proves
 
@@ -115,7 +119,7 @@ The production direct-add gate proves:
 5. no undeclared existing card changed;
 6. each added/updated card has exactly one required V2 attestation;
 7. score/classification/route/override rules are internally coherent;
-8. ID migration is restricted to `id`/`date`/`region` identity correction and cannot replace event content;
+8. ID migration is restricted to identity correction; representative-date changes must atomically synchronize existing `date_role` / `event_fingerprint.event_date` through declared `synchronized_fields`, while all non-date content remains immutable;
 9. direct-added cards contain no unaudited Related edge;
 10. direct-added cards contain no fabricated formal-run state/provenance;
 11. no new dangling Related edge is introduced;

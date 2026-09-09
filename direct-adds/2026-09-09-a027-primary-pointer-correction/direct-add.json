@@ -1,0 +1,36 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "A027_PRIMARY_POINTER_CORRECTION_20260909_R1",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "3813e8bc068cc139b96fc0e0a095ebf253c51650",
+  "base_full_blob_sha": "20da92fff9530f7163cac934a8df339fbc8750dc",
+  "expected_before": 1599,
+  "expected_after": 1599,
+  "output_updated": "2026-09-09T04:13:24Z",
+  "operations": {
+    "add": [],
+    "update": [
+      "2026-09-06_CN_02"
+    ],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [],
+    "updates": [
+      {
+        "id": "2026-09-06_CN_02",
+        "change_type": "correction",
+        "changed_fields": [
+          "fact_sources",
+          "route_validation",
+          "urls"
+        ],
+        "reason": "Post-merge runtime pointer correction after PR #354 review: make the Sep 6 Cailianshe original report the primary URL/source consumed by application flows and route validation; retain Reuters as dependent relay/context and Jiemian as independent confirmation without changing visible facts or event identity.",
+        "evidence_review_summary": "Cailianshe S2 remains the primary_event_evidence and now also occupies urls[0], fact_sources[0], and route_validation.anchor_evidence_source_ids. Reuters S1 remains secondary relay/context; Jiemian S3 remains independent same-event confirmation."
+      }
+    ]
+  }
+}

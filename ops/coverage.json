@@ -191,7 +191,8 @@
       "axis": "trade",
       "region": "GL",
       "items": [
-        "GL-007"
+        "GL-007",
+        "GL-009"
       ],
       "status": "covered",
       "lastSwept": "2026-09-09",
@@ -447,7 +448,8 @@
       "region": "KR",
       "items": [
         "KR-023",
-        "KR-011"
+        "KR-011",
+        "KR-032"
       ],
       "status": "covered",
       "lastSwept": "2026-09-09",
@@ -648,7 +650,9 @@
       "items": [
         "NA-004",
         "NA-010",
-        "NA-011"
+        "NA-011",
+        "NA-051",
+        "NA-052"
       ],
       "status": "covered",
       "lastSwept": "2026-09-09",
@@ -720,7 +724,9 @@
         "KR-017",
         "KR-004",
         "KR-005",
-        "KR-009"
+        "KR-009",
+        "KR-033",
+        "KR-034"
       ],
       "status": "covered",
       "lastSwept": "2026-09-09",
@@ -784,7 +790,8 @@
         "NA-015",
         "NA-018",
         "NA-034",
-        "NA-045"
+        "NA-045",
+        "NA-050"
       ],
       "status": "covered",
       "lastSwept": "2026-09-09",
@@ -809,7 +816,8 @@
         "EU-003",
         "EU-005",
         "EU-015",
-        "EU-037"
+        "EU-037",
+        "EU-040"
       ],
       "status": "covered",
       "lastSwept": "2026-09-09",
@@ -825,7 +833,9 @@
       "region": "CN",
       "items": [
         "CN-023",
-        "CN-036"
+        "CN-036",
+        "CN-049",
+        "CN-050"
       ],
       "status": "covered",
       "lastSwept": "2026-09-09",
@@ -914,8 +924,10 @@
     {
       "axis": "transport",
       "region": "NA",
-      "items": [],
-      "status": "gap",
+      "items": [
+        "NA-049"
+      ],
+      "status": "covered",
       "lastSwept": "2026-09-09",
       "queries": [
         "PHMSA lithium battery final rule HM-215R",
@@ -958,7 +970,8 @@
       "axis": "transport",
       "region": "CN",
       "items": [
-        "CN-035"
+        "CN-035",
+        "CN-048"
       ],
       "status": "covered",
       "lastSwept": "2026-09-09",
@@ -1125,7 +1138,8 @@
         "JP-015",
         "JP-003",
         "JP-006",
-        "JP-013"
+        "JP-013",
+        "JP-021"
       ],
       "status": "covered",
       "lastSwept": "2026-09-09",
@@ -1205,7 +1219,8 @@
       "axis": "packaging",
       "region": "CN",
       "items": [
-        "CN-034"
+        "CN-034",
+        "CN-051"
       ],
       "status": "covered",
       "lastSwept": "2026-09-09",
@@ -1300,8 +1315,10 @@
     {
       "axis": "waste_ship",
       "region": "NA",
-      "items": [],
-      "status": "gap",
+      "items": [
+        "NA-053"
+      ],
+      "status": "covered",
       "lastSwept": "2026-09-09",
       "queries": [
         "EPA RCRA universal waste lithium battery rule",
@@ -1799,8 +1816,10 @@
     {
       "axis": "next_tech",
       "region": "GL",
-      "items": [],
-      "status": "gap",
+      "items": [
+        "GL-010"
+      ],
+      "status": "covered",
       "lastSwept": "2026-09-09",
       "queries": [
         "IEC solid state battery standard published",

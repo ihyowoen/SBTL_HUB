@@ -19,6 +19,8 @@ const isObject = (value) => Boolean(value) && typeof value === "object" && !Arra
 // strict timestamp protections. Keeping one score engine removes contradictory
 // double-validation of floating totals / empty values / object key ordering.
 const MIGRATION_MUTABLE_FIELDS = new Set(["id", "date", "region"]);
+const MIGRATION_SYNCHRONIZED_FIELDS = new Set(["date_role", "event_fingerprint"]);
+const DATE_ROLE_SYNC_KEYS = new Set(["representative_event_date", "representative_date", "event_date"]);
 const RELATED_CONTAINERS = ["related", "related_ids", "related_lineage"];
 const FORMAL_RUN_FIELDS = new Set([
   "stage_a_validity_status",
@@ -81,19 +83,73 @@ function validateDeclaredOperationPresence(manifest) {
   }
 }
 
+function changedObjectFields(before, after) {
+  const left = isObject(before) ? before : {};
+  const right = isObject(after) ? after : {};
+  const keys = new Set([...Object.keys(left), ...Object.keys(right)]);
+  return [...keys].filter((key) => !same(left[key], right[key])).sort();
+}
+
+function validateDateRoleSynchronization(before, after, migration) {
+  if (!isObject(before?.date_role) || !isObject(after?.date_role)) {
+    fail("BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE", `${migration.old_id} → ${migration.new_id}: date_role synchronization requires before/after objects`);
+  }
+  const changed = changedObjectFields(before.date_role, after.date_role);
+  const forbidden = changed.filter((field) => !DATE_ROLE_SYNC_KEYS.has(field));
+  if (forbidden.length) {
+    fail("BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE", `${migration.old_id} → ${migration.new_id}: date_role synchronization may change only representative date keys; forbidden=[${forbidden.join(",")}]`);
+  }
+  for (const key of DATE_ROLE_SYNC_KEYS) {
+    if (Object.prototype.hasOwnProperty.call(before.date_role, key) || Object.prototype.hasOwnProperty.call(after.date_role, key)) {
+      if (after.date_role?.[key] !== after.date) {
+        fail("BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE", `${migration.old_id} → ${migration.new_id}: date_role.${key} must equal migrated date ${after.date}`);
+      }
+    }
+  }
+}
+
+function validateFingerprintSynchronization(before, after, migration) {
+  if (!isObject(before?.event_fingerprint) || !isObject(after?.event_fingerprint)) {
+    fail("BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE", `${migration.old_id} → ${migration.new_id}: event_fingerprint synchronization requires before/after objects`);
+  }
+  const changed = changedObjectFields(before.event_fingerprint, after.event_fingerprint);
+  const forbidden = changed.filter((field) => field !== "event_date");
+  if (forbidden.length) {
+    fail("BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE", `${migration.old_id} → ${migration.new_id}: event_fingerprint synchronization may change only event_date; forbidden=[${forbidden.join(",")}]`);
+  }
+  if (after.event_fingerprint.event_date !== after.date) {
+    fail("BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE", `${migration.old_id} → ${migration.new_id}: event_fingerprint.event_date must equal migrated date ${after.date}`);
+  }
+}
+
 function validateMigrationContent(manifest, baseMap, fullMap) {
   for (const migration of manifest.operations?.id_migration || []) {
     const before = baseMap.get(migration.old_id);
     const after = fullMap.get(migration.new_id);
     if (!before || !after) fail("BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE", `migration card missing ${migration.old_id} → ${migration.new_id}`);
+    const synchronized = Array.isArray(migration.synchronized_fields) ? migration.synchronized_fields : [];
+    const unknown = synchronized.filter((field) => !MIGRATION_SYNCHRONIZED_FIELDS.has(field));
+    if (unknown.length) fail("BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE", `${migration.old_id} → ${migration.new_id}: unsupported synchronized_fields=[${unknown.join(",")}]`);
+    const allowed = new Set([...MIGRATION_MUTABLE_FIELDS, ...synchronized]);
     const changed = changedTopLevelFields(before, after);
-    const forbidden = changed.filter((field) => !MIGRATION_MUTABLE_FIELDS.has(field));
+    const forbidden = changed.filter((field) => !allowed.has(field));
     if (forbidden.length) {
-      fail(
-        "BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE",
-        `${migration.old_id} → ${migration.new_id}: migration may change only id/date/region; forbidden=[${forbidden.join(",")}]`,
-      );
+      fail("BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE", `${migration.old_id} → ${migration.new_id}: undeclared migration fields changed; forbidden=[${forbidden.join(",")}]`);
     }
+    const dateChanged = before.date !== after.date;
+    if (!dateChanged && synchronized.length) {
+      fail("BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE", `${migration.old_id} → ${migration.new_id}: synchronized_fields are only allowed when representative date changes`);
+    }
+    if (dateChanged) {
+      if ((isObject(before.date_role) || isObject(after.date_role)) && !synchronized.includes("date_role")) {
+        fail("BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE", `${migration.old_id} → ${migration.new_id}: date change requires atomic date_role synchronization`);
+      }
+      if ((isObject(before.event_fingerprint) || isObject(after.event_fingerprint)) && !synchronized.includes("event_fingerprint")) {
+        fail("BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE", `${migration.old_id} → ${migration.new_id}: date change requires atomic event_fingerprint synchronization`);
+      }
+    }
+    if (synchronized.includes("date_role")) validateDateRoleSynchronization(before, after, migration);
+    if (synchronized.includes("event_fingerprint")) validateFingerprintSynchronization(before, after, migration);
   }
 }
 
@@ -276,7 +332,31 @@ function selfTest() {
   catch (error) { invalidDateBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_TIMESTAMP"; }
   if (!invalidDateBlocked) throw new Error("self-test failed to reject nonexistent calendar date");
 
-  console.log("PASS: manual direct-add V4 hardening closes empty-operation, migration, Related add/update, publication-state, duplicate-id, and timestamp bypasses");
+  const dateBase = { cards: [{ id: "2026-09-07_CN_01", date: "2026-09-07", region: "CN", title: "D", urls: ["https://d.example"], related: [], date_role: { representative_event_date: "2026-09-07", representative_date: "2026-09-07", event_date: "2026-09-07", role: "report date" }, event_fingerprint: { event_date: "2026-09-07", actor: "A", action: "B" } }] };
+  const staleDate = structuredClone(dateBase);
+  staleDate.cards[0].id = "2026-09-06_CN_02";
+  staleDate.cards[0].date = "2026-09-06";
+  const dateManifest = { schema: "manual_direct_add_v2", formal_full_run_claimed: false, output_updated: "2026-09-09T03:30:00Z", operations: { add: [], update: [], id_migration: [{ old_id: "2026-09-07_CN_01", new_id: "2026-09-06_CN_02", reason: "representative date correction" }] } };
+  let staleDateBlocked = false;
+  try { validate(dateManifest, dateBase, staleDate); }
+  catch (error) { staleDateBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE"; }
+  if (!staleDateBlocked) throw new Error("self-test failed to reject date migration with stale date metadata");
+
+  const syncedDate = structuredClone(staleDate);
+  for (const key of DATE_ROLE_SYNC_KEYS) syncedDate.cards[0].date_role[key] = "2026-09-06";
+  syncedDate.cards[0].event_fingerprint.event_date = "2026-09-06";
+  const syncedManifest = structuredClone(dateManifest);
+  syncedManifest.operations.id_migration[0].synchronized_fields = ["date_role", "event_fingerprint"];
+  validate(syncedManifest, dateBase, syncedDate);
+
+  const overbroadDate = structuredClone(syncedDate);
+  overbroadDate.cards[0].event_fingerprint.actor = "Different actor";
+  let overbroadDateBlocked = false;
+  try { validate(syncedManifest, dateBase, overbroadDate); }
+  catch (error) { overbroadDateBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_MIGRATION_SCOPE"; }
+  if (!overbroadDateBlocked) throw new Error("self-test failed to reject overbroad synchronized migration metadata");
+
+  console.log("PASS: manual direct-add V4 hardening closes empty-operation, atomic representative-date migration, Related add/update, publication-state, duplicate-id, and timestamp bypasses");
 }
 
 const args = process.argv.slice(2);

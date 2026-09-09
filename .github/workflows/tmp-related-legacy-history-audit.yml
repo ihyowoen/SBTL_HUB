@@ -1,0 +1,77 @@
+name: tmp-related-legacy-history-audit
+
+on:
+  push:
+    branches:
+      - chatgpt/sep7-prompt09-live-verification-work
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Audit missing Related IDs across canonical history
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --all --tags --prune
+          mkdir -p .tmp
+          python3 - <<'PY'
+          import json, subprocess, pathlib
+          missing = [
+            '2026-04-22_KR_05','2026-04-22_GL_03','2026-04-23_CN_05','2026-04-22_CN_05',
+            '2026-04-15_KR_03','2026-04-16_CN_04','W6R1_03','2026-04-16_US_01','2026-04-16_CN_03'
+          ]
+          canonical_paths=['data/cards.full.json','public/data/cards.json','data/cards.json']
+          def run(args):
+              return subprocess.run(args,text=True,capture_output=True,check=False).stdout.strip()
+          def parse_card(text, cid):
+              try: doc=json.loads(text)
+              except: return None
+              cards=doc if isinstance(doc,list) else doc.get('cards',[]) if isinstance(doc,dict) else []
+              for c in cards:
+                  if isinstance(c,dict) and c.get('id')==cid:
+                      return {k:c.get(k) for k in ['id','date','region','title','sub','fact','urls','related']}
+              return None
+          results=[]
+          for cid in missing:
+              item={'missing_id':cid,'canonical_history_hits':[],'replacement_artifact_hits':[]}
+              commits=[]
+              for path in canonical_paths:
+                  out=run(['git','log','--all','--format=%H','-S',cid,'--',path])
+                  for sha in out.splitlines():
+                      if sha and sha not in commits: commits.append(sha)
+              for sha in commits[:30]:
+                  for path in canonical_paths:
+                      text=run(['git','show',f'{sha}:{path}'])
+                      if not text: continue
+                      card=parse_card(text,cid)
+                      if card:
+                          item['canonical_history_hits'].append({'commit':sha,'path':path,'card':card})
+                          break
+                  if len(item['canonical_history_hits'])>=5: break
+              # Search prior tracked JSON artifacts on current repository history for literal ID; retain only compact paths/commits.
+              grep=run(['git','grep','-n','-m','20',cid,'origin/main','--','*.json'])
+              for line in grep.splitlines()[:20]:
+                  parts=line.split(':',2)
+                  if len(parts)>=3:
+                      item['replacement_artifact_hits'].append({'ref':'origin/main','path':parts[0].split('origin/main:',1)[-1] if 'origin/main:' in parts[0] else parts[0],'line':parts[1],'snippet':parts[2][:300]})
+              results.append(item)
+          pathlib.Path('.tmp/legacy-related-history-audit.json').write_text(json.dumps({'missing_targets':results},ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({'summary':[{'id':x['missing_id'],'historical_card_hits':len(x['canonical_history_hits']),'artifact_hits':len(x['replacement_artifact_hits'])} for x in results]},ensure_ascii=False,indent=2))
+          PY
+      - name: Commit audit snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .tmp/legacy-related-history-audit.json
+          git commit -m 'chore: record legacy Related history audit'
+          git push

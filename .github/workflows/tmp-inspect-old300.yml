@@ -1,0 +1,27 @@
+name: tmp-inspect-old300
+on:
+  push:
+    branches: [chatgpt/publish-monthly-brief-2026-08]
+    paths:
+      - '.github/workflows/tmp-inspect-old300.yml'
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Inspect locked Old 300 card
+        shell: bash
+        run: |
+          git show e46f85c7be99548894549b97eea4bfcb0c9a3c66:data/cards.full.json > /tmp/cards.json
+          node <<'NODE'
+          const fs = require('fs');
+          const raw = JSON.parse(fs.readFileSync('/tmp/cards.json','utf8'));
+          const cards = Array.isArray(raw) ? raw : (raw.cards || raw.items || []);
+          const card = cards.find(c => c.id === '2026-08-05_US_03');
+          if (!card) throw new Error('target card not found');
+          console.log(JSON.stringify(card, null, 2));
+          NODE

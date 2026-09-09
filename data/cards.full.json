@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-09T03:52:41Z",
+  "updated": "2026-09-09T04:13:24Z",
   "total": 1599,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
@@ -1193,42 +1193,11 @@
         "정책의 공식 문서화 여부와 적용 범위, 향후 승인 재개 기준을 확인해야 한다."
       ],
       "urls": [
-        "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/",
         "https://www.cls.cn/detail/2475109",
+        "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/",
         "https://www.jiemian.com/article/15067758.html"
       ],
       "fact_sources": [
-        {
-          "id": "STD26_0907_A_027-S1",
-          "owner": "Reuters",
-          "role": "international_wire_relay",
-          "url": "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/",
-          "published": "2026-09-07",
-          "summary": "Reuters Sep 7 international relay of the Cailianshe report, preserving the distinction between planned/not-started projects and projects already under construction and noting the absence of a published final rule.",
-          "fetch_status": "fetched_body_or_authoritative_page",
-          "headline_only": false,
-          "rss_or_snippet_only": false,
-          "claim_use": "paraphrase_only_no_visible_quote",
-          "domain": "reuters.com",
-          "source_url": "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/",
-          "source_id": "STD26_0907_A_027-S1",
-          "source_owner_id": "Reuters",
-          "source_owner_id_normalized": "Reuters",
-          "source_role": "international_wire_relay",
-          "source_type": "international wire reporting citing Cailianshe",
-          "evidence_role": "policy_market_context",
-          "supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "checked_at": "2026-09-09",
-          "fetched": true,
-          "source_quote": "Reuters relays Cailianshe’s report that planned or not-yet-started projects are paused while projects already under construction are unaffected.",
-          "source_quote_status": "body_level_evidence_verified"
-        },
         {
           "id": "STD26_0907_A_027-S2",
           "owner": "财联社",
@@ -1258,6 +1227,37 @@
           "checked_at": "2026-09-09",
           "fetched": true,
           "source_quote": "Cailianshe reports that authorities are surveying existing and planned storage capacity; planned/not-started projects are temporarily paused, while filed projects already under construction are unaffected and the tightening is not a blanket halt.",
+          "source_quote_status": "body_level_evidence_verified"
+        },
+        {
+          "id": "STD26_0907_A_027-S1",
+          "owner": "Reuters",
+          "role": "international_wire_relay",
+          "url": "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/",
+          "published": "2026-09-07",
+          "summary": "Reuters Sep 7 international relay of the Cailianshe report, preserving the distinction between planned/not-started projects and projects already under construction and noting the absence of a published final rule.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "domain": "reuters.com",
+          "source_url": "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/",
+          "source_id": "STD26_0907_A_027-S1",
+          "source_owner_id": "Reuters",
+          "source_owner_id_normalized": "Reuters",
+          "source_role": "international_wire_relay",
+          "source_type": "international wire reporting citing Cailianshe",
+          "evidence_role": "policy_market_context",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-09",
+          "fetched": true,
+          "source_quote": "Reuters relays Cailianshe’s report that planned or not-yet-started projects are paused while projects already under construction are unaffected.",
           "source_quote_status": "body_level_evidence_verified"
         },
         {
@@ -1341,7 +1341,7 @@
         "active_route": "structural_non_execution_route",
         "exactly_one_active_route": true,
         "anchor_evidence_source_ids": [
-          "STD26_0907_A_027-S1"
+          "STD26_0907_A_027-S2"
         ],
         "stage_a_before_after_chain_preserved": true
       },

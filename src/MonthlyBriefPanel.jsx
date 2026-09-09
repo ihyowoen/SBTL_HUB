@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { isOfficialMonthlyBrief, validateMonthlyBriefLibrary } from "../lib/brief/monthlyPublication.js";
-import { selectMonthlyBrief } from "./monthlyBriefSelection.js";
+import { monthlyBriefSeedState, selectMonthlyBrief } from "./monthlyBriefSelection.js";
 
 function theme(dark) {
   return dark
@@ -58,8 +58,10 @@ export default function MonthlyBriefPanel({ dark = true, cards = [], seed = null
   }, []);
 
   useEffect(() => {
-    if (!seed || seed.view !== "monthly" || !seed.nonce) return;
-    setRequested(seed.month ? { month: seed.month } : null);
+    const next = monthlyBriefSeedState(seed);
+    if (!next) return;
+    setRequested(next.requested);
+    if (next.resetSelection) setSelectedId(null);
     const timer = setTimeout(() => { try { rootRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { /* noop */ } }, 60);
     return () => clearTimeout(timer);
   }, [seed?.nonce]);

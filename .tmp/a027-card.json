@@ -1,0 +1,334 @@
+{
+  "id": "2026-09-06_CN_02",
+  "spec_id": "STD26_0907_A_027",
+  "source_spec_id": "STD26_0907_A_027",
+  "source_event_id": "NR_20260907_E0020",
+  "source_story_ids": [
+    "KR_2026-09-07_C151"
+  ],
+  "region": "CN",
+  "date": "2026-09-06",
+  "cat": "Manufacturing",
+  "sub_cat": "capacity_policy",
+  "signal": "high",
+  "title": "중국, 신규 배터리·ESS 제조 프로젝트 승인 일시중단 보도",
+  "sub": "Reuters·Cailianshe 보도…미착공 신규 프로젝트 심사 보류, 건설 중 프로젝트는 영향 제외",
+  "gate": "중국의 배터리·ESS 공급과잉 대응이 가격경쟁을 넘어 신규 제조능력 승인 단계의 관리로 확대될 가능성이 나타났다.",
+  "fact": "Reuters는 9월 7일 Cailianshe를 인용해 중국이 신규 에너지저장 제조 프로젝트의 승인을 일시 중단하고 기존·계획 생산능력을 재검토하고 있다고 보도했다. 보도에 따르면 아직 착공하지 않은 일부 프로젝트는 보류되며 이미 건설 중인 프로젝트는 영향을 받지 않는다. 공식 최종 규정의 발효일은 확인되지 않았다.",
+  "implication": [
+    "신규 설비 승인 속도가 낮아지면 중국 ESS 셀·시스템의 공급과잉 조정 경로에 영향을 줄 수 있다.",
+    "정책의 공식 문서화 여부와 적용 범위, 향후 승인 재개 기준을 확인해야 한다."
+  ],
+  "urls": [
+    "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/"
+  ],
+  "fact_sources": [
+    {
+      "id": "STD26_0907_A_027-S1",
+      "owner": "Reuters",
+      "role": "independent_news",
+      "url": "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/",
+      "published": "2026-09-07",
+      "summary": "Reuters report citing Cailianshe on temporary approvals pause and capacity review.",
+      "fetch_status": "fetched_body_or_authoritative_page",
+      "headline_only": false,
+      "rss_or_snippet_only": false,
+      "claim_use": "paraphrase_only_no_visible_quote",
+      "domain": "reuters.com",
+      "source_url": "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/",
+      "source_id": "STD26_0907_A_027-S1",
+      "source_owner_id": "Reuters",
+      "source_owner_id_normalized": "Reuters",
+      "source_role": "independent_news",
+      "source_type": "independent original_reporting primary_event_evidence",
+      "evidence_role": "primary_event_evidence",
+      "supports": [
+        "title",
+        "sub",
+        "gate",
+        "fact",
+        "implication"
+      ],
+      "checked_at": "2026-09-08",
+      "fetched": true,
+      "source_quote": "Reuters reported a temporary pause in approvals for some new energy-storage manufacturing projects.",
+      "source_quote_status": "body_level_evidence_verified"
+    }
+  ],
+  "date_role": {
+    "representative_event_date": "2026-09-06",
+    "stage_a_representative_date": "2026-09-07",
+    "role": "source-bound policy-state report date",
+    "source_publication_dates": [
+      "2026-09-07"
+    ],
+    "status": "PASS",
+    "note": "Representative event date is independently locked from publication dates.",
+    "corrected_in_stage_b": false,
+    "correction_basis": "body-level source evidence and earliest-date review",
+    "representative_date": "2026-09-06",
+    "event_date": "2026-09-06",
+    "publication_dates": [
+      "2026-09-07"
+    ],
+    "earliest_same_event_date_checked": true,
+    "event_date_source_url": "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/",
+    "event_date_source_quote": "Reuters reported a temporary pause in approvals for some new energy-storage manufacturing projects."
+  },
+  "stage_b_lineage": {
+    "status": "PASS",
+    "artifact": "stage-b.json",
+    "artifact_sha256": "090ffb6308d4cc97b91613bbe900cf0f2bca19d5b959ead216f334dc95ea43c3",
+    "spec_id": "STD26_0907_A_027",
+    "draft_status": "draft",
+    "draft_blocked": false
+  },
+  "strict_gate_acceptance_guard_applied": true,
+  "accepted_pool_lineage_status": "PASS",
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "selection_route": "structural_non_execution_route",
+  "anchor_classes": [
+    "policy_regulatory_anchor"
+  ],
+  "prior_state": "No same-event canonical card at current main.",
+  "new_verified_fact": "Reuters는 9월 7일 Cailianshe를 인용해 중국이 신규 에너지저장 제조 프로젝트의 승인을 일시 중단하고 기존·계획 생산능력을 재검토하고 있다고 보도했다. 보도에 따르면 아직 착공하지 않은 일부 프로젝트는 보류되며 이미 건설 중인 프로젝트는 영향을 받지 않는다. 공식 최종 규정의 발효일은 확인되지 않았다.",
+  "changed_judgment": "중국, 신규 배터리·ESS 제조 프로젝트 승인 일시중단 보도 is independently cardable on current evidence.",
+  "uncertainty_resolved": "Event identity, representative date, evidence path and current-main duplicate status verified.",
+  "remaining_uncertainty": "정책의 공식 문서화 여부와 적용 범위, 향후 승인 재개 기준을 확인해야 한다.",
+  "execution_anchor_type": null,
+  "route_validation": {
+    "status": "PASS",
+    "active_route": "structural_non_execution_route",
+    "exactly_one_active_route": true,
+    "anchor_evidence_source_ids": [
+      "STD26_0907_A_027-S1"
+    ],
+    "stage_a_before_after_chain_preserved": true
+  },
+  "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+  "source_diversity_measure": {
+    "unique_urls": 1,
+    "unique_domains": 1,
+    "independent_owner_count": 1
+  },
+  "source_diversity_roles": {
+    "independent_news": 1
+  },
+  "source_synthesis_applied": true,
+  "source_synthesis_fields": [
+    "title",
+    "sub",
+    "gate",
+    "fact",
+    "implication"
+  ],
+  "source_synthesis_audit": {
+    "status": "PASS",
+    "primary_or_official_controls_operative_facts": true,
+    "independent_confirmation_used": false,
+    "conflicts_explicitly_resolved": true
+  },
+  "single_source_exception": {
+    "allowed": true,
+    "reason": "No official final rule text is yet established; the event is treated strictly as Reuters/Cailianshe-reported current policy state and visible claims preserve that attribution.",
+    "mitigation": "Visible claims are limited to the established facts and explicitly preserve uncertainty where applicable.",
+    "scope_limits": [
+      "paraphrase only",
+      "no unsupported market-wide causal claim"
+    ],
+    "alternative_source_search_audit": {
+      "query": "중국, 신규 배터리·ESS 제조 프로젝트 승인 일시중단 보도",
+      "channels": [
+        "bounded_web_search",
+        "source_owner_or_independent_check"
+      ],
+      "candidate_results": [],
+      "conclusion": "Bounded source search completed; the evidence set above controls visible claims.",
+      "checked_at": "2026-09-08",
+      "bounded_search_complete": true,
+      "search_result_accounting_complete": true
+    }
+  },
+  "source_published_date": "2026-09-07",
+  "visible_quote_date": "not_applicable_no_visible_quotes",
+  "stage_c_only": true,
+  "addable_merge_safe": true,
+  "evidence_complete": true,
+  "source_claim_covered": true,
+  "content_enriched": true,
+  "language_terminology_polished": true,
+  "publish_ready": true,
+  "github_merge_ready": false,
+  "unresolved_downstream_issues": [
+    "정책의 공식 문서화 여부와 적용 범위, 향후 승인 재개 기준을 확인해야 한다."
+  ],
+  "state": "publish_ready",
+  "fact_safe_at_stage_c": true,
+  "related_lineage": {
+    "status": "PASS",
+    "relation_type": "new_unrelated_event",
+    "related_ids": [],
+    "note": "Operation-local pre-edge state; see governed related_add when applicable.",
+    "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+    "same_event_checked": true,
+    "earliest_same_event_date_checked": true,
+    "related_candidate_spec_ids": [],
+    "rejected_relation_candidates": [],
+    "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+    "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+  },
+  "visible_field_fact_safe": {
+    "status": "PASS",
+    "title": "PASS",
+    "sub": "PASS",
+    "gate": "PASS",
+    "fact": "PASS",
+    "implication": "PASS_BOUNDED_STRATEGIC_INFERENCE",
+    "unsupported_visible_claim_count": 0,
+    "unsupported_causality_count": 0,
+    "unsupported_quote_count": 0
+  },
+  "claim_map": [
+    {
+      "claim_id": "STD26_0907_A_027-C1",
+      "claim": "Reuters는 9월 7일 Cailianshe를 인용해 중국이 신규 에너지저장 제조 프로젝트의 승인을 일시 중단하고 기존·계획 생산능력을 재검토하고 있다고 보도했다. 보도에 따르면 아직 착공하지 않은 일부 프로젝트는 보류되며 이미 건설 중인 프로젝트는 영향을 받지 않는다. 공식 최종 규정의 발효일은 확인되지 않았다.",
+      "supported_by_source_ids": [
+        "STD26_0907_A_027-S1"
+      ],
+      "visible": true,
+      "status": "SUPPORTED"
+    }
+  ],
+  "stage_c_red_team": {
+    "source_direction_and_independence": "PASS",
+    "numbers_dates_entities_counterparties": "PASS",
+    "event_stage_and_date_role": "PASS",
+    "same_event_duplicate_check": "PASS",
+    "stale_republication_check": "PASS",
+    "selected_anchor_evidence": "PASS",
+    "policy_earnings_technology_caveats": "PASS",
+    "causality_and_strategic_overreach": "PASS",
+    "visible_field_consistency": "PASS",
+    "full_schema_viability": "PASS",
+    "related_evidence": "PASS"
+  },
+  "event_fingerprint": {
+    "actor": "중국, 신규 배터리·ESS 제조 프로젝트 승인 일시중단 보도",
+    "asset_or_policy": "중국의 배터리·ESS 공급과잉 대응이 가격경쟁을 넘어 신규 제조능력 승인 단계의 관리로 확대될 가능성이 나타났다.",
+    "location": "CN",
+    "event_type": "structural_non_execution_route",
+    "event_date": "2026-09-06",
+    "source_url_cluster": [
+      "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/"
+    ],
+    "factual_anchor": "Reuters는 9월 7일 Cailianshe를 인용해 중국이 신규 에너지저장 제조 프로젝트의 승인을 일시 중단하고 기존·계획 생산능력을 재검토하고 있다고 보도했다. 보도에 따르면 아직 착공하지 않은 일부 프로젝트는 보류되며 이미 건설 중인 프로젝트는 영향을 받지 않는다. 공식 최종 규정의 발효일은 확인되지 않았다."
+  },
+  "baseline_revalidation": {
+    "status": "PASS",
+    "base_main_commit_sha": "b425151b348ed294ef1c4d5a6546cbe97f588137",
+    "base_full_blob_sha": "920646b6b335f211bcd224962f8ac0cc42cd3a4f",
+    "canonical_card_count": 1578,
+    "exact_canonical_url_collision_count": 0,
+    "exact_canonical_url_hits": [],
+    "normalized_title_collision_count": 0,
+    "normalized_title_hits": [],
+    "near_title_collision_count": 0,
+    "near_title_hits": [],
+    "current_batch_url_collision_count": 0,
+    "current_batch_url_hits": [],
+    "current_batch_title_collision_count": 0,
+    "current_batch_title_hits": [],
+    "related_target_existence": "PASS",
+    "related_chronology": "PASS",
+    "stale_republication_check": "PASS",
+    "broader_representative_coverage_check": "PASS",
+    "update_or_reinforcement_opportunity": "none_found",
+    "hold_reasons": []
+  },
+  "addability_outcome": "addable_merge_safe_new_unrelated",
+  "source_discovery_ledger": [
+    {
+      "source_spec_id": "STD26_0907_A_027",
+      "source_event_id": "NR_20260907_E0020",
+      "query_or_target": "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/",
+      "canonical_url": "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/",
+      "name": "Reuters",
+      "domain": "reuters.com",
+      "owner": "Reuters",
+      "role": "independent_news",
+      "origin_type": "independent original_reporting primary_event_evidence",
+      "outcome": "body_or_document_verified",
+      "unique_contribution": "Reuters report citing Cailianshe on temporary approvals pause and capacity review.",
+      "visible_fields_supported": [
+        "title",
+        "sub",
+        "gate",
+        "fact",
+        "implication"
+      ],
+      "checked_at": "2026-09-08"
+    }
+  ],
+  "evidence_qc": {
+    "status": "PASS",
+    "claim_map_status": "PASS",
+    "verified_claim_count": 1,
+    "unsupported_visible_claim_count": 0,
+    "source_discovery_status": "completed_verified_source_found",
+    "body_level_quote_verified": true
+  },
+  "related": [],
+  "related_candidate_spec_ids": [],
+  "content_polish_audit": {
+    "status": "PASS",
+    "changed_visible_fields": [],
+    "fact_body_changed": false,
+    "date_or_related_changed": false,
+    "terminology_check": "PASS",
+    "title_body_consistency": "PASS",
+    "stage_precision": "PASS",
+    "strategic_readthrough": "PASS_BOUNDED_TO_VERIFIED_EVIDENCE"
+  },
+  "final_qc_gates": {
+    "status": "PASS",
+    "full_schema_visible_fields": "PASS",
+    "evidence_and_source_claim_coverage": "PASS",
+    "date_role_and_id_compatibility": "PASS",
+    "canonical_duplicate_and_related": "PASS",
+    "content_consistency": "PASS",
+    "lineage_and_anchor": "PASS"
+  },
+  "final_qc": {
+    "status": "PASS",
+    "blocking_issue_count": 0,
+    "return_stage": null
+  },
+  "related_evidence_review": {
+    "status": "PASS",
+    "same_event_checked": true,
+    "earliest_same_event_date_checked": true,
+    "relation_type": "new_unrelated_event",
+    "matched_baseline_current_candidates": [],
+    "fresh_follow_up_anchor_class": null,
+    "fresh_follow_up_anchor": null,
+    "incremental_fact": null,
+    "changed_judgment": null,
+    "rejected_relation_candidates": [],
+    "reinforcement_transfer_ledger": [],
+    "related_target_required": false,
+    "related_target_id": null,
+    "reason": "New unrelated event after current canonical duplicate, reinforcement and predecessor screening."
+  },
+  "alternative_source_search_audit": {
+    "query": "중국, 신규 배터리·ESS 제조 프로젝트 승인 일시중단 보도",
+    "channels": [
+      "bounded_web_search",
+      "source_owner_or_independent_check"
+    ],
+    "candidate_results": [],
+    "conclusion": "Bounded source search completed; the evidence set above controls visible claims.",
+    "checked_at": "2026-09-08",
+    "bounded_search_complete": true,
+    "search_result_accounting_complete": true
+  }
+}

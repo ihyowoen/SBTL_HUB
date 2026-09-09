@@ -1,0 +1,30 @@
+{
+  "schema": "sbtl_persistent_input_manifest_v1",
+  "workspace_id": "backlog-reconciliation-20260819",
+  "status": "PARTIAL_MANIFEST_THREE_RUN_ITEM_LEVEL_RECONSTRUCTION_PENDING",
+  "baseline": {
+    "main_sha": "75e98148ae4c7af6234799cdd0852a181b11081b",
+    "canonical_path": "data/cards.full.json",
+    "canonical_blob_sha": "0cc4e610f9c1ad105761d399be1cd0e316f95128"
+  },
+  "historically_referenced_raw_files": [
+    {
+      "filename": "final_news_llm_input_newsletter_expanded_20260803_122217.json",
+      "sha256": null,
+      "status": "KNOWN_BY_NAME_SHA_TO_CAPTURE_DURING_RECONSTRUCTION"
+    },
+    {
+      "filename": "final_news_llm_input_newsletter_expanded_20260805_142554.json",
+      "sha256": null,
+      "status": "KNOWN_BY_NAME_SHA_TO_CAPTURE_DURING_RECONSTRUCTION"
+    },
+    {
+      "filename": "final_news_llm_input_newsletter_expanded_20260806_135500.json",
+      "sha256": null,
+      "status": "KNOWN_BY_NAME_SHA_TO_CAPTURE_DURING_RECONSTRUCTION"
+    }
+  ],
+  "note": "These filenames are historical references, not yet a proven complete mapping of the three-run universe. Do not infer missing run membership or SHA values. The three-run completeness audit must recover authoritative run artifacts and capture hashes before declaring the universe complete.",
+  "accepted21_checkpoint_artifact_source": "artifact_bundle/accepted21_checkpoint_bundle_20260819_R1.tar.gz reconstructed from split base64 parts",
+  "continuation_rule": "Use exact filenames and hashes from this manifest when available; do not begin with broad chat-history search."
+}

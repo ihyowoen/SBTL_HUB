@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-08T11:30:00+09:00",
+  "updated": "2026-09-09T03:19:55Z",
   "total": 1599,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
@@ -845,7 +845,7 @@
           "role": "industry_press",
           "url": "https://energy.mpmgmt.co.jp/blog/low-voltage-grid-battery-applications-1gwh-2026",
           "published": "2026-09-07",
-          "summary": "Independent industry article corroborates 5,000 applications, 250MW and 1GWh and explicitly distinguishes applications from operating capacity.",
+          "summary": "Independent RE ENERGY BUSINESS NAVI analysis confirms the 5,000-application/250MW/1GWh figures, distinguishes applications from operating capacity, derives the roughly 50kW/200kWh per-case profile, and identifies grid/interconnection-to-operation conversion risk.",
           "fetch_status": "fetched_body_or_authoritative_page",
           "headline_only": false,
           "rss_or_snippet_only": false,
@@ -867,7 +867,7 @@
           ],
           "checked_at": "2026-09-08",
           "fetched": true,
-          "source_quote": "Independent industry article corroborates 5,000 applications, 250MW and 1GWh and explicitly distinguishes applications from operating capacity.",
+          "source_quote": "The article distinguishes the 1GWh application total from operating capacity and notes that actual interconnected/trading capacity depends on grid response, equipment, financing, schedule and operations.",
           "source_quote_status": "body_level_evidence_verified"
         }
       ],
@@ -1088,13 +1088,13 @@
           "source_event_id": "NR_20260907_E0091",
           "query_or_target": "https://energy.mpmgmt.co.jp/blog/low-voltage-grid-battery-applications-1gwh-2026",
           "canonical_url": "https://energy.mpmgmt.co.jp/blog/low-voltage-grid-battery-applications-1gwh-2026",
-          "name": "Tensor Energy",
+          "name": "RE ENERGY BUSINESS NAVI",
           "domain": "energy.mpmgmt.co.jp",
           "owner": "Renewable Energy Business Navi",
           "role": "industry_press",
           "origin_type": "independent industry_reporting",
           "outcome": "body_or_document_verified",
-          "unique_contribution": "Independent industry article corroborates 5,000 applications, 250MW and 1GWh and explicitly distinguishes applications from operating capacity.",
+          "unique_contribution": "Independent editorial analysis separates application volume from operating capacity, derives the per-case power/energy profile, and identifies conversion risks across grid response, equipment price, finance, schedule and operation.",
           "visible_fields_supported": [
             "title",
             "sub",
@@ -1102,7 +1102,7 @@
             "fact",
             "implication"
           ],
-          "checked_at": "2026-09-08"
+          "checked_at": "2026-09-09"
         }
       ],
       "evidence_qc": {
@@ -3622,7 +3622,8 @@
         "각 공급사의 실제 탑재 차종·물량과 셀 사양이 후속 확인 포인트다."
       ],
       "urls": [
-        "https://carnewschina.com/2026/09/05/xiaomi-unveils-dragonscale-ev-battery-with-calb-sunwoda-offers-free-skynomad-suv-in-case-of-fire/"
+        "https://carnewschina.com/2026/09/05/xiaomi-unveils-dragonscale-ev-battery-with-calb-sunwoda-offers-free-skynomad-suv-in-case-of-fire/",
+        "https://auto.cnr.cn/cz/20260904/t20260904_527804622.shtml"
       ],
       "fact_sources": [
         {
@@ -3655,6 +3656,37 @@
           "fetched": true,
           "source_quote": "Xiaomi announced CALB and Sunwoda as strategic battery partners on September 4.",
           "source_quote_status": "body_level_evidence_verified"
+        },
+        {
+          "id": "STD26_0907_A_009-S2",
+          "owner": "央广网",
+          "role": "independent_news",
+          "url": "https://auto.cnr.cn/cz/20260904/t20260904_527804622.shtml",
+          "published": "2026-09-04",
+          "summary": "Independent same-day CNR report confirms Xiaomi’s CALB/Sunwoda strategic partnership and Xiaomi-led product definition, pack development, cell-design participation and end-to-end quality control.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "domain": "auto.cnr.cn",
+          "source_url": "https://auto.cnr.cn/cz/20260904/t20260904_527804622.shtml",
+          "source_id": "STD26_0907_A_009-S2",
+          "source_owner_id": "央广网",
+          "source_owner_id_normalized": "央广网",
+          "source_role": "independent_news",
+          "source_type": "independent original_reporting",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-09",
+          "fetched": true,
+          "source_quote": "CNR reports Xiaomi leads battery product definition and pack development, participates in cell design, and formally announced strategic cooperation with CALB and Sunwoda.",
+          "source_quote_status": "body_level_evidence_verified"
         }
       ],
       "date_role": {
@@ -3676,8 +3708,8 @@
           "2026-09-05"
         ],
         "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://carnewschina.com/2026/09/05/xiaomi-unveils-dragonscale-ev-battery-with-calb-sunwoda-offers-free-skynomad-suv-in-case-of-fire/",
-        "event_date_source_quote": "Xiaomi announced CALB and Sunwoda as strategic battery partners on September 4."
+        "event_date_source_url": "https://auto.cnr.cn/cz/20260904/t20260904_527804622.shtml",
+        "event_date_source_quote": "CNR reported the Xiaomi battery partnership event on 2026-09-04."
       },
       "stage_b_lineage": {
         "status": "PASS",
@@ -3711,14 +3743,15 @@
         ],
         "stage_a_before_after_chain_preserved": true
       },
-      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
-        "unique_urls": 1,
-        "unique_domains": 1,
-        "independent_owner_count": 1
+        "unique_urls": 2,
+        "unique_domains": 2,
+        "independent_owner_count": 2
       },
       "source_diversity_roles": {
-        "independent_auto_press": 1
+        "independent_auto_press": 1,
+        "independent_news": 1
       },
       "source_synthesis_applied": true,
       "source_synthesis_fields": [
@@ -3731,31 +3764,18 @@
       "source_synthesis_audit": {
         "status": "PASS",
         "primary_or_official_controls_operative_facts": true,
-        "independent_confirmation_used": false,
+        "independent_confirmation_used": true,
         "conflicts_explicitly_resolved": true
       },
       "single_source_exception": {
-        "allowed": true,
-        "reason": "The accessible durable body-level source reports Xiaomi Auto’s Sep 4 announcement; official social-post indexing was checked but not used for unsupported detail.",
-        "mitigation": "Visible claims are limited to the established facts and explicitly preserve uncertainty where applicable.",
+        "allowed": false,
+        "reason": "Multiple independent source owners support the visible claim set.",
+        "mitigation": "Primary and secondary evidence roles are separated.",
         "scope_limits": [
-          "paraphrase only",
-          "no unsupported market-wide causal claim"
-        ],
-        "alternative_source_search_audit": {
-          "query": "Xiaomi, CALB·Sunwoda와 배터리 전략협력…‘Dragonscale’ 체계 공개",
-          "channels": [
-            "bounded_web_search",
-            "source_owner_or_independent_check"
-          ],
-          "candidate_results": [],
-          "conclusion": "Bounded source search completed; the evidence set above controls visible claims.",
-          "checked_at": "2026-09-08",
-          "bounded_search_complete": true,
-          "search_result_accounting_complete": true
-        }
+          "paraphrase only"
+        ]
       },
-      "source_published_date": "2026-09-05",
+      "source_published_date": "2026-09-04",
       "visible_quote_date": "not_applicable_no_visible_quotes",
       "stage_c_only": true,
       "addable_merge_safe": true,
@@ -3799,7 +3819,8 @@
           "claim_id": "STD26_0907_A_009-C1",
           "claim": "9월 4일 Xiaomi Auto는 CALB와 Sunwoda를 배터리 전략 파트너로 공개하고 ‘Dragonscale’ 배터리 체계를 소개했다. 보도에 따르면 Xiaomi는 제품 정의와 팩 설계를 주도하고 셀 설계에도 참여하며, CALB와 Sunwoda는 셀 제조를 담당한다.",
           "supported_by_source_ids": [
-            "STD26_0907_A_009-S1"
+            "STD26_0907_A_009-S1",
+            "STD26_0907_A_009-S2"
           ],
           "visible": true,
           "status": "SUPPORTED"
@@ -3873,6 +3894,27 @@
             "implication"
           ],
           "checked_at": "2026-09-08"
+        },
+        {
+          "source_spec_id": "STD26_0907_A_009",
+          "source_event_id": "NR_20260907_E0155",
+          "query_or_target": "https://auto.cnr.cn/cz/20260904/t20260904_527804622.shtml",
+          "canonical_url": "https://auto.cnr.cn/cz/20260904/t20260904_527804622.shtml",
+          "name": "央广网",
+          "domain": "auto.cnr.cn",
+          "owner": "央广网",
+          "role": "independent_news",
+          "origin_type": "independent original_reporting",
+          "outcome": "body_or_document_verified",
+          "unique_contribution": "Same-day independent report confirms the partner identities and Xiaomi’s product-definition/pack-design/cell-design roles before the Sep 5 specialist article.",
+          "visible_fields_supported": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-09"
         }
       ],
       "evidence_qc": {
@@ -3931,9 +3973,11 @@
           "bounded_web_search",
           "source_owner_or_independent_check"
         ],
-        "candidate_results": [],
-        "conclusion": "Bounded source search completed; the evidence set above controls visible claims.",
-        "checked_at": "2026-09-08",
+        "candidate_results": [
+          "https://auto.cnr.cn/cz/20260904/t20260904_527804622.shtml"
+        ],
+        "conclusion": "Independent same-day source found and incorporated; single-source exception retired.",
+        "checked_at": "2026-09-09",
         "bounded_search_complete": true,
         "search_result_accounting_complete": true
       }
@@ -4721,7 +4765,7 @@
       "fact_sources": [
         {
           "id": "STD26_0907_A_019-S1",
-          "owner": "Reuters via Kitco",
+          "owner": "Reuters",
           "role": "independent_news",
           "url": "https://www.kitco.com/news/off-the-wire/2026-09-04/deeper-cobalt-discounts-add-squeeze-indonesian-nickel-producers",
           "published": "2026-09-04",
@@ -4733,10 +4777,10 @@
           "domain": "kitco.com",
           "source_url": "https://www.kitco.com/news/off-the-wire/2026-09-04/deeper-cobalt-discounts-add-squeeze-indonesian-nickel-producers",
           "source_id": "STD26_0907_A_019-S1",
-          "source_owner_id": "Reuters via Kitco",
-          "source_owner_id_normalized": "Reuters via Kitco",
+          "source_owner_id": "Reuters",
+          "source_owner_id_normalized": "Reuters",
           "source_role": "independent_news",
-          "source_type": "independent original_reporting primary_event_evidence",
+          "source_type": "Reuters original_reporting primary_event_evidence syndicated_via_Kitco",
           "evidence_role": "primary_event_evidence",
           "supports": [
             "title",
@@ -4951,11 +4995,11 @@
           "canonical_url": "https://www.kitco.com/news/off-the-wire/2026-09-04/deeper-cobalt-discounts-add-squeeze-indonesian-nickel-producers",
           "name": "Reuters via Kitco",
           "domain": "kitco.com",
-          "owner": "Reuters via Kitco",
+          "owner": "Reuters",
           "role": "independent_news",
-          "origin_type": "independent original_reporting primary_event_evidence",
+          "origin_type": "Reuters original_reporting syndicated_via_Kitco",
           "outcome": "body_or_document_verified",
-          "unique_contribution": "Reuters body report on Indonesian MHP cobalt payable discounts.",
+          "unique_contribution": "Reuters original reporting on cobalt payable discounts and Indonesian HPAL margin pressure, syndicated on Kitco.",
           "visible_fields_supported": [
             "title",
             "sub",
@@ -13063,7 +13107,8 @@
         "대통령 서명과 시행령·대상광물 지정이 실제 투자효과를 좌우한다."
       ],
       "urls": [
-        "https://apnews.com/article/brazil-minerals-rare-earths-politics-23c269b2738ded4a6c4cd2f696f83102"
+        "https://apnews.com/article/brazil-minerals-rare-earths-politics-23c269b2738ded4a6c4cd2f696f83102",
+        "https://www12.senado.leg.br/noticias/materias/2026/09/02/senado-aprova-politica-nacional-para-minerais-criticos-e-estrategicos"
       ],
       "fact_sources": [
         {
@@ -13096,6 +13141,37 @@
           "fetched": true,
           "source_quote": "Brazil’s Senate approved the critical-minerals bill on Wednesday and sent it to the president.",
           "source_quote_status": "body_level_evidence_verified"
+        },
+        {
+          "id": "STD26_0907_A_026-S2",
+          "owner": "Brazil Federal Senate",
+          "role": "government_official",
+          "url": "https://www12.senado.leg.br/noticias/materias/2026/09/02/senado-aprova-politica-nacional-para-minerais-criticos-e-estrategicos",
+          "published": "2026-09-02",
+          "summary": "Official Senate report confirms Sep 2 passage, referral for presidential sanction, BRL2bn FGAM contribution and BRL5bn domestic processing/beneficiation support.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "domain": "www12.senado.leg.br",
+          "source_url": "https://www12.senado.leg.br/noticias/materias/2026/09/02/senado-aprova-politica-nacional-para-minerais-criticos-e-estrategicos",
+          "source_id": "STD26_0907_A_026-S2",
+          "source_owner_id": "Brazil Federal Senate",
+          "source_owner_id_normalized": "Brazil Federal Senate",
+          "source_role": "government_official",
+          "source_type": "government official legislative primary_event_evidence",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-09",
+          "fetched": true,
+          "source_quote": "Brazil Senate approved PL 2,780/2024 on Sep 2; the text goes to sanction and provides BRL2bn for FGAM plus BRL5bn for domestic mineral processing and transformation.",
+          "source_quote_status": "body_level_evidence_verified"
         }
       ],
       "date_role": {
@@ -13103,6 +13179,7 @@
         "stage_a_representative_date": "2026-09-03",
         "role": "Senate passage date",
         "source_publication_dates": [
+          "2026-09-02",
           "2026-09-03"
         ],
         "status": "PASS",
@@ -13112,11 +13189,12 @@
         "representative_date": "2026-09-02",
         "event_date": "2026-09-02",
         "publication_dates": [
+          "2026-09-02",
           "2026-09-03"
         ],
         "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://apnews.com/article/brazil-minerals-rare-earths-politics-23c269b2738ded4a6c4cd2f696f83102",
-        "event_date_source_quote": "Brazil’s Senate approved the critical-minerals bill on Wednesday and sent it to the president."
+        "event_date_source_url": "https://www12.senado.leg.br/noticias/materias/2026/09/02/senado-aprova-politica-nacional-para-minerais-criticos-e-estrategicos",
+        "event_date_source_quote": "Brazil Federal Senate official report dated Sep 2 records passage and referral for sanction."
       },
       "stage_b_lineage": {
         "status": "PASS",
@@ -13148,14 +13226,15 @@
         ],
         "stage_a_before_after_chain_preserved": true
       },
-      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
-        "unique_urls": 1,
-        "unique_domains": 1,
-        "independent_owner_count": 1
+        "unique_urls": 2,
+        "unique_domains": 2,
+        "independent_owner_count": 2
       },
       "source_diversity_roles": {
-        "independent_news": 1
+        "independent_news": 1,
+        "government_official": 1
       },
       "source_synthesis_applied": true,
       "source_synthesis_fields": [
@@ -13168,31 +13247,18 @@
       "source_synthesis_audit": {
         "status": "PASS",
         "primary_or_official_controls_operative_facts": true,
-        "independent_confirmation_used": false,
+        "independent_confirmation_used": true,
         "conflicts_explicitly_resolved": true
       },
       "single_source_exception": {
-        "allowed": true,
-        "reason": "AP provides body-level original reporting on the Senate vote and bill terms; visible claims preserve that presidential signature is still pending.",
-        "mitigation": "Visible claims are limited to the established facts and explicitly preserve uncertainty where applicable.",
+        "allowed": false,
+        "reason": "Multiple independent source owners support the visible claim set.",
+        "mitigation": "Primary and secondary evidence roles are separated.",
         "scope_limits": [
-          "paraphrase only",
-          "no unsupported market-wide causal claim"
-        ],
-        "alternative_source_search_audit": {
-          "query": "브라질 상원, 핵심·전략광물 지원법안 승인…대통령 서명 단계로",
-          "channels": [
-            "bounded_web_search",
-            "source_owner_or_independent_check"
-          ],
-          "candidate_results": [],
-          "conclusion": "Bounded source search completed; the evidence set above controls visible claims.",
-          "checked_at": "2026-09-08",
-          "bounded_search_complete": true,
-          "search_result_accounting_complete": true
-        }
+          "paraphrase only"
+        ]
       },
-      "source_published_date": "2026-09-03",
+      "source_published_date": "2026-09-02",
       "visible_quote_date": "not_applicable_no_visible_quotes",
       "stage_c_only": true,
       "addable_merge_safe": true,
@@ -13236,7 +13302,8 @@
           "claim_id": "STD26_0907_A_026-C1",
           "claim": "브라질 상원은 9월 2일 핵심·전략광물 산업 지원 법안을 승인해 대통령 재가 단계로 보냈다. AP는 법안에 20억헤알 규모의 광업활동 보증기금과 5년간 최대 50억헤알의 가공 관련 세액공제 틀이 포함됐다고 보도했다.",
           "supported_by_source_ids": [
-            "STD26_0907_A_026-S1"
+            "STD26_0907_A_026-S1",
+            "STD26_0907_A_026-S2"
           ],
           "visible": true,
           "status": "SUPPORTED"
@@ -13310,6 +13377,27 @@
             "implication"
           ],
           "checked_at": "2026-09-08"
+        },
+        {
+          "source_spec_id": "STD26_0907_A_026",
+          "source_event_id": "NR_20260907_E0207",
+          "query_or_target": "https://www12.senado.leg.br/noticias/materias/2026/09/02/senado-aprova-politica-nacional-para-minerais-criticos-e-estrategicos",
+          "canonical_url": "https://www12.senado.leg.br/noticias/materias/2026/09/02/senado-aprova-politica-nacional-para-minerais-criticos-e-estrategicos",
+          "name": "Brazil Federal Senate",
+          "domain": "www12.senado.leg.br",
+          "owner": "Brazil Federal Senate",
+          "role": "government_official",
+          "origin_type": "government official legislative primary_event_evidence",
+          "outcome": "body_or_document_verified",
+          "unique_contribution": "Official legislative source locks the Sep 2 passage date, sanction status and BRL2bn/BRL5bn support mechanisms.",
+          "visible_fields_supported": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-09"
         }
       ],
       "evidence_qc": {
@@ -13368,9 +13456,11 @@
           "bounded_web_search",
           "source_owner_or_independent_check"
         ],
-        "candidate_results": [],
-        "conclusion": "Bounded source search completed; the evidence set above controls visible claims.",
-        "checked_at": "2026-09-08",
+        "candidate_results": [
+          "https://www12.senado.leg.br/noticias/materias/2026/09/02/senado-aprova-politica-nacional-para-minerais-criticos-e-estrategicos"
+        ],
+        "conclusion": "Official Senate source found and incorporated; single-source exception retired.",
+        "checked_at": "2026-09-09",
         "bounded_search_complete": true,
         "search_result_accounting_complete": true
       }
@@ -28237,29 +28327,29 @@
         "구체적인 공급계약과 공동사업 범위가 공개되는지가 후속 확인 포인트다."
       ],
       "urls": [
-        "https://stocksori.com/news/833",
+        "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828001955",
         "https://www.thebell.co.kr/front/newsview.asp?code=0701&key=202609071106112760107684",
         "https://www.newsis.com/view/NISX20260907_0003778728"
       ],
       "fact_sources": [
         {
           "id": "STD26_0907_A_005-S1",
-          "owner": "Stocksori / DART mirror",
-          "role": "filing_data",
-          "url": "https://stocksori.com/news/833",
+          "owner": "PINO / DART",
+          "role": "issuer_filing",
+          "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828001955",
           "published": "2026-08-28",
-          "summary": "DART filing mirror provides board/allotment terms and investment amount.",
+          "summary": "Official PINO DART filing for the third-party allotment to Cosmo Advanced Materials: 2,691,066 shares at KRW 5,574, approximately KRW 15.0bn.",
           "fetch_status": "fetched_body_or_authoritative_page",
           "headline_only": false,
           "rss_or_snippet_only": false,
           "claim_use": "paraphrase_only_no_visible_quote",
-          "domain": "stocksori.com",
-          "source_url": "https://stocksori.com/news/833",
+          "domain": "dart.fss.or.kr",
+          "source_url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828001955",
           "source_id": "STD26_0907_A_005-S1",
-          "source_owner_id": "Stocksori / DART mirror",
-          "source_owner_id_normalized": "Stocksori / DART mirror",
-          "source_role": "filing_data",
-          "source_type": "filing original_data",
+          "source_owner_id": "PINO",
+          "source_owner_id_normalized": "PINO",
+          "source_role": "issuer_filing",
+          "source_type": "issuer filing original_data primary_event_evidence",
           "evidence_role": "primary_event_evidence",
           "supports": [
             "title",
@@ -28268,10 +28358,10 @@
             "fact",
             "implication"
           ],
-          "checked_at": "2026-09-08",
+          "checked_at": "2026-09-09",
           "fetched": true,
-          "source_quote": "The third-party allotment agreement was signed August 28 for roughly KRW 15 billion.",
-          "source_quote_status": "body_level_evidence_verified"
+          "source_quote": "PINO filing: 2,691,066 new common shares at KRW 5,574; KRW 15,000,001,884 for acquisition of securities; third-party allottee Cosmo Advanced Materials.",
+          "source_quote_status": "document_quote_verified"
         },
         {
           "id": "STD26_0907_A_005-S2",
@@ -28355,8 +28445,8 @@
           "2026-09-07"
         ],
         "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://stocksori.com/news/833",
-        "event_date_source_quote": "The third-party allotment agreement was signed August 28 for roughly KRW 15 billion."
+        "event_date_source_url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828001955",
+        "event_date_source_quote": "PINO DART filing dated 2026-08-28 records the third-party allotment to Cosmo Advanced Materials."
       },
       "stage_b_lineage": {
         "status": "PASS",
@@ -28396,7 +28486,7 @@
         "independent_owner_count": 3
       },
       "source_diversity_roles": {
-        "filing_data": 1,
+        "issuer_filing": 1,
         "independent_news": 2
       },
       "source_synthesis_applied": true,
@@ -28526,15 +28616,15 @@
         {
           "source_spec_id": "STD26_0907_A_005",
           "source_event_id": "NR_20260907_E0045",
-          "query_or_target": "https://stocksori.com/news/833",
-          "canonical_url": "https://stocksori.com/news/833",
-          "name": "Stocksori / DART mirror",
-          "domain": "stocksori.com",
-          "owner": "Stocksori / DART mirror",
-          "role": "filing_data",
-          "origin_type": "filing original_data",
+          "query_or_target": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828001955",
+          "canonical_url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828001955",
+          "name": "PINO DART filing",
+          "domain": "dart.fss.or.kr",
+          "owner": "PINO",
+          "role": "issuer_filing",
+          "origin_type": "issuer filing original_data primary_event_evidence",
           "outcome": "body_or_document_verified",
-          "unique_contribution": "DART filing mirror provides board/allotment terms and investment amount.",
+          "unique_contribution": "Official filing supplies the allotment quantity, issue price, funding amount and allottee identity; replaces an AI summary mirror that was incorrectly classified as original filing data.",
           "visible_fields_supported": [
             "title",
             "sub",
@@ -28542,7 +28632,7 @@
             "fact",
             "implication"
           ],
-          "checked_at": "2026-09-08"
+          "checked_at": "2026-09-09"
         },
         {
           "source_spec_id": "STD26_0907_A_005",

@@ -1,0 +1,145 @@
+{
+  "schema": "sbtl_raw_input_audit_v1",
+  "stage": "RAW_INPUT_AUDIT",
+  "status": "PASS_WITH_ISOLATED_CONTAMINATION_AND_GROUPING_REASSESSMENT",
+  "generated_date": "2026-09-09",
+  "run_id": "card-run-2026-09-08-sep8-r7-current-main-production-r1",
+  "base_main_commit_sha": "e19f6c113ccb62906e7fdefaf3bae657c58b5637",
+  "base_full_blob_sha": "cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb",
+  "base_lean_blob_sha": "a9941c6fd589ac27c54d2567301e3bcef118b803",
+  "base_card_count": 1599,
+  "input_file": "final_news_llm_input_newsletter_expanded_20260908_151505.json",
+  "input_sha256": "5a0cfb5d3cf6ee9c5a80f9b6d5bbdaa0621ee6d96d52b14eaa9d31e6fb4252a4",
+  "input_bytes": 8314179,
+  "input_summary": {
+    "story_count": 308,
+    "status_counts": {
+      "KEEP": 246,
+      "REVIEW": 1,
+      "TRIAGE_FILTERED": 61
+    },
+    "region_counts": {
+      "US": 14,
+      "KR": 158,
+      "JP": 22,
+      "GL": 41,
+      "EU": 21,
+      "CN": 52
+    },
+    "published_date_min": "2026-08-26",
+    "published_date_max": "2026-09-08",
+    "text_coverage_state_counts": {
+      "article_hydrated": 239,
+      "rss_rich": 42,
+      "list_context_only": 26,
+      "rss_context_only": 1
+    },
+    "source_count_distribution": {
+      "1": 304,
+      "2": 4
+    },
+    "keep_story_count": 246,
+    "review_story_count": 1,
+    "triage_filtered_count": 61,
+    "input_orphan_count": 0,
+    "dropped_count": 0
+  },
+  "identity_checks": {
+    "duplicate_story_id_count": 0,
+    "duplicate_primary_url_count": 0,
+    "orphan_count": 0
+  },
+  "contamination_findings": [
+    {
+      "story_id": "US_2026-09-07_C06",
+      "field": "source_packets[0].description_article",
+      "contaminating_text": "Henkel introduces LOCTITE SOLVE, an AI-powered virtual adhesives hub to accelerate EV component design and optimize battery manufacturing simulations.",
+      "actual_event_headline": "Inside the gigafactory: the hidden sealing challenges behind EV battery manufacturing (Webinar)",
+      "disposition": "ISOLATE_DESCRIPTION_ONLY_USE_MATCHING_ARTICLE_BODY",
+      "delete_story": false
+    }
+  ],
+  "integrity_grouping_findings": {
+    "flagged_group_count": 5,
+    "flagged_story_count": 25,
+    "upstream_excluded_story_count": 0,
+    "groups": [
+      {
+        "integrity_group_id": "grp_0001",
+        "story_ids": [
+          "US_2026-09-05_C01",
+          "US_2026-09-05_C02",
+          "US_2026-09-05_C05",
+          "US_2026-09-06_C01"
+        ],
+        "disposition": "REASSESS_AS_INDIVIDUAL_EVENTS",
+        "delete_from_input": false
+      },
+      {
+        "integrity_group_id": "grp_0002",
+        "story_ids": [
+          "CN_2026-09-07_C05",
+          "CN_2026-09-08_C08"
+        ],
+        "disposition": "REASSESS_AS_INDIVIDUAL_EVENTS",
+        "delete_from_input": false
+      },
+      {
+        "integrity_group_id": "grp_0003",
+        "story_ids": [
+          "JP_2026-09-07_C03",
+          "JP_2026-09-07_C11",
+          "JP_2026-09-07_C12",
+          "JP_2026-09-07_C14",
+          "JP_2026-09-07_C15",
+          "JP_2026-09-08_C12",
+          "JP_2026-09-08_C15",
+          "JP_2026-09-08_C17"
+        ],
+        "disposition": "REASSESS_AS_INDIVIDUAL_EVENTS",
+        "delete_from_input": false
+      },
+      {
+        "integrity_group_id": "grp_0004",
+        "story_ids": [
+          "JP_2026-09-07_C04",
+          "JP_2026-09-07_C07",
+          "JP_2026-09-07_C13",
+          "JP_2026-09-08_C10",
+          "JP_2026-09-08_C18",
+          "JP_2026-09-08_C19"
+        ],
+        "disposition": "REASSESS_AS_INDIVIDUAL_EVENTS",
+        "delete_from_input": false
+      },
+      {
+        "integrity_group_id": "grp_0005",
+        "story_ids": [
+          "JP_2026-09-07_C08",
+          "JP_2026-09-07_C16",
+          "JP_2026-09-07_C17",
+          "JP_2026-09-08_C13",
+          "JP_2026-09-08_C16"
+        ],
+        "disposition": "REASSESS_AS_INDIVIDUAL_EVENTS",
+        "delete_from_input": false
+      }
+    ],
+    "disposition": "Do not delete or collapse these 25 stories from upstream integrity grouping. Re-evaluate each story independently at event clustering/canonical reconciliation."
+  },
+  "legacy_related_boundary": {
+    "legacy_dangling_edges_count": 14,
+    "disposition": "PRESERVE_AND_SKIP_IN_2026-09-08_RUN",
+    "related_remove_count": 0,
+    "retarget_count": 0
+  },
+  "audit_conclusion": {
+    "raw_input_usable_for_0_0c": true,
+    "original_story_accounting": 308,
+    "stories_deleted_by_audit": 0,
+    "required_repairs_before_event_lock": [
+      "Exclude only the contaminated Henkel description fragment from US_2026-09-07_C06 evidence text.",
+      "Break the 5 malformed integrity groups into 25 independently evaluated events/candidates before event-level dedupe."
+    ]
+  }
+}

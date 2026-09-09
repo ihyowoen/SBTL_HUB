@@ -1,0 +1,184 @@
+name: TEMP Sep 7 Tensor evidence remediation
+
+on:
+  push:
+    branches:
+      - chatgpt/sep7-tensor-evidence-remediation
+    paths:
+      - tmp/sep7-tensor-evidence-trigger.txt
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Replace Tensor landing-page evidence with independent durable corroboration
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          MAIN=b425151b348ed294ef1c4d5a6546cbe97f588137
+          BLOB=920646b6b335f211bcd224962f8ac0cc42cd3a4f
+          RUN=runs/2026-09-08/sep7-r7-current-main-production-r1
+          RUN_PATH="$RUN/card-run.json"
+          BASE_TMP=tmp/sep7-tensor-evidence-base.json
+          LEDGER=tmp/sep7-tensor-evidence-0-8-ledger.json
+          OLD_URL='https://www.tensorenergy.jp/'
+          NEW_URL='https://energy.mpmgmt.co.jp/blog/low-voltage-grid-battery-applications-1gwh-2026'
+          OLD_OWNER='Tensor Energy'
+          NEW_OWNER='Renewable Energy Business Navi'
+          OLD_SUMMARY='Company website contextualizes the low-voltage battery aggregation pipeline.'
+          NEW_SUMMARY='Independent industry article corroborates 5,000 applications, 250MW and 1GWh and explicitly distinguishes applications from operating capacity.'
+
+          git config user.name ihyowoen
+          git config user.email hyowoen@hotmail.com
+          git fetch origin main --force
+          test "$(git rev-parse origin/main)" = "$MAIN"
+          test "$(git rev-parse "$MAIN:data/cards.full.json")" = "$BLOB"
+
+          OLD_OPS="$(node - <<'NODE'
+          const fs=require('fs'),crypto=require('crypto');
+          const r=JSON.parse(fs.readFileSync('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json','utf8'));
+          const stable=v=>Array.isArray(v)?v.map(stable):(v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v);
+          process.stdout.write(crypto.createHash('sha256').update(JSON.stringify(stable(r.operations))).digest('hex'));
+          NODE
+          )"
+          OLD_FULL="$(sha256sum data/cards.full.json | awk '{print $1}')"
+          OLD_LEAN="$(sha256sum public/data/cards.json | awk '{print $1}')"
+          echo "OLD_OPS=$OLD_OPS"
+          echo "OLD_FULL=$OLD_FULL"
+          echo "OLD_LEAN=$OLD_LEAN"
+
+          python3 - "$OLD_URL" "$NEW_URL" "$OLD_OWNER" "$NEW_OWNER" "$OLD_SUMMARY" "$NEW_SUMMARY" <<'PY'
+          from pathlib import Path
+          import sys
+          old_url,new_url,old_owner,new_owner,old_summary,new_summary=sys.argv[1:]
+          root=Path('runs/2026-09-08/sep7-r7-current-main-production-r1')
+          replacements=[
+              (old_url,new_url,'url'),
+              ('"owner": "Tensor Energy"','"owner": "Renewable Energy Business Navi"','owner'),
+              ('"role": "company_website"','"role": "industry_press"','role'),
+              ('"domain": "tensorenergy.jp"','"domain": "energy.mpmgmt.co.jp"','domain'),
+              ('"source_owner_id": "Tensor Energy"','"source_owner_id": "Renewable Energy Business Navi"','source_owner_id'),
+              ('"source_owner_id_normalized": "Tensor Energy"','"source_owner_id_normalized": "Renewable Energy Business Navi"','source_owner_norm'),
+              ('"source_role": "company_website"','"source_role": "industry_press"','source_role'),
+              ('"source_type": "official source_owner context"','"source_type": "independent industry_reporting"','source_type'),
+              ('"origin_type": "official source_owner context"','"origin_type": "independent industry_reporting"','origin_type'),
+              (old_summary,new_summary,'summary'),
+              ('"company_website": 1','"industry_press": 1','role_count'),
+          ]
+          totals={}
+          changed=set()
+          for p in sorted(root.rglob('*.json')):
+              s=p.read_text(encoding='utf-8')
+              original=s
+              for old,new,label in replacements:
+                  c=s.count(old)
+                  if c:
+                      totals[label]=totals.get(label,0)+c
+                      s=s.replace(old,new)
+              if s!=original:
+                  p.write_text(s,encoding='utf-8')
+                  changed.add(str(p))
+          print('TENSOR_EVIDENCE_REBIND', 'files=',len(changed), 'counts=',totals)
+          if totals.get('url',0) < 1:
+              raise SystemExit('Tensor landing-page URL not found')
+          if totals.get('source_owner_id',0) < 1 or totals.get('source_owner_norm',0) < 1:
+              raise SystemExit('Tensor source-owner metadata not rebound')
+          if totals.get('source_type',0) < 1:
+              raise SystemExit('Tensor source type not rebound')
+          PY
+
+          NEW_OPS="$(node - <<'NODE'
+          const fs=require('fs'),crypto=require('crypto');
+          const r=JSON.parse(fs.readFileSync('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json','utf8'));
+          const stable=v=>Array.isArray(v)?v.map(stable):(v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v);
+          process.stdout.write(crypto.createHash('sha256').update(JSON.stringify(stable(r.operations))).digest('hex'));
+          NODE
+          )"
+          test "$NEW_OPS" != "$OLD_OPS"
+          echo "OPS_REBIND $OLD_OPS -> $NEW_OPS"
+          python3 - "$OLD_OPS" "$NEW_OPS" <<'PY'
+          from pathlib import Path
+          import sys
+          old,new=sys.argv[1:]
+          root=Path('runs/2026-09-08/sep7-r7-current-main-production-r1')
+          files=occ=0
+          for p in sorted(root.rglob('*.json')):
+              s=p.read_text(encoding='utf-8'); c=s.count(old)
+              if c:
+                  p.write_text(s.replace(old,new),encoding='utf-8'); files+=1; occ+=c
+          print(f'OPS_HASH_REBIND files={files} occurrences={occ}')
+          PY
+
+          echo '== pre-apply governed validation =='
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN_PATH"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_PATH"
+
+          echo '== regenerate canonical from locked 1578 baseline =='
+          git show "$MAIN:data/cards.full.json" > "$BASE_TMP"
+          node scripts/apply_card_run.mjs --run "$RUN_PATH" --baseline "$BASE_TMP" --canonical-path data/cards.full.json --output data/cards.full.json --report "$RUN/apply-report.json" --lean-path public/data/cards.json --base-main-sha "$MAIN" --apply
+          test "$(node -e "const x=require('./data/cards.full.json');process.stdout.write(String(x.cards.length))")" = "1599"
+          NEW_FULL="$(sha256sum data/cards.full.json | awk '{print $1}')"
+          NEW_LEAN="$(sha256sum public/data/cards.json | awk '{print $1}')"
+          echo "FULL_REBIND $OLD_FULL -> $NEW_FULL"
+          echo "LEAN_REBIND $OLD_LEAN -> $NEW_LEAN"
+
+          python3 - "$OLD_FULL" "$NEW_FULL" "$OLD_LEAN" "$NEW_LEAN" <<'PY'
+          from pathlib import Path
+          import sys
+          oldf,newf,oldl,newl=sys.argv[1:]
+          root=Path('runs/2026-09-08/sep7-r7-current-main-production-r1')
+          for old,new,label in [(oldf,newf,'full'),(oldl,newl,'lean')]:
+              if old == new:
+                  print(f'{label} hash unchanged'); continue
+              files=occ=0
+              for p in sorted(root.rglob('*.json')):
+                  s=p.read_text(encoding='utf-8'); c=s.count(old)
+                  if c:
+                      p.write_text(s.replace(old,new),encoding='utf-8'); files+=1; occ+=c
+              print(f'{label.upper()}_HASH_REBIND files={files} occurrences={occ}')
+          PY
+
+          echo '== post-resolution semantic and full validation =='
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN_PATH"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN_PATH" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits_dispatch.mjs --run "$RUN_PATH" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN_PATH" --full data/cards.full.json --ledger "$LEDGER"
+          python3 validation_scripts/stage_artifact_contract_check.py 0.8 "$RUN/stage-0-8.json"
+          node scripts/apply_card_run.mjs --run "$RUN_PATH" --baseline data/cards.full.json --canonical-path data/cards.full.json --output data/cards.full.json --report "$RUN/apply-report.json" --lean-path public/data/cards.json --base-main-sha "$MAIN" --verify
+          node scripts/lean_cards.mjs --check
+          git diff --check
+
+          FINAL_OPS="$(node - <<'NODE'
+          const fs=require('fs'),crypto=require('crypto');
+          const r=JSON.parse(fs.readFileSync('runs/2026-09-08/sep7-r7-current-main-production-r1/card-run.json','utf8'));
+          const stable=v=>Array.isArray(v)?v.map(stable):(v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v);
+          process.stdout.write(crypto.createHash('sha256').update(JSON.stringify(stable(r.operations))).digest('hex'));
+          NODE
+          )"
+          test "$FINAL_OPS" = "$NEW_OPS"
+          echo "FINAL_OPS=$FINAL_OPS"
+          echo "FINAL_FULL=$(sha256sum data/cards.full.json | awk '{print $1}')"
+          echo "FINAL_LEAN=$(sha256sum public/data/cards.json | awk '{print $1}')"
+          echo 'PASS SEP7 TENSOR EVIDENCE REMEDIATION'
+
+          rm -f "$BASE_TMP" "$LEDGER"
+          git add data/cards.full.json public/data/cards.json "$RUN"
+          git commit -m "Remediate Sep 7 Tensor evidence diversity"
+          git push origin HEAD:chatgpt/sep7-tensor-evidence-remediation

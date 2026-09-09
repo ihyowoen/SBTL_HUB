@@ -13,7 +13,7 @@ jobs:
         with: {fetch-depth: 0}
       - uses: actions/setup-node@v4
         with: {node-version: '20'}
-      - name: Re-lock main and repair full lineage chain
+      - name: Re-lock main and repair promotion + Related lineage atomically
         shell: bash
         run: |
           set -euo pipefail
@@ -25,12 +25,14 @@ jobs:
           import json,hashlib,pathlib
           R=pathlib.Path('runs/2026-09-09/sep8-r7-current-main-production-r1'); S=R/'stages'
           L=lambda p:json.load(open(p)); W=lambda p,d:p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n'); H=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+          promo=str(S/'stage-a-promotion5.json')
           pre={'status':'PASS','same_event_checked':True,'matched_baseline_candidate_ids':['2026-06-30_US_02'],'matched_current_batch_candidate_ids':[],'relation_candidates':[{'target_candidate_id':'2026-06-30_US_02','proposed_relation_type':'distinct_follow_up','confidence':'high','reason':'The June card records Ford battery-production intent using CATL licensed technology; the Sep 8 DOT letter is a separate official federal policy-pressure event that changes the strategic/regulatory state rather than repeating the June milestone.','anchor_class_to_verify':'policy_regulatory_anchor','incremental_anchor_question':'Verify that the Sep 8 U.S. DOT pressure on Ford/CATL is chronologically distinct from the June production milestone and materially changes the policy/strategic judgment without implying a new legal ban.'}],'duplicate_disposition':'no_duplicate_found','earliest_same_event_check_status':'PASS','fresh_anchor_questions':['Verify the Sep 8 policy_regulatory_anchor against predecessor 2026-06-30_US_02 and confirm it is a distinct follow-up rather than same-event repetition.']}
           a=L(S/'stage-a-promotion5.json')
           for x in a['strict_passed_spec']:
             if x.get('spec_id')=='STD26_0908_P_005': x['related_prepass']=pre; x['baseline_relation']='distinct_follow_up'
           for x in a['decision_ledger']:
-            if x.get('spec_id')=='STD26_0908_P_005' or x.get('candidate_id')=='STD26_0908_P_005': x.update(baseline_relation='distinct_follow_up',follow_up_relation='distinct_follow_up',baseline_match='2026-06-30_US_02',duplicate_risk='bounded_recheck_completed_distinct_follow_up',notes='Promotion resolved; Stage A Related prepass identifies 2026-06-30_US_02 as a distinct predecessor and authorizes Stage B evidence verification.')
+            if x.get('spec_id')=='STD26_0908_P_005' or x.get('candidate_id')=='STD26_0908_P_005':
+              x.update(baseline_relation='distinct_follow_up',follow_up_relation='distinct_follow_up',baseline_match='2026-06-30_US_02',duplicate_risk='bounded_recheck_completed_distinct_follow_up',notes='Promotion resolved; Stage A Related prepass identifies 2026-06-30_US_02 as a distinct predecessor and authorizes Stage B evidence verification.')
           W(S/'stage-a-promotion5.json',a); ah=H(S/'stage-a-promotion5.json')
           b=L(S/'stage-b.json')
           for x in b['strict_passed_spec']:
@@ -38,24 +40,32 @@ jobs:
           W(S/'stage-b.json',b); bh=H(S/'stage-b.json')
           def ub(o):
             if isinstance(o,dict):
-              z=o.get('stage_b_lineage');
+              z=o.get('stage_b_lineage')
               if isinstance(z,dict) and z.get('spec_id'): z['artifact_sha256']=bh
               for v in o.values(): ub(v)
             elif isinstance(o,list):
               for v in o: ub(v)
           c=L(S/'stage-c.json'); ub(c); W(S/'stage-c.json',c); ch=H(S/'stage-c.json')
           chain=[]
-          for f,key,prev in [('stage-0-4.json','stage_c_artifact_sha256',ch),('stage-0-5.json','stage_0_4_artifact_sha256',None),('stage-0-6.json','input_0_5_sha256',None),('stage-0-7.json','input_0_6_sha256',None)]:
-            p=S/f; d=L(p); ub(d); d[key]=prev if prev else chain[-1]; W(p,d); chain.append(H(p))
+          for f,key,src in [('stage-0-4.json','stage_c_artifact_sha256',ch),('stage-0-5.json','stage_0_4_artifact_sha256',None),('stage-0-6.json','input_0_5_sha256',None),('stage-0-7.json','input_0_6_sha256',None)]:
+            p=S/f; d=L(p); ub(d); d[key]=src if src is not None else chain[-1]; W(p,d); chain.append(H(p))
           r=L(R/'card-run.json')
+          promoted=0
           for op in r['operations']['insert']:
-            z=op['card'].get('stage_b_lineage');
+            card=op['card']; z=card.get('stage_b_lineage')
             if isinstance(z,dict): z['artifact_sha256']=bh
+            sid=card.get('source_spec_id') or (z.get('spec_id') if isinstance(z,dict) else None)
+            if sid and '_P_' in sid:
+              arts=op.get('stage_artifacts')
+              if not isinstance(arts,list) or not arts: raise SystemExit(f'missing stage_artifacts for {sid}')
+              arts[0]=promo; promoted+=1
+          if promoted!=5: raise SystemExit(f'expected 5 promoted operations, got {promoted}')
           oph=hashlib.sha256(json.dumps(r['operations'],sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest(); W(R/'card-run.json',r)
           x=L(R/'stage-0-7c.json'); x['reviewed_operations_sha256']=oph; x['hash_chain'].update(stage_a_promotion5_sha256=ah,stage_b_sha256=bh,stage_c_sha256=ch,stage_0_4_sha256=chain[0],stage_0_5_sha256=chain[1],stage_0_6_sha256=chain[2],stage_0_7_sha256=chain[3]); W(R/'stage-0-7c.json',x)
           for f in ['stage-0-8.json','card-run-audit.json']:
             p=R/f; d=L(p); d['reviewed_operations_sha256']=oph; W(p,d)
-          print('OP',oph); assert oph=='2ece8dca45b575a5575333bff3cd52424964c817ae2f46be4db83fd06cf9678c'
+          pathlib.Path('/tmp/opsha').write_text(oph)
+          print('FINAL_OPERATION_SHA256',oph)
           PY
       - name: Validate repaired chain before apply
         shell: bash
@@ -67,19 +77,33 @@ jobs:
           node scripts/validate_card_run_v4_hardening.mjs --run "$R"
           node scripts/validate_card_run_status_consistency.mjs --run "$R"
           node scripts/validate_card_run_relations.mjs --run "$R"
-      - name: Official apply and output validation
+          node scripts/validate_card_run_lineage_containers.mjs --run "$R" --canonical data/cards.full.json
+      - name: Official apply and exact invariant checks
         shell: bash
         run: |
           set -euo pipefail
           R=runs/2026-09-09/sep8-r7-current-main-production-r1/card-run.json; B=e19f6c113ccb62906e7fdefaf3bae657c58b5637
           node scripts/apply_card_run.mjs --apply --run "$R" --baseline data/cards.full.json --output data/cards.full.json --report runs/2026-09-09/sep8-r7-current-main-production-r1/apply-report.json --base-main-sha "$B" --lean-path public/data/cards.json
           node scripts/apply_card_run.mjs --verify --run "$R" --baseline data/cards.full.json --output data/cards.full.json --report runs/2026-09-09/sep8-r7-current-main-production-r1/apply-report.json --base-main-sha "$B" --lean-path public/data/cards.json
-          FH=$(sha256sum data/cards.full.json|awk '{print $1}'); LH=$(sha256sum public/data/cards.json|awk '{print $1}')
-          test "$FH" = 1e6041cf62a217b248cd315d0e434ab2d538a89961e36f314c2eee5e00688973
-          test "$LH" = 4a9cce46a4c994a37ba1ef34ea96eee8fb2546f6d227445e37cd7f234e97b8c2
           python - <<'PY'
-          import json,pathlib
-          p=pathlib.Path('runs/2026-09-09/sep8-r7-current-main-production-r1/card-run-audit.json'); d=json.load(open(p)); d['full_output_sha256']='1e6041cf62a217b248cd315d0e434ab2d538a89961e36f314c2eee5e00688973'; d['lean_output_sha256']='4a9cce46a4c994a37ba1ef34ea96eee8fb2546f6d227445e37cd7f234e97b8c2'; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          import json,hashlib,pathlib,subprocess
+          R=pathlib.Path('runs/2026-09-09/sep8-r7-current-main-production-r1')
+          full=pathlib.Path('data/cards.full.json'); lean=pathlib.Path('public/data/cards.json')
+          fh=hashlib.sha256(full.read_bytes()).hexdigest(); lh=hashlib.sha256(lean.read_bytes()).hexdigest()
+          d=json.load(open(R/'card-run-audit.json')); d['full_output_sha256']=fh; d['lean_output_sha256']=lh; (R/'card-run-audit.json').write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          base=json.loads(subprocess.check_output(['git','show','e19f6c113ccb62906e7fdefaf3bae657c58b5637:data/cards.full.json']))
+          out=json.load(open(full)); key=lambda x:x['id']; bm={key(x):x for x in base}; om={key(x):x for x in out}
+          new=sorted(set(om)-set(bm)); removed=sorted(set(bm)-set(om)); changed=[i for i in bm if i in om and bm[i]!=om[i]]
+          assert len(base)==1599 and len(out)==1617 and len(new)==18 and not removed and not changed, (len(base),len(out),len(new),removed[:3],changed[:3])
+          assert len(om)==len(out)
+          urls={}
+          for x in out:
+            for e in x.get('evidence',[]):
+              u=e.get('url') if isinstance(e,dict) else None
+              if u: urls.setdefault(u,[]).append(x['id'])
+          cross={u:ids for u,ids in urls.items() if len(set(ids))>1 and any(i in new for i in ids) and any(i not in new for i in ids)}
+          assert not cross, list(cross.items())[:3]
+          print('DEEP_INVARIANTS_PASS',{'base':len(base),'out':len(out),'new':len(new),'removed':0,'existing_changed':0,'full_sha256':fh,'lean_sha256':lh})
           PY
           node scripts/validate_card_run_audits_dispatch.mjs --run "$R" --full data/cards.full.json --lean public/data/cards.json
           node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$R"
@@ -88,11 +112,13 @@ jobs:
           node scripts/validate_cards.mjs public/data/cards.json
           node scripts/lean_cards.mjs --check
           git diff --check
-      - name: Commit repair and remove bootstrap
+      - name: Commit repaired production state and self-clean
         shell: bash
         run: |
           set -euo pipefail
           rm -rf .promotion-fix-bootstrap .card-run-bootstrap-fix
           rm -f .github/workflows/sep8-promotion-identity-fix.yml
           git config user.name 'github-actions[bot]'; git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A; git commit -m 'Fix Sep 8 promotion Related lineage binding'; git push origin HEAD:chatgpt/sep8-r7-current-main-production-r1
+          git add -A
+          git commit -m 'Fix Sep 8 promotion Related lineage binding'
+          git push origin HEAD:chatgpt/sep8-r7-current-main-production-r1

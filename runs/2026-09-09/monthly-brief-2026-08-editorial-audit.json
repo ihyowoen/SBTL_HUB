@@ -63,7 +63,7 @@
       "id": "03",
       "title": "현지화, 공장 위치에서 원료·재활용·자본·전력망 보안으로 확대",
       "decision": "SELECT",
-      "reason": "Policy and capital instruments reached recycling feedstock retention, bulk-power equipment/software security, conditional strategic lending and binding domestic lithium offtake. Localisation therefore became a multi-layer eligibility and control problem, not merely plant location.",
+      "reason": "Policy and capital instruments reached a one-year export restriction on recycling feedstock, bulk-power equipment/software security, conditional strategic lending and binding domestic lithium offtake. Localisation therefore became a multi-layer eligibility and control problem, not merely plant location.",
       "anchor_card_ids": [
         "2026-08-06_US_01",
         "2026-08-26_US_01",
@@ -75,12 +75,11 @@
       "id": "04",
       "title": "중국, 규모 확대와 이용률·수익성 압력이 동시에 커짐",
       "decision": "SELECT",
-      "reason": "China combined very large cumulative storage scale and new manufacturing starts with year-on-year declines in H1 new commissioning, a clarified consumption-tax boundary and renewed upstream supply uncertainty. The relevant next metric is execution quality/utilisation, not announced capacity alone.",
+      "reason": "China combined very large cumulative storage scale and new manufacturing starts with year-on-year declines in H1 new commissioning and a clarified consumption-tax boundary. The relevant next metric is execution quality, utilisation and tax-adjusted economics rather than announced capacity alone.",
       "anchor_card_ids": [
         "2026-08-27_CN_01",
         "2026-08-30_CN_01",
-        "2026-08-27_CN_02",
-        "2026-08-26_CN_02"
+        "2026-08-27_CN_02"
       ]
     }
   ],
@@ -124,7 +123,14 @@
     },
     {
       "status": "LATE_NON_CANONICAL_RESEARCH_SIGNAL",
-      "finding": "A September report on an August urgent call from EU strategic-mineral project developers highlighted liquidity/financing delays. It was used only as red-team counterevidence against assuming policy designation automatically creates executable financing, and was excluded from official refs because it was not in the locked August canonical snapshot."
+      "finding": "A September report on an August urgent call from EU strategic-mineral project developers highlighted liquidity and financing delays. It was used only as red-team counterevidence against assuming policy designation automatically creates executable financing, and was excluded from official refs because it was not in the locked August canonical snapshot.",
+      "source": {
+        "publisher": "Reuters",
+        "title": "Some critical mineral firms chosen by EU flag project liquidity concerns",
+        "publication_date": "2026-09-08",
+        "url": "https://www.reuters.com/world/china/some-critical-mineral-firms-chosen-by-eu-flag-project-liquidity-concerns-2026-09-08/",
+        "retrieved_date": "2026-09-09"
+      }
     },
     {
       "status": "POST_MONTH_CANONICAL_SIGNAL_NOT_OFFICIAL_AUGUST_REF",
@@ -132,8 +138,8 @@
     }
   ],
   "official_source_selection": {
-    "selected_card_count": 18,
-    "selection_principle": "Use decision-relevant anchors that collectively prove the four flows; avoid citing every reinforcing card or double-counting repeated stages. Global aggregate cards may support the executive diagnosis without being attached to a region-specific flow.",
+    "selected_card_count": 17,
+    "selection_principle": "Use decision-relevant anchors that collectively prove the four flows; avoid citing every reinforcing card or double-counting repeated stages. Global aggregate cards may support the executive diagnosis without being attached to a region-specific flow. Post-month claim enrichments are excluded from official August refs when the public source binding would cross the month boundary.",
     "source_card_ids": [
       "2026-08-03_GL_01",
       "2026-08-05_GL_01",
@@ -151,8 +157,7 @@
       "2026-08-07_US_01",
       "2026-08-31_US_02",
       "2026-08-27_CN_01",
-      "2026-08-27_CN_02",
-      "2026-08-26_CN_02"
+      "2026-08-27_CN_02"
     ]
   },
   "qc": {
@@ -163,6 +168,6 @@
     "causal_language": "PASS",
     "newsletter_independence": "PASS",
     "official_refs_locked_to_august_canonical": "PASS",
-    "review_remediation": "PASS — Lansing production start and planned EV-NCM/ESS-LFP product mix are explicitly separated after Codex P2 review."
+    "review_remediation": "PASS — Lansing production start is separated from planned product mix; black-mass wording is narrowed to the governed one-year export restriction; the Jianxiawo post-month-enriched ref is removed from official August evidence; non-canonical EU liquidity counterevidence now carries source provenance."
   }
 }

@@ -5,6 +5,7 @@ on:
     branches:
       - chatgpt/sep8-r7-current-main-production-r1
     paths:
+      - '.promotion-fix-bootstrap/**'
       - '.card-run-bootstrap-fix/**'
       - '.github/workflows/sep8-promotion-identity-fix.yml'
 
@@ -25,7 +26,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat .card-run-bootstrap-fix/part-* | base64 -d > "$RUNNER_TEMP/fix.tar.xz"
+          cat \
+            .promotion-fix-bootstrap/part-00 \
+            .promotion-fix-bootstrap/part-01 \
+            .card-run-bootstrap-fix/part-02 \
+            .card-run-bootstrap-fix/part-03 \
+            | base64 -d > "$RUNNER_TEMP/fix.tar.xz"
           echo 'd506e2f7d22edcebe6c67713a42af629403e76420db939c1df5f3260e9e31793  '"$RUNNER_TEMP/fix.tar.xz" | sha256sum -c -
           tar -xJf "$RUNNER_TEMP/fix.tar.xz"
       - name: Verify authoritative baseline has not moved
@@ -59,7 +65,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf .card-run-bootstrap-fix
+          rm -rf .promotion-fix-bootstrap .card-run-bootstrap-fix
           rm -f .github/workflows/sep8-promotion-identity-fix.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

@@ -1,0 +1,36 @@
+name: preflight-monthly-brief-2026-08-once
+
+on:
+  push:
+    branches:
+      - chatgpt/publish-monthly-brief-2026-08
+    paths:
+      - ".github/workflows/preflight-monthly-brief-2026-08-once.yml"
+      - "public/data/monthly_briefs.json"
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/publish-monthly-brief-2026-08
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - name: Validate official Monthly Brief provenance and publication contract
+        run: npm run validate:monthly-briefs
+      - name: Run Monthly Brief boundary tests
+        run: npx vitest run __tests__/monthlyBriefPublication.test.js __tests__/monthlyBriefProvenance.test.js __tests__/monthlyBriefProductBoundary.test.js __tests__/monthlyBriefSelection.test.js __tests__/monthlyBriefActiveDomain.test.js __tests__/quickAnalysisLabels.test.js
+      - name: Run full unit suite
+        run: npm test
+      - name: Production build
+        run: npm run build
+      - name: Diff integrity
+        run: git diff --check

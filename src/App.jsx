@@ -7,7 +7,8 @@ import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
 import { getArticleImageKey, useFreshArticleImages } from "./story/useFreshArticleImages";
 import MdText from "./MdText";
-import StrategicBriefPanel from "./StrategicBriefPanel";
+import MonthlyBriefPanel from "./MonthlyBriefPanel";
+import { quickAnalysisChipLabel } from "./quickAnalysisLabels.js";
 import { composeKangBriefing, pickStaleBrief } from "./kang";
 import {
   createConsultation,
@@ -546,7 +547,7 @@ function ChatGuide({ dark, runSuggestion }) {
   const t = T(dark);
   const groups = [
     { icon: "⚡", title: "앱 조작 (말로 시키기)", desc: "워치·프로필·피드 필터를 채팅으로 바로 조작해", chips: ["CATL 워치에 추가해줘", "삼성SDI 프로필 보여줘", "중국 최근 7일 카드만 보여줘"] },
-    { icon: "📮", title: "브리핑", desc: "공식 월간 전략 브리핑은 편집 승인본만 · 자동 생성은 주간/30일 빠른 분석으로 분리", chips: ["주간 브리프 보여줘", "지금 브리프 만들어줘", "30일 빠른 분석 만들어줘", "월간 전략 브리핑 보여줘"] },
+    { icon: "📮", title: "브리핑", desc: "SBTL Monthly Brief는 Deep Dive·편집 승인본만 · 자동 생성은 주간/빠른 분석으로 분리", chips: ["월간 브리프 보여줘", "주간 브리프 보여줘", "30일 빠른 분석 만들어줘", "2026년 8월 월별 빠른 분석 만들어줘"] },
     { icon: "🔍", title: "검색·비교·개인화", desc: "답변엔 [n] 근거 인용이 달려", chips: ["내워치 최근 소식 정리해줘", "LFP랑 NCM 비교해줘", "미국 FEOC 쉽게 설명해줘"] },
   ];
   return (
@@ -798,7 +799,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     ].join("\n");
     writeClipboard(text, () => { setCopiedWeekly(true); setTimeout(() => setCopiedWeekly(false), 1600); });
   };
-  // 브리프 열람 seed 소비 — 챗("5월 브리프 보여줘")·발행 완료가 특정 호수를 지목한다.
+  // 브리프 열람 seed 소비 — 챗("5월 빠른 분석 보여줘")·발행 완료가 특정 호수를 지목한다.
   // 소비 즉시 부모 seed를 비활성화해야 탭을 떠났다 돌아와 리마운트될 때 옛 명령이 재생되지 않는다.
   const briefSeedRef = useRef(0);
   const shelfRef = useRef(null); // 📮 선반 컨테이너 — seed 소비 시 결과 위치로 스크롤(빌더는 한참 아래라 완성이 화면 밖에서 일어남)
@@ -808,7 +809,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     if (!briefSeed.open) return;
     setWeeklyOpen(true);
     // 호수 선택: id(방금 만든 그 호수) > '요청한 면과 정확히 같은' 최신호. 요청한 면
-    // (기간·달·구성)은 정확히 일치, 요청하지 않은 면은 부재 요구 — '월간 브리프 보여줘'
+    // (기간·달·구성)은 정확히 일치, 요청하지 않은 면은 부재 요구 — '30일 빠른 분석 보여줘'
     // (기간만)가 더 최근의 5월호·지역별호를 열면 안 되고, '5월 지역별'은 5월 지역별호를
     // 골라야 한다. weeklyBriefs는 최신순이라 .find가 곧 '가장 최근 동일 변형'.
     const wantPeriod = briefSeed.period;
@@ -991,8 +992,8 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     } else if (roomSeed.view === "builder") {
       setBuilderOpen(true);
       setTimeout(() => { try { builderPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { /* noop */ } }, 60);
-    } else if (roomSeed.view === "strategic") {
-      setTimeout(() => { try { document.getElementById("strategic-brief-panel")?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { /* noop */ } }, 60);
+    } else if (roomSeed.view === "monthly") {
+      setTimeout(() => { try { document.getElementById("monthly-brief-panel")?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { /* noop */ } }, 60);
     }
     if (typeof onRoomSeedConsumed === "function") onRoomSeedConsumed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -1158,7 +1159,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
       ) : (
         <div style={{ fontSize: 11.5, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>아직 매칭 카드가 없어요 — 워치를 넓혀보거나 상담소에 물어보세요.</div>
       )}
-      <><StrategicBriefPanel dark={dark} cards={kb.cards} seed={roomSeed} />{sectionTitle("⚡ 빠른 분석", `주간은 자동 생성${watchTerms.length ? "" : " (워치가 비어 있어 전체 카드 기준)"} — 필요할 때 30일·월별·지역별·주제별 분석도 바로 만들 수 있어요. 공식 VOL.xx 월간 전략 브리핑과는 별도입니다.`)}</>
+      <><MonthlyBriefPanel dark={dark} cards={kb.cards} seed={roomSeed} />{sectionTitle("⚡ 빠른 분석", `주간은 자동 생성${watchTerms.length ? "" : " (워치가 비어 있어 전체 카드 기준)"} — 필요할 때 30일·월별·지역별·주제별 분석도 바로 만들 수 있어요. 공식 SBTL Monthly Brief와는 별도입니다.`)}</>
       {(weeklyBriefs.length > 0 || weeklyGenerating || weeklyError) ? (() => {
         const shown = weeklyBriefs.find((e) => e.id === weeklyShownId) || weeklyBriefs[0];
         const hasUnread = weeklyBriefs.some((e) => !e.read);
@@ -1991,18 +1992,7 @@ function recordBriefDismissal(id, entry) {
 // 아예 빼고, 롤링 주간/월간·커스텀은 발행일이 정체성이라 짧은 날짜(MM.DD)를 뒤에 둔다.
 // 커스텀은 🧩가 곧 라벨이라 칩 접미 아이콘을 따로 붙이지 않는다.
 function briefChipLabel(e, nowYear, dupMonth = false) {
-  const dd = String((e && e.generated_at) || "").slice(5);
-  if (e && e.month) {
-    const y = Number(e.month.slice(0, 4));
-    // 달력월 커스텀(빌더에서 달 칩 선택)은 🧩를 라벨에 포함 — 렌더러의 접미 아이콘이
-    // 🗺/🏷만 다루므로 여기서 빼면 커스텀 5월호가 일반 5월호와 똑같아 보인다(Codex #181).
-    // 같은 달 호수가 선반에 여럿이면(범위·구성·spec이 달라 공존 — 쿨다운 규약상 정당)
-    // 그때만 발행일을 뒤에 복원한다 — 평시엔 깔끔하게, 충돌 시엔 구별 가능하게.
-    return `${Number.isFinite(nowYear) && y !== nowYear ? `${y}년 ` : ""}${Number(e.month.slice(5))}월호${e.group === "custom" ? "🧩" : ""}${dupMonth ? ` ${dd}` : ""}`;
-  }
-  // 롤링 커스텀도 기간을 표기 — 주간·월간 커스텀이 같은 날 발행되면 🧩 MM.DD만으로는 동일해진다
-  if (e && e.group === "custom") return `🧩 ${e.period === "monthly" ? "월간" : "주간"} ${dd}`;
-  return `${e && e.period === "monthly" ? "월간" : "주간"} ${dd}`;
+  return quickAnalysisChipLabel(e, nowYear, dupMonth);
 }
 
 // 패시브 주기 판정은 '일반(plain) 주간' 항목만 본다 — 패시브가 만드는 게 그것뿐이므로.
@@ -4133,7 +4123,7 @@ function AppContent() {
   // 브리프 열람 seed — 브리핑룸(Watchroom)이 소비한다(R12: 선반이 NEWS→브리핑룸으로 이사).
   // open이면 선반을 펼치고 period/month/group/id로 호수를 지목한다.
   const [briefSeed, setBriefSeed] = useState({ open: false, period: null, month: null, group: null, specSig: null, id: null, nonce: 0 });
-  const [roomSeed, setRoomSeed] = useState(null); // 딥링크 — {view:"map"|"builder"|"strategic", edition?, month?, nonce}
+  const [roomSeed, setRoomSeed] = useState(null); // 딥링크 — {view:"map"|"builder"|"monthly", month?, nonce}
   const markBriefSeedConsumed = useMemo(() => () => setBriefSeed((s) => (s.open ? { ...s, open: false, period: null, month: null, group: null, specSig: null, id: null } : s)), []);
   // NewsDesk가 seed를 소비한 뒤 지시 내용을 비운다(nonce는 유지해 다음 명령의 증가와
   // 구분). 이렇게 해야 NEWS 재방문(NewsDesk 리마운트)에서 옛 프로필/선반이 재생되지 않는다.
@@ -4476,11 +4466,11 @@ function AppContent() {
       } else if (cmd.type === "profile_open" && cmd.term) {
         setNewsSeed((s) => ({ profileTerm: cmd.term, feedFilter: null, nonce: s.nonce + 1 }));
         setTab("news");
-      } else if (cmd.type === "strategic_show") {
-        setRoomSeed((s) => ({ view: "strategic", edition: cmd.edition || null, month: cmd.month || null, nonce: (s ? s.nonce : 0) + 1 }));
+      } else if (cmd.type === "monthly_show") {
+        setRoomSeed((s) => ({ view: "monthly", month: cmd.month || null, nonce: (s ? s.nonce : 0) + 1 }));
         setTab("watchroom");
       } else if (cmd.type === "weekly_show") {
-        // 기간·달·구성을 명시한 열람("월간/5월/5월 지역별 브리프 보여줘")은 그 변형 호수를 연다 — 없으면 최신호 폴백.
+        // 기간·달·구성을 명시한 열람("30일/5월 월별/5월 지역별 빠른 분석 보여줘")은 그 변형 호수를 연다 — 없으면 최신호 폴백.
         // R12: 브리프의 집은 브리핑룸 — 선반 seed를 올리고 브리핑룸으로 이동한다.
         // id가 오면 그 호수를 정확히 지목(강차장 '읽기' 등) — 면만으로는 같은 면의 더 최신호가
         // 대신 열리고 읽음 처리도 그쪽에 붙는다(Codex #190).
@@ -4521,7 +4511,7 @@ function AppContent() {
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
   }, []);
-  // onlyId를 주면 그 호수만 읽음 처리한다 — 기간 고정 열람("월간 브리프 보여줘")은 최신호가
+  // onlyId를 주면 그 호수만 읽음 처리한다 — 기간 고정 열람("30일 빠른 분석 보여줘")은 최신호가
   // 아닌 호수를 일부러 여는데, 전체를 읽음 처리하면 위에 있는 안 본 주간호의 NEW가 조용히
   // 사라진다. 인자 없이 부르면 기존대로 전체 처리(선반 토글은 최신호를 보여주므로 그대로).
   const markWeeklyBriefsRead = useMemo(() => (onlyId) => {
@@ -4652,7 +4642,7 @@ function AppContent() {
   if (kb.loading || trackerLoading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: t.bg, color: t.sub }}>Loading...</div>;
 
   const headerTitle = { news: "날짜별 시그널 피드", chatbot: "강차장의 배터리 상담소", watchroom: "브리핑룸", archive: "자료실" }[tab];
-  const headerSub = { news: `Cards ${kb.cardCount} · updated ${fmtDate(lastCardDate)} · live feed`, chatbot: "배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크", watchroom: "월간 전략 브리핑 · 빠른 분석 · 내 워치 · 저장 카드", archive: `정책 ${tracker.meta.totalItems}건 · 용어 ${kb.faqCount}항목 · ${WEBTOON_COLLECTIONS.length}시리즈` }[tab] || `Cards ${kb.cardCount} · ESS · EV · Policy`;
+  const headerSub = { news: `Cards ${kb.cardCount} · updated ${fmtDate(lastCardDate)} · live feed`, chatbot: "배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크", watchroom: "SBTL Monthly Brief · 빠른 분석 · 내 워치 · 저장 카드", archive: `정책 ${tracker.meta.totalItems}건 · 용어 ${kb.faqCount}항목 · ${WEBTOON_COLLECTIONS.length}시리즈` }[tab] || `Cards ${kb.cardCount} · ESS · EV · Policy`;
 
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", background: t.bg, minHeight: "100vh", fontFamily: "'Pretendard',-apple-system,sans-serif", position: "relative" }}>

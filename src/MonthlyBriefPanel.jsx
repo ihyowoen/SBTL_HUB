@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { isOfficialStrategicBrief, validateStrategicBriefLibrary } from "../lib/brief/strategicPublication.js";
-import { selectStrategicIssue } from "./strategicBriefSelection.js";
+import { isOfficialMonthlyBrief, validateMonthlyBriefLibrary } from "../lib/brief/monthlyPublication.js";
+import { monthlyBriefSeedState, selectMonthlyBrief } from "./monthlyBriefSelection.js";
 
 function theme(dark) {
   return dark
@@ -12,6 +12,11 @@ function issueRank(a, b) {
   return String(b?.month || "").localeCompare(String(a?.month || ""))
     || Number(b?.revision || 0) - Number(a?.revision || 0)
     || String(b?.published_at || "").localeCompare(String(a?.published_at || ""));
+}
+
+function monthLabel(month) {
+  const m = String(month || "").match(/^(\d{4})-(\d{2})$/);
+  return m ? `${m[1]}.${m[2]}` : String(month || "");
 }
 
 function monthCount(cards, month) {
@@ -31,7 +36,7 @@ function refLinks(ids, refById, t) {
   );
 }
 
-export default function StrategicBriefPanel({ dark = true, cards = [], seed = null }) {
+export default function MonthlyBriefPanel({ dark = true, cards = [], seed = null }) {
   const t = theme(dark);
   const rootRef = useRef(null);
   const [library, setLibrary] = useState(null);
@@ -41,10 +46,10 @@ export default function StrategicBriefPanel({ dark = true, cards = [], seed = nu
 
   useEffect(() => {
     let alive = true;
-    fetch("/data/strategic_briefs.json", { cache: "no-store" })
+    fetch("/data/monthly_briefs.json", { cache: "no-store" })
       .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then((j) => {
-        const errors = validateStrategicBriefLibrary(j);
+        const errors = validateMonthlyBriefLibrary(j);
         if (errors.length) throw new Error(`invalid official library: ${errors[0]}`);
         if (alive) { setLibrary(j); setLoadError(false); }
       })
@@ -53,26 +58,28 @@ export default function StrategicBriefPanel({ dark = true, cards = [], seed = nu
   }, []);
 
   useEffect(() => {
-    if (!seed || seed.view !== "strategic" || !seed.nonce) return;
-    setRequested({ edition: seed.edition || null, month: seed.month || null });
+    const next = monthlyBriefSeedState(seed);
+    if (!next) return;
+    setRequested(next.requested);
+    if (next.resetSelection) setSelectedId(null);
     const timer = setTimeout(() => { try { rootRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { /* noop */ } }, 60);
     return () => clearTimeout(timer);
   }, [seed?.nonce]);
 
-  const items = useMemo(() => (library?.items || []).filter(isOfficialStrategicBrief).slice().sort(issueRank), [library]);
+  const items = useMemo(() => (library?.items || []).filter(isOfficialMonthlyBrief).slice().sort(issueRank), [library]);
 
   useEffect(() => {
     if (!items.length) { setSelectedId(null); return; }
-    if (requested) {
-      const { issue } = selectStrategicIssue(items, requested, selectedId);
+    if (requested?.month) {
+      const { issue } = selectMonthlyBrief(items, requested, selectedId);
       setSelectedId(issue?.id || null);
       return;
     }
     setSelectedId((cur) => items.some((it) => it.id === cur) ? cur : items[0].id);
   }, [items, requested]);
 
-  const { issue: shown, requestMissing } = selectStrategicIssue(items, requested, selectedId);
-  const requestedLabel = requested?.edition || (requested?.month ? `${requested.month} 월간 전략 브리핑` : "요청한 공식 월간 전략 브리핑");
+  const { issue: shown, requestMissing } = selectMonthlyBrief(items, requested, selectedId);
+  const requestedLabel = requested?.month ? `${monthLabel(requested.month)} 월간 브리프` : "요청한 공식 월간 브리프";
   const refById = useMemo(() => new Map((shown?.refs || []).map((r) => [r.id, r])), [shown]);
   const nowMonthCount = shown ? monthCount(cards, shown.month) : null;
   const baselineCount = Number.isInteger(shown?.source_baseline?.source_month_count) ? shown.source_baseline.source_month_count : null;
@@ -80,24 +87,24 @@ export default function StrategicBriefPanel({ dark = true, cards = [], seed = nu
   const shortSha = (v) => String(v || "").slice(0, 8);
 
   return (
-    <section id="strategic-brief-panel" ref={rootRef} aria-label="월간 전략 브리핑" style={{ scrollMarginTop: 12, marginTop: 16 }}>
+    <section id="monthly-brief-panel" ref={rootRef} aria-label="SBTL 월간 브리프" style={{ scrollMarginTop: 12, marginTop: 16 }}>
       <div style={{ marginBottom: 8 }}>
-        <div style={{ fontSize: 10, fontWeight: 900, letterSpacing: 1.1, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>🧭 OFFICIAL · MONTHLY STRATEGIC BRIEF</div>
-        <div style={{ fontSize: 10.5, color: t.sub, marginTop: 3, lineHeight: 1.55, wordBreak: "keep-all" }}>편집·Red Team·근거·용어 QC를 모두 통과한 승인본만 여기에 표시됩니다. 자동 빠른 분석과는 별도 정본입니다.</div>
+        <div style={{ fontSize: 10, fontWeight: 900, letterSpacing: 1.1, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>🧭 OFFICIAL · SBTL MONTHLY BRIEF</div>
+        <div style={{ fontSize: 10.5, color: t.sub, marginTop: 3, lineHeight: 1.55, wordBreak: "keep-all" }}>월간 전체를 Deep Dive하고 편집·Red Team·근거·용어 QC를 통과한 승인본만 표시합니다. 자동 빠른 분석과는 별도 정본입니다.</div>
       </div>
 
-      {!library && !loadError && <div style={{ borderRadius: 12, padding: "13px 14px", background: t.card2, border: `1px solid ${t.brd}`, fontSize: 11, color: t.sub }}>공식 발행본 확인 중…</div>}
-      {loadError && <div style={{ borderRadius: 12, padding: "13px 14px", background: t.card2, border: `1px dashed ${t.brd}`, fontSize: 11, color: t.sub, lineHeight: 1.6 }}>공식 월간 전략 브리핑 정본을 불러오지 못했습니다. 자동 분석으로 대체하지 않습니다.</div>}
+      {!library && !loadError && <div style={{ borderRadius: 12, padding: "13px 14px", background: t.card2, border: `1px solid ${t.brd}`, fontSize: 11, color: t.sub }}>공식 월간 브리프 확인 중…</div>}
+      {loadError && <div style={{ borderRadius: 12, padding: "13px 14px", background: t.card2, border: `1px dashed ${t.brd}`, fontSize: 11, color: t.sub, lineHeight: 1.6 }}>SBTL Monthly Brief 정본을 불러오지 못했습니다. 자동 분석으로 대체하지 않습니다.</div>}
       {library && !loadError && requestMissing && (
         <div style={{ borderRadius: 12, padding: "14px", background: t.card2, border: `1px solid ${t.brd}` }}>
           <div style={{ fontSize: 13, fontWeight: 900, color: t.tx }}>편집 중 · {requestedLabel} 공식 발행본 없음</div>
-          <div style={{ marginTop: 5, fontSize: 11, color: t.sub, lineHeight: 1.65, wordBreak: "keep-all" }}>요청한 공식본이 없어서 다른 VOL이나 자동 분석으로 대체하지 않습니다. 승인 후 이 자리에 표시됩니다.</div>
+          <div style={{ marginTop: 5, fontSize: 11, color: t.sub, lineHeight: 1.65, wordBreak: "keep-all" }}>요청한 월의 승인본이 없어서 다른 달이나 자동 분석으로 대체하지 않습니다. 승인 후 이 자리에 표시됩니다.</div>
         </div>
       )}
       {library && !loadError && !requested && items.length === 0 && (
         <div style={{ borderRadius: 12, padding: "14px", background: t.card2, border: `1px solid ${t.brd}` }}>
-          <div style={{ fontSize: 13, fontWeight: 900, color: t.tx }}>편집 중 · 아직 공식 발행본 없음</div>
-          <div style={{ marginTop: 5, fontSize: 11, color: t.sub, lineHeight: 1.65, wordBreak: "keep-all" }}>공식 VOL.xx가 승인되기 전에는 자동으로 월간 전략 브리핑을 만들지 않습니다. 아래 빠른 분석은 조사·탐색용으로만 사용할 수 있습니다.</div>
+          <div style={{ fontSize: 13, fontWeight: 900, color: t.tx }}>편집 중 · 아직 공식 월간 브리프 없음</div>
+          <div style={{ marginTop: 5, fontSize: 11, color: t.sub, lineHeight: 1.65, wordBreak: "keep-all" }}>SBTL Monthly Brief가 승인되기 전에는 자동으로 만들지 않습니다. 아래 빠른 분석은 조사·탐색용으로만 사용할 수 있습니다.</div>
         </div>
       )}
 
@@ -106,9 +113,9 @@ export default function StrategicBriefPanel({ dark = true, cards = [], seed = nu
           <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
-                <span style={{ fontSize: 10, fontWeight: 900, color: "#000", background: t.cyan, borderRadius: 5, padding: "3px 7px", fontFamily: "'JetBrains Mono',monospace" }}>{shown.edition}</span>
+                <span style={{ fontSize: 10, fontWeight: 900, color: "#000", background: t.cyan, borderRadius: 5, padding: "3px 7px", fontFamily: "'JetBrains Mono',monospace" }}>{monthLabel(shown.month)}</span>
                 {shown.revision > 1 && <span style={{ fontSize: 9.5, fontWeight: 800, color: t.amber, border: `1px solid ${t.amber}`, borderRadius: 999, padding: "2px 7px", fontFamily: "'JetBrains Mono',monospace" }}>R{shown.revision}</span>}
-                <span style={{ fontSize: 9.5, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{shown.month} · {shown.published_at} 발행</span>
+                <span style={{ fontSize: 9.5, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{shown.published_at} 발행</span>
               </div>
               <div style={{ marginTop: 7, fontSize: 16, fontWeight: 900, color: t.tx, lineHeight: 1.35, wordBreak: "keep-all" }}>{shown.title}</div>
             </div>
@@ -122,41 +129,26 @@ export default function StrategicBriefPanel({ dark = true, cards = [], seed = nu
           )}
 
           <div style={{ marginTop: 12, borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, padding: "11px 12px" }}>
-            <div style={{ fontSize: 9.5, fontWeight: 900, color: t.sub, letterSpacing: 0.8, fontFamily: "'JetBrains Mono',monospace" }}>EXECUTIVE DIAGNOSIS</div>
+            <div style={{ fontSize: 9.5, fontWeight: 900, color: t.sub, letterSpacing: 0.8, fontFamily: "'JetBrains Mono',monospace" }}>핵심 진단</div>
             <div style={{ marginTop: 6, fontSize: 13, fontWeight: 700, color: t.tx, lineHeight: 1.75, wordBreak: "keep-all" }}>{shown.executive_diagnosis}</div>
           </div>
 
           <div style={{ marginTop: 10 }}>
-            <div style={{ fontSize: 9.5, fontWeight: 900, color: t.sub, letterSpacing: 0.8, fontFamily: "'JetBrains Mono',monospace" }}>STRUCTURAL SIGNALS · {shown.structural_signals?.length || 0}</div>
+            <div style={{ fontSize: 9.5, fontWeight: 900, color: t.sub, letterSpacing: 0.8, fontFamily: "'JetBrains Mono',monospace" }}>이번 달의 핵심 흐름 · {shown.key_flows?.length || 0}</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 7, marginTop: 6 }}>
-              {(shown.structural_signals || []).map((sig) => (
-                <div key={sig.id} style={{ borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, padding: "10px 11px" }}>
-                  <div style={{ fontSize: 12, fontWeight: 900, color: t.tx }}><span style={{ color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>{sig.id}</span> · {sig.title}</div>
-                  <div style={{ marginTop: 4, fontSize: 11.5, color: t.tx, lineHeight: 1.65, wordBreak: "keep-all" }}>{sig.summary}</div>
-                  {refLinks(sig.card_ids, refById, t)}
+              {(shown.key_flows || []).map((flow) => (
+                <div key={flow.id} style={{ borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, padding: "10px 11px" }}>
+                  <div style={{ fontSize: 12, fontWeight: 900, color: t.tx }}><span style={{ color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>{flow.id}</span> · {flow.title}</div>
+                  <div style={{ marginTop: 4, fontSize: 11.5, color: t.tx, lineHeight: 1.65, wordBreak: "keep-all" }}>{flow.summary}</div>
+                  {refLinks(flow.card_ids, refById, t)}
                 </div>
               ))}
             </div>
           </div>
 
-          {Array.isArray(shown.regional_signals) && shown.regional_signals.length > 0 && (
-            <div style={{ marginTop: 10 }}>
-              <div style={{ fontSize: 9.5, fontWeight: 900, color: t.sub, letterSpacing: 0.8, fontFamily: "'JetBrains Mono',monospace" }}>REGIONAL SIGNALS</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 6 }}>
-                {shown.regional_signals.map((sig, i) => (
-                  <div key={`${sig.title}-${i}`} style={{ borderLeft: `3px solid ${t.brd}`, padding: "5px 0 5px 10px" }}>
-                    <div style={{ fontSize: 11.5, fontWeight: 900, color: t.tx }}>{sig.title}</div>
-                    <div style={{ marginTop: 2, fontSize: 11, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>{sig.summary}</div>
-                    {refLinks(sig.card_ids, refById, t)}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           <div style={{ marginTop: 10, borderTop: `1px solid ${t.brd}`, paddingTop: 10 }}>
-            <div style={{ fontSize: 9.5, fontWeight: 900, color: t.sub, letterSpacing: 0.8, fontFamily: "'JetBrains Mono',monospace" }}>CONCLUSION</div>
-            <div style={{ marginTop: 5, fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.7, wordBreak: "keep-all" }}>{shown.conclusion}</div>
+            <div style={{ fontSize: 9.5, fontWeight: 900, color: t.sub, letterSpacing: 0.8, fontFamily: "'JetBrains Mono',monospace" }}>무엇이 달라졌나</div>
+            <div style={{ marginTop: 5, fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.7, wordBreak: "keep-all" }}>{shown.what_changed}</div>
           </div>
 
           {Array.isArray(shown.watch) && shown.watch.length > 0 && (
@@ -172,12 +164,23 @@ export default function StrategicBriefPanel({ dark = true, cards = [], seed = nu
               <div>source cards {shown.source_card_ids?.length || 0} · refs {shown.refs?.length || 0}</div>
               <div>main {shortSha(shown.source_baseline?.main_commit_sha)} · full {shortSha(shown.source_baseline?.full_blob_sha)}</div>
               <div>QC evidence/red-team/coherence/language = PASS · approval {shown.approval?.approved_at}</div>
+              <div style={{ marginTop: 7, paddingTop: 7, borderTop: `1px dashed ${t.brd}`, display: "flex", flexDirection: "column", gap: 5 }}>
+                {(shown.refs || []).map((r) => (
+                  <div key={r.id} style={{ display: "flex", gap: 6, alignItems: "baseline", minWidth: 0 }}>
+                    <span style={{ flexShrink: 0, color: t.cyan }}>[{r.n}]</span>
+                    {r.url
+                      ? <a href={r.url} target="_blank" rel="noreferrer" style={{ color: t.tx, textDecorationColor: t.brd, wordBreak: "keep-all" }}>{r.title}</a>
+                      : <span style={{ color: t.tx, wordBreak: "keep-all" }}>{r.title}</span>}
+                    <span style={{ flexShrink: 0, color: t.sub }}>{r.date}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </details>
 
           {items.length > 1 && (
             <div style={{ marginTop: 10, display: "flex", gap: 6, flexWrap: "wrap" }}>
-              {items.map((it) => <button key={it.id} onClick={() => { setRequested(null); setSelectedId(it.id); }} aria-pressed={shown.id === it.id} style={{ borderRadius: 999, padding: "5px 9px", border: `1px solid ${shown.id === it.id ? t.cyan : t.brd}`, background: shown.id === it.id ? t.cyan : "transparent", color: shown.id === it.id ? "#000" : t.sub, fontSize: 9.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{it.edition}{it.revision > 1 ? ` R${it.revision}` : ""}</button>)}
+              {items.map((it) => <button key={it.id} onClick={() => { setRequested(null); setSelectedId(it.id); }} aria-pressed={shown.id === it.id} style={{ borderRadius: 999, padding: "5px 9px", border: `1px solid ${shown.id === it.id ? t.cyan : t.brd}`, background: shown.id === it.id ? t.cyan : "transparent", color: shown.id === it.id ? "#000" : t.sub, fontSize: 9.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{monthLabel(it.month)}{it.revision > 1 ? ` R${it.revision}` : ""}</button>)}
             </div>
           )}
         </div>

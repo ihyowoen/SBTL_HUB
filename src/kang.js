@@ -1,3 +1,5 @@
+import { calendarQuickAnalysisLabel, quickAnalysisProseLabel } from "./quickAnalysisLabels.js";
+
 // 강차장 브리핑(R18) — 접속하면 앱이 먼저 말을 거는 제안 카드의 문장 구성기.
 //
 // 설계 원칙(사용자 통찰: "사람들은 처음엔 능동적이지 않다 — 제안을 계속 받고
@@ -106,7 +108,7 @@ export function composeKangBriefing(inp) {
     lines.push({
       // id로 그 호수를 정확히 지목 — 면만 보내면 같은 면의 더 최신호가 대신 열리고
       // 읽음 처리도 그쪽에 붙는다(Codex #190). 면은 id 미발견 시 폴백용으로 유지.
-      text: `${i.unreadBrief.label} 브리프 만들어뒀어 — 읽고 가.`,
+      text: `${quickAnalysisProseLabel(i.unreadBrief)} 만들어뒀어 — 읽고 가.`,
       chip: "읽기", cmd: { type: "weekly_show", id: i.unreadBrief.id || null, period: i.unreadBrief.period || null, month: i.unreadBrief.month || null, group: i.unreadBrief.group || null },
     });
   }
@@ -114,8 +116,8 @@ export function composeKangBriefing(inp) {
     lines.push({
       // group 보존 — 지역별/주제별 월호가 낡았는데 group 없이 보내면 일반 월호가 열려
       // 정작 낡은 그 호수(재발행 버튼이 있는 곳)에 못 간다(Codex #190).
-      text: `${i.staleBrief.monthNum}월호에 발행 뒤 기사 ${i.staleBrief.drift}건이 더 붙었어 — 새 재료로 다시 뽑을 수 있어.`,
-      chip: `${i.staleBrief.monthNum}월호`, cmd: { type: "weekly_show", period: "monthly", month: i.staleBrief.month || null, group: i.staleBrief.group || null },
+      text: `${calendarQuickAnalysisLabel(i.staleBrief.month)}에 생성 뒤 기사 ${i.staleBrief.drift}건이 더 붙었어 — 새 재료로 다시 분석할 수 있어.`,
+      chip: calendarQuickAnalysisLabel(i.staleBrief.month), cmd: { type: "weekly_show", period: "monthly", month: i.staleBrief.month || null, group: i.staleBrief.group || null },
     });
   }
   // 기본 제안 채움(R19b) — "말 하나밖에 안 해, 밑으로 쭉쭉 제안해야지"(사용자 지적).

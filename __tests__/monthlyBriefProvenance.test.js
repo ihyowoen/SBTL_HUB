@@ -7,7 +7,17 @@ import { createGitProvenanceResolver, validateMonthlyBriefProvenance } from "../
 
 const SNAPSHOT = {
   cards: [
-    { id: "AUG_A", date: "2026-08-10", title: "August A", urls: ["https://example.com/a"] },
+    {
+  id: "AUG_A",
+  date: "2026-08-10",
+  title: "August A",
+  urls: ["https://example.com/a"],
+  fact_sources: [
+    { source_url: "https://example.com/a", supports: ["title", "fact"] },
+    { source_url: "https://example.com/a-title", supports: ["title", "fact"] },
+    { source_url: "https://example.com/a-context", supports: ["sub"] },
+  ],
+},
     { news_id: "AUG_B", d: "2026-08-20", T: "August B", url: "https://example.com/b" },
     { id: "SEP_A", date: "2026-09-01", title: "September A", urls: ["https://example.com/sep"] },
   ],
@@ -116,6 +126,19 @@ describe("Monthly Brief git provenance", () => {
     }
   });
 
+  it("accepts a governed alternate source that explicitly supports the locked card title", () => {
+  const lib = library();
+  lib.items[0].refs[0].url = "https://example.com/a-title";
+  expect(validateMonthlyBriefProvenance(lib, resolver())).toEqual([]);
+});
+
+it("rejects a governed source that does not support the locked card title", () => {
+  const lib = library();
+  lib.items[0].refs[0].url = "https://example.com/a-context";
+  const errors = validateMonthlyBriefProvenance(lib, resolver()).join("\n");
+  expect(errors).toContain("refs[0].url");
+  expect(errors).toContain("title-supporting governed evidence URL");
+});
   it("allows an omitted optional reference URL while still binding title and date", () => {
     const lib = library();
     delete lib.items[0].refs[0].url;

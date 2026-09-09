@@ -1,0 +1,76 @@
+name: tmp-a027-source-polish
+
+on:
+  push:
+    branches:
+      - chatgpt/a027-source-correction-polish-work
+
+permissions:
+  contents: write
+
+jobs:
+  polish:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Polish exact correction scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/cards.full.json')
+          doc=json.loads(p.read_text(encoding='utf-8'))
+          c=next(x for x in doc['cards'] if x['id']=='2026-09-06_CN_02')
+          old=c['fact']
+          new='Cailianshe(财联社)는 9월 6일 복수 공급망 관계자를 인용해 관련 당국이 기존·계획 중인 에너지저장 생산능력을 전면 점검하고, ESS용 배터리 셀을 중점 대상으로 삼아 아직 계획 단계이거나 착공하지 않은 신규 프로젝트의 승인·추진을 잠정 보류하고 있다고 보도했다. 이미 신고·등록되어 건설 중인 프로젝트는 영향받지 않으며, 전면 중단이 아니라 시장 수요에 따라 조정될 수 있다고 전했다. Reuters는 9월 7일 이를 재보도했고, Jiemian(界面新闻)은 9월 8일 복수 배터리 기업에 별도 확인해 관련 상황이 존재한다고 보도했다. 공식 부처 규정·공고의 발효일은 확인되지 않았다.'
+          assert old != new
+          c['fact']=new
+          c['new_verified_fact']=new
+          for claim in c.get('claim_map',[]):
+              if claim.get('claim_id')=='STD26_0907_A_027-C1': claim['claim']=new
+          c['event_fingerprint']['factual_anchor']=new
+          c['source_synthesis_fields']=['title','sub','gate','fact','implication']
+          p.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          mpath=Path('direct-adds/2026-09-09-a027-source-correction/direct-add.json')
+          m=json.loads(mpath.read_text(encoding='utf-8'))
+          fields=m['editorial_attestation']['updates'][0]['changed_fields']
+          m['editorial_attestation']['updates'][0]['changed_fields']=[x for x in fields if x!='source_synthesis_fields']
+          mpath.write_text(json.dumps(m,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+          node scripts/lean_cards.mjs
+          BASE_SHA='d348296e65fe41423e6419058c58b1d7fedd89ee'
+          git show "$BASE_SHA:data/cards.full.json" > /tmp/cards.full.base.json
+          MANIFEST='direct-adds/2026-09-09-a027-source-correction/direct-add.json'
+          node scripts/validate_json_schema_subset.mjs --schema schemas/manual-direct-add.v2.schema.json --instance "$MANIFEST"
+          node scripts/validate_manual_direct_add.mjs --manifest "$MANIFEST" --base /tmp/cards.full.base.json --full data/cards.full.json
+          node scripts/validate_manual_direct_add_v4_hardening.mjs --manifest "$MANIFEST" --base /tmp/cards.full.base.json --full data/cards.full.json
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          python3 - <<'PY'
+          import json
+          json.dump({'ids':['2026-09-06_CN_02']},open('/tmp/ids.json','w'),ensure_ascii=False,indent=2)
+          PY
+          python3 validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file /tmp/ids.json
+          python3 validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file /tmp/ids.json
+          git diff --check
+      - name: Commit polished blobs
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/cards.full.json public/data/cards.json direct-adds/2026-09-09-a027-source-correction/direct-add.json
+          git commit -m 'refine: polish A027 source correction'
+          git push

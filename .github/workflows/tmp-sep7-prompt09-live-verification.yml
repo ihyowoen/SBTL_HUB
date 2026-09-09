@@ -1,0 +1,147 @@
+name: tmp-sep7-prompt09-live-verification
+
+on:
+  push:
+    branches:
+      - chatgpt/sep7-prompt09-live-verification-work
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify production data and surfaces
+        shell: bash
+        run: |
+          set -euo pipefail
+          PROD='https://sbtl-hub.vercel.app'
+          EXPECTED_MAIN='3813e8bc068cc139b96fc0e0a095ebf253c51650'
+          EXPECTED_COUNT=1599
+          mkdir -p .tmp
+
+          curl --fail --silent --show-error --location --retry 3 "$PROD/data/cards.json" -o .tmp/live-cards.json
+          curl --fail --silent --show-error --location --retry 3 "$PROD/" -o .tmp/live-root.html
+
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          const raw = fs.readFileSync('.tmp/live-cards.json');
+          const doc = JSON.parse(raw.toString('utf8'));
+          const cards = Array.isArray(doc) ? doc : (Array.isArray(doc.cards) ? doc.cards : []);
+          const total = Number.isInteger(doc?.total) ? doc.total : cards.length;
+          if (total !== 1599 || cards.length !== 1599) throw new Error(`live cardinality mismatch total=${total} cards=${cards.length}`);
+          const byId = new Map(cards.map(c => [c.id, c]));
+          const mustExist = [
+            '2026-09-06_CN_02',
+            '2026-09-07_GL_01', '2026-08-05_GL_01',
+            '2026-09-04_GL_03', '2026-08-14_GL_01',
+            '2026-09-07_JP_01', '2026-07-21_JP_02'
+          ];
+          for (const id of mustExist) if (!byId.has(id)) throw new Error(`missing live id ${id}`);
+          if (byId.has('2026-09-07_CN_01')) throw new Error('old A027 id still live');
+
+          const expectedEdges = [
+            ['2026-09-07_GL_01','2026-08-05_GL_01'],
+            ['2026-09-04_GL_03','2026-08-14_GL_01'],
+            ['2026-09-07_JP_01','2026-07-21_JP_02']
+          ];
+          function relatedIds(c) {
+            const out = new Set();
+            for (const k of ['related','related_ids']) {
+              const v = c?.[k];
+              if (Array.isArray(v)) for (const x of v) if (typeof x === 'string') out.add(x);
+            }
+            const rl = c?.related_lineage;
+            if (rl && typeof rl === 'object') {
+              for (const k of ['related_ids','target_ids','related_candidate_ids']) {
+                const v = rl[k]; if (Array.isArray(v)) for (const x of v) if (typeof x === 'string') out.add(x);
+              }
+              for (const k of ['target_id','predecessor_id','successor_id']) if (typeof rl[k] === 'string') out.add(rl[k]);
+            }
+            return out;
+          }
+          for (const [src,tgt] of expectedEdges) {
+            const ids = relatedIds(byId.get(src));
+            if (!ids.has(tgt)) throw new Error(`missing Related edge ${src} -> ${tgt}`);
+          }
+
+          const dangling = [];
+          for (const c of cards) {
+            for (const rid of relatedIds(c)) if (!byId.has(rid)) dangling.push([c.id,rid]);
+          }
+          if (dangling.length) throw new Error(`dangling Related targets: ${JSON.stringify(dangling.slice(0,20))}`);
+
+          const a027 = byId.get('2026-09-06_CN_02');
+          if (a027.date !== '2026-09-06') throw new Error(`A027 date mismatch ${a027.date}`);
+          if (!String(a027.fact || '').includes('Cailianshe') || !String(a027.fact || '').includes('Jiemian')) throw new Error('A027 live fact is not the corrected source-locked version');
+
+          const result = {
+            checked_at_utc: new Date().toISOString(),
+            production_url: 'https://sbtl-hub.vercel.app',
+            data_url: 'https://sbtl-hub.vercel.app/data/cards.json',
+            live_total: total,
+            live_cards_length: cards.length,
+            live_json_sha256: crypto.createHash('sha256').update(raw).digest('hex'),
+            a027_new_id_present: true,
+            a027_old_id_absent: true,
+            a027_date: a027.date,
+            a027_source_locked_fact_present: true,
+            expected_related_edges_verified: expectedEdges.map(([source,target]) => ({source,target,status:'PASS'})),
+            dangling_related_target_count: dangling.length,
+            data_status: 'PASS'
+          };
+          fs.writeFileSync('.tmp/prompt09-live-result.json', JSON.stringify(result,null,2)+'\n');
+          console.log(JSON.stringify(result,null,2));
+          NODE
+
+          # Root HTTP/HTML shell check.
+          test -s .tmp/live-root.html
+          grep -Eqi '<!doctype html|<html' .tmp/live-root.html
+          grep -Eqi '<div[^>]+id=["'"']root["'"']|<script[^>]+src=' .tmp/live-root.html
+
+          # Browser-rendered desktop/mobile checks with preinstalled Chrome.
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [[ -z "$CHROME" ]]; then
+            echo 'Chrome unavailable' >&2
+            exit 1
+          fi
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --window-size=1440,1000 --virtual-time-budget=12000 --dump-dom "$PROD/" > .tmp/desktop-dom.html
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --window-size=390,844 --user-agent='Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile/15E148 Safari/604.1' --virtual-time-budget=12000 --dump-dom "$PROD/" > .tmp/mobile-dom.html
+          test -s .tmp/desktop-dom.html
+          test -s .tmp/mobile-dom.html
+          # React must have rendered beyond the bare #root shell.
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, re
+          for mode in ('desktop','mobile'):
+              text=Path(f'.tmp/{mode}-dom.html').read_text(errors='replace')
+              if len(text) < 5000:
+                  raise SystemExit(f'{mode} rendered DOM unexpectedly small: {len(text)}')
+              if not re.search(r'SBTL|Battery|배터리|ESS|Strategic', text, re.I):
+                  raise SystemExit(f'{mode} rendered DOM lacks expected app text')
+          p=Path('.tmp/prompt09-live-result.json')
+          x=json.loads(p.read_text())
+          x['html_shell_status']='PASS'
+          x['desktop_render_status']='PASS'
+          x['mobile_render_status']='PASS'
+          x['interactive_surface_status']='PASS_LIMITED_SMOKE'
+          x['interactive_surface_note']='Headless browser loaded and rendered the production React application at desktop and mobile viewport sizes; no deep click-path assertion was performed.'
+          p.write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n')
+          PY
+
+          git diff --check
+      - name: Commit verification snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .tmp/prompt09-live-result.json
+          git commit -m 'chore: record Sep7 Prompt 0.9 live verification snapshot'
+          git push

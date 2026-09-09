@@ -1,0 +1,69 @@
+{
+  "schema": "sbtl_raw_input_audit_v1",
+  "stage": "RAW_INPUT_AUDIT",
+  "status": "PASS_WITH_BOUNDED_REPAIRS",
+  "run_id": "sep8-r7-current-main-production-r1",
+  "base_main_commit_sha": "e46f85c7be99548894549b97eea4bfcb0c9a3c66",
+  "base_full_blob_sha": "cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb",
+  "baseline_card_count": 1599,
+  "input_file": "final_news_llm_input_newsletter_expanded_20260908_151505.json",
+  "input_sha256": "5a0cfb5d3cf6ee9c5a80f9b6d5bbdaa0621ee6d96d52b14eaa9d31e6fb4252a4",
+  "input_run_tag": "20260908_151505",
+  "input_run_label": "2026-09-08 15:15 KST",
+  "input_generated_kst": "2026-09-08T17:06:22+09:00",
+  "input_schema": "final_news_llm_input_v4_newsletter_expanded",
+  "story_accounting": {
+    "declared_story_count": 308,
+    "actual_story_count": 308,
+    "unique_story_id_count": 308,
+    "duplicate_story_ids": [],
+    "keep": 246,
+    "review": 1,
+    "triage_filtered": 61,
+    "region_counts": {"US":14,"KR":158,"JP":22,"GL":41,"EU":21,"CN":52},
+    "ledger_first": 244,
+    "ledger_repeat": 64,
+    "input_orphan_count": 0,
+    "dropped_count": 0
+  },
+  "structural_checks": {
+    "missing_primary_url_count": 0,
+    "missing_headline_count": 0,
+    "missing_usable_text_count": 0,
+    "duplicate_exact_url_count": 0,
+    "story_id_region_mismatch_count": 0,
+    "story_id_date_mismatch_count": 0,
+    "list_vs_article_date_difference_count": 15,
+    "list_vs_article_date_policy": "published_date follows primary_date_source=article where available; list-feed timestamp differences are not treated as event-date authority."
+  },
+  "bounded_repairs": [{
+    "story_id": "US_2026-09-07_C06",
+    "finding": "SOURCE_PACKET_FIELD_CONTAMINATION",
+    "severity": "BLOCK_IF_UNREPAIRED",
+    "field": "source_packets[].description_article",
+    "repair": "QUARANTINE_DESCRIPTION_ARTICLE_ONLY",
+    "story_disposition": "RETAIN_FOR_INDIVIDUAL_STAGE_A_REVIEW",
+    "downstream_rule": "Ignore the unrelated Henkel LOCTITE SOLVE description; use the TEADIT webinar headline/body identity only."
+  }],
+  "integrity_group_review": {
+    "declared_flagged_group_count": 5,
+    "declared_flagged_story_count": 25,
+    "decisions": [
+      {"integrity_group_id":"grp_0001","member_story_ids":["US_2026-09-05_C01","US_2026-09-05_C02","US_2026-09-05_C05","US_2026-09-06_C01"],"decision":"INVALID_GROUP_BINDING_SPLIT_TO_INDIVIDUAL_STORIES","exclude_story_ids":[]},
+      {"integrity_group_id":"grp_0002","member_story_ids":["CN_2026-09-07_C05","CN_2026-09-08_C08"],"decision":"INVALID_GROUP_BINDING_SPLIT_TO_INDIVIDUAL_STORIES","exclude_story_ids":[]},
+      {"integrity_group_id":"grp_0003","member_story_ids":["JP_2026-09-07_C03","JP_2026-09-07_C11","JP_2026-09-07_C12","JP_2026-09-07_C14","JP_2026-09-07_C15","JP_2026-09-08_C12","JP_2026-09-08_C15","JP_2026-09-08_C17"],"decision":"INVALID_GROUP_BINDING_SPLIT_TO_INDIVIDUAL_STORIES","exclude_story_ids":[]},
+      {"integrity_group_id":"grp_0004","member_story_ids":["JP_2026-09-07_C04","JP_2026-09-07_C07","JP_2026-09-07_C13","JP_2026-09-08_C10","JP_2026-09-08_C18","JP_2026-09-08_C19"],"decision":"INVALID_GROUP_BINDING_SPLIT_TO_INDIVIDUAL_STORIES","exclude_story_ids":[]},
+      {"integrity_group_id":"grp_0005","member_story_ids":["JP_2026-09-07_C08","JP_2026-09-07_C16","JP_2026-09-07_C17","JP_2026-09-08_C13","JP_2026-09-08_C16"],"decision":"INVALID_GROUP_BINDING_SPLIT_TO_INDIVIDUAL_STORIES","exclude_story_ids":[]}
+    ],
+    "downstream_policy": "Ignore the five invalid group bindings for dedupe/exclusion; preserve all 25 members and cluster by actual event identity."
+  },
+  "excluded_story_ids": [],
+  "deferred_legacy_related_remediation": {
+    "status": "DEFERRED_BY_OWNER",
+    "mutation_authorized": false,
+    "note": "Do not delete, retarget, or otherwise mutate the 13-card/14-edge legacy dangling Related set in this Sep8 run."
+  },
+  "stage_0_0c_authorized": true,
+  "stage_a_direct_start_authorized": false,
+  "next_step": "0.0C independent completeness discovery, then authoritative expanded event-universe lock and canonical reconciliation."
+}

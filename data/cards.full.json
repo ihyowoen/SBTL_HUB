@@ -805,7 +805,7 @@
       ],
       "urls": [
         "https://prtimes.jp/main/html/rd/p/000000043.000096424.html",
-        "https://www.tensorenergy.jp/"
+        "https://energy.mpmgmt.co.jp/blog/low-voltage-grid-battery-applications-1gwh-2026"
       ],
       "fact_sources": [
         {
@@ -841,22 +841,22 @@
         },
         {
           "id": "STD26_0907_A_023-S2",
-          "owner": "Tensor Energy",
-          "role": "company_website",
-          "url": "https://www.tensorenergy.jp/",
+          "owner": "Renewable Energy Business Navi",
+          "role": "industry_press",
+          "url": "https://energy.mpmgmt.co.jp/blog/low-voltage-grid-battery-applications-1gwh-2026",
           "published": "2026-09-07",
-          "summary": "Company website contextualizes the low-voltage battery aggregation pipeline.",
+          "summary": "Independent industry article corroborates 5,000 applications, 250MW and 1GWh and explicitly distinguishes applications from operating capacity.",
           "fetch_status": "fetched_body_or_authoritative_page",
           "headline_only": false,
           "rss_or_snippet_only": false,
           "claim_use": "paraphrase_only_no_visible_quote",
-          "domain": "tensorenergy.jp",
-          "source_url": "https://www.tensorenergy.jp/",
+          "domain": "energy.mpmgmt.co.jp",
+          "source_url": "https://energy.mpmgmt.co.jp/blog/low-voltage-grid-battery-applications-1gwh-2026",
           "source_id": "STD26_0907_A_023-S2",
-          "source_owner_id": "Tensor Energy",
-          "source_owner_id_normalized": "Tensor Energy",
-          "source_role": "company_website",
-          "source_type": "official source_owner context",
+          "source_owner_id": "Renewable Energy Business Navi",
+          "source_owner_id_normalized": "Renewable Energy Business Navi",
+          "source_role": "industry_press",
+          "source_type": "independent industry_reporting",
           "evidence_role": "primary_event_evidence",
           "supports": [
             "title",
@@ -867,7 +867,7 @@
           ],
           "checked_at": "2026-09-08",
           "fetched": true,
-          "source_quote": "Company website contextualizes the low-voltage battery aggregation pipeline.",
+          "source_quote": "Independent industry article corroborates 5,000 applications, 250MW and 1GWh and explicitly distinguishes applications from operating capacity.",
           "source_quote_status": "body_level_evidence_verified"
         }
       ],
@@ -930,7 +930,7 @@
       },
       "source_diversity_roles": {
         "official_company_release": 1,
-        "company_website": 1
+        "industry_press": 1
       },
       "source_synthesis_applied": true,
       "source_synthesis_fields": [
@@ -1034,7 +1034,7 @@
         "event_date": "2026-09-07",
         "source_url_cluster": [
           "https://prtimes.jp/main/html/rd/p/000000043.000096424.html",
-          "https://www.tensorenergy.jp/"
+          "https://energy.mpmgmt.co.jp/blog/low-voltage-grid-battery-applications-1gwh-2026"
         ],
         "factual_anchor": "Tensor Energy는 9월 7일 저압계통 연계형 ESS의 신청이 5,000건, 합계 출력 250MW, 에너지 1GWh에 도달했다고 발표했다. 이는 운영 중 설비가 아니라 신청 기준이며, 회사는 신청부터 시장운용까지 통상 약 1년이 걸린다고 설명했다."
       },
@@ -1086,15 +1086,15 @@
         {
           "source_spec_id": "STD26_0907_A_023",
           "source_event_id": "NR_20260907_E0091",
-          "query_or_target": "https://www.tensorenergy.jp/",
-          "canonical_url": "https://www.tensorenergy.jp/",
+          "query_or_target": "https://energy.mpmgmt.co.jp/blog/low-voltage-grid-battery-applications-1gwh-2026",
+          "canonical_url": "https://energy.mpmgmt.co.jp/blog/low-voltage-grid-battery-applications-1gwh-2026",
           "name": "Tensor Energy",
-          "domain": "tensorenergy.jp",
-          "owner": "Tensor Energy",
-          "role": "company_website",
-          "origin_type": "official source_owner context",
+          "domain": "energy.mpmgmt.co.jp",
+          "owner": "Renewable Energy Business Navi",
+          "role": "industry_press",
+          "origin_type": "independent industry_reporting",
           "outcome": "body_or_document_verified",
-          "unique_contribution": "Company website contextualizes the low-voltage battery aggregation pipeline.",
+          "unique_contribution": "Independent industry article corroborates 5,000 applications, 250MW and 1GWh and explicitly distinguishes applications from operating capacity.",
           "visible_fields_supported": [
             "title",
             "sub",

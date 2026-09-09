@@ -36,12 +36,15 @@ const compact = (c) => ({
 const august = cards.filter(c => dateOf(c).startsWith('2026-08-'));
 const augIds = new Set(august.map(idOf));
 const sep = cards.filter(c => dateOf(c) >= '2026-09-01' && dateOf(c) <= '2026-09-09');
-const sepFollow = sep.filter(c => relatedIdsOf(c).some(id => augIds.has(id)) || [...augIds].some(id => relatedIdsOf(cards.find(x => idOf(x)===id) || {}).includes(idOf(c))));
+const sepById = new Map(sep.map(c => [idOf(c), c]));
+const augRelatedSepIds = new Set();
+for (const c of august) for (const rid of relatedIdsOf(c)) if (sepById.has(rid)) augRelatedSepIds.add(rid);
+const sepFollow = sep.filter(c => relatedIdsOf(c).some(id => augIds.has(id)) || augRelatedSepIds.has(idOf(c)));
 const countBy = (xs, fn) => Object.fromEntries([...xs.reduce((m,x)=>{const k=fn(x)||'(blank)';m.set(k,(m.get(k)||0)+1);return m;},new Map())].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])));
 const keys = countBy(cards.slice(0,Math.min(cards.length,500)), c => Object.keys(c||{}).sort().join('|'));
 const report = {
   schema:'monthly_brief_universe_extract_v1',
-  baseline:{main_commit_sha:process.env.GITHUB_SHA || null, full_blob_sha:process.env.FULL_BLOB_SHA || null, total_cards:cards.length},
+  baseline:{main_commit_sha:process.env.BASELINE_MAIN_SHA || null, full_blob_sha:process.env.FULL_BLOB_SHA || null, total_cards:cards.length},
   month:'2026-08',
   counts:{august:august.length, sep_1_9:sep.length, sep_followups_to_august:sepFollow.length},
   august_distribution:{region:countBy(august,regionOf), signal:countBy(august,signalOf), source:countBy(august,sourceOf)},

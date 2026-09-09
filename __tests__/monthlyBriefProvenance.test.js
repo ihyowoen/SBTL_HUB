@@ -1,5 +1,9 @@
+import { execFileSync } from "node:child_process";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { validateMonthlyBriefProvenance } from "../lib/brief/monthlyProvenance.js";
+import { createGitProvenanceResolver, validateMonthlyBriefProvenance } from "../lib/brief/monthlyProvenance.js";
 
 const SNAPSHOT = {
   cards: [
@@ -37,6 +41,27 @@ function resolver(overrides = {}) {
 describe("Monthly Brief git provenance", () => {
   it("accepts a reachable main commit whose cards.full blob, governed cards and refs match", () => {
     expect(validateMonthlyBriefProvenance(library(), resolver())).toEqual([]);
+  });
+
+  it("reads locked card snapshots larger than Node child_process default maxBuffer", () => {
+    const cwd = fs.mkdtempSync(path.join(os.tmpdir(), "monthly-brief-large-git-"));
+    try {
+      fs.mkdirSync(path.join(cwd, "data"), { recursive: true });
+      const largeSnapshot = JSON.stringify({ cards: [{ id: "LARGE", date: "2026-08-01", title: "x".repeat(2_000_000) }] });
+      fs.writeFileSync(path.join(cwd, "data/cards.full.json"), largeSnapshot);
+      execFileSync("git", ["init"], { cwd, stdio: "ignore" });
+      execFileSync("git", ["config", "user.email", "test@example.com"], { cwd });
+      execFileSync("git", ["config", "user.name", "Monthly Brief Test"], { cwd });
+      execFileSync("git", ["add", "data/cards.full.json"], { cwd });
+      execFileSync("git", ["commit", "-m", "large snapshot"], { cwd, stdio: "ignore" });
+      const gitResolver = createGitProvenanceResolver({ cwd, mainRef: "HEAD" });
+      const text = gitResolver.sourceTextAt("HEAD");
+      expect(typeof text).toBe("string");
+      expect(text.length).toBeGreaterThan(1_000_000);
+      expect(JSON.parse(text).cards[0].id).toBe("LARGE");
+    } finally {
+      fs.rmSync(cwd, { recursive: true, force: true });
+    }
   });
 
   it("rejects a nonexistent declared commit", () => {

@@ -29,23 +29,8 @@ jobs:
 
           prov_path = Path('lib/brief/monthlyProvenance.js')
           prov = prov_path.read_text()
-          old_helper = '''function cardPrimaryUrl(card) {
-            if (Array.isArray(card?.urls)) {
-              const first = card.urls.find((value) => typeof value === "string" && value.trim());
-              if (first) return first.trim();
-            }
-            return typeof card?.url === "string" ? card.url.trim() : "";
-          }
-          '''
-          new_helper = '''function cardPrimaryUrl(card) {
-            if (Array.isArray(card?.urls)) {
-              const first = card.urls.find((value) => typeof value === "string" && value.trim());
-              if (first) return first.trim();
-            }
-            return typeof card?.url === "string" ? card.url.trim() : "";
-          }
-
-          function cardTitleSupportingUrls(card) {
+          parse_anchor = 'function parseSnapshot(text) {'
+          helper = '''function cardTitleSupportingUrls(card) {
             const mapped = new Set();
             for (const source of Array.isArray(card?.fact_sources) ? card.fact_sources : []) {
               const supports = Array.isArray(source?.supports) ? source.supports : [];
@@ -58,76 +43,64 @@ jobs:
             const primary = cardPrimaryUrl(card);
             return primary ? new Set([primary]) : new Set();
           }
-          '''
-          old_helper = '\n'.join(line[10:] if line.startswith('          ') else line for line in old_helper.splitlines()) + '\n'
-          new_helper = '\n'.join(line[10:] if line.startswith('          ') else line for line in new_helper.splitlines()) + '\n'
-          if old_helper not in prov:
-              raise SystemExit('provenance helper anchor not found')
-          prov = prov.replace(old_helper, new_helper, 1)
 
-          old_url = '''      const expectedUrl = cardPrimaryUrl(card);
-                if (ref.title !== expectedTitle) {
-                  errors.push(`${refPath}.title: expected locked card title ${JSON.stringify(expectedTitle)}, got ${JSON.stringify(ref.title)}`);
-                }
-                if (ref.date !== expectedDate) {
-                  errors.push(`${refPath}.date: expected locked card date ${JSON.stringify(expectedDate)}, got ${JSON.stringify(ref.date)}`);
-                }
-                if (Object.prototype.hasOwnProperty.call(ref, "url") && ref.url !== expectedUrl) {
-                  errors.push(`${refPath}.url: expected locked card primary URL ${JSON.stringify(expectedUrl)}, got ${JSON.stringify(ref.url)}`);
-                }'''
-          new_url = '''      const allowedTitleUrls = cardTitleSupportingUrls(card);
-                if (ref.title !== expectedTitle) {
-                  errors.push(`${refPath}.title: expected locked card title ${JSON.stringify(expectedTitle)}, got ${JSON.stringify(ref.title)}`);
-                }
-                if (ref.date !== expectedDate) {
-                  errors.push(`${refPath}.date: expected locked card date ${JSON.stringify(expectedDate)}, got ${JSON.stringify(ref.date)}`);
-                }
-                if (Object.prototype.hasOwnProperty.call(ref, "url") && !allowedTitleUrls.has(ref.url)) {
-                  errors.push(`${refPath}.url: expected locked card title-supporting governed evidence URL, got ${JSON.stringify(ref.url)}`);
-                }'''
-          old_url = '\n'.join(line[6:] if line.startswith('      ') else line for line in old_url.splitlines())
-          new_url = '\n'.join(line[6:] if line.startswith('      ') else line for line in new_url.splitlines())
-          if old_url not in prov:
-              raise SystemExit('provenance URL block anchor not found')
-          prov_path.write_text(prov.replace(old_url, new_url, 1))
+          '''
+          helper = '\n'.join(line[10:] if line.startswith('          ') else line for line in helper.splitlines())
+          if parse_anchor not in prov:
+              raise SystemExit('parseSnapshot anchor not found')
+          if 'function cardTitleSupportingUrls(card)' not in prov:
+              prov = prov.replace(parse_anchor, helper + parse_anchor, 1)
+
+          replacements = [
+              ('      const expectedUrl = cardPrimaryUrl(card);', '      const allowedTitleUrls = cardTitleSupportingUrls(card);'),
+              ('      if (Object.prototype.hasOwnProperty.call(ref, "url") && ref.url !== expectedUrl) {', '      if (Object.prototype.hasOwnProperty.call(ref, "url") && !allowedTitleUrls.has(ref.url)) {'),
+              ('        errors.push(`${refPath}.url: expected locked card primary URL ${JSON.stringify(expectedUrl)}, got ${JSON.stringify(ref.url)}`);', '        errors.push(`${refPath}.url: expected locked card title-supporting governed evidence URL, got ${JSON.stringify(ref.url)}`);'),
+          ]
+          for old, new in replacements:
+              if old not in prov:
+                  raise SystemExit(f'provenance anchor not found: {old}')
+              prov = prov.replace(old, new, 1)
+          prov_path.write_text(prov)
 
           test_path = Path('__tests__/monthlyBriefProvenance.test.js')
           test = test_path.read_text()
           old_a = '    { id: "AUG_A", date: "2026-08-10", title: "August A", urls: ["https://example.com/a"] },'
           new_a = '''    {
-              id: "AUG_A",
-              date: "2026-08-10",
-              title: "August A",
-              urls: ["https://example.com/a"],
-              fact_sources: [
-                { source_url: "https://example.com/a-title", supports: ["title", "fact"] },
-                { source_url: "https://example.com/a-context", supports: ["sub"] },
-              ],
-            },'''
+            id: "AUG_A",
+            date: "2026-08-10",
+            title: "August A",
+            urls: ["https://example.com/a"],
+            fact_sources: [
+              { source_url: "https://example.com/a", supports: ["title", "fact"] },
+              { source_url: "https://example.com/a-title", supports: ["title", "fact"] },
+              { source_url: "https://example.com/a-context", supports: ["sub"] },
+            ],
+          },'''
           new_a = '\n'.join(line[8:] if line.startswith('        ') else line for line in new_a.splitlines())
           if old_a not in test:
               raise SystemExit('test snapshot anchor not found')
           test = test.replace(old_a, new_a, 1)
-          anchor = '  it("allows an omitted optional reference URL while still binding title and date", () => {'
-          added = '''  it("accepts a governed alternate source that explicitly supports the locked card title", () => {
-              const lib = library();
-              lib.items[0].refs[0].url = "https://example.com/a-title";
-              expect(validateMonthlyBriefProvenance(lib, resolver())).toEqual([]);
-            });
 
-            it("rejects a governed source that does not support the locked card title", () => {
-              const lib = library();
-              lib.items[0].refs[0].url = "https://example.com/a-context";
-              const errors = validateMonthlyBriefProvenance(lib, resolver()).join("\\n");
-              expect(errors).toContain("refs[0].url");
-              expect(errors).toContain("title-supporting governed evidence URL");
-            });
+          insert_anchor = '  it("allows an omitted optional reference URL while still binding title and date", () => {'
+          added = '''  it("accepts a governed alternate source that explicitly supports the locked card title", () => {
+            const lib = library();
+            lib.items[0].refs[0].url = "https://example.com/a-title";
+            expect(validateMonthlyBriefProvenance(lib, resolver())).toEqual([]);
+          });
+
+          it("rejects a governed source that does not support the locked card title", () => {
+            const lib = library();
+            lib.items[0].refs[0].url = "https://example.com/a-context";
+            const errors = validateMonthlyBriefProvenance(lib, resolver()).join("\\n");
+            expect(errors).toContain("refs[0].url");
+            expect(errors).toContain("title-supporting governed evidence URL");
+          });
 
           '''
           added = '\n'.join(line[10:] if line.startswith('          ') else line for line in added.splitlines())
-          if anchor not in test:
+          if insert_anchor not in test:
               raise SystemExit('test insertion anchor not found')
-          test_path.write_text(test.replace(anchor, added + anchor, 1))
+          test_path.write_text(test.replace(insert_anchor, added + insert_anchor, 1))
 
           brief_path = Path('public/data/monthly_briefs.json')
           brief = json.loads(brief_path.read_text())
@@ -150,6 +123,8 @@ jobs:
         run: npx vitest run __tests__/monthlyBriefProvenance.test.js
       - name: Validate official Monthly Brief library
         run: npm run validate:monthly-briefs
+      - name: Full unit suite
+        run: npm test -- --run
       - name: Production build
         run: npm run build
       - name: Commit validated source changes

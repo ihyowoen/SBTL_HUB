@@ -1,0 +1,69 @@
+name: Sep8 promotion identity fix
+
+on:
+  push:
+    branches:
+      - chatgpt/sep8-r7-current-main-production-r1
+    paths:
+      - '.card-run-bootstrap-fix/**'
+      - '.github/workflows/sep8-promotion-identity-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Reconstruct and verify fix archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .card-run-bootstrap-fix/part-* | base64 -d > "$RUNNER_TEMP/fix.tar.xz"
+          echo 'd506e2f7d22edcebe6c67713a42af629403e76420db939c1df5f3260e9e31793  '"$RUNNER_TEMP/fix.tar.xz" | sha256sum -c -
+          tar -xJf "$RUNNER_TEMP/fix.tar.xz"
+      - name: Verify authoritative baseline has not moved
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main --force
+          test "$(git rev-parse origin/main)" = 'e19f6c113ccb62906e7fdefaf3bae657c58b5637'
+      - name: Validate repaired governed run
+        shell: bash
+        run: |
+          set -euo pipefail
+          RUN='runs/2026-09-09/sep8-r7-current-main-production-r1/card-run.json'
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
+          node scripts/validate_card_run_relations.mjs --run "$RUN"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits_dispatch.mjs --run "$RUN" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN"
+          node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN"
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          test "$(sha256sum data/cards.full.json | awk '{print $1}')" = 'aedbf1c590e2208bbe9172949e520780f10ff0f9d841818100cc81b4373fab33'
+          test "$(sha256sum public/data/cards.json | awk '{print $1}')" = '4a9cce46a4c994a37ba1ef34ea96eee8fb2546f6d227445e37cd7f234e97b8c2'
+          grep -q '9c4c852031d0d69dc1a532cf4fa13b2580cb485812ede0a1a52db5acd97ff8c8' runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-7c.json
+          git diff --check
+      - name: Commit repaired artifacts and self-clean
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .card-run-bootstrap-fix
+          rm -f .github/workflows/sep8-promotion-identity-fix.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m 'Fix Sep 8 promotion stage identity binding'
+          git push origin HEAD:chatgpt/sep8-r7-current-main-production-r1

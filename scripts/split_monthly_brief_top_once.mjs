@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+const report = JSON.parse(fs.readFileSync('tmp/monthly_brief_2026-08_universe.json','utf8'));
+const tops = report.august_cards.filter(c => c.signal === 'top');
+const trim = (v,n=500) => { const s = Array.isArray(v) ? v.join(' | ') : String(v ?? ''); return s.length > n ? s.slice(0,n)+'…' : s; };
+const clean = c => ({ id:c.id, date:c.date, region:c.region, title:c.title, fact:trim(c.fact,700), implication:trim(c.implication,450), gate:trim(c.gate,300), urls:c.urls, related_ids:c.related_ids });
+const chunks=[];
+for(let i=0;i<tops.length;i+=16) chunks.push(tops.slice(i,i+16).map(clean));
+for(let i=0;i<chunks.length;i++) fs.writeFileSync(`tmp/monthly_brief_2026-08_top_${String(i+1).padStart(2,'0')}.json`, JSON.stringify({month:'2026-08',signal:'top',batch:i+1,total_top:tops.length,cards:chunks[i]},null,2)+'\n');
+const highIndex = report.august_cards.filter(c=>c.signal==='high').map(c=>({id:c.id,date:c.date,region:c.region,title:c.title,fact:trim(c.fact,240)}));
+fs.writeFileSync('tmp/monthly_brief_2026-08_high_index.json', JSON.stringify({month:'2026-08',signal:'high',count:highIndex.length,cards:highIndex},null,2)+'\n');
+console.log({top:tops.length,batches:chunks.length,high:highIndex.length});

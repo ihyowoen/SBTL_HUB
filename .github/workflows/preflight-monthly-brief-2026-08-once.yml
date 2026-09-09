@@ -7,6 +7,8 @@ on:
     paths:
       - ".github/workflows/preflight-monthly-brief-2026-08-once.yml"
       - "public/data/monthly_briefs.json"
+      - "lib/brief/monthlyProvenance.js"
+      - "__tests__/monthlyBriefProvenance.test.js"
 
 permissions:
   contents: read

@@ -1,0 +1,54 @@
+name: tmp-classify-wg016-superseded
+
+on:
+  push:
+    branches:
+      - chatgpt/classify-wg016-superseded
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Classify WG016 as superseded and validate complete docs inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, pathlib, subprocess
+          p=pathlib.Path('docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json')
+          reg=json.loads(p.read_text())
+          target='docs/workflow_gaps/WG_016_RELATED_LIFECYCLE.json'
+          gap=json.loads(pathlib.Path(target).read_text())
+          assert gap['classification']=='SUPERSEDED'
+          assert gap['ordinary_run_applies'] is False
+          assert gap['superseded_by']=='docs/RELATED_LIFECYCLE_CONTRACT.md'
+          for bucket in ['active_canonical','active_named_prompts','active_validator_contracts','open_remediations','activation_required_migrations','reference_only']:
+              assert target not in reg[bucket], (bucket,target)
+          if target not in reg['superseded']:
+              reg['superseded'].append(target)
+          p.write_text(json.dumps(reg,ensure_ascii=False,indent=2)+'\n')
+          all_docs=set(subprocess.check_output(['git','ls-tree','-r','--name-only','HEAD','docs'],text=True).splitlines())
+          classified=set(reg['active_canonical'])|set(reg['active_named_prompts'])|set(reg['active_validator_contracts'])|set(reg['open_remediations'])|set(reg['activation_required_migrations'])|set(reg['superseded'])|set(reg['reference_only'])
+          missing=sorted(all_docs-classified)
+          extra=sorted(classified-all_docs)
+          print(json.dumps({'docs_inventory_count':len(all_docs),'classified_count':len(all_docs&classified),'unclassified_paths':missing,'registry_paths_not_in_docs':extra},ensure_ascii=False,indent=2))
+          assert not missing
+          assert not extra
+          PY
+          git diff --check
+      - name: Commit registry fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json
+          git commit -m 'fix: classify WG016 as superseded governance record'
+          git push

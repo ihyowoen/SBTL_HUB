@@ -1,0 +1,55 @@
+name: tmp-a027-atomic-date-migration
+
+on:
+  push:
+    branches:
+      - chatgpt/a027-atomic-date-migration-work
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply atomic migration
+        run: python3 .tmp/a027_atomic_date_migration.py
+      - name: Validate atomic migration
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE_SHA='233da6c88bd7f7f41cf7968269e4d9e50e40f84d'
+          git show "$BASE_SHA:data/cards.full.json" > /tmp/cards.full.base.json
+          node scripts/lean_cards.mjs
+          MANIFEST='direct-adds/2026-09-09-a027-date-id-migration/direct-add.json'
+          node scripts/validate_json_schema_subset.mjs --schema schemas/manual-direct-add.v2.schema.json --instance "$MANIFEST"
+          node scripts/validate_manual_direct_add.mjs --manifest "$MANIFEST" --base /tmp/cards.full.base.json --full data/cards.full.json
+          node scripts/validate_manual_direct_add_v4_hardening.mjs --manifest "$MANIFEST" --base /tmp/cards.full.base.json --full data/cards.full.json
+          node scripts/validate.mjs
+          CARDS_ALLOW_DELETE=1 node scripts/validate_cards.mjs data/cards.full.json
+          CARDS_ALLOW_DELETE=1 node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          printf '%s\n' '2026-09-06_CN_02' > /tmp/ids.txt
+          python3 - <<'PY'
+          import json
+          json.dump({'ids':['2026-09-06_CN_02']},open('/tmp/ids.json','w'),ensure_ascii=False,indent=2)
+          PY
+          python3 validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file /tmp/ids.json
+          git diff --check
+      - name: Commit tested result
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/cards.full.json public/data/cards.json direct-adds/2026-09-09-a027-date-id-migration/direct-add.json
+          git commit -m 'fix: migrate A027 representative date atomically'
+          git push

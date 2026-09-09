@@ -1,0 +1,170 @@
+name: temp-a027-primary-pointer-remediation
+
+on:
+  push:
+    branches:
+      - "chatgpt/a027-primary-pointer-remediation"
+    paths:
+      - ".github/workflows/temp-a027-primary-pointer-remediation.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Correct A027 runtime primary pointers
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE_MAIN="3813e8bc068cc139b96fc0e0a095ebf253c51650"
+          BASE_FULL_BLOB="20da92fff9530f7163cac934a8df339fbc8750dc"
+          CARD_ID="2026-09-06_CN_02"
+          MANIFEST="direct-adds/2026-09-09-a027-primary-pointer-correction/direct-add.json"
+
+          git cat-file -e "$BASE_MAIN^{commit}"
+          test "$(git rev-parse "$BASE_MAIN:data/cards.full.json")" = "$BASE_FULL_BLOB"
+          git show "$BASE_MAIN:data/cards.full.json" > /tmp/base-full.json
+
+          python3 - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          BASE_MAIN = "3813e8bc068cc139b96fc0e0a095ebf253c51650"
+          BASE_FULL_BLOB = "20da92fff9530f7163cac934a8df339fbc8750dc"
+          CARD_ID = "2026-09-06_CN_02"
+          S1 = "STD26_0907_A_027-S1"
+          S2 = "STD26_0907_A_027-S2"
+          S3 = "STD26_0907_A_027-S3"
+          REUTERS = "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/"
+          CAILIANSHE = "https://www.cls.cn/detail/2475109"
+          JIEMIAN = "https://www.jiemian.com/article/15067758.html"
+
+          full_path = Path("data/cards.full.json")
+          doc = json.loads(full_path.read_text(encoding="utf-8"))
+          assert doc.get("total") == 1599, doc.get("total")
+          assert len(doc.get("cards", [])) == 1599, len(doc.get("cards", []))
+          card = next(c for c in doc["cards"] if c.get("id") == CARD_ID)
+
+          assert card.get("urls") == [REUTERS, CAILIANSHE, JIEMIAN], card.get("urls")
+          assert [s.get("id") for s in card.get("fact_sources", [])] == [S1, S2, S3], [s.get("id") for s in card.get("fact_sources", [])]
+          route = card.get("route_validation")
+          assert isinstance(route, dict), "route_validation missing"
+          assert route.get("anchor_evidence_source_ids") == [S1], route.get("anchor_evidence_source_ids")
+
+          by_id = {s["id"]: s for s in card["fact_sources"]}
+          card["urls"] = [CAILIANSHE, REUTERS, JIEMIAN]
+          card["fact_sources"] = [by_id[S2], by_id[S1], by_id[S3]]
+          route["anchor_evidence_source_ids"] = [S2]
+
+          stamp = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+          doc["updated"] = stamp
+          full_path.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          manifest_path = Path("direct-adds/2026-09-09-a027-primary-pointer-correction/direct-add.json")
+          manifest_path.parent.mkdir(parents=True, exist_ok=True)
+          manifest = {
+              "schema": "manual_direct_add_v2",
+              "status": "PASS",
+              "direct_add_id": "A027_PRIMARY_POINTER_CORRECTION_20260909_R1",
+              "review_mode": "already_reviewed_bounded_direct_add",
+              "formal_full_run_claimed": False,
+              "base_main_commit_sha": BASE_MAIN,
+              "base_full_blob_sha": BASE_FULL_BLOB,
+              "expected_before": 1599,
+              "expected_after": 1599,
+              "output_updated": stamp,
+              "operations": {"add": [], "update": [CARD_ID], "id_migration": []},
+              "editorial_attestation": {
+                  "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+                  "additions": [],
+                  "updates": [{
+                      "id": CARD_ID,
+                      "change_type": "correction",
+                      "changed_fields": ["fact_sources", "route_validation", "urls"],
+                      "reason": "Post-merge runtime pointer correction after PR #354 review: make the Sep 6 Cailianshe original report the primary URL/source consumed by application flows and route validation; retain Reuters as dependent relay/context and Jiemian as independent confirmation without changing visible facts or event identity.",
+                      "evidence_review_summary": "Cailianshe S2 remains the primary_event_evidence and now also occupies urls[0], fact_sources[0], and route_validation.anchor_evidence_source_ids. Reuters S1 remains secondary relay/context; Jiemian S3 remains independent same-event confirmation."
+                  }]
+              }
+          }
+          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          print("A027 pointers corrected")
+          print("urls:", card["urls"])
+          print("fact_sources:", [s["id"] for s in card["fact_sources"]])
+          print("anchor_evidence_source_ids:", route["anchor_evidence_source_ids"])
+          print("updated:", stamp)
+          PY
+
+          node scripts/lean_cards.mjs
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          CARD_ID = "2026-09-06_CN_02"
+          S1 = "STD26_0907_A_027-S1"
+          S2 = "STD26_0907_A_027-S2"
+          S3 = "STD26_0907_A_027-S3"
+          REUTERS = "https://www.reuters.com/business/energy/china-pauses-approvals-battery-storage-manufacturing-projects-cailianshe-reports-2026-09-07/"
+          CAILIANSHE = "https://www.cls.cn/detail/2475109"
+          JIEMIAN = "https://www.jiemian.com/article/15067758.html"
+
+          base = json.loads(Path("/tmp/base-full.json").read_text(encoding="utf-8"))
+          cur = json.loads(Path("data/cards.full.json").read_text(encoding="utf-8"))
+          assert base["total"] == cur["total"] == 1599
+          assert len(base["cards"]) == len(cur["cards"]) == 1599
+          b = next(c for c in base["cards"] if c.get("id") == CARD_ID)
+          c = next(c for c in cur["cards"] if c.get("id") == CARD_ID)
+          changed = {k for k in set(b) | set(c) if b.get(k) != c.get(k)}
+          assert changed == {"urls", "fact_sources", "route_validation"}, changed
+          root_changed = {k for k in set(base) | set(cur) if k != "cards" and base.get(k) != cur.get(k)}
+          assert root_changed == {"updated"}, root_changed
+
+          assert c["urls"] == [CAILIANSHE, REUTERS, JIEMIAN]
+          assert [s["id"] for s in c["fact_sources"]] == [S2, S1, S3]
+          assert c["route_validation"]["anchor_evidence_source_ids"] == [S2]
+          assert c["fact_sources"][0]["evidence_role"] == "primary_event_evidence"
+          assert c["fact_sources"][1]["evidence_role"] == "policy_market_context"
+          assert c["fact_sources"][2]["evidence_role"] == "independent_event_confirmation"
+
+          lean = json.loads(Path("public/data/cards.json").read_text(encoding="utf-8"))
+          lc = next(x for x in lean["cards"] if x.get("id") == CARD_ID)
+          assert lc["urls"] == [CAILIANSHE, REUTERS, JIEMIAN]
+          assert [s["id"] for s in lc["fact_sources"]] == [S2, S1, S3]
+          print("PASS: exact bounded A027 correction; full/public count 1599")
+          PY
+
+      - name: Validate governed outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/lean_cards.mjs --check
+          node scripts/validate_json_schema_subset.mjs \
+            --schema schemas/manual-direct-add.v2.schema.json \
+            --instance direct-adds/2026-09-09-a027-primary-pointer-correction/direct-add.json
+
+      - name: Commit validated production files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cards.full.json public/data/cards.json direct-adds/2026-09-09-a027-primary-pointer-correction/direct-add.json
+          git diff --cached --check
+          git diff --cached --quiet && { echo "FAIL: no production changes" >&2; exit 1; }
+          git commit -m "Fix A027 runtime primary-source pointers"
+          git push origin HEAD:chatgpt/a027-primary-pointer-remediation

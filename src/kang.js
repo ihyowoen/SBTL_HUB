@@ -1,4 +1,4 @@
-import { calendarQuickAnalysisLabel } from "./quickAnalysisLabels.js";
+import { calendarQuickAnalysisLabel, quickAnalysisProseLabel } from "./quickAnalysisLabels.js";
 
 // 강차장 브리핑(R18) — 접속하면 앱이 먼저 말을 거는 제안 카드의 문장 구성기.
 //
@@ -108,7 +108,7 @@ export function composeKangBriefing(inp) {
     lines.push({
       // id로 그 호수를 정확히 지목 — 면만 보내면 같은 면의 더 최신호가 대신 열리고
       // 읽음 처리도 그쪽에 붙는다(Codex #190). 면은 id 미발견 시 폴백용으로 유지.
-      text: `${i.unreadBrief.label}${String(i.unreadBrief.label).includes("분석") ? "" : " 브리프"} 만들어뒀어 — 읽고 가.`,
+      text: `${quickAnalysisProseLabel(i.unreadBrief)} 만들어뒀어 — 읽고 가.`,
       chip: "읽기", cmd: { type: "weekly_show", id: i.unreadBrief.id || null, period: i.unreadBrief.period || null, month: i.unreadBrief.month || null, group: i.unreadBrief.group || null },
     });
   }

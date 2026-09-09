@@ -142,6 +142,24 @@ describe("official SBTL Monthly Brief publication boundary", () => {
     expect(errors).toContain("full_blob_sha");
   });
 
+  it("requires QC review to complete before approval and publication", () => {
+    const afterApproval = sample({
+      qc: { ...sample().qc, reviewed_at: "2026-09-09" },
+      approval: { ...sample().approval, approved_at: "2026-09-08" },
+      published_at: "2026-09-10",
+    });
+    expect(validateMonthlyBriefItem(afterApproval).join("\n")).toContain("cannot be later than approval.approved_at");
+
+    const afterPublication = sample({
+      qc: { ...sample().qc, reviewed_at: "2026-09-10" },
+      approval: { ...sample().approval, approved_at: "2026-09-10" },
+      published_at: "2026-09-09",
+    });
+    const errors = validateMonthlyBriefItem(afterPublication).join("\n");
+    expect(errors).toContain("qc.reviewed_at");
+    expect(errors).toContain("cannot be later than published_at");
+  });
+
   it("rejects key-flow evidence outside the governed source set", () => {
     const item = sample({ key_flows: [{ id: "01", title: "flow", summary: "summary", card_ids: ["UNKNOWN_CARD"] }] });
     expect(validateMonthlyBriefItem(item).join("\n")).toContain("must exist in source_card_ids");

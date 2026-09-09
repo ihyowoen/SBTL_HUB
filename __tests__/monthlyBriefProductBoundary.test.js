@@ -48,6 +48,11 @@ describe("SBTL Monthly Brief product boundary", () => {
     expect(response.answer).toContain("자동 생성하지 않아");
   });
 
+  it("preserves optional 월호 qualifiers in official Monthly Brief commands", () => {
+    expect(detectAppCommand("8월호 월간 브리프 보여줘", [], opts())).toEqual({ type: "monthly_show", month: "2026-08" });
+    expect(detectAppCommand("2025년 8월호 월간 브리프 만들어줘", [], opts())).toMatchObject({ type: "monthly_show", month: "2025-08", requested_action: "create" });
+  });
+
   it("does not let Monthly Brief create wording fall into the automatic generator", () => {
     for (const text of ["월간 브리프 만들어줘", "월간 브리프 하나 만들어줘", "2026년 8월 월간 브리프 하나 만들어줘"]) {
       const cmd = detectAppCommand(text, [], opts());

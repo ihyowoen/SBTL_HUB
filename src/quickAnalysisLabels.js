@@ -21,3 +21,16 @@ export function quickAnalysisChipLabel(entry, nowYear, dupMonth = false) {
   if (e.group === "custom") return `🧩 ${e.period === "monthly" ? "30일" : "주간"} ${dd}`;
   return `${e.period === "monthly" ? "30일" : "주간"} ${dd}`;
 }
+
+export function quickAnalysisProseLabel(entry, nowYear = null) {
+  const e = entry || {};
+  const label = String(e.label || "").trim();
+  if (e.month) {
+    if (label.includes("분석")) return label;
+    return calendarQuickAnalysisLabel(e.month, nowYear);
+  }
+  if (e.period === "monthly") return `${e.group === "custom" ? "🧩 " : ""}30일 빠른 분석`;
+  if (!label) return "주간 브리프";
+  if (label.includes("분석") || label.includes("브리프")) return label;
+  return `${label} 브리프`;
+}

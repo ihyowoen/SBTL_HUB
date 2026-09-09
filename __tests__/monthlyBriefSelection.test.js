@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { matchesMonthlyBriefRequest, selectMonthlyBrief } from "../src/monthlyBriefSelection.js";
+import { matchesMonthlyBriefRequest, monthlyBriefSeedState, selectMonthlyBrief } from "../src/monthlyBriefSelection.js";
 
 const issues = [
   { id: "monthly-2026-08-r1", month: "2026-08", revision: 1 },
@@ -23,5 +23,19 @@ describe("official Monthly Brief selection policy", () => {
   it("uses selected/latest behavior only when no month was specifically requested", () => {
     expect(selectMonthlyBrief(issues, null, "monthly-2026-07-r1").issue?.id).toBe("monthly-2026-07-r1");
     expect(selectMonthlyBrief(issues).issue?.id).toBe("monthly-2026-08-r1");
+  });
+
+  it("resets a prior manual selection when an explicit unscoped reader command asks for the latest issue", () => {
+    const seedState = monthlyBriefSeedState({ view: "monthly", nonce: 1 });
+    expect(seedState).toEqual({ requested: null, resetSelection: true });
+    const selectedId = seedState.resetSelection ? null : "monthly-2026-07-r1";
+    expect(selectMonthlyBrief(issues, seedState.requested, selectedId).issue?.id).toBe("monthly-2026-08-r1");
+  });
+
+  it("preserves an explicit month request while resetting any stale manual selection", () => {
+    expect(monthlyBriefSeedState({ view: "monthly", month: "2026-07", nonce: 2 })).toEqual({
+      requested: { month: "2026-07" },
+      resetSelection: true,
+    });
   });
 });

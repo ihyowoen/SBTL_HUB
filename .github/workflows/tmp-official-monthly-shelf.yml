@@ -1,0 +1,60 @@
+name: tmp-official-monthly-shelf
+
+on:
+  push:
+    branches:
+      - chatgpt/official-monthly-shelf-20260910
+    paths:
+      - .github/workflows/tmp-official-monthly-shelf.yml
+
+permissions:
+  contents: write
+
+jobs:
+  wire-shelf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/official-monthly-shelf-20260910
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Wire persistent OFFICIAL shelf into Today
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('src/App.jsx')
+          s = p.read_text()
+          old_import = 'import MonthlyBriefPanel from "./MonthlyBriefPanel";'
+          new_import = old_import + '\nimport OfficialMonthlyBriefShelf from "./OfficialMonthlyBriefShelf";'
+          if 'OfficialMonthlyBriefShelf from "./OfficialMonthlyBriefShelf"' not in s:
+              if old_import not in s:
+                  raise SystemExit('MonthlyBriefPanel import anchor missing')
+              s = s.replace(old_import, new_import, 1)
+
+          anchor = '      <W label={`TODAY\'S FLOW · ${todayLabel()}`} right={`카드 최신 ${fmtDate(today)} · ${todayCards.length}장`}>'
+          shelf = '      <OfficialMonthlyBriefShelf dark={dark} onOpen={(month) => onAppCommand?.({ type: "monthly_show", month })} />\n'
+          if shelf.strip() not in s:
+              if anchor not in s:
+                  raise SystemExit('Today flow anchor missing')
+              s = s.replace(anchor, shelf + anchor, 1)
+          if s.count('OfficialMonthlyBriefShelf dark={dark}') != 1:
+              raise SystemExit('OFFICIAL shelf must be mounted exactly once')
+          p.write_text(s)
+          PY
+      - run: npm ci
+      - name: Test
+        run: npm test -- --run
+      - name: Build
+        run: npm run build
+      - name: Commit validated wiring and remove temporary workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/tmp-official-monthly-shelf.yml
+          git add src/App.jsx
+          git commit -m "Show official Monthly Brief shelf on Today"
+          git push origin HEAD:chatgpt/official-monthly-shelf-20260910

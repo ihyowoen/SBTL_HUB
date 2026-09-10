@@ -1,7 +1,15 @@
 {
   "schema": "sbtl_candidate_reconciliation_checkpoint_v1",
   "status": "IN_PROGRESS",
-  "base_main_sha": "8f3b6c3277d7cd13ccfc48f3c72a5d1ecb5d7c58",
+  "base_main_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "baseline_relock": {
+    "previous_main_sha": "8f3b6c3277d7cd13ccfc48f3c72a5d1ecb5d7c58",
+    "current_main_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+    "canonical_blob_sha_before": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+    "canonical_blob_sha_after": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+    "canonical_data_changed": false,
+    "reason": "main moved after the reconciliation branch was opened, but data/cards.full.json is byte-identical; relock provenance only, no candidate re-adjudication required"
+  },
   "canonical_mutation_allowed": false,
   "current_sep3_sep7": {
     "unique_events": 80,

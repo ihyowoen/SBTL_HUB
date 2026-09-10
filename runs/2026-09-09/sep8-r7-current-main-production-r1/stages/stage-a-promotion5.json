@@ -139,7 +139,9 @@
     "high_value_review_pool_ids": [],
     "structural_signal_review_pool_ids": [],
     "earnings_deep_dive_pool_ids": [],
-    "follow_up_candidate_ids": [],
+    "follow_up_candidate_ids": [
+      "STD26_0908_P_005"
+    ],
     "zero_coverage_domains": [],
     "execution_or_formality_bias_findings": [],
     "technology_validation_gap_ids": [],
@@ -1119,7 +1121,7 @@
       ],
       "execution_anchor_type": null,
       "execution_anchor_strength": null,
-      "baseline_relation": "new_unrelated",
+      "baseline_relation": "distinct_follow_up",
       "duplicate_risk": "bounded_recheck_required_before_promotion",
       "staleness_decision": "current_or_fresh_follow_up",
       "source_access_risk": "bounded_promotion_sources_found_requires_stage_b_body_verification",
@@ -1196,13 +1198,24 @@
       "related_prepass": {
         "status": "PASS",
         "same_event_checked": true,
-        "matched_baseline_candidate_ids": [],
+        "matched_baseline_candidate_ids": [
+          "2026-06-30_US_02"
+        ],
         "matched_current_batch_candidate_ids": [],
-        "relation_candidates": [],
+        "relation_candidates": [
+          {
+            "target_candidate_id": "2026-06-30_US_02",
+            "proposed_relation_type": "distinct_follow_up",
+            "confidence": "high",
+            "reason": "The June card records Ford battery-production intent using CATL licensed technology; the Sep 8 DOT public disclosure of federal pressure is a separate policy event rather than a repeat of the June milestone.",
+            "anchor_class_to_verify": "policy_regulatory_anchor",
+            "incremental_anchor_question": "Verify that the Sep 8 U.S. DOT public pressure on Ford/CATL is chronologically distinct from the June production milestone and materially changes the policy/strategic judgment without implying a new legal ban."
+          }
+        ],
         "duplicate_disposition": "no_duplicate_found",
         "earliest_same_event_check_status": "PASS",
         "fresh_anchor_questions": [
-          "Verify the earliest source-bound event date and exact selected anchor for 'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships'."
+          "Verify the Sep 8 public policy_regulatory_anchor against predecessor 2026-06-30_US_02 and confirm it is a distinct follow-up rather than same-event repetition."
         ]
       },
       "date_role": {
@@ -1253,7 +1266,7 @@
         "us_cn_policy_supply_chain",
         "competitor_customer_strategy"
       ],
-      "baseline_follow_up_relation": "new_unrelated",
+      "baseline_follow_up_relation": "distinct_follow_up",
       "portfolio_coverage_contribution": [
         "us_cn_policy_supply_chain",
         "competitor_customer_strategy"
@@ -1846,7 +1859,7 @@
       "incremental_information": "The U.S. Transportation Secretary issued a formal public letter urging Ford to reduce China-linked technology and manufacturing dependencies, explicitly citing CATL licensing at the Michigan battery plant; this is a material official policy/strategic signal even though it does not itself revoke legal market access.",
       "decision_relevance": "'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships' is decision-relevant to us_cn_policy_supply_chain, competitor_customer_strategy.",
       "baseline_expectation_changed": "The current 1,599-card baseline has no same-event card for this exact current milestone; bounded research establishes a distinct current execution/follow-up state.",
-      "follow_up_relation": "new_unrelated",
+      "follow_up_relation": "distinct_follow_up",
       "next_confirmation_points": [
         "Verify the next measurable production, operation, contract, regulatory, capacity, shipment, utilisation, price, application, enforcement, cleanup, or court milestone for 'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships'; confirmation strengthens the Stage A thesis, while delay, reversal, cancellation, or non-execution weakens it."
       ],
@@ -1906,12 +1919,12 @@
       "integrity_is_best": null,
       "spec_id": "STD26_0908_P_005",
       "merged_into_spec_id": null,
-      "baseline_match": null,
-      "baseline_relation": "new_unrelated",
-      "duplicate_risk": "bounded_recheck_required_before_promotion",
+      "baseline_match": "2026-06-30_US_02",
+      "baseline_relation": "distinct_follow_up",
+      "duplicate_risk": "bounded_recheck_completed_distinct_follow_up",
       "staleness_decision": "current_or_fresh_follow_up",
       "treasure_hunt_sampled": false,
-      "notes": "Promotion resolved; authorized for Stage B evidence package construction."
+      "notes": "Promotion resolved; Stage A Related prepass identifies 2026-06-30_US_02 as a distinct predecessor. Sep 8 is the official public-disclosure policy event; the artifact does not treat Sep 8 as the letter document date."
     }
   ],
   "formal_stage_a_batch": {

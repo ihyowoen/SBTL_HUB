@@ -1,0 +1,154 @@
+name: Sep8 live production verification
+
+on:
+  push:
+    branches: [chatgpt/sep8-live-production-verification]
+    paths: ['.github/workflows/sep8-live-production-verification.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  verify-live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Verify live production data
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL='https://sbtl-hub.vercel.app'
+          curl -fsSL --retry 3 --retry-delay 2 "$URL/data/cards.json" -o /tmp/live-cards.json
+          curl -fsSL --retry 3 --retry-delay 2 "$URL/" -o /tmp/live-index.html
+          python3 - <<'PY'
+          import json, pathlib
+          cards=json.loads(pathlib.Path('/tmp/live-cards.json').read_text())
+          assert isinstance(cards,list), type(cards)
+          expected=[
+            '2026-09-08_KR_02','2026-09-08_KR_03','2026-08-31_JP_02','2026-09-08_GL_01',
+            '2026-09-07_GL_02','2026-09-04_GL_05','2026-09-07_EU_01','2026-09-06_CN_03',
+            '2026-09-07_CN_01','2026-08-31_CN_02','2026-08-26_CN_04','2026-09-08_EU_01',
+            '2026-09-08_KR_01','2026-09-08_GL_02','2026-09-08_US_02','2026-09-08_JP_01',
+            '2026-09-08_JP_02','2026-09-08_US_01'
+          ]
+          by={c.get('id'):c for c in cards if isinstance(c,dict)}
+          missing=[i for i in expected if i not in by]
+          assert len(cards)==1617, len(cards)
+          assert not missing, missing
+          core=['id','title','date','region','summary','detail','sources']
+          field_issues={i:[k for k in core if k not in by[i] or by[i][k] in (None,'',[])] for i in expected}
+          field_issues={k:v for k,v in field_issues.items() if v}
+          assert not field_issues, field_issues
+          ford=by['2026-09-08_US_01']
+          target='2026-06-30_US_02'
+          assert target in by, 'Ford Related target missing from live dataset'
+          related=ford.get('related') or []
+          related_ids=[]
+          for x in related:
+            if isinstance(x,str): related_ids.append(x)
+            elif isinstance(x,dict): related_ids.append(x.get('id') or x.get('target_id'))
+          assert target in related_ids, (related_ids, ford.get('related'))
+          provisional=[x for x in related_ids if isinstance(x,str) and ('STD26_' in x or x.startswith('TEMP') or x.startswith('PROV'))]
+          assert not provisional, provisional
+          index=pathlib.Path('/tmp/live-index.html').read_text(errors='replace')
+          assert '<div id="root"></div>' in index
+          assert '/assets/' in index and '.js' in index
+          result={
+            'status':'PASS', 'live_card_count':len(cards), 'introduced_ids_checked':len(expected),
+            'missing_ids':missing, 'core_field_issues':field_issues,
+            'ford_related_target':target, 'ford_related_target_exists':True,
+            'ford_related_published_edge_present':True, 'provisional_relation_ids':provisional,
+            'ford_title':ford.get('title'), 'target_title':by[target].get('title'),
+            'introduced_titles':[by[i].get('title') for i in expected]
+          }
+          pathlib.Path('/tmp/live-data-result.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+          print('LIVE_DATA_RESULT='+json.dumps(result,ensure_ascii=False))
+          PY
+      - name: Verify live HTML interactive and mobile rendering
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          test -n "$CHROME"
+          npm install --no-save --no-package-lock playwright-core@1.55.0 >/dev/null 2>&1
+          cat > /tmp/live-browser-check.mjs <<'JS'
+          import { chromium } from 'playwright-core';
+          import fs from 'fs';
+          const base='https://sbtl-hub.vercel.app';
+          const expected=[
+            '2026-09-08_KR_02','2026-09-08_KR_03','2026-08-31_JP_02','2026-09-08_GL_01',
+            '2026-09-07_GL_02','2026-09-04_GL_05','2026-09-07_EU_01','2026-09-06_CN_03',
+            '2026-09-07_CN_01','2026-08-31_CN_02','2026-08-26_CN_04','2026-09-08_EU_01',
+            '2026-09-08_KR_01','2026-09-08_GL_02','2026-09-08_US_02','2026-09-08_JP_01',
+            '2026-09-08_JP_02','2026-09-08_US_01'
+          ];
+          const browser=await chromium.launch({headless:true, executablePath:process.env.CHROME_PATH, args:['--no-sandbox']});
+          async function check(viewport,label){
+            const page=await browser.newPage({viewport});
+            const errors=[];
+            page.on('pageerror',e=>errors.push(String(e)));
+            page.on('console',m=>{ if(m.type()==='error') errors.push(m.text()); });
+            const resp=await page.goto(base,{waitUntil:'domcontentloaded',timeout:60000});
+            if(!resp || resp.status()!==200) throw new Error(label+' HTTP '+(resp&&resp.status()));
+            await page.waitForFunction(()=>document.querySelector('#root')?.children.length>0,{timeout:30000});
+            await page.waitForTimeout(3500);
+            const api=await page.request.get(base+'/data/cards.json');
+            if(!api.ok()) throw new Error(label+' cards API '+api.status());
+            const cards=await api.json();
+            const by=new Map(cards.map(c=>[c.id,c]));
+            const body=(await page.locator('body').innerText()).replace(/\s+/g,' ');
+            const visibleIntroduced=expected.filter(id=>body.includes(by.get(id)?.title||'__NO__'));
+            const metrics=await page.evaluate(()=>({
+              rootChildren:document.querySelector('#root')?.children.length||0,
+              bodyTextLength:(document.body?.innerText||'').length,
+              buttons:document.querySelectorAll('button').length,
+              links:document.querySelectorAll('a').length,
+              inputs:document.querySelectorAll('input,textarea,select').length,
+              scrollWidth:document.documentElement.scrollWidth,
+              clientWidth:document.documentElement.clientWidth
+            }));
+            if(metrics.rootChildren<1 || metrics.bodyTextLength<1000) throw new Error(label+' root/body not rendered');
+            if(metrics.buttons<1 && metrics.links<1) throw new Error(label+' no interactive controls rendered');
+            if(visibleIntroduced.length<1) throw new Error(label+' no introduced Sep8 title visible in rendered DOM');
+            if(label==='mobile' && metrics.scrollWidth>metrics.clientWidth+8) throw new Error('mobile horizontal overflow '+JSON.stringify(metrics));
+            await page.screenshot({path:'/tmp/'+label+'.png',fullPage:false});
+            await page.close();
+            return {label,http_status:200,errors,visible_introduced_ids:visibleIntroduced,metrics};
+          }
+          const desktop=await check({width:1440,height:1000},'desktop');
+          const mobile=await check({width:390,height:844},'mobile');
+          const result={status:'PASS',desktop,mobile};
+          fs.writeFileSync('/tmp/live-browser-result.json',JSON.stringify(result,null,2));
+          console.log('LIVE_BROWSER_RESULT='+JSON.stringify(result));
+          await browser.close();
+          JS
+          CHROME_PATH="$CHROME" node /tmp/live-browser-check.mjs
+      - name: Print final production verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, pathlib
+          d=json.loads(pathlib.Path('/tmp/live-data-result.json').read_text())
+          b=json.loads(pathlib.Path('/tmp/live-browser-result.json').read_text())
+          out={
+            'status':'PASS',
+            'production_url':'https://sbtl-hub.vercel.app',
+            'live_card_count':d['live_card_count'],
+            'introduced_ids_checked':d['introduced_ids_checked'],
+            'ford_related_target':d['ford_related_target'],
+            'data_verification':'PASS',
+            'html_verification':'PASS',
+            'interactive_render_verification':'PASS',
+            'mobile_render_verification':'PASS',
+            'desktop_visible_introduced_ids':b['desktop']['visible_introduced_ids'],
+            'mobile_visible_introduced_ids':b['mobile']['visible_introduced_ids'],
+            'desktop_runtime_errors':b['desktop']['errors'],
+            'mobile_runtime_errors':b['mobile']['errors']
+          }
+          print('PRODUCTION_0_9='+json.dumps(out,ensure_ascii=False))
+          PY

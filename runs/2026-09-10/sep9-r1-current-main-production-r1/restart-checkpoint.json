@@ -1,6 +1,6 @@
 {
   "schema": "sbtl_governed_run_restart_checkpoint_v1",
-  "status": "IN_PROGRESS_PREFLIGHT",
+  "status": "IN_PROGRESS_PREFLIGHT_AND_0_0C_DISCOVERY",
   "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "generated_date": "2026-09-10",
   "source_input": {
@@ -28,6 +28,15 @@
     "integrity_flagged_story_count": 25,
     "integrity_excluded_story_count": 0
   },
+  "discovery_scope_extension": {
+    "authorized": true,
+    "date": "2026-09-10",
+    "mode": "PROMPT_0_0C_DISCOVERY_ONLY",
+    "original_input_story_count_unchanged": 393,
+    "initial_discovered_candidate_count": 3,
+    "artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/coverage-discovery-2026-09-10-supplement.json",
+    "provenance_guard": "2026-09-10 candidates must never be represented as original-input rows from the 2026-09-09 source file."
+  },
   "baseline": {
     "main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
     "canonical_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
@@ -36,7 +45,7 @@
   "priority": "CURRENT_RUN_BEFORE_HISTORICAL_CARRYFORWARD",
   "paused_parallel_work": {
     "historical_candidate_reconciliation_pr": 369,
-    "reason": "Sep 9 current governed run must be completed before continuing historical carryforward reconciliation."
+    "reason": "Sep 9 current governed run plus user-authorized Sep 10 discovery extension must be completed before continuing historical carryforward reconciliation."
   },
   "required_next_stages": [
     "0.0D",
@@ -61,6 +70,7 @@
     "delete_authorized": false,
     "related_remove_authorized": false,
     "preserve_existing_related": true,
-    "integrity_flagged_rows_must_remain_reviewable": true
+    "integrity_flagged_rows_must_remain_reviewable": true,
+    "sep10_discoveries_must_remain_provenance_distinct": true
   }
 }

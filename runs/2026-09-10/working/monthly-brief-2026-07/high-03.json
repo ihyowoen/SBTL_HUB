@@ -1,0 +1,1466 @@
+{
+  "month": "2026-07",
+  "signal": "high",
+  "batch": 3,
+  "count": 25,
+  "cards": [
+    {
+      "id": "2026-07-22_GL_03",
+      "date": "2026-07-22",
+      "region": "GL",
+      "signal": "high",
+      "title": "중국 탄산리튬 선물, 13만6,800위안·5개월 저점",
+      "sub": "중국 탄산리튬 주력계약은 톤당 13만6,800위안까지 하락하며 5개월 저점을 기록했다.",
+      "gate": "선물가격이 최근 고점에서 조정된 시장신호다. 하락원인은 현재 인용만으로 단정하지 않고 추가 자료로 확인할 필요가 있다.",
+      "fact": "The Northern Miner는 중국 탄산리튬 선물이 5개월 저점으로 하락했다고 보도했다. OilPrice.com은 주력계약 가격을 톤당 13만6,800위안으로 제시했다.",
+      "implication": [
+        "중국 탄산리튬 선물가격이 5개월 저점까지 조정된 흐름이 확인된다.",
+        "가격변화의 원인은 추가 자료로 확인할 필요가 있다.",
+        "후속 현물가격과 재고변화가 다음 점검 대상이다."
+      ],
+      "urls": [
+        "https://northernminer.com/news/lithium-sinks-to-five-month-low-amid-2027-glut-fears/1003893274",
+        "https://mining.com/lithium-price-sinks-to-five-month-low-as-restarts-stoke-2027-glut-fears",
+        "https://miningweekly.com/article/china-lithium-prices-hit-five-month-low-on-expectations-of-oversupply-in-2027-2026-07-21",
+        "https://oilprice.com/Metals/Commodities/Lithium-Prices-Sink-To-Five-Month-Lows-Amid-Oversupply-Jitters.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://northernminer.com/news/lithium-sinks-to-five-month-low-amid-2027-glut-fears/1003893274",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "The Northern Miner"
+        },
+        {
+          "url": "https://oilprice.com/Metals/Commodities/Lithium-Prices-Sink-To-Five-Month-Lows-Amid-Oversupply-Jitters.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "OilPrice.com"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      }
+    },
+    {
+      "id": "2026-07-22_GL_02",
+      "date": "2026-07-22",
+      "region": "GL",
+      "signal": "high",
+      "title": "Vale·GEM·에코프로 BNSI, HPAL 오토클레이브 반입",
+      "sub": "연 9만톤 니켈 MHP 설계·3개 라인 중 첫 기계적 완공 연말 목표",
+      "gate": "9만톤은 설계용량이며 실제 생산량이 아니다. 기계적 완공, 시운전, 황산·원료 공급과 초기 수율 안정화가 순차적으로 남아 있고 2027년 2분기 가동 목표와 상업생산은 구분해야 한다.",
+      "fact": "PT Vale, GEM과 에코프로는 7월 22일 인도네시아 Morowali Sambalagi HPAL 프로젝트에 핵심설비인 오토클레이브를 반입했다. 시설은 연 1,040만톤의 limonite 원료를 투입해 MHP 형태로 연 약 9만톤의 함유니켈을 생산하도록 설계됐고 A·B·C 3개 라인 중 첫 기계적 완공을 2026년 말 목표로 한다. 에코프로는 2027년 2분기 가동 목표를 제시했다.",
+      "implication": [
+        "오토클레이브 반입으로 BNSI가 토목·조립에서 핵심 HPAL 공정설비 설치단계로 진입했다.",
+        "연 9만톤 설계는 대형 배터리급 니켈 중간재 프로젝트지만 3개 라인의 순차 완공과 램프업이 실제 공급량을 결정한다.",
+        "기계적 완공일, 시운전 MHP 품질·회수율과 원료·황산 조달이 후속 검증지표다."
+      ],
+      "urls": [
+        "https://mbiz.heraldcorp.com/article/10817433",
+        "https://ecopro.co.kr/sub0401/view/id/2144",
+        "https://view.asiae.co.kr/article/2026072309330129966",
+        "https://zdnet.co.kr/view?no=20260723102037",
+        "https://saladeimprensa.vale.com/ca/w/sambalagi-hpal-project-reaches-major-milestone-with-autoclave-arrival-strengthening-the-future-of-sustainable-downstreaming"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://ecopro.co.kr/sub0401/view/id/2144",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "에코프로"
+        },
+        {
+          "url": "https://view.asiae.co.kr/article/2026072309330129966",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "아시아경제"
+        },
+        {
+          "url": "https://saladeimprensa.vale.com/ca/w/sambalagi-hpal-project-reaches-major-milestone-with-autoclave-arrival-strengthening-the-future-of-sustainable-downstreaming",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "PT Vale official"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      }
+    },
+    {
+      "id": "2026-07-22_EU_03",
+      "date": "2026-07-22",
+      "region": "EU",
+      "signal": "high",
+      "title": "슬로바키아 Nováky 36MW/72MWh BESS 가동",
+      "sub": "옛 석탄발전소 부지에 들어선 슬로바키아 최대 배터리 저장시설이 FCR 제공을 시작한다.",
+      "gate": "이번 사건은 계획·착공이 아니라 가동·운영 단계다. 다만 '슬로바키아 최대'라는 지위는 향후 더 큰 프로젝트가 가동되면 바뀔 수 있어 후속 확인이 필요하다.",
+      "fact": "Slovenské elektrárne는 7월 22일 Nováky 옛 석탄발전소 부지의 36MW/72MWh 배터리 저장시설을 가동했다고 밝혔다. 시설은 12MW와 24MW 두 구간으로 구성되며 주파수 안정화를 위한 FCR을 제공한다.",
+      "implication": [
+        "석탄발전 부지가 계통 유연성 자산으로 전환되는 중동부유럽 ESS 상용화 사례가 실제 운영단계에 진입했다.",
+        "FCR 시장 활용과 후속 대형 BESS 가동이 해당 자산의 운영가치와 시장 구조를 결정할 다음 확인점이다."
+      ],
+      "urls": [
+        "https://newsnow.tasr.sk/slovenske-elektrarne-commissions-largest-battery-storage-facility-in-slovakia/",
+        "https://spravy.stvr.sk/spravy-po-minute/slovenske-elektrarne-se-uviedli-do-prevadzky-najvacsie-bateriove-ulozisko-na-slovensku/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://newsnow.tasr.sk/slovenske-elektrarne-commissions-largest-battery-storage-facility-in-slovakia/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "TASR NewsNow"
+        },
+        {
+          "url": "https://newsnow.tasr.sk/slovenske-elektrarne-commissions-largest-battery-storage-facility-in-slovakia/",
+          "supports": [
+            "fact"
+          ],
+          "publisher": "TASR NewsNow"
+        },
+        {
+          "url": "https://spravy.stvr.sk/spravy-po-minute/slovenske-elektrarne-se-uviedli-do-prevadzky-najvacsie-bateriove-ulozisko-na-slovensku/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "STVR"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Prompt 0.4 full current-main baseline revalidation found no same-event canonical collision and classified this candidate as a new event.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "Prompt 0.4 current-main baseline revalidation decision materialized into current lifecycle contract; no editorial relation decision reopened.",
+        "production_id_resolution_required_later": false
+      }
+    },
+    {
+      "id": "2026-07-22_EU_02",
+      "date": "2026-07-22",
+      "region": "EU",
+      "signal": "high",
+      "title": "튀니지 STEG, 주거용 태양광 연계 배터리 공식 허용",
+      "sub": "기존 금지 해소와 함께 하이브리드 인버터 기술지침 공개",
+      "gate": "법적 허용은 수요 개방의 필요조건일 뿐 설치 급증을 보장하지 않는다. 제품 인증, 설치승인, 요금구조, 금융비용과 시공역량이 보급속도를 결정한다.",
+      "fact": "튀니지 국영 전력회사 STEG는 7월 22일 모든 주거 고객이 하이브리드 인버터와 연결된 태양광 설비에 배터리 저장장치를 설치할 수 있도록 공식 허용하고 설계·설치·운영 기술지침을 공개했다. 주거용 계통연계 태양광의 배터리 사용은 이전까지 허용되지 않았다.",
+      "implication": [
+        "북아프리카 주거용 태양광 시장에서 저장장치를 막던 제도적 장벽이 공식적으로 제거됐다.",
+        "시장규모는 기술지침에 맞는 제품 공급, 설치승인 건수와 가정의 투자회수기간에서 확인된다."
+      ],
+      "urls": [
+        "https://www.ess-news.com/2026/07/24/tunisia-approves-residential-solar-plus-storage-amid-heatwave",
+        "https://www.tap.info.tn/fr/Portail-Economie/20418633-la-steg-autorise",
+        "https://www.lapresse.tn/2026/07/23/a-telecharger-le-guide-officiel-de-la-steg-sur-les-batteries-de-stockage-pour-installations-solaires/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.ess-news.com/2026/07/24/tunisia-approves-residential-solar-plus-storage-amid-heatwave",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "ESS News RSS"
+        },
+        {
+          "url": "https://www.tap.info.tn/fr/Portail-Economie/20418633-la-steg-autorise",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Tunis Afrique Presse"
+        },
+        {
+          "url": "https://www.lapresse.tn/2026/07/23/a-telecharger-le-guide-officiel-de-la-steg-sur-les-batteries-de-stockage-pour-installations-solaires/",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "La Presse de Tunisie"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "active upstream baseline에서 직접 동일사건 계보가 확인되지 않은 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      }
+    },
+    {
+      "id": "2026-07-22_EU_01",
+      "date": "2026-07-22",
+      "region": "EU",
+      "signal": "high",
+      "title": "중국 브랜드, 6월 유럽 PHEV 인도의 34% 차지",
+      "sub": "전체 신차 11%·BEV 15%를 웃돈 플러그인하이브리드 침투율",
+      "gate": "34%는 단일 월의 유럽 PHEV 인도 비중이며 전체 자동차시장 점유율이나 연간 추세와 동일하지 않다. 지속성은 월별 판매, 현지생산과 관세·규제 적용범위를 함께 확인해야 한다.",
+      "fact": "Dataforce 집계를 인용한 보도에 따르면 중국 브랜드는 6월 유럽 플러그인하이브리드차 인도의 34%를 차지해 사상 최고치를 기록했다. 같은 집계에서 중국 브랜드의 전체 신차 비중은 약 11%, 순수전기차 비중은 약 15%로 PHEV 침투율이 더 높았다.",
+      "implication": [
+        "중국 업체의 유럽 확장이 BEV뿐 아니라 PHEV에서 더 빠르게 나타나 제품·파워트레인 대응력이 경쟁변수가 되고 있다.",
+        "배터리 수요 해석에는 PHEV의 팩 용량과 차종별 판매구성을 BEV 판매량과 구분해 봐야 한다."
+      ],
+      "urls": [
+        "https://www.theguru.co.kr/news/article.html?no=104912",
+        "https://www.carscoops.com/2026/07/china-phev-europe-tariffs/",
+        "https://www.businesstimes.com.sg/companies-markets/transport-logistics/one-three-plug-hybrid-cars-sold-europe-now-chinese"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.theguru.co.kr/news/article.html?no=104912",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "더구루"
+        },
+        {
+          "url": "https://www.carscoops.com/2026/07/china-phev-europe-tariffs/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Carscoops"
+        },
+        {
+          "url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/one-three-plug-hybrid-cars-sold-europe-now-chinese",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "The Business Times"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "active upstream baseline에서 직접 동일사건 계보가 확인되지 않은 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      }
+    },
+    {
+      "id": "2026-07-21_US_05",
+      "date": "2026-07-21",
+      "region": "US",
+      "signal": "high",
+      "title": "LG에너지솔루션 원고 특허소송, 별도 ITC 제소 병행",
+      "sub": "텍사스 동부지법 사건기록은 LG에너지솔루션을 원고로 표시했고, 별도 ITC 제소도 확인됐다.",
+      "gate": "연방법원 특허소송과 ITC 제소가 병행된 사건이다. 두 절차의 당사자와 진행단계를 분리해 확인할 필요가 있다.",
+      "fact": "텍사스 동부지법 사건기록은 LG에너지솔루션을 원고로 표시하고 사건 접수일을 2026년 7월 21일로 기록했다. 튤립 이노베이션 자료는 미국 국제무역위원회에 제소했다고 밝혔다.",
+      "implication": [
+        "배터리 특허분쟁에서 연방법원 소송과 ITC 절차가 병행되는 구조가 확인된다.",
+        "텍사스 소송 원고와 ITC 제소 관련 주체를 동일하게 단정하지 않고 절차별로 구분할 필요가 있다.",
+        "ITC 조사개시 여부와 법원 절차가 후속 확인 대상이다."
+      ],
+      "urls": [
+        "https://mt.co.kr/industry/2026/07/23/2026072309271565700",
+        "https://khan.co.kr/article/202607230930001",
+        "https://etnews.com/20260723000131",
+        "https://zdnet.co.kr/view?no=20260723102741",
+        "https://tulipinnovation.com/news/eve-energy-itc-litigation"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://dockets.justia.com/docket/texas/txedce/2%3A2026cv00598/247612",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Justia 연방법원 docket listing"
+        },
+        {
+          "url": "https://dockets.justia.com/docket/texas/txedce/2%3A2026cv00598/247612",
+          "supports": [
+            "sub",
+            "fact"
+          ],
+          "publisher": "Justia 연방법원 docket listing"
+        },
+        {
+          "url": "https://tulipinnovation.com/news/eve-energy-itc-litigation",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Tulip Innovation"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      }
+    },
+    {
+      "id": "2026-07-21_US_03",
+      "date": "2026-07-21",
+      "region": "US",
+      "signal": "high",
+      "title": "Comstock·Illuminate USA, 오하이오 5GW 태양광공장 제조폐기물 재활용 계약",
+      "sub": "연 5GW 태양광모듈 공장의 제조 부산물을 운송·분류·재활용하는 무매립 처리 서비스를 도입한다.",
+      "gate": "5GW는 Illuminate USA 공장의 연간 생산능력이지 재활용 대상 폐기물량이 아니다. 계약기간, 실제 처리톤수와 회수율은 공개되지 않아 운영실적을 별도로 확인해야 한다.",
+      "fact": "Comstock Metals는 오하이오주 Pataskala의 Illuminate USA 태양광모듈 공장에서 발생하는 제조 부산물을 운송·분류·재활용하는 서비스계약을 체결했다. 해당 공장은 연 5GW 모듈 생산능력을 보유하며 계약은 무매립 처리를 목표로 한다.",
+      "implication": [
+        "태양광 현지생산에서 제조공정 부산물 처리가 별도 공급망 서비스로 구체화된 사례가 확인된다.",
+        "공장 생산능력을 폐기물량이나 회수매출로 직접 환산할 수 없다.",
+        "실제 처리톤수, 회수소재 판매와 무매립 달성률이 다음 확인항목이다."
+      ],
+      "urls": [
+        "https://comstockmetals.com/newsroom/comstock-metals-and-illuminate-usa-sign-service-agreement-for-recycling-solar-panel-manufacturing-materials",
+        "https://pv-magazine-usa.com/2026/07/21/comstock-metals-signs-solar-recycling-agreement-with-illuminate-usa/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://comstockmetals.com/newsroom/comstock-metals-and-illuminate-usa-sign-service-agreement-for-recycling-solar-panel-manufacturing-materials",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Comstock official"
+        },
+        {
+          "url": "https://pv-magazine-usa.com/2026/07/21/comstock-metals-signs-solar-recycling-agreement-with-illuminate-usa/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "pv magazine USA"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-21_US_02",
+      "date": "2026-07-21",
+      "region": "US",
+      "signal": "high",
+      "title": "USITC, 배터리용 음극재 Section 337 조사 337-TA-1513 개시",
+      "sub": "특정 음극재의 미국 수입·판매와 관련한 무역구제 절차가 시작됐다.",
+      "gate": "조사개시는 침해판정이나 수입금지명령이 아니다. 행정법판사 심리와 위원회 최종판정 전까지 법적 효과를 확정해서는 안 된다.",
+      "fact": "미국 국제무역위원회(USITC)는 배터리셀·배터리에 사용되는 특정 음극재에 대한 Section 337 조사 337-TA-1513을 개시했다. 현재 단계는 조사개시이며 침해판정이나 수입제한 결정이 아니다.",
+      "implication": [
+        "배터리 소재 경쟁에서 특허기반 수입구제 절차가 공급망 변수로 작용할 여지가 생겼다.",
+        "현재는 조사개시 단계이므로 침해나 수입제한을 전제로 해석할 수 없다.",
+        "조사 진행과 후속 위원회 판단이 다음 확인항목이다."
+      ],
+      "urls": [
+        "https://www.usitc.gov/press_room/news_release/2026/er0721_68943.htm",
+        "https://www.jiemian.com/article/14808972.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.usitc.gov/press_room/news_release/2026/er0721_68943.htm",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "USITC"
+        },
+        {
+          "url": "https://www.jiemian.com/article/14808972.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Jiemian News"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-21_KR_01",
+      "date": "2026-07-21",
+      "region": "KR",
+      "signal": "high",
+      "title": "한국, 그리드코드 전문위원회 출범해 BESS 안전·계통연계 논의",
+      "sub": "전기위원회는 기존 전문위원회를 그리드코드 전문위원회로 개편하고 2026년 7월 21일 첫 회의를 열었다.",
+      "gate": "상설 전문가 협의체 출범은 계통기술 기준을 정비할 공식 논의창구가 마련됐다는 의미다. 그러나 첫 회의가 즉시 기술기준 개정이나 신규 의무 시행을 뜻하지는 않는다. 후속 의결과 규정반영 여부가 실제 산업영향을 결정한다.",
+      "fact": "기후에너지환경부 전기위원회는 2026년 7월 21일 제1차 그리드코드 전문위원회를 개최했다. 기존 전력계통 및 신뢰도 전문위원회를 개편한 조직으로 기술적 운영기준과 중장기 개선방향을 검토한다. 회의에서는 BESS 안전성과 계통연계기준 등이 논의대상으로 제시됐다.",
+      "implication": [
+        "인버터 기반 전원 확대에 대응한 계통기술 논의가 상설 전문가 체계로 정비됐다.",
+        "BESS 안전·접속기준이 제도화되면 장비설계와 프로젝트 승인조건에 직접 영향을 줄 수 있다.",
+        "위원회 의결, 기술기준 개정안과 시장운영규칙 반영이 실제 규제효과를 확인할 다음 단계다."
+      ],
+      "urls": [
+        "https://www.mcee.go.kr/home/web/board/read.do?boardId=1878280&boardMasterId=939&menuId=10598",
+        "https://www.electimes.com/news/articleView.html?idxno=370432",
+        "https://www.ajunews.com/view/20260720100408279",
+        "https://www.energy-news.co.kr/news/articleView.html?idxno=226914"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.mcee.go.kr/home/web/board/read.do?boardId=1878280&boardMasterId=939&menuId=10598",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "기후에너지환경부"
+        },
+        {
+          "url": "https://www.mcee.go.kr/home/web/board/read.do?boardId=1878280&boardMasterId=939&menuId=10598",
+          "supports": [
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "기후에너지환경부"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-21_JP_02",
+      "date": "2026-07-21",
+      "region": "JP",
+      "signal": "high",
+      "title": "Tensor Energy·LC Japan, 2028년 저압 ESS 1,000기 집합화 추진",
+      "sub": "Tensor Energy와 LC Japan은 저압계통 ESS의 개발·EPC·집합운영을 연계해 2028년까지 1,000기 집합화를 목표로 협력한다.",
+      "gate": "1,000기는 확정 설치물량이 아니라 양사가 제시한 목표치다. 협업은 LC Japan의 기획·판매·EPC와 Tensor Energy의 집합운영을 결합한다. 실제 설치계약과 시장등록이 사업모델의 실행력을 결정한다.",
+      "fact": "Tensor Energy와 LC Japan은 저압계통 ESS 집합사업 협력을 시작했다. LC Japan은 기획, 판매와 EPC를 담당하고 Tensor Energy는 집합운영 역할을 맡는다. 양사는 2028년까지 저압계통용 ESS 1,000기 집합화를 목표로 제시했다.",
+      "implication": [
+        "일본 저압 ESS가 개별 설비판매에서 다수 자산의 집합운영 모델로 확장되는 흐름이 관찰된다.",
+        "기획·EPC와 집합운영을 분리한 역할구조는 설치확대와 시장운영 전문화를 동시에 겨냥한 것으로 볼 수 있다.",
+        "실제 설치계약, 시장등록과 집합운영 용량이 1,000기 목표의 현실성을 판단할 핵심이다."
+      ],
+      "urls": [
+        "https://prtimes.jp/main/html/rd/p/000000037.000096424.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000037.000096424.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Tensor Energy / PR TIMES"
+        },
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000037.000096424.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Tensor Energy / PR TIMES"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-21_JP_01",
+      "date": "2026-07-21",
+      "region": "JP",
+      "signal": "high",
+      "title": "RENON POWER, 일본 저압계통 ESS 500개 사이트 수주",
+      "sub": "RENON POWER는 장비·EMS·설치·10년 보증을 묶은 저압계통 ESS 패키지의 누적 수주가 500개 사이트를 넘었다고 밝혔다.",
+      "gate": "500개는 수주 사이트 수로 설치·계통연계·운전완료 대수와 구분해야 한다. 표준패키지 방식은 반복조달에 유리하지만 수주잔고의 실제 전환속도가 중요하다. 제조·납품과 시장등록 실적이 다음 판단기준이다.",
+      "fact": "RENON POWER의 저압계통용 ESS 패키지는 157~200kWh 배터리, 49.9kW PCS, 변압기, EMS, 설치공사와 10년 제품보증으로 구성된다. 회사는 누적 수주가 500개 사이트를 넘었다고 밝혔다. 수주분은 제조·조달을 거쳐 순차 납품될 예정이다.",
+      "implication": [
+        "저압 ESS가 개별 장비판매보다 설계·공사·EMS·보증을 묶은 표준패키지 수주로 규모화되고 있다.",
+        "패키지 표준화는 설치속도를 높일 수 있지만 실제 시장가치는 계통연계와 운영개시 전환율에 달려 있다.",
+        "납품완료, 시장등록과 운영대수가 500개 사이트 수주의 실질성을 판단할 핵심이다."
+      ],
+      "urls": [
+        "https://prtimes.jp/main/html/rd/p/000000005.000185433.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000005.000185433.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "RENON POWER / PR TIMES"
+        },
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000005.000185433.html",
+          "supports": [
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "RENON POWER / PR TIMES"
+        },
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000005.000185433.html",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "RENON POWER / PR TIMES"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-21_GL_05",
+      "date": "2026-07-21",
+      "region": "GL",
+      "signal": "high",
+      "title": "짐바브웨, 리튬정광 1,000톤 첫 철도편으로 마푸투 수송",
+      "sub": "NRZ·BBR·Silvergill이 리튬정광 1,000톤을 그완다에서 모잠비크 마푸투항까지 철도로 수송했다.",
+      "gate": "첫 1,000톤 운송은 내륙-항만 철도경로의 실행 가능성을 보여준다. 다만 단발 운송만으로 상시 수송능력이나 비용경쟁력을 판단할 수 없어 정기편과 처리량 확대를 확인해야 한다.",
+      "fact": "짐바브웨 국영철도는 Beitbridge Bulawayo Railway와 Silvergill Logistics와 협력해 그완다에서 모잠비크 마푸투항으로 리튬정광 1,000톤을 철도로 수송했다. 이는 트럭 중심 수출에 추가 철도경로를 제공한 첫 운송으로 발표됐다.",
+      "implication": [
+        "아프리카 리튬 공급망에서 내륙-항만 철도 대체경로가 실제 운송으로 확인됐다.",
+        "단발 운송과 안정적인 수출회랑은 구분해야 하며 회송·항만처리 조건이 변수로 남는다.",
+        "정기 운행횟수, 연간 수송량과 운임이 다음 검증기준이다."
+      ],
+      "urls": [
+        "https://www.reuters.com/world/africa/zimbabwe-adds-freight-rail-option-lithium-export-gateway-2026-07-21/",
+        "https://www.thezimbabwemail.com/business/zimbabwe-opens-new-rail-corridor-for-lithium-exports/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.reuters.com/world/africa/zimbabwe-adds-freight-rail-option-lithium-export-gateway-2026-07-21/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        },
+        {
+          "url": "https://www.thezimbabwemail.com/business/zimbabwe-opens-new-rail-corridor-for-lithium-exports/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Zimbabwe Mail"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-21_EU_07",
+      "date": "2026-07-21",
+      "region": "EU",
+      "signal": "high",
+      "title": "Moto Exeter, 승용 100면·eHGV 4면 초급속 충전허브 확대",
+      "sub": "최대 400kW Moto Charge 24면을 추가해 Tesla·GRIDSERVE를 포함한 복합 충전거점을 구축했다.",
+      "gate": "승용 100면은 여러 사업자의 충전베이를 합산한 수치이며 모두 400kW인 것은 아니다. 실제 이용편의는 가동률, 대기시간과 전력제약에 달려 있다.",
+      "fact": "영국 Moto Hospitality는 Exeter 서비스구역의 충전허브를 확대했다. 현장은 최대 400kW Moto Charge 24면, Tesla 32면, GRIDSERVE 44면 등 승용차 100면과 전기 대형화물차 전용 4면을 갖췄다.",
+      "implication": [
+        "영국 고속도로 충전에서 대규모 승용 허브와 eHGV 전용설비를 한 거점에 결합한 사례가 확인된다.",
+        "설치면 수와 피크시간 가용성·전력배분은 별도 운영지표다.",
+        "초기 이용률, 고장률과 eHGV 충전실적이 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://www.electrive.com/2026/07/21/moto-expands-fast-charging-capacity-at-exeter-charging-hub/",
+        "https://greenfleet.net/news/17072026/moto-expands-ev-charging-exeter-site-create-mega-hub"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.electrive.com/2026/07/21/moto-expands-fast-charging-capacity-at-exeter-charging-hub/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "electrive"
+        },
+        {
+          "url": "https://greenfleet.net/news/17072026/moto-expands-ev-charging-exeter-site-create-mega-hub",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "GREENFLEET"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-21_EU_06",
+      "date": "2026-07-21",
+      "region": "EU",
+      "signal": "high",
+      "title": "라트비아 Saules BESS, 태양광 8개 부지·120MWh에 2,200만유로 채권조달",
+      "sub": "태양광발전소 8곳의 120MWh BESS 설치재원을 2,200만유로 선순위 담보채권으로 마련했다.",
+      "gate": "2,200만유로 채권발행은 프로젝트 재원을 구체화한 단계다. 실제 설치완료나 가동을 의미하지 않으므로 8개 부지별 장비인도와 계통시험을 확인해야 한다.",
+      "fact": "Saules BESS는 라트비아의 운영 중 태양광발전소 8곳에 합계 120MWh BESS를 설치하기 위해 2,200만유로 선순위 담보채권을 발행했다. 현재 확인된 수치는 채권규모 2,200만유로와 저장용량 120MWh다.",
+      "implication": [
+        "발트 지역 BESS 개발에서 프로젝트채권이 태양광 병설형 저장의 조달수단으로 활용된 사례가 확인된다.",
+        "자금조달과 실제 설치·가동은 분리해 봐야 한다.",
+        "장비인도, 부지별 시운전과 초기 운영실적이 다음 기준이다."
+      ],
+      "urls": [
+        "https://www.saulesbess.com/",
+        "https://www.financelatvia.eu/en/news/e22-million-bond-issue-to-finance-major-energy-storage-project/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.saulesbess.com/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Saules BESS investor relations"
+        },
+        {
+          "url": "https://www.financelatvia.eu/en/news/e22-million-bond-issue-to-finance-major-energy-storage-project/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Finance Latvia"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-21_EU_05",
+      "date": "2026-07-21",
+      "region": "EU",
+      "signal": "high",
+      "title": "cylib, 바이에른 최대 연 1만톤 배터리 재활용시설 인수",
+      "sub": "베른베르크쾨블리츠 기존 시설을 인수해 2026년 4분기 가동을 계획한다.",
+      "gate": "기존 시설 인수는 신규 그린필드 건설보다 빠른 증설경로가 될 수 있다. 다만 연 1만톤은 최대 처리능력이며 실제 투입량·회수율과는 구분해야 한다.",
+      "fact": "cylib는 독일 바이에른주 베른베르크쾨블리츠의 배터리 재활용시설을 인수했다. 해당 시설은 연간 최대 1만톤 처리능력을 갖추며 회사는 2026년 4분기 가동개시를 계획한다.",
+      "implication": [
+        "유럽 배터리 재활용 증설에서 기존 시설 인수방식이 활용되는 사례가 확인된다.",
+        "최대 처리능력과 실제 투입량·회수율은 구분해야 한다.",
+        "가동개시, 첫 투입물량과 초기 처리실적이 다음 기준이다."
+      ],
+      "urls": [
+        "https://www.cylib.de/de/post/cylib-brings-its-end-to-end-battery-recycling-vision-to-industrial-scale-closing-the-gap-between-end-of-life-batteries-and-critical-material-recovery",
+        "https://www.electrive.com/2026/07/22/cylib-takes-over-recycling-plant-in-bavaria/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.cylib.de/de/post/cylib-brings-its-end-to-end-battery-recycling-vision-to-industrial-scale-closing-the-gap-between-end-of-life-batteries-and-critical-material-recovery",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "cylib official"
+        },
+        {
+          "url": "https://www.electrive.com/2026/07/22/cylib-takes-over-recycling-plant-in-bavaria/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "electrive"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-21_EU_02",
+      "date": "2026-07-21",
+      "region": "EU",
+      "signal": "high",
+      "title": "Ember, 유럽 수력 접속점 공유로 풍력·태양광 25GW 잠재량 제시",
+      "sub": "Ember는 유럽 7개국의 수력발전 접속점을 공유하면 신규 망증설 없이 풍력·태양광 약 25GW를 추가할 수 있다고 분석했다.",
+      "gate": "25GW는 승인·계약·설치물량이 아니라 기존 접속용량 활용을 가정한 모델잠재량이다. 스페인과 포르투갈 외 다수 시장에는 접속점 공유의 명확한 규정이 부족하다. 국가별 규칙과 발전패턴이 실제 실현범위를 제한한다.",
+      "fact": "Ember 분석은 유럽 7개국의 기존 수력발전 접속점을 풍력·태양광과 공유할 경우 약 25GW를 추가할 수 있다고 추정했다. 분석은 신규 망증설 없이 기존 접속용량을 활용하는 하이브리드화를 전제로 한다. 현재 명확한 접속점 공유규정은 일부 국가에 한정된다.",
+      "implication": [
+        "기존 수력 접속용량의 활용률을 높이는 방식이 계통증설 대기시간을 줄일 대안으로 제시됐다.",
+        "잠재량 실현에는 기술보다 국가별 접속규정과 운영책임 배분이 더 큰 제약으로 작용할 수 있다.",
+        "규정개정, 실제 하이브리드 프로젝트 승인과 접속용량 배정이 25GW 잠재량의 현실성을 판단할 기준이다."
+      ],
+      "urls": [
+        "https://www.euronews.com/2026/07/21/wind-and-solar-power-stranded-in-europes-outdated-energy-grid-is-there-an-immediate-soluti",
+        "https://www.pv-tech.org/ember-eu-hybridisation-could-unlock-25gw-solar-pv-and-wind-without-new-grids/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.euronews.com/2026/07/21/wind-and-solar-power-stranded-in-europes-outdated-energy-grid-is-there-an-immediate-soluti",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Euronews"
+        },
+        {
+          "url": "https://www.pv-tech.org/ember-eu-hybridisation-could-unlock-25gw-solar-pv-and-wind-without-new-grids/",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "PV Tech"
+        },
+        {
+          "url": "https://www.euronews.com/2026/07/21/wind-and-solar-power-stranded-in-europes-outdated-energy-grid-is-there-an-immediate-soluti",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Euronews"
+        },
+        {
+          "url": "https://www.euronews.com/2026/07/21/wind-and-solar-power-stranded-in-europes-outdated-energy-grid-is-there-an-immediate-soluti",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "publisher": "Euronews regulatory context"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-21_EU_01",
+      "date": "2026-07-21",
+      "region": "EU",
+      "signal": "high",
+      "title": "현대차그룹, 지역별 V2X를 AllDayEnergy로 통합해 영국부터 출시",
+      "sub": "현대차그룹은 지역별 V2X 서비스를 AllDayEnergy로 통합하고 영국을 시작으로 브랜드 차량앱을 통해 순차 제공한다.",
+      "gate": "지역별 실증과 서비스를 공통 브랜드·차량앱 기반으로 묶었다는 점이 핵심이다. 다만 통합브랜드 공개가 국가별 상용운영 확대를 자동으로 의미하지는 않는다. 지원차종, 요금제와 전력시장 연계가 실제 이용규모를 결정한다.",
+      "fact": "현대차그룹은 2026년 7월 21일 글로벌 V2X 통합서비스 AllDayEnergy를 출시했다. 기존 지역별 V2X 서비스를 하나의 브랜드로 통합했다. 서비스는 영국을 시작으로 주요 국가의 그룹 브랜드 차량앱을 통해 순차 제공될 예정이다.",
+      "implication": [
+        "V2X가 개별 지역실증에서 공통 브랜드와 차량앱을 갖춘 서비스 운영체계로 이동하는 흐름이 관찰된다.",
+        "통합플랫폼은 국가별 서비스 확장기반을 제공할 수 있지만 전력제도와 지원차종 차이가 이용규모를 제한할 수 있다.",
+        "영국 실제 가입자, 지원차종과 V2G 운영실적이 글로벌 전개의 실행력을 판단할 첫 기준이다."
+      ],
+      "urls": [
+        "https://www.hyundaimotorgroup.com/ko/news/hyundai-motor-group-alldayenergy-global-v2x-service",
+        "http://www.press9.kr/news/articleView.html?idxno=79707",
+        "https://www.sedaily.com/article/20069805",
+        "https://www.etnews.com/20260721000052"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.hyundaimotorgroup.com/ko/news/hyundai-motor-group-alldayenergy-global-v2x-service",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "현대자동차그룹 뉴스룸"
+        },
+        {
+          "url": "http://www.press9.kr/news/articleView.html?idxno=79707",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "프레스나인"
+        },
+        {
+          "url": "https://www.hyundaimotorgroup.com/ko/news/hyundai-motor-group-alldayenergy-global-v2x-service",
+          "supports": [
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "현대자동차그룹 통합범위 quote repair"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "2026-05-15_KR_01",
+          "2026-05-28_EU_01"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-21_CN_01",
+      "date": "2026-07-21",
+      "region": "CN",
+      "signal": "high",
+      "title": "Zhongfukai, 메이허커우 50MW/100MWh BESS EPC 9,980만위안 낙찰",
+      "sub": "낙찰통지를 받았지만 정식 계약은 아직 체결되지 않았으며, 2026년 10월 30일 전체 계통시운전을 목표로 한다.",
+      "gate": "낙찰통지는 구속력 있는 조달 진전이지만 정식계약과 프로젝트 완공을 의미하지 않는다. 계약체결과 10월 30일 계통시운전 목표의 이행을 확인해야 한다.",
+      "fact": "*ST Yabo 자회사 Shandong Zhongfukai New Energy는 메이허커우의 50MW/100MWh BESS EPC 사업을 9,980만위안에 낙찰받았다. 회사는 정식 계약이 아직 체결되지 않았다고 명시했으며, 프로젝트는 2026년 10월 30일 전체 계통시운전을 목표로 한다.",
+      "implication": [
+        "중국 중형 조정용 BESS가 구체적인 EPC 낙찰단계에 진입했다.",
+        "정식계약 전이므로 금액·범위·일정의 확정성을 과대평가해서는 안 된다.",
+        "계약체결과 10월 계통시운전이 다음 실행기준이다."
+      ],
+      "urls": [
+        "https://www.cfi.net.cn/p20260721000509.html",
+        "https://finance.eastmoney.com/a/202607213815747996.html",
+        "https://chuneng.ofweek.com/news/2026-07/ART-180226-8120-30695526.html",
+        "https://yaboo.com.cn/notice/20260722-bess-award"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.cfi.net.cn/p20260721000509.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Yabo filing via CFi"
+        },
+        {
+          "url": "https://finance.eastmoney.com/a/202607213815747996.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "China Securities Journal"
+        },
+        {
+          "url": "https://yaboo.com.cn/notice/20260722-bess-award",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "*ST Yabo"
+        },
+        {
+          "url": "https://chuneng.ofweek.com/news/2026-07/ART-180226-8120-30695526.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "OFweek储能网"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-20_US_04",
+      "date": "2026-07-20",
+      "region": "US",
+      "signal": "high",
+      "title": "NextPower, Prevalon Energy 최대 3억6500만달러 인수 완료",
+      "sub": "NextPower는 최대 3억6500만달러 규모로 발표한 Prevalon Energy 인수를 2026년 7월 20일 종결했다.",
+      "gate": "거래종결은 5월 확정계약이 실제 인수완료로 전환됐다는 강한 실행앵커다. 그러나 인수 후 매출·마진과 데이터센터 수주효과는 아직 확인되지 않았다. 통합성과와 계약잔고 전환이 거래가치를 결정한다.",
+      "fact": "NextPower는 2026년 7월 20일 Prevalon Energy 인수를 완료했다고 밝혔다. 거래대가는 현금과 주식을 합쳐 최대 3억6500만달러로 제시됐다. Prevalon의 BESS, 전력안정화와 수명주기 서비스 역량은 NextPower의 통합플랫폼에 편입됐다.",
+      "implication": [
+        "태양광 추적기업이 BESS 통합·장기서비스 역량을 인수해 전력인프라 사업범위를 넓힌 흐름이 확인된다.",
+        "확정계약에서 종결까지 완료됐지만 거래가치는 인수 후 매출과 서비스계약 전환에서 검증될 수 있다.",
+        "통합비용, 계약잔고 전환과 신규 프로젝트 수주가 인수성과의 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://nextpower.com/post/press-release/Nextpower-Completes-Acquisition-of-Prevalon",
+        "https://nextpower.com/post/press-release/nextpower-enters-battery-energy-storage-bess-market-with-definitive-agreement-to-acquire-prevalon-energy?locale=en-US",
+        "https://www.sec.gov/Archives/edgar/data/1852131/000185213126000020/nxt-20260528.htm"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://nextpower.com/post/press-release/Nextpower-Completes-Acquisition-of-Prevalon",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Nextpower official"
+        },
+        {
+          "url": "https://nextpower.com/post/press-release/nextpower-enters-battery-energy-storage-bess-market-with-definitive-agreement-to-acquire-prevalon-energy?locale=en-US",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Nextpower official"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1852131/000185213126000020/nxt-20260528.htm",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "U.S. SEC filing"
+        },
+        {
+          "url": "https://nextpower.com/post/press-release/Nextpower-Completes-Acquisition-of-Prevalon",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "NextPower official capability quote repair"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "2026-05-29_GL_06"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-20_US_03",
+      "date": "2026-07-20",
+      "region": "US",
+      "signal": "high",
+      "title": "미국, 1차 알루미늄 투자기업에 232조 관세율 절반 적용",
+      "sub": "미국은 승인된 1차 알루미늄 온쇼어링 계획의 예상 생산량에 상응하는 수입분에 232조 관세율의 절반을 적용하는 프로그램을 도입했다.",
+      "gate": "수입관세 감면을 미국 내 제련투자의 이행조건과 직접 연결한 산업정책 구조다. 승인계획은 2029년 1월 20일까지 착공해야 하며 요건 미충족 시 혜택 중단·철회 또는 소급취소가 가능하다. 실제 혜택규모는 승인 생산량과 투자진척에 연동된다.",
+      "fact": "미국 상무장관은 국내 1차 알루미늄 시설의 신설·개보수·증설을 위한 온쇼어링 계획을 승인할 수 있다. 승인기업은 완공 후 예상 연간 생산량에 상응하는 수입분에 기존 232조 관세율의 절반을 적용받는다. 계획에는 2029년 1월 20일까지 착공하겠다는 약속이 포함돼야 하며 요건 미충족 시 혜택을 중단·철회할 수 있다.",
+      "implication": [
+        "미국이 관세감면을 국내 제련투자의 실제 이행과 연동해 공급망 유인책으로 사용하는 흐름이 확인된다.",
+        "혜택은 생산량과 공정진척에 연동되므로 투자지연이 관세비용 회복으로 이어질 수 있다.",
+        "승인기업, 투자규모와 착공진행이 제련능력 확대의 실질성을 판단할 핵심이다."
+      ],
+      "urls": [
+        "https://www.whitehouse.gov/presidential-actions/2026/07/further-strengthening-actions-taken-to-adjust-imports-of-aluminum-into-the-united-states/",
+        "https://www.theguru.co.kr/news/article.html?no=104652"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.whitehouse.gov/presidential-actions/2026/07/further-strengthening-actions-taken-to-adjust-imports-of-aluminum-into-the-united-states/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "The White House"
+        },
+        {
+          "url": "https://www.whitehouse.gov/presidential-actions/2026/07/further-strengthening-actions-taken-to-adjust-imports-of-aluminum-into-the-united-states/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "The White House"
+        },
+        {
+          "url": "https://www.whitehouse.gov/presidential-actions/2026/07/further-strengthening-actions-taken-to-adjust-imports-of-aluminum-into-the-united-states/",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "The White House"
+        },
+        {
+          "url": "https://www.whitehouse.gov/presidential-actions/2026/07/further-strengthening-actions-taken-to-adjust-imports-of-aluminum-into-the-united-states/",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "publisher": "White House enforcement quote repair"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-20_US_02",
+      "date": "2026-07-20",
+      "region": "US",
+      "signal": "high",
+      "title": "미국, 국방 핵심소재 조달을 국내·동맹 공급망으로 제한",
+      "sub": "미국 대통령은 국방 핵심소재의 국내·동맹국 조달, 공급망 매핑과 신규 공급원 인증을 강화하는 행정명령에 서명했다.",
+      "gate": "정책은 국방조달에서 원산지와 공급자 검증을 계약요건으로 강화하는 방향을 분명히 했다. 2027년 1월 1일부터 특정 법률상 조달예외 승인이 제한되며 세부 이행은 후속 지침이 필요하다. 공급망 매핑과 대체원 자격인증 일정이 기업 대응의 핵심이다.",
+      "fact": "행정명령은 2027년 1월 1일부터 10 U.S.C. 4872상 대상소재의 예외승인을 제한한다. 국방부 장관은 180일 이내 핵심 공급망 매핑 정책과 이행지침을 마련해야 한다. 또한 90일 이내 신규 공급원의 시험·자격인증을 가속하는 전략을 수립해야 한다.",
+      "implication": [
+        "국방 핵심소재 조달에서 가격보다 원산지·공급망 투명성·대체가능성이 우선순위로 올라가는 흐름이 확인된다.",
+        "공급사는 계약단계에서 공급망 구성자료와 비금지국 원료조달 근거를 제시해야 할 가능성이 커진다.",
+        "매핑지침, 예외승인 기준과 신규 공급원 인증절차가 실제 시장진입 조건을 판단할 기준이다."
+      ],
+      "urls": [
+        "https://www.whitehouse.gov/presidential-actions/2026/07/securing-americas-defense-supply-chains-and-ensuring-domestic-acquisition-of-critical-materials/",
+        "https://nsp.nanet.go.kr/plan/main/detail.do?nationalPlanControlNo=PLAN0000065292&listChk=list&nationalCode=USA",
+        "https://www.kbmaeil.com/article/20260721500010",
+        "https://www.barrons.com/articles/trump-order-critical-minerals-supply-chain-8bd68bae",
+        "https://www.reuters.com/legal/government/trump-orders-tightening-defense-supply-chain-waiver-rules-2026-07-20/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.whitehouse.gov/presidential-actions/2026/07/securing-americas-defense-supply-chains-and-ensuring-domestic-acquisition-of-critical-materials/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "The White House"
+        },
+        {
+          "url": "https://www.whitehouse.gov/presidential-actions/2026/07/securing-americas-defense-supply-chains-and-ensuring-domestic-acquisition-of-critical-materials/",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "The White House"
+        },
+        {
+          "url": "https://www.whitehouse.gov/presidential-actions/2026/07/securing-americas-defense-supply-chains-and-ensuring-domestic-acquisition-of-critical-materials/",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "The White House"
+        },
+        {
+          "url": "https://www.reuters.com/legal/government/trump-orders-tightening-defense-supply-chain-waiver-rules-2026-07-20/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-20_US_01",
+      "date": "2026-07-20",
+      "region": "US",
+      "signal": "high",
+      "title": "미국, 캐나다산 약 200억달러 품목에 50% 추가관세",
+      "sub": "미국은 무역법 338조를 근거로 캐나다산 약 200억달러 규모의 일부 품목에 50% 추가관세를 부과하는 조치를 발표했다.",
+      "gate": "338조가 특정국 대상 관세조치의 직접 실행수단으로 다시 사용됐다는 점이 중요하다. 다만 실제 공급망 영향은 품목별 적용범위와 통관 시행시점에 따라 달라진다. 포고문과 세관 집행지침이 최종 비용전가 범위를 결정한다.",
+      "fact": "미국 대통령은 1930년 관세법 338조에 근거한 포고문에 서명했다. USTR는 캐나다산 약 200억달러 규모의 일부 품목에 50% 추가관세가 적용된다고 밝혔다. 세부 품목과 실제 통관 적용은 후속 집행지침에 따른다.",
+      "implication": [
+        "338조가 국가별 관세압박을 신속히 집행하는 정책수단으로 재가동된 흐름이 확인된다.",
+        "원재료와 중간재의 실제 비용충격은 총액보다 품목표와 예외규정에 따라 달라질 수 있다.",
+        "세관 적용일, 품목별 면제와 기업의 조달전환 여부가 공급망 영향의 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://www.whitehouse.gov/fact-sheets/2026/07/fact-sheet-president-donald-j-trump-imposes-additional-tariffs-on-canada",
+        "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ambassador-greer-issues-statement-president-trump-imposing-section-338-tariffs-canada",
+        "https://www.reuters.com/business/us-imposes-new-50-tariffs-canadian-products-2026-07-20/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.whitehouse.gov/fact-sheets/2026/07/fact-sheet-president-donald-j-trump-imposes-additional-tariffs-on-canada",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "The White House"
+        },
+        {
+          "url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ambassador-greer-issues-statement-president-trump-imposing-section-338-tariffs-canada",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "USTR official"
+        },
+        {
+          "url": "https://www.reuters.com/business/us-imposes-new-50-tariffs-canadian-products-2026-07-20/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-20_GL_05",
+      "date": "2026-07-20",
+      "region": "GL",
+      "signal": "high",
+      "title": "남호주 Strathalbyn 5MW·20MWh BESS, 실시간 시장운영 진입",
+      "sub": "남호주 Strathalbyn 5MW·20MWh BESS가 계통에 연결돼 실시간 시장신호에 대응하는 운영단계에 들어갔다.",
+      "gate": "상업적 의미는 소규모 계통형 BESS가 건설을 넘어 시장운영 단계에 진입했다는 점이다. 다만 시장등록일, 최적화 계약과 실제 운영수익은 공개되지 않았다. 가동률과 수익원 구성이 프로젝트 경제성을 판단할 핵심이다.",
+      "fact": "남호주 Alexandrina Council 지역의 Strathalbyn BESS는 5MW·20MWh 규모다. 설비는 계통에 연결돼 실시간 시장신호에 따라 충방전하는 운영단계에 들어갔다. 시장등록 세부와 운영수익은 공개되지 않았다.",
+      "implication": [
+        "소규모 계통형 BESS도 실시간 가격신호에 대응하는 시장자산으로 전환될 수 있음을 보여준다.",
+        "프로젝트 경제성은 단순 설치용량보다 가동률과 수익원 조합에 좌우될 가능성이 크다.",
+        "시장수익, 보조서비스 참여와 운영최적화 계약이 다음 확인지점이다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/south-australias-lunio-energy-brings-20mwh-grid-scale-battery-storage-system-online",
+        "https://www.pv-magazine-australia.com/2026/07/22/south-australia-developer-brings-first-grid-scale-battery-online/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.energy-storage.news/south-australias-lunio-energy-brings-20mwh-grid-scale-battery-storage-system-online",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Energy-Storage.news"
+        },
+        {
+          "url": "https://www.pv-magazine-australia.com/2026/07/22/south-australia-developer-brings-first-grid-scale-battery-online/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "pv magazine Australia"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-20_GL_04",
+      "date": "2026-07-20",
+      "region": "GL",
+      "signal": "high",
+      "title": "European Energy, 호주 Mokoan 40MW·80MWh BESS 금융종결",
+      "sub": "European Energy는 호주 빅토리아주 Mokoan 40MW·80MWh BESS 건설자금의 금융종결을 완료했다.",
+      "gate": "금융종결은 개발계획이 실제 자금집행 가능한 건설단계로 이동했음을 보여준다. 그러나 금융조달 완료가 준공·상업운전이나 수익성 확정을 의미하지는 않는다. 공정진행, 계통접속과 운전개시가 남은 핵심 실행지표다.",
+      "fact": "European Energy는 호주 빅토리아주 Mokoan 프로젝트의 금융종결에 도달했다. 조달자금은 40MW·80MWh BESS 건설에 투입된다. 현재 확인된 단계는 건설재원 확보이며 상업운전 개시는 별도 후속사건이다.",
+      "implication": [
+        "호주 저장사업이 개발·계약 단계에서 금융집행 가능한 단계로 넘어가며 프로젝트 실행가능성이 높아진 것으로 볼 수 있다.",
+        "금융종결 이후에는 건설비 통제와 계통접속 일정이 자금회수 시점의 핵심 변수로 작용할 수 있다.",
+        "실제 준공과 상업운전 개시가 금융가능성이 운영성과로 전환됐는지를 판단할 다음 기준이다."
+      ],
+      "urls": [
+        "https://europeanenergy.com/2026/07/20/european-energy-reaches-financial-close-on-mokoan-battery-project/",
+        "https://www.energy-storage.news/european-energy-reaches-financial-close-on-80mwh-mokoan-solar-plus-storage-site-in-australia"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://europeanenergy.com/2026/07/20/european-energy-reaches-financial-close-on-mokoan-battery-project/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "European Energy"
+        },
+        {
+          "url": "https://www.energy-storage.news/european-energy-reaches-financial-close-on-80mwh-mokoan-solar-plus-storage-site-in-australia",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Energy-Storage.news"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "2026-04-16_GL_02"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-20_GL_03",
+      "date": "2026-07-20",
+      "region": "GL",
+      "signal": "high",
+      "title": "Tata Power, 324MW·2,592MWh 양수저장 서비스 낙찰",
+      "sub": "Tata Power는 SECI로부터 Maharashtra Bhivpuri 프로젝트의 324MW·2,592MWh 양수저장 서비스 낙찰통지서를 받았다.",
+      "gate": "낙찰은 8시간 장주기 저장이 장기 서비스 조달대상으로 구체화됐다는 실행앵커다. 다만 낙찰통지서는 건설완료나 공급개시를 의미하지 않는다. 건설일정, 요금조건과 예정 공급개시일이 금융가능성을 결정한다.",
+      "fact": "Tata Power는 Maharashtra주의 1GW Bhivpuri 양수발전 프로젝트에서 제공할 324MW·2,592MWh 저장서비스에 대해 SECI의 낙찰통지서를 받았다. 저장서비스 기간은 예정 공급개시일부터 40년이다. 현재 단계는 장기 서비스 낙찰이다.",
+      "implication": [
+        "8시간 양수저장이 단순 발전설비가 아니라 장기 저장서비스 조달상품으로 구체화된 흐름이 확인된다.",
+        "40년 서비스기간은 장기수익 기반을 제공할 수 있지만 건설비와 공급개시 지연위험도 함께 고정할 수 있다.",
+        "최종계약, 건설착수와 예정 공급개시일이 프로젝트 금융가능성을 판단할 핵심이다."
+      ],
+      "urls": [
+        "https://www.pv-magazine-india.com/2026/07/20/tata-power-secures-seci-award-for-324-mw-pumped-hydro-storage-capacity-in-maharashtra/",
+        "https://www.ess-news.com/2026/07/20/tata-power-secures-indias-seci-award-for-324-mw-pumped-storage-project",
+        "https://www.business-standard.com/companies/news/tata-power-wins-loa-from-seci-to-supply-324-mw-from-maharashtra-project-126072000507_1.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.pv-magazine-india.com/2026/07/20/tata-power-secures-seci-award-for-324-mw-pumped-hydro-storage-capacity-in-maharashtra/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "pv magazine India"
+        },
+        {
+          "url": "https://www.ess-news.com/2026/07/20/tata-power-secures-indias-seci-award-for-324-mw-pumped-storage-project",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "ESS News"
+        },
+        {
+          "url": "https://www.business-standard.com/companies/news/tata-power-wins-loa-from-seci-to-supply-324-mw-from-maharashtra-project-126072000507_1.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Business Standard / PTI"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    }
+  ]
+}

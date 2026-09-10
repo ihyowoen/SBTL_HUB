@@ -1,0 +1,1406 @@
+{
+  "month": "2026-07",
+  "signal": "mid",
+  "batch": 1,
+  "count": 25,
+  "cards": [
+    {
+      "id": "2026-07-31_KR_04",
+      "date": "2026-07-31",
+      "region": "KR",
+      "signal": "mid",
+      "title": "효성화학, 2Q 영업익 1,708억원…필름 판가 인상으로 수익성 개선",
+      "sub": "2분기 매출 8,713억원, 영업이익 1,708억원을 기록했고 기타 부문 내 필름은 판가 인상과 스프레드 확대로 수익성이 개선됐다.",
+      "gate": "현재 확인된 공식 자료는 효성화학의 필름 수익성 개선을 보여주지만, 해당 필름·PP가 배터리 파우치용 내층재로 인증·공급된다는 근거는 없다. 배터리 파우치 원재료로 단정하지 않는다.",
+      "fact": "효성화학의 2026년 2분기 매출은 8,713억원, 영업이익은 1,708억원이다. 공식 실적자료는 기타 부문에서 필름의 판가 인상과 스프레드 확대에 따른 수익성 개선을 설명한다. 다만 현재 공개된 1차 자료에서 배터리 파우치급 필름 공급은 확인되지 않았다.",
+      "implication": [
+        "필름·PP 스프레드는 파우치 원가 환경을 보는 상류 지표가 될 수 있으나 제품 grade가 확인되기 전에는 직접 수요 신호로 쓰면 안 된다.",
+        "후속 게이트는 배터리 파우치용 grade, 고객 인증, 실제 공급계약의 공개 여부다."
+      ],
+      "urls": [
+        "https://www.hyosungchemical.com/upload/publicnotice/20260727/d919b861-f715-4998-98b3-0cdc5d1d91c3.pdf"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.hyosungchemical.com/upload/publicnotice/20260727/d919b861-f715-4998-98b3-0cdc5d1d91c3.pdf",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Hyosung Chemical 2Q 2026 results"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "No exact same-event predecessor identified in the 1,464-card baseline.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-31_KR_03",
+      "date": "2026-07-31",
+      "region": "KR",
+      "signal": "mid",
+      "title": "동원시스템즈, 2Q 영업익 314억원…셀파우치는 공식 문구상 진입 계획 단계",
+      "sub": "2분기 연결 매출 4,022억원·영업이익 314억원을 기록했다. 현재 공식 사업 소개는 양극박·배터리 캔을 생산 중으로, 셀파우치는 향후 포트폴리오 진입 영역으로 구분한다.",
+      "gate": "공식 사이트 내 공주공장 제품 표기 등 셀파우치 관련 흔적이 있으나, 현재 사업 소개는 여전히 셀파우치 제조 진입을 미래형으로 표현한다. 고객 승인·양산 규모·파우치 매출이 확인되기 전에는 현재 대규모 상업생산으로 간주하지 않는다.",
+      "fact": "동원시스템즈의 2026년 2분기 잠정 연결실적은 매출 4,022억원, 영업이익 314억원, 순이익 201억원이다. 회사의 현재 이차전지 사업 페이지는 양극박과 원통형 배터리 캔을 생산한다고 설명하며, 셀파우치는 포트폴리오 다각화를 위해 진입할 분야로 제시한다.",
+      "implication": [
+        "국내 잠재 파우치 경쟁사의 손익 체력은 개선됐지만, 실제 경쟁 강도는 셀파우치 고객 승인과 양산 매출 확인 이후 평가해야 한다.",
+        "SBTL 관점에서는 공주 셀파우치 설비·제품 표기와 공식 사업 문구 사이의 상업화 수준 차이를 후속 공시로 확인할 필요가 있다."
+      ],
+      "urls": [
+        "https://www.awakeplus.co.kr/data/view/20260731800329",
+        "https://www.dongwonsystems.com/business/secondarybattery?lang=en&q="
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.awakeplus.co.kr/data/view/20260731800329",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "DART filing reproduction (AwakePlus)"
+        },
+        {
+          "url": "https://www.dongwonsystems.com/business/secondarybattery?lang=en&q=",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Dongwon Systems official secondary-battery business"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "No exact same-event predecessor identified in the 1,464-card baseline.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-24_GL_04",
+      "date": "2026-07-24",
+      "region": "GL",
+      "signal": "mid",
+      "title": "말라위, 20MW·40MWh 첫 독립형 유틸리티 BESS 가동",
+      "sub": "2,000만달러 보조금 금융으로 주파수제어·피크방전 계통지원",
+      "gate": "2024년 Golomoti 태양광 연계 BESS가 있어 최초 범위는 독립형 유틸리티 설비로 한정해야 한다. 60만가구 접속과 정전감소는 전망이며 실제 효과는 계통운영 데이터로 확인해야 한다.",
+      "fact": "ESCOM과 Global Energy Alliance for People and Planet은 7월 24일 릴롱궤 Kanengo에서 말라위 최초의 독립형 유틸리티급 BESS를 가동했다. 설비는 20MW·40MWh이며 약 2,000만달러의 보조금 금융으로 구축됐다. 주파수제어·피크방전·계통지원이 목적이며 운영기관은 60만가구 추가접속과 정전완화를 기대효과로 제시했다.",
+      "implication": [
+        "개발금융 기반 BESS가 취약 전력망에서 실제 주파수·피크관리 자산으로 가동되기 시작했다.",
+        "운영성과는 말라위가 검토하는 후속 60MW 저장사업과 신흥국 조달모델의 투자판단 기준이 된다."
+      ],
+      "urls": [
+        "https://energyalliance.org/malawi-commissions-first-standalone-utility-scale-battery-storage/",
+        "https://www.reuters.com/business/energy/malawi-installs-first-utility-scale-battery-store-solar-power-2026-07-27/",
+        "https://energy.gov.mw/2024/11/11/inauguration-of-20mw-solar-pv-power-plant-with-5mw-battery-energy-storage-system-by-jcm-power-at-golomoti-dedza/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://energyalliance.org/malawi-commissions-first-standalone-utility-scale-battery-storage/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Global Energy Alliance for People and Planet"
+        },
+        {
+          "url": "https://www.reuters.com/business/energy/malawi-installs-first-utility-scale-battery-store-solar-power-2026-07-27/",
+          "supports": [
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        },
+        {
+          "url": "https://energy.gov.mw/2024/11/11/inauguration-of-20mw-solar-pv-power-plant-with-5mw-battery-energy-storage-system-by-jcm-power-at-golomoti-dedza/",
+          "supports": [
+            "gate"
+          ],
+          "publisher": "Malawi Ministry of Energy"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "1,322장 후보 baseline에서 Kanengo 독립형 BESS의 동일 프로젝트·동일 가동 사건이 발견되지 않았다."
+      }
+    },
+    {
+      "id": "2026-07-23_GL_02",
+      "date": "2026-07-23",
+      "region": "GL",
+      "signal": "mid",
+      "title": "Canada Nickel, Timmins 9개 광상 M&I 자원 43.6억톤 확보",
+      "sub": "Nesbitt 최초 자원 산정·Deloro 지시자원 함유니켈 46% 증가",
+      "gate": "광물자원은 광물매장량이나 경제성·생산계획이 아니다. 0.23~0.25%의 저품위 대규모 자원은 회수기술, CAPEX·에너지비, 인허가와 가격가정이 확인돼야 상업가치로 전환된다.",
+      "fact": "Canada Nickel은 Nesbitt 최초 자원과 Deloro 업데이트를 발표했다. 회사의 Timmins 지역 9개 광상은 합계 측정·지시자원 43.6억톤, 평균 니켈품위 0.24%로 1,000만톤 이상의 함유니켈을 보유한다. Deloro 지시자원은 1억1,870만톤·0.25% Ni·함유니켈 30만톤으로 2024년 대비 46% 증가했고, Nesbitt는 지시·추정 합계 약 1억7,660만톤·0.23% Ni로 산정됐다.",
+      "implication": [
+        "Timmins 초대형 저품위 니켈 클러스터의 자원기반이 9개 광상으로 확대됐다.",
+        "Nesbitt가 Crawford에서 3km에 있어 장기적으로 공통 인프라 가능성이 있지만 경제적 통합은 검증되지 않았다.",
+        "NI 43-101 기술보고서, 야금회수율과 프로젝트별 경제성평가가 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://canadanickel.com/document/canada-nickel-announces-initial-mineral-resource-at-nesbitt-and-delivers-46-increase-in-indicated-resource-at-deloro/",
+        "https://www.northernminer.com/news/canada-nickels-ninth-resource-lifts-holdings-to-4-3b-tonnes-in-timmins-district/1003893310"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://canadanickel.com/document/canada-nickel-announces-initial-mineral-resource-at-nesbitt-and-delivers-46-increase-in-indicated-resource-at-deloro/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Canada Nickel official"
+        },
+        {
+          "url": "https://www.northernminer.com/news/canada-nickels-ninth-resource-lifts-holdings-to-4-3b-tonnes-in-timmins-district/1003893310",
+          "supports": [
+            "title",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "The Northern Miner"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "full 1,325-card actor-asset-event and URL screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true
+      }
+    },
+    {
+      "id": "2026-07-22_KR_01",
+      "date": "2026-07-22",
+      "region": "KR",
+      "signal": "mid",
+      "title": "SK이노베이션, 약 12억9천만원에 CoIL BESS 지분 100% 인수",
+      "sub": "약 12억9천만원의 주식·대출채권 인수거래로 CoIL BESS를 완전자회사화했다.",
+      "gate": "지분 100% 인수는 법인편입을 의미하지만 신규 프로젝트·매출·운영자산 규모를 자동으로 뜻하지 않는다. 인수 이후 실제 사업수주와 운영실적을 확인해야 한다.",
+      "fact": "SK이노베이션은 CoIL BESS 지분 100%를 약 12억9천만원에 취득했다. 거래대금은 주식매매대금 6억5,800만원과 대출채권 등 인수대금 6억3,200만원으로 구성된다.",
+      "implication": [
+        "SK이노베이션이 CoIL BESS를 완전자회사로 편입했다.",
+        "법인인수만으로 운영자산·신규계약 성과를 단정할 수 없다.",
+        "CoIL BESS의 프로젝트 수주와 실제 운영실적 공개가 다음 확인기준이다."
+      ],
+      "urls": [
+        "https://v.daum.net/v/20260722182550568",
+        "https://v.daum.net/v/20260722183901970"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://v.daum.net/v/20260722182550568",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Newsis"
+        },
+        {
+          "url": "https://v.daum.net/v/20260722183901970",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Yonhap Infomax"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-21_US_04",
+      "date": "2026-07-21",
+      "region": "US",
+      "signal": "mid",
+      "title": "ERI·Cyclic Materials, 미국 8개 시설 기반 전자폐기물 희토류 회수 협력",
+      "sub": "전자폐기물 선별·전처리망과 자석·희토류 회수공정을 연결하고 샘플 분석에 착수했다.",
+      "gate": "전략파트너십은 회수원료 파이프라인을 구체화하지만 고정 공급량이나 상업 회수량을 보장하지 않는다. 샘플 승인과 실제 물량계약을 확인해야 한다.",
+      "fact": "ERI와 Cyclic Materials는 전자폐기물에서 희토류와 핵심광물을 회수하는 전략파트너십을 체결했다. 양사는 샘플 분석을 시작했으며 ERI의 미국 8개 처리시설이 자석 함유 전자제품을 선별·전처리한다.",
+      "implication": [
+        "폐전자제품 수집·전처리망과 전문 희토류 회수공정을 연결하는 협력모델이 구체화됐다.",
+        "파트너십과 실제 공급량은 구분해야 하며 회수수율·경제성이 변수로 남는다.",
+        "샘플 승인과 실제 물량계약이 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://cyclicmaterials.earth/resources/eri-and-cyclic-materials-form-partnership-to-recover-and-recycle-rare-earths-and-critical-minerals-from-e-waste",
+        "https://resource-recycling.com/e-scrap/2026/07/21/eri-cyclic-materials-team-up-on-e-scrap/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://cyclicmaterials.earth/resources/eri-and-cyclic-materials-form-partnership-to-recover-and-recycle-rare-earths-and-critical-minerals-from-e-waste",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Cyclic Materials official"
+        },
+        {
+          "url": "https://resource-recycling.com/e-scrap/2026/07/21/eri-cyclic-materials-team-up-on-e-scrap/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Resource Recycling"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-20_EU_05",
+      "date": "2026-07-20",
+      "region": "EU",
+      "signal": "mid",
+      "title": "SOLUM·i-charging, 최대 1.6MW MAX 충전시스템 첫 출하",
+      "sub": "최대 1.6MW 플랫폼의 첫 물량이 6월 말 출하돼 포르투갈 현장에 설치 중이다.",
+      "gate": "첫 출하는 제품개발 이후 실제 현장설치로 이동한 이정표다. 최대 1.6MW는 플랫폼 사양이며 설치현장의 시운전 출력과 상업운전 실적은 별도로 확인해야 한다.",
+      "fact": "SOLUM과 i-charging의 MAX 충전시스템 첫 물량은 6월 말 출하돼 포르투갈에서 설치 중이다. 플랫폼은 50kW에서 최대 1.6MW까지 확장되도록 설계됐다.",
+      "implication": [
+        "유럽 상용차 충전에서 메가와트급 시스템이 출하·설치 단계에 진입한 사례가 확인된다.",
+        "최대사양과 현장 시운전·실제 운전출력은 구분해야 한다.",
+        "포르투갈 설치완료와 초기 운영실적이 다음 검증기준이다."
+      ],
+      "urls": [
+        "https://www.solum-group.com/press-releases/solum-and-i-charging-announce-first-commercial-delivery-of-the-max-system",
+        "https://finance.yahoo.com/news/solum-charging-announce-first-commercial-100000525.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.solum-group.com/press-releases/solum-and-i-charging-announce-first-commercial-delivery-of-the-max-system",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "SOLUM official"
+        },
+        {
+          "url": "https://finance.yahoo.com/news/solum-charging-announce-first-commercial-100000525.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Business Wire"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-18_CN_01",
+      "date": "2026-07-18",
+      "region": "CN",
+      "signal": "mid",
+      "title": "AION 배터리 서비스조치, 보증 8년/30만km로 연장",
+      "sub": "기존 8년/15만km 보증을 8년/30만km로 확대하고 CALB 서비스망 무료점검을 제공하지만 리콜이나 일괄교체 조치는 아니다.",
+      "gate": "공개조치는 보증연장과 무료점검으로 확인되며 결함원인이나 대상차량 전체 규모를 확정한 리콜로 볼 수 없다. 점검결과와 수리범위가 책임범위의 다음 판단기준이다.",
+      "fact": "복수 보도는 해당 배터리 탑재차량의 동력배터리 보증이 기존 8년/15만km에서 8년/30만km로 연장됐다고 전했다. IT Home은 CALB 서비스망에서 무료점검을 받을 수 있다고 보도했다.",
+      "implication": [
+        "고주행 차량의 배터리 보증범위를 확대하는 사후 서비스조치가 확인된다.",
+        "현재 공개범위는 보증연장과 무료점검이며 리콜 및 일괄교체와는 구분해야 한다.",
+        "점검대수와 수리범위, 비용부담이 품질리스크의 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://www.nbd.com.cn/articles/2026-07-18/4476845.html",
+        "https://www.sina.cn/news/detail/5322354110240668.html",
+        "https://m.ithome.com/html/978583.htm"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.nbd.com.cn/articles/2026-07-18/4476845.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "매일경제신문"
+        },
+        {
+          "url": "https://www.sina.cn/news/detail/5322354110240668.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Sina official statement reproduction"
+        },
+        {
+          "url": "https://m.ithome.com/html/978583.htm",
+          "supports": [
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "IT Home"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-17_GL_01",
+      "date": "2026-07-17",
+      "region": "GL",
+      "signal": "mid",
+      "title": "말레이시아 의회, Lynas 미국 방산계약 정부입장 2주 시한",
+      "sub": "의회 특별위원회는 Lynas의 미국 방산 공급계약을 검토한 뒤 정부에 2주 안에 공식입장과 법률검토 방향을 제시하도록 요구했다.",
+      "gate": "현재 단계는 계약 취소나 정부정책 변경이 아니라 의회 감독과 정부답변 요구다. 정부 공식입장, 법무총장실 검토와 위원회 최종보고서가 실제 정책효과를 결정한다.",
+      "fact": "말레이시아 의회 국제관계·국제무역 특별위원회는 2026년 7월 16일 Lynas의 미국 방산 공급계약을 검토했다. 위원회는 7월 17일 관계부처가 법무총장실의 법률자문을 구하고 2주 안에 정부의 공식입장을 밝히도록 권고했다. Reuters는 앞서 청문회 대상이 9,600만달러 규모의 4년 희토류 공급구조와 현지정책 정합성이라고 보도했다.",
+      "implication": [
+        "핵심광물 공급계약이 자원안보뿐 아니라 생산국의 외교·산업정책 심사대상이 되는 사례다.",
+        "현재 계약의 효력이나 물량변경은 확인되지 않았다.",
+        "정부 답변과 의회 공식보고서가 정책·계약 리스크의 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://www.nst.com.my/amp/news/nation/2026/07/1490888/pssc-sets-two-week-deadline-govt-stance-lynas-us-defence-ties",
+        "https://www.reuters.com/world/asia-pacific/malaysian-lawmakers-hold-hearing-lynas-us-rare-earths-deal-2026-07-06/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.nst.com.my/amp/news/nation/2026/07/1490888/pssc-sets-two-week-deadline-govt-stance-lynas-us-defence-ties",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "New Straits Times"
+        },
+        {
+          "url": "https://www.reuters.com/world/asia-pacific/malaysian-lawmakers-hold-hearing-lynas-us-rare-earths-deal-2026-07-06/",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-17_EU_01",
+      "date": "2026-07-17",
+      "region": "EU",
+      "signal": "mid",
+      "title": "JinkoESS·everyray, 중부유럽 BESS 100MWh 공급 프레임워크",
+      "sub": "양사는 중부유럽 프로젝트 파이프라인을 대상으로 100MWh 규모의 BESS 공급협약을 공개했다.",
+      "gate": "이번 발표는 개별 프로젝트의 최종발주·착공·계통연결이 아닌 공급 프레임워크다. 동일 사건의 독립 확인출처가 없어 계약당사자 자료 범위 안에서 해석해야 한다.",
+      "fact": "JinkoESS 명의의 2026년 7월 17일 발표에 따르면 JinkoESS와 독일 EPC everyray는 Intersolar Europe에서 100MWh 공급협약을 체결했다. 발표는 중부유럽 프로젝트 파이프라인을 협력대상으로 제시했다.",
+      "implication": [
+        "중부유럽 BESS 파이프라인의 장비조달 경로가 계약당사자 프레임워크로 구체화됐다.",
+        "100MWh는 개별 프로젝트의 확정 발주물량과 구분해야 한다.",
+        "프로젝트별 주문, 인도, 착공, 계통연결이 다음 실행지표다."
+      ],
+      "urls": [
+        "https://www.ess-news.com/2026/07/17/jinko-ess-and-everyray-sign-100mwh-supply-agreement-to-accelerate-energy-storage-deployment-in-central-europe",
+        "https://www.ess-news.com/2026/07/17/jinko-ess-and-everyray-sign-100mwh-supply-agreement-to-accelerate-energy-storage-deployment-in-central-europe/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.ess-news.com/2026/07/17/jinko-ess-and-everyray-sign-100mwh-supply-agreement-to-accelerate-energy-storage-deployment-in-central-europe/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "JinkoESS 기고자료"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-16_US_03",
+      "date": "2026-07-16",
+      "region": "US",
+      "signal": "mid",
+      "title": "미 상원 S.5008, 에너지 전용 기본접속 서비스 의무화 추진",
+      "sub": "미국 상원에 RTO·ISO가 에너지 전용 기본접속 서비스를 제공하도록 요구하는 S.5008 법안이 발의됐다.",
+      "gate": "법안은 제한형 계통접속을 연방 입법의제로 끌어올렸다는 의미가 있다. 그러나 2026년 7월 16일 발의돼 위원회에 회부된 단계로 아직 제정·시행된 규칙이 아니다. 최종 문언과 입법통과 여부가 실제 접속절차 변화를 결정한다.",
+      "fact": "S.5008은 2026년 7월 16일 미국 상원에 발의돼 에너지·천연자원위원회에 회부됐다. 법안은 개방형 송전요금제를 운영하는 RTO·ISO에 에너지 전용 공급을 위한 기본접속 서비스를 제공하도록 요구한다. 세부 서비스조건은 입법과정에서 변경될 수 있다.",
+      "implication": [
+        "발전·저장 프로젝트의 제한형 접속모델이 개별 시장관행을 넘어 연방 법안으로 제시된 흐름이 확인된다.",
+        "에너지 전용 접속은 계통증설 대기시간을 줄일 가능성이 있지만 출력제약과 수익제한을 동반할 수 있다.",
+        "위원회 심사, 최종 법문과 RTO·ISO 이행규칙이 프로젝트 경제성에 미칠 영향을 판단할 핵심이다."
+      ],
+      "urls": [
+        "https://www.govinfo.gov/app/details/BILLS-119s5008is",
+        "https://www.congress.gov/bill/119th-congress/senate-bill/5008",
+        "https://pv-magazine-usa.com/2026/07/20/u-s-senate-bill-would-require-grid-operators-to-offer-connect-and-manage-interconnection",
+        "https://www.energy.senate.gov/2026/7/heinrich-introduces-legislation-and-grid-initiative-aimed-at-delivering-cheap-reliable-power-to-working-families-and-businesses"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.govinfo.gov/app/details/BILLS-119s5008is",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "GovInfo"
+        },
+        {
+          "url": "https://www.govinfo.gov/app/details/BILLS-119s5008is",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "GovInfo"
+        },
+        {
+          "url": "https://www.energy.senate.gov/2026/7/heinrich-introduces-legislation-and-grid-initiative-aimed-at-delivering-cheap-reliable-power-to-working-families-and-businesses",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "U.S. Senate Energy Committee"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-16_KR_02",
+      "date": "2026-07-16",
+      "region": "KR",
+      "signal": "mid",
+      "title": "POSTECH, 코발트프리 고니켈 양극재 100회 후 91.4% 유지 보고",
+      "sub": "동료평가 논문은 2.7~4.5V·0.5C 조건에서 100회 후 초기용량 91.4%를 유지했다고 보고했다.",
+      "gate": "동료평가 논문은 실험실 전극 수준의 소재 설계결과다. 양산셀·완성차 검증이나 원가·공정수율을 입증하지 않으며, 공개 논문에서 직접 확인되지 않은 300회 수치는 제외한다.",
+      "fact": "POSTECH 연구팀의 Energy Storage Materials 논문은 CTAB 보조 공침으로 코발트프리 고니켈 양극재 입자 내부에 Mo를 균일하게 도입했다고 보고했다. 공개 논문은 c축 수축을 미도핑재의 5분의 1로 줄였고, 2.7~4.5V·0.5C 조건에서 100회 후 초기용량 91.4%를 유지했다고 제시했다.",
+      "implication": [
+        "코발트프리 고니켈 양극재의 고전압 구조열화를 입자 내부 도핑으로 완화하는 설계경로가 제시됐다.",
+        "실험실 전극 결과를 양산수명이나 상용화 일정으로 확대할 수 없다.",
+        "풀셀·대면적 전극·공정수율과 장기 반복검증이 다음 기술 게이트다."
+      ],
+      "urls": [
+        "https://www.sciencedirect.com/science/article/pii/S2405829726004034",
+        "https://www.etnews.com/20260716000014"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.sciencedirect.com/science/article/pii/S2405829726004034",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Energy Storage Materials"
+        },
+        {
+          "url": "https://www.etnews.com/20260716000014",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "publisher": "전자신문"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-16_GL_04",
+      "date": "2026-07-16",
+      "region": "GL",
+      "signal": "mid",
+      "title": "Solaer, 칠레 2,000ha 임대…197MW 태양광·500MWh BESS·탈염수 인프라 검토",
+      "sub": "아타카마 데이터센터 캠퍼스는 ENAPAC 인근에서 197MW 태양광, 500MWh BESS와 약 400km 탈염수 배관을 결합하는 구상으로 최대 36개월의 타당성평가에 들어갔다.",
+      "gate": "장기임대계약은 최대 36개월의 기술·환경·경제성 평가와 인허가를 허용하며 이후 25년 운영과 총 40년까지의 연장옵션을 담고 있다. 컴퓨팅용량, 투자액, 착공일정, 운영자와 고객은 공개되지 않아 데이터센터 수요와 에너지·용수 인프라가 동시에 확정된 단계는 아니다.",
+      "fact": "Solaer 칠레 자회사는 북부 약 2,000헥타르 부지의 장기임대계약을 체결했다. 개발구상은 AI 등 고밀도 연산용 데이터센터 캠퍼스에 197MW 태양광, 500MWh BESS와 약 400km 탈염수 수송배관을 결합하며 ENAPAC 담수화사업 인근에 배치된다. 초기 기술·환경·경제성 평가기간은 최대 36개월이고 사업이 진행되면 25년 운영과 총 40년까지의 연장옵션이 적용될 수 있다.",
+      "implication": [
+        "태양광·BESS·탈염수를 하나의 부지계약에 결합해 전력연속성, 냉각수와 확장부지를 동시에 해결하려는 데이터센터 개발모델이 확인된다.",
+        "197MW·500MWh와 400km 수송배관은 단일 전력설비가 아니라 에너지와 산업용수 인프라가 결합된 대형 개발구상이다.",
+        "36개월 평가 이후 환경허가, 데이터센터 운영자·고객, 컴퓨팅용량과 최종투자결정이 실제 발주전환의 핵심이다."
+      ],
+      "urls": [
+        "https://www.pv-magazine-latam.com/2026/07/16/en-chile-solaer-proyecta-197-mw-solares-y-500-mwh-de-almacenamiento-para-un-campus-de-centros-de-datos-en-atacama/",
+        "https://www.datacenterdynamics.com/es/noticias/solaer-apuesta-por-los-centros-de-datos-con-un-proyecto-energ%C3%A9tico-de-197-mw-en-el-desierto-de-atacama/",
+        "https://www.ess-news.com/2026/07/17/solaer-plans-197-mw-of-solar-500-mwh-of-battery-storage-for-data-center-in-chile/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.pv-magazine-latam.com/2026/07/16/en-chile-solaer-proyecta-197-mw-solares-y-500-mwh-de-almacenamiento-para-un-campus-de-centros-de-datos-en-atacama/",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "pv magazine Latinoamerica"
+        },
+        {
+          "url": "https://www.pv-magazine-latam.com/2026/07/16/en-chile-solaer-proyecta-197-mw-solares-y-500-mwh-de-almacenamiento-para-un-campus-de-centros-de-datos-en-atacama/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "pv magazine Latinoamerica"
+        },
+        {
+          "url": "https://www.datacenterdynamics.com/es/noticias/solaer-apuesta-por-los-centros-de-datos-con-un-proyecto-energ%C3%A9tico-de-197-mw-en-el-desierto-de-atacama/",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Data Center Dynamics"
+        },
+        {
+          "url": "https://www.ess-news.com/2026/07/17/solaer-plans-197-mw-of-solar-500-mwh-of-battery-storage-for-data-center-in-chile/",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "ESS News"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-15_GL_07",
+      "date": "2026-07-15",
+      "region": "GL",
+      "signal": "mid",
+      "title": "충남 지원 반둥 BRT 충전소, 르위판장 차고지서 착공",
+      "sub": "총 110억원 규모 ODA로 르위판장·치차헤움 두 BRT 차고지에 전기버스 충전 인프라 구축을 추진한다.",
+      "gate": "착공은 해외 공공교통 충전 프로젝트가 건설단계에 들어갔다는 의미다. 완공과 버스운행 개시는 별도이므로 차고지별 설비설치·시운전과 현지 운영체계를 확인해야 한다.",
+      "fact": "총 110억원 규모 ODA 사업으로 인도네시아 반둥의 르위판장·치차헤움 두 BRT 차고지에 전기버스 충전 인프라를 구축한다. 2026년 7월 15일 르위판장 차고지에서 착공식이 열렸고, 반둥시는 착공 사실을 공식 발표했다.",
+      "implication": [
+        "한국 지방정부 지원이 동남아 공공교통 충전인프라의 건설단계로 이어진 사례가 확인된다.",
+        "지원사업의 확장성은 완공 후 운행신뢰도와 현지 유지보수체계에 달려 있다.",
+        "두 차고지의 시운전과 실제 운영개시가 다음 실행기준이다."
+      ],
+      "urls": [
+        "https://www.antaranews.com/video/5650580/brt-bandung-raya-dapat-hibah-charging-station-panel-surya-dari-korsel",
+        "https://majalahindonesia.id/groundbreaking-charging-station-brt-cekungan-di-kota-bandung/",
+        "https://etnews.com/20260722000155",
+        "https://bandung.go.id/news/read/2026/07/electric-bus-charging-groundbreaking"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.antaranews.com/video/5650580/brt-bandung-raya-dapat-hibah-charging-station-panel-surya-dari-korsel",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "ANTARA"
+        },
+        {
+          "url": "https://majalahindonesia.id/groundbreaking-charging-station-brt-cekungan-di-kota-bandung/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Majalah Indonesia"
+        },
+        {
+          "url": "https://etnews.com/20260722000155",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "전자신문"
+        },
+        {
+          "url": "https://bandung.go.id/news/read/2026/07/electric-bus-charging-groundbreaking",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Bandung City"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-15_GL_03",
+      "date": "2026-07-15",
+      "region": "GL",
+      "signal": "mid",
+      "title": "호주 EFA, 핵심광물 전략비축 집행 위해 인력 40명 확충",
+      "sub": "2026년 6월 종료 회계연도에 인력 40명을 늘렸으며, 12억호주달러 전략비축은 7월 신규예산이 아니라 기존 정책재원이다.",
+      "gate": "신선한 실행신호는 신규예산 발표가 아니라 EFA의 인력·전문성 확충이다. 12억호주달러 총 약정액과 10억호주달러 거래재원·선택적 비축재원은 정의가 달라 합산할 수 없다.",
+      "fact": "MiningWeekly의 Reuters 인용 보도에 따르면 Export Finance Australia는 2026년 6월 종료 회계연도에 인력 40명을 늘려 핵심광물 전문성을 확충했다. 호주 정부는 전략비축에 12억호주달러를 약정했으며, 산업부는 확대된 50억호주달러 핵심광물기금 중 10억호주달러와 선택적 비축재원을 활용한다고 설명한다.",
+      "implication": [
+        "핵심광물 전략비축이 법률·재원에서 실제 집행조직 구축 단계로 이동하는 흐름이 관찰된다.",
+        "인력 증가는 거래집행이나 비축물량 확보와 동일하지 않다.",
+        "EFA의 첫 거래, 가격안정 도구와 비축계약 체결이 다음 실행 기준이다."
+      ],
+      "urls": [
+        "https://www.miningweekly.com/article/australias-export-finance-agency-boosts-jobs-by-21-amid-critical-minerals-push-2026-07-15",
+        "https://www.industry.gov.au/mining-oil-and-gas/minerals/critical-minerals/critical-minerals-strategic-reserve",
+        "https://www.minister.industry.gov.au/king/media/strategic-reserve-supporting-arafura-final-investment-decision"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.miningweekly.com/article/australias-export-finance-agency-boosts-jobs-by-21-amid-critical-minerals-push-2026-07-15",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "MiningWeekly"
+        },
+        {
+          "url": "https://www.industry.gov.au/mining-oil-and-gas/minerals/critical-minerals/critical-minerals-strategic-reserve",
+          "supports": [
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "호주 산업부"
+        },
+        {
+          "url": "https://www.minister.industry.gov.au/king/media/strategic-reserve-supporting-arafura-final-investment-decision",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "호주 자원부 장관"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "2026-07-14_GL_02",
+          "W6R3_01"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-14_US_08",
+      "date": "2026-07-14",
+      "region": "US",
+      "signal": "mid",
+      "title": "ChargePoint·Onvo, 미국 북동부 주요 고속도로 12개 여행거점에 초급속충전 구축",
+      "sub": "펜실베이니아·뉴욕 12개 Onvo 지점에 Express Plus를 배치해 장거리 이동 중 음식·소매 편의시설과 초급속충전을 결합한다.",
+      "gate": "공식발표는 주요 고속도로 인근 입지와 장거리 운전자 대상, 첫 12개 지점을 명시한다. 다만 총 포트 수, 출력구성, 투자액과 개통일은 공개되지 않아 지점별 공사와 가동개시가 실행성의 다음 기준이다.",
+      "fact": "ChargePoint와 Onvo는 2026년 7월 14일 미국 북동부 주요 고속도로를 따라 초급속충전소를 구축하기로 발표했다. 초기 배치는 펜실베이니아와 뉴욕의 Onvo 여행거점 12곳이며 각 지점에 ChargePoint Express Plus를 설치한다. 충전설비는 음식, 소매와 기타 편의시설 인근에 배치해 장거리 운전자의 급속충전 공백을 줄이는 구조다.",
+      "implication": [
+        "주요 고속도로의 여행거점 운영사와 충전플랫폼 사업자가 결합해 장거리 이동수요를 직접 겨냥한 12개 지점 배치가 시작됐다.",
+        "음식·소매 편의시설과 Express Plus를 결합하는 구조는 충전시간을 체류매출과 연결하는 여행거점 모델이다.",
+        "총 포트 수, 지점별 출력, 착공과 개통일이 공개되지 않아 실제 네트워크 효과는 후속 설치실적으로 확인해야 한다."
+      ],
+      "urls": [
+        "https://www.chargepoint.com/about/news/chargepoint-and-onvo-expand-highway-fast-charging-across-northeastern-us?change_location=1",
+        "https://www.convenience.org/stay-current/news/2026/july/16/onvo-to-deploy-chargepoint-ev-charging-stations"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.chargepoint.com/about/news/chargepoint-and-onvo-expand-highway-fast-charging-across-northeastern-us?change_location=1",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "ChargePoint official"
+        },
+        {
+          "url": "https://www.chargepoint.com/about/news/chargepoint-and-onvo-expand-highway-fast-charging-across-northeastern-us?change_location=1",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "ChargePoint official"
+        },
+        {
+          "url": "https://www.convenience.org/stay-current/news/2026/july/16/onvo-to-deploy-chargepoint-ev-charging-stations",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "NACS"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "2026-07-07_US_01"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-14_US_07",
+      "date": "2026-07-14",
+      "region": "US",
+      "signal": "mid",
+      "title": "미 하원 환경소위, BRACE와 CHARM 법안 전체위원회 회부",
+      "sub": "배터리 재활용 규정정비와 국가 핵심광물 회수전략을 다루는 두 법안이 7월 14일 음성표결로 다음 심사단계에 진입했다.",
+      "gate": "소위원회 회부는 입법절차의 진전일 뿐 법률 제정이나 규제변경이 아니다. 전체위원회 심사와 양원 통과, 대통령 서명이 남아 있다.",
+      "fact": "미 하원 에너지상무위원회 환경소위는 2026년 7월 14일 H.R. 9615 BRACE Act와 H.R. 9617 CHARM Act를 각각 음성표결로 전체위원회에 회부했다. BRACE는 리튬이온 배터리 규정의 현대화와 명확화, 재활용 및 회수를 다루고, CHARM은 EPA의 국가 핵심광물 회수전략 조정을 다룬다.",
+      "implication": [
+        "미국 의회에서 배터리 재활용 규정과 핵심광물 회수전략이 병행 입법경로로 진전했다.",
+        "현재는 소위원회 단계여서 기업의 규제의무나 지원조건이 변경된 상태는 아니다.",
+        "전체위원회 수정안과 본회의 일정, EPA 역할의 최종문안이 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://energycommerce.house.gov/posts/environment-subcommittee-advances-seven-pieces-of-legislation-to-support-addressing-harmful-regulations-and-to-support-recycling",
+        "https://energycommerce.house.gov/posts/chairman-palmer-delivers-opening-statement-at-subcommittee-on-environment-markup-on-legislation-to-address-harmful-regulations-and-support-recycling",
+        "https://www.govinfo.gov/app/details/BILLS-119hr9615ih",
+        "https://www.govinfo.gov/app/details/BILLS-119hr9617ih",
+        "https://www.wastedive.com/news/critical-minerals-federal-battery-recycling-bills-epa-strategy/825535"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://energycommerce.house.gov/posts/environment-subcommittee-advances-seven-pieces-of-legislation-to-support-addressing-harmful-regulations-and-to-support-recycling",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "U.S. House Energy and Commerce Committee"
+        },
+        {
+          "url": "https://energycommerce.house.gov/posts/environment-subcommittee-advances-seven-pieces-of-legislation-to-support-addressing-harmful-regulations-and-to-support-recycling",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "U.S. House Energy and Commerce Committee"
+        },
+        {
+          "url": "https://energycommerce.house.gov/posts/chairman-palmer-delivers-opening-statement-at-subcommittee-on-environment-markup-on-legislation-to-address-harmful-regulations-and-support-recycling",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "U.S. House Energy and Commerce Committee"
+        },
+        {
+          "url": "https://www.govinfo.gov/app/details/BILLS-119hr9615ih",
+          "supports": [
+            "fact"
+          ],
+          "publisher": "GovInfo"
+        },
+        {
+          "url": "https://www.govinfo.gov/app/details/BILLS-119hr9617ih",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "GovInfo"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-14_US_06",
+      "date": "2026-07-14",
+      "region": "US",
+      "signal": "mid",
+      "title": "USA Rare Earth, 재활용 자석에서 Dy·NdPr 산화물 샘플 생산",
+      "sub": "USA Rare Earth는 콜로라도 Wheat Ridge 실증시설에서 자석가공 부산물을 원료로 Dy·NdPr 산화물 샘플을 생산하고 내부 고객 자격평가 단계로 넘겼다.",
+      "gate": "상업등급 표시는 회사 발표에 근거하며 대량생산이나 고객승인을 의미하지 않는다. 자격평가 결과와 반복생산 수율이 실증성과를 상업 공급능력으로 연결하는 핵심 조건이다.",
+      "fact": "USA Rare Earth는 2026년 7월 14일 Wheat Ridge 습식제련시설에서 재활용 희토류 자석 스와프를 사용해 상업등급 디스프로슘 산화물과 NdPr 산화물 샘플을 생산했다고 밝혔다. 회사는 해당 샘플을 영국 자회사 Less Common Metals에 보내 자격평가와 금속·스트립캐스트 전환을 진행할 예정이다. Wheat Ridge는 24시간 운영되는 실증시설로 향후 상업규모 분리시설의 공정설계 자료를 생성한다.",
+      "implication": [
+        "영구자석 가공 부산물을 중희토류·경희토류 산화물로 되돌리는 폐쇄형 공급망 실증이 자격평가 단계에 진입했다.",
+        "현재 확인된 것은 샘플 생산이며 상업수율·원가·장기 원료조달은 아직 입증되지 않았다.",
+        "LCM 자격평가 결과와 후속 반복생산 캠페인이 다음 확인점이다."
+      ],
+      "urls": [
+        "https://investors.usare.com/news-releases/news-release-details/usa-rare-earth-produces-commercial-grade-dysprosium-oxide-and"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://investors.usare.com/news-releases/news-release-details/usa-rare-earth-produces-commercial-grade-dysprosium-oxide-and",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "USA Rare Earth"
+        },
+        {
+          "url": "https://investors.usare.com/news-releases/news-release-details/usa-rare-earth-produces-commercial-grade-dysprosium-oxide-and",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "USA Rare Earth"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-14_EU_02",
+      "date": "2026-07-14",
+      "region": "EU",
+      "signal": "mid",
+      "title": "SMA-RheinEnergie, 독일 Einbeck 24.5MW·64MWh BESS 상업가동",
+      "sub": "Einbeck의 대형 저장설비가 주파수·계통안정 서비스와 일중·전일시장 거래를 병행하는 상업운전에 들어갔다.",
+      "gate": "SMA가 공개한 사용가능 용량은 64MWh다. 프로젝트 비교에서는 사용가능 용량과 다른 용량기준을 혼용하지 않아야 한다.",
+      "fact": "SMA Altenso와 RheinEnergie는 2026년 7월 14일 독일 니더작센 Einbeck의 24.5MW·64MWh BESS 상업가동을 발표했다. 설비는 주파수·계통안정 서비스와 일중·전일시장 거래를 병행한다.",
+      "implication": [
+        "대형 BESS가 보조서비스와 전력시장 거래를 결합한 다중 수익구조로 실제 운전에 들어갔다.",
+        "공개된 64MWh는 SMA가 제시한 사용가능 용량 기준이다.",
+        "가동률과 시장별 매출이 다음 운영 판단 기준이다."
+      ],
+      "urls": [
+        "https://www.sma.de/newsroom/news-detail/altenso-rheinenergie-batteriegrossspeicher-mitteldeutschland"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.sma.de/newsroom/news-detail/altenso-rheinenergie-batteriegrossspeicher-mitteldeutschland",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "SMA"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-13_US_06",
+      "date": "2026-07-13",
+      "region": "US",
+      "signal": "mid",
+      "title": "Janus, 미국 전기트럭 전환키트 16대·교환식 배터리 18세트 수주",
+      "sub": "약 1,000만호주달러의 추가주문이 디젤트럭 개조와 교환식 배터리를 결합한 상용차 전환수요를 구체화했다.",
+      "gate": "바인딩 주문이지만 16대 전환의 생산·인도는 캘리포니아 HVIP 바우처 승인에 달려 있다. 기존 승인액을 추가 16대에 자동 적용할 수 없으며, 지원금과 2026년 4분기 일정은 적격성·승인·생산진척에 따라 달라질 수 있다.",
+      "fact": "Ability Tri-Modal은 Janus Electric에 디젤-전기 전환키트 16대와 교환식 배터리 18세트를 추가 주문했다. 주문금액은 약 1,000만호주달러이고 전체 전환 약정은 4대에서 20대로 늘어 당시 북미 계약물량이 미국 20대·캐나다 25대 등 45대로 확대됐다. 기존 4대에는 차량당 HVIP 약 11만2,000달러와 LA항 Plus 지원 5만4,000달러가 승인됐고, 추가 주문은 HVIP 승인을 조건으로 2026년 4분기 첫 인도를 예정했다.",
+      "implication": [
+        "기존 대형트럭의 전동화 개조가 신차 중심 전환을 보완하는 수요경로로 관찰된다.",
+        "교환식 배터리의 초기 경제성은 주문뿐 아니라 차량당 보조금 승인과 교환거점 가동률에 크게 좌우된다.",
+        "추가 16대의 HVIP 승인과 2026년 4분기 첫 인도가 다음 실행 기준이다."
+      ],
+      "urls": [
+        "https://www.businessnewsaustralia.com/articles/janus-electric-locks-in-10m-us-truck-conversion-order-as-california-incentives-fuel-demand.html",
+        "https://smallcaps.com.au/article/janus-electric-adds-to-north-american-order-book-with-dollar10m-conversion-contract"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.businessnewsaustralia.com/articles/janus-electric-locks-in-10m-us-truck-conversion-order-as-california-incentives-fuel-demand.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Business News Australia"
+        },
+        {
+          "url": "https://smallcaps.com.au/article/janus-electric-adds-to-north-american-order-book-with-dollar10m-conversion-contract",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Small Caps"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "2026-07-02_CN_03"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-13_KR_02",
+      "date": "2026-07-13",
+      "region": "KR",
+      "signal": "mid",
+      "title": "KRICT, 탠덤 태양전지 소재기술을 LK Chem에 이전",
+      "sub": "한국화학연구원은 탠덤 태양전지 소재기술을 LK Chem에 이전하는 계약을 체결했다.",
+      "gate": "기술이전은 공공연구 성과가 기업의 후속개발 단계로 이동했다는 실행앵커다. 그러나 계약 자체가 양산·고객인증이나 매출을 의미하지는 않는다. 대량합성과 공정재현성 확보가 사업화의 다음 관문이다.",
+      "fact": "한국화학연구원과 LK Chem은 2026년 7월 13일 탠덤 태양전지 소재기술 이전계약을 체결했다. 계약은 연구기관이 개발한 소재기술을 기업의 후속개발 대상으로 이전하는 내용이다. 상업화 일정은 공개되지 않았다.",
+      "implication": [
+        "공공연구기관의 탠덤 태양전지 소재기술이 기업개발 단계로 넘어가며 사업화 경로가 열렸다.",
+        "기술이전 이후의 핵심은 소재성능보다 대량합성, 공정재현성과 제조원가다.",
+        "파일럿 생산, 고객평가와 양산투자 결정이 실제 상업화를 확인할 다음 단계다."
+      ],
+      "urls": [
+        "https://view.asiae.co.kr/en/article/2026071408221809174",
+        "https://www.batterynews.co.kr/news/articleView.html?idxno=784",
+        "https://www.dongascience.com/en/news/78914"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://view.asiae.co.kr/en/article/2026071408221809174",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "아시아경제 영문판"
+        },
+        {
+          "url": "https://www.dongascience.com/en/news/78914",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "date"
+          ],
+          "publisher": "DongA Science"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-13_GL_01",
+      "date": "2026-07-13",
+      "region": "GL",
+      "signal": "mid",
+      "title": "온타리오, Rock Tech 리튬 시약 검증에 C$26만2500 지원",
+      "sub": "Thunder Bay Pulp and Paper·퀸스대와 산림 부산물인 크루드 톨오일을 리튬 부유선광 시약으로 검증한다.",
+      "gate": "지원금은 시약의 적용 가능성과 향후 기술·경제 최적화 데이터를 확보하기 위한 평가단계에 투입된다. 현재 금속회수율·시약소비량·경제성 결과는 공개되지 않아 기존 시약 대체 여부는 시험결과로 판단해야 한다.",
+      "fact": "온타리오 핵심광물혁신기금은 Rock Tech에 26만2500캐나다달러를 지원했다. Rock Tech는 Thunder Bay Pulp and Paper와 퀸스대와 함께 현지 크루드 톨오일을 리튬 부유선광 시약으로 평가한다. 회사는 이 연구를 Georgia Lake 광산과 제안된 Red Rock 컨버터를 잇는 온타리오 광산-전환 전략의 일부로 설명했지만, 현재 공정성능과 경제성 결과는 제시하지 않았다.",
+      "implication": [
+        "광업과 펄프·제지 부산물을 연결해 수입 시약 의존도를 낮출 수 있는 지역 투입재 공급망을 시험한다.",
+        "산업체와 대학이 함께 평가해 성공할 경우 Georgia Lake 선광공정의 비용·배출·조달 안정성 개선 가능성을 검토할 수 있다.",
+        "회수율·품위·시약사용량과 기존 시약 대비 총비용 데이터가 상용설계 반영 여부의 핵심 기준이다."
+      ],
+      "urls": [
+        "https://www.prnewswire.com/news-releases/rock-tech-lithium-awarded-262-500-from-ontarios-critical-minerals-innovation-fund-to-advance-made-in-ontario-lithium-supply-chain-302823582.html",
+        "https://news.ontario.ca/en/release/1007581/ontario_takes_action_to_build_critical_minerals_supply_chain",
+        "https://rocktechlithium.com/en/rock-tech-lithium-awarded-262500-from-ontarios-critical-minerals-innovation-fund-to-advance-made-in-ontario-lithium-supply-chain/",
+        "https://www.miningweekly.com/article/rock-tech-lithium-receives-provincial-grant-to-verify-pulp-paper-byproduct-in-lithium-processing-2026-07-13"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.prnewswire.com/news-releases/rock-tech-lithium-awarded-262-500-from-ontarios-critical-minerals-innovation-fund-to-advance-made-in-ontario-lithium-supply-chain-302823582.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Rock Tech Lithium / PR Newswire"
+        },
+        {
+          "url": "https://news.ontario.ca/en/release/1007581/ontario_takes_action_to_build_critical_minerals_supply_chain",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Ontario Newsroom"
+        },
+        {
+          "url": "https://rocktechlithium.com/en/rock-tech-lithium-awarded-262500-from-ontarios-critical-minerals-innovation-fund-to-advance-made-in-ontario-lithium-supply-chain/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Rock Tech Lithium"
+        },
+        {
+          "url": "https://www.miningweekly.com/article/rock-tech-lithium-receives-provincial-grant-to-verify-pulp-paper-byproduct-in-lithium-processing-2026-07-13",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Mining Weekly"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-10_JP_01",
+      "date": "2026-07-10",
+      "region": "JP",
+      "signal": "mid",
+      "title": "ReYuu Japan, 나가토 BESS 권리 양도…영업익 3600만엔 반영",
+      "sub": "6월 30일 취득한 개발단계 계약상 지위·권리·의무를 Birdman에 양도해 2026년 10월기 실적에 수익화한다.",
+      "gate": "거래는 완성 BESS·토지 소유권 매각이 아니라 취득한 개발권리의 단기 수익화다. Birdman의 계약승계 이후 인허가·건설·자금조달이 이어지는지는 프로젝트 자체의 별도 실행기준이다.",
+      "fact": "ReYuu Japan은 야마구치현 나가토시 계통용 BESS 사업의 계약상 지위·권리·의무를 Birdman에 양도하는 계약을 7월 10일 체결·실행했다. 회사는 6월 30일 해당 권리를 취득한 뒤 수익화를 목적으로 양도했으며 2026년 10월기 영업이익 3600만엔을 예상해 수정 실적전망에 반영했다. 완성된 배터리설비와 토지 소유권 자체를 매각한 거래는 아니다.",
+      "implication": [
+        "개발권을 취득한 뒤 단기간 내 제3자에게 넘기는 프로젝트 권리 유통모델이 실제 손익으로 연결됐다.",
+        "3600만엔 이익은 ReYuu의 개발자산 수익화 역량을 보여주지만 BESS 건설·운영 성과와는 분리해 평가해야 한다.",
+        "Birdman의 인허가·EPC·계통접속·금융조달 진행이 프로젝트 실현 여부의 다음 기준이다."
+      ],
+      "urls": [
+        "https://prtimes.jp/main/html/rd/p/000000095.000111823.html",
+        "https://s.kabutan.jp/news/k202607100087/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000095.000111823.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "ReYuu Japan / PR TIMES"
+        },
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000095.000111823.html",
+          "supports": [
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "ReYuu Japan / PR TIMES"
+        },
+        {
+          "url": "https://s.kabutan.jp/news/k202607100087/",
+          "supports": [
+            "title",
+            "gate",
+            "fact"
+          ],
+          "publisher": "株探"
+        },
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000095.000111823.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "ReYuu Japan / PR TIMES"
+        },
+        {
+          "url": "https://s.kabutan.jp/news/k202607100087/",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Kabutan"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-09_JP_01",
+      "date": "2026-07-09",
+      "region": "JP",
+      "signal": "mid",
+      "title": "NEDO, 19.5억엔 혁신형전지 사업에 나트륨이온 포함 2개 제안 채택",
+      "sub": "2026~2027년 사업에서 2개 제안이 불화물·아연망간·차세대 나트륨이온 등 3개 전지계를 개발한다.",
+      "gate": "현재 단계는 연구체계 선정과 소재·공정 개발 착수이며 셀 성능이나 양산성이 검증된 단계는 아니다. 소재 합성 규모확대와 공업 제조공정 시험이 민간 실용화 검토로 이어지는지가 다음 기준이다.",
+      "fact": "NEDO는 7월 9일 혁신형 전지 실용화 연구제안 2건을 채택했다. 대상은 불화물전지·아연망간전지·차세대 나트륨이온전지의 3개 전지계이며 2026년도 예산은 19.5억엔, 사업기간은 2026~2027년이다. 나트륨이온 과제는 도쿄이과대가 대표기관을 맡고 GS유아사·쿠라레·MU아이오닉솔루션즈·미쓰비시케미컬 등 산학연 기관이 참여한다.",
+      "implication": [
+        "일본의 비리튬계 전지정책이 단일 화학계가 아니라 성능·안전·자원위험을 달리하는 3개 경로를 병렬 지원하는 구조로 구체화됐다.",
+        "나트륨이온 과제에 셀·소재 기업과 대학이 함께 참여해 소재개발에서 제조공정 검토까지 연결하는 산업화 체계를 구성했다.",
+        "2027년까지의 소재 규모확대와 제조공정 시험결과가 후속 실증·민간투자의 판단 기준이다."
+      ],
+      "urls": [
+        "https://response.jp/article/2026/07/13/413934.html",
+        "https://www.nedo.go.jp/news/press/AA5_101952.html",
+        "https://www.nedo.go.jp/content/800057984.pdf"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://response.jp/article/2026/07/13/413934.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Response.jp"
+        },
+        {
+          "url": "https://www.nedo.go.jp/news/press/AA5_101952.html",
+          "supports": [
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "NEDO"
+        },
+        {
+          "url": "https://www.nedo.go.jp/news/press/AA5_101952.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "NEDO"
+        },
+        {
+          "url": "https://www.nedo.go.jp/content/800057984.pdf",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "NEDO 별지1"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-08_US_03",
+      "date": "2026-07-08",
+      "region": "US",
+      "signal": "mid",
+      "title": "Ioneer, KIND·현대엔지니어링 LOI를 비구속 MOU로 구체화",
+      "sub": "KIND는 지분투자, 현대엔지니어링은 조달업무 참여를 검토하지만 법적 투자·지원의무는 없으며 FID는 2026년 하반기를 목표로 한다.",
+      "gate": "7월 MOU는 6월 23일 비구속 LOI의 후속단계지만 여전히 투자액·EPC 범위·조달조건을 확정하지 않는다. 구속력 있는 투자·EPC 계약과 최종투자결정이 실제 실행의 다음 기준이다.",
+      "fact": "Ioneer는 7월 8일 KIND와 현대엔지니어링 각각과 Rhyolite Ridge 리튬·붕소 프로젝트의 비구속 MOU를 체결했다. KIND는 프로젝트 지분투자를, 현대엔지니어링은 조달 관련 업무 제공을 검토한다. 이는 6월 23일 발표한 LOI를 구체화한 후속단계이며 양 기관의 법적 투자·지원 의무를 만들지 않는다. Ioneer는 2016년 이후 2억2000만달러 이상을 투자하고 고도설계 70% 이상을 완료했으며 2026년 하반기 FID를 목표로 한다.",
+      "implication": [
+        "한국 정책금융·EPC 주체와의 협력이 의향서에서 역할별 MOU로 진전됐지만 자금·공사계약은 아직 열려 있다.",
+        "기투자액과 설계진척은 프로젝트 성숙도를 보여주지만 한국 측 참여의 경제조건은 별도 협상대상이다.",
+        "KIND 지분조건·현대엔지니어링 조달범위와 FID 확정이 공급망 협력의 실질성을 가르는 다음 기준이다."
+      ],
+      "urls": [
+        "https://www.reuters.com/world/asia-pacific/australias-ioneer-signs-mous-with-skoreas-kind-hyundai-engineering-lithium-boron-2026-07-08/",
+        "https://www.sec.gov/Archives/edgar/data/1896084/000114036126027857/ef20077523_ex99-1.htm",
+        "https://www.sec.gov/Archives/edgar/data/1896084/000114036126026029/ef20076610_ex99-1.htm"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.reuters.com/world/asia-pacific/australias-ioneer-signs-mous-with-skoreas-kind-hyundai-engineering-lithium-boron-2026-07-08/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        },
+        {
+          "url": "https://www.reuters.com/world/asia-pacific/australias-ioneer-signs-mous-with-skoreas-kind-hyundai-engineering-lithium-boron-2026-07-08/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1896084/000114036126027857/ef20077523_ex99-1.htm",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Ioneer / SEC"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1896084/000114036126027857/ef20077523_ex99-1.htm",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Ioneer / SEC"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1896084/000114036126026029/ef20076610_ex99-1.htm",
+          "supports": [
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Ioneer / SEC"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    }
+  ]
+}

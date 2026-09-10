@@ -1,0 +1,1458 @@
+{
+  "month": "2026-07",
+  "signal": "high",
+  "batch": 1,
+  "count": 25,
+  "cards": [
+    {
+      "id": "2026-07-31_US_01",
+      "date": "2026-07-31",
+      "region": "US",
+      "signal": "high",
+      "title": "매사추세츠, 중주기 ESS 약 1,000MW 2차 RFP 발행",
+      "sub": "83E 2차 조달이 4~10시간 중주기 저장장치 약 1,000MW를 대상으로 공식 개시됐다.",
+      "gate": "이번 사건은 RFP 발행 단계이며 1,000MW의 계약 체결이나 프로젝트 선정을 의미하지 않는다. 공식 문서도 선정팀이 특정 물량을 반드시 선정할 의무는 없다고 명시한다.",
+      "fact": "매사추세츠 배전사들은 주 에너지자원부(DOER)와 조율해 7월 31일 Section 83E 2차 장기계약 RFP를 발행했다. 공식 문서는 4~10시간 중주기 에너지저장시스템 약 1,000MW를 조달 대상으로 제시한다. 이번 조달은 전체 5,000MW 계획의 두 번째 경쟁입찰이다.",
+      "implication": [
+        "미 동북부 장주기·중주기 ESS 수요가 법정 조달 일정에 따라 두 번째 대형 경쟁입찰 단계로 진입했다.",
+        "후속 판단 지점은 입찰 제출, 선정, 장기계약 협상 및 DPU 승인이다."
+      ],
+      "urls": [
+        "https://macleanenergy.com/wp-content/uploads/2026/07/83e_rfp_final_round-2-july-31-2026.pdf",
+        "https://www.energy-storage.news/massachusetts-issues-rfp-seeking-1000mw-of-bess"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://macleanenergy.com/wp-content/uploads/2026/07/83e_rfp_final_round-2-july-31-2026.pdf",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Massachusetts Section 83E Round 2 RFP"
+        },
+        {
+          "url": "https://macleanenergy.com/wp-content/uploads/2026/07/83e_rfp_final_round-2-july-31-2026.pdf",
+          "supports": [
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "Massachusetts Section 83E Round 2 RFP"
+        },
+        {
+          "url": "https://www.energy-storage.news/massachusetts-issues-rfp-seeking-1000mw-of-bess",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "publisher": "Energy-Storage.News"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Prompt 0.4 full current-main baseline revalidation found no same-event canonical collision and classified this candidate as a new event.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "Prompt 0.4 current-main baseline revalidation decision materialized into current lifecycle contract; no editorial relation decision reopened.",
+        "production_id_resolution_required_later": false
+      }
+    },
+    {
+      "id": "2026-07-31_KR_02",
+      "date": "2026-07-31",
+      "region": "KR",
+      "signal": "high",
+      "title": "LG화학 첨단소재, 2Q 영업흑자 전환…분리막 출하 확대·ESS 물량 증가 전망",
+      "sub": "첨단소재 부문은 2분기 매출 9,990억원, 영업이익 200억원으로 흑자 전환했다. 회사는 양극재 판가 상승과 분리막 출하 확대를 전지재료 개선 요인으로 제시했다.",
+      "gate": "ESS 분리막 확대는 배터리 소재 수요 신호이지 파우치필름 외장재 수요와 1:1로 연결되는 근거는 아니다. 셀 폼팩터와 고객별 ESS 채택 구조를 별도로 확인해야 한다.",
+      "fact": "LG화학 2분기 첨단소재 부문은 매출 9,990억원, 영업이익 200억원을 기록했다. 공식 실적자료는 양극재 판가 상승과 분리막 출하 확대에 따른 전지재료 매출 증가를 설명했고, 하반기에는 신규 양극재 고객 출하와 ESS향 분리막 물량 증가를 전망했다.",
+      "implication": [
+        "Q1 적자 카드 이후 첨단소재의 분기 흑자전환이 확인돼 배터리 소재 사이클의 개선 폭을 재평가할 근거가 생겼다.",
+        "ESS 분리막 증가는 ESS 셀 생산의 보조지표로 활용하되 파우치 폼팩터 채택 여부는 별도 추적해야 한다."
+      ],
+      "urls": [
+        "https://www.lgchem.com/upload/file/ir-events/2Q_2026_earnings_release_KOR.pdf",
+        "https://zdnet.co.kr/view/?no=20260731170300"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.lgchem.com/upload/file/ir-events/2Q_2026_earnings_release_KOR.pdf",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "LG Chem 2Q 2026 earnings release"
+        },
+        {
+          "url": "https://zdnet.co.kr/view/?no=20260731170300",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "LG Chem Q2 conference-call coverage"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-04-30_KR_14"
+        ],
+        "related_candidate_spec_ids": [],
+        "reason": "2026-04-30_KR_14 is the Q1 loss/predecessor earnings card; Q2 profitability is a distinct follow-up.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": "earnings_follow_up",
+        "fresh_follow_up_anchor": "2026-04-30_KR_14",
+        "incremental_fact_vs_predecessor": "Current card adds a distinct later earnings/portfolio signal.",
+        "changed_judgment_vs_predecessor": "Current event adds later execution/earnings evidence.",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-31_KR_01",
+      "date": "2026-07-31",
+      "region": "KR",
+      "signal": "high",
+      "title": "L&F Plus, LFP 양극재 시생산품 첫 출하",
+      "sub": "LFP 양극재 시생산품이 첫 출하 단계 진입",
+      "gate": "시생산품 첫 출하는 고객 승인이나 본격 상업 양산 확정과 다르다. 후속 반복 출하와 양산 전환을 별도로 확인해야 한다.",
+      "fact": "L&F Plus는 LFP 양극재 시생산품을 처음 출하했다. 확인된 사건 단계는 시생산품의 첫 출하다.",
+      "implication": [
+        "LFP 양극재 사업이 개발·시험에서 실제 시생산품 출하 단계로 이동했다.",
+        "반복 출하와 고객 승인, 양산 전환 여부가 다음 상업화 지표다."
+      ],
+      "urls": [
+        "https://www.ajunews.com/view/20260803092008161",
+        "https://www.mt.co.kr/industry/2026/08/03/2026080309400017133"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.ajunews.com/view/20260803092008161",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "아주경제"
+        },
+        {
+          "url": "https://www.mt.co.kr/industry/2026/08/03/2026080309400017133",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "머니투데이"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-05-18_KR_01"
+        ],
+        "related_candidate_spec_ids": [],
+        "reason": "Direct commercialization follow-up from LFP plant completion to first trial-product shipment.",
+        "fresh_follow_up_anchor_class": "technology_commercialization_anchor",
+        "fresh_follow_up_anchor": "L&F Plus LFP cathode output advanced from plant completion to first trial-product shipment on 2026-07-31.",
+        "incremental_fact_vs_predecessor": "Compared with 2026-05-18_KR_01, the new fact is first shipment of LFP cathode trial-production material from the completed plant.",
+        "changed_judgment_vs_predecessor": "Judgment changes from completed plant with planned production to actual trial-product shipment and customer-validation stage.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802",
+        "event_stage_relationship": "2026-05-18 LFP plant completion → 2026-07-31 first trial-product shipment",
+        "direction": "directional"
+      }
+    },
+    {
+      "id": "2026-07-31_GL_01",
+      "date": "2026-07-31",
+      "region": "GL",
+      "signal": "high",
+      "title": "한국-아르헨티나, 핵심광물 협력 MOU 체결",
+      "sub": "정부 간 핵심광물 협력 채널 구축",
+      "gate": "MOU는 협력 채널 구축 단계이며 구체적인 광물 확보나 투자계약을 의미하지 않는다. 후속 공동사업·투자·장기 공급계약으로 전환되는지 확인해야 한다.",
+      "fact": "한국과 아르헨티나는 7월 31일 핵심광물 협력 MOU를 체결했다. 현재 확인된 단계는 양국 정부 간 협력 틀의 구축이다.",
+      "implication": [
+        "핵심광물 공급망 협의를 위한 정부 간 채널이 공식화됐다.",
+        "실질적 공급망 효과는 공동사업과 투자, 장기 공급계약으로의 전환 여부에서 확인해야 한다."
+      ],
+      "urls": [
+        "https://www.todayenergy.kr/news/articleView.html?idxno=301128",
+        "https://www.sideview.co.kr/news/articleView.html?idxno=20218",
+        "https://www.2news.co.kr/news/articleView.html?idxno=19136"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.sideview.co.kr/news/articleView.html?idxno=20218",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "사이드뷰"
+        },
+        {
+          "url": "https://www.2news.co.kr/news/articleView.html?idxno=19136",
+          "supports": [
+            "sub",
+            "gate",
+            "implication"
+          ],
+          "publisher": "2news"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "No direct event lineage.",
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "related_evidence_review_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/related-correction-rec26-a2-039.json"
+      }
+    },
+    {
+      "id": "2026-07-30_US_02",
+      "date": "2026-07-30",
+      "region": "US",
+      "signal": "high",
+      "title": "Perpetua-INL, 안티몬 파일럿 플랜트 가동",
+      "sub": "Stibnite 원료로 하루 약 1톤 처리하는 미국 안티몬 파일럿 가동",
+      "gate": "파일럿 플랜트 가동은 상업생산과 다르다. 처리능력·품질과 규모확대 여부가 미국 내 정제역량의 다음 검증 포인트다.",
+      "fact": "Idaho National Laboratory는 Perpetua Resources의 Stibnite Gold Project 원료를 처리하는 모듈형 안티몬 파일럿 플랜트를 가동했다. 처리 규모는 하루 약 1톤이다.",
+      "implication": [
+        "미국 내 안티몬 처리역량을 실제 파일럿 운영으로 검증하는 단계다.",
+        "상업 규모 확장은 처리 결과와 후속 설비투자에서 확인해야 한다."
+      ],
+      "urls": [
+        "https://www.northernminer.com/news/perpetua-resources-us-army-and-idaho-national-laboratory-launch-antimony-pilot-plant/1003893592",
+        "https://inl.gov/news-release/inl-hosts-ribbon-cutting-for-pilot-plant-supporting-domestic-antimony-production/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.northernminer.com/news/perpetua-resources-us-army-and-idaho-national-laboratory-launch-antimony-pilot-plant/1003893592",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Northern Miner (via Google News)"
+        },
+        {
+          "url": "https://inl.gov/news-release/inl-hosts-ribbon-cutting-for-pilot-plant-supporting-domestic-antimony-production/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Idaho National Laboratory"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Current-main baseline and current accepted batch contain no direct predecessor, same-event representative, or broader card that already represents this specific event.",
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-30_US_01",
+      "date": "2026-07-30",
+      "region": "US",
+      "signal": "high",
+      "title": "Antora Energy, 5.5억달러 Series C 조달",
+      "sub": "열배터리 상용 확대와 미국 제조능력 확장을 위한 자금 확보",
+      "gate": "투자금 조달은 상용 수요를 보장하지 않는다. 제조거점의 구체화와 고객 프로젝트 전환이 자금조달의 실행력을 보여줄 다음 지표다.",
+      "fact": "Antora Energy는 5.5억달러 Series C를 조달했다. 회사는 조달자금을 열배터리 상용 확대와 미국 제조능력 확장에 투입할 계획이다.",
+      "implication": [
+        "장주기 열저장 분야에 대규모 성장자금이 유입된 사례다.",
+        "다음 확인점은 제조능력 확대와 고객 프로젝트 전환의 실제 이행이다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/antora-energy-closes-us550-million-series-c-to-scale-us-thermal-battery-deployment",
+        "https://www.energymonitor.ai/news/antora-raises-550m-deploy-storage"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.energy-storage.news/antora-energy-closes-us550-million-series-c-to-scale-us-thermal-battery-deployment",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Energy-Storage.news RSS"
+        },
+        {
+          "url": "https://www.energymonitor.ai/news/antora-raises-550m-deploy-storage",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Energy Monitor"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Current-main baseline and current accepted batch contain no direct predecessor, same-event representative, or broader card that already represents this specific event.",
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-30_KR_02",
+      "date": "2026-07-30",
+      "region": "KR",
+      "signal": "high",
+      "title": "SK온, 2Q 흑자전환…ESS 수주 확대·기존 라인 전환 검토",
+      "sub": "2분기 영업이익 8218억원으로 흑자 전환했고, 회사는 AI 하이퍼스케일러·전력회사 중심 ESS 추가 수주를 추진하면서 기존 라인의 ESS 활용도 검토하고 있다.",
+      "gate": "2분기 흑자에는 고객 보상금과 IRA 세액공제 등 일회성·지원 요인이 포함된다. ESS 수주 확대는 회사의 공식 계획이지만 기존 EV 라인의 ESS 전환은 Q&A 기준 검토 단계로, 실행된 전환으로 표현하면 안 된다.",
+      "fact": "SK온 배터리 사업은 2026년 2분기 매출 2조9460억원, 영업이익 8218억원을 기록해 흑자 전환했다. SK이노베이션은 아시아 판매 확대, 고객 보상금, IRA 세액공제 증가와 비용 절감이 손익 개선에 기여했다고 밝혔다. 하반기에는 AI 하이퍼스케일러와 전력회사 중심으로 ESS 추가 수주를 확대할 계획이다. 실적 Q&A에서는 북미와 서산의 기존 라인을 ESS용으로 전환하는 방안을 살펴보고 있지만 구체적인 재배치는 아직 결정되지 않았다고 설명했다.",
+      "implication": [
+        "SK온의 ESS 확대가 실제 수주와 기존 자산 활용으로 이어질 경우 파우치 기반 생산자산의 수요 경로가 EV에서 ESS까지 넓어질 수 있다.",
+        "다만 현재는 수주 확대와 전환 검토 단계이므로 계약 물량, 전환 라인, 양산 개시를 실행 게이트로 봐야 한다."
+      ],
+      "urls": [
+        "https://askinno.com/global/archives/156625",
+        "https://earningscalls.dev/transcripts/sk-innovation-co-ltd_a096770_earnings_call_transcript_2026-07-30"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://askinno.com/global/archives/156625",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "SK Innovation / Ask Inno"
+        },
+        {
+          "url": "https://earningscalls.dev/transcripts/sk-innovation-co-ltd_a096770_earnings_call_transcript_2026-07-30",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "SK Innovation Q2 call transcript reproduction"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "No exact same-event predecessor in the 1,460-card baseline; prior SK On cards cover plant start or broad industry strategy, not this Q2 earnings/ESS-order event.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-30_KR_01",
+      "date": "2026-07-30",
+      "region": "KR",
+      "signal": "high",
+      "title": "포스코아르헨티나, 염수리튬 1공장 안정화로 첫 분기 흑자",
+      "sub": "포스코홀딩스 2분기 실적에서 아르헨티나 염수리튬 법인이 첫 분기 흑자를 기록해 리튬 사업의 손익 전환이 확인됐다.",
+      "gate": "첫 분기 흑자는 염수리튬 1공장 조업 안정화와 설비 개선에 기반한 공식 실적이다. 하반기 2공장 준공에 따른 초기 비용이 예상돼 흑자 지속 여부와 단계적 증산이 다음 판단 지점이다.",
+      "fact": "포스코홀딩스는 2026년 2분기 연결 매출 19조2590억원, 영업이익 8190억원, 순이익 7610억원을 발표했다. 포스코아르헨티나는 염수리튬 1공장 조업 안정화와 설비 개선으로 분기 기준 첫 흑자 전환에 성공했다. 회사는 하반기 2공장 준공으로 초기 비용 증가를 예상하면서도 단계적 증산과 판매 확대로 수익성을 높일 계획이라고 밝혔다.",
+      "implication": [
+        "포스코 리튬 사업이 적자 축소 단계에서 실제 분기 흑자로 넘어간 첫 확인 신호다.",
+        "하반기 2공장 램프업 비용과 판매 확대가 흑자 지속성을 가르는 핵심 변수다."
+      ],
+      "urls": [
+        "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "포스코그룹 뉴스룸"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-04-30_KR_13"
+        ],
+        "related_candidate_spec_ids": [],
+        "reason": "Q1 card recorded Argentina loss narrowing; Q2 official results establish the next earnings milestone, first quarterly profit.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": "earnings_or_strategy_update",
+        "fresh_follow_up_anchor": "2026-04-30_KR_13",
+        "incremental_fact_vs_predecessor": "See current card fact/gate for the incremental event.",
+        "changed_judgment_vs_predecessor": "Current event adds new execution/earnings evidence.",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-30_EU_02",
+      "date": "2026-07-30",
+      "region": "EU",
+      "signal": "high",
+      "title": "Altech, 독일 CERENERGY 프로젝트 중단",
+      "sub": "작센 CERENERGY 프로젝트 중단 결정",
+      "gate": "프로젝트 중단은 CERENERGY 기술 자체의 성능 판정과 동일하지 않다. 사업의 후속 처리와 재개 가능성을 별도로 확인해야 한다.",
+      "fact": "Altech는 독일 작센의 CERENERGY 프로젝트를 중단하기로 결정했다. 확인된 실행 변화는 해당 프로젝트의 중단 결정이다.",
+      "implication": [
+        "CERENERGY 상용화 계획의 일정과 사업경로가 후퇴한 사건이다.",
+        "기술 자체의 성패와 프로젝트 중단 사유는 분리해 봐야 한다."
+      ],
+      "urls": [
+        "https://battery-news.de/en/2026/08/05/altech-discontinues-cerenergy-project-in-saxony",
+        "https://www.boerse-frankfurt.de/news/7da3e816-9fd2-42e6-8e3b-1cefd6944ec0"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://battery-news.de/en/2026/08/05/altech-discontinues-cerenergy-project-in-saxony",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Battery-News EN RSS"
+        },
+        {
+          "url": "https://www.boerse-frankfurt.de/news/7da3e816-9fd2-42e6-8e3b-1cefd6944ec0",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Deutsche Börse / Altech ad hoc disclosure"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Current-main baseline and current accepted batch contain no direct predecessor, same-event representative, or broader card that already represents this specific event.",
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-30_EU_01",
+      "date": "2026-07-30",
+      "region": "EU",
+      "signal": "high",
+      "title": "Axpo-Zelestra, 이탈리아 BESS 830MWh 10년 톨링",
+      "sub": "830MWh 저장 프로젝트에 10년 장기 톨링 계약 체결",
+      "gate": "장기 톨링 계약은 운영 개시와 다르다. 프로젝트 건설과 실제 운영 전환 여부가 계약의 실행성을 보여줄 다음 지표다.",
+      "fact": "Axpo와 Zelestra는 이탈리아 BESS 프로젝트에 10년 톨링 계약을 체결했다. 프로젝트의 확인된 저장용량은 830MWh다.",
+      "implication": [
+        "830MWh BESS가 10년 장기 톨링 계약 단계로 진전됐다.",
+        "다음 판단은 프로젝트 건설과 실제 운영 개시 여부다."
+      ],
+      "urls": [
+        "https://www.ess-news.com/2026/08/04/battery-storage-outperforms-renewable-ppas-in-volatile-european-power-markets",
+        "https://www.axpo.com/de/en/newsroom/media-releases/2026/axpo-and-zelestra-join-forces-for-bess-project-to-strengthen-ita.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.ess-news.com/2026/08/04/battery-storage-outperforms-renewable-ppas-in-volatile-european-power-markets",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "ESS News RSS"
+        },
+        {
+          "url": "https://www.axpo.com/de/en/newsroom/media-releases/2026/axpo-and-zelestra-join-forces-for-bess-project-to-strengthen-ita.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Axpo"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Current-main baseline and current accepted batch contain no direct predecessor, same-event representative, or broader card that already represents this specific event.",
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-29_US_01",
+      "date": "2026-07-29",
+      "region": "US",
+      "signal": "high",
+      "title": "Eolian, 오하이오 200MW/1.06GWh Flint Grid 착공",
+      "sub": "오하이오에서 200MW, 5.3시간, 약 1.06GWh BESS 착공",
+      "gate": "착공은 개발계획에서 물리적 실행으로 넘어간 단계다. 향후 공정 진척과 상업운전 일정 이행이 프로젝트 실현의 다음 지표다.",
+      "fact": "Eolian은 오하이오의 Flint Grid BESS 공사를 시작했다. 프로젝트 규모는 200MW, 5.3시간, 약 1.06GWh다.",
+      "implication": [
+        "5.3시간 저장 BESS가 실제 건설 단계에 진입했다.",
+        "공정 진척과 운영 개시가 후속 확인점이다."
+      ],
+      "urls": [
+        "https://www.prnewswire.com/news-releases/eolian-announces-1-gwh-flint-grid-bess-pjms-largest-battery-energy-storage-project-now-under-construction-to-support-americas-fastest-growing-data-center-and-industrial-corridor-near-columbus-ohio-302837697.html",
+        "https://www.energy-storage.news/eolian-begins-construction-on-1-06gwh-ohio-bess-largest-system-built-in-pjm/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.prnewswire.com/news-releases/eolian-announces-1-gwh-flint-grid-bess-pjms-largest-battery-energy-storage-project-now-under-construction-to-support-americas-fastest-growing-data-center-and-industrial-corridor-near-columbus-ohio-302837697.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Eolian / PR Newswire"
+        },
+        {
+          "url": "https://www.energy-storage.news/eolian-begins-construction-on-1-06gwh-ohio-bess-largest-system-built-in-pjm/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Energy-Storage.news"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Current-main baseline and current accepted batch contain no direct predecessor, same-event representative, or broader card that already represents this specific event.",
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-29_GL_01",
+      "date": "2026-07-29",
+      "region": "GL",
+      "signal": "high",
+      "title": "Neoen Goyder Stage 2, Tesla/UGL 실행계약",
+      "sub": "Stage 2 계약 체결, 현장공사는 8월 시작 예정",
+      "gate": "7월 말의 확인된 사건은 물리적 착공이 아니라 계약 실행 단계다. 실제 현장공사 개시와 프로젝트 일정 이행을 별도로 확인해야 한다.",
+      "fact": "Neoen은 Goyder Battery Stage 2와 관련해 Tesla와 UGL 계약을 체결했다. UGL 측 자료는 현장공사가 2026년 8월 시작될 예정이라고 밝혔다.",
+      "implication": [
+        "Goyder Stage 2가 계약 실행 단계로 진전됐다.",
+        "다음 확인점은 실제 현장공사 개시와 프로젝트 일정 이행이다."
+      ],
+      "urls": [
+        "https://in.marketscreener.com/news/hochtief-cimica-s-ugl-to-deliver-stage-2-of-neoena-s-goyder-battery-with-tesla-in-south-australi-ce7f50dad98bf224",
+        "https://www.energyglobal.com/energy-storage/29072026/neoen-awarded-two-15-year-capacity-contracts-in-south-australia/amp/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://in.marketscreener.com/news/hochtief-cimica-s-ugl-to-deliver-stage-2-of-neoena-s-goyder-battery-with-tesla-in-south-australi-ce7f50dad98bf224",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "CIMIC/UGL release via MarketScreener"
+        },
+        {
+          "url": "https://www.energyglobal.com/energy-storage/29072026/neoen-awarded-two-15-year-capacity-contracts-in-south-australia/amp/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Energy Global"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Current-main baseline and current accepted batch contain no direct predecessor, same-event representative, or broader card that already represents this specific event.",
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-29_EU_01",
+      "date": "2026-07-29",
+      "region": "EU",
+      "signal": "high",
+      "title": "Alcemi, 루마니아 575MW/2.3GWh BESS 개발자산 지분 인수",
+      "sub": "Alcemi가 루마니아 Medgidia 300MW/1,200MWh와 Șura Mare 275MW/1,100MWh 프로젝트의 과반 지분을 인수했다.",
+      "gate": "두 프로젝트는 합계 575MW/2.3GWh 규모지만 아직 초기 개발 단계다. 지분 인수는 개발 포트폴리오 확보를 의미하며 착공·최종투자결정(FID)·상업운전과 동일하지 않다.",
+      "fact": "Profit.ro와 Energy-Storage.News에 따르면 Alcemi는 2026년 7월 29일 루마니아 Medgidia 300MW/1,200MWh와 Șura Mare 275MW/1,100MWh BESS 개발 프로젝트의 과반 지분 인수를 발표했다. 합계는 575MW/2.3GWh이며 두 프로젝트는 초기 개발 단계다.",
+      "implication": [
+        "유럽 BESS 개발 플랫폼의 국경간 자산 확보가 루마니아 대형 개발 파이프라인으로 확대되고 있다.",
+        "현재 가치는 운영자산이 아니라 개발권·토지·계통·인허가 진척에 좌우된다.",
+        "FID와 착공, 장기수익계약 확보가 다음 실행 기준이다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/central-eastern-europe-uks-alcemi-buys-2-3gwh-romania-projects-slovakias-biggest-bess-brought-online/",
+        "https://www.profit.ro/povesti-cu-profit/energie/tranzactie-nou-jucator-in-romania-alcemi-intra-pe-piata-locala-22550505"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.profit.ro/povesti-cu-profit/energie/tranzactie-nou-jucator-in-romania-alcemi-intra-pe-piata-locala-22550505",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "Profit.ro"
+        },
+        {
+          "url": "https://www.energy-storage.news/central-eastern-europe-uks-alcemi-buys-2-3gwh-romania-projects-slovakias-biggest-bess-brought-online/",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Energy-Storage.News"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Prompt 0.4 full current-main baseline revalidation found no same-event canonical collision and classified this candidate as a new event.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "Prompt 0.4 current-main baseline revalidation decision materialized into current lifecycle contract; no editorial relation decision reopened.",
+        "production_id_resolution_required_later": false
+      }
+    },
+    {
+      "id": "2026-07-28_US_01",
+      "date": "2026-07-28",
+      "region": "US",
+      "signal": "high",
+      "title": "미 FCC, 해외산 연결형 전력인버터 신규 장비승인 제한",
+      "sub": "FCC는 해외 생산 연결형 전력인버터를 안보위협 목록(Covered List)에 추가해 신규 모델의 미국 장비승인을 제한했으며 기존 승인 모델은 계속 유통·사용할 수 있다고 현지 보도가 확인했다.",
+      "gate": "이번 조치는 전체 기존 설치 인버터를 즉시 금지하는 조치가 아니라 신규 모델의 장비승인·시장진입을 제한하는 규제다. 기존 승인 모델과 신규 모델의 처리 차이가 커 공급사 영향은 신규 승인 파이프라인을 중심으로 봐야 한다.",
+      "fact": "Reuters와 Nextgov는 FCC가 7월 28일 해외 생산 연결형 전력인버터의 신규 모델 장비승인을 제한했다고 확인했다. Nextgov는 해당 장비가 안보위협 목록(Covered List)에 추가됐으며 기존에 FCC 장비승인을 받은 외국산 인버터는 계속 수입·판매·사용할 수 있다고 설명했다.",
+      "implication": [
+        "미국 태양광·ESS·데이터센터 전력 인프라의 인버터 조달에서 장비승인과 공급사 국적·보안 검토가 추가적인 시장접근 변수로 작동한다.",
+        "기존 승인 모델과 신규 모델의 규제 차이가 커 단기 공급 영향은 설치기반 전체보다 신제품 승인 파이프라인에서 먼저 나타날 수 있다.",
+        "실제 모델 승인 거절과 대체조달 사례가 정책의 실질 강도를 가를 다음 지표다."
+      ],
+      "urls": [
+        "https://www.reuters.com/world/trump-administration-ban-new-chinese-robots-inverters-protecting-us-ai-buildout-2026-07-28/",
+        "https://www.nextgov.com/policy/2026/07/fcc-blocks-approval-new-foreign-made-robots-power-inverters/415070/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.reuters.com/world/trump-administration-ban-new-chinese-robots-inverters-protecting-us-ai-buildout-2026-07-28/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Reuters"
+        },
+        {
+          "url": "https://www.nextgov.com/policy/2026/07/fcc-blocks-approval-new-foreign-made-robots-power-inverters/415070/",
+          "supports": [
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Nextgov/FCW"
+        },
+        {
+          "url": "https://www.nextgov.com/policy/2026/07/fcc-blocks-approval-new-foreign-made-robots-power-inverters/415070/",
+          "supports": [
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Nextgov/FCW"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Prompt 0.4 full current-main baseline revalidation found no same-event canonical collision and classified this candidate as a new event.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "Prompt 0.4 current-main baseline revalidation decision materialized into current lifecycle contract; no editorial relation decision reopened.",
+        "production_id_resolution_required_later": false
+      }
+    },
+    {
+      "id": "2026-07-28_JP_01",
+      "date": "2026-07-28",
+      "region": "JP",
+      "signal": "high",
+      "title": "Hexa–Tokyo Gas, Fukushima 49.7MW/202.1MWh BESS 20년 오프테이크",
+      "sub": "Hexa Energy Services가 Fukushima 49.7MW/202.1MWh BESS에 대해 Tokyo Gas와 20년 장기 오프테이크 계약을 체결했다.",
+      "gate": "프로젝트가 단순 개발계획을 넘어 장기 오프테이크 계약으로 운용·수익 구조를 구체화한 실행 이벤트다. 49.7MW/202.1MWh 규모와 20년 계약기간, FY2029 상업운전 일정이 함께 제시됐다.",
+      "fact": "Hexa Energy Services는 Fukushima 49.7MW/202.1MWh BESS에 대해 Tokyo Gas와 20년 장기 오프테이크 계약을 체결했다고 발표했다. 회사는 해당 프로젝트의 상업운전 개시를 FY2029로 예정하고 있다.",
+      "implication": [
+        "일본 계통용 BESS에서 장기 오프테이크를 통해 프로젝트의 계약 기반이 20년 단위로 구체화된 사례다.",
+        "다음 확인 지점은 FY2029 상업운전 일정의 이행과 실제 운영 전환이다."
+      ],
+      "urls": [
+        "https://www.hexa-es.com/ja/news/c9o__6ai1me"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.hexa-es.com/ja/news/c9o__6ai1me",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Hexa Energy Services"
+        },
+        {
+          "url": "https://www.hexa-es.com/ja/news/c9o__6ai1me",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Hexa Energy Services"
+        },
+        {
+          "url": "https://www.hexa-es.com/ja/news/c9o__6ai1me",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "Hexa Energy Services"
+        },
+        {
+          "url": "https://www.hexa-es.com/ja/news/c9o__6ai1me",
+          "supports": [
+            "fact"
+          ],
+          "publisher": "Hexa Energy Services"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Prompt 0.4 full current-main baseline revalidation found no same-event canonical collision and classified this candidate as a new event.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "Prompt 0.4 current-main baseline revalidation decision materialized into current lifecycle contract; no editorial relation decision reopened.",
+        "production_id_resolution_required_later": false
+      }
+    },
+    {
+      "id": "2026-07-28_GL_03",
+      "date": "2026-07-28",
+      "region": "GL",
+      "signal": "high",
+      "title": "GBM, Lomiko 인수 위한 약 1,100만캐나다달러 계약 체결",
+      "sub": "Global Battery Materials(GBM)가 Lomiko Metals 전 주식을 주당 0.13캐나다달러에 인수하는 계약을 체결했다.",
+      "gate": "거래가 종결되면 캐나다 천연흑연 자산과 음극재 가공 플랫폼의 통합 범위가 확대될 수 있다. 현재는 계약 체결 단계이며 주주·법원·규제 승인 등 종결 조건이 남아 있다.",
+      "fact": "Lomiko는 2026년 7월 28일 GBM과 법원 승인 방식의 주식 인수계약을 체결했다고 공시했다. 거래가는 주당 0.13캐나다달러이며 완전희석 기준 지분가치는 약 1,100만캐나다달러다. 종결에는 주주·법원·규제 승인 등 통상 조건이 남아 있다.",
+      "implication": [
+        "천연흑연 자원과 음극재 가공을 연결하는 북미 공급망 M&A가 법적 계약 단계로 진입했다.",
+        "거래 종결 전까지 승인 조건과 자금조달 이행이 핵심 리스크로 남는다.",
+        "종결 이후 La Loutre 등 흑연 자산의 개발·가공 통합 계획이 다음 확인 지점이다."
+      ],
+      "urls": [
+        "https://lomiko.com/fr/2026-nouvelles/lomiko-metals-conclut-une-entente-definitive-en-vue-de-son-acquisition-par-global-battery-materials/",
+        "https://ca.marketscreener.com/news/global-battery-materials-corp-entered-into-an-arrangement-agreement-to-acquire-lomiko-metals-inc-f-ce7f51ddd181f323"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://lomiko.com/fr/2026-nouvelles/lomiko-metals-conclut-une-entente-definitive-en-vue-de-son-acquisition-par-global-battery-materials/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "Lomiko Metals"
+        },
+        {
+          "url": "https://ca.marketscreener.com/news/global-battery-materials-corp-entered-into-an-arrangement-agreement-to-acquire-lomiko-metals-inc-f-ce7f51ddd181f323",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "MarketScreener / S&P Capital IQ"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Prompt 0.4 full current-main baseline revalidation found no same-event canonical collision and classified this candidate as a new event.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "Prompt 0.4 current-main baseline revalidation decision materialized into current lifecycle contract; no editorial relation decision reopened.",
+        "production_id_resolution_required_later": false
+      }
+    },
+    {
+      "id": "2026-07-28_GL_02",
+      "date": "2026-07-28",
+      "region": "GL",
+      "signal": "high",
+      "title": "Simcoe 150MW/1,200MWh, IESO와 20년 계약",
+      "sub": "온타리오 150MW/1,200MWh BESS가 IESO 장기계약 단계로 진입",
+      "gate": "장기계약 체결은 건설 완료와 다르다. 실제 건설 진행과 운영 개시가 프로젝트 전환의 다음 실행지표다.",
+      "fact": "Aecon은 온타리오 Simcoe 150MW/1,200MWh BESS와 관련해 IESO Energy Storage Facility Agreement를 체결했다. 계약기간은 20년으로 확인된다.",
+      "implication": [
+        "150MW/1,200MWh BESS가 IESO와 20년 장기계약 단계로 진입했다.",
+        "다음 확인점은 실제 건설 진행과 운영 개시다."
+      ],
+      "urls": [
+        "https://www.aecon.com/press-room/news/2026/07/28/simcoe-battery-energy-storage",
+        "https://www.energy-storage.news/aecon-executes-energy-storage-agreement-for-1200mwh-ontario-bess/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.aecon.com/press-room/news/2026/07/28/simcoe-battery-energy-storage",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Aecon"
+        },
+        {
+          "url": "https://www.energy-storage.news/aecon-executes-energy-storage-agreement-for-1200mwh-ontario-bess/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Energy-Storage.News"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Current-main baseline and current accepted batch contain no direct predecessor, same-event representative, or broader card that already represents this specific event.",
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-28_GL_01",
+      "date": "2026-07-28",
+      "region": "GL",
+      "signal": "high",
+      "title": "Greenbushes, 6월분기 정광 38.7만톤·실현가 2,286달러/t",
+      "sub": "생산 10%·가격 37% 반등, EBITDA 마진 80%…CGP3 화재로 약 7주 정지",
+      "gate": "수치는 Greenbushes 100% 기준이며 판매 증가는 전분기 지연선적을 포함한다. 분기 가격반등과 배당재개가 장기 회복을 보장하지 않고, CGP3 재가동·회수율과 FY27 생산 155만~175만톤·원가 380~440호주달러/t 가이던스 이행을 확인해야 한다.",
+      "fact": "IGO의 6월분기 보고서에서 Greenbushes 스포듀민 정광 생산은 38만7,000톤으로 전분기 대비 10%, 판매는 39만1,000톤으로 12% 증가했다. 현금원가는 t당 448호주달러로 보합이었고 실현가격은 t당 2,286달러로 37% 상승해 EBITDA 마진 80%를 기록했다. Windfield는 주주에게 3억9,000만호주달러를 배당했으나 CGP3 화재로 해당 시설 생산이 약 7주 중단됐다.",
+      "implication": [
+        "세계 최대 리튬광산의 생산·가격·현금배당이 동시에 회복돼 단기 원료시장 개선을 보여준다.",
+        "반면 화재와 회수율 문제는 증설설비의 안정가동이 공급증가의 전제임을 확인시킨다.",
+        "FY27 생산·원가 가이던스와 CGP3 재가동 이후 회수율이 지속가능한 회복의 기준이다."
+      ],
+      "urls": [
+        "https://www.igo.com.au/site/pdf/035c89b8-5edc-46a2-a7d7-8901e0f6b01b/Platform/ListPage/June-2026-Quarterly-Activities-Report.pdf",
+        "https://www.australianmining.com.au/improved-greenbushes-production-lifts-igo-as-nova-exceeds-guidance"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.igo.com.au/site/pdf/035c89b8-5edc-46a2-a7d7-8901e0f6b01b/Platform/ListPage/June-2026-Quarterly-Activities-Report.pdf",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "IGO June 2026 Quarterly Report"
+        },
+        {
+          "url": "https://www.australianmining.com.au/improved-greenbushes-production-lifts-igo-as-nova-exceeds-guidance",
+          "supports": [
+            "title",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Australian Mining"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-04-28_GL_03"
+        ],
+        "reason": "full 1,325-card actor-asset-event and URL screen",
+        "fresh_follow_up_anchor": "quarterly_operating_and_financial_results",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true
+      }
+    },
+    {
+      "id": "2026-07-28_EU_01",
+      "date": "2026-07-28",
+      "region": "EU",
+      "signal": "high",
+      "title": "EU, 15억유로 Battery Booster 공모 개시",
+      "sub": "EV 배터리 셀 램프업 프로젝트에 무이자 대출, 건당 최대 5억유로",
+      "gate": "공모 개시는 자금 집행이나 수혜기업 확정을 의미하지 않는다. 선정 결과와 실제 생산 램프업 연결 여부가 정책효과의 다음 지표다.",
+      "fact": "EU는 15억유로 규모 Battery Booster 공모를 개시했다. 지원은 EV 배터리 셀 생산 램프업 프로젝트 대상 무이자 대출이며 건당 최대 5억유로로 제시됐다.",
+      "implication": [
+        "EU가 배터리 셀 생산 램프업을 정책금융으로 직접 지원하는 구조다.",
+        "실제 공급확대 효과는 수혜기업 선정과 생산 램프업 실행에서 확인해야 한다."
+      ],
+      "urls": [
+        "https://battery-news.de/en/2026/08/04/eu-launches-e1-5-billion-funding-call-for-battery-cell-manufacturing-projects",
+        "https://single-market-economy.ec.europa.eu/calls-proposals/battery-booster-facility-call-proposals_en",
+        "https://single-market-economy.ec.europa.eu/news/commission-seeks-projects-fund-under-battery-booster-facility-2026-07-28_en"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://battery-news.de/en/2026/08/04/eu-launches-e1-5-billion-funding-call-for-battery-cell-manufacturing-projects",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Battery-News EN RSS"
+        },
+        {
+          "url": "https://single-market-economy.ec.europa.eu/calls-proposals/battery-booster-facility-call-proposals_en",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "European Commission DG GROW"
+        },
+        {
+          "url": "https://single-market-economy.ec.europa.eu/news/commission-seeks-projects-fund-under-battery-booster-facility-2026-07-28_en",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "European Commission news"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-04-27_EU_02",
+          "2026-06-10_EU_01"
+        ],
+        "related_candidate_spec_ids": [],
+        "reason": "Direct Battery Booster program lineage: 2026-04-27 advisory-strategy coverage, 2026-06-10 formal €1.5bn facility launch, and 2026-07-28 actual call opening.",
+        "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+        "fresh_follow_up_anchor": "The European Commission opened the €1.5bn Battery Booster Facility call on 2026-07-28.",
+        "incremental_fact_vs_predecessor": "Versus the direct 2026-06-10 predecessor, the facility moved from formal launch with a forthcoming call to an application call actually opened on 2026-07-28.",
+        "changed_judgment_vs_predecessor": "The policy instrument changed from announced financing architecture to an executable application window.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802",
+        "event_stage_relationship": "Battery Booster policy/program predecessor → 2026-07-28 actual application-call opening",
+        "direction": "directional"
+      }
+    },
+    {
+      "id": "2026-07-28_CN_01",
+      "date": "2026-07-28",
+      "region": "CN",
+      "signal": "high",
+      "title": "HyperStrong, H1 매출 56억~69억위안 전망",
+      "sub": "상반기 매출 56억~69억위안 전망, 최종실적 전 예고치",
+      "gate": "현재 수치는 상반기 실적예고 범위이며 최종 확정실적이 아니다. 실제 실적 발표에서 제시 범위의 달성 여부를 확인해야 한다.",
+      "fact": "HyperStrong은 2026년 상반기 매출을 56억~69억위안으로 예상한다고 밝혔다. 이는 최종 실적이 아닌 상반기 실적예고 범위다.",
+      "implication": [
+        "56억~69억위안의 매출 범위는 사업규모를 판단할 최신 회사 전망치다.",
+        "최종 실적에서 예고치 달성 여부를 확인해야 한다."
+      ],
+      "urls": [
+        "https://www.cfi.cn/p20260728001861.html",
+        "https://www.bbtnews.com.cn/2026/0728/600672.shtml"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.cfi.cn/p20260728001861.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Formal issuer announcement mirror"
+        },
+        {
+          "url": "https://www.bbtnews.com.cn/2026/0728/600672.shtml",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "北京商报 (Beijing Business Today)"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Current-main baseline and current accepted batch contain no direct predecessor, same-event representative, or broader card that already represents this specific event.",
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-27_US_02",
+      "date": "2026-07-27",
+      "region": "US",
+      "signal": "high",
+      "title": "BMW Woodruff, 12월 iX5 고전압 배터리 양산 개시",
+      "sub": "2023년 건설·2024년 장비설치·2025년 시험생산을 거쳐 12월 Gen6 팩 양산 예정",
+      "gate": "12월 일정은 공식 양산개시 목표지만 현재는 선행생산 단계다. 공장 투자액·연간 팩 생산능력·셀 공급사와 iX5 생산량이 공개되지 않아 경제효과를 정량화할 수 없다.",
+      "fact": "BMW는 7월 27일 사우스캐롤라이나 Woodruff 공장이 2026년 12월 신형 전기 iX5용 고전압 배터리 양산을 시작한다고 밝혔다. 공장은 2023년 9월 건설에 착수하고 2024년 9월 장비설치를 시작했으며 2025년 여름부터 시험·선행생산을 진행했다. Gen6 원통형 셀을 cell-to-pack 방식으로 조립한다.",
+      "implication": [
+        "BMW의 미국 전기차 공급망이 건설·장비·시험단계를 거쳐 양산 직전으로 이동했다.",
+        "차량공장 인근 cell-to-pack 조립은 물류와 재고를 줄일 수 있지만 효과는 램프업 성과에 달려 있다.",
+        "12월 양산개시, 팩 생산량·수율과 Spartanburg iX5 출하를 확인해야 한다."
+      ],
+      "urls": [
+        "https://www.press.bmwgroup.com/usa/article/detail/T0459652EN_US/first-glimpse-into-production%3A-bmw-group-plant-woodruff-assembles-high-voltage-batteries-for-the-new-bmw-ix5"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.press.bmwgroup.com/usa/article/detail/T0459652EN_US/first-glimpse-into-production%3A-bmw-group-plant-woodruff-assembles-high-voltage-batteries-for-the-new-bmw-ix5",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "BMW Group"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "1,325장 baseline에서 동일사건 충돌이 없는 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      }
+    },
+    {
+      "id": "2026-07-27_KR_03",
+      "date": "2026-07-27",
+      "region": "KR",
+      "signal": "high",
+      "title": "SKC, 2Q 동박 분기 최대 매출…ESS 판매 확대가 회복축으로",
+      "sub": "2분기 연결 매출 6,454억원, 영업손실 144억원을 기록했으며 동박 사업은 분기 최대 매출을 냈다. ESS·EV용 판매 증가가 외형 회복에 기여했다.",
+      "gate": "동박은 음극 집전체로 파우치필름과 다른 BOM이다. ESS 동박 판매 확대는 셀 생산 강도의 선행지표이지 SBTL 파우치 수요를 그대로 의미하지 않는다.",
+      "fact": "SKC는 2026년 2분기 매출 6,454억원, 영업손실 144억원, EBITDA 291억원을 기록했다. 공식 자료는 동박 사업이 분기 최대 매출을 달성했다고 밝혔다. 실적 발표 보도에서는 ESS와 EV용 동박 판매 증가가 회복 흐름을 지지한 것으로 설명됐다.",
+      "implication": [
+        "1분기 ESS 동박 급증 카드에 이어 2분기 분기 최대 매출이 확인돼 ESS가 단발이 아닌 연속적 회복축인지 추적할 근거가 강화됐다.",
+        "향후 핵심 지표는 ESS 판매량·북미 비중·말레이시아 가동률과 동박 사업의 손익분기점 도달 여부다."
+      ],
+      "urls": [
+        "https://skc.kr/m/eng/Conmmunication/pr/newsDetail.do?seq=1740",
+        "https://zdnet.co.kr/view/?no=20260727154415"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://skc.kr/m/eng/Conmmunication/pr/newsDetail.do?seq=1740",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "SKC official Q2 results"
+        },
+        {
+          "url": "https://zdnet.co.kr/view/?no=20260727154415",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "ZDNet Korea Q2 call coverage"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-04-27_KR_04"
+        ],
+        "related_candidate_spec_ids": [],
+        "reason": "2026-04-27_KR_04 is the Q1 ESS copper-foil earnings predecessor; Q2 record sales is a distinct follow-up.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": "earnings_follow_up",
+        "fresh_follow_up_anchor": "2026-04-27_KR_04",
+        "incremental_fact_vs_predecessor": "Current card adds a distinct later earnings/portfolio signal.",
+        "changed_judgment_vs_predecessor": "Current event adds later execution/earnings evidence.",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-27_KR_02",
+      "date": "2026-07-27",
+      "region": "KR",
+      "signal": "high",
+      "title": "현대차 1.2조원 안성 배터리 R&D 캠퍼스, 조립장비 반입",
+      "sub": "2026년 말 완공 목표의 셀 공정 검증거점이 장비설치 단계 진입",
+      "gate": "공식 범위는 연구개발·공정재현·차량통합 검증이며 상업 양산공장으로 해석해서는 안 된다. 차량 적용성과는 공정검증 완료, 셀 사양과 실제 양산모델 채택에서 확인해야 한다.",
+      "fact": "현대차는 안성 미래 모빌리티 배터리 캠퍼스에 노칭·스태킹 등 조립공정 장비를 7월 27일 주간부터 반입하기 시작했다. 총투자액은 1조2,000억원이며 부지 약 19만7,000㎡, 연면적 11만1,000㎡ 규모로 2026년 말 완공이 목표다. 캠퍼스는 전극·조립·활성화 공정을 양산환경과 유사하게 재현해 셀 설계와 공정기술을 검증하는 종합 R&D 거점이다.",
+      "implication": [
+        "완성차의 배터리 내재화가 연구시설 건설에서 실제 공정장비 설치와 연속공정 검증으로 이동했다.",
+        "셀 업체와 소재·장비사의 공동개발 속도는 높아질 수 있지만 직접 양산수요는 별도 생산라인에서 확인해야 한다."
+      ],
+      "urls": [
+        "https://www.thelec.kr/news/articleView.html?idxno=60083",
+        "https://www.hyundai.com/worldwide/en/newsroom/detail/hyundai-motor-group-drives-next-generation-battery-innovation-with-future-mobility-battery-campus-0000001078"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=60083",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "더일렉"
+        },
+        {
+          "url": "https://www.hyundai.com/worldwide/en/newsroom/detail/hyundai-motor-group-drives-next-generation-battery-innovation-with-future-mobility-battery-campus-0000001078",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Hyundai Motor Group"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "active upstream baseline에서 직접 동일사건 계보가 확인되지 않은 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      }
+    },
+    {
+      "id": "2026-07-27_KR_01",
+      "date": "2026-07-27",
+      "region": "KR",
+      "signal": "high",
+      "title": "산업부, 현대차·KGM·르노코리아 양산계획 연계 부품 R&D 신설",
+      "sub": "수요기업이 기획부터 참여하는 3개 과제에 총 240억원 지원",
+      "gate": "정부지원과 수요기업 참여는 개발경로를 구체화하지만 양산채택을 보장하지 않는다. 선정 기술, 성능목표, 차량 적용계획과 구매계약이 후속 판단기준이다.",
+      "fact": "산업통상부는 완성차 기업의 양산계획과 부품기업의 기술개발을 연결하는 생태계 협력형 R&D를 신설했다. 현대차·KG모빌리티·르노코리아가 수요기업으로 기획 단계부터 참여하며, 올해 3개 과제에 과제당 3년간 80억원씩 총 240억원을 지원한다.",
+      "implication": [
+        "부품 R&D가 기술개발 후 판로를 찾는 방식에서 완성차 양산계획과 사전 연동되는 구조로 이동한다.",
+        "공급망 효과는 선정기업의 시제품 검증과 실제 차종 적용률을 통해 확인해야 한다."
+      ],
+      "urls": [
+        "https://www.ajunews.com/view/20260727091249615",
+        "https://go.seoul.co.kr/news/prnewsView.php?id=439267",
+        "https://www.newsis.com/view/NISX20260727_0003723955"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.ajunews.com/view/20260727091249615",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "아주경제"
+        },
+        {
+          "url": "https://go.seoul.co.kr/news/prnewsView.php?id=439267",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "정책브리핑 제공 산업통상부 보도자료 재게시"
+        },
+        {
+          "url": "https://www.newsis.com/view/NISX20260727_0003723955",
+          "supports": [
+            "title",
+            "gate",
+            "implication"
+          ],
+          "publisher": "뉴시스"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "active upstream baseline에서 직접 동일사건 계보가 확인되지 않은 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      }
+    },
+    {
+      "id": "2026-07-27_GL_05",
+      "date": "2026-07-27",
+      "region": "GL",
+      "signal": "high",
+      "title": "인도네시아, 희토류 부산물 수출 병목 해소 추진",
+      "sub": "니켈·알루미나 등 희토류 부산물 포함 광물의 수출 규칙 공백 정리",
+      "gate": "확인된 쟁점은 희토류를 부산물로 포함한 다른 광물의 허용 함량 규칙 공백과 이에 따른 선적 지연이다. 실제 공급망 영향은 규칙 확정과 통관 정상화에서 확인해야 한다.",
+      "fact": "인도네시아 당국은 희토류를 부산물로 포함한 광물 수출의 규제 공백을 해소하는 작업에 나섰다. Reuters 보도에 따르면 허용 희토류 함량 기준 부재로 알루미나와 니켈 제품 선적이 지연됐고, 당국은 별도 규칙이 없는 상황에서 부산물 포함 광물 수출을 막지 말아야 한다고 밝혔다.",
+      "implication": [
+        "희토류 관리 강화가 니켈·알루미나 등 기존 광물 수출까지 막지 않도록 규칙 경계를 정리하는 과정이다.",
+        "실제 공급망 영향은 허용 함량 기준 확정과 선적·통관 정상화에서 확인해야 한다."
+      ],
+      "urls": [
+        "https://jakartaglobe.id/business/indonesia-clarifies-rare-earth-export-rules-as-nickel-tin-shipments-resume",
+        "https://www.economies.com/commodities/steel-news/nickel-falls-after-indonesia-clarifies-new-export-rules-and-supply-concerns-ease-49411",
+        "https://www.mining.com/web/indonesian-official-says-exports-of-minerals-with-rare-earth-byproducts-taking-place",
+        "https://www.tradingview.com/news/reuters.com,2026:newsml_L1N44007N:0-nickel-slides-as-indonesia-eases-export-bottleneck",
+        "https://www.reuters.com/world/asia-pacific/indonesia-seeks-resolve-mineral-export-bottlenecks-caused-by-rare-earth-content-2026-07-27/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://jakartaglobe.id/business/indonesia-clarifies-rare-earth-export-rules-as-nickel-tin-shipments-resume",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Indonesia Nickel Supply (via Google News)"
+        },
+        {
+          "url": "https://www.economies.com/commodities/steel-news/nickel-falls-after-indonesia-clarifies-new-export-rules-and-supply-concerns-ease-49411",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Indonesia Nickel Supply (via Google News)"
+        },
+        {
+          "url": "https://www.mining.com/web/indonesian-official-says-exports-of-minerals-with-rare-earth-byproducts-taking-place",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Mining.com Battery Minerals (via Google News)"
+        },
+        {
+          "url": "https://www.tradingview.com/news/reuters.com,2026:newsml_L1N44007N:0-nickel-slides-as-indonesia-eases-export-bottleneck",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Indonesia Nickel Supply (via Google News)"
+        },
+        {
+          "url": "https://www.reuters.com/world/asia-pacific/indonesia-seeks-resolve-mineral-export-bottlenecks-caused-by-rare-earth-content-2026-07-27/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-07-24_GL_01"
+        ],
+        "related_candidate_spec_ids": [],
+        "reason": "Direct regulatory follow-up: 2026-07-24_GL_01 captured inspection-driven shipment delays; the 2026-07-27 Reuters evidence identified the unresolved rare-earth-byproduct content-rule gap and the official position that exports should not be blocked where no governing proportion rule exists.",
+        "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+        "fresh_follow_up_anchor": "On 2026-07-27 Indonesian officials identified the missing rule governing allowable rare-earth-byproduct proportions after exporters had faced alumina and nickel shipment delays.",
+        "incremental_fact_vs_predecessor": "Compared with 2026-07-24_GL_01, the new verified fact is that no proportion rule had yet been set for rare-earth by-products and officials said exports should not be obstructed in the absence of such a rule.",
+        "changed_judgment_vs_predecessor": "Judgment changes from an opaque inspection-driven shipping delay to a defined regulatory-gap problem with an official direction toward preventing blanket export blockage while the rule is resolved.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802",
+        "event_stage_relationship": "2026-07-24 inspection-driven shipment delay → 2026-07-27 identified rule gap and official no-blanket-blocking direction",
+        "direction": "directional"
+      }
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "month": "2026-07",
+  "signal": "mid",
+  "batch": 3,
+  "count": 1,
+  "cards": [
+    {
+      "id": "2026-07-01_EU_02",
+      "date": "2026-07-01",
+      "region": "EU",
+      "signal": "mid",
+      "title": "독일 연구진, CIGS·페로브스카이트 탠덤셀 25.5% 효율 기록",
+      "sub": "HZB와 훔볼트대 연구진의 CIGS·페로브스카이트 탠덤 태양전지가 25.5% 변환효율을 달성했고 ESTI가 결과를 검증했다.",
+      "gate": "연구셀 효율기록은 양산모듈 효율이나 장기 신뢰성을 의미하지 않는다. 셀면적, 봉지·열화시험, 공정수율과 제조원가가 상업화의 관문이다. 연구기관 공식발표와 전문매체 교차확인은 셀 효율을 지지하지만, 소면적 연구셀 기록과 대면적 모듈·양산수율은 별도 검증대상이다.",
+      "fact": "독일 HZB와 Humboldt-Universität 연구진은 CIGS·페로브스카이트 탠덤 태양전지에서 25.5% 변환효율을 달성했다고 2026년 7월 1일 발표했다. 결과는 유럽공동연구센터의 European Solar Test Installation이 독립 확인했다.",
+      "implication": [
+        "유연·경량 CIGS 하부셀과 페로브스카이트 상부셀 조합의 효율 잠재력이 높아졌다.",
+        "소면적 연구성과를 대면적 모듈로 이전할 때 균일성·수명·봉지기술이 핵심이다.",
+        "인증 셀면적, 장기안정성, 파일럿 생산과 모듈효율이 후속 점검 대상이다."
+      ],
+      "urls": [
+        "https://www.pv-tech.org/record-25-5-efficiency-for-cigs-perovskite-tandem-solar-cell",
+        "https://www.pv-magazine.com/2026/07/01/german-researchers-achieve-world-record-25-5-efficiency-for-perovskite-cigs-tandem-solar-cell",
+        "https://www.helmholtz-berlin.de/pubbin/news_seite?nid=34446&seitenid=74699&sprache=en"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.pv-magazine.com/2026/07/01/german-researchers-achieve-world-record-25-5-efficiency-for-perovskite-cigs-tandem-solar-cell",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "PV Magazine RSS (Global)"
+        },
+        {
+          "url": "https://www.pv-tech.org/record-25-5-efficiency-for-cigs-perovskite-tandem-solar-cell",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "PV Tech RSS"
+        },
+        {
+          "url": "https://www.helmholtz-berlin.de/pubbin/news_seite?nid=34446&seitenid=74699&sprache=en",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Helmholtz-Zentrum Berlin"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    }
+  ]
+}

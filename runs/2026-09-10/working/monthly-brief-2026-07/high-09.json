@@ -1,0 +1,1519 @@
+{
+  "month": "2026-07",
+  "signal": "high",
+  "batch": 9,
+  "count": 25,
+  "cards": [
+    {
+      "id": "2026-07-03_US_01",
+      "date": "2026-07-03",
+      "region": "US",
+      "signal": "high",
+      "title": "FERC, AI 데이터센터 대형부하 연결규칙 개편을 6개 RTO/ISO에 요구",
+      "sub": "Reuters와 FT는 FERC가 관할 6개 지역망에 60일 내 대형부하 연결절차·비용배분·자체전원·첨단송전기술 활용 방안을 정당화하거나 수정하라고 요구했다고 보도했다.",
+      "gate": "확인된 것은 Reuters/FT 보도 기준의 draft show-cause orders와 60일 응답 구조다. FERC 공식 docket/order 원문이 붙기 전까지 세부 법적 문구와 각 RTO/ISO별 의무사항은 보수적으로 표현해야 한다.",
+      "fact": "Reuters는 FERC가 AI 데이터센터 등 대형 전력수요자를 신속하게 계통에 연결하면서도 안정성과 전기요금 영향을 줄이기 위해 관할 6개 regional grid에 draft show-cause orders를 냈다고 보도했다. Reuters는 grid operators와 transmission owners가 60일 내 현행 규칙의 정당성 또는 개정 여부를 설명해야 하며, 대형수요자 연결절차, 비용배분, 자체전원, 첨단기술 통합이 주요 범주라고 전했다. FT는 대상 6개 grid를 PJM, MISO, SPP, CAISO, NYISO, ISO-NE로 설명했다.",
+      "implication": [
+        "AI 데이터센터 부하가 전력망 연결절차와 비용배분 규칙을 바꾸는 규제 이슈로 이동했다.",
+        "BESS·수요반응·자가발전·advanced transmission technologies는 대형부하의 계통충격을 줄이는 유연성 수단으로 부각될 수 있다.",
+        "후속 확인지표는 FERC docket 원문, 각 RTO/ISO의 60일 답변, large-load tariff와 storage-as-flexibility 반영 여부다."
+      ],
+      "urls": [
+        "https://www.reuters.com/business/energy/top-us-energy-regulator-pushes-grids-overhaul-data-center-power-rules-2026-06-18/",
+        "https://www.ft.com/content/5055a170-69d9-4eb6-ad93-be953bbad263",
+        "https://www.energy-storage.news/its-really-about-flexibility-ferc-issues-show-cause-orders-to-us-grid-operators-on-large-load-integration"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.reuters.com/business/energy/top-us-energy-regulator-pushes-grids-overhaul-data-center-power-rules-2026-06-18/",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Reuters"
+        },
+        {
+          "url": "https://www.reuters.com/business/energy/top-us-energy-regulator-pushes-grids-overhaul-data-center-power-rules-2026-06-18/",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "Reuters"
+        },
+        {
+          "url": "https://www.reuters.com/business/energy/top-us-energy-regulator-pushes-grids-overhaul-data-center-power-rules-2026-06-18/",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        },
+        {
+          "url": "https://www.ft.com/content/5055a170-69d9-4eb6-ad93-be953bbad263",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "Financial Times"
+        },
+        {
+          "url": "https://www.energy-storage.news/its-really-about-flexibility-ferc-issues-show-cause-orders-to-us-grid-operators-on-large-load-integration",
+          "supports": [
+            "implication"
+          ],
+          "publisher": "Energy-Storage.news"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_KR_01",
+      "date": "2026-07-03",
+      "region": "KR",
+      "signal": "high",
+      "title": "율촌화학, 포승공장서 LG에너지솔루션 ESS용 파우치필름 상업양산 전환",
+      "sub": "공시상 ESS용 공급 확대와 포승 증설설비 가동이 확인됐고, 2026년 4월 고객 4M 승인 후 양산개시는 두 독립 매체가 교차 확인했다.",
+      "gate": "공식 공시가 직접 확인하는 범위는 포승 증설설비 가동, 안산·포승 합산 1억1,000만㎡ 계획, LG에너지솔루션 공급과 ESS용 범위 확대다. LG 공식자료는 JF2가 ESS용 LFP 롱셀이라는 점만 확인하며 율촌화학을 공급사로 명시하지 않는다. 4M 승인, JF2 직접 적용, 183㎛와 단독공급은 취재기반이므로 공식확정 사실과 분리해야 한다. 계약물량·단가·스팟계약의 장기화 여부, 실제 가동률·수율과 ESS 매출기여는 미공개다.",
+      "fact": "농심홀딩스 증권신고서는 율촌화학이 LG에너지솔루션의 ESS 확대에 맞춰 ESS용 파우치까지 공급범위를 넓혔고, 산업통상자원부 국책과제로 개발한 경량·고내열 파우치필름을 공급한다고 기재했다. 같은 공시는 2025년부터 포승 증설설비를 가동해 안산·포승 합산 생산능력을 2026년까지 연 1억1,000만㎡로 확대할 계획이라고 밝혔다. 한국중견기업연합회는 2025년 4월 17일 포승공장 준공·설비 가동식을 확인했다. 디일렉은 2026년 3월 2분기 4M 승인 예정과 JF2용 183㎛ 필름 단독공급을 보도했고, 7월 후속기사에서 4월 말 승인과 양산개시를 전했다. 파이낸스스코프도 회사 관계자를 인용해 4월 가동과 초기 4,000만㎡ 라인 운영을 별도로 확인했다.",
+      "implication": [
+        "공식 공시 기준으로 율촌화학은 LG에너지솔루션의 ESS 확대에 대응해 공급제품과 생산자산을 실제 확장했다.",
+        "포승공장은 2025년 설비가동에서 2026년 고객승인 기반 상업양산으로 실행단계가 진전된 것으로 보도됐다.",
+        "제품 차별화의 핵심인 JF2·183㎛·단독공급은 회사 또는 고객사의 직접 공시 전까지 취재기반 주장으로 관리해야 한다.",
+        "포승 수율·가동률, ESS 매출, 계약기간·단가, 장기계약 전환과 추가 고객승인이 가치평가의 핵심이다."
+      ],
+      "urls": [
+        "https://www.thelec.kr/news/articleView.html?idxno=54047",
+        "https://www.thelec.kr/news/articleView.html?idxno=58957",
+        "https://www.finance-scope.com/article/view/scp202605080015",
+        "https://kind.krx.co.kr/external/2025/10/24/000575/20251024001355/10002.htm",
+        "https://www.fomek.or.kr/main/newsroom/mme/mme_view.php?wr_id=1544"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=54047",
+          "supports": [
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "디일렉"
+        },
+        {
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=54047",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "디일렉"
+        },
+        {
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=58957",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "디일렉"
+        },
+        {
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=58957",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "디일렉"
+        },
+        {
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=58957",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "디일렉"
+        },
+        {
+          "url": "https://www.finance-scope.com/article/view/scp202605080015",
+          "supports": [
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "파이낸스스코프"
+        },
+        {
+          "url": "https://www.finance-scope.com/article/view/scp202605080015",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "파이낸스스코프"
+        },
+        {
+          "url": "https://kind.krx.co.kr/external/2025/10/24/000575/20251024001355/10002.htm",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "농심홀딩스 증권신고서"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_JP_02",
+      "date": "2026-07-03",
+      "region": "JP",
+      "signal": "high",
+      "title": "DOWA, 폐LIB 니켈·코발트 황산염 회수공정 실증…양극재 직접판매 검증",
+      "sub": "회수금속을 중간재가 아닌 배터리 소재급 황산염으로 전환해 고객 샘플평가와 품질승인을 추진한다.",
+      "gate": "처리능력, 금속 회수율, 황산염 순도·불순물 규격, 단위원가와 설비투자액은 공개되지 않았다. 고객 품질승인, 안정적인 블랙매스·폐배터리 조달, 폐수·잔재물 처리와 신규 원료 대비 가격경쟁력이 상업화를 좌우한다.",
+      "fact": "DOWA Ecosystem은 사용후 리튬이온전지에서 니켈·코발트를 황산염 형태로 회수하는 신규 공정을 개발하고 실증시험을 시작했다. 회사는 회수 황산염을 양극재 제조사에 직접 판매하는 것을 목표로 샘플공급과 성능평가를 진행한다. 실행단계는 공정개발 완료 후 고객검증 착수이며 상업설비 투자나 판매계약 체결 단계는 아니다.",
+      "implication": [
+        "일본 내 폐배터리 금속을 양극재 원료급 황산염으로 되돌리는 폐쇄형 공급망 경로를 구체화한다.",
+        "중간재 판매에서 소재급 제품 직접판매로 이동하면 부가가치와 고객잠금 효과가 커질 수 있다.",
+        "다만 제품규격과 회수경제성이 신규 광산·정련 원료 대비 경쟁력을 확보해야 한다.",
+        "고객승인, 장기구매계약, 처리능력·회수율 공개와 상업설비 FID가 다음 이정표다."
+      ],
+      "urls": [
+        "https://response.jp/article/2026/07/03/413537.html",
+        "https://hd.dowa.co.jp/ja/news/news20260630.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://response.jp/article/2026/07/03/413537.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Response.jp Battery Special"
+        },
+        {
+          "url": "https://hd.dowa.co.jp/ja/news/news20260630.html",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "DOWA Holdings"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_GL_06",
+      "date": "2026-07-03",
+      "region": "GL",
+      "signal": "high",
+      "title": "GreenPoint, Koolunga 200MW·800MWh BESS financial close·AI 오프테이크 확보",
+      "sub": "South Australia BESS가 Gunvor 장기 오프테이크와 Firmus AI 데이터센터 전력수요를 결합해 2028년 초 운영 목표로 전진했다.",
+      "gate": "확인된 것은 financial close·장기 오프테이크·AI 데이터센터 수요 연결 보도다. 오프테이크 가격, 계약기간 세부조건, grid-forming 기능의 실제 보상, construction milestone, 2028년 운영 개시 여부는 아직 최종 확인이 필요하다.",
+      "fact": "GreenPoint Energy의 Koolunga BESS는 South Australia에서 추진되는 200MW·800MWh 저장장치 프로젝트다. ESS News와 AdelaideNow 보도는 프로젝트가 financial close에 도달했고, Gunvor와 장기 오프테이크를 체결했으며 Firmus의 AI 데이터센터 전력수요와 연결된다고 설명한다. 2026년 4월 EPCC 계약 보도 이후, 이번 건은 financial close와 offtake 확보라는 후속 실행 단계다.",
+      "implication": [
+        "AI 데이터센터 전력수요가 BESS 프로젝트의 장기 수익원과 금융종결 조건으로 연결되는 사례다.",
+        "BESS는 단순 에너지차익거래를 넘어 전력소비자·trader·데이터센터를 묶는 전력상품 플랫폼으로 진화하고 있다.",
+        "후속 판단은 construction notice, offtake 계약 구조, grid service 수익, COD와 AI 데이터센터 실제 전력사용량을 기준으로 해야 한다."
+      ],
+      "urls": [
+        "https://www.ess-news.com/2026/07/03/greenpoint-approves-south-australia-battery-signs-ai-data-center-offtake-deal",
+        "https://www.adelaidenow.com.au/news/south-australia/new-200-megawatt-sa-battery-to-power-ai-data-centres-and-boost-regional-jobs/news-story/d7264811c9dbdabdeb1e2bb658b84f07"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.ess-news.com/2026/07/03/greenpoint-approves-south-australia-battery-signs-ai-data-center-offtake-deal",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "ESS News"
+        },
+        {
+          "url": "https://www.ess-news.com/2026/07/03/greenpoint-approves-south-australia-battery-signs-ai-data-center-offtake-deal",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "ESS News"
+        },
+        {
+          "url": "https://www.ess-news.com/2026/07/03/greenpoint-approves-south-australia-battery-signs-ai-data-center-offtake-deal",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "ESS News"
+        },
+        {
+          "url": "https://www.adelaidenow.com.au/news/south-australia/new-200-megawatt-sa-battery-to-power-ai-data-centres-and-boost-regional-jobs/news-story/d7264811c9dbdabdeb1e2bb658b84f07",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "AdelaideNow"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "2026-04-28_GL_02"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-03_GL_05",
+      "date": "2026-07-03",
+      "region": "GL",
+      "signal": "high",
+      "title": "Saudi SPPC, 3GW·12GWh BESS 2차 입찰 사전적격 27개사 선정",
+      "sub": "6개 500MW·2,000MWh BOO 프로젝트로 구성된 사전적격 단계이며, Tesla·Gotion·Envision 등 공급망 플레이어가 거론되지만 아직 낙찰은 아니다.",
+      "gate": "확인된 것은 3GW·12GWh 입찰 구조와 27개사 사전적격 단계다. `prequalified`는 `awarded`가 아니므로 수주·공급계약·배터리 물량 확정으로 쓰면 안 된다. SPPC 공식 RFQ/PDF와 프로젝트별 낙찰 결과는 Final QC 전 추가 확인 대상이다.",
+      "fact": "Saudi Power Procurement Company의 2차 BESS 입찰은 총 3GW·12GWh 규모로, 6개 500MW·2,000MWh 프로젝트를 BOO 방식으로 추진하는 구조다. 업로드 원문과 산업매체 보도는 27개사가 사전적격자로 선정됐다고 설명한다. 이 단계는 입찰 참여자 풀을 확정하는 절차이며, 프로젝트별 낙찰자·배터리 공급사·EPC·상업운전 일정이 확정된 것은 아니다.",
+      "implication": [
+        "중동 BESS 시장이 단발 프로젝트가 아니라 대형 BOO 포트폴리오 입찰로 확대되고 있다.",
+        "사전적격 명단은 개발사·EPC·배터리 셀/시스템 업체의 중동 진입 가능성을 보여주는 early signal이다.",
+        "후속 판단은 SPPC 공식 award, 프로젝트별 MW/MWh, PPA 또는 capacity payment 구조, 실제 배터리 공급사를 기준으로 해야 한다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/edf-total-acwa-tesla-gotion-and-envision-qualified-bidders-saudis-12gwh-bess-tender",
+        "https://www.ess-news.com/2026/07/03/saudi-arabia-qualifies-27-companies-for-second-bess-tender"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.ess-news.com/2026/07/03/saudi-arabia-qualifies-27-companies-for-second-bess-tender",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "ESS News"
+        },
+        {
+          "url": "https://www.ess-news.com/2026/07/03/saudi-arabia-qualifies-27-companies-for-second-bess-tender",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "ESS News"
+        },
+        {
+          "url": "https://www.energy-storage.news/edf-total-acwa-tesla-gotion-and-envision-qualified-bidders-saudis-12gwh-bess-tender",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "Energy-Storage.news"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_GL_03",
+      "date": "2026-07-03",
+      "region": "GL",
+      "signal": "high",
+      "title": "DRC, 상반기 미사용 코발트 쿼터 몰수…국가 전략쿼터로 재배분",
+      "sub": "6월 30일까지 사용하지 않은 물량은 이월되지 않고 회수되며, 7월 5일까지 세관등록된 선적만 상반기 쿼터로 인정된다.",
+      "gate": "회수대상 기업·물량, 전략쿼터의 최종 수혜자와 실제 선적규모는 아직 공개되지 않았다. 행정상 쿼터 재배정은 즉시 현물공급 감소와 동일하지 않으며 재고, 통관지연과 수출제품 형태를 함께 봐야 한다.",
+      "fact": "DRC 전략광물시장 규제기관 ARECOMS는 2026년 상반기 수출쿼터 중 6월 30일까지 사용되지 않은 코발트 물량을 몰수해 국가의 전략쿼터로 자동 재배분한다고 통지했다. 회수물량은 기존 기업 배정분에서 차감되고 다음 기간으로 이월되지 않는다. 상반기 쿼터 적용을 받으려면 해당 선적이 7월 5일까지 세관시스템에 등록돼야 하며, 전략쿼터는 국가이익·현지가공·부가가치 프로젝트에 활용될 수 있다.",
+      "implication": [
+        "미사용 물량을 국가풀로 회수해 DRC 정부의 공급조절·배분권과 시장개입 수단이 강화됐다.",
+        "쿼터 활용률이 낮은 사업자는 향후 배정축소와 운영·현금흐름 변동성에 노출될 수 있다.",
+        "전략쿼터가 현지가공 프로젝트에 우선 배분되면 원광·중간재 수출구조와 정련투자 유인이 바뀔 수 있다.",
+        "기업별 회수·재배분 결과, 세관등록·월별 수출통계와 코발트 수산화물 프리미엄이 핵심 지표다."
+      ],
+      "urls": [
+        "https://news.metal.com/newscontent/103980228-smm-analysis-drc-announces-forfeiture-and-reallocation-of-unused-quotas-in-h1-2026-to-strategic-quotas",
+        "https://www.reuters.com/world/africa/congo-withdraws-unused-cobalt-export-quotas-2026-06-29/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://news.metal.com/newscontent/103980228-smm-analysis-drc-announces-forfeiture-and-reallocation-of-unused-quotas-in-h1-2026-to-strategic-quotas",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Shanghai Metals Market (SMM)"
+        },
+        {
+          "url": "https://www.reuters.com/world/africa/congo-withdraws-unused-cobalt-export-quotas-2026-06-29/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Reuters"
+        },
+        {
+          "url": "https://www.reuters.com/world/africa/congo-withdraws-unused-cobalt-export-quotas-2026-06-29/",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "Reuters"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_GL_02",
+      "date": "2026-07-03",
+      "region": "GL",
+      "signal": "high",
+      "title": "2026년 1~5월 글로벌 EV 배터리 469.2GWh…상위 10개 중 중국 7사 72.6%",
+      "sub": "전체 사용량은 전년 동기 대비 16.3% 늘었고 CATL·BYD 합산 점유율은 54.6%로 과반을 유지했다.",
+      "gate": "72.6%는 전 세계 모든 중국기업을 포괄한 별도 집계가 아니라 상위 10개에 포함된 중국 7사의 합산치다. 사용량은 등록차량 탑재용량으로 생산능력·셀 출하·매출·수익성과 동일하지 않으며 ESS 배터리는 제외된다. 중국 내수 등록량과 BYD의 완성차 내재화가 순위에 미치는 영향도 분리해야 한다.",
+      "fact": "SNE Research에 따르면 2026년 1~5월 전 세계 EV·PHEV·HEV 등록차량에 탑재된 배터리 사용량은 469.2GWh로 전년 동기 대비 16.3% 증가했다. CATL은 188.4GWh·40.2%, BYD는 67.6GWh·14.4%로 합산 54.6%를 기록했다. 상위 10개 업체에 포함된 중국기업 7곳의 합산 점유율은 72.6%로 전년 동기 70.5%보다 2.1%포인트 높아졌다.",
+      "implication": [
+        "시장성장보다 중국 상위업체의 탑재량 증가가 빨라 글로벌 공급사 집중도가 높아졌다.",
+        "CATL·BYD 과반 점유는 가격·기술뿐 아니라 중국 내수와 완성차 내재화의 구조적 우위를 반영한다.",
+        "비중국 업체는 북미·유럽 현지화, ESS·원통형 등 세그먼트별 수익성으로 단순 점유율 열세를 보완해야 한다.",
+        "업체별 지역·차종·화학계 믹스, 수주잔고와 가동률·마진을 함께 봐야 투자판단이 가능하다."
+      ],
+      "urls": [
+        "https://www.edaily.co.kr/News/Read?newsId=03532566645510912",
+        "https://www.sneresearch.com/en/insight/release_view/685/page/84",
+        "https://www.sneresearch.com/en/insight/release_view/685/page/84?s_cat=%7C&s_keyword="
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.edaily.co.kr/News/Read?newsId=03532566645510912",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "E-Daily"
+        },
+        {
+          "url": "https://www.edaily.co.kr/News/Read?newsId=03532566645510912",
+          "supports": [
+            "fact"
+          ],
+          "publisher": "E-Daily"
+        },
+        {
+          "url": "https://www.edaily.co.kr/News/Read?newsId=03532566645510912",
+          "supports": [
+            "sub",
+            "fact"
+          ],
+          "publisher": "E-Daily"
+        },
+        {
+          "url": "https://www.edaily.co.kr/News/Read?newsId=03532566645510912",
+          "supports": [
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "publisher": "E-Daily"
+        },
+        {
+          "url": "https://www.sneresearch.com/en/insight/release_view/685/page/84",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "publisher": "SNE Research"
+        },
+        {
+          "url": "https://www.sneresearch.com/en/insight/release_view/685/page/84?s_cat=%7C&s_keyword=",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "publisher": "SNE Research"
+        },
+        {
+          "url": "https://www.sneresearch.com/en/insight/release_view/685/page/84?s_cat=%7C&s_keyword=",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "SNE Research"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_GL_01",
+      "date": "2026-07-03",
+      "region": "GL",
+      "signal": "high",
+      "title": "일본·인도, 핵심광물·반도체·청정에너지 경제안보 협력 프레임 확대",
+      "sub": "정상 공동선언으로 공급망 취약분야를 묶었지만 개별 광종·투자액·오프테이크는 후속 프로젝트에서 확정해야 한다.",
+      "gate": "공동선언과 축전지 협력각서는 정책지원 채널을 구체화했지만 개별 기업의 투자액·부지·금융·오프테이크를 확정한 계약은 아니다. 후속 사업 선정과 예산·투자계약이 실행성을 가르는 기준이다.",
+      "fact": "일본과 인도 정상은 2026년 7월 2일 경제안보 협력 공동선언과 관련 문서를 채택했다. 반도체·핵심광물·ICT·AI·청정에너지 협력을 확대하는 한편, 양국 경제부처는 별도의 축전지 협력각서에 서명했다. 각서는 공적 지원 활용, 투자·기술협력을 막는 규제의 원활화, 지식재산·기밀정보 보호와 지방정부를 포함한 현지 협력을 대상으로 한다.",
+      "implication": [
+        "일본–인도 경제안보 협력이 광물·반도체를 넘어 배터리 투자와 기술협력의 제도적 장애 제거까지 구체화됐다.",
+        "실제 공급망 변화는 공적 금융지원, 현지 생산·소재 프로젝트와 기업계약으로 전환되는지 확인해야 한다."
+      ],
+      "urls": [
+        "https://english.kyodonews.net/articles/-/79085",
+        "https://www.reuters.com/world/asia-pacific/india-japan-sign-pacts-boost-cooperation-ai-metals-energy-2026-07-02/",
+        "https://www.meti.go.jp/press/2026/07/20260702002/20260702002.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://english.kyodonews.net/articles/-/79085",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Kyodo News"
+        },
+        {
+          "url": "https://english.kyodonews.net/articles/-/79085",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Kyodo News"
+        },
+        {
+          "url": "https://english.kyodonews.net/articles/-/79085",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "Kyodo News"
+        },
+        {
+          "url": "https://www.reuters.com/world/asia-pacific/india-japan-sign-pacts-boost-cooperation-ai-metals-energy-2026-07-02/",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "publisher": "Reuters"
+        },
+        {
+          "url": "https://www.meti.go.jp/press/2026/07/20260702002/20260702002.html",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "일본 경제산업성(METI)"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_EU_01",
+      "date": "2026-07-03",
+      "region": "EU",
+      "signal": "high",
+      "title": "인피니언, 드레스덴 50억유로 300mm 스마트 파워 팹 조기 개소",
+      "sub": "전력반도체·아날로그/혼합신호 생산시설을 수개월 앞당겨 열고 기존 드레스덴 생산능력의 단계적 두 배 확대에 착수했다.",
+      "gate": "개소는 장비인증·제품별 양산램프와 계획능력 달성을 의미하지 않는다. 제품 믹스, 웨이퍼 투입량, 수율·가동률과 고객인증, 공공지원을 제외한 투자수익성은 별도 확인이 필요하다. 전력반도체 수요가 둔화될 경우 대규모 고정비의 가동률 민감도가 커질 수 있다.",
+      "fact": "인피니언은 2026년 7월 2일 독일 드레스덴 Smart Power Fab을 계획보다 수개월 앞서 개소했다. 총투자액은 50억유로로 회사 역사상 최대 단일투자이며 약 1,000개의 직접 일자리를 목표로 한다. 신규 팹은 300mm 웨이퍼 기반 전력반도체와 아날로그·혼합신호 제품을 생산해 AI 데이터센터, 자동차, 재생에너지와 산업용 전력관리 수요에 대응하며, 회사는 드레스덴 생산능력을 단계적으로 두 배 확대할 계획이다.",
+      "implication": [
+        "유럽 내 전력반도체와 전력관리 IC 공급기반을 확대해 자동차·AI 인프라의 역내 조달능력을 높인다.",
+        "기존 드레스덴 클러스터와 300mm 생산을 결합해 규모효율·자동화와 제품 전환 유연성을 확보할 수 있다.",
+        "50억유로 투자회수는 AI·EV·산업 수요와 장기 가동률, 공정수율에 크게 좌우된다.",
+        "제품별 양산승인, 웨이퍼 투입·수율, 고객매출과 실제 생산능력 증분이 핵심 후속지표다."
+      ],
+      "urls": [
+        "https://elec4.co.kr/contents/article_detail?article_idx=37449&s_cate=11",
+        "https://www.infineon.com/de/press-release/2026/ifxpr202607-117",
+        "https://www.tagesschau.de/inland/regional/sachsen/halbleiter-werk-technologie%2Cinfineon-werk-eroeffnung-100.html",
+        "https://www.infineon.com/de/regional/dresden/smart-power-fab",
+        "https://www.infineon.com/press-release/2023/infxx202302-058"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://elec4.co.kr/contents/article_detail?article_idx=37449&s_cate=11",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "publisher": "일렉포"
+        },
+        {
+          "url": "https://elec4.co.kr/contents/article_detail?article_idx=37449&s_cate=11",
+          "supports": [
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "publisher": "일렉포"
+        },
+        {
+          "url": "https://www.infineon.com/de/press-release/2026/ifxpr202607-117",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Infineon Technologies"
+        },
+        {
+          "url": "https://www.tagesschau.de/inland/regional/sachsen/halbleiter-werk-technologie%2Cinfineon-werk-eroeffnung-100.html",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "Tagesschau"
+        },
+        {
+          "url": "https://www.infineon.com/de/regional/dresden/smart-power-fab",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Infineon Technologies"
+        },
+        {
+          "url": "https://www.infineon.com/press-release/2023/infxx202302-058",
+          "supports": [
+            "fact"
+          ],
+          "publisher": "Infineon Technologies"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_CN_03",
+      "date": "2026-07-03",
+      "region": "CN",
+      "signal": "high",
+      "title": "Envision AESC 46120 양산 보도…BMW Neue Klasse향 대원통 폼팩터 경쟁 신호",
+      "sub": "중국 산업매체는 Envision AESC의 46120 셀이 창저우·우시 장인 공장에서 규모화 양산에 들어가 BMW 신세대 플랫폼 공급을 지원한다고 전했다.",
+      "gate": "확인된 것은 중국 산업매체가 전한 규모화 양산·BMW 플랫폼 공급 보도다. BMW 또는 Envision AESC 공식 원문, 공급계약 물량, 수율, 차량별 탑재 일정, 실제 출하량, 양산 품질 지표는 아직 공개자료로 잠기지 않았다.",
+      "fact": "중국 산업매체 보도에 따르면 Envision AESC의 46120 대원통 배터리는 창저우와 우시 장인 공장에서 규모화 양산 단계에 들어갔고 BMW Neue Klasse 플랫폼 공급을 지원하는 것으로 제시됐다. 이 카드는 특정 물량 확정이 아니라, 각형·파우치·원통형 경쟁 속에서 대원통 폼팩터가 프리미엄 EV 플랫폼 공급망에 다시 진입하는 신호로 제한해 읽어야 한다.",
+      "implication": [
+        "대원통 셀은 Tesla식 원통형 확장만이 아니라 BMW Neue Klasse 등 프리미엄 플랫폼의 셀 폼팩터 경쟁축으로 다시 부각되고 있다.",
+        "폼팩터 경쟁은 셀 업체뿐 아니라 탭·케이스·열관리·모듈/팩 설계와 소재 검증 언어까지 바꿀 수 있다.",
+        "후속 판단은 BMW 공식 공급망 확인, AESC 출하량, 수율, 46120 채택 차종, 파우치·각형 대비 pack-level 성능 데이터를 기준으로 해야 한다."
+      ],
+      "urls": [
+        "http://www.cbea.com/djgc/202607/162478.html",
+        "https://libattery.ofweek.com/2026-07/ART-36001-8110-30693215.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "http://www.cbea.com/djgc/202607/162478.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "CBEA 电池观察"
+        },
+        {
+          "url": "https://libattery.ofweek.com/2026-07/ART-36001-8110-30693215.html",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "OFweek Li-Battery"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_CN_01",
+      "date": "2026-07-03",
+      "region": "CN",
+      "signal": "high",
+      "title": "산시 중라이, 5GW TOPCon 라인의 무은 BC 전환안 등록 예비심사 통과",
+      "sub": "기존 생산자산에 7억위안을 투입해 은 사용을 줄이는 BC 공정으로 개조하는 2026~2028년 기술개조 계획이다.",
+      "gate": "등록 예비심사는 최종 등록, 이사회 투자승인, 자금집행·장비발주나 착공과 다르다. 27.3%·28%는 목표치이며 시험조건, 양산수율과 장기 신뢰성 검증이 필요하다. 무은 금속화의 접촉저항·수명과 기존 TOPCon 자산의 재사용범위가 실제 CAPEX 효율을 결정한다.",
+      "fact": "산시 중라이는 연산 16GW 전지공장 1기의 기존 5GW TOPCon 생산라인을 무은 고효율 BC 전지라인으로 전환하는 기술개조안을 제출해 등록 예비심사를 통과했다. 계획투자액은 7억위안이며 소결로·레이저 등 공정장비를 추가해 5GW를 전환한다. 회사가 제시한 목표는 평균 양산효율 27.3% 이상, 최고효율 28% 초과이며 계획기간은 2026년 7월부터 2028년 6월까지다.",
+      "implication": [
+        "은 가격과 사용량을 낮추려는 BC 전지 공정전환이 5GW 기존라인 개조형 투자로 구체화됐다.",
+        "그린필드보다 기존설비 활용 시 자본효율과 전환속도를 높일 수 있지만 장비재사용률과 중단비용이 중요하다.",
+        "BC 고효율이 양산수율·모듈 신뢰성으로 연결되면 TOPCon 대비 제품 프리미엄을 확보할 수 있다.",
+        "최종 등록·이사회 승인, 장비발주·착공, 실제 효율·수율과 고객인증이 후속 판단기준이다."
+      ],
+      "urls": [
+        "https://solar.ofweek.com/2026-07/ART-260006-8120-30693079.html",
+        "https://news.solarbe.com/202607/02/50025238.html",
+        "https://www.gessey.com/?m1799pageno=2"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://solar.ofweek.com/2026-07/ART-260006-8120-30693079.html",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "publisher": "OFweek 产业新闻"
+        },
+        {
+          "url": "https://solar.ofweek.com/2026-07/ART-260006-8120-30693079.html",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "OFweek 产业新闻"
+        },
+        {
+          "url": "https://solar.ofweek.com/2026-07/ART-260006-8120-30693079.html",
+          "supports": [
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "publisher": "OFweek 产业新闻"
+        },
+        {
+          "url": "https://news.solarbe.com/202607/02/50025238.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Solarbe"
+        },
+        {
+          "url": "https://www.gessey.com/?m1799pageno=2",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "Gessey New Energy"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_US_06",
+      "date": "2026-07-02",
+      "region": "US",
+      "signal": "high",
+      "title": "Moment Energy, 퇴역 EV 배터리 재사용 BESS 공장 Megafactory 1 개소",
+      "sub": "세컨드라이프 배터리 선별·통합 거점을 가동했으며 연 1GWh는 현재능력이 아니라 2030년 목표다.",
+      "gate": "세계 최대는 회사 주장으로 현재 처리·생산능력과 비교대상 데이터가 공개돼야 검증할 수 있다. 1GWh는 2030년 목표이지 현재 실적이 아니다. 팩별 잔존수명·이력 데이터, 진단수율, 안전인증·보증비용, 자동차사 공급계약과 신규 LFP BESS 대비 총원가가 사업성을 좌우한다.",
+      "fact": "Moment Energy는 2026년 6월 23일 캐나다 브리티시컬럼비아에서 퇴역 EV 배터리팩을 고정형 BESS로 전환하는 Megafactory 1을 공식 개소했다. 데이터센터·병원·공장·마이크로그리드용 상업규모 시스템을 생산하며 회사는 프로젝트 발표 후 약 6주 만에 시설을 열었다고 밝혔다. 회사는 시설을 세계 최대 EV 배터리 재사용 공장이라고 표현하고 2030년 연 1GWh 생산능력을 목표로 제시했다.",
+      "implication": [
+        "재활용 전에 재사용 단계를 추가해 EV 배터리 자산수명과 자원효율을 높이는 산업모델이다.",
+        "세컨드라이프 시스템은 저가 원료장점이 있지만 진단·재구성·보증비용이 신규 LFP 가격하락에 취약하다.",
+        "자동차사와의 원료팩 접근권, 표준화된 데이터와 안전인증이 규모확장의 핵심 진입장벽이다.",
+        "현재 생산능력·수주잔고, 팩 조달량, 고장률·보증충당과 2030년 램프업이 후속 검증대상이다."
+      ],
+      "urls": [
+        "https://www.momentenergy.com/news/moment-energy-completes-construction-on-the-worlds-largest-ev-battery-repurposing-megafactory",
+        "https://battery-tech.net/battery-markets-news/moment-energy-completes-worlds-largest-ev-battery-repurposing-factory/",
+        "https://electrek.co/2026/07/02/worlds-largest-second-life-ev-battery-factory-opens-in-just-six-weeks/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.momentenergy.com/news/moment-energy-completes-construction-on-the-worlds-largest-ev-battery-repurposing-megafactory",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Moment Energy"
+        },
+        {
+          "url": "https://battery-tech.net/battery-markets-news/moment-energy-completes-worlds-largest-ev-battery-repurposing-factory/",
+          "supports": [
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Battery-Tech Network"
+        },
+        {
+          "url": "https://electrek.co/2026/07/02/worlds-largest-second-life-ev-battery-factory-opens-in-just-six-weeks/",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "Electrek"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "2026-05-05_GL_02"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-02_US_05",
+      "date": "2026-07-02",
+      "region": "US",
+      "signal": "high",
+      "title": "미 DOE, 석탄계 핵심광물 회수 파일럿 5건에 7,500만달러 지원협상 선정",
+      "sub": "석탄·폐석탄·부산물에서 희토류 등 핵심물질을 회수하는 파일럿 시설을 상업화 전 단계에서 지원한다.",
+      "gate": "선정발표는 최종 보조금 의무부담이나 전액집행과 동일하지 않다. 프로젝트별 연방지원액·민간분담, 원료특성, 회수율·제품순도, 단위원가, 환경정화 비용과 상업규모 확대경로를 확인해야 한다.",
+      "fact": "미 에너지부 핵심광물·에너지혁신실은 석탄과 석탄계 원료에서 희토류와 기타 핵심물질을 생산하는 5개 프로젝트에 총 7,500만달러 규모 지원을 발표했다. 대상은 상업설비 이전의 파일럿 규모 회수시설이며 선정기관은 최종 협약·조건 협상을 거쳐 자금을 받게 된다.",
+      "implication": [
+        "기존 석탄지역의 폐기물·부산물을 비중국 핵심광물 원료로 전환하려는 정책실험이다.",
+        "환경정화·지역산업 전환과 전략광물 공급망 확보를 하나의 연방지원 구조에 결합한다.",
+        "파일럿 성공만으로 가격경쟁력이 보장되지 않으며 제품규격과 장기 원료조달이 상업화의 핵심이다.",
+        "최종 협약, 민간매칭, 파일럿 가동성과·오프테이크와 후속 상업투자가 핵심 지표다."
+      ],
+      "urls": [
+        "https://www.energy.gov/cmei/articles/does-office-critical-minerals-and-energy-innovation-awards-75-million-accelerate",
+        "https://www.innovationnewsnetwork.com/doe-awards-75m-to-boost-critical-minerals-recovery-from-coal-stocks/71191/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.energy.gov/cmei/articles/does-office-critical-minerals-and-energy-innovation-awards-75-million-accelerate",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "U.S. Department of Energy"
+        },
+        {
+          "url": "https://www.innovationnewsnetwork.com/doe-awards-75m-to-boost-critical-minerals-recovery-from-coal-stocks/71191/",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Innovation News Network"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_US_04",
+      "date": "2026-07-02",
+      "region": "US",
+      "signal": "high",
+      "title": "IperionX, 테네시 Camden 핵심광물·중희토류 자산 300만달러 인수 완료",
+      "sub": "Titan 인접 적치물·부지·유틸리티·철도자산을 편입해 2026년 말 통합 기술경제성 연구를 추진한다.",
+      "gate": "약 70에이커 적치물과 회사가 제시한 고품위 표본은 규정자원량·평균품위나 경제성을 의미하지 않는다. 취득가격이 낮더라도 환경책임, 적치물 소유권·처리권, 야금회수율과 제품규격이 확인돼야 한다. 통합 경제성 연구 전에는 CAPEX 절감과 개발기간 단축을 확정할 수 없다.",
+      "fact": "IperionX는 테네시 Camden의 핵심광물·중희토류 관련 광물권·부지와 기존 산업인프라 자산을 300만달러에 인수했다. 취득자산에는 약 70에이커의 지표 적치물과 전력·용수·천연가스·중량화물 철도 접근성이 포함된다. 회사는 적치물 sonic drilling, 야금시험과 인프라 최적화를 거쳐 Camden–Titan 통합 기술경제성 연구를 2026년 말까지 완료할 계획이다.",
+      "implication": [
+        "기존 적치물과 인프라를 활용하면 Titan의 초기 개발비·허가·물류기간을 줄일 가능성이 있다.",
+        "티타늄·지르콘·중희토류를 묶은 미국 내 복합광물 공급구상이 자산통합 단계로 진전됐다.",
+        "거래가치는 인수가격보다 자원량·회수율, 환경부채와 기존 인프라의 실제 사용가능성에 좌우된다.",
+        "sonic drilling, 규정자원·야금시험과 2026년 말 통합 경제성 결과가 핵심 투자판단 자료다."
+      ],
+      "urls": [
+        "https://www.manilatimes.net/2026/07/02/tmt-newswire/globenewswire/iperionx-completes-strategic-camden-acquisition-unlocking-ultra-high-grade-critical-minerals-to-accelerate-us-supply-chain/2377517",
+        "https://www.miningweekly.com/article/iperionx-to-publish-camden-ttan-integrated-economic-study-by-year-end-2026-07-02",
+        "https://iperionx.com/2026/06/15/iperionx-to-acquire-rights-to-rare-earth-and-critical-mineral-assets-adjacent-to-titan-project/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.manilatimes.net/2026/07/02/tmt-newswire/globenewswire/iperionx-completes-strategic-camden-acquisition-unlocking-ultra-high-grade-critical-minerals-to-accelerate-us-supply-chain/2377517",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "GlobeNewswire / IperionX"
+        },
+        {
+          "url": "https://www.manilatimes.net/2026/07/02/tmt-newswire/globenewswire/iperionx-completes-strategic-camden-acquisition-unlocking-ultra-high-grade-critical-minerals-to-accelerate-us-supply-chain/2377517",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "GlobeNewswire / IperionX"
+        },
+        {
+          "url": "https://www.manilatimes.net/2026/07/02/tmt-newswire/globenewswire/iperionx-completes-strategic-camden-acquisition-unlocking-ultra-high-grade-critical-minerals-to-accelerate-us-supply-chain/2377517",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "GlobeNewswire / IperionX"
+        },
+        {
+          "url": "https://www.manilatimes.net/2026/07/02/tmt-newswire/globenewswire/iperionx-completes-strategic-camden-acquisition-unlocking-ultra-high-grade-critical-minerals-to-accelerate-us-supply-chain/2377517",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "GlobeNewswire / IperionX"
+        },
+        {
+          "url": "https://www.miningweekly.com/article/iperionx-to-publish-camden-ttan-integrated-economic-study-by-year-end-2026-07-02",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "Mining Weekly"
+        },
+        {
+          "url": "https://iperionx.com/2026/06/15/iperionx-to-acquire-rights-to-rare-earth-and-critical-mineral-assets-adjacent-to-titan-project/",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "publisher": "IperionX"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_US_02",
+      "date": "2026-07-02",
+      "region": "US",
+      "signal": "high",
+      "title": "Arkema, 켄터키 PVDF 능력 15% 증설 가동…약 2,000만달러 투자",
+      "sub": "Calvert City 증설을 상업가동하고 ESS·반도체 수요에 대응하며 중국 사업장도 2028년까지 20% 증설을 추진한다.",
+      "gate": "절대 생산톤수, 배터리 바인더·반도체 등급별 믹스, 고객별 계약물량과 가동률은 공개되지 않았다. 증설률은 기존 사이트 능력 대비 수치로 시장점유율 증가와 동일하지 않다. 고객인증·램프업 수율, 원료·에너지비와 지역별 수요가 수익성을 결정한다.",
+      "fact": "Arkema는 미국 켄터키 Calvert City 사업장의 PVDF 생산능력을 15% 확대하는 프로젝트를 가동했다. 투자규모는 약 2,000만달러이며 회사는 에너지저장시스템과 반도체 수요 증가에 대응하기 위한 투자라고 설명했다. 중국 사업장에서는 2028년 완료를 목표로 PVDF 생산능력 20% 증설도 추진한다.",
+      "implication": [
+        "북미에서 배터리·반도체용 불소계 소재의 현지 공급능력이 확대된다.",
+        "미국과 중국의 지역별 증설은 수요처 인접생산과 고객인증·공급망 분산전략을 보여준다.",
+        "PVDF는 제품등급과 고객승인 장벽이 높아 단순 증설보다 고부가 믹스와 가동률이 투자수익을 좌우한다.",
+        "등급별 인증, 생산램프·판매량, 가격·마진과 중국 20% 프로젝트 집행이 후속 지표다."
+      ],
+      "urls": [
+        "https://www.arkema.com/global/en/media/newslist/news/global/investorrelations/2026/20260623-arkema-successfully-started-its-PVDF-capacity-expansion/",
+        "https://chargedevs.com/newswire/arkema-starts-up-15-pvdf-binder-capacity-expansion-at-its-kentucky-plant"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.arkema.com/global/en/media/newslist/news/global/investorrelations/2026/20260623-arkema-successfully-started-its-PVDF-capacity-expansion/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Arkema"
+        },
+        {
+          "url": "https://www.arkema.com/global/en/media/newslist/news/global/investorrelations/2026/20260623-arkema-successfully-started-its-PVDF-capacity-expansion/",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "Arkema"
+        },
+        {
+          "url": "https://chargedevs.com/newswire/arkema-starts-up-15-pvdf-binder-capacity-expansion-at-its-kentucky-plant",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "publisher": "Charged EVs"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_US_01",
+      "date": "2026-07-02",
+      "region": "US",
+      "signal": "high",
+      "title": "LG에너지솔루션·혼다 오하이오 JV, ESS용 배터리 셀 양산 개시",
+      "sub": "당초 약 40GWh EV용으로 기획된 제퍼슨빌 자산이 ESS 셀 생산을 시작했지만 ESS 전용 전환능력은 공개되지 않았다.",
+      "gate": "양산개시는 램프업 시작점이며 공장 전체 40GWh가 ESS로 전환됐다는 의미가 아니다. ESS 셀 화학계, 전용 라인수·연간능력, 초기 고객·출하량·수율과 투자전환비는 공개되지 않았다. HEV 생산은 확정계획이 아니라 시장수요에 따른 선택지다.",
+      "fact": "LG에너지솔루션과 혼다의 합작사 L-H Battery Company는 2026년 7월 2일 미국 오하이오 제퍼슨빌 공장에서 ESS용 리튬이온 셀 양산을 시작했다. 생산 셀은 LG Energy Solution Vertech를 통해 미국의 전력망·상업·산업·주거용 ESS에 공급될 예정이다. 공장은 당초 약 40GWh 규모의 혼다 EV용 파우치셀 생산거점으로 기획됐으나 수요변화에 맞춰 ESS 생산을 시작했고, 향후 시장상황에 따라 HEV용 셀도 선택지로 제시됐다.",
+      "implication": [
+        "LG에너지솔루션의 북미 ESS 현지생산망이 확대돼 관세·현지조달과 납기 대응력이 높아진다.",
+        "EV 수요변화에 맞춰 대형 합작자산을 ESS·향후 HEV로 재배치하는 생산유연화 사례다.",
+        "자산효율 개선 여부는 유휴능력 축소와 전환비용, ESS 계약가격·마진을 함께 봐야 한다.",
+        "ESS 전용능력, 램프업 수율·출하, 고객계약과 EV·HEV 생산배분이 후속 핵심지표다."
+      ],
+      "urls": [
+        "https://en.yna.co.kr/view/AEN20260703004000320",
+        "https://www.etoday.co.kr/news/view/2600003",
+        "https://www.sedaily.com/article/20063442",
+        "https://global.honda/en/newsroom/news/2022/c221011aeng.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://en.yna.co.kr/view/AEN20260703004000320",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Yonhap News Agency"
+        },
+        {
+          "url": "https://en.yna.co.kr/view/AEN20260703004000320",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "Yonhap News Agency"
+        },
+        {
+          "url": "https://www.etoday.co.kr/news/view/2600003",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "publisher": "이투데이"
+        },
+        {
+          "url": "https://www.sedaily.com/article/20063442",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "서울경제"
+        },
+        {
+          "url": "https://global.honda/en/newsroom/news/2022/c221011aeng.html",
+          "supports": [
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Honda Global"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_KR_11",
+      "date": "2026-07-02",
+      "region": "KR",
+      "signal": "high",
+      "title": "삼성SDI, 천안 차세대 배터리 마더라인 투자",
+      "sub": "차세대 배터리 기술 검증 거점 구축 계획",
+      "gate": "현재 확인된 것은 기술 검증용 마더라인 투자 계획이다. 구체적인 라인 구축과 검증 결과를 후속 확인해야 한다.",
+      "fact": "삼성은 7월 2일 천안에 삼성SDI 차세대 배터리 기술 검증을 위한 마더라인에 투자할 계획이라고 밝혔다. 현재 단계는 기술 검증 거점에 대한 투자 계획이다.",
+      "implication": [
+        "차세대 배터리 개발에서 생산기술 검증 인프라를 별도 구축하려는 움직임이다.",
+        "구체적 라인 구축과 검증 결과가 양산 전환 가능성을 판단할 다음 지표다."
+      ],
+      "urls": [
+        "https://battery-news.de/en/2026/08/03/samsung-sdi-plans-mass-production-of-solid-state-batteries-starting-in-2027",
+        "https://news.samsung.com/kr/%EC%82%BC%EC%84%B1-%EB%AF%B8%EB%9E%98-%EC%84%B1%EC%9E%A5-%EC%9C%84%ED%95%B4-%EC%B6%A9%EC%B2%AD%EC%97%90-140%EC%A1%B0%EC%9B%90-%ED%88%AC%EC%9E%90-%EA%B3%84%ED%9A%8D",
+        "https://news.samsungsdi.com/ko/articleView?seq=475"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://battery-news.de/en/2026/08/03/samsung-sdi-plans-mass-production-of-solid-state-batteries-starting-in-2027",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Battery-News EN RSS"
+        },
+        {
+          "url": "https://news.samsung.com/kr/%EC%82%BC%EC%84%B1-%EB%AF%B8%EB%9E%98-%EC%84%B1%EC%9E%A5-%EC%9C%84%ED%95%B4-%EC%B6%A9%EC%B2%AD%EC%97%90-140%EC%A1%B0%EC%9B%90-%ED%88%AC%EC%9E%90-%EA%B3%84%ED%9A%8D",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Samsung Newsroom Korea"
+        },
+        {
+          "url": "https://news.samsungsdi.com/ko/articleView?seq=475",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Samsung SDI News"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Current-main baseline and current accepted batch contain no direct predecessor, same-event representative, or broader card that already represents this specific event.",
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-02_KR_10",
+      "date": "2026-07-02",
+      "region": "KR",
+      "signal": "high",
+      "title": "포스코, 2033년 리튬 17.3만톤·3년 성장투자 16.7조원 제시",
+      "sub": "염수·광석 원료확보와 생산확장을 묶은 중장기 자원 CAPEX",
+      "gate": "17.3만톤은 2033년 목표 생산체제이며 18.7만톤은 리튬 정광으로 완제품 리튬 생산량과 다르다. 투자·이익목표는 가격, 수율, 인허가, 금융과 단계별 CAPEX 집행에 좌우된다.",
+      "fact": "포스코그룹은 7월 2일 CEO 인베스터데이에서 2033년까지 연 17만3,000톤 리튬 생산체제를 구축해 글로벌 톱5에 진입하겠다고 발표했다. 염수리튬 3·4단계 투자를 조기 추진하고 호주 Mineral Resources와의 합작으로 연 18만7,000톤 이상의 리튬 정광을 확보했다. 그룹은 2026~2028년 미래 성장투자에 16조7,000억원, 2035년 리튬 영업이익 목표로 1조8,000억원을 제시했다.",
+      "implication": [
+        "한국의 리튬 전략이 개별 광산투자에서 염수·광석·제련을 묶은 장기 원료 포트폴리오로 확장됐다.",
+        "목표가 실행되면 비중국 원료조달 선택지가 커지지만 단계별 투자승인·준공·상업생산량이 핵심 검증지표다."
+      ],
+      "urls": [
+        "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%EA%B7%B8%EB%A3%B9-%EC%9E%A5%EC%9D%B8%ED%99%94-%ED%9A%8C%EC%9E%A5-%EC%B2%A0%EA%B0%95-%EB%84%98%EC%96%B4-%EB%A6%AC%ED%8A%AC%C2%B7%EC%97%90%EB%84%88%EC%A7%80%EA%B9%8C/",
+        "https://kind.krx.co.kr/external/2026/07/02/000309/20260701002366/99618.htm",
+        "https://www.sec.gov/Archives/edgar/data/889132/000119312526293527/d128510d6k.htm"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%EA%B7%B8%EB%A3%B9-%EC%9E%A5%EC%9D%B8%ED%99%94-%ED%9A%8C%EC%9E%A5-%EC%B2%A0%EA%B0%95-%EB%84%98%EC%96%B4-%EB%A6%AC%ED%8A%AC%C2%B7%EC%97%90%EB%84%88%EC%A7%80%EA%B9%8C/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "POSCO Group Newsroom"
+        },
+        {
+          "url": "https://kind.krx.co.kr/external/2026/07/02/000309/20260701002366/99618.htm",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "publisher": "KRX 공정공시"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-04-30_KR_16"
+        ],
+        "reason": "2026-04-30 호주 Mineral Resources 리튬 광산·정광 권리 확보 이후, 해당 합작기반을 포함한 2033년 그룹 리튬 생산체제와 투자계획이 구체화된 후속 전략이다.",
+        "fresh_follow_up_anchor": "2026-04-30 호주 리튬 정광 권리 확보 이후, 2026-07-02 2033년 17.3만톤 생산체제와 2026~2028년 16.7조원 성장투자 계획이 발표됐다.",
+        "review_addressed_at_kst": "2026-07-28T16:08:07+09:00"
+      }
+    },
+    {
+      "id": "2026-07-02_KR_09",
+      "date": "2026-07-02",
+      "region": "KR",
+      "signal": "high",
+      "title": "환경공단·한은·농협, 예금토큰형 디지털화폐로 전기차 충전보조금 집행 실증",
+      "sub": "300억원 규모 30~50kW 중속충전 보조사업에 용도제한·예산관리·정산자동화 기능을 적용한다.",
+      "gate": "일반 국민에게 중앙은행이 직접 발행하는 소매 CBDC와 은행예금 기반 토큰을 구분해야 한다. 최종 발행·결제구조, 법적 지급수단성, 참여은행·가맹점과 개인정보·오류처리 방식은 사업지침을 확인해야 한다. MOU는 시스템 구축·실증성과 또는 전국확대를 의미하지 않는다.",
+      "fact": "한국환경공단, 한국은행과 NH농협은행은 2026년 7월 2일 전기차 중속 충전시설 보조사업에 디지털화폐 기반 예산집행 체계를 적용하는 업무협약을 체결했다. 사업규모는 300억원이고 대상은 출력 30~50kW급 충전시설이다. 세 기관은 한국은행 디지털화폐 네트워크와 보조금 집행관리 체계를 구축하며 농협은행은 예산관리 시스템과 금융업무를 담당한다. 관련 보도는 프로그래머블 예금토큰 기능을 활용하는 실증으로 설명한다.",
+      "implication": [
+        "보조금의 지정용도 외 사용을 기술적으로 제한하고 집행·정산 데이터를 실시간화하는 재정관리 실증이다.",
+        "성과가 확인되면 충전인프라 외 국고보조·바우처 사업으로 프로그래머블 지급수단이 확대될 수 있다.",
+        "효과는 부정사용 감소뿐 아니라 정산기간·행정비용과 참여기관의 시스템 전환비를 함께 평가해야 한다.",
+        "실제 집행액, 오류·취소처리, 정산기간, 운영비와 사용자 수용성이 핵심 성과지표다."
+      ],
+      "urls": [
+        "https://www.yna.co.kr/view/AKR20260702102700002",
+        "http://www.e2news.com/news/articleView.html?idxno=331927"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.yna.co.kr/view/AKR20260702102700002",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Yonhap News Agency"
+        },
+        {
+          "url": "https://www.yna.co.kr/view/AKR20260702102700002",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "Yonhap News Agency"
+        },
+        {
+          "url": "http://www.e2news.com/news/articleView.html?idxno=331927",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "이투뉴스"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_KR_05",
+      "date": "2026-07-02",
+      "region": "KR",
+      "signal": "high",
+      "title": "미코파워, 2kW 직접수소 SOFC 유럽 CE 전 항목 인증",
+      "sub": "미코파워의 상용 2kW 직접수소 SOFC 시스템이 GAR·LVD·EMC·ErP와 공장심사를 통과하고 ErP A+ 등급을 획득했다.",
+      "gate": "CE 인증은 유럽 판매를 위한 규제 적합성 관문을 통과한 것이지만 상업 수주나 대형발전 실적과는 구분해야 한다. 현지 유통·서비스망, 실증과 고객계약이 사업화 기준이다. 인증은 유럽 판매의 기술적 진입조건을 충족한 것이며, 현지 유통계약과 실제 출하가 상업화 여부를 가를 다음 단계다.",
+      "fact": "미코파워는 상용 고체산화물연료전지(SOFC) ‘2kW 직접수소 모델’이 유럽 CE 인증의 5대 핵심 항목을 모두 통과했다고 2026년 7월 2일 밝혔다. 인증범위는 가스기기 규정, 저전압 지침, 전자파 적합성, 에너지 관련 제품 지침과 공장심사이며 ErP 부문에서 A+ 등급을 받았다. 인증 범위는 GAR·LVD·EMC·ErP와 공장심사이며, ErP 계절난방효율에서 A+ 등급을 받았다.",
+      "implication": [
+        "국내 직접수소 SOFC가 유럽시장 진입에 필요한 제품 적합성 검증을 확보했다.",
+        "인증 이후 판매량은 가격, 수소공급 인프라, 유지보수와 현지 실증 실적에 좌우된다.",
+        "유럽 고객계약, 설치대수와 대형 발전용 모델 확장이 후속 지표다."
+      ],
+      "urls": [
+        "https://www.todayenergy.kr/news/articleView.html?idxno=299828",
+        "http://www.e2news.com/news/articleView.html?idxno=331890"
+      ],
+      "fact_sources": [
+        {
+          "url": "http://www.e2news.com/news/articleView.html?idxno=331890",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "이투뉴스"
+        },
+        {
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=299828",
+          "supports": [
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "투데이에너지"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_KR_04",
+      "date": "2026-07-02",
+      "region": "KR",
+      "signal": "high",
+      "title": "플렉셀스페이스, 107억원 우주용 CIGS·페로브스카이트 탠덤 국책과제 주관",
+      "sub": "플렉셀스페이스가 3년간 총사업비 107억원 규모의 저가·고효율 우주용 탠덤모듈 개발·검증 과제 주관기관으로 선정됐다.",
+      "gate": "과제선정은 연구개발 착수 단계이며 우주환경 성능과 상업 공급계약을 의미하지 않는다. 방사선·열·진공 시험, 우주실증 일정과 제조원가가 기술사업화의 관문이다. ISS 실증은 회사의 기술검증 기반을 보여주지만 이번 CIGS·페로브스카이트 탠덤 과제의 성과를 선반영하는 근거는 아니며, 과제별 효율·방사선 내구성·대면적화 결과를 따로 확인해야 한다.",
+      "fact": "플렉셀스페이스는 한국에너지기술평가원의 ‘저가 고효율 우주용 탠덤 모듈 개발 및 검증’ 과제 주관기관으로 선정됐다고 밝혔다. 과제는 총사업비 107억원으로 3년간 CIGS·페로브스카이트 탠덤셀과 모듈을 개발하고 우주환경 적용 가능성을 검증한다. 플렉셀스페이스는 별도 태양전지 샘플을 ISS 외부에 노출해 진공·온도변화·자외선·방사선 환경에서 내구성을 검증하는 일정도 추진하고 있다.",
+      "implication": [
+        "국내 민간 우주태양전지 기술이 국가 R&D를 통해 셀에서 모듈·우주검증 단계로 이동한다.",
+        "고효율뿐 아니라 중량, 방사선 내구성, 장기 신뢰성과 양산원가가 실제 위성 채택을 좌우한다.",
+        "시험성적, 궤도실증과 고객 미션 적용계약이 후속 확인 대상이다."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260701000568",
+        "https://www.mt.co.kr/industry/2026/02/02/2026020217570955841"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.etnews.com/20260701000568",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "전자신문"
+        },
+        {
+          "url": "https://www.mt.co.kr/industry/2026/02/02/2026020217570955841",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "머니투데이"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_KR_01",
+      "date": "2026-07-02",
+      "region": "KR",
+      "signal": "high",
+      "title": "정부, K-DC 산업 확산 전략 공개…직류 전력망 실증·표준·사업화 연계",
+      "sub": "정부와 한국전력이 AI 데이터센터·재생에너지 확산에 대응해 직류 전력망의 초기시장 조성, 실증, 표준·인증과 사업화를 연계하는 전략을 공개했다.",
+      "gate": "정책은 직류 기술의 연구개발을 넘어 실제 계통·산업현장 적용과 표준 선점을 목표로 한다. 구체적인 실증사업 규모, 예산, 기술기준과 민간 발주 전환 여부가 실행력을 가를 기준이다. 연구단지와 MOU는 실행기반이지만 예산·입주일정·공동 표준·인증체계와 실증사업 발주가 구체화돼야 산업 확산으로 이어진다.",
+      "fact": "기후에너지환경부와 한국전력공사는 2026년 7월 2일 충남 천안 LS일렉트릭 사업장에서 ‘K-DC 산업 확산 2026’ 행사를 열고 직류 산업 확산 전략을 공개했다. 정부는 연구개발부터 실증·사업화까지 이어지는 생태계를 구축하고 표준·인증체계와 관련 제도를 정비할 계획이다. 한국에너지공대 내 직류 특화 연구단지 조성을 위해 한전·한국에너지공대·LS일렉트릭·LS전선·효성중공업·HD현대일렉트릭·LG전자가 공동연구 MOU를 체결했다.",
+      "implication": [
+        "태양광·ESS·배터리·충전기처럼 직류 기반 설비가 늘면서 전력변환 손실을 줄이는 DC 배전의 사업화 여지가 커지고 있다.",
+        "국내 기업에는 전력기기·보호기기·전력변환장치·제어소프트웨어의 표준 선점이 핵심 경쟁요소가 된다.",
+        "정책 발표 이후 실제 공공실증 발주와 인증체계 마련 일정이 후속 확인 대상이다."
+      ],
+      "urls": [
+        "https://www.ajunews.com/view/20260702081252738",
+        "https://www.yna.co.kr/amp/view/AKR20260702027200530"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.ajunews.com/view/20260702081252738",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "아주경제"
+        },
+        {
+          "url": "https://www.yna.co.kr/amp/view/AKR20260702027200530",
+          "supports": [
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "연합뉴스"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_GL_08",
+      "date": "2026-07-02",
+      "region": "GL",
+      "signal": "high",
+      "title": "Amazon, 호주 Winton North 220MWh BESS PPA 추가 체결",
+      "sub": "European Energy가 130MW 태양광·100MW/220MWh BESS의 금융종결을 완료했고 Amazon은 기존 태양광 PPA에 배터리 PPA를 추가했다.",
+      "gate": "금융종결과 태양광·배터리 양쪽 PPA가 확보된 건설단계 프로젝트다. 공사는 이미 시작됐으며 2026년 준공 여부가 다음 실행 기준이다.",
+      "fact": "European Energy는 7월 2일 Winton North 프로젝트의 금융종결을 발표했다. 프로젝트는 130MW 태양광과 100MW·220MWh BESS로 구성되며 Amazon은 기존 태양광 PPA에 배터리 PPA를 추가했다. 건설은 이미 시작됐고 2026년 준공 예정이다.",
+      "implication": [
+        "단일 기업이 태양광 발전과 배터리 저장을 별도 PPA로 함께 계약하는 구조가 확인됐다.",
+        "금융종결과 장기 수요계약을 결합해 하이브리드 프로젝트의 건설단계 자금과 수요를 함께 확보했다.",
+        "2026년 준공과 태양광·배터리 운영 개시가 후속 판단 기준이다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/amazon-pens-battery-storage-ppa-for-220mwh-solar-plus-storage-site-in-australia",
+        "https://europeanenergy.com/2026/07/02/european-energy-achieves-financial-closing-for-winton-north-project-in-australia/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.energy-storage.news/amazon-pens-battery-storage-ppa-for-220mwh-solar-plus-storage-site-in-australia",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Energy-Storage.news RSS"
+        },
+        {
+          "url": "https://www.energy-storage.news/amazon-pens-battery-storage-ppa-for-220mwh-solar-plus-storage-site-in-australia",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "Energy-Storage.news RSS"
+        },
+        {
+          "url": "https://www.energy-storage.news/amazon-pens-battery-storage-ppa-for-220mwh-solar-plus-storage-site-in-australia",
+          "supports": [
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Energy-Storage.news RSS"
+        },
+        {
+          "url": "https://europeanenergy.com/2026/07/02/european-energy-achieves-financial-closing-for-winton-north-project-in-australia/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "European Energy"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_GL_06",
+      "date": "2026-07-02",
+      "region": "GL",
+      "signal": "high",
+      "title": "Pure Battery Technologies, 인도네시아 3.5억달러 pCAM 공장 계획 협의",
+      "sub": "현지 HPAL 설비의 MHP를 전구체로 전환하는 다운스트림 투자구상이 정부·기업 협의단계에 진입했다.",
+      "gate": "현재는 투자유치·계획협의 단계로 부지, 생산능력·제품조성, 기술라이선스, 파트너·지분구조, 금융조달과 FID가 확정되지 않았다. 3억5,000만달러는 계획금액이며 환경·전력·용수, MHP 장기조달과 고객 오프테이크가 없으면 실제 집행으로 이어지지 않을 수 있다.",
+      "fact": "호주 배터리소재 기술기업 Pure Battery Technologies는 인도네시아에 약 3억5,000만달러 규모 pCAM 시설을 개발하는 방안을 추진하고 있다. 회사 회장과 인도네시아 투자·다운스트리밍 차관은 시드니 투자진흥센터에서 계획을 논의했다. 구상은 인도네시아 HPAL 설비에서 생산되는 MHP를 현지 전구체 원료로 활용해 니켈 공급망의 부가가치를 높이는 것이다.",
+      "implication": [
+        "인도네시아가 MHP 생산에서 pCAM으로 다운스트림 부가가치를 확대하려는 정책방향과 맞닿아 있다.",
+        "현지 HPAL 원료와 비중국계 공정기술을 결합하면 배터리 공급망 다변화 선택지가 될 수 있다.",
+        "경제성은 니켈가격·MHP 조건, 전력·환경비용과 장기 고객확보에 좌우된다.",
+        "투자협약, 부지·능력·파트너 확정, 오프테이크·금융조달과 FID가 핵심 후속 이정표다."
+      ],
+      "urls": [
+        "https://en.antaranews.com/news/421247/australian-firm-to-build-350-million-battery-plant-in-indonesia",
+        "https://www.idnfinancials.com/news/65544/pbt-to-build-usd-350-million-battery-materials-plant-in-indonesia"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://en.antaranews.com/news/421247/australian-firm-to-build-350-million-battery-plant-in-indonesia",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "ANTARA News"
+        },
+        {
+          "url": "https://en.antaranews.com/news/421247/australian-firm-to-build-350-million-battery-plant-in-indonesia",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "ANTARA News"
+        },
+        {
+          "url": "https://en.antaranews.com/news/421247/australian-firm-to-build-350-million-battery-plant-in-indonesia",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "ANTARA News"
+        },
+        {
+          "url": "https://www.idnfinancials.com/news/65544/pbt-to-build-usd-350-million-battery-materials-plant-in-indonesia",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "publisher": "IDNFinancials"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_GL_05",
+      "date": "2026-07-02",
+      "region": "GL",
+      "signal": "high",
+      "title": "Tesla, 2026년 2분기 에너지저장 제품 13.5GWh 배치",
+      "sub": "전분기 대비 53%, 전년 동기 대비 40% 늘어 2025년 4분기 다음으로 높은 분기 배치량을 기록했다.",
+      "gate": "배치량은 고객현장에 인도·설치된 에너지용량 지표로 생산량, 인식매출, 현금수취나 수익성과 동일하지 않다. 프로젝트 믹스·지역, 제품가격, 설치시점과 원가가 분기별 매출·마진을 크게 바꿀 수 있다. 생산능력과 배치량의 차이는 재고·물류·시운전 일정도 반영한다.",
+      "fact": "Tesla는 SEC 제출자료에서 2026년 2분기 에너지저장 제품 13.5GWh를 배치했다고 밝혔다. 이는 1분기 8.8GWh보다 53%, 2025년 2분기 9.6GWh보다 40% 증가한 수치이며, 2025년 4분기 14.2GWh에 이어 회사의 두 번째로 높은 분기 배치량으로 집계됐다.",
+      "implication": [
+        "Megapack 중심 대형저장 사업이 분기 두 자릿수 GWh 배치규모를 유지하며 물량성장을 이어갔다.",
+        "배치 확대는 LFP 셀·PCS·변압기·EPC 공급망 수요를 끌어올리지만 공급병목과 프로젝트 지연위험도 키운다.",
+        "사업가치는 GWh 성장보다 가격·제품믹스, 에너지부문 매출·총마진과 현금전환으로 검증해야 한다.",
+        "에너지부문 실적, 공장 가동률·재고, 수주잔고와 신규 Megafactory 램프업이 핵심 지표다."
+      ],
+      "urls": [
+        "https://www.sec.gov/Archives/edgar/data/1318605/000162828026046717/exhibit99111111.htm",
+        "https://pv-magazine-usa.com/2026/07/02/tesla-announces-13-5-gwh-energy-storage-deployments-in-q2-sets-july-earnings-date/",
+        "https://www.nasdaq.com/press-release/tesla-first-quarter-2026-production-deliveries-deployments-2026-04-02",
+        "https://www.nasdaq.com/press-release/tesla-second-quarter-2025-production-deliveries-deployments-2025-07-02",
+        "https://www.barchart.com/story/news/36860514/tesla-fourth-quarter-2025-production-deliveries-deployments"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026046717/exhibit99111111.htm",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "U.S. SEC"
+        },
+        {
+          "url": "https://pv-magazine-usa.com/2026/07/02/tesla-announces-13-5-gwh-energy-storage-deployments-in-q2-sets-july-earnings-date/",
+          "supports": [
+            "sub",
+            "fact"
+          ],
+          "publisher": "pv magazine USA"
+        },
+        {
+          "url": "https://pv-magazine-usa.com/2026/07/02/tesla-announces-13-5-gwh-energy-storage-deployments-in-q2-sets-july-earnings-date/",
+          "supports": [
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "pv magazine USA"
+        },
+        {
+          "url": "https://www.nasdaq.com/press-release/tesla-first-quarter-2026-production-deliveries-deployments-2026-04-02",
+          "supports": [
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Tesla Company Release / Nasdaq"
+        },
+        {
+          "url": "https://www.nasdaq.com/press-release/tesla-second-quarter-2025-production-deliveries-deployments-2025-07-02",
+          "supports": [
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Tesla Company Release / Nasdaq"
+        },
+        {
+          "url": "https://www.barchart.com/story/news/36860514/tesla-fourth-quarter-2025-production-deliveries-deployments",
+          "supports": [
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Tesla Company Release / Barchart"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    }
+  ]
+}

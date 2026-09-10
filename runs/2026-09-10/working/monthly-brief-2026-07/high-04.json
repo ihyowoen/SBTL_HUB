@@ -1,0 +1,1372 @@
+{
+  "month": "2026-07",
+  "signal": "high",
+  "batch": 4,
+  "count": 25,
+  "cards": [
+    {
+      "id": "2026-07-20_GL_02",
+      "date": "2026-07-20",
+      "region": "GL",
+      "signal": "high",
+      "title": "중국의 대미 희토류 자석 수출, 과거 월평균보다 20% 낮아",
+      "sub": "중국의 2026년 상반기 미국향 희토류 영구자석 수출은 월평균 479톤으로 2022~2024년 평균 586톤보다 약 20% 적었다.",
+      "gate": "비교범위는 미국향 수출에 한정되며 중국의 전체 자석수출과 혼용하면 안 된다. 통계는 완제품에 내장돼 수출된 자석을 제외한다. 세관분류와 기간을 동일하게 유지해야 공급회복 정도를 정확히 판단할 수 있다.",
+      "fact": "중국 해관통계를 분석한 보도에 따르면 2026년 상반기 미국향 희토류 영구자석 수출은 월평균 479톤이었다. 이는 2022~2024년 월평균 586톤보다 약 20% 낮다. 수치는 완제품에 포함돼 수출된 자석을 제외한다.",
+      "implication": [
+        "미국향 희토류 자석공급은 무역완화 이후에도 과거 평균 수준을 완전히 회복하지 못했다.",
+        "전체 수출과 미국향 흐름을 분리해야 미국 제조업의 실제 공급제약을 판단할 수 있다.",
+        "월별 회복속도와 완제품 내장분을 포함한 보완통계가 공급정상화 여부의 다음 기준이다."
+      ],
+      "urls": [
+        "https://theedgemalaysia.com/node/811355",
+        "https://www.businesstimes.com.sg/companies-markets/energy-commodities/china-exports-20-fewer-magnets-us-despite-trade-truce",
+        "https://www.energypolicy.columbia.edu/chinese-customs-data-reveal-deeper-us-dependence-on-chinese-rare-earths/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://theedgemalaysia.com/node/811355",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "The Edge Malaysia"
+        },
+        {
+          "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/china-exports-20-fewer-magnets-us-despite-trade-truce",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "The Business Times"
+        },
+        {
+          "url": "https://www.energypolicy.columbia.edu/chinese-customs-data-reveal-deeper-us-dependence-on-chinese-rare-earths/",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "publisher": "Columbia CGEP"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-20_GL_01",
+      "date": "2026-07-20",
+      "region": "GL",
+      "signal": "high",
+      "title": "호주 NEM, FY26 신규 발전·저장 9.1GW 완전출력 도달",
+      "sub": "호주 국가전력시장에서 FY26 신규 발전·저장 9.1GW가 완전출력 단계에 도달해 전년 성과의 두 배를 넘었다.",
+      "gate": "9.1GW는 접속신청이나 건설중 물량이 아니라 실제 완전출력에 도달한 발전·저장 합계다. 따라서 파이프라인보다 계통수용과 시운전 완료속도를 보여주는 지표에 가깝다. 기술별 구성과 지속 가동실적은 별도 집계가 필요하다.",
+      "fact": "호주 전력시장운영기관 AEMO는 FY26 국가전력시장에서 신규 발전·에너지저장 설비 9.1GW가 완전출력에 도달했다고 밝혔다. 이는 이전 회계연도 실적의 두 배를 넘는다. 집계는 발전과 저장을 합산한 수치다.",
+      "implication": [
+        "호주에서 신규 설비가 접속·시운전을 넘어 실제 완전출력 단계로 이동하는 속도가 빨라졌다.",
+        "9.1GW는 단순 개발파이프라인보다 계통연결과 운영전환 능력을 보여주는 지표다.",
+        "배터리·태양광·풍력의 기여도와 계통제약 발생구간을 분리해 봐야 투자기회를 정확히 판단할 수 있다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/australia-adds-9-1gw-of-new-generation-and-storage-in-fy26-with-battery-storage-dominating",
+        "https://www.pv-tech.org/australia-achieves-record-renewables-and-storage-connections-with-9-1gw-reaching-full-output-in-fy26",
+        "https://www.ess-news.com/2026/07/20/australia-adds-record-9-1-gw-of-solar-wind-and-battery-capacity",
+        "https://www.aemo.com.au/newsroom/media-release/nem-connections-scorecard-reflects-record-result-for-fy26"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.energy-storage.news/australia-adds-9-1gw-of-new-generation-and-storage-in-fy26-with-battery-storage-dominating",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Energy-Storage.news"
+        },
+        {
+          "url": "https://www.pv-tech.org/australia-achieves-record-renewables-and-storage-connections-with-9-1gw-reaching-full-output-in-fy26",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "PV Tech"
+        },
+        {
+          "url": "https://www.aemo.com.au/newsroom/media-release/nem-connections-scorecard-reflects-record-result-for-fy26",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "AEMO official"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-20_EU_07",
+      "date": "2026-07-20",
+      "region": "EU",
+      "signal": "high",
+      "title": "ACCUREC, 크레펠트 재활용 거점 550만유로 증설 착수",
+      "sub": "550만유로를 투자해 크레펠트 사업장 운영면적을 두 배로 확대",
+      "gate": "투자액과 물리적 증설은 확인됐지만 처리능력 증가량이 없어 공급확대 규모를 계산할 수 없다. 설비별 처리량·원료조달·회수제품 판매계약이 공개되기 전에는 면적 확대를 생산량 증가로 환산하지 않아야 한다.",
+      "fact": "ACCUREC은 7월 20일 크레펠트 Bataverstrasse 사업장의 최종 확장단계에 착수했다. 투자액은 550만유로이며 배터리 재활용과 원료회수 시설의 운영면적을 두 배로 늘린다. 회사는 증설 후 연간 처리능력, 회수율과 상업가동일을 공개하지 않았다.",
+      "implication": [
+        "유럽 재활용 투자가 연구개발보다 상업 처리거점 확장으로 이동했다.",
+        "다만 CAPEX 대비 증분 처리능력과 단위경제성은 현재 공개정보로 산출할 수 없다.",
+        "가동일, 연간 처리톤수, 회수율과 원료 확보계약이 투자효과의 핵심이다."
+      ],
+      "urls": [
+        "https://accurec.de/startschuss-fuer-den-finalen-ausbau",
+        "https://www.euwid-recycling.de/news/wirtschaft/accurec-startet-erweiterungsbau-in-krefeld-220726/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://accurec.de/startschuss-fuer-den-finalen-ausbau",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "ACCUREC official"
+        },
+        {
+          "url": "https://www.euwid-recycling.de/news/wirtschaft/accurec-startet-erweiterungsbau-in-krefeld-220726/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "EUWID Recycling"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "1,325장 baseline에서 동일사건 충돌이 없는 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      }
+    },
+    {
+      "id": "2026-07-20_EU_06",
+      "date": "2026-07-20",
+      "region": "EU",
+      "signal": "high",
+      "title": "EU 디지털 제품여권 등록소 가동…배터리 의무화 준비환경 개방",
+      "sub": "고유식별자 등록·API·시험환경을 2027년 2월 시행 전 실제 운영",
+      "gate": "등록소 가동은 배터리 여권 의무의 조기 시행이 아니다. EV·LMT와 대상 산업용 배터리의 여권 의무는 2027년 2월 18일부터 적용되며, 배터리별 데이터 내용과 접근권한 규칙은 관련 법령·후속 이행조치를 따라야 한다.",
+      "fact": "EU 집행위원회는 7월 20일 디지털 제품여권(DPP) 등록소와 시험환경을 가동했다. 경제운영자는 분산 저장되는 제품여권의 고유식별자와 메타데이터를 등록소에 등록할 수 있고 사용자 화면과 API를 이용할 수 있다. 이 인프라는 특정 대형 배터리를 포함한 제품군을 지원하며, EV·LMT와 대상 산업용 배터리의 배터리여권 의무는 2027년 2월 18일부터 적용된다.",
+      "implication": [
+        "EU 배터리여권이 표준 제정에서 실제 등록·시험 가능한 운영인프라 단계로 이동했다.",
+        "완제품 배터리를 EU 시장에 출시하는 경제운영자는 데이터 모델·식별자·시스템 연동을 시행일 전에 시험할 수 있게 됐다.",
+        "개별 소재·부품 공급자가 여권 발급주체는 아니지만 완제품 사업자의 데이터 요구에 대응할 추적성·성능·순환성 데이터 준비가 필요하다."
+      ],
+      "urls": [
+        "https://single-market-economy.ec.europa.eu/news/digital-product-passport-registry-now-live-2026-07-20_en",
+        "https://single-market-economy.ec.europa.eu/single-market/digital-product-passport/batteries_en"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://single-market-economy.ec.europa.eu/news/digital-product-passport-registry-now-live-2026-07-20_en",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "European Commission"
+        },
+        {
+          "url": "https://single-market-economy.ec.europa.eu/single-market/digital-product-passport/batteries_en",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "European Commission — Batteries DPP"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-07-15_EU_01"
+        ],
+        "related_candidate_spec_ids": [],
+        "reason": "조화표준 발효와 등록소 실제 가동은 동일 DPP 구현계보의 별도 실행단계다.",
+        "fresh_follow_up_anchor": "7월 20일 등록소·시험환경 operational launch",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      }
+    },
+    {
+      "id": "2026-07-20_EU_04",
+      "date": "2026-07-20",
+      "region": "EU",
+      "signal": "high",
+      "title": "BP, 오스트리아 약 250개 주유·충전 거점 Volenergy에 매각 합의",
+      "sub": "EV 충전망과 관련 합작지분을 포함한 소매사업을 2026년 말까지 이관할 계획이다.",
+      "gate": "매각합의는 거래종결 전 단계이며 규제승인과 선행조건이 남아 있다. 충전기 수와 향후 투자계획은 공개범위가 제한돼 네트워크 영향은 종결 이후 확인해야 한다.",
+      "fact": "BP는 2026년 7월 20일 오스트리아 소매연료·EV 충전사업을 스위스 Volenergy에 매각하기로 합의했다. 거래에는 약 250개 BP 브랜드 주유소, 충전망과 관련 합작지분이 포함되며 2026년 말 종결을 목표로 한다.",
+      "implication": [
+        "유럽 충전망 소유권이 석유메이저에서 지역 에너지 유통사업자로 이동하는 사례가 확인된다.",
+        "거래가 충전설비 확대 또는 축소로 이어질지는 종결 후 투자계획을 확인해야 한다.",
+        "규제승인, 거래종결과 브랜드·충전운영 전환계획이 다음 기준이다."
+      ],
+      "urls": [
+        "https://www.bp.com/en/global/corporate/news-and-insights/press-releases/bp-agrees-to-sell-austrian-retail-business-to-volenergy.html",
+        "https://www.reuters.com/business/energy/bp-sell-austrian-retail-business-volenergy-2026-07-21/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.bp.com/en/global/corporate/news-and-insights/press-releases/bp-agrees-to-sell-austrian-retail-business-to-volenergy.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "BP official"
+        },
+        {
+          "url": "https://www.reuters.com/business/energy/bp-sell-austrian-retail-business-volenergy-2026-07-21/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-20_EU_02",
+      "date": "2026-07-20",
+      "region": "EU",
+      "signal": "high",
+      "title": "Saft, Barracuda·Scorpene 잠수함용 차세대 리튬이온 배터리 수주",
+      "sub": "Saft는 Naval Group으로부터 Barracuda·Scorpene 잠수함 계열에 적용할 차세대 리튬이온 배터리 시스템 공급계약을 수주했다.",
+      "gate": "잠수함 플랫폼 채택은 고신뢰 배터리가 방산 전원체계에 진입한 명확한 실행앵커다. 다만 계약금액·적용 함정 수·납품일정은 공개되지 않아 사업규모를 추정할 수 없다. 인증, 해상시험과 함정별 통합일정이 다음 확인지점이다.",
+      "fact": "Saft는 Naval Group으로부터 Barracuda·Scorpene 잠수함 계열용 차세대 리튬이온 배터리 시스템 공급계약을 수주했다고 발표했다. 계약은 잠수함 전원체계 적용을 대상으로 하지만 계약금액, 적용 함정 수와 납품일정은 공개되지 않았다.",
+      "implication": [
+        "리튬이온 배터리가 잠수함의 차세대 전원체계로 채택되면서 고안전·고신뢰 수요의 상업적 적용범위가 넓어진 흐름이 관찰된다.",
+        "방산 공급망에서는 수명, 추적성, 품질보증과 플랫폼 통합역량이 민수시장보다 높은 진입장벽으로 작용할 수 있다.",
+        "인증·해상시험 완료와 함정별 납품일정 공개가 계약의 실질 규모를 판단할 다음 기준이다."
+      ],
+      "urls": [
+        "https://saft.com/en/media-resources/press-release/saft-signs-major-contract-naval-group-power-next-generation",
+        "https://www.navaltoday.com/2026/07/20/totalenergies-subsidiary-to-supply-li-ion-battery-systems-for-barracuda-and-scorpene-submarines/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://saft.com/en/media-resources/press-release/saft-signs-major-contract-naval-group-power-next-generation",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Saft official"
+        },
+        {
+          "url": "https://www.navaltoday.com/2026/07/20/totalenergies-subsidiary-to-supply-li-ion-battery-systems-for-barracuda-and-scorpene-submarines/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Naval Today"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-20_CN_03",
+      "date": "2026-07-20",
+      "region": "CN",
+      "signal": "high",
+      "title": "Lianchuang, VDF 1.2만톤·불소 원료체인에 5.5억위안 투자",
+      "sub": "PVDF 핵심원료와 R142b·R152a를 묶은 24개월 증설안 승인",
+      "gate": "이사회 승인은 배터리용 PVDF 공급계약이나 착공을 뜻하지 않는다. 환경인허가, 실제 착공·가동과 배터리급 제품 비중·고객인증을 확인해야 한다.",
+      "fact": "Lianchuang 이사회는 7월 20일 내몽골 우하이에 연 1.2만톤 VDF, 2.1만톤 R142b, 2.5만톤 R152a 생산시설을 건설하는 안을 승인했다. 투자액은 약 5.5억위안, 계획 공기는 24개월이다. R142b와 R152a는 VDF 생산의 상류 불소계 원료이며 VDF는 배터리 바인더 PVDF의 핵심원료다.",
+      "implication": [
+        "중국의 배터리 바인더 공급망 투자가 VDF뿐 아니라 상류 불소원료까지 수직 통합되는 흐름이다.",
+        "실제 공급영향은 가동시점, 배터리급 수율과 장기 고객계약에서 나타난다."
+      ],
+      "urls": [
+        "http://www.cbea.com/djgc/202607/688267.html",
+        "https://www.cfi.net.cn/p20260721001062.html",
+        "https://www.yicai.com/news/103286087.html",
+        "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12456492&stockid=300343"
+      ],
+      "fact_sources": [
+        {
+          "url": "http://www.cbea.com/djgc/202607/688267.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "CBEA 电池观察"
+        },
+        {
+          "url": "https://www.cfi.net.cn/p20260721001062.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Company announcement mirror"
+        },
+        {
+          "url": "https://www.yicai.com/news/103286087.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Yicai"
+        },
+        {
+          "url": "https://www.cfi.net.cn/p20260721001062.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Lianchuang company announcement mirror"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "active upstream baseline에서 직접 동일사건 계보가 확인되지 않은 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      }
+    },
+    {
+      "id": "2026-07-20_CN_02",
+      "date": "2026-07-20",
+      "region": "CN",
+      "signal": "high",
+      "title": "SVOLT 후베이 Daye 공장, 첫 배터리팩 생산하며 양산 개시",
+      "sub": "첫 배터리팩이 생산되며 공장이 양산단계에 들어갔다.",
+      "gate": "첫 제품 생산은 양산라인 가동의 이정표다. 안정적인 생산성과 고객납품을 의미하지 않으므로 월별 생산량과 수율을 확인해야 한다.",
+      "fact": "SVOLT Energy의 후베이 Daye 공장에서 첫 배터리팩이 생산됐다. 회사는 이를 해당 공장의 양산개시로 설명했다.",
+      "implication": [
+        "중국 배터리팩 생산거점이 첫 제품 생산단계에 진입했다.",
+        "첫 팩 생산과 안정적인 양산은 구분해야 한다.",
+        "고객인증, 월 생산량과 수율이 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://autonews.gasgoo.com/articles/news/svolts-hubei-daye-plant-rolls-out-first-battery-pack-2079580047680700417",
+        "https://k.sina.com.cn/article_1720962692_6693ce84020034pja.html?from=auto"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://autonews.gasgoo.com/articles/news/svolts-hubei-daye-plant-rolls-out-first-battery-pack-2079580047680700417",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Gasgoo"
+        },
+        {
+          "url": "https://k.sina.com.cn/article_1720962692_6693ce84020034pja.html?from=auto",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Jimu News via Sina Auto"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-20_CN_01",
+      "date": "2026-07-20",
+      "region": "CN",
+      "signal": "high",
+      "title": "중국, 신에너지차 정비안전 국가표준 8월 1일 시행",
+      "sub": "시장감독총국은 7월 20일 GB/T 47439-2026의 8월 1일 시행을 별도 공식 안내했다.",
+      "gate": "표준 제정일은 4월 30일이지만, 7월 20일 공식 시행안내는 적용 직전의 별도 규제 실행 신호다. 정비인력·작업장·위험점검·고전압 회로와 수소공급계통 작업절차가 대상이며, 시행 이후 교육·검사·현장준수 기준이 실제 영향을 결정한다.",
+      "fact": "중국 시장감독총국은 2026년 7월 20일 ‘신에너지자동차 정비작업 안전요구’ 국가표준이 8월 1일부터 시행된다고 공식 안내했다. GB/T 47439-2026은 4월 30일 발표됐으며, 인력과 작업장, 작업준비, 위험점검·처치, 작업절차와 안전조치를 규정한다.",
+      "implication": [
+        "신에너지차 정비의 안전요건이 권고성 국가표준으로 구체화되면서 정비업체의 작업절차·장비·인력교육 기준이 표준화된다.",
+        "핵심 실행일은 8월 1일이며, 7월 20일 공식 안내는 제정 사실의 재보도가 아니라 시행 직전의 별도 행정 커뮤니케이션이다.",
+        "후속 확인항목은 지역별 교육·검사 적용, 정비업체 인증·보험요건과 실제 단속·준수사례다."
+      ],
+      "urls": [
+        "https://www.samr.gov.cn/xw/sj/art/2026/art_034fe3a706604d9dbb1af89a7833b84d.html",
+        "https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=AA03F21B25FACFF947C1FA707F31A3CC",
+        "https://autonews.gasgoo.com/articles/news/china-to-enforce-new-ev-maintenance-safety-standard-from-aug-1-2079583820788502529"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.samr.gov.cn/xw/sj/art/2026/art_034fe3a706604d9dbb1af89a7833b84d.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "중국 국가시장감독관리총국"
+        },
+        {
+          "url": "https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=AA03F21B25FACFF947C1FA707F31A3CC",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "중국 국가표준정보 플랫폼"
+        },
+        {
+          "url": "https://autonews.gasgoo.com/articles/news/china-to-enforce-new-ev-maintenance-safety-standard-from-aug-1-2079583820788502529",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Gasgoo"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "No same-program production card exists in the 1,250-card baseline.",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-19_GL_01",
+      "date": "2026-07-19",
+      "region": "GL",
+      "signal": "high",
+      "title": "POSCO Sal de Oro 2단계, 8월 초 완공·가동 준비 보도",
+      "sub": "현지 산업보도는 POSCO Sal de Oro 2단계 탄산리튬 설비가 8월 초 완공 후 가동준비에 들어갈 것으로 전했다.",
+      "gate": "8월 초 일정은 2차 보도에 따른 예상으로 POSCO의 확정 상업가동 공시는 아니다. Salta 주정부가 공식 확인한 범위는 탄산리튬 공장의 2026년 완공계획이다. 준공확인과 첫 생산·출하가 일정의 실현 여부를 판단한다.",
+      "fact": "Shanghai Metals Market은 POSCO Sal de Oro 2단계 탄산리튬 설비가 8월 초 완공되고 가동준비에 들어갈 것으로 예상된다고 보도했다. Salta 주정부는 앞서 해당 탄산리튬 공장의 완공시점을 2026년으로 제시했다. 상업가동 개시는 아직 회사 공시로 확인되지 않았다.",
+      "implication": [
+        "2단계 리튬 설비가 연내 완공 목표에서 보다 구체적인 준공·가동준비 일정으로 이동했다는 신호가 관찰된다.",
+        "일정이 현실화될 경우 프로젝트가 건설단계에서 초기 생산단계로 넘어갈 여지가 있지만 예상일정과 공식 가동공시는 구분할 필요가 있다.",
+        "준공확인, 첫 생산과 첫 출하가 실제 공급능력 편입 여부를 판단할 다음 실행지표다."
+      ],
+      "urls": [
+        "https://news.metal.com/newscontent/104013558-posco-to-start-operations-at-phase-2-of-argentinas-sal-de-oro-plant",
+        "https://produccionsalta.gob.ar/el-proyecto-de-litio-de-posco-consolida-su-avance-industrial-en-el-salar-del-hombre-muerto/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://news.metal.com/newscontent/104013558-posco-to-start-operations-at-phase-2-of-argentinas-sal-de-oro-plant",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Shanghai Metals Market"
+        },
+        {
+          "url": "https://produccionsalta.gob.ar/el-proyecto-de-litio-de-posco-consolida-su-avance-industrial-en-el-salar-del-hombre-muerto/",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Salta Ministry of Production and Mining"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-19_CN_01",
+      "date": "2026-07-19",
+      "region": "CN",
+      "signal": "high",
+      "title": "푸핑, 21억위안 규모 30만톤 전탄화재·2만톤 하드카본 투자계약",
+      "sub": "Beijing Zhongcheng Xintou가 나트륨이온 배터리 음극재 프로젝트 계약을 체결했다.",
+      "gate": "투자계약은 투자·사업추진 의향을 구체화한 단계이며 착공·금융종결·고객계약은 아니다. 후속 토지확보, 착공과 제품인증을 확인해야 한다.",
+      "fact": "Beijing Zhongcheng Xintou Energy Technology는 푸핑에 총 21억위안을 투자하는 프로젝트 계약을 체결했다. 사업규모는 전탄화재 30만톤과 나트륨이온 배터리용 하드카본 음극재 2만톤이다.",
+      "implication": [
+        "나트륨이온 공급망 투자가 하드카본 원료·전처리 분야로 확장되는 흐름이 관찰된다.",
+        "계약상 계획물량과 실제 공급능력은 구분해야 한다.",
+        "토지확보, 착공과 고객 샘플인증이 다음 실행기준이다."
+      ],
+      "urls": [
+        "https://finance.sina.com.cn/roll/2026-07-19/doc-iniihzcm3646401.shtml",
+        "https://news.smm.cn/live/detail/104014024"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://finance.sina.com.cn/roll/2026-07-19/doc-iniihzcm3646401.shtml",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "MyBattery via Sina"
+        },
+        {
+          "url": "https://news.smm.cn/live/detail/104014024",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Shanghai Metals Market"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-18_US_02",
+      "date": "2026-07-18",
+      "region": "US",
+      "signal": "high",
+      "title": "Tesla, Bloomington에 1.2MW급 Semi 공용 Megacharger 6기 운영",
+      "sub": "Tesla는 미국 캘리포니아 Bloomington에 충전기당 최대 1.2MW 출력의 Semi 공용 Megacharger 6기를 열었다.",
+      "gate": "대형 전기트럭 초고출력 충전이 전용 차고를 넘어 공용 인프라로 이동한 사례다. 다만 세계 최초 여부는 확인범위에서 제외했고 실제 이용률도 공개되지 않았다. 물동량, 대기시간과 계통부하가 상업성을 결정한다.",
+      "fact": "Tesla의 Bloomington 공용 Semi Megacharger 시설은 6개 충전면으로 구성된다. 각 충전기는 최대 1.2MW 출력을 제공한다. 현재 확인된 단계는 공용 시설 운영개시다.",
+      "implication": [
+        "대형 전기트럭 충전이 차량판매를 넘어 공용 회랑형 인프라 구축단계로 확장되는 흐름이 관찰된다.",
+        "1.2MW급 설비는 충전시간 단축과 동시에 높은 순간 계통부하 관리가 필요할 수 있다.",
+        "실제 이용률, 대기시간과 추가 거점 확장이 공용 Megacharger 모델의 경제성을 판단할 기준이다."
+      ],
+      "urls": [
+        "https://www.cleantrucking.com/infrastructure/charging-infastructure/article/15830423/tesla-opens-first-public-semi-megacharger-in-california",
+        "https://evchargingstations.com/chargingnews/tesla-public-megacharger-semis/",
+        "https://electrive.com/2026/07/22/tesla-opens-first-public-1-2-mw-megacharger-for-semi-in-california",
+        "https://tesla.com/findus/location/supercharger/bloomingtonmegacharger",
+        "https://driveteslacanada.ca/news/tesla-first-full-public-semi-megacharger-bloomington-california"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://evchargingstations.com/chargingnews/tesla-public-megacharger-semis/",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "EV Charging Stations"
+        },
+        {
+          "url": "https://www.cleantrucking.com/infrastructure/charging-infastructure/article/15830423/tesla-opens-first-public-semi-megacharger-in-california",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Clean Trucking"
+        },
+        {
+          "url": "https://driveteslacanada.ca/news/tesla-first-full-public-semi-megacharger-bloomington-california",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Drive Tesla"
+        },
+        {
+          "url": "https://electrive.com/2026/07/22/tesla-opens-first-public-1-2-mw-megacharger-for-semi-in-california",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Electrive"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "2026-05-01_US_10"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-18_US_01",
+      "date": "2026-07-18",
+      "region": "US",
+      "signal": "high",
+      "title": "Pilot, 25개주 300개 이상 급속충전 지점·1,300개 이상 포트 확보",
+      "sub": "2026년 상반기 50개 지점을 추가해 300개 이상 지점과 1,300개 이상 포트로 확대했고 주요 주간고속도로를 연결하는 350kW 충전망으로 운영한다.",
+      "gate": "지점과 포트 확대는 장거리 이동축의 충전 접근성을 높이지만 실제 경쟁력은 이용률, 고장률과 대기시간에서 결정된다. 최대 500개 지점·2,000개 포트를 목표로 한 Pilot·GM·EVgo 협업의 후속 개장속도가 다음 판단기준이다.",
+      "fact": "Pilot은 2026년 상반기 25개주에서 DC 급속충전 지점 50곳을 추가해 네트워크를 300개 이상 지점으로 확대했다. 독립 집계는 309개 충전소와 1,323개 충전포트를 제시하며, Pilot 공식자료는 주요 주간고속도로의 최대 350kW 충전기, 24시간 모니터링, 캐노피와 견인차량용 직진형 주차면을 운영특징으로 설명한다. Pilot·GM·EVgo 협업의 장기목표는 최대 500개 Pilot·Flying J 지점에 2,000개 급속충전 포트를 구축하는 것이다.",
+      "implication": [
+        "300개 이상 지점과 1,300개 이상 포트는 미국 장거리 이동축의 충전망이 개별 거점에서 전국 네트워크 단계로 확대됐음을 보여준다.",
+        "최대 350kW 출력과 24시간 편의시설, 캐노피와 직진형 주차면은 충전속도뿐 아니라 여행거점의 이용경험을 경쟁축으로 만든다.",
+        "500개 지점·2,000개 포트 목표까지의 추가 개장속도와 실제 가동률, 고장률이 네트워크 가치의 다음 검증지표다."
+      ],
+      "urls": [
+        "https://newsroom.pilotcompany.com/pilot-welcomes-summer-road-trippers-with-modernized-network-footprint-expanded-ev-charging-and-fresh-menu-items/",
+        "https://www.electrive.com/2026/07/18/pilot-expands-ev-charging-network-to-more-than-300-locations/",
+        "https://newsroom.pilotcompany.com/pilot-general-motors-and-evgo-open-over-200-fast-charging-locations-to-power-nationwide-ev-travel/",
+        "https://pilotcompany.com/ev-charging"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://newsroom.pilotcompany.com/pilot-welcomes-summer-road-trippers-with-modernized-network-footprint-expanded-ev-charging-and-fresh-menu-items/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Pilot Travel Centers official"
+        },
+        {
+          "url": "https://www.electrive.com/2026/07/18/pilot-expands-ev-charging-network-to-more-than-300-locations/",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "electrive"
+        },
+        {
+          "url": "https://newsroom.pilotcompany.com/pilot-general-motors-and-evgo-open-over-200-fast-charging-locations-to-power-nationwide-ev-travel/",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Pilot·GM·EVgo official"
+        },
+        {
+          "url": "https://pilotcompany.com/ev-charging",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "Pilot EV charging official"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-18_EU_01",
+      "date": "2026-07-18",
+      "region": "EU",
+      "signal": "high",
+      "title": "루마니아, 독립형 BESS·스마트미터에 EU기금 2.5억유로 지원책",
+      "sub": "BESS 1.5억유로·스마트미터 1억유로를 배정하고 최소 2,174MWh 신규 저장용량을 목표로 한다.",
+      "gate": "2.5억유로는 두 지원사업의 합산 예산이며 BESS에는 1.5억유로가 배정된다. 공모개시·평가·보조금계약 이후에 실제 설치물량이 확정된다.",
+      "fact": "루마니아 정부는 EU 현대화기금을 활용해 독립형 BESS에 1.5억유로, 스마트미터에 1억유로를 지원하는 두 사업을 발표했다. BESS 공모는 최소 2,174MWh의 신규 저장용량을 목표로 한다.",
+      "implication": [
+        "루마니아 저장시장에 직접 보조금과 계량인프라 투자를 병행하는 정책경로가 마련됐다.",
+        "예산목표와 실제 계약용량은 구분해야 하며 공모 결과가 사업규모를 결정한다.",
+        "최종 공고, 선정사업과 계약용량이 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://agerpres.ro/politic/2026/07/18/bolojan-anunta-doua-forme-de-sprijin-care-urmaresc-sa-reduca-facturile-la-energie--1577254",
+        "https://balkangreenenergynews.com/romania-allocates-eur-250-million-in-grants-for-batteries-smart-meters/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://agerpres.ro/politic/2026/07/18/bolojan-anunta-doua-forme-de-sprijin-care-urmaresc-sa-reduca-facturile-la-energie--1577254",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "AGERPRES"
+        },
+        {
+          "url": "https://balkangreenenergynews.com/romania-allocates-eur-250-million-in-grants-for-batteries-smart-meters/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Balkan Green Energy News"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-17_US_01",
+      "date": "2026-07-17",
+      "region": "US",
+      "signal": "high",
+      "title": "Ultium Cells, 오하이오 Warren 공장 인력 7월 27일부터 단계적 복귀",
+      "sub": "임시해고 시간제 근로자의 복귀계획은 운영재개의 선행신호지만 생산량이나 완전가동을 직접 확인해주지는 않는다.",
+      "gate": "인력복귀는 가동회복의 선행지표지만 복귀인원과 교대조, 생산량이 확인되기 전에는 완전가동으로 볼 수 없다. 실제 셀 생산재개와 복귀범위가 후속 판단기준이다.",
+      "fact": "Tribune Chronicle은 Ultium Cells가 오하이오 Warren 공장의 임시해고 시간제 근로자를 7월 27일부터 단계적으로 복귀시키기로 했다고 보도했다. Reuters는 앞서 해당 공장의 임시해고 인원을 850명으로 전했다.",
+      "implication": [
+        "오하이오 배터리공장의 인력운영이 복귀단계로 이동하는 신호가 확인된다.",
+        "앞서 보도된 임시해고 850명과 실제 복귀인원, 생산량은 구분해 봐야 한다.",
+        "복귀범위와 교대조, 셀 생산재개가 가동회복의 다음 지표다."
+      ],
+      "urls": [
+        "https://www.tribtoday.com/news/business/2026/07/ultium-recharges-lordstown-workforce/",
+        "https://www.reuters.com/world/asia-pacific/lg-energy-gm-lg-battery-plant-ohio-delays-return-laid-off-workers-sources-say-2026-05-29/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.tribtoday.com/news/business/2026/07/ultium-recharges-lordstown-workforce/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Tribune Chronicle"
+        },
+        {
+          "url": "https://www.reuters.com/world/asia-pacific/lg-energy-gm-lg-battery-plant-ohio-delays-return-laid-off-workers-sources-say-2026-05-29/",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-17_GL_02",
+      "date": "2026-07-17",
+      "region": "GL",
+      "signal": "high",
+      "title": "짐바브웨 유일 리튬황산염 공장, 제3자 정광 처리여력 부재",
+      "sub": "2027년 1월 정광수출 금지를 앞두고 Huayou의 유일한 완공 리튬황산염 공장이 다른 생산자의 정광을 처리할 여력이 없다고 밝혔다.",
+      "gate": "현재 병목은 정책시한과 실제 국내가공 능력 사이의 간극을 보여준다. 건설 중인 다른 공장의 가동, 수출쿼터와 정부의 중간조치에 따라 제약범위는 달라질 수 있다.",
+      "fact": "Reuters는 2026년 7월 17일 짐바브웨에서 완공된 유일한 리튬황산염 공장이 제3자 정광을 처리할 여력이 없다고 보도했다. 운영사 Prospect Lithium Zimbabwe의 광산관리자는 자체 농축공장 연 40만톤 물량을 처리해 외부 생산자용 공간이 없다고 밝혔다. 광업장관은 정광수출 금지의 2027년 1월 시한을 현재 연장하지 않겠다고 말했다.",
+      "implication": [
+        "국내가공 의무를 앞당겨도 공용 정제능력이 부족하면 생산자별 병목과 재고부담이 발생할 수 있다.",
+        "유일 완공공장의 자체원료 전용구조는 다른 광산의 정책대응 경로가 아직 제한적임을 보여준다.",
+        "건설 중 시설의 가동일과 정부의 쿼터·세금조치가 다음 확인점이다."
+      ],
+      "urls": [
+        "https://www.reuters.com/world/africa/zimbabwes-sole-lithium-salt-plant-unable-process-third-party-metal-official-says-2026-07-17/",
+        "https://www.reuters.com/world/africa/zimbabwe-lithium-miners-ask-more-time-build-processing-plants-2026-06-18/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.reuters.com/world/africa/zimbabwes-sole-lithium-salt-plant-unable-process-third-party-metal-official-says-2026-07-17/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        },
+        {
+          "url": "https://www.miningweekly.com/article/zimbabwes-sole-lithium-salt-plant-unable-process-third-party-metal-official-says-2026-07-17",
+          "supports": [
+            "not_used"
+          ],
+          "publisher": "Mining Weekly / Reuters"
+        },
+        {
+          "url": "https://www.reuters.com/world/africa/zimbabwe-lithium-miners-ask-more-time-build-processing-plants-2026-06-18/",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-17_EU_07",
+      "date": "2026-07-17",
+      "region": "EU",
+      "signal": "high",
+      "title": "Fidra, West Burton C 500MW/1.1GWh 금융종결",
+      "sub": "500MW/1.1GWh 프로젝트가 금융종결 단계 진입",
+      "gate": "금융종결로 자금조달 단계를 통과했지만 착공과 운영 개시는 별도 실행 단계다. 실제 공사 개시와 운영 일정 이행이 다음 확인점이다.",
+      "fact": "Fidra Energy는 7월 17일 West Burton C 500MW/1.1GWh BESS의 금융종결을 발표했다. 확인된 사건은 해당 프로젝트의 금융종결이다.",
+      "implication": [
+        "영국 대형 BESS가 금융종결 단계로 진입한 사례다.",
+        "다음 실행지표는 실제 착공과 운영 일정 이행이다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/uk-engie-commissions-100mw-fidra-masdar-fids-eku-buys-big-consents-for-aura-starlight",
+        "https://fidraenergy.com/fidra-energy-reaches-financial-close-on-500mw-west-burton-c-battery-energy-storage-project/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.energy-storage.news/uk-engie-commissions-100mw-fidra-masdar-fids-eku-buys-big-consents-for-aura-starlight",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Energy-Storage.News Europe"
+        },
+        {
+          "url": "https://fidraenergy.com/fidra-energy-reaches-financial-close-on-500mw-west-burton-c-battery-energy-storage-project/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Fidra Energy"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Current-main baseline and current accepted batch contain no direct predecessor, same-event representative, or broader card that already represents this specific event.",
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "follow_up_date_precedes_predecessor_justification": null,
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      }
+    },
+    {
+      "id": "2026-07-17_EU_06",
+      "date": "2026-07-17",
+      "region": "EU",
+      "signal": "high",
+      "title": "스페인, 양수저장 7개 사업에 1억6500만유로 최종 지원",
+      "sub": "스페인 정부는 합산 저장용량 21GWh 이상으로 보도된 양수저장 7개 사업에 총 1억6500만유로를 최종 배정했다.",
+      "gate": "최종 지원결정은 장주기 저장정책이 구체적인 수혜사업 단위로 내려왔다는 의미가 있다. 다만 보조금 배정은 준공·가동이나 전체 용량 실현을 보장하지 않는다. 개별 사업의 인허가, 금융조달과 착공 여부가 실제 공급증가를 결정한다.",
+      "fact": "스페인 에너지다변화절약연구소는 양수저장 7개 사업에 총 1억6500만유로를 최종 지원한다고 밝혔다. 독립 보도는 선정사업의 합산 저장용량이 21GWh를 넘는다고 전했다. 현재 확인된 단계는 최종 지원대상 선정이다.",
+      "implication": [
+        "장주기 저장 지원정책이 계획수준을 넘어 프로젝트별 자금배정 단계로 구체화됐다.",
+        "양수저장은 대규모 장주기 조정자원 확보수단으로 채택됐지만 실제 공급효과는 사업별 인허가와 자본조달에 달려 있다.",
+        "착공, 추가 금융종결과 준공일정 공개가 21GWh 이상 잠재용량의 실현가능성을 가르는 다음 기준이다."
+      ],
+      "urls": [
+        "https://www.idae.es/noticias/el-miteco-resuelve-la-segunda-convocatoria-de-ayudas-al-almacenamiento-hidroelectrico",
+        "https://www.pv-magazine.com/2026/07/20/spain-awards-e165-million-for-2-gw-pumped-storage-projects"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.idae.es/noticias/el-miteco-resuelve-la-segunda-convocatoria-de-ayudas-al-almacenamiento-hidroelectrico",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "IDAE"
+        },
+        {
+          "url": "https://www.pv-magazine.com/2026/07/20/spain-awards-e165-million-for-2-gw-pumped-storage-projects",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "PV Magazine"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "2026-05-09_EU_01"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-17_EU_05",
+      "date": "2026-07-17",
+      "region": "EU",
+      "signal": "high",
+      "title": "스페인, 2분기 BESS 공고 34건/1.76GW 집계",
+      "sub": "pv magazine 스페인판이 BOE 공고를 집계한 인허가 파이프라인으로 준공이나 확정 조달물량은 아니다.",
+      "gate": "공고 집계는 개발 및 인허가 파이프라인을 보여주지만 준공이나 실제 조달량을 의미하지 않는다. 프로젝트별 허가단계와 계통접속, 투자결정이 실제 증설규모를 가른다.",
+      "fact": "pv magazine 스페인판은 2026년 2분기 스페인 관보(BOE)에 공고된 BESS 프로젝트 34건의 합계를 1.76GW로 집계했다. 별도 BOE 기록은 Tagus 2 HBESS 배터리저장설비 공고의 존재를 확인한다.",
+      "implication": [
+        "34건/1.76GW는 스페인 BESS 개발 파이프라인의 공개규모를 보여준다.",
+        "공고용량은 설치 및 조달량과 동일하지 않아 장비수요로 직접 환산할 수 없다.",
+        "프로젝트별 허가승인과 금융조달, 착공이 실제 시장규모의 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://www.pv-magazine.es/2026/07/17/boe-34-proyectos-almacenamiento-con-176-gw-bess-publicados-en-el-segundo-trimestre-de-2026/",
+        "https://www.boehoy.es/boe/BOE-B-2026-18625"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.pv-magazine.es/2026/07/17/boe-34-proyectos-almacenamiento-con-176-gw-bess-publicados-en-el-segundo-trimestre-de-2026/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "pv magazine Espana"
+        },
+        {
+          "url": "https://www.boehoy.es/boe/BOE-B-2026-18625",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "BOE record"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-17_EU_04",
+      "date": "2026-07-17",
+      "region": "EU",
+      "signal": "high",
+      "title": "Close Brothers, 스코틀랜드 27MW/108MWh BESS 금융종결",
+      "sub": "Unibal의 Kilwinning 4시간 BESS가 건설 및 운영 금융을 확보했지만 준공과 계통연계는 별도 단계다.",
+      "gate": "금융종결은 개발자산의 실행가능성을 높이는 단계지만 준공이나 매출발생을 의미하지 않는다. 건설진척과 계통연계, 상업운전 일정이 다음 판단기준이다.",
+      "fact": "The Energyst는 2026년 7월 17일 Close Brothers가 스코틀랜드 Kilwinning의 Unibal BESS 건설과 운영에 금융을 제공했다고 보도했다. 설비는 27MW/108MWh의 4시간 시스템이며, Unibal 경영진은 Close Brothers와 금융종결에 도달했다고 밝혔다. 별도 보도는 Kilwinning의 Capbal 사업이 27MW BESS로 계획승인을 받았다고 전했다.",
+      "implication": [
+        "4시간 BESS가 금융종결을 거쳐 건설단계로 이동한 프로젝트금융 사례다.",
+        "금융종결은 자산실행 가능성을 높이지만 준공과 계통연계, 매출을 보장하지 않는다.",
+        "건설진척과 배터리 조달, 상업운전 일정이 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://theenergyst.com/close-brothers-energy-team-funds-construction-of-new-battery-energy-storage-system/",
+        "https://news.stv.tv/west-central/battery-storage-facility-plans-unanimously-approved-in-north-ayrshire",
+        "https://find-and-update.company-information.service.gov.uk/company/SC503856/filing-history"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://theenergyst.com/close-brothers-energy-team-funds-construction-of-new-battery-energy-storage-system/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "The Energyst"
+        },
+        {
+          "url": "https://theenergyst.com/close-brothers-energy-team-funds-construction-of-new-battery-energy-storage-system/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "publisher": "The Energyst"
+        },
+        {
+          "url": "https://theenergyst.com/close-brothers-energy-team-funds-construction-of-new-battery-energy-storage-system/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "The Energyst"
+        },
+        {
+          "url": "https://news.stv.tv/west-central/battery-storage-facility-plans-unanimously-approved-in-north-ayrshire",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "publisher": "STV News"
+        },
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/company/SC503856/filing-history",
+          "supports": [
+            "not_used"
+          ],
+          "publisher": "UK Companies House"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-17_EU_02",
+      "date": "2026-07-17",
+      "region": "EU",
+      "signal": "high",
+      "title": "Sonnedix, 이탈리아 260MW·4시간 BESS 개발포트폴리오 인수",
+      "sub": "Sonnedix가 Sphera Energy로부터 Tuscania의 160MW·4시간과 100MW·4시간 독립형 BESS 프로젝트를 인수했다.",
+      "gate": "인수대상은 가동자산이 아닌 개발 포트폴리오다. 허가, 계통접속, 투자결정, 상업운전이 남아 있어 즉시 증설이나 수익발생으로 볼 수 없다.",
+      "fact": "Sonnedix는 2026년 7월 17일 Sphera Energy로부터 이탈리아 Tuscania의 BESS 개발 포트폴리오를 인수했다고 발표했다. 포트폴리오는 160MW·4시간과 100MW·4시간의 인접한 독립형 프로젝트 2건으로 구성된다.",
+      "implication": [
+        "4시간형 BESS 프로젝트가 이탈리아 개발자산 거래대상으로 확인됐다.",
+        "개발권 인수와 실제 설비증설 사이에는 허가·계통접속·투자결정이 남아 있다.",
+        "최종투자결정과 상업운전 일정이 거래의 다음 실행지표다."
+      ],
+      "urls": [
+        "https://www.ess-news.com/2026/07/17/sonnedix-acquires-260-mw-battery-storage-portfolio-in-italy",
+        "https://www.renews.biz/other-news/energy-storage/sonnedix-buys-260mw-italian-bess-portfolio",
+        "https://www.sonnedix.com/it/news/sonnedix-bolsters-hybrid-capabilities-in-italy-with-acquisition-of-260mw-battery-storage-portfolio"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.ess-news.com/2026/07/17/sonnedix-acquires-260-mw-battery-storage-portfolio-in-italy",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "ESS News RSS"
+        },
+        {
+          "url": "https://www.sonnedix.com/it/news/sonnedix-bolsters-hybrid-capabilities-in-italy-with-acquisition-of-260mw-battery-storage-portfolio",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Sonnedix"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-17_CN_01",
+      "date": "2026-07-17",
+      "region": "CN",
+      "signal": "high",
+      "title": "Hunan Yuneng, LFP 전 제품 가격 t당 2000위안 인상 통지",
+      "sub": "회사는 2026년 8월 1일부터 LFP 전 제품 가격을 t당 2000위안 올리는 방침을 하류 고객에 통지한 것으로 확인됐다.",
+      "gate": "업체 통지가 시장 전체의 체결가격을 뜻하지는 않는다. 원재료 가격, 제품등급, 계약별 전가조건과 경쟁사 추종 여부를 분리해 확인해야 한다.",
+      "fact": "Hunan Yuneng은 하류 고객에 LFP 전 제품 가격조정 통지를 보냈다고 회사 증권부가 확인했다. 보도된 적용시점은 2026년 8월 1일이며 인상폭은 t당 2000위안이다.",
+      "implication": [
+        "주요 LFP 업체의 전 제품 일괄 인상방침은 공급자 가격전략 변화의 관찰 근거다.",
+        "실제 시장가격 전환 여부는 고객별 계약조건과 경쟁사 대응에서 확인된다.",
+        "원재료 가격과 제품등급별 인상폭이 후속 점검 대상이다."
+      ],
+      "urls": [
+        "https://libattery.ofweek.com/2026-07/ART-36002-8110-30694894.html",
+        "http://www.cbea.com/djgc/202607/747383.html",
+        "https://finance.sina.com.cn/roll/2026-07-17/doc-iniiatfa7451111.shtml"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://libattery.ofweek.com/2026-07/ART-36002-8110-30694894.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "OFweek Li-Battery"
+        },
+        {
+          "url": "http://www.cbea.com/djgc/202607/747383.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "CBEA 电池观察"
+        },
+        {
+          "url": "https://finance.sina.com.cn/roll/2026-07-17/doc-iniiatfa7451111.shtml",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "财联社·新浪财经"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "2026-06-17_KR_03",
+          "2026-05-31_KR_01"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-16_US_04",
+      "date": "2026-07-16",
+      "region": "US",
+      "signal": "high",
+      "title": "미네소타 PUC, Midwater 150MW/600MWh BESS 부지허가 승인",
+      "sub": "주 부지허가를 확보했지만 착공·금융조달·계통연계는 후속 절차로 남았다.",
+      "gate": "부지허가는 프로젝트의 개발위험을 낮추는 규제 이정표다. 그러나 금융종결·착공·계통연계 승인을 대신하지 않으므로 후속 계약과 공정개시를 확인해야 한다.",
+      "fact": "미네소타 공공유틸리티위원회는 Spearmint Energy의 Freeborn County Midwater Energy Storage Project에 부지허가를 승인했다. 프로젝트의 제시규모는 150MW/600MWh다.",
+      "implication": [
+        "미네소타의 독립형 BESS가 주 인허가단계를 통과하며 개발경로를 구체화했다.",
+        "허가취득과 실제 건설·가동은 별도 단계로 봐야 한다.",
+        "금융종결, 착공지시와 계통연계계약이 다음 실행기준이다."
+      ],
+      "urls": [
+        "https://mn.gov/puc/activities/meetings/webcast/2026/071626-agenda.jsp",
+        "https://www.morningstar.com/news/business-wire/20260716775457/spearmint-energy-receives-permit-for-600-mwh-minnesota-bess"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://mn.gov/puc/activities/meetings/webcast/2026/071626-agenda.jsp",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Minnesota PUC agenda"
+        },
+        {
+          "url": "https://www.morningstar.com/news/business-wire/20260716775457/spearmint-energy-receives-permit-for-600-mwh-minnesota-bess",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Spearmint Energy release"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "no current-main same-event collision found in metadata/current-main targeted screen",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "verified related_evidence_review; no substantive relation decision changed",
+        "production_id_resolution_required_later": false,
+        "production_id_resolution_status": "PASS",
+        "production_id_resolution_ledger_ref": "related_id_resolution_ledger_20260722_213350_lineage_rerun_v2.json"
+      }
+    },
+    {
+      "id": "2026-07-16_US_02",
+      "date": "2026-07-16",
+      "region": "US",
+      "signal": "high",
+      "title": "UL Solutions, DC 에너지저장시스템 신규 인증경로 도입",
+      "sub": "UL Solutions는 직류 에너지저장시스템을 하나의 평가대상으로 다루는 신규 인증경로를 도입했다.",
+      "gate": "신규 인증경로는 DC측 시스템 조합을 프로젝트 단위로 평가할 제도적 기반을 넓힌다. 그러나 인증경로 도입이 개별 제품의 인증완료나 모든 구성품의 상호운용성 보증을 의미하지는 않는다. 실제 적용표준과 첫 인증사례가 시장영향을 구체화한다.",
+      "fact": "UL Solutions는 직류 에너지저장시스템을 위한 새로운 인증경로를 도입했다고 밝혔다. 이 조치는 DC측 시스템을 인증대상으로 평가할 수 있는 절차를 제시한다. 개별 제품의 인증여부와 적용범위는 각 평가문서에서 확인해야 한다.",
+      "implication": [
+        "DC측 배터리·전력변환·보호구성의 시스템 단위 검증경로가 마련되면서 프로젝트 승인절차가 구체화될 가능성이 열린다.",
+        "인증범위가 넓어질수록 장비조합과 책임경계의 명확성이 중요해진다.",
+        "첫 인증제품과 프로젝트 승인사례가 해당 경로의 실제 활용도를 판단할 기준이다."
+      ],
+      "urls": [
+        "https://www.ul.com/insights/ul-solutions-introduces-new-certification-pathway-dc-energy-storage-systems"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.ul.com/insights/ul-solutions-introduces-new-certification-pathway-dc-energy-storage-systems",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "UL Solutions"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-16_US_01",
+      "date": "2026-07-16",
+      "region": "US",
+      "signal": "high",
+      "title": "미국, 1,630만/1,510만에이커 해저광물 2개 블록 제시",
+      "sub": "BOEM은 공고가 임대매각이나 탐사 및 수집활동을 보장하지 않는다고 명시해 현재 단계가 개발승인이 아닌 절차 개시임을 분명히 했다.",
+      "gate": "현재 단계는 해저광물 블록을 제시한 공고로 실제 임대계약이나 개발승인이 아니다. 최종 임대결정과 환경 및 탐사 절차가 공급망 의미를 가른다.",
+      "fact": "Mining.com과 Reuters 기반 보도는 제시된 두 해저광물 블록 면적을 각각 1,630만에이커와 1,510만에이커로 전했다. BOEM은 공고 발행이 임대매각 개최나 탐사 및 수집활동을 보장하지 않는다고 명시했다.",
+      "implication": [
+        "미국의 해저 핵심광물 정책이 구체적 면적을 제시하는 절차 단계로 이동했다.",
+        "블록 면적은 자원량이나 상업생산량과 동일하지 않다.",
+        "최종 임대결정과 환경 및 탐사 절차가 실제 공급망 의미의 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://www.boem.gov/newsroom/press-releases/mma-drives-next-step-americas-offshore-critical-mineral-strategy",
+        "https://www.mining.com/web/us-proposes-lease-of-seabed-mining-blocks-off-american-samoa-coast"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.boem.gov/newsroom/press-releases/mma-drives-next-step-americas-offshore-critical-mineral-strategy",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "BOEM official"
+        },
+        {
+          "url": "https://www.mining.com/web/us-proposes-lease-of-seabed-mining-blocks-off-american-samoa-coast",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Mining.com and Reuters"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    }
+  ]
+}

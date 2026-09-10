@@ -1,0 +1,1418 @@
+{
+  "month": "2026-07",
+  "signal": "mid",
+  "batch": 2,
+  "count": 25,
+  "cards": [
+    {
+      "id": "2026-07-08_US_02",
+      "date": "2026-07-08",
+      "region": "US",
+      "signal": "mid",
+      "title": "Palmetto, 미국 25개 주에 10·12년 가정용 배터리 리스 출시",
+      "sub": "LightReach가 설비를 소유하고 무선납·유지보수를 제공하며 종료 시 갱신·연차별 매입·1000달러 철거 선택을 둔다.",
+      "gate": "제품은 단순 구독이 아니라 장기 설비리스로 월 납입액과 총 금융비용이 고객별 경제성을 좌우한다. 공개된 종료조건을 반영해 실제 월요금·설치대수·해지·주택매각 시 승계성과를 확인해야 한다.",
+      "fact": "Palmetto LightReach는 미국 25개 주에서 초기비용 없이 가정용 배터리를 제공하는 Energy Backup Plan을 출시했다. 계약기간은 10년 또는 12년이며 설비는 LightReach가 소유하고 주요 유지보수·수리를 부담한다. 계약종료 시 1년 자동갱신 또는 3년 갱신, 설비매입, 새 리스 업그레이드가 가능하며 반환·철거를 선택하면 1000달러 철거비가 부과된다.",
+      "implication": [
+        "가정용 ESS의 초기구매비를 서비스사업자의 장기자산과 월납구조로 전환해 설치수요를 넓히는 금융모델이다.",
+        "유지보수와 소유권을 사업자가 보유해 고객부담을 낮추지만 장기총비용·매입가격·철거비를 함께 비교해야 한다.",
+        "25개 주의 실제 설치량·연체·승계·갱신률이 배터리 리스모델의 자산수익성과 확장성을 결정한다."
+      ],
+      "urls": [
+        "https://www.prnewswire.com/news-releases/palmetto-launches-energy-backup-plan-to-make-wholehome-battery-backup-accessible-to-consumers-302821234.html",
+        "https://pv-magazine-usa.com/2026/07/10/palmetto-launches-standalone-residential-battery-subscription-plan",
+        "https://help.palmetto.finance/en/articles/12014848-energy-backup-program-overview",
+        "https://help.palmetto.finance/en/articles/12070242-energy-backup-end-of-term-options"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.prnewswire.com/news-releases/palmetto-launches-energy-backup-plan-to-make-wholehome-battery-backup-accessible-to-consumers-302821234.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Palmetto / PR Newswire"
+        },
+        {
+          "url": "https://pv-magazine-usa.com/2026/07/10/palmetto-launches-standalone-residential-battery-subscription-plan",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "pv magazine USA"
+        },
+        {
+          "url": "https://help.palmetto.finance/en/articles/12014848-energy-backup-program-overview",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Palmetto LightReach"
+        },
+        {
+          "url": "https://help.palmetto.finance/en/articles/12070242-energy-backup-end-of-term-options",
+          "supports": [
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Palmetto LightReach"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-08_US_01",
+      "date": "2026-07-08",
+      "region": "US",
+      "signal": "mid",
+      "title": "미 법원, Alta Wind 현금보조금 산정에 수정 원가법·개발이익률 적용",
+      "sub": "적격유형자산 가치에서 개발권을 제외하고 건설중이자·개발수수료를 포함한 뒤 Alta I 15%, II~VI 20% 개발이익을 적용한다.",
+      "gate": "판결은 풍력 Section 1603 현금보조금과 IRC 1060 자산배분 분쟁에 한정되며 배터리·ESS 세액공제에 자동 적용되는 판례로 볼 수 없다. 7월 31일 공동계산과 최종 금액판결·항소가 실제 재정효과의 다음 기준이다.",
+      "fact": "미 연방청구법원은 Alta Wind 사건에서 원고의 수익접근법을 배제하고 수정 원가접근법으로 보조금 적격 유형자산 가치를 계산하도록 했다. 법원은 KPMG 원가분리보고서에서 개발권을 제외하고 건설기간 이자와 Oak Creek 개발수수료를 포함하며 독립 턴키 프리미엄은 인정하지 않았다. 개발이익률은 Alta I에 15%, Alta II~VI에 20%를 적용하고 그 가치의 30%를 Section 1603 현금보조금으로 계산해 7월 31일까지 공동보고하도록 명령했다.",
+      "implication": [
+        "재생에너지 프로젝트 인수에서 전체 사업가치와 보조금 적격 유형자산 원가를 분리해 입증해야 한다는 가치평가 기준이 구체화됐다.",
+        "원가분리보고서·간접건설비·시장근거 개발이익률의 문서화가 정부지원 분쟁의 핵심 방어자료가 될 수 있다.",
+        "풍력 Section 1603 사건의 사실판단인 만큼 다른 세액공제·저장자산에 적용하려면 각 제도와 자산분류를 별도로 검토해야 한다."
+      ],
+      "urls": [
+        "https://docs.justia.com/cases/federal/district-courts/federal-claims/cofce/1%3A2013cv00402/28087/494",
+        "https://www.hklaw.com/en/insights/publications/2026/07/court-rejects-income-approach-adopts-modified-cost-methodology",
+        "https://law.justia.com/cases/federal/district-courts/federal-claims/cofce/1%3A2013cv00402/28087/494/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://docs.justia.com/cases/federal/district-courts/federal-claims/cofce/1%3A2013cv00402/28087/494",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "U.S. Court of Federal Claims / Justia docket mirror"
+        },
+        {
+          "url": "https://www.hklaw.com/en/insights/publications/2026/07/court-rejects-income-approach-adopts-modified-cost-methodology",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Holland & Knight"
+        },
+        {
+          "url": "https://law.justia.com/cases/federal/district-courts/federal-claims/cofce/1%3A2013cv00402/28087/494/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "U.S. Court of Federal Claims / Justia"
+        },
+        {
+          "url": "https://www.hklaw.com/en/insights/publications/2026/07/court-rejects-income-approach-adopts-modified-cost-methodology",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Holland & Knight"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-08_GL_03",
+      "date": "2026-07-08",
+      "region": "GL",
+      "signal": "mid",
+      "title": "Carla, 스웨덴 중고 EV 배터리 진단 9,954건 공개",
+      "sub": "2022~2026년 배터리 진단 9,954건에서 10만km 이후 차종별 건강도를 비교했지만, 통제된 수명시험은 아니다.",
+      "gate": "중고차 판매플랫폼이 보유한 판매차량 기반 진단자료는 실제 사용환경의 신호를 제공하지만 통제된 수명시험이 아니다. 차종별 표본수와 연식·기후·충전이력이 공개되지 않았고, 초기 Kona Electric의 리콜 교체팩이 제외됐는지도 불명확해 차종순위를 일반화할 수 없다.",
+      "fact": "InsideEVs는 Carla가 2022~2026년 실시한 EV 배터리 건강도 검사 9,954건을 분석했다고 보도했다. 10만km 기준 평균 건강도는 Kia e-Niro 97.25%, Hyundai Kona Electric 97.18%, Kia EV6 95.95%로 제시됐다.",
+      "implication": [
+        "중고 EV 가격평가에서 주행거리뿐 아니라 제3자 배터리 진단값을 활용하는 흐름이 관찰된다.",
+        "상위 차종 결과는 표본구성과 교체팩 포함 여부의 영향을 받을 수 있어 화학계·차종의 인과 우위로 해석할 수 없다.",
+        "차종별 표본수, 연식·충전이력과 리콜 교체팩 처리방식 공개가 다음 검증 기준이다."
+      ],
+      "urls": [
+        "https://insideevs.com/news/801624/sweden-batter-degradation-group-test/",
+        "https://elbilsvarlden.se/resultat-av-batteritester-for-svenska-elbilar/",
+        "https://support.carla.se/fr%C3%A5gor-och-svar/hur-genomf%C3%B6rs-batteritesterna"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://insideevs.com/news/801624/sweden-batter-degradation-group-test/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "InsideEVs"
+        },
+        {
+          "url": "https://elbilsvarlden.se/resultat-av-batteritester-for-svenska-elbilar/",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Elbilsvärlden"
+        },
+        {
+          "url": "https://support.carla.se/fr%C3%A5gor-och-svar/hur-genomf%C3%B6rs-batteritesterna",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "publisher": "Carla"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "R9_20"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-08_EU_04",
+      "date": "2026-07-08",
+      "region": "EU",
+      "signal": "mid",
+      "title": "Kempower·DLL 리스 모델, 영국 Astwick 충전소에 적용",
+      "sub": "HSRL의 Astwick 충전소에서 Kempower 하드웨어에 영국 최초의 유연한 리스 옵션이 적용됐다고 현지 보도가 확인했다.",
+      "gate": "Astwick 충전소 자체는 4월 이미 가동 중이었던 것으로 확인돼 8월 신규 준공 사건으로 보면 안 된다. 이번 신호의 핵심은 기존 운영 사이트에 Kempower·DLL 리스형 조달 구조가 적용됐다는 점이며, 추가 사이트 확산과 실제 리스 조건이 상업성 판단의 다음 기준이다.",
+      "fact": "The Energyst는 7월 8일 Astwick에서 Kempower 하드웨어가 영국에서 처음으로 유연한 리스 옵션과 함께 제공됐다고 보도했다. Forecourt Trader는 같은 Astwick 사이트가 4월 이미 400kW DC 급속충전기 4기를 운영 중이었다고 확인했다.",
+      "implication": [
+        "리스형 조달이 실제 운영 충전소에 적용되면서 영국 충전사업자의 초기 설비투자 부담을 낮출 수 있는 선택지가 구체화됐다.",
+        "다만 단일 사이트 사례이므로 채택 확산 여부는 후속 프로젝트 수와 계약 조건으로 확인해야 한다.",
+        "Astwick 이용률·추가 사이트 적용·리스 기간과 비용이 공개되면 금융모델의 반복 가능성을 더 정확히 판단할 수 있다."
+      ],
+      "urls": [
+        "https://theenergyst.com/yunex-completes-ev-charging-station-for-hsrl/",
+        "https://forecourttrader.co.uk/latest-news/highway-stops-charges-ahead-with-ev-installations/717321.article",
+        "https://investors.kempower.com/releases/dll-and-kempower-introduce-financing-solutions-to-support-ev-charging-deployment-and-affordability/",
+        "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://theenergyst.com/yunex-completes-ev-charging-station-for-hsrl/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "The Energyst"
+        },
+        {
+          "url": "https://forecourttrader.co.uk/latest-news/highway-stops-charges-ahead-with-ev-installations/717321.article",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "Forecourt Trader"
+        },
+        {
+          "url": "https://investors.kempower.com/releases/dll-and-kempower-introduce-financing-solutions-to-support-ev-charging-deployment-and-affordability/",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "publisher": "Kempower"
+        },
+        {
+          "url": "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/",
+          "supports": [
+            "title",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Kempower"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Prompt 0.4 full current-main baseline revalidation found no same-event canonical collision and classified this candidate as a new event.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": [],
+        "materialization_basis": "Prompt 0.4 current-main baseline revalidation decision materialized into current lifecycle contract; no editorial relation decision reopened.",
+        "production_id_resolution_required_later": false
+      }
+    },
+    {
+      "id": "2026-07-08_EU_03",
+      "date": "2026-07-08",
+      "region": "EU",
+      "signal": "mid",
+      "title": "AGC 프랑스 유리공장, 2.4MW·4.8MWh LFP BESS 도입",
+      "sub": "AGC Glass Europe은 프랑스 Seingbouse 유리공장에 2.4MW·4.8MWh LFP BESS를 설치하고 전력비 최적화와 계통서비스 운영을 맡겼다.",
+      "gate": "전력다소비 제조공장이 BESS를 비용관리와 계통서비스에 함께 활용하는 운영모델이다. 절감액, 가동률과 보조서비스 수익은 공개되지 않아 경제성을 단정할 수 없다. 실제 부하연계 성과와 수익배분이 다음 판단기준이다.",
+      "fact": "AGC Glass Europe은 프랑스 Seingbouse 유리공장에 2.4MW·4.8MWh LFP BESS를 설치했다. E.ON은 설비금융과 설치를 담당했다. Storio Energy는 전력흐름·수익 최적화와 보조서비스 운영을 맡는다.",
+      "implication": [
+        "전력다소비 제조업이 BESS를 피크관리뿐 아니라 계통서비스 수익원과 결합하는 사례다.",
+        "금융·설치·운영을 분리한 서비스형 구조는 초기 투자부담을 분산할 수 있다.",
+        "절감액, 보조서비스 수익과 설비 가동률이 산업용 BESS 모델의 확장성을 판단할 핵심이다."
+      ],
+      "urls": [
+        "https://www.pv-magazine.fr/2026/07/20/bess-48-mwh-de-capacite-de-stockage-pour-agc-glass-europe/",
+        "https://www.euro-energie.com/agc-glass-europe-et-storio-energy-le-stockage-par-batterie-au-service-d-une-industrie-competitive-et-durable-n-12261",
+        "https://storioenergy.com/en"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.pv-magazine.fr/2026/07/20/bess-48-mwh-de-capacite-de-stockage-pour-agc-glass-europe/",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "pv magazine France"
+        },
+        {
+          "url": "https://www.euro-energie.com/agc-glass-europe-et-storio-energy-le-stockage-par-batterie-au-service-d-une-industrie-competitive-et-durable-n-12261",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Euro-Energie"
+        },
+        {
+          "url": "https://storioenergy.com/en",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Storio Energy official"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-08_EU_01",
+      "date": "2026-07-08",
+      "region": "EU",
+      "signal": "mid",
+      "title": "UNIGRID, 유럽에 나트륨이온 주택용 ESS 첫 설치…2027년 2GWh 목표",
+      "sub": "현재 셀 생산 200MWh/년에서 한·중·일 파운드리를 통해 2027년 2GWh/년으로 확대하고 미국 설치는 추가 규제요건 충족을 전제로 한다.",
+      "gate": "유럽 첫 설치는 제품발표를 넘어선 실행이지만 고객수·설치용량·운전데이터가 공개된 대규모 상용배치는 아니다. 미국 규제적합성과 파운드리 증설, 실제 주문·고장률이 확장성의 다음 기준이다.",
+      "fact": "UNIGRID는 7월 8일 Na+Casa 나트륨이온 주거용 ESS의 첫 물량을 출하해 유럽 주택에 설치했다고 밝혔다. 회사는 현재 셀을 연 200MWh 생산하고 중국·한국·일본 파운드리 관계를 통해 2027년 연 2GWh로 확대할 계획이다. 제품은 영하 40도에서 영상 60도 운전을 제시하며 미국 주택 설치는 북미 나트륨이온 배터리의 추가 규제요건 완료를 전제로 2026년 말로 예상한다.",
+      "implication": [
+        "나트륨이온이 시제품을 넘어 주택용 ESS 현장설치와 공급망 증설계획을 함께 제시한 초기 상용화 신호다.",
+        "아시아 유휴·위탁생산 역량을 활용하는 2GWh 확대계획은 자체공장 건설보다 자본집약도를 낮출 수 있지만 파운드리 의존을 만든다.",
+        "미국 규제승인과 유럽 설치대수·장기성능, 200MWh에서 2GWh로의 실제 생산증가가 다음 검증기준이다."
+      ],
+      "urls": [
+        "https://electrek.co/2026/07/10/sodium-ion-home-battery-startup-unigrid-ships-first-units/",
+        "https://www.globenewswire.com/news-release/2026/07/08/3324164/0/en/UNIGRID-Ships-First-Sodium-Ion-Residential-Batteries.html",
+        "https://www.pv-magazine.com/2026/07/08/unigrid-unveils-sodium-ion-residential-energy-storage-systems/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://electrek.co/2026/07/10/sodium-ion-home-battery-startup-unigrid-ships-first-units/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Electrek"
+        },
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/07/08/3324164/0/en/UNIGRID-Ships-First-Sodium-Ion-Residential-Batteries.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "UNIGRID / GlobeNewswire"
+        },
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/07/08/3324164/0/en/UNIGRID-Ships-First-Sodium-Ion-Residential-Batteries.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "UNIGRID / GlobeNewswire"
+        },
+        {
+          "url": "https://www.pv-magazine.com/2026/07/08/unigrid-unveils-sodium-ion-residential-energy-storage-systems/",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "pv magazine"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-08_CN_01",
+      "date": "2026-07-08",
+      "region": "CN",
+      "signal": "mid",
+      "title": "허페이 윈산동력, 1억위안 46시리즈 원통형 배터리 팩라인 착공",
+      "sub": "1.2만㎡ 이상 임차공장에 46시리즈 팩 조립기지를 구축해 2026년 말 전면가동을 목표로 하며, 셀 생산능력은 별도 닝보 기지 수치다.",
+      "gate": "착공과 투자·공장면적은 실행사건이지만 4억위안 연간 생산액은 목표치이며 실제 매출이 아니다. 닝보 1.5GWh 셀라인을 허페이 팩라인 생산능력으로 합산하지 않는다.",
+      "fact": "허페이 고신구 투자플랫폼은 2026년 7월 8일 허페이 윈산동력의 대형 원통형 배터리 팩라인 착공을 발표했다. 총투자는 1억위안이고 1.2만㎡가 넘는 임차공장에 46시리즈 초급속충전 배터리 팩기지를 구축해 2026년 말 전면 가동을 목표로 한다.",
+      "implication": [
+        "원통형 셀 제조와 팩 시스템 통합을 지역 간 분업으로 묶는 생산구조가 관찰된다.",
+        "연말 가동과 연간 생산액은 목표이므로 실제 가동·매출과 구분해야 한다.",
+        "설비 반입·시생산·고객인증과 실제 생산량이 다음 실행 기준이다."
+      ],
+      "urls": [
+        "https://www.hfgxt.com.cn/index.php?a=show&c=content&id=3263"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.hfgxt.com.cn/index.php?a=show&c=content&id=3263",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "허페이 고신창투"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "D_02",
+          "2026-04-30_KR_02"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-07_US_01",
+      "date": "2026-07-07",
+      "region": "US",
+      "signal": "mid",
+      "title": "ChargePoint와 Optimus, 미국 남동부 공공충전포트 200개 이상 확대",
+      "sub": "Optimus가 충전부지를 소유 및 운영하고 ChargePoint가 하드웨어, 소프트웨어, 서비스를 독점 공급하는 역할분담 구조다.",
+      "gate": "200개 이상은 신규 구축계획이지 현재 가동포트가 아니다. 부지확정과 설치속도, 실제 개통실적이 실행력을 가른다.",
+      "fact": "ChargePoint는 2026년 7월 7일 Optimus Energy Solutions와 미국 남동부 공공충전망에 신규 포트 200개 이상을 추가한다고 발표했다. ChargePoint는 독점 솔루션 공급자, Optimus는 충전부지 소유 및 운영자 역할을 맡는다.",
+      "implication": [
+        "충전솔루션 공급사와 지역 운영사가 자산소유와 기술공급을 분담하는 확장모델이 확인된다.",
+        "200개 이상은 계획규모이므로 현재 운영망과 분리해 봐야 한다.",
+        "부지확정과 설치완료, 개통포트가 사업진척의 다음 판단기준이다."
+      ],
+      "urls": [
+        "https://www.chargepoint.com/about/news/chargepoint-and-optimus-energy-solutions-partner-build-new-fast-charging-network-eastern?change_location=1",
+        "https://www.electrive.com/2026/07/17/chargepoint-expands-charging-network-in-eastern-us/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.chargepoint.com/about/news/chargepoint-and-optimus-energy-solutions-partner-build-new-fast-charging-network-eastern?change_location=1",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "ChargePoint official"
+        },
+        {
+          "url": "https://www.electrive.com/2026/07/17/chargepoint-expands-charging-network-in-eastern-us/",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "electrive"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-07_GL_08",
+      "date": "2026-07-07",
+      "region": "GL",
+      "signal": "mid",
+      "title": "Berde·Sungrow·Solar Hive, 동남아 500MWh BESS 프레임워크 체결",
+      "sub": "향후 3년간 필리핀·태국에서 200MW 인버터와 500MWh BESS를 조달하는 마스터 프레임워크를 체결했다.",
+      "gate": "마스터 프레임워크는 협력 범위와 향후 조달규모를 제시하지만 확정 수주나 즉시 매출을 뜻하지 않는다. 실제 실행은 프로젝트별 발주·금융·인허가와 첫 납품 확인이 필요하다.",
+      "fact": "Berde Renewables는 2026년 7월 7일 Sungrow와 Solar Hive가 참여한 동남아 파트너십을 발표했다. 마스터 프레임워크는 필리핀과 태국에서 향후 3년간 200MW 인버터와 500MWh BESS를 조달하는 범위를 담고 있다. 개별 프로젝트 발주와 납품 일정은 별도 확인이 필요하다.",
+      "implication": [
+        "동남아 상업·산업용 재생에너지 개발에서 저장장치가 패키지 조달범위에 포함된 흐름이 관찰된다.",
+        "500MWh 전체를 확정 발주량으로 해석할 수 없다.",
+        "첫 프로젝트 발주, 금융구조와 납품 일정이 다음 실행 기준이다."
+      ],
+      "urls": [
+        "https://berderenewables.com/berde-renewables-with-sungrow-and-solar-hive-launch-200mw-solar-and-500mwh-battery-storage-partnership-in-southeast-asia/",
+        "https://businessmirror.com.ph/2026/07/07/berde-sungrow-team-up-for-clean-energy-projects/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://berderenewables.com/berde-renewables-with-sungrow-and-solar-hive-launch-200mw-solar-and-500mwh-battery-storage-partnership-in-southeast-asia/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Berde Renewables"
+        },
+        {
+          "url": "https://businessmirror.com.ph/2026/07/07/berde-sungrow-team-up-for-clean-energy-projects/",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "publisher": "BusinessMirror"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "2026-05-13_CN_02",
+          "2026-06-17_EU_01"
+        ]
+      }
+    },
+    {
+      "id": "2026-07-07_GL_07",
+      "date": "2026-07-07",
+      "region": "GL",
+      "signal": "mid",
+      "title": "JSW 그린모빌리티, 리튬어번 전략적 지분 인수",
+      "sub": "양사는 향후 2년간 전기차 플릿 사업을 3배로 확대한다는 목표를 제시해 운영사업 확장에 자본을 투입했다.",
+      "gate": "지분 인수는 확인됐지만 3배 확대는 향후 목표다. 실제 차량 운영대수와 고객확대가 투자효과를 판단하는 핵심 지표다.",
+      "fact": "JSW 그린모빌리티는 리튬어번 테크놀로지스의 전략적 지분을 인수했다. 양사는 이번 투자를 바탕으로 향후 2년간 리튬어번의 전기차 플릿 사업을 3배로 확대한다는 목표를 제시했다.",
+      "implication": [
+        "전기차 플릿 운영사에 전략적 지분으로 진입하는 모빌리티 투자구조가 관찰된다.",
+        "사업 확대 목표가 실제 차량 운영대수와 고객계약 증가로 이어지는지가 투자성과의 핵심 기준이다.",
+        "3배 확대는 목표치이므로 현재 운영실적이나 확정 투자금액으로 해석하지 않아야 한다."
+      ],
+      "urls": [
+        "https://www.electrive.com/2026/07/07/jsw-green-mobility-acquires-lithium-urban-stake",
+        "https://timesofindia.indiatimes.com/auto/news/jsw-invests-in-ev-fleet-operator-lithium-urban-key-details/articleshow/131991040.cms"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.electrive.com/2026/07/07/jsw-green-mobility-acquires-lithium-urban-stake",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Electrive"
+        },
+        {
+          "url": "https://www.electrive.com/2026/07/07/jsw-green-mobility-acquires-lithium-urban-stake",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Electrive"
+        },
+        {
+          "url": "https://timesofindia.indiatimes.com/auto/news/jsw-invests-in-ev-fleet-operator-lithium-urban-key-details/articleshow/131991040.cms",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "publisher": "The Times of India"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-07_GL_06",
+      "date": "2026-07-07",
+      "region": "GL",
+      "signal": "mid",
+      "title": "인도·인도네시아, 핵심광물 공급망 포함 20개 협력문서 체결",
+      "sub": "희토류 가공과 핵심광물·철강 공급망 MOU에 더해 철강·니켈·희토류 영구자석 제조투자와 기업 파트너십이 발표됐다.",
+      "gate": "정부 간 협력문서와 기업 파트너십 발표로 공급망 협력범위는 구체화됐다. 스테인리스강 합작법인 설립과 철강·니켈·희토류 자석 제조투자의 계약조건·투자액·설비일정이 실제 실행성을 가르는 다음 기준이다.",
+      "fact": "인도와 인도네시아는 핵심광물을 포함한 20건의 협력문서를 체결했다. Reuters는 양국이 핵심광물·철강 공급망 강화를 위한 MOU에 서명했고 인도 철강공사와 크라카타우스틸이 인도네시아에 스테인리스강 슬래브 합작법인을 설립한다고 보도했다. Times of India는 철강·니켈·희토류 영구자석 제조투자와 스테인리스강·희토류 자석 기업 파트너십도 발표됐다고 전했다.",
+      "implication": [
+        "양국 협력이 원료 채굴·가공에서 희토류 자석과 스테인리스강 제조까지 확장되는 흐름이 관찰된다.",
+        "핵심광물과 철강을 함께 묶은 협력은 인도네시아 자원과 인도 제조기업을 연결하는 공급망 구조를 만들 수 있다.",
+        "합작법인 계약조건과 투자액, 제조설비 일정이 발표 단계의 협력을 실제 공급망 실행으로 전환하는 판단 기준이다."
+      ],
+      "urls": [
+        "https://tvbrics.com/en/news/india-and-indonesia-sign-20-cooperation-agreements-on-space-digital-technology-and-critical-minerals",
+        "https://www.reuters.com/world/asia-pacific/indias-modi-meet-indonesias-prabowo-talks-defence-food-security-2026-07-07/",
+        "https://timesofindia.indiatimes.com/business/india-business/india-bets-on-critical-minerals-rare-earths-and-chips-partnerships/articleshow/132241508.cms"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://tvbrics.com/en/news/india-and-indonesia-sign-20-cooperation-agreements-on-space-digital-technology-and-critical-minerals",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "TV BRICS"
+        },
+        {
+          "url": "https://tvbrics.com/en/news/india-and-indonesia-sign-20-cooperation-agreements-on-space-digital-technology-and-critical-minerals",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "TV BRICS"
+        },
+        {
+          "url": "https://tvbrics.com/en/news/india-and-indonesia-sign-20-cooperation-agreements-on-space-digital-technology-and-critical-minerals",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "TV BRICS"
+        },
+        {
+          "url": "https://www.reuters.com/world/asia-pacific/indias-modi-meet-indonesias-prabowo-talks-defence-food-security-2026-07-07/",
+          "supports": [
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        },
+        {
+          "url": "https://timesofindia.indiatimes.com/business/india-business/india-bets-on-critical-minerals-rare-earths-and-chips-partnerships/articleshow/132241508.cms",
+          "supports": [
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "The Times of India"
+        },
+        {
+          "url": "https://timesofindia.indiatimes.com/business/india-business/india-bets-on-critical-minerals-rare-earths-and-chips-partnerships/articleshow/132241508.cms",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "The Times of India"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-07_GL_05",
+      "date": "2026-07-07",
+      "region": "GL",
+      "signal": "mid",
+      "title": "중국계 BESS 통합사, 2025년 세계시장 76%·상위 10개 중 8개",
+      "sub": "우드매켄지 집계에서 테슬라와 선그로우가 1·2위, BYD가 3위를 차지해 시스템 통합 경쟁의 중국계 집중도를 드러냈다.",
+      "gate": "이 순위는 BESS 시스템 통합사 기준이며 배터리셀 제조사 점유율과 구분해야 한다. 미국의 국내조달 요건과 유럽의 공급망 현지화 정책, 호주의 기술·금융요건 때문에 글로벌 순위가 지역별 실제 수주구조와 그대로 일치하지 않을 수 있다.",
+      "fact": "우드매켄지의 글로벌 에너지저장 시스템 통합사 보고서에 따르면 중국계 기업은 2025년 세계 BESS 통합시장 점유율 76%를 차지했다. 상위 10개사 중 8개가 중국계였다. 테슬라와 선그로우는 1·2위를 유지했고 BYD는 3위로 올라섰다.",
+      "implication": [
+        "셀 공급을 넘어 시스템 설계·통합에서도 중국계 사업자의 높은 집중도가 관찰된다.",
+        "테슬라·선그로우·BYD의 상위권 경쟁은 통합역량과 프로젝트 수주가 함께 비교되는 시장구조를 보여준다.",
+        "통합사 정의와 조사범위뿐 아니라 지역별 국내조달·기술·금융요건을 함께 봐야 글로벌 순위의 실제 사업영향을 판단할 수 있다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/chinese-system-integrators-capture-76-of-global-bess-market-as-competition-intensifies",
+        "https://www.reuters.com/business/energy/battery-storage-outlook-boosted-by-thirst-firm-power--reeii-2026-02-03/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.energy-storage.news/chinese-system-integrators-capture-76-of-global-bess-market-as-competition-intensifies",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Energy-Storage.News"
+        },
+        {
+          "url": "https://www.energy-storage.news/chinese-system-integrators-capture-76-of-global-bess-market-as-competition-intensifies",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Energy-Storage.News"
+        },
+        {
+          "url": "https://www.energy-storage.news/chinese-system-integrators-capture-76-of-global-bess-market-as-competition-intensifies",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "Energy-Storage.News"
+        },
+        {
+          "url": "https://www.energy-storage.news/chinese-system-integrators-capture-76-of-global-bess-market-as-competition-intensifies",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "publisher": "Energy-Storage.News"
+        },
+        {
+          "url": "https://www.energy-storage.news/chinese-system-integrators-capture-76-of-global-bess-market-as-competition-intensifies",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "publisher": "Energy-Storage.News"
+        },
+        {
+          "url": "https://www.reuters.com/business/energy/battery-storage-outlook-boosted-by-thirst-firm-power--reeii-2026-02-03/",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "publisher": "Reuters Events"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-06_KR_04",
+      "date": "2026-07-06",
+      "region": "KR",
+      "signal": "mid",
+      "title": "관세청, 무역안보 범죄 7,703억원 적발…AI 서버 816대 무허가 반출 차단",
+      "sub": "올해 5월 말 기준 무역안보 침해 범죄 적발액이 7,703억원으로 작년 연간 실적을 넘어섰고, AI 서버·배터리·반도체 장비 사례가 함께 제시됐다.",
+      "gate": "확인된 것은 전자신문 기사 본문으로 검증되는 관세청 발표 인용 수치와 사례다. 관세청 공식 보도자료 URL은 검색에서 아직 확인되지 않았으므로, 법적 처분 단계·사건별 확정판결·개별 기업명·상세 품목분류·수출통제 근거는 단정하지 않는다.",
+      "fact": "전자신문은 관세청이 2026년 5월 말 기준 7,703억원 규모의 무역안보 침해 범죄를 적발했다고 보도했다. 기사에 따르면 국산 둔갑 우회수출 적발액은 5,273억원, 전략물자 불법수출은 2,430억원이며, 고성능 GPU가 탑재된 AI 서버 816대, 2,500억원 상당을 수출 허가 없이 해외로 반출한 국제조직도 국제공조로 적발됐다. 외국산 전기이륜차 배터리 4,606개를 한국산으로 위장해 제3국으로 수출한 사례와 외국산 반도체 장비 23만점을 MADE IN KOREA로 둔갑시킨 사례도 제시됐다.",
+      "implication": [
+        "배터리·반도체·AI 서버 공급망은 관세·원산지·전략물자 통제까지 포함한 무역안보 리스크로 관리해야 한다.",
+        "한국산 원산지 프리미엄을 악용한 우회수출은 국내 소재·장비기업의 거래상대방 실사와 증빙관리 부담을 키운다.",
+        "후속 판단은 관세청 공식자료, 사건별 처분 결과, AI 서버 수출통제 근거, 원산지 검증 강화 여부를 기준으로 해야 한다."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260706000142"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.etnews.com/20260706000142",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "전자신문"
+        },
+        {
+          "url": "https://www.etnews.com/20260706000142",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "전자신문"
+        },
+        {
+          "url": "https://www.etnews.com/20260706000142",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "전자신문"
+        },
+        {
+          "url": "https://www.etnews.com/20260706000142",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "전자신문"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-06_CN_02",
+      "date": "2026-07-06",
+      "region": "CN",
+      "signal": "mid",
+      "title": "중국, NEV 차량·선박세 혜택 일부 종료…보조금 이후 ‘정책 정상화’ 구간 진입",
+      "sub": "2027년부터 순수전기 상용차·PHEV·연료전지 상용차의 차량·선박세 우대가 조정되는 사안으로, 순수전기 승용차 전체 보조금 종료나 차량구매세 종료로 확대하면 안 된다.",
+      "gate": "확인된 것은 차량·선박세 우대정책 조정이다. 이는 차량구매세 감면 종료나 순수전기 승용차 전체에 대한 보조금 종료가 아니며, 구매보조금·차량구매세·차량선박세를 혼용하면 안 된다. 품목별 세액, 적용대상 차종, 카탈로그 편입 여부는 공식 공고 원문과 후속 목록 기준으로 재확인해야 한다.",
+      "fact": "재정부·세무총국·공신부의 2026년 제19호 공고를 인용한 보도에 따르면, 2027년부터 일부 NEV 차종의 차량·선박세 우대가 조정된다. 이번 조정은 순수전기 승용차 전체의 직접 보조금 종료가 아니라, 순수전기 상용차·PHEV·연료전지 상용차 등 특정 범주의 차량·선박세 혜택 변경으로 좁혀 읽어야 한다.",
+      "implication": [
+        "중국 NEV 정책은 전면 보조금 확대 국면에서 세제·카탈로그·기술요건 중심의 선별 지원 국면으로 이동하고 있다.",
+        "상용차·PHEV·연료전지차의 TCO에는 세제 조정이 직접 영향을 줄 수 있어 fleet 구매와 배터리 수요 믹스 변화를 볼 필요가 있다.",
+        "후속 판단은 차량구매세 감면, 차량·선박세, 지방 보조금, 카탈로그 기술요건을 분리해 추적해야 한다."
+      ],
+      "urls": [
+        "https://www.hellot.net/news/article.html?no=113632",
+        "http://www.d1ev.com/news/shichang/305670"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.hellot.net/news/article.html?no=113632",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "헬로티"
+        },
+        {
+          "url": "http://www.d1ev.com/news/shichang/305670",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "第一电动 市场"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_KR_03",
+      "date": "2026-07-03",
+      "region": "KR",
+      "signal": "mid",
+      "title": "건국대, LMFP 표면집중형 Ta 도핑으로 고율·저온·고온저장 안정성 개선 보고",
+      "sub": "벌크 전체가 아닌 입자 표면 인근에 탄탈럼을 선택적으로 배치해 계면열화와 리튬이온 수송을 동시에 제어한 소재설계다.",
+      "gate": "현재 증거패키지로는 탄탈럼 투입량, 전극 로딩, 비교군, C-rate·온도·사이클 조건별 절대 성능값을 완전 비교하기 어렵다. 탄탈럼 원가와 조달성, 대량합성의 표면도핑 균일성, 풀셀 장기수명, 실제 저온·고온 운전에서의 재현성까지 확인돼야 양산가치를 판단할 수 있다.",
+      "fact": "건국대 연구팀은 탄탈럼의 상대적으로 느린 확산을 이용해 LMFP 입자 내부 전체가 아니라 표면 인근에 도핑원소가 집중되도록 설계했다. 연구진은 표면구조 안정화와 리튬이온 이동경로 개선을 통해 고율 충·방전과 저온 구동의 성능저하를 완화하고, 고온·고충전 저장조건에서도 용량 유지율을 높였다고 보고했다. 연구결과는 학술지 Small에 게재됐으며, 공개된 실행앵커는 상업제품이 아니라 전극·셀 수준의 학술검증이다.",
+      "implication": [
+        "벌크 도핑보다 표면 취약부를 선택적으로 보강해 첨가원소 사용량과 구조변형을 줄일 수 있는 설계방향이다.",
+        "LMFP의 저온출력·고율특성이 개선되면 중저가 EV와 ESS에서 LFP 대비 에너지밀도 우위를 살릴 여지가 커진다.",
+        "다만 탄탈럼의 비용·공급망과 공정균일성이 성능개선분을 상쇄할 수 있어 소재원가와 제조수율을 함께 봐야 한다.",
+        "파일럿 합성, 고면적로딩 풀셀, 장기수명·안전성과 원가 검증이 다음 투자판단 관문이다."
+      ],
+      "urls": [
+        "https://www.newswire.co.kr/newsRead.php?no=1037926",
+        "https://onlinelibrary.wiley.com/doi/10.1002/smll.73307"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.newswire.co.kr/newsRead.php?no=1037926",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "뉴스와이어"
+        },
+        {
+          "url": "https://www.newswire.co.kr/newsRead.php?no=1037926",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "뉴스와이어"
+        },
+        {
+          "url": "https://www.newswire.co.kr/newsRead.php?no=1037926",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "뉴스와이어"
+        },
+        {
+          "url": "https://onlinelibrary.wiley.com/doi/10.1002/smll.73307",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Wiley Small"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_KR_02",
+      "date": "2026-07-03",
+      "region": "KR",
+      "signal": "mid",
+      "title": "KAIST·현대차, 4종 능동공력 통합제어 개발…영암 서킷 연구차량 검증",
+      "sub": "전·후면 네 종류의 가변 공력장치를 하나의 제어기로 묶어 가속·제동·코너링별 항력과 다운포스를 실시간 배분했다.",
+      "gate": "서킷 연구차량 검증은 양산채택이나 실도로 전비개선을 의미하지 않는다. 공개자료에는 항력계수, 다운포스, 랩타임, 제동거리, 주행거리 개선의 정량값이 충분히 제시되지 않았다. 액추에이터 내구성·응답지연·고장안전, 중량·전력소비·원가와 일반도로 규제조건을 추가 검증해야 한다.",
+      "fact": "KAIST 심현철 교수 연구팀은 현대자동차와 협력해 차량 전·후면의 네 종류 능동 공력장치를 단일 제어기로 운용하는 시스템을 개발했다. 알고리즘은 가속도·속도·요레이트·휠속도로 하중이동과 타이어 접지여유를 추정하고 직선가속, 급제동, 좌·우 코너링에 맞는 공력모드를 선택한다. 시뮬레이션과 영암 서킷 연구차량 시험을 수행했으며 관련 논문은 IEEE IV 2026 최우수 학생논문상 1위를 받았다.",
+      "implication": [
+        "EV 성능경쟁이 배터리·모터뿐 아니라 소프트웨어 정의 차체와 공력통합제어로 확장되고 있음을 보여준다.",
+        "주행상황별 항력·다운포스 최적화가 가능하면 고성능과 전비·안전 간 상충을 줄일 수 있다.",
+        "양산가치는 정량 성능개선이 장치원가·중량·소비전력과 유지보수 부담을 상회하는지에 달려 있다.",
+        "완성차 프로그램 채택, 실도로 효율·내구·고장안전 시험과 양산 공급망 선정이 후속 이정표다."
+      ],
+      "urls": [
+        "https://www.todayenergy.kr/news/articleView.html?idxno=299889",
+        "https://www.dailian.co.kr/news/view/1663001/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=299889",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "투데이에너지"
+        },
+        {
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=299889",
+          "supports": [
+            "fact"
+          ],
+          "publisher": "투데이에너지"
+        },
+        {
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=299889",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "투데이에너지"
+        },
+        {
+          "url": "https://www.dailian.co.kr/news/view/1663001/",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "Dailian"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_JP_03",
+      "date": "2026-07-03",
+      "region": "JP",
+      "signal": "mid",
+      "title": "도호쿠대, 리튬금속전지의 협조적 이온수송·SEI 강도 상관관계 규명",
+      "sub": "전해액 농도별 Li⁺·TFSI⁻ 이동과 SEI 기계특성을 함께 측정해 균일 석출과 덴드라이트 억제 조건을 제시했다.",
+      "gate": "LiTFSI·EC-PC 조합과 제한된 실험조건에서 도출된 메커니즘 연구다. 전해액 농도에 따른 점도·이온전도도와 비용, 고면적용량·희박전해액 조건, 양극을 포함한 풀셀 장기수명, 실제 온도범위와 대면적 셀에서의 재현성을 검증해야 한다.",
+      "fact": "도호쿠대 연구진은 LiTFSI 기반 EC-PC 전해액의 농도를 바꾸며 이온수송, 리튬 석출·용해와 SEI 기계특성을 통합 분석했다. PFG-NMR로 ⁷Li와 ¹⁹F 자기확산계수를 측정해 두 이온종이 협조적으로 이동하는 농도영역을 확인했고, 해당 조건에서 리튬 석출·용해가 더 균일하고 가역적으로 나타났다고 보고했다. 나노인덴테이션으로 SEI의 경도·탄성률을 측정해 협조수송과 기계적으로 안정한 SEI, 덴드라이트 억제의 연계를 제시했다.",
+      "implication": [
+        "전해액 최적화 기준을 단순 이온전도도에서 양·음이온 협조수송과 SEI 기계강도의 결합지표로 확장한다.",
+        "리튬금속 음극의 불균일 석출을 전해액 조성·계면물성 동시 설계로 제어할 가능성을 제시한다.",
+        "실용화에서는 고농도 전해액의 원가·점도·습윤성과 고전압 양극 호환성이 성능이득을 제한할 수 있다.",
+        "고면적용량 풀셀, 희박전해액, 장기수명·안전성과 대면적 제조검증이 다음 단계다."
+      ],
+      "urls": [
+        "https://eetimes.itmedia.co.jp/ee/articles/2607/03/news029.html",
+        "https://www.imr.tohoku.ac.jp/ja/news/results/detail---id-1894.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://eetimes.itmedia.co.jp/ee/articles/2607/03/news029.html",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "EE Times Japan"
+        },
+        {
+          "url": "https://eetimes.itmedia.co.jp/ee/articles/2607/03/news029.html",
+          "supports": [
+            "fact"
+          ],
+          "publisher": "EE Times Japan"
+        },
+        {
+          "url": "https://eetimes.itmedia.co.jp/ee/articles/2607/03/news029.html",
+          "supports": [
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "EE Times Japan"
+        },
+        {
+          "url": "https://www.imr.tohoku.ac.jp/ja/news/results/detail---id-1894.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Tohoku University IMR"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_JP_01",
+      "date": "2026-07-03",
+      "region": "JP",
+      "signal": "mid",
+      "title": "도큐부동산·IBeeT·Akaysha, 후쿠오카 20MW·82MWh 계통용 BESS 착공",
+      "sub": "합작법인이 규슈에서 정격 4.1시간 저장설비 건설에 들어가 도매·조정력·용량시장 수익화를 추진한다.",
+      "gate": "당사자 발표 기준 착공으로 CAPEX, 프로젝트 파이낸싱, 배터리·PCS 공급사와 계통접속 조건은 공개되지 않았다. 공사완료, 시장등록, 상업운전과 실제 수익스택을 별도로 확인해야 하며 82MWh는 정격용량이지 실사용 가능용량이나 연간 방전량이 아니다.",
+      "fact": "도큐부동산, IBeeT와 Akaysha Energy Japan은 공동출자한 이즈카 세타 축전소 합동회사를 통해 후쿠오카현 이즈카시 계통용 BESS 공사를 시작했다. 설비는 리튬이온 기반 정격출력 20MW·정격용량 82MWh로 명목 저장시간은 약 4.1시간이다. 운전개시는 2027회계연도 이후가 목표이며, 도매전력·수급조정·용량시장 등 복수 시장에서 운영할 계획이다.",
+      "implication": [
+        "출력제어가 잦은 규슈에서 4시간급 계통저장이 개발단계에서 건설단계로 이동했다.",
+        "개발·자본·운영역량을 합작법인에 결합하고 복수 전력시장에서 수익을 확보하는 구조다.",
+        "경제성은 시장가격 변동, 사이클 수, 가용률과 용량시장·조정력 수익의 조합에 좌우된다.",
+        "공정률, 계통접속·시장등록, 공급사 성능보증과 2027회계연도 상업운전이 핵심 후속지표다."
+      ],
+      "urls": [
+        "https://prtimes.jp/main/html/rd/p/000000717.000006953.html",
+        "https://bess-net.jp/news/pr-2023-07-18-co76147-117"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000717.000006953.html",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "PR TIMES 蓄電池"
+        },
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000717.000006953.html",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "publisher": "PR TIMES 蓄電池"
+        },
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000717.000006953.html",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "PR TIMES 蓄電池"
+        },
+        {
+          "url": "https://bess-net.jp/news/pr-2023-07-18-co76147-117",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "publisher": "BESS Net"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-03_GL_04",
+      "date": "2026-07-03",
+      "region": "GL",
+      "signal": "mid",
+      "title": "말레이시아, CBU 전기차에 CIF 20만링깃·모터출력 180kW 하한 시행",
+      "sub": "2026년 7월 1일부터 한시적 완화 종료 후 완성차 수입 EV의 가격·성능 최소요건을 동시에 적용한다.",
+      "gate": "현지조립 CKD 차량, 기존 수입승인·재고의 전환처리와 차종별 인증은 별도 규정 확인이 필요하다. 정책효과를 특정 중국 브랜드 배제로 단정하기보다 저가 CBU 진입제한과 현지조립 유인으로 평가해야 한다. CIF 하한이 실제 소매가격에 미치는 영향은 세금·마진·환율에 따라 달라진다.",
+      "fact": "말레이시아 투자통상산업부는 2026년 7월 1일부터 해외에서 완성차 형태로 수입되는 CBU 전기차에 최소 CIF 20만링깃과 최소 모터출력 180kW 요건을 적용했다. CIF는 보험·운임을 포함한 수입가격 기준으로 소비자 판매가격과 다르며, 특정 브랜드가 아니라 CBU EV 수입 전반에 적용된다.",
+      "implication": [
+        "저가 CBU EV의 신규 진입장벽을 높여 완성차사의 현지조립·부품투자 결정을 압박하는 산업정책이다.",
+        "수입브랜드는 고가·고출력 모델 중심으로 믹스를 조정하거나 CKD 전환을 검토할 가능성이 커진다.",
+        "현지 생산능력이 없는 브랜드에는 판매량 축소와 가격상승 위험이, 현지화 기업에는 상대적 수혜가 발생할 수 있다.",
+        "브랜드별 가격·모델조정, 기존재고 처리, CKD 투자와 실제 수입대수 변화가 후속 지표다."
+      ],
+      "urls": [
+        "https://www.thestar.com.my/business/business-news/2026/05/06/miti-imported-electric-vehicles-subject-to-two-main-conditions-from-july-1-2026",
+        "https://www.carlist.my/news/miti-s-new-cbu-ev-rules-explained-180-kw-minimum-from-1-july-2026-may-push-ev-prices-above-rm300k-149128/149128",
+        "https://www.miti.gov.my/miti/resources/Media%20Release/SIARAN_MEDIA_PENAMATAN_PENGECUALIAN_KHAS_6_Mei_2026_edited.pdf"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.thestar.com.my/business/business-news/2026/05/06/miti-imported-electric-vehicles-subject-to-two-main-conditions-from-july-1-2026",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "The Star"
+        },
+        {
+          "url": "https://www.carlist.my/news/miti-s-new-cbu-ev-rules-explained-180-kw-minimum-from-1-july-2026-may-push-ev-prices-above-rm300k-149128/149128",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Carlist.my"
+        },
+        {
+          "url": "https://www.miti.gov.my/miti/resources/Media%20Release/SIARAN_MEDIA_PENAMATAN_PENGECUALIAN_KHAS_6_Mei_2026_edited.pdf",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Malaysia MITI"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_US_03",
+      "date": "2026-07-02",
+      "region": "US",
+      "signal": "mid",
+      "title": "Rock Tech Lithium, 온타리오 Victory 탐사자산 100% 인수 옵션 체결",
+      "sub": "9,875헥타르 미시추 자산을 24개월간 현금 60만·주식 40만캐나다달러로 단계 취득하는 구조다.",
+      "gate": "선택적 grab sample과 지표 산출은 평균품위·연속성·규모 또는 경제성을 의미하지 않는다. 옵션계약은 인수완료가 아니며 시추, NI 43-101 규정자원량, 야금시험, 환경·원주민 협의와 최종 옵션행사가 필요하다. Red Rock 컨버터와의 거리만으로 공급통합성을 확정할 수 없다.",
+      "fact": "Rock Tech Lithium은 온타리오 북서부 9,875헥타르 Victory 리튬 프로젝트 지분 100%를 취득할 수 있는 옵션계약을 체결했다. 옵션행사 조건은 24개월에 걸쳐 현금 60만캐나다달러와 보통주 40만캐나다달러 상당을 단계 지급하는 방식이다. 지표에서 스포듀민 산출이 확인됐지만 시추되지 않은 초기 탐사자산이다.",
+      "implication": [
+        "Georgia Lake 외 원료후보를 추가해 Rock Tech의 온타리오 공급원 선택권을 넓힌다.",
+        "단계형 옵션은 초기 현금투입을 제한하면서 탐사결과에 따라 인수여부를 결정하는 리스크 관리구조다.",
+        "전략가치는 자원규모뿐 아니라 컨버터까지의 물류·품질적합성과 개발허가 가능성에 달려 있다.",
+        "초기 시추, 규정자원량·야금결과, 토지권 협의와 최종 옵션행사가 핵심 지표다."
+      ],
+      "urls": [
+        "https://chargedevs.com/newswire/rock-tech-lithium-acquires-victory-project-to-expand-ontario-lithium-supply-chain",
+        "https://rocktechlithium.com/en/rock-tech-lithium-expands-made-in-ontario-lithium/",
+        "https://www.canadianminingjournal.com/news/rock-tech-options-victory-lithium-project-near-red-rock/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://chargedevs.com/newswire/rock-tech-lithium-acquires-victory-project-to-expand-ontario-lithium-supply-chain",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "Charged EVs"
+        },
+        {
+          "url": "https://chargedevs.com/newswire/rock-tech-lithium-acquires-victory-project-to-expand-ontario-lithium-supply-chain",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "Charged EVs"
+        },
+        {
+          "url": "https://rocktechlithium.com/en/rock-tech-lithium-expands-made-in-ontario-lithium/",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "publisher": "Rock Tech Lithium"
+        },
+        {
+          "url": "https://www.canadianminingjournal.com/news/rock-tech-options-victory-lithium-project-near-red-rock/",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "publisher": "Canadian Mining Journal"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_KR_08",
+      "date": "2026-07-02",
+      "region": "KR",
+      "signal": "mid",
+      "title": "나우로보틱스, 한양로보틱스 흡수합병 완료…제품군·3,000개 고객망 통합",
+      "sub": "6월 30일 법적 합병을 마쳤고 인천 제2공장 준공승인과 조직·영업 통합을 병행한다.",
+      "gate": "법적 합병완료와 매출·마진 시너지는 별개다. 약 3,000개 고객은 회사가 제시한 보유기반으로 활성고객·중복률·매출기여가 공개되지 않았다. 합병대가·재무영향, 고객이탈, 제품·ERP·인력 통합비용과 제2공장 승인·가동률을 확인해야 한다.",
+      "fact": "나우로보틱스는 한양로보틱스 흡수합병 절차를 완료하고 2026년 6월 30일을 합병기일로 통합운영에 들어갔다. 한양로보틱스가 보유한 국내외 약 3,000개 고객기반과 사출성형 공정 특화 취출자동화 제품·영업망이 통합대상이다. 인천 본사 인근 제2공장은 건축을 마치고 관계기관의 준공승인 절차를 진행 중이다.",
+      "implication": [
+        "산업용 로봇 제품군과 영업망을 단일 법인에 결합해 교차판매·서비스 범위를 넓힐 수 있다.",
+        "제2공장 가동 시 생산능력 확대가 가능하지만 통합수요와 수주가 뒷받침되지 않으면 고정비 부담이 커질 수 있다.",
+        "합병가치는 고객수보다 고객당 매출, 재구매율, 제품마진과 통합비용 절감으로 검증돼야 한다.",
+        "신규수주·고객유지율, 매출·EBITDA 시너지, 통합비용과 제2공장 상업가동이 핵심 지표다."
+      ],
+      "urls": [
+        "https://elec4.co.kr/contents/article_detail?article_idx=37427&s_cate=11",
+        "https://kr.investing.com/news/global-filings/article-93CH-1920063"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://elec4.co.kr/contents/article_detail?article_idx=37427&s_cate=11",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "publisher": "일렉포"
+        },
+        {
+          "url": "https://elec4.co.kr/contents/article_detail?article_idx=37427&s_cate=11",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "publisher": "일렉포"
+        },
+        {
+          "url": "https://elec4.co.kr/contents/article_detail?article_idx=37427&s_cate=11",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "일렉포"
+        },
+        {
+          "url": "https://kr.investing.com/news/global-filings/article-93CH-1920063",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "publisher": "Investing.com"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_KR_07",
+      "date": "2026-07-02",
+      "region": "KR",
+      "signal": "mid",
+      "title": "솔루스첨단소재, 하반기 유럽 고기능 전지박 첫 공급 계획",
+      "sub": "솔루스첨단소재가 헝가리 공장의 SR·MTS 고기능 전지박을 하반기 유럽 주요 배터리 고객에 처음 공급할 계획이며 실제 출하와 고객·물량은 아직 공개하지 않았다.",
+      "gate": "현재는 공급계획 발표 단계로 계약체결·출하·매출인식과는 구분해야 한다. 고객인증, 계약물량·단가와 헝가리 공장 가동률이 사업성과의 핵심이다. 유럽 첫 공급의 사업성은 실제 고객승인 물량과 하이엔드 제품 비중 확대가 수익성 개선으로 이어지는지에 달려 있다.",
+      "fact": "솔루스첨단소재는 고기능성 전지박을 2026년 하반기 유럽 주요 배터리 시장에 처음 공급할 계획이라고 7월 2일 밝혔다. 회사는 SR·MTS 등 하이엔드 전지박 판매비중을 2025년 28%에서 2026년 약 40%로 확대할 것으로 전망했다. 회사는 SR·MTS 등 하이엔드 전지박 판매 비중을 2025년 28%에서 2026년 약 40%까지 높일 계획이다.",
+      "implication": [
+        "유럽 현지생산 기반을 일반 전지박에서 고강도·고연신 제품으로 전환하는 제품믹스 전략이다.",
+        "첫 공급의 경제성은 고객인증, 계약물량, 프리미엄과 공장 가동률에 좌우된다.",
+        "실제 출하일, 고객·물량, 판매단가와 수익성 개선이 후속 확인 대상이다."
+      ],
+      "urls": [
+        "https://www.ddaily.co.kr/page/view/2026070209430029131",
+        "https://www.energy-news.co.kr/news/articleView.html?idxno=226524"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.ddaily.co.kr/page/view/2026070209430029131",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "디지털데일리"
+        },
+        {
+          "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=226524",
+          "supports": [
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "에너지신문"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_KR_03",
+      "date": "2026-07-02",
+      "region": "KR",
+      "signal": "mid",
+      "title": "배터리솔루션즈, 환경부 LFP 재활용 국가실증 국고지원 확정",
+      "sub": "배터리솔루션즈가 LFP 폐배터리 재활용 국가실증의 국고지원 확정을 통보받았으며 구체적인 지원액은 공개하지 않았다.",
+      "gate": "정부 실증지원 확정은 LFP 재활용 경제성 검증의 출발점이지만 지원액·처리용량이 비공개여서 사업규모를 단정할 수 없다. 회수율·처리원가와 실제 상업수주가 사업성 판단의 핵심이다. 지원금 확정은 협약체결 전 단계이므로 최종 협약금액·기업별 분담·회수율과 경제성 검증결과가 상용화의 핵심 조건이다.",
+      "fact": "배터리솔루션즈는 환경부 LFP 폐배터리 재활용 국가 실증사업의 국고지원 확정을 통보받아 관련 협약 체결을 앞두고 있다고 2026년 7월 2일 밝혔다. 구체적인 국고지원액은 공개하지 않았으며 정부는 2027년까지 LFP 전용 재활용 실증센터 구축을 추진하고 있다. 회사는 전국 5개 참여기업 중 하나이며 규제샌드박스 수행기업으로 기술·처리 인프라와 경제성을 검증한다. 정부는 2027년까지 LFP 전용 재활용 실증센터를 조성할 계획이다.",
+      "implication": [
+        "LFP 보급 확대에 비해 부족했던 국내 재활용 공정의 경제성 검증이 공공 실증으로 진행된다.",
+        "지원 확정만으로 상업성이 입증된 것은 아니며 리튬 회수율과 처리비 절감이 핵심이다.",
+        "국고지원액, 실증센터 처리능력, 원료확보와 장기 구매계약이 후속 확인 대상이다."
+      ],
+      "urls": [
+        "https://view.asiae.co.kr/article/2026070210283998216",
+        "https://www.newspim.com/news/view/20260702000352"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://view.asiae.co.kr/article/2026070210283998216",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "아시아경제"
+        },
+        {
+          "url": "https://www.newspim.com/news/view/20260702000352",
+          "supports": [
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "뉴스핌"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-02_GL_07",
+      "date": "2026-07-02",
+      "region": "GL",
+      "signal": "mid",
+      "title": "Antofagasta, 중국 제련사와 동정광 TC/RC 현물지수·하한 연동 합의 보도",
+      "sub": "고정 연간 벤치마크 대신 현물 처리·정련수수료 지수와 보장하한을 결합한 term 거래구조가 등장했다.",
+      "gate": "Antofagasta와 제련사의 직접 공시가 아니라 SMM·시장소식 기반 보도다. 거래상대, 물량, 기준지수, 하한의 방향·수준과 정산공식이 공개되지 않아 경제효과를 정량화할 수 없다. 일부 term 계약이 전체 장기계약과 업계 벤치마크 구조전환을 의미하는지는 추가 협상에서 확인해야 한다.",
+      "fact": "Antofagasta는 일부 중국 제련사에 공급하는 term 동정광 계약의 처리·정련수수료(TC/RC)를 현물지수에 연동하고 보장하한을 두는 조건에 합의한 것으로 보도됐다. 동정광 공급부족으로 현물 TC가 음수권까지 하락해 제련사가 원료를 확보하기 위해 사실상 비용을 부담하는 시장환경이 거래배경이다.",
+      "implication": [
+        "광산사의 원료협상력이 강화되면서 동정광 가격위험과 음수 TC 부담이 제련사에 더 이전될 수 있다.",
+        "현물지수 연동이 확산되면 기존 연간 고정 벤치마크 관행과 제련소 수익모델이 흔들릴 수 있다.",
+        "저마진 제련사는 감산·통합 또는 부산물 수익 의존을 높일 가능성이 있다.",
+        "후속 장기계약의 TC/RC 공식, 중국 제련소 가동률·감산과 동정광 현물지수가 핵심 지표다."
+      ],
+      "urls": [
+        "https://www.kitco.com/news/off-the-wire/2026-07-01/antofagasta-agrees-spot-indexed-copper-ore-sales-some-chinese-smelters",
+        "https://www.reuters.com/commentary/reuters-open-interest/copper-soars-smelters-cant-bank-it-survive-2026-06-26/"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.kitco.com/news/off-the-wire/2026-07-01/antofagasta-agrees-spot-indexed-copper-ore-sales-some-chinese-smelters",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "publisher": "Kitco"
+        },
+        {
+          "url": "https://www.reuters.com/commentary/reuters-open-interest/copper-soars-smelters-cant-bank-it-survive-2026-06-26/",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "publisher": "Reuters"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-07-01_JP_01",
+      "date": "2026-07-01",
+      "region": "JP",
+      "signal": "mid",
+      "title": "오사카가스·교세라, Enerezza Plus II 가정용 ESS 판매 개시",
+      "sub": "7월 1일 하드웨어 판매를 시작했으며, 가정용 배터리를 조정력·용량시장에 활용하는 Sumai Denchi EX는 이르면 2026년 내 출시를 목표로 검토 중이다.",
+      "gate": "현재 실행사건은 가정용 ESS 판매 개시다. 조정력·용량시장 참여 서비스는 이르면 2026년 내 제공을 목표로 하지만 기기별 계량 등 과제가 남은 검토 단계이므로 운영자산이나 확보수익으로 해석할 수 없다.",
+      "fact": "오사카가스·오사카가스마케팅·교세라는 2026년 7월 10일 공동자료에서 교세라의 Enerezza Plus II를 7월 1일부터 판매했다고 밝혔다. 가정용 배터리를 원격제어·집합해 수급조정시장과 용량시장에 공급하고 대가 일부를 고객에게 환원하는 Sumai Denchi EX는 이르면 2026년 내 제공 개시를 목표로 검토 중이다.",
+      "implication": [
+        "일본 가정용 ESS 판매와 분산자원 시장서비스를 연계하려는 사업모델이 출시목표와 고객보상 구조까지 구체화됐다.",
+        "제품 판매와 시장서비스 개시는 서로 다른 단계이며 기기별 계량·제어 과제가 남아 있다.",
+        "실제 서비스 출시, 참여시장과 고객보상 조건 확정이 다음 사업모델 판단 기준이다."
+      ],
+      "urls": [
+        "https://www.osakagas.co.jp/company/press/pr2026/1824171_60968.html"
+      ],
+      "fact_sources": [
+        {
+          "url": "https://www.osakagas.co.jp/company/press/pr2026/1824171_60968.html",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "publisher": "오사카가스·교세라"
+        }
+      ],
+      "related_lineage": {
+        "related_ids": [
+          "R4_18"
+        ]
+      }
+    }
+  ]
+}

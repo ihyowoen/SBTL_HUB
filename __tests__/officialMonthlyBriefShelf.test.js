@@ -29,6 +29,15 @@ describe("Official Monthly Brief shelf", () => {
     expect(archive.map((x) => x.month)).toEqual(["2026-07", "2026-06"]);
   });
 
+  it("keeps only the highest-ranked revision for each month", () => {
+    const library = { items: [issue("2026-08", 1), issue("2026-07", 1), issue("2026-08", 2), issue("2026-07", 3)] };
+    const { latest, archive } = officialMonthlyBriefShelfItems(library);
+    expect([latest, ...archive].map((x) => [x.month, x.revision])).toEqual([
+      ["2026-08", 2],
+      ["2026-07", 3],
+    ]);
+  });
+
   it("does not surface non-official or unapproved entries", () => {
     const draft = issue("2026-09", 1, "draft");
     const { latest, archive } = officialMonthlyBriefShelfItems({ items: [draft, issue("2026-08")] });

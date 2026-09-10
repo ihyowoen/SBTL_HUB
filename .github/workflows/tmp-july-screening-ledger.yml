@@ -1,0 +1,39 @@
+name: tmp-july-screening-ledger
+on:
+  push:
+    branches: [chatgpt/monthly-brief-2026-07-backfill]
+    paths: [.github/workflows/tmp-july-screening-ledger.yml]
+permissions:
+  contents: write
+jobs:
+  screen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/monthly-brief-2026-07-backfill
+      - name: Build compact one-line screening ledger
+        run: |
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+          p=Path('runs/2026-09-10/monthly-brief-2026-07-universe-review.json')
+          d=json.loads(p.read_text())
+          def clean(v,n):
+              if isinstance(v,list): v=' / '.join(map(str,v))
+              v=re.sub(r'\s+',' ',str(v or '')).strip()
+              return v[:n]
+          lines=['# 2026-07 Monthly Brief screening ledger',f'# count={d["month_count"]} | main={d["locked_main_commit_sha"]} | blob={d["full_blob_sha"]}','']
+          for i,c in enumerate(d['cards'],1):
+              lines.append(f'{i:03d} | {c["signal"]:<4} | {c["date"]} | {c["region"]:<2} | {clean(c["id"],40)} | {clean(c["title"],150)} | FACT: {clean(c["fact"],180)} | GATE: {clean(c["gate"],150)}')
+          out=Path('runs/2026-09-10/working/monthly-brief-2026-07/screening-ledger.txt')
+          out.write_text('\n'.join(lines)+'\n')
+          PY
+      - name: Commit ledger and remove temporary workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/tmp-july-screening-ledger.yml
+          git add runs/2026-09-10/working/monthly-brief-2026-07/screening-ledger.txt
+          git commit -m "audit: add July Monthly Brief screening ledger"
+          git push origin HEAD:chatgpt/monthly-brief-2026-07-backfill

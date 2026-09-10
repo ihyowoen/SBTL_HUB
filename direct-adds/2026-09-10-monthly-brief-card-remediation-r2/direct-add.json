@@ -1,0 +1,47 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "MONTHLY_BRIEF_CARD_REMEDIATION_20260910_R2",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "31a5129836c0ff1392a9d47319bd75ea25ff2f05",
+  "base_full_blob_sha": "eb094ac30f3d85ea95da197c157ad353ff892960",
+  "expected_before": 1617,
+  "expected_after": 1617,
+  "output_updated": "2026-09-10T03:44:41.083Z",
+  "operations": {
+    "add": [],
+    "update": [
+      "2026-08-05_US_03",
+      "2026-08-26_CN_02"
+    ],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [],
+    "updates": [
+      {
+        "id": "2026-08-05_US_03",
+        "change_type": "evidence_update",
+        "changed_fields": [
+          "urls"
+        ],
+        "reason": "Monthly Brief downstream QC found that urls[0] pointed to a co-location/context source while the visible title is the commercial-operation claim. Reorder existing governed URLs so a title/fact-supporting COD source is primary without changing any fact or event identity.",
+        "evidence_review_summary": "The locked card already contains pv magazine and Energy-Storage.News evidence supporting title/fact for Old 300 commercial operation; Solar Power World remains retained for co-location/independent-operation context."
+      },
+      {
+        "id": "2026-08-26_CN_02",
+        "change_type": "correction",
+        "changed_fields": [
+          "event_fingerprint",
+          "gate",
+          "sub",
+          "title"
+        ],
+        "reason": "Monthly Brief downstream QC found that the Aug-26 event card headline had absorbed a Sep-1 Benchmark forecast, blurring the representative-event/month boundary. Re-anchor the visible headline and event fingerprint to the Aug-26 EIA-acceptance-notice withdrawal while retaining later Benchmark evidence as dated reinforcement inside the governed evidence package.",
+        "evidence_review_summary": "The Aug-26 Eastmoney/Shanghai Securities News report establishes the EIA acceptance-notice withdrawal and re-verification step. Benchmark Sep-1 and Northern Miner Sep-2 remain valid later reinforcement but no longer control the Aug-26 card title, sub, gate, or event anchor."
+      }
+    ]
+  }
+}

@@ -137,12 +137,24 @@ describe("실데이터 전수", () => {
     }
   });
 
-  it("watchpoint — 홀수 마커 데이터가 남아 있지 않다", () => {
-    const wps = Object.values(rp).filter((v) => v && typeof v === "object")
-      .flatMap((v) => v.watchpoints ?? []);
-    const odd = wps.filter((w) => (w.match(/\*\*/g) || []).length % 2);
-    // 짝 없는 마커의 렌더 동작은 위 단위 테스트에서 별도로 검증한다.
-    // 실데이터에서는 데이터 결함 자체가 0건이어야 한다.
-    expect(odd).toEqual([]);
+  // **범위를 검사 #14 와 맞췄다.** validate2 #14 는 watchpoints·headline·policies[].desc·why
+  // 넷을 보는데 이 테스트는 watchpoints 만 봤다 — 게이트와 테스트가 어긋나면 한쪽이 놓친다.
+  // 짝 없는 마커의 렌더 동작은 위 단위 테스트가 합성 문자열로 별도 검증한다.
+  it("region_policy 산문에 홀수 볼드 마커가 없다", () => {
+    const bad = [];
+    for (const [rg, v] of Object.entries(rp)) {
+      if (!v || typeof v !== "object") continue;
+      const fields = [
+        ...((v.watchpoints ?? []).map((w, n) => [`watchpoints[${n}]`, w])),
+        ...(v.headline ? [["headline", v.headline]] : []),
+        ...((v.policies ?? []).map((p, n) => [`policies[${n}].desc`, p?.desc ?? ""])),
+        ...(v.why ? [["why", v.why]] : []),
+      ];
+      for (const [where, text] of fields) {
+        if (typeof text !== "string" || !text) continue;
+        if ((text.match(/\*\*/g) || []).length % 2) bad.push(`${rg}.${where}`);
+      }
+    }
+    expect(bad).toEqual([]);
   });
 });

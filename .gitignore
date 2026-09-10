@@ -1,4 +1,8 @@
+node_modules
 node_modules/
+# 슬래시 있는 패턴은 디렉터리만 잡는다. 워크트리에서는 node_modules 를 메인 리포에서
+# 심링크로 걸어 쓰는데(ARM64 재설치 회피) 심링크는 디렉터리가 아니라 추적 대상으로 떴다.
+# 2026-09-02 실측: git check-ignore 가 워크트리 심링크를 무시하지 않았다.
 dist/
 .env
 .env.local

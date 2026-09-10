@@ -1,0 +1,46 @@
+name: tmp-sep9-canonical-index-audit
+on:
+  push:
+    branches:
+      - chatgpt/sep9-canonical-index-audit
+permissions:
+  contents: read
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Build exact canonical index
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, gzip, hashlib
+          p='data/cards.full.json'
+          raw=open(p,'rb').read(); d=json.loads(raw); cards=d.get('cards', d)
+          out=[]
+          for c in cards:
+              fs=[]
+              for x in c.get('fact_sources') or []:
+                  if isinstance(x,dict): fs.append({k:x.get(k) for k in ('url','source','publisher','title','published_date') if x.get(k) is not None})
+              out.append({
+                'id':c.get('id'),'date':c.get('date'),'region':c.get('region'),'signal':c.get('signal'),
+                'cat':c.get('cat'),'sub_cat':c.get('sub_cat'),'title':c.get('title'),'sub':c.get('sub'),
+                'gate':c.get('gate'),'fact':c.get('fact'),'urls':c.get('urls') or [],'fact_sources':fs,
+                'related_lineage':c.get('related_lineage'),'event_fingerprint':c.get('event_fingerprint'),
+                'source_story_ids':c.get('source_story_ids') or []
+              })
+          obj={'base_commit':'${{ github.sha }}','full_sha256':hashlib.sha256(raw).hexdigest(),'git_declared_total':d.get('total'),'parsed_count':len(cards),'cards':out}
+          with gzip.open('/tmp/sep9-canonical-index.json.gz','wt',encoding='utf-8') as f: json.dump(obj,f,ensure_ascii=False,separators=(',',':'))
+          with open('/tmp/sep9-canonical-summary.json','w',encoding='utf-8') as f: json.dump({k:obj[k] for k in ('base_commit','full_sha256','git_declared_total','parsed_count')},f,indent=2)
+          print(json.dumps({k:obj[k] for k in ('base_commit','full_sha256','git_declared_total','parsed_count')}))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sep9-canonical-index
+          path: |
+            /tmp/sep9-canonical-index.json.gz
+            /tmp/sep9-canonical-summary.json
+          if-no-files-found: error
+          retention-days: 2

@@ -9,7 +9,7 @@
     "canonical_blob_sha_after": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
     "canonical_card_count": 1617,
     "canonical_data_changed": false,
-    "reason": "main moved because of the Today/monthly-brief shelf UI merge, while data/cards.full.json remained byte-identical; batches already screened on the 1,617-card baseline require provenance relock only"
+    "reason": "main remains at the Today/monthly-brief shelf UI merge baseline and data/cards.full.json remains byte-identical"
   },
   "canonical_mutation_allowed": false,
   "current_sep3_sep7": {
@@ -41,32 +41,30 @@
       "exact_canonicalized_removed": ["U1476", "U1581", "U1989"],
       "recheck_universe": 243
     },
-    "materialized": 150,
-    "remaining": 93,
+    "materialized": 175,
+    "remaining": 68,
     "partial_decision_counts": {
-      "PROMOTE": 65,
-      "KEEP_CANDIDATE": 22,
-      "DOWNGRADE_WATCH": 26,
-      "CLOSE": 37
+      "PROMOTE": 78,
+      "KEEP_CANDIDATE": 25,
+      "DOWNGRADE_WATCH": 27,
+      "CLOSE": 45
     },
     "latest_batch": {
-      "range": "126-150",
+      "range": "151-175",
       "exact_membership": [
-        "U1777", "U1779", "U1792", "U2065", "U1776", "U1275", "U1796", "U0357", "U0371", "U1428",
-        "U0982", "U0981", "U1004", "U1212", "U1511", "U0437", "U0427", "U1986", "U1494", "U1215",
-        "U0797", "U1016", "U2003", "U2001", "U1806"
+        "U0493", "U1286", "U1585", "U2062", "U0586", "U0595", "U0570", "U1082", "U1279", "U1025",
+        "U1026", "U1525", "U0418", "U0419", "U0410", "U0412", "U0784", "U0790", "U1999", "U2005",
+        "U0919", "U0751", "U1190", "U1446", "U1971"
       ],
       "decision_counts": {
-        "PROMOTE": 15,
-        "KEEP_CANDIDATE": 2,
-        "DOWNGRADE_WATCH": 4,
-        "CLOSE": 4
+        "PROMOTE": 13,
+        "KEEP_CANDIDATE": 3,
+        "DOWNGRADE_WATCH": 1,
+        "CLOSE": 8
       },
       "unassigned": 0,
       "duplicate_membership": 0,
-      "excluded_nonmember_corrections": ["U0335", "U1219"],
-      "replacement_valid_members": ["U2001", "U1806"],
-      "artifact": "historical-candidate-243-progress-150.md"
+      "artifact": "historical-candidate-243-progress-175.md"
     },
     "baseline_status_by_batch": {
       "1-25": "FINAL_1617_CARD_COLLISION_RELOCK_PENDING",
@@ -74,7 +72,8 @@
       "51-75": "CURRENT_1617_CARD_BASELINE_SCREENED_AND_PROVENANCE_RELOCKED",
       "76-100": "CURRENT_1617_CARD_BASELINE_SCREENED_AND_PROVENANCE_RELOCKED",
       "101-125": "CURRENT_1617_CARD_BASELINE_SCREENED",
-      "126-150": "CURRENT_1617_CARD_BASELINE_SCREENED"
+      "126-150": "CURRENT_1617_CARD_BASELINE_SCREENED",
+      "151-175": "CURRENT_1617_CARD_BASELINE_SCREENED"
     },
     "partial_counts_are_final": false
   },

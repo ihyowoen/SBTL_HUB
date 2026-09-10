@@ -6,9 +6,11 @@ This is a **reconciliation-only cumulative working PR** for SBTL candidate gover
 
 - branch creation base: `8f3b6c3277d7cd13ccfc48f3c72a5d1ecb5d7c58`
 - current relocked main: `3bb929004ff8b547b86e5f1beab0efb3dac19d62`
-- canonical `data/cards.full.json` blob before/after main move: `beb2aa7615b583b4c9c0c269974601a0b26c2684` → `beb2aa7615b583b4c9c0c269974601a0b26c2684`
-- canonical data changed across relock: **no**
-- therefore the moving-main event requires provenance relock only; previously completed candidate adjudications do **not** reset
+- canonical `data/cards.full.json` blob across the latest main move: `beb2aa7615b583b4c9c0c269974601a0b26c2684` → `beb2aa7615b583b4c9c0c269974601a0b26c2684`
+- current canonical card count: **1,617**
+- canonical data changed across the latest main move: **no**
+- therefore the `8f3b6c3… → 3bb9290…` movement requires provenance relock only for batches already screened on the 1,617-card baseline
+- historical batches 1–50 still require their separate final collision relock from the earlier 1,599-card baseline before full 243/243 closure
 - canonical card data is **not modified in this PR**
 - `data/cards.full.json` and card-run production operations are out of scope
 
@@ -44,16 +46,18 @@ Derivation locked as:
 
 `264 needs_user_decision - 18 later-promoted unique story IDs = 246 - 3 exact canonicalized = 243`
 
-Reconciliation progress currently committed in batches. At 50/243:
+Reconciliation progress is now committed through **125/243**:
 
-- PROMOTE 15
-- KEEP 10
-- WATCH 9
-- CLOSE 16
-- remaining 193
+- PROMOTE **50**
+- KEEP **20**
+- WATCH **22**
+- CLOSE **33**
+- remaining **118**
 
-These counts are partial and must not be treated as final until 243/243 is assigned with unassigned=0 and duplicate_membership=0.
+Latest batch `101–125` is fully assigned at **PROMOTE 11 / KEEP 4 / WATCH 2 / CLOSE 8**, with unassigned=0 and duplicate_membership=0. The corrected membership excludes `U1660` and includes the validated open-universe member `U0218`.
+
+These counts remain partial until 243/243 is terminally accounted and the 1–50 cohort receives its final 1,617-card collision relock.
 
 ## PR operating rule
 
-This PR stays **draft** while reconciliation is incomplete. New 25-item checkpoints are appended as commits (`75/243`, `100/243`, ...). Existing decisions may be corrected only with an explicit supersession note and provenance. When 243/243 is terminally accounted, the reconciliation PR can be made ready for review. Production card changes remain a separate PR.
+This PR stays **draft** while reconciliation is incomplete. New 25-item checkpoints are appended as commits (`150/243`, `175/243`, ...). Existing decisions may be corrected only with an explicit supersession note and provenance. When 243/243 is terminally accounted, the reconciliation PR can be made ready for review. Production card changes remain a separate PR.

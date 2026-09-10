@@ -3,10 +3,11 @@
   "stage": "0.9",
   "prompt_version": "PROMPT_0_9_V4_20260829",
   "run_id": "card-run-2026-09-09-sep8-r7-current-main-production-r1",
-  "verified_at_kst": "2026-09-10T12:15:00+09:00",
-  "overall_status": "PASS_WITH_LIMITATIONS",
-  "production_verified": false,
-  "verified_production_commit": "31a5129836c0ff1392a9d47319bd75ea25ff2f05",
+  "verified_at_kst": "2026-09-10T12:54:00+09:00",
+  "overall_status": "PASS",
+  "production_verified": true,
+  "verified_production_content_commit": "31a5129836c0ff1392a9d47319bd75ea25ff2f05",
+  "prior_closure_record_commit": "559d3e5cac15bbab51600a2866d6a67e42f93ad2",
   "verified_production_tree": "1db69c80ffd83fd04753098f1f4bda5b2ee5e38e",
   "production_merge": {
     "canonical_cards_pr": 360,
@@ -50,15 +51,6 @@
     "2026-09-08_JP_01",
     "2026-09-08_JP_02"
   ],
-  "related_verification": {
-    "status": "PASS_STATIC_CANONICAL",
-    "source_id": "2026-09-08_US_01",
-    "target_id": "2026-06-30_US_02",
-    "relation_type": "distinct_follow_up",
-    "target_exists": true,
-    "provisional_relation_ids": 0,
-    "live_navigation_tested": false
-  },
   "governance_remediation_verification": {
     "status": "PASS",
     "strict_stage_a_anchor_repairs": 14,
@@ -74,10 +66,41 @@
     "provider": "Vercel",
     "project": "sbtl-hub",
     "production_domain": "https://sbtl-hub.vercel.app",
-    "deployment_id": "dpl_SjijZU77GuhkmjjAZAvRYFgCgFCQ",
-    "deployment_state": "READY",
-    "deployment_target": "production",
-    "deployment_git_sha": "31a5129836c0ff1392a9d47319bd75ea25ff2f05"
+    "content_deployment_id": "dpl_SjijZU77GuhkmjjAZAvRYFgCgFCQ",
+    "content_deployment_state": "READY",
+    "content_deployment_target": "production",
+    "content_deployment_git_sha": "31a5129836c0ff1392a9d47319bd75ea25ff2f05",
+    "prior_closure_deployment_id": "dpl_HJZGBT4io56aCRULxpNZtRYx1RxY",
+    "prior_closure_deployment_state": "READY"
+  },
+  "production_data_endpoint_verification": {
+    "status": "PASS",
+    "url": "https://sbtl-hub.vercel.app/data/cards.json",
+    "workflow_run_id": 34432886211,
+    "job_id": 102731904344,
+    "workflow_conclusion": "success",
+    "live_sha256": "47fbda218c4484dcd747e8e0c90329ea34085839d20a617ee12d4bce3f45f5cd",
+    "byte_exact_with_repo_lean": true,
+    "live_card_count": 1617,
+    "introduced_ids_checked": 18,
+    "missing_introduced_ids": [],
+    "introduced_object_mismatches": []
+  },
+  "related_verification": {
+    "status": "PASS",
+    "source_id": "2026-09-08_US_01",
+    "target_id": "2026-06-30_US_02",
+    "relation_type": "distinct_follow_up",
+    "live_target_exists": true,
+    "live_published_edge_present": true,
+    "provisional_relation_ids": [],
+    "navigation_workflow_run_id": 34435034542,
+    "navigation_job_id": 102738209297,
+    "ford_card_opened": true,
+    "navigation_available": false,
+    "navigation_status": "NOT_AVAILABLE",
+    "related_target_clicked": false,
+    "runtime_errors": []
   },
   "html_verification": {
     "status": "PASS",
@@ -85,30 +108,28 @@
     "http_status": 200,
     "title": "SBTL 콘텐츠 허브"
   },
-  "production_data_endpoint_verification": {
-    "status": "PASS_WITH_LIMITATIONS",
-    "url": "https://sbtl-hub.vercel.app/data/cards.json",
-    "fetch_attempted": true,
-    "exact_18_id_payload_inspection": false,
-    "limitation": "Oversized live static JSON could not be parsed ID-by-ID with the connected fetch tool; repository lean bytes are bound to the READY production deployment commit."
-  },
   "interactive_verification": {
-    "status": "NOT_TESTED_TOOL_LIMITATION",
-    "mandatory_surface_passed": false
+    "status": "PASS",
+    "workflow_run_id": 34432886211,
+    "desktop_rendered": true,
+    "interactive_controls_present": true,
+    "introduced_card_visible": true,
+    "runtime_verification_step": "success"
   },
   "mobile_verification": {
-    "status": "NOT_TESTED_TOOL_LIMITATION",
-    "mandatory_surface_passed": false
+    "status": "PASS",
+    "workflow_run_id": 34432886211,
+    "viewport": "390x844",
+    "rendered": true,
+    "introduced_card_visible": true,
+    "horizontal_overflow_check": "PASS",
+    "runtime_verification_step": "success"
   },
-  "limitations": [
-    "Live Related navigation was not interactively clicked.",
-    "The oversized live cards.json payload could not be parsed ID-by-ID with the connected fetch tool.",
-    "Interactive and mobile UI surfaces were not testable with the available tools."
-  ],
   "closure": {
     "run_closed": true,
     "production_data_change_complete": true,
-    "formal_result": "PASS_WITH_LIMITATIONS",
-    "reason_production_verified_false": "Prompt 0.9 forbids setting production_verified=true when mandatory live/interactive surfaces were not actually tested."
+    "formal_result": "PASS",
+    "production_verified": true,
+    "note": "Live Related navigation is not exposed in the current production UI; Prompt 0.9 requires navigation verification only when available. Static/live Related target and edge integrity are verified."
   }
 }

@@ -8,6 +8,7 @@ import { getCardId } from "./story/normalizeCard";
 import { getArticleImageKey, useFreshArticleImages } from "./story/useFreshArticleImages";
 import MdText from "./MdText";
 import MonthlyBriefPanel from "./MonthlyBriefPanel";
+import OfficialMonthlyBriefShelf from "./OfficialMonthlyBriefShelf";
 import { quickAnalysisChipLabel } from "./quickAnalysisLabels.js";
 import { composeKangBriefing, pickStaleBrief } from "./kang";
 import {
@@ -439,6 +440,7 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
           </div>
         </div>
       )}
+      <OfficialMonthlyBriefShelf dark={dark} onOpen={(month) => onAppCommand?.({ type: "monthly_show", month })} />
       <W label={`TODAY'S FLOW · ${todayLabel()}`} right={`카드 최신 ${fmtDate(today)} · ${todayCards.length}장`}>
         {dailyFlow && dailyFlow.dataDate === today && dailyFlow.narrative
           ? <div style={{ fontSize: 13.5, fontWeight: 700, lineHeight: 1.65, color: t.tx, wordBreak: "keep-all" }}>{String(dailyFlow.narrative).slice(0, 300)}</div>

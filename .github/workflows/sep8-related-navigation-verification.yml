@@ -1,0 +1,74 @@
+name: Sep8 Related navigation verification
+
+on:
+  push:
+    branches: [chatgpt/sep8-live-production-verification]
+    paths: ['.github/workflows/sep8-related-navigation-verification.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  verify-related-navigation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Verify Ford Related navigation on production UI
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          test -n "$CHROME"
+          npm install --no-save --no-package-lock playwright-core@1.55.0 >/dev/null 2>&1
+          cat > ./related-nav-check.mjs <<'JS'
+          import { chromium } from 'playwright-core';
+          const base='https://sbtl-hub.vercel.app';
+          const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH,args:['--no-sandbox']});
+          const page=await browser.newPage({viewport:{width:1440,height:1000}});
+          const errors=[];
+          page.on('pageerror',e=>errors.push(String(e)));
+          page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+          const dataResp=await page.request.get(base+'/data/cards.json');
+          if(!dataResp.ok()) throw new Error('cards fetch '+dataResp.status());
+          const raw=await dataResp.json();
+          const cards=Array.isArray(raw)?raw:(raw.cards||raw.items||raw.data||raw.results);
+          if(!Array.isArray(cards)) throw new Error('card wrapper not recognized');
+          const by=new Map(cards.map(c=>[c.id,c]));
+          const ford=by.get('2026-09-08_US_01'); const target=by.get('2026-06-30_US_02');
+          if(!ford||!target) throw new Error('Ford/target missing from live data');
+          const resp=await page.goto(base,{waitUntil:'domcontentloaded',timeout:60000});
+          if(!resp||resp.status()!==200) throw new Error('root HTTP '+(resp&&resp.status()));
+          await page.waitForFunction(()=>document.querySelector('#root')?.children.length>0,{timeout:30000});
+          await page.waitForTimeout(3500);
+          const search=page.locator('input[aria-label*="Search cards"], input[placeholder*="카드 검색"]').first();
+          const searchAvailable=await search.count()>0 && await search.isVisible().catch(()=>false);
+          if(searchAvailable){ await search.fill(ford.title); await page.waitForTimeout(1200); }
+          let fordLoc=page.getByText(ford.title,{exact:true}).first();
+          if(await fordLoc.count()===0) fordLoc=page.getByText(ford.title.slice(0,24),{exact:false}).first();
+          if(await fordLoc.count()===0) throw new Error('Ford card title not reachable in rendered UI after search');
+          await fordLoc.scrollIntoViewIfNeeded();
+          await fordLoc.click({force:true});
+          await page.waitForTimeout(1200);
+          const afterFordBody=(await page.locator('body').innerText()).replace(/\s+/g,' ');
+          let targetLoc=page.getByText(target.title,{exact:true}).first();
+          if(await targetLoc.count()===0) targetLoc=page.getByText(target.title.slice(0,24),{exact:false}).first();
+          const navigationAvailable=(await targetLoc.count())>0 && await targetLoc.isVisible().catch(()=>false);
+          let targetClicked=false;
+          if(navigationAvailable){
+            await targetLoc.scrollIntoViewIfNeeded();
+            await targetLoc.click({force:true});
+            await page.waitForTimeout(1000);
+            const body2=(await page.locator('body').innerText()).replace(/\s+/g,' ');
+            if(!body2.includes(target.title.slice(0,20))) throw new Error('Related target click did not preserve/navigate to target context');
+            targetClicked=true;
+          }
+          const result={status:'PASS',ford_id:ford.id,target_id:target.id,ford_title:ford.title,target_title:target.title,card_search_available:searchAvailable,ford_card_opened:true,related_navigation_available:navigationAvailable,related_target_clicked:targetClicked,target_title_visible_after_ford_open:afterFordBody.includes(target.title.slice(0,20)),runtime_errors:errors};
+          console.log('RELATED_NAV_RESULT='+JSON.stringify(result));
+          await browser.close();
+          JS
+          CHROME_PATH="$CHROME" node ./related-nav-check.mjs
+          rm -f ./related-nav-check.mjs

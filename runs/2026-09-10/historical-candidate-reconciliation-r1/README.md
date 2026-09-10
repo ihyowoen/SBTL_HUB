@@ -46,18 +46,20 @@ Derivation locked as:
 
 `264 needs_user_decision - 18 later-promoted unique story IDs = 246 - 3 exact canonicalized = 243`
 
-Reconciliation progress is now committed through **125/243**:
+Reconciliation progress is now committed through **150/243**:
 
-- PROMOTE **50**
-- KEEP **20**
-- WATCH **22**
-- CLOSE **33**
-- remaining **118**
+- PROMOTE **65**
+- KEEP **22**
+- WATCH **26**
+- CLOSE **37**
+- remaining **93**
 
-Latest batch `101–125` is fully assigned at **PROMOTE 11 / KEEP 4 / WATCH 2 / CLOSE 8**, with unassigned=0 and duplicate_membership=0. The corrected membership excludes `U1660` and includes the validated open-universe member `U0218`.
+Latest batch `126–150` is fully assigned at **PROMOTE 15 / KEEP 2 / WATCH 4 / CLOSE 4**, with unassigned=0 and duplicate_membership=0.
+
+Membership was red-teamed before adjudication: `U0335` and `U1219` were excluded because the authoritative Stage A rescue audit had already closed them to `watchlist_only_after_review`; validated open-universe members `U2001` and `U1806` were used instead.
 
 These counts remain partial until 243/243 is terminally accounted and the 1–50 cohort receives its final 1,617-card collision relock.
 
 ## PR operating rule
 
-This PR stays **draft** while reconciliation is incomplete. New 25-item checkpoints are appended as commits (`150/243`, `175/243`, ...). Existing decisions may be corrected only with an explicit supersession note and provenance. When 243/243 is terminally accounted, the reconciliation PR can be made ready for review. Production card changes remain a separate PR.
+This PR stays **draft** while reconciliation is incomplete. New 25-item checkpoints are appended as commits (`175/243`, `200/243`, ...). Existing decisions may be corrected only with an explicit supersession note and provenance. When 243/243 is terminally accounted, the reconciliation PR can be made ready for review. Production card changes remain a separate PR.

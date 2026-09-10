@@ -1,0 +1,89 @@
+name: tmp-extract-july-monthly-universe
+
+on:
+  push:
+    branches:
+      - chatgpt/monthly-brief-2026-07-backfill
+    paths:
+      - .github/workflows/tmp-extract-july-monthly-universe.yml
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/monthly-brief-2026-07-backfill
+          fetch-depth: 0
+      - name: Lock canonical source and extract July universe
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from collections import Counter
+          from pathlib import Path
+
+          BASE='3bb929004ff8b547b86e5f1beab0efb3dac19d62'
+          EXPECTED_BLOB='beb2aa7615b583b4c9c0c269974601a0b26c2684'
+          actual=subprocess.check_output(['git','rev-parse',f'{BASE}:data/cards.full.json'],text=True).strip()
+          if actual != EXPECTED_BLOB:
+              raise SystemExit(f'locked blob mismatch: {actual}')
+
+          raw=json.load(open('data/cards.full.json'))
+          cards=raw if isinstance(raw,list) else raw.get('cards',[])
+          def first(c,*keys,default=''):
+              for k in keys:
+                  v=c.get(k)
+                  if v not in (None,'',[]): return v
+              return default
+          def cid(c): return str(first(c,'id','news_id',default=first(c,'url',default='')))
+          def date(c): return str(first(c,'date','d'))
+          def sig(c):
+              v=str(first(c,'signal','s',default='')).lower()
+              return {'t':'top','h':'high','m':'mid','i':'info'}.get(v,v or 'unknown')
+          rank={'top':4,'high':3,'mid':2,'info':1,'unknown':0}
+          month=[c for c in cards if date(c).startswith('2026-07')]
+          month.sort(key=lambda c:(rank.get(sig(c),0),date(c),cid(c)), reverse=True)
+
+          compact=[]
+          for c in month:
+              fs=[]
+              for x in c.get('fact_sources',[]) if isinstance(c.get('fact_sources'),list) else []:
+                  if not isinstance(x,dict): continue
+                  u=x.get('source_url') or x.get('source_url_canonical')
+                  if not u: continue
+                  fs.append({'url':u,'supports':x.get('supports',[]),'publisher':x.get('publisher') or x.get('source_name') or ''})
+              urls=c.get('urls') if isinstance(c.get('urls'),list) else []
+              if not urls and isinstance(c.get('url'),str) and c.get('url'): urls=[c['url']]
+              compact.append({
+                  'id':cid(c),'date':date(c),'region':first(c,'region','r'),'signal':sig(c),
+                  'title':first(c,'title','T'),'sub':first(c,'sub','subtitle','S'),
+                  'gate':first(c,'gate','g'),'fact':first(c,'fact','F'),
+                  'implication':first(c,'implication','I','why_it_matters'),
+                  'urls':urls[:5],'fact_sources':fs[:8],
+                  'related_lineage':c.get('related_lineage'),
+              })
+
+          out={
+              'schema_version':'monthly-brief-universe-review.v1',
+              'month':'2026-07','locked_main_commit_sha':BASE,'full_blob_sha':actual,
+              'canonical_total':len(cards),'month_count':len(month),
+              'signal_distribution':dict(Counter(sig(c) for c in month)),
+              'region_distribution':dict(Counter(str(first(c,'region','r',default='UNKNOWN')) for c in month)),
+              'cards':compact,
+          }
+          path=Path('runs/2026-09-10/monthly-brief-2026-07-universe-review.json')
+          path.parent.mkdir(parents=True,exist_ok=True)
+          path.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({k:out[k] for k in ['canonical_total','month_count','signal_distribution','region_distribution']},ensure_ascii=False,indent=2))
+          PY
+      - name: Commit extracted universe and remove temporary workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/tmp-extract-july-monthly-universe.yml
+          git add runs/2026-09-10/monthly-brief-2026-07-universe-review.json
+          git commit -m "audit: extract July Monthly Brief review universe"
+          git push origin HEAD:chatgpt/monthly-brief-2026-07-backfill

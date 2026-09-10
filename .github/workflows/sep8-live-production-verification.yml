@@ -25,17 +25,22 @@ jobs:
           curl -fsSL --retry 3 --retry-delay 2 "$URL/data/cards.json" -o /tmp/live-cards.json
           curl -fsSL --retry 3 --retry-delay 2 "$URL/" -o /tmp/live-index.html
           python3 - <<'PY'
-          import json, pathlib
-          raw=json.loads(pathlib.Path('/tmp/live-cards.json').read_text())
-          if isinstance(raw,list):
-            cards=raw; wrapper='array'
-          elif isinstance(raw,dict):
-            wrapper_keys=list(raw.keys())
-            cards=next((raw.get(k) for k in ('cards','items','data','results') if isinstance(raw.get(k),list)),None)
-            assert isinstance(cards,list), ('no card array in wrapper',wrapper_keys)
-            wrapper='object:'+','.join(wrapper_keys)
-          else:
-            raise AssertionError(type(raw))
+          import json, pathlib, hashlib
+          live_path=pathlib.Path('/tmp/live-cards.json')
+          repo_path=pathlib.Path('public/data/cards.json')
+          live_bytes=live_path.read_bytes(); repo_bytes=repo_path.read_bytes()
+          live_sha=hashlib.sha256(live_bytes).hexdigest(); repo_sha=hashlib.sha256(repo_bytes).hexdigest()
+          assert live_sha=='47fbda218c4484dcd747e8e0c90329ea34085839d20a617ee12d4bce3f45f5cd', live_sha
+          assert repo_sha==live_sha, (repo_sha,live_sha)
+          assert live_bytes==repo_bytes, 'live production lean bytes differ from checked-out validated lean export'
+          def unwrap(raw):
+            if isinstance(raw,list): return raw,'array'
+            if isinstance(raw,dict):
+              for k in ('cards','items','data','results'):
+                if isinstance(raw.get(k),list): return raw[k],'object:'+','.join(raw.keys())
+            raise AssertionError(('unrecognized wrapper',type(raw),list(raw.keys()) if isinstance(raw,dict) else None))
+          live_cards,wrapper=unwrap(json.loads(live_bytes))
+          repo_cards,_=unwrap(json.loads(repo_bytes))
           expected=[
             '2026-09-08_KR_02','2026-09-08_KR_03','2026-08-31_JP_02','2026-09-08_GL_01',
             '2026-09-07_GL_02','2026-09-04_GL_05','2026-09-07_EU_01','2026-09-06_CN_03',
@@ -43,16 +48,14 @@ jobs:
             '2026-09-08_KR_01','2026-09-08_GL_02','2026-09-08_US_02','2026-09-08_JP_01',
             '2026-09-08_JP_02','2026-09-08_US_01'
           ]
-          by={c.get('id'):c for c in cards if isinstance(c,dict)}
+          by={c.get('id'):c for c in live_cards if isinstance(c,dict)}
+          repo_by={c.get('id'):c for c in repo_cards if isinstance(c,dict)}
           missing=[i for i in expected if i not in by]
-          assert len(cards)==1617, len(cards)
+          object_mismatch=[i for i in expected if by.get(i)!=repo_by.get(i)]
+          assert len(live_cards)==1617, len(live_cards)
           assert not missing, missing
-          core=['id','title','date','region','summary','detail','sources']
-          field_issues={i:[k for k in core if k not in by[i] or by[i][k] in (None,'',[])] for i in expected}
-          field_issues={k:v for k,v in field_issues.items() if v}
-          assert not field_issues, field_issues
-          ford=by['2026-09-08_US_01']
-          target='2026-06-30_US_02'
+          assert not object_mismatch, object_mismatch
+          ford=by['2026-09-08_US_01']; target='2026-06-30_US_02'
           assert target in by, 'Ford Related target missing from live dataset'
           related=ford.get('related') or []
           related_ids=[]
@@ -66,13 +69,12 @@ jobs:
           assert '<div id="root"></div>' in index
           assert '/assets/' in index and '.js' in index
           result={
-            'status':'PASS','wrapper':wrapper,'live_card_count':len(cards),'introduced_ids_checked':len(expected),
-            'missing_ids':missing,'core_field_issues':field_issues,
-            'ford_related_target':target,'ford_related_target_exists':True,
-            'ford_related_published_edge_present':True,'provisional_relation_ids':provisional,
-            'ford_title':ford.get('title'),'target_title':by[target].get('title'),
-            'introduced_titles':[by[i].get('title') for i in expected],
-            'sample_live_card_keys':sorted(by['2026-09-08_US_01'].keys())
+            'status':'PASS','wrapper':wrapper,'live_sha256':live_sha,'repo_lean_sha256':repo_sha,
+            'byte_exact_with_repo_lean':True,'live_card_count':len(live_cards),'introduced_ids_checked':len(expected),
+            'missing_ids':missing,'introduced_object_mismatches':object_mismatch,
+            'ford_related_target':target,'ford_related_target_exists':True,'ford_related_published_edge_present':True,
+            'provisional_relation_ids':provisional,'ford_title':ford.get('title'),'target_title':by[target].get('title'),
+            'sample_live_card_keys':sorted(ford.keys())
           }
           pathlib.Path('/tmp/live-data-result.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
           print('LIVE_DATA_RESULT='+json.dumps(result,ensure_ascii=False))
@@ -108,8 +110,7 @@ jobs:
             await page.waitForTimeout(3500);
             const api=await page.request.get(base+'/data/cards.json');
             if(!api.ok()) throw new Error(label+' cards API '+api.status());
-            const raw=await api.json();
-            const cards=unwrap(raw);
+            const cards=unwrap(await api.json());
             if(!Array.isArray(cards)) throw new Error(label+' card wrapper not recognized');
             const by=new Map(cards.map(c=>[c.id,c]));
             const body=(await page.locator('body').innerText()).replace(/\s+/g,' ');
@@ -148,8 +149,9 @@ jobs:
           d=json.loads(pathlib.Path('/tmp/live-data-result.json').read_text())
           b=json.loads(pathlib.Path('/tmp/live-browser-result.json').read_text())
           out={
-            'status':'PASS','production_url':'https://sbtl-hub.vercel.app',
-            'live_card_count':d['live_card_count'],'introduced_ids_checked':d['introduced_ids_checked'],
+            'status':'PASS','production_url':'https://sbtl-hub.vercel.app','live_sha256':d['live_sha256'],
+            'byte_exact_with_repo_lean':d['byte_exact_with_repo_lean'],'live_card_count':d['live_card_count'],
+            'introduced_ids_checked':d['introduced_ids_checked'],'introduced_object_mismatches':d['introduced_object_mismatches'],
             'ford_related_target':d['ford_related_target'],'data_verification':'PASS','html_verification':'PASS',
             'interactive_render_verification':'PASS','mobile_render_verification':'PASS',
             'desktop_visible_introduced_ids':b['desktop']['visible_introduced_ids'],

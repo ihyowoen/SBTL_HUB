@@ -7,8 +7,9 @@
     "current_main_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
     "canonical_blob_sha_before": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
     "canonical_blob_sha_after": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+    "canonical_card_count": 1617,
     "canonical_data_changed": false,
-    "reason": "main moved after the reconciliation branch was opened, but data/cards.full.json is byte-identical; relock provenance only, no candidate re-adjudication required"
+    "reason": "main moved because of the Today/monthly-brief shelf UI merge, while data/cards.full.json remained byte-identical; batches already screened on the 1,617-card baseline require provenance relock only"
   },
   "canonical_mutation_allowed": false,
   "current_sep3_sep7": {
@@ -40,13 +41,39 @@
       "exact_canonicalized_removed": ["U1476", "U1581", "U1989"],
       "recheck_universe": 243
     },
-    "materialized": 50,
-    "remaining": 193,
+    "materialized": 125,
+    "remaining": 118,
     "partial_decision_counts": {
-      "PROMOTE": 15,
-      "KEEP_CANDIDATE": 10,
-      "DOWNGRADE_WATCH": 9,
-      "CLOSE": 16
+      "PROMOTE": 50,
+      "KEEP_CANDIDATE": 20,
+      "DOWNGRADE_WATCH": 22,
+      "CLOSE": 33
+    },
+    "latest_batch": {
+      "range": "101-125",
+      "exact_membership": [
+        "U0343", "U0388", "U0746", "U1950", "U1459", "U0404", "U0542", "U0344", "U0587", "U1176",
+        "U1416", "U1922", "U1926", "U1415", "U1915", "U1411", "U1170", "U0980", "U0520", "U0191",
+        "U0666", "U1121", "U0218", "U1828", "U1627"
+      ],
+      "decision_counts": {
+        "PROMOTE": 11,
+        "KEEP_CANDIDATE": 4,
+        "DOWNGRADE_WATCH": 2,
+        "CLOSE": 8
+      },
+      "unassigned": 0,
+      "duplicate_membership": 0,
+      "excluded_nonmember_correction": "U1660",
+      "replacement_valid_member": "U0218",
+      "artifact": "historical-candidate-243-progress-125.md"
+    },
+    "baseline_status_by_batch": {
+      "1-25": "FINAL_1617_CARD_COLLISION_RELOCK_PENDING",
+      "26-50": "FINAL_1617_CARD_COLLISION_RELOCK_PENDING",
+      "51-75": "CURRENT_1617_CARD_BASELINE_SCREENED_AND_PROVENANCE_RELOCKED",
+      "76-100": "CURRENT_1617_CARD_BASELINE_SCREENED_AND_PROVENANCE_RELOCKED",
+      "101-125": "CURRENT_1617_CARD_BASELINE_SCREENED"
     },
     "partial_counts_are_final": false
   },

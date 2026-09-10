@@ -19,7 +19,14 @@ function monthLabel(month) {
 }
 
 export function officialMonthlyBriefShelfItems(library) {
-  const items = (library?.items || []).filter(isOfficialMonthlyBrief).slice().sort(issueRank);
+  const ranked = (library?.items || []).filter(isOfficialMonthlyBrief).slice().sort(issueRank);
+  const seenMonths = new Set();
+  const items = ranked.filter((issue) => {
+    const month = String(issue?.month || "");
+    if (!month || seenMonths.has(month)) return false;
+    seenMonths.add(month);
+    return true;
+  });
   return { latest: items[0] || null, archive: items.slice(1) };
 }
 

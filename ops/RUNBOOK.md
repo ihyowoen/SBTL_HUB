@@ -101,10 +101,10 @@ run {
 
 - 축 12종 × 권역 6 = 72셀. 초판 기준 gap 32셀 — ELV·PFAS·PPWR이 전부 gap 셀에서 나왔음.
 - 축: trade(통상·관세) / subsidy(보조금·세제) / product_std(제품표준·안전) / chemicals(화학물질) / recycle(재활용·순환) / supply_chain(공급망·자원안보) / transport(운송·물류·저장) / carbon(탄소·ESG) / packaging(포장) / waste_ship(폐기물 이동) / data_dpp(정보·여권) / energy_market(전력시장·ESS)
-- 각 셀: { items[], status: covered|gap|na, lastSwept, sweepDay, queries[3~6], itemVerifyQueries[{date,query}]?, adhocDiscovery[{date,query}]? } — 쿼리는 셀에 **사전 정의**(현 항목과 무관하게), 언어 규칙 적용(CN=간체, JP=일본어)
+- 각 셀: { items[], status: covered|gap|na, lastSwept, queries[3~6], itemVerifyQueries[{date,query}]?, adhocDiscovery[{date,query}]? } — 쿼리는 셀에 **사전 정의**(현 항목과 무관하게), 언어 규칙 적용(CN=간체, JP=일본어)
 - 셀 운영 규칙:
-  - RD-3에서 요일 슬라이스별 로테이션(§4), **lastSwept 오래된 순 + gap 셀 우선**
-  - 전 셀 주 1회 스윕 보장 (일요일에 미스윕 보충)
+  - **RD-3 는 전 셀 전수다**(2026-09-02 전환, §4 RD-3 이력) — 매 run 90셀 전부 사전 정의 queries 를 실제로 돌린다. 요일 슬라이스·하이브리드 로테이션 폐지
+  - 미스윕 셀은 lastSwept 를 전진시키지 않고 원장 carryOver 에 사유와 함께 남긴다(검사 #13 이 근거 없는 스탬프를 막는다)
   - gap 셀에서 2회 연속 아무것도 안 나오면 status를 na(해당 규범 부재) 후보로 — Claire 승인 후 na 처리, 분기 1회 재확인
   - **items에 적는 ID는 tracker에 실재해야 함**(검사 #9 ERROR). 신규 항목을 셀에 넣을 땐 데이터 파일과 **같은 PR**로 착지 (F13)
 
@@ -117,7 +117,7 @@ run {
 
 ### 일일 부하 (실측 기반)
 - 클러스터 검색 1회 ≈ 3항목 커버(원장 실측) → 115항목 1회 명중에 **≈38 클러스터 검색**
-- + 신규발굴 셀 슬라이스 6~10 + 경계 표적 3~5 = **약 30~50 검색/일** (주간 환산 기존의 4~5배)
+- + 신규발굴 **전 셀 90 × 사전 정의 쿼리 3~6 = 270~540 검색/run** + 경계 표적 3~5 (2026-09-02 전수 전환 — 종전 요일 슬라이스는 6~10/일이었다)
 - 이 볼륨 때문에 "무변화" 유혹이 매일 옴 → **G2(원장 대조)가 매일 강제**되는 게 핵심 안전장치
 
 ### RD (일일 전수) 구성 — 매일 순서
@@ -126,7 +126,7 @@ run {
 | RD-0 롤오버 | **실제 날짜 확인**(§6.1) → milestones→dt 재생성(`ops/build_dt.mjs`) + 오늘 기준 D-day 재계산 |
 | RD-1 경계 우선 | D≤10·D+≤7 항목 먼저 실검증(변화 확률 최고) + watch 큐 due 순 전수 처리 |
 | RD-2 항목 전수 | 6권역 클러스터 검색으로 **전 항목이 당일 원장에 최소 1회 명중**. 미명중 잔존 = run 미완(G2가 차단) |
-| RD-3 신규발굴 | 오늘의 **커버리지 슬라이스**(아래 7일 로테이션)만 신규 스캔 — 전 셀 매일은 과부하, 7일 완주 |
+| RD-3 신규발굴 | **전 셀(90) 전수** — 각 셀의 사전 정의 queries 를 실제로 돌리고 원장 searches[] 에 query·region·axis 로 남긴다(검사 #13). 요일 슬라이스 폐지(2026-09-02, 아래 이력) |
 | RD-4 region_policy | tracker 당일 변화(신규·status·경계 진전·정정)를 **region_policy.json**에 전파: 권역별 headline·summary·watchpoints 재작성, `_meta.lastUpdated`·cycleNote 갱신. **두 파일 정합 필수** (§4a) |
 | RD-5 게이트·배포 | G2→G3→present→G4. tracker + region_policy **2파일 동시** 배포. **무변화일도 verify 날짜 갱신분 커밋**(매일 배포 결정) |
 
@@ -137,19 +137,13 @@ run {
 - `_meta.lastUpdated`는 tracker `meta.lastUpdated`와 **동일 날짜** 유지(불일치 시 G3 WARN — validator v2 검사 #8)
 - 무변화일도 `_meta.lastUpdated`만 갱신(tracker와 동기)
 
-### 7일 신규발굴 로테이션 (RD-3) — 72셀을 요일 슬라이스로
-전 항목 재검증(RD-2)은 매일이지만, **신규 표면 발굴**은 셀이 많아 요일 분산. 각 셀 주 1회 스윕 보장.
-| 요일 | 슬라이스 (축) |
-|------|--------------|
-| 월 | trade + subsidy (전 권역) |
-| 화 | product_std + chemicals |
-| 수 | recycle + waste_ship |
-| 목 | supply_chain + data_dpp |
-| 금 | carbon + energy_market |
-| 토 | transport + packaging |
-| 일 | gap 셀 전량 재확인 + na 후보 판정 + 지난주 미스윕 보충 |
-- 급변 이벤트(관세 발효일 등)는 요일 무관 RD-1에서 당일 처리.
-- lastSwept 7일 초과 셀이 생기면 일요일에 강제 보충.
+### RD-3 전수 스윕 — 이력
+- 2026-07-22 도입: 72셀을 요일 슬라이스로 분산 — 근거는 "전 셀 매일은 과부하, 7일 완주".
+- 2026-08-07: 셀 `sweepDay` 와 `_meta.sliceSchedule` 이중 정본 정리. "매일 전수 vs 하이브리드"는 운영자 결정 대기로 올림.
+- 2026-08-29 Claire 승인 옵션 B(하이브리드): trade·supply_chain·product_std 3축 매일 + 12축 요일 로테이션 — 신규 규범 발견이 최대 6일 지연되던 괴리를 일부만 해소.
+- **2026-09-02 전수 전환(Claire 결정)**: 요일 슬라이스·하이브리드 전부 폐지. 기존 항목 감시(RD-2)가 매일 전수인데 신규 발굴만 부분이면 훑지 않은 셀의 공백이 굳는다 — 부하는 감수한다(§4 일일 부하). 셀 `sweepDay`·`_meta.sliceSchedule` 삭제, `_meta.sweepPolicy` 에 결정 기록(구 정책은 `supersedes` 에 보존).
+- 급변 이벤트(관세 발효일 등)는 종전과 같이 RD-1 에서 당일 처리.
+- **전제 — 셀당 사전 정의 queries 3~6개.** 2026-09-02 현재 90셀 중 6셀만 충족하고 검사 #13 이 미달 셀의 스탬프를 거부한다. 쿼리 채우기가 전수의 선행 과제이며, validator 가 미달 셀 수를 분포와 함께 경고한다.
 
 ### 배포 정책 (매일)
 - **매일 PR — tracker_data.json + region_policy.json 2파일.** 변화 있으면 변경분, 무변화일은 두 파일 verify/lastUpdated 갱신 커밋("YYYY-MM-DD RD 무변화 확인").
@@ -177,7 +171,7 @@ run {
 
 **G3 정합 게이트 — validator v1 + v2 (커밋 전 필수):**
 - **CI 강제(2026-08-31~)**: validate2 는 종전 수동 전용이었으나 이제 워크플로 `validate-tracker.yml` 의 `Validate tracker data (v2)` 스텝이 실행한다. PR이 `ops/runs/*.json` 을 건드리면 그중 `date` 가 최신인 원장을 넘기므로 검사 #6·#13이 작동한다. `paths` 에 `ops/**` 를 넣어 원장·coverage 변경만으로도 CI가 트리거된다.
-- **검사 #13 스윕 근거 대조(ERROR, 2026-08-31 도입 / 2026-09-01 근거 규칙 개정)**: `coverage.lastSwept == run.date` 인 셀은 그 원장에 근거가 있어야 한다. **근거는 하나뿐이다 — `searches[]` 중 region·axis 가 그 셀이고 `query` 가 그 셀의 사전 정의 `queries` 에 있는 것.** 종전의 두 경로(`searches[].axis` 선언만으로 인정 / `itemsCovered` 파생)는 폐지했다. 그 경로들은 특정 항목을 지목한 **재검증 쿼리로도 lastSwept 를 전진**시켰고(2026-09-01 실측 19셀), 훑지 않은 셀이 최신으로 찍히면 RD-3 로테이션에서 뒤로 밀려 커버리지 공백이 굳는다. **따라서 사전 정의 `queries` 가 없는 셀은 스윕될 수 없다** — 셀에 3~6개 쿼리를 먼저 채우는 것이 선행 과제이며, validator 가 그런 셀 수를 집계 경고로 낸다. 무산출 스윕도 사전 정의 쿼리를 실제로 돌리고 `searches[]` 에 `query`·`region`·`axis` 를 적어야 근거가 된다. **근거 규칙은 2026-09-01 부터 적용**하고 그 이전 원장은 구 규칙(axis 선언·`itemsCovered` 파생)으로 대조한다(WARN 표기) — 소급 적용하면 과거 원장을 건드리는 모든 PR 이 CI 에서 막힌다(실측: 2026-08-31 원장 33셀). 검사 #13 자체의 도입일(2026-08-31) 이전 원장은 스키마 부재로 검증 불가하므로 WARN 후 건너뛴다.
+- **검사 #13 스윕 근거 대조(ERROR, 2026-08-31 도입 / 2026-09-01 근거 규칙 개정)**: `coverage.lastSwept == run.date` 인 셀은 그 원장에 근거가 있어야 한다. **근거는 하나뿐이다 — `searches[]` 중 region·axis 가 그 셀이고 `query` 가 그 셀의 사전 정의 `queries` 에 있는 것.** 종전의 두 경로(`searches[].axis` 선언만으로 인정 / `itemsCovered` 파생)는 폐지했다. 그 경로들은 특정 항목을 지목한 **재검증 쿼리로도 lastSwept 를 전진**시켰고(2026-09-01 실측 19셀), 훑지 않은 셀이 최신으로 찍히면 전수 스윕에서 실제 미스윕이 가려져 커버리지 공백이 굳는다. **따라서 사전 정의 `queries` 가 없는 셀은 스윕될 수 없다** — 셀에 3~6개 쿼리를 먼저 채우는 것이 선행 과제이며, validator 가 그런 셀 수를 집계 경고로 낸다. 무산출 스윕도 사전 정의 쿼리를 실제로 돌리고 `searches[]` 에 `query`·`region`·`axis` 를 적어야 근거가 된다. **근거 규칙은 2026-09-01 부터 적용**하고 그 이전 원장은 구 규칙(axis 선언·`itemsCovered` 파생)으로 대조한다(WARN 표기) — 소급 적용하면 과거 원장을 건드리는 모든 PR 이 CI 에서 막힌다(실측: 2026-08-31 원장 33셀). 검사 #13 자체의 도입일(2026-08-31) 이전 원장은 스키마 부재로 검증 불가하므로 WARN 후 건너뛴다.
 - **항목 재검증은 스윕이 아니다**: 특정 규범을 지목한 확인 검색은 `coverage.lastSwept` 를 전진시키지 않고 셀의 `itemVerifyQueries[{date, query}]` 에만 기록한다. 우연히 발굴된 후보는 `adhocDiscovery[{date, query}]` 에 남긴다.
 - v1(scripts/validate.mjs) 기존 검사 + v2(ops/validate2.mjs) 검사 21종 (2026-09-01 에 #15~#21 추가 — runId 실재 / effectiveDate↔dt(WARN) / checkNote 단락 중복 / 승인 큐↔status / 검색 축↔coverage 매핑 / runId 원장 날짜↔verify.date / 원장 파생값↔실측): 산문 D-day(WARN) / refs dangling(ERROR)·미등재(WARN) / 동일 법령번호 중복 후보(WARN) / 제안 키워드+ACTIVE·DONE(WARN) / **watch due 경과(ERROR)** / **verify↔원장 대조(ERROR)** / pending 미이관(WARN) / region_policy 정합(WARN) / **coverage↔tracker ID 동기(ERROR)** / **스윕 근거 대조(ERROR)** / **노출 필드 마크다운 파손(ERROR)**
 - 실행(**리포 루트 기준**):

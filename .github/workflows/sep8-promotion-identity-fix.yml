@@ -13,7 +13,7 @@ jobs:
         with: {fetch-depth: 0}
       - uses: actions/setup-node@v4
         with: {node-version: '20'}
-      - name: Re-lock main and repair promotion + Related lineage atomically
+      - name: Re-lock and repair Ford promotion, Related, and date-role chain
         shell: bash
         run: |
           set -euo pipefail
@@ -26,56 +26,62 @@ jobs:
           R=pathlib.Path('runs/2026-09-09/sep8-r7-current-main-production-r1'); S=R/'stages'
           L=lambda p:json.load(open(p)); W=lambda p,d:p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n'); H=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
           promo=str(S/'stage-a-promotion5.json')
-          pre={'status':'PASS','same_event_checked':True,'matched_baseline_candidate_ids':['2026-06-30_US_02'],'matched_current_batch_candidate_ids':[],'relation_candidates':[{'target_candidate_id':'2026-06-30_US_02','proposed_relation_type':'distinct_follow_up','confidence':'high','reason':'The June card records Ford battery-production intent using CATL licensed technology; the Sep 8 DOT letter is a separate official federal policy-pressure event that changes the strategic/regulatory state rather than repeating the June milestone.','anchor_class_to_verify':'policy_regulatory_anchor','incremental_anchor_question':'Verify that the Sep 8 U.S. DOT pressure on Ford/CATL is chronologically distinct from the June production milestone and materially changes the policy/strategic judgment without implying a new legal ban.'}],'duplicate_disposition':'no_duplicate_found','earliest_same_event_check_status':'PASS','fresh_anchor_questions':['Verify the Sep 8 policy_regulatory_anchor against predecessor 2026-06-30_US_02 and confirm it is a distinct follow-up rather than same-event repetition.']}
+          old='미 교통부 장관 Sean Duffy는 9월 8일 Ford CEO에 보낸 공개 서한에서 중국 기술·제조 의존을 줄이라고 요구하면서 Michigan BlueOval Battery Park의 CATL 라이선스 기술 사용을 직접 지목했다. 이번 발표 자체는 라이선스 취소나 새로운 법적 금지를 발생시키는 조치는 아니다.'
+          new='미 교통부는 9월 8일 공개한 Sean Duffy 장관의 Ford CEO 대상 서한에서 중국 기술·제조 의존 축소를 요구하면서 Michigan BlueOval Battery Park의 CATL 라이선스 기술 사용을 직접 지목했다. 이번 공개 요구 자체는 라이선스 취소나 새로운 법적 금지를 신설한 조치로 확인되지 않는다.'
+          dot='https://www.transportation.gov/briefing-room/trumps-transportation-secretary-sean-p-duffy-urges-ford-cut-ties-china-and-prioritize'
+          date_quote='U.S. Transportation Secretary Sean P. Duffy today warned Ford Motor Company against its embrace of Chinese technology and manufacturing'
+          def replace_strings(o):
+            if isinstance(o,dict):
+              for k,v in list(o.items()):
+                if isinstance(v,str) and old in v: o[k]=v.replace(old,new)
+                else: replace_strings(v)
+              if o.get('event_date_source_url')==dot:
+                o['event_date_source_quote']=date_quote
+            elif isinstance(o,list):
+              for v in o: replace_strings(v)
+          pre={'status':'PASS','same_event_checked':True,'matched_baseline_candidate_ids':['2026-06-30_US_02'],'matched_current_batch_candidate_ids':[],'relation_candidates':[{'target_candidate_id':'2026-06-30_US_02','proposed_relation_type':'distinct_follow_up','confidence':'high','reason':'The June card records Ford battery-production intent using CATL licensed technology; the Sep 8 DOT public disclosure of federal pressure is a separate policy event rather than a repeat of the June milestone.','anchor_class_to_verify':'policy_regulatory_anchor','incremental_anchor_question':'Verify that the Sep 8 U.S. DOT public pressure on Ford/CATL is chronologically distinct from the June production milestone and materially changes the policy/strategic judgment without implying a new legal ban.'}],'duplicate_disposition':'no_duplicate_found','earliest_same_event_check_status':'PASS','fresh_anchor_questions':['Verify the Sep 8 public policy_regulatory_anchor against predecessor 2026-06-30_US_02 and confirm it is a distinct follow-up rather than same-event repetition.']}
           a=L(S/'stage-a-promotion5.json')
           for x in a['strict_passed_spec']:
             if x.get('spec_id')=='STD26_0908_P_005':
               x['related_prepass']=pre; x['baseline_relation']='distinct_follow_up'; x['baseline_follow_up_relation']='distinct_follow_up'
           for x in a['decision_ledger']:
             if x.get('spec_id')=='STD26_0908_P_005' or x.get('candidate_id')=='STD26_0908_P_005':
-              x.update(baseline_relation='distinct_follow_up',follow_up_relation='distinct_follow_up',baseline_match='2026-06-30_US_02',duplicate_risk='bounded_recheck_completed_distinct_follow_up',notes='Promotion resolved; Stage A Related prepass identifies 2026-06-30_US_02 as a distinct predecessor and authorizes Stage B evidence verification.')
-          a['summary']['follow_up_candidate_ids']=['STD26_0908_P_005']
-          W(S/'stage-a-promotion5.json',a); ah=H(S/'stage-a-promotion5.json')
-          b=L(S/'stage-b.json')
+              x.update(baseline_relation='distinct_follow_up',follow_up_relation='distinct_follow_up',baseline_match='2026-06-30_US_02',duplicate_risk='bounded_recheck_completed_distinct_follow_up',notes='Promotion resolved; Stage A Related prepass identifies 2026-06-30_US_02 as a distinct predecessor. Sep 8 is treated as the official public-disclosure policy event, avoiding an unsupported assertion that it is the letter document date.')
+          a['summary']['follow_up_candidate_ids']=['STD26_0908_P_005']; W(S/'stage-a-promotion5.json',a); ah=H(S/'stage-a-promotion5.json')
+          b=L(S/'stage-b.json'); replace_strings(b)
           for x in b['strict_passed_spec']:
             if x.get('spec_id')=='STD26_0908_P_005':
               x['related_prepass']=pre; x['baseline_relation']='distinct_follow_up'; x['baseline_follow_up_relation']='distinct_follow_up'
           W(S/'stage-b.json',b); bh=H(S/'stage-b.json')
-          def ub(o):
+          def bind_b(o):
             if isinstance(o,dict):
               z=o.get('stage_b_lineage')
               if isinstance(z,dict) and z.get('spec_id'): z['artifact_sha256']=bh
-              for v in o.values(): ub(v)
+              for v in o.values(): bind_b(v)
             elif isinstance(o,list):
-              for v in o: ub(v)
-          c=L(S/'stage-c.json'); ub(c); W(S/'stage-c.json',c); ch=H(S/'stage-c.json')
+              for v in o: bind_b(v)
+          c=L(S/'stage-c.json'); replace_strings(c); bind_b(c); W(S/'stage-c.json',c); ch=H(S/'stage-c.json')
           chain=[]
           for f,key,src in [('stage-0-4.json','stage_c_artifact_sha256',ch),('stage-0-5.json','stage_0_4_artifact_sha256',None),('stage-0-6.json','input_0_5_sha256',None),('stage-0-7.json','input_0_6_sha256',None)]:
-            p=S/f; d=L(p); ub(d); d[key]=src if src is not None else chain[-1]; W(p,d); chain.append(H(p))
-          r=L(R/'card-run.json'); ub(r)
+            p=S/f; d=L(p); replace_strings(d); bind_b(d); d[key]=src if src is not None else chain[-1]; W(p,d); chain.append(H(p))
+          r=L(R/'card-run.json'); replace_strings(r); bind_b(r)
           promoted=0
           for op in r['operations']['insert']:
-            card=op['card']; z=card.get('stage_b_lineage')
-            sid=card.get('source_spec_id') or (z.get('spec_id') if isinstance(z,dict) else None)
+            card=op['card']; z=card.get('stage_b_lineage'); sid=card.get('source_spec_id') or (z.get('spec_id') if isinstance(z,dict) else None)
             if sid and '_P_' in sid:
               arts=op.get('stage_artifacts')
               if not isinstance(arts,list) or not arts: raise SystemExit(f'missing stage_artifacts for {sid}')
               arts[0]=promo; promoted+=1
           if promoted!=5: raise SystemExit(f'expected 5 promoted inserts, got {promoted}')
           relops=r['operations'].get('related_add',[])
-          if len(relops)!=1: raise SystemExit(f'expected exactly 1 related_add, got {len(relops)}')
-          rop=relops[0]
-          rsid=rop.get('source_spec_id') or rop.get('spec_id')
-          if rsid!='STD26_0908_P_005': raise SystemExit(f'unexpected related_add source spec: {rsid}')
-          rarts=rop.get('stage_artifacts')
-          if not isinstance(rarts,list) or not rarts: raise SystemExit('Ford related_add missing stage_artifacts')
-          rarts[0]=promo
+          if len(relops)!=1 or (relops[0].get('source_spec_id') or relops[0].get('spec_id'))!='STD26_0908_P_005': raise SystemExit('unexpected Ford related_add identity')
+          if not isinstance(relops[0].get('stage_artifacts'),list) or not relops[0]['stage_artifacts']: raise SystemExit('Ford related_add missing stage_artifacts')
+          relops[0]['stage_artifacts'][0]=promo
           oph=hashlib.sha256(json.dumps(r['operations'],sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest(); W(R/'card-run.json',r)
           x=L(R/'stage-0-7c.json'); x['reviewed_operations_sha256']=oph; x['hash_chain'].update(stage_a_promotion5_sha256=ah,stage_b_sha256=bh,stage_c_sha256=ch,stage_0_4_sha256=chain[0],stage_0_5_sha256=chain[1],stage_0_6_sha256=chain[2],stage_0_7_sha256=chain[3]); W(R/'stage-0-7c.json',x)
           for f in ['stage-0-8.json','card-run-audit.json']:
             p=R/f; d=L(p); d['reviewed_operations_sha256']=oph; W(p,d)
-          pathlib.Path('/tmp/opsha').write_text(oph)
-          print('FINAL_OPERATION_SHA256',oph)
+          print('FINAL_OPERATION_SHA256',oph); print('STAGE_B_SHA256',bh)
           PY
       - name: Validate repaired chain before apply
         shell: bash
@@ -88,24 +94,22 @@ jobs:
           node scripts/validate_card_run_status_consistency.mjs --run "$R"
           node scripts/validate_card_run_relations.mjs --run "$R"
           node scripts/validate_card_run_lineage_containers.mjs --run "$R" --canonical data/cards.full.json
-      - name: Official apply and exact invariant checks
+      - name: Official apply from exact frozen baseline and exact invariant checks
         shell: bash
         run: |
           set -euo pipefail
           R=runs/2026-09-09/sep8-r7-current-main-production-r1/card-run.json; B=e19f6c113ccb62906e7fdefaf3bae657c58b5637
+          git checkout "$B" -- data/cards.full.json public/data/cards.json
           node scripts/apply_card_run.mjs --apply --run "$R" --baseline data/cards.full.json --output data/cards.full.json --report runs/2026-09-09/sep8-r7-current-main-production-r1/apply-report.json --base-main-sha "$B" --lean-path public/data/cards.json
           node scripts/apply_card_run.mjs --verify --run "$R" --baseline data/cards.full.json --output data/cards.full.json --report runs/2026-09-09/sep8-r7-current-main-production-r1/apply-report.json --base-main-sha "$B" --lean-path public/data/cards.json
           python - <<'PY'
           import json,hashlib,pathlib,subprocess
-          R=pathlib.Path('runs/2026-09-09/sep8-r7-current-main-production-r1')
-          full=pathlib.Path('data/cards.full.json'); lean=pathlib.Path('public/data/cards.json')
+          R=pathlib.Path('runs/2026-09-09/sep8-r7-current-main-production-r1'); full=pathlib.Path('data/cards.full.json'); lean=pathlib.Path('public/data/cards.json')
           fh=hashlib.sha256(full.read_bytes()).hexdigest(); lh=hashlib.sha256(lean.read_bytes()).hexdigest()
           d=json.load(open(R/'card-run-audit.json')); d['full_output_sha256']=fh; d['lean_output_sha256']=lh; (R/'card-run-audit.json').write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
-          base=json.loads(subprocess.check_output(['git','show','e19f6c113ccb62906e7fdefaf3bae657c58b5637:data/cards.full.json']))
-          out=json.load(open(full)); bm={x['id']:x for x in base}; om={x['id']:x for x in out}
+          base=json.loads(subprocess.check_output(['git','show','e19f6c113ccb62906e7fdefaf3bae657c58b5637:data/cards.full.json'])); out=json.load(open(full)); bm={x['id']:x for x in base}; om={x['id']:x for x in out}
           new=sorted(set(om)-set(bm)); removed=sorted(set(bm)-set(om)); changed=[i for i in bm if i in om and bm[i]!=om[i]]
-          assert len(base)==1599 and len(out)==1617 and len(new)==18 and not removed and not changed
-          assert len(om)==len(out)
+          assert len(base)==1599 and len(out)==1617 and len(new)==18 and not removed and not changed and len(om)==len(out)
           urls={}
           for x in out:
             for e in x.get('evidence',[]):
@@ -113,7 +117,8 @@ jobs:
               if u: urls.setdefault(u,[]).append(x['id'])
           cross={u:ids for u,ids in urls.items() if len(set(ids))>1 and any(i in new for i in ids) and any(i not in new for i in ids)}
           assert not cross, list(cross.items())[:3]
-          print('DEEP_INVARIANTS_PASS',{'base':len(base),'out':len(out),'new':len(new),'removed':0,'existing_changed':0,'full_sha256':fh,'lean_sha256':lh})
+          ford=om['2026-09-08_US_01']; assert '9월 8일 공개한 Sean Duffy' in ford.get('fact',''); assert '9월 8일 Ford CEO에 보낸' not in ford.get('fact','')
+          print('DEEP_INVARIANTS_PASS',{'base':1599,'out':1617,'new':18,'removed':0,'existing_changed':0,'full_sha256':fh,'lean_sha256':lh})
           PY
           node scripts/validate_card_run_audits_dispatch.mjs --run "$R" --full data/cards.full.json --lean public/data/cards.json
           node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$R"
@@ -130,5 +135,5 @@ jobs:
           rm -f .github/workflows/sep8-promotion-identity-fix.yml
           git config user.name 'github-actions[bot]'; git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          git commit -m 'Fix Sep 8 promotion Related lineage binding'
+          git commit -m 'Deep-repair Sep 8 promotion lineage and Ford date role'
           git push origin HEAD:chatgpt/sep8-r7-current-main-production-r1

@@ -1,0 +1,47 @@
+{
+  "schema": "card_run_audit_v1",
+  "status": "PASS",
+  "audit_complete": true,
+  "reviewer_independence": "SEPARATE_PASS",
+  "run_id": "card-run-2026-09-09-sep8-r7-current-main-production-r1",
+  "base_main_commit_sha": "e19f6c113ccb62906e7fdefaf3bae657c58b5637",
+  "base_full_blob_sha": "cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb",
+  "document_universe_manifest_ref": "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-0c.json",
+  "independent_completeness_ref": "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-7c.json",
+  "reviewed_operations_sha256": "b197b31fbe1d58c1318461b83de6c8ba4d0dd6c2020d03f04046a45bab88e4e7",
+  "expected_before": 1599,
+  "expected_after": 1617,
+  "inserted_ids": [
+    "2026-09-08_KR_02",
+    "2026-09-08_KR_03",
+    "2026-08-31_JP_02",
+    "2026-09-08_GL_01",
+    "2026-09-07_GL_02",
+    "2026-09-04_GL_05",
+    "2026-09-07_EU_01",
+    "2026-09-06_CN_03",
+    "2026-09-07_CN_01",
+    "2026-08-31_CN_02",
+    "2026-08-26_CN_04",
+    "2026-09-08_EU_01",
+    "2026-09-08_KR_01",
+    "2026-09-08_GL_02",
+    "2026-09-08_US_02",
+    "2026-09-08_JP_01",
+    "2026-09-08_JP_02",
+    "2026-09-08_US_01"
+  ],
+  "updated_ids": [],
+  "related_additions": [
+    {
+      "source_id": "2026-09-08_US_01",
+      "target_id": "2026-06-30_US_02",
+      "direction": "directional"
+    }
+  ],
+  "zero_deletion_assertion": true,
+  "zero_related_remove_assertion": true,
+  "full_output_sha256": "9584cee08b1f670199c77d84adbe24f4e7656c84f31c992965edd3e112b8d974",
+  "lean_output_sha256": "47fbda218c4484dcd747e8e0c90329ea34085839d20a617ee12d4bce3f45f5cd"
+}

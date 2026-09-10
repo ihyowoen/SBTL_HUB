@@ -1,0 +1,2156 @@
+{
+  "stage": "stage_a",
+  "status": "PASS",
+  "run_tag": "20260909_SEP8_PROMPT_0_1P_PROMOTION5_R1",
+  "run_label": "Sep 8 intake Prompt 0.1P bounded review-pool promotion against current main e19f6c; 18 reviewed, 5 promoted.",
+  "source_prompt_file": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+  "source_prompt_sha256": "617b775d8ce711b7631073f4a335d385ee6e474efa80d6948435d2434af8461e",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "source_prompt_authority": "uploaded_or_repo_source_file_prompt",
+  "source_prompt_provenance_status": "PASS",
+  "input_file": "runs/2026-09-09/sep8-r7-current-main-production-r1/stages/stage-a.json#candidate_review_pool",
+  "baseline_file": "data/cards.full.json",
+  "baseline_source_declaration": "current main e19f6c113ccb62906e7fdefaf3bae657c58b5637; canonical blob cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb; 1599 cards",
+  "baseline_count": 1599,
+  "github_main_sync_required_later": false,
+  "source_universe": "18 authorized candidate_review_pool items from Sep 8 Stage A; Prompt 0.1P bounded research completed; 5 ordinary strict specs re-emitted.",
+  "story_count": 6,
+  "event_count": 5,
+  "original_status_counts": {
+    "review_promoted": 6
+  },
+  "integrity_summary": {
+    "status": "PASS",
+    "main_sha": "e19f6c113ccb62906e7fdefaf3bae657c58b5637",
+    "canonical_blob_sha": "cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb",
+    "promotion_candidate_count": 18,
+    "promoted_event_count": 5,
+    "retained_count": 13,
+    "duplicate_event_membership": 0,
+    "unassigned_event_membership": 0
+  },
+  "recommended_for": [
+    "Stage B evidence package construction for Prompt 0.1P promoted strict_passed_spec[] only"
+  ],
+  "stage_a_validity_status": "PASS",
+  "artifact_consistency_status": "PASS",
+  "csv_schema_status": "PASS",
+  "review_pool_partition_status": "PASS",
+  "strict_pass_gate_metadata_status": "PASS",
+  "baseline_duplicate_screen_status": "PASS",
+  "review_pool_carry_forward_ledger_status": "PASS",
+  "next_call_recommendation": {
+    "recommended_next_call": "Stage B r0",
+    "recommended_prompt_id": "Prompt 0.2",
+    "recommended_input_universe": "Stage A strict_passed_spec[] only",
+    "reason": "Five of 18 candidate-review items satisfy the ordinary Stage A strict contract after bounded Prompt 0.1P research; 13 remain outside Stage B.",
+    "pending_parallel_or_followup_call": "none",
+    "pending_prompt_id": "not_applicable",
+    "pending_input_universe": "none",
+    "pending_reason": "Prompt 0.1P terminally accounts all 18 authorized review items.",
+    "blocked_items_summary": []
+  },
+  "required_docs_check": {
+    "docs_expected": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md"
+    ],
+    "docs_read_from_github_main": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md"
+    ],
+    "governance_closure_reused_by_exact_docs_subtree_identity": "39cde756e243c12dc4fa0ae56c7247955ed529b3",
+    "docs_missing_or_unreadable": [],
+    "status": "PASS",
+    "authority_note": "Integrated Stage A V4 is active authority; frozen V3 metadata below is a compatibility replay projection only and does not replace the V4 editorial artifact."
+  },
+  "lane_sanity_rules_applied": [
+    "authorized_candidate_review_pool_only",
+    "bounded_prompt_0_1p_research",
+    "ordinary_stage_a_v4_re_emission",
+    "current_main_1599_duplicate_related_screen",
+    "score_caps_machine_checked",
+    "no_score_inflation_for_source_recovery"
+  ],
+  "dropped_treasure_hunt": {
+    "performed": false,
+    "trigger_reason": "Prompt 0.1P is authorized candidate-review promotion only; no new coverage discovery is performed.",
+    "sample_strategy": "not_applicable",
+    "sample_size": 0,
+    "sampled_story_ids": [],
+    "rescued_count": 0,
+    "rescue_ids": [],
+    "non_sampled_dropped_count": 0,
+    "non_sampled_ledger_policy": "All 18 authorized candidate-review items are terminally accounted in candidate_promotion_contract.promotion_ledger."
+  },
+  "summary": {
+    "legacy_keep_count": 0,
+    "strict_passed_spec_count": 5,
+    "needs_review_count": 0,
+    "rejected_count": 0,
+    "existing_reinforcement_count": 0,
+    "support_source_only_count": 0,
+    "duplicate_or_reinforcement_count": 0,
+    "stale_discarded_count": 0,
+    "stale_warm_review_count": 0,
+    "total_ledger_count": 6,
+    "ledger_matches_story_count": true,
+    "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+    "structural_selector_policy_file": "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
+    "structural_selector_policy_sha": "826974044eac88f2e80c972dcfa8493cd508cbc31e3a7ca0a0482f244d82c6fe",
+    "credibility_cardability_value_urgency_separated": true,
+    "industry_first_weighting_applied": true,
+    "core_industrial_weight_total": 70,
+    "multi_anchor_class_model_applied": true,
+    "mandatory_structural_lenses_applied": true,
+    "anchor_class_counts": {
+      "execution_event_anchor": 4,
+      "strategic_behavior_anchor": 3,
+      "policy_regulatory_anchor": 1
+    },
+    "structural_lens_coverage_counts": {
+      "ess_bess": 4,
+      "market_structure_supply_chain_execution": 2,
+      "safety_operating_risk": 1,
+      "existing_card_follow_up": 1,
+      "competitor_customer_strategy": 2,
+      "us_cn_policy_supply_chain": 1
+    },
+    "decision_value_classification_counts": {
+      "standard_monitoring": 4,
+      "context_or_reinforcement": 1
+    },
+    "critical_structural_candidate_ids": [],
+    "high_decision_value_candidate_ids": [],
+    "high_value_review_pool_ids": [],
+    "structural_signal_review_pool_ids": [],
+    "earnings_deep_dive_pool_ids": [],
+    "follow_up_candidate_ids": [
+      "STD26_0908_P_005"
+    ],
+    "zero_coverage_domains": [],
+    "execution_or_formality_bias_findings": [],
+    "technology_validation_gap_ids": [],
+    "legal_policy_stage_gap_ids": [],
+    "search_before_delete_applied": true,
+    "earnings_call_qna_rule_applied": true,
+    "follow_up_probability_review_applied": true,
+    "portfolio_coverage_audit_applied": true,
+    "structural_value_selector_status": "PASS",
+    "portfolio_coverage_audit_status": "PASS",
+    "earnings_call_qna_audit_status": "NOT_APPLICABLE",
+    "follow_up_repromotion_audit_status": "PASS",
+    "execution_event_bias_audit_status": "PASS",
+    "content_depth_audit_status": "PASS",
+    "decision_ledger_count": 6,
+    "selection_route_counts": {
+      "execution_anchor_route": 2,
+      "structural_non_execution_route": 1
+    },
+    "formal_event_count": 5,
+    "source_bound_observation_count": 6,
+    "candidate_review_pool_count": 0,
+    "watchlist_context_pool_count": 0,
+    "reject_or_support_only_pool_count": 0
+  },
+  "legacy_keep": [],
+  "strict_passed_spec": [
+    {
+      "source_origin": "authorized_prompt_0_1P_bounded_research_from_candidate_review_pool",
+      "source_story_ids": [
+        "TF_0054",
+        "TF_0055"
+      ],
+      "original_story_ids": [
+        "TF_0054",
+        "TF_0055"
+      ],
+      "merge_status": "merged_same_event_observations",
+      "merged_story_ids": [
+        "TF_0055"
+      ],
+      "region": "GL",
+      "representative_date": "2026-09-08",
+      "representative_source": "Australia Critical Minerals (via Google News)",
+      "source_tier_estimate": "official_or_reputable_to_verify",
+      "cat": "battery_ess_industrial_signal",
+      "sub_cat": "technology",
+      "signal_estimate": "monitoring",
+      "signal_rubric_estimate": {
+        "status": "standard_monitoring",
+        "score": 54
+      },
+      "strategic_lens": [
+        "battery_ESS_supply_chain"
+      ],
+      "primary_url": "https://www.indexbox.io/blog/octopus-australia-refers-500mw-blackstone-bess-for-federal-environmental-assessment",
+      "urls": [
+        "https://www.indexbox.io/blog/octopus-australia-refers-500mw-blackstone-bess-for-federal-environmental-assessment",
+        "https://www.energy-storage.news/octopus-australia-refers-2gwh-blackstone-bess-for-epbc-act-assessment-in-queensland"
+      ],
+      "event_anchor": "structural_signal",
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "execution_anchor_type": "federal_environmental_referral_open_for_comment",
+      "execution_anchor_strength": "strong",
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "bounded_recheck_required_before_promotion",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "source_access_risk": "bounded_promotion_sources_found_requires_stage_b_body_verification",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "TF_0054",
+          "url": "https://www.indexbox.io/blog/octopus-australia-refers-500mw-blackstone-bess-for-federal-environmental-assessment",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "TF_0055",
+          "url": "https://www.energy-storage.news/octopus-australia-refers-2gwh-blackstone-bess-for-epbc-act-assessment-in-queensland",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary/?id=b82ae61b-219d-f111-b8db-6045bde6a109",
+        "https://www.energy-storage.news/octopus-australia-refers-2gwh-blackstone-bess-for-epbc-act-assessment-in-queensland/"
+      ],
+      "source_domain_candidates": [
+        "epbcpublicportal.environment.gov.au",
+        "www.energy-storage.news"
+      ],
+      "source_diversity_path": {
+        "status": "uncertain",
+        "candidate_owner_availability": "known_or_to_verify",
+        "compatibility_source_status": "candidate_sources_preserved_for_stage_b"
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "incremental_information": "Federal EPBC referral is now a live, project-specific approval milestone for a 500 MW / 2,000 MWh BESS, with the public referral specifying the post-referral financing, EPC/LTSA, connection and Q4-2026 notice-to-proceed path.",
+      "decision_relevance": "'Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland' is decision-relevant to ess_bess, market_structure_supply_chain_execution.",
+      "baseline_expectation_changed": "The current 1,599-card baseline has no same-event card for this exact current milestone; bounded research establishes a distinct current execution/follow-up state.",
+      "evidence_needed_for_stage_b": [
+        "official filing or authoritative document for STD26_0908_P_001 Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland confirming the exact event stage/status, representative date 2026-09-08, and named authority or counterparty",
+        "independent report or dataset for STD26_0908_P_001 Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland confirming the exact capacity, volume, production, shipment, approval, price, cost, margin, customer, legal-status, or policy-pressure claim"
+      ],
+      "next_confirmation_points": [
+        "Verify the next measurable production, operation, contract, regulatory, capacity, shipment, utilisation, price, application, enforcement, cleanup, or court milestone for 'Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland'; confirmation strengthens the Stage A thesis, while delay, reversal, cancellation, or non-execution weakens it."
+      ],
+      "why_execution_event_not_required": null,
+      "structural_non_execution_reason": null,
+      "prior_state": "Before the Sep 8 intake, the exact event 'Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland' was not admitted as a same-event canonical card after reconciliation against the 1,599-card baseline.",
+      "new_verified_fact": "Federal EPBC referral is now a live, project-specific approval milestone for a 500 MW / 2,000 MWh BESS, with the public referral specifying the post-referral financing, EPC/LTSA, connection and Q4-2026 notice-to-proceed path.",
+      "changed_judgment": "Prompt 0.1P changes STD26_0908_R_005 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolved its promotion condition.",
+      "uncertainty_resolved": "The current event stage, date, distinctness and Stage B source path are resolved sufficiently for ordinary strict Stage A admission.",
+      "remaining_uncertainty": "Stage B must verify body-level facts, exact scope, counterparties and any implementation/operation dependencies before card drafting.",
+      "decision_news_value_score": 47,
+      "decision_value_breakdown": {
+        "market_structure_competition": 16,
+        "supply_demand_price_utilisation": 18,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 7,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "standard_monitoring",
+      "systemic_scale_denominator": null,
+      "denominator_used": "No defensible market-wide denominator is locked at Stage A for Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Stage A for Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Verify Stage B evidence package for Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland.",
+        "decision_deadline": null
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the earliest source-bound event date and exact selected anchor for 'Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland'."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "role": "event_date",
+        "event_date": "2026-09-08",
+        "representative_date": "2026-09-08",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary/?id=b82ae61b-219d-f111-b8db-6045bde6a109",
+        "source_quote_emitted": false
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "title_raw": "Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland",
+      "summary_hint": "Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland",
+      "context_text": "Stage A metadata-only assessment for Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland.",
+      "why_now": "Prompt 0.1P bounded research resolved the candidate review condition against the exact current baseline.",
+      "market_relevance": "Relevant to ess_bess, market_structure_supply_chain_execution.",
+      "source_priority_notes": "Stage B must fetch and verify the strongest official/independent source bodies; 0.1P research is promotion evidence, not evidence-complete card proof.",
+      "upstream_labels": {
+        "triage_status": "triage_filtered",
+        "matched_buckets": [
+          "20260908_input_or_discovery",
+          "0.0C_accounted",
+          "authoritative_event_clustered"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "SEP8_EVT_0025",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-08",
+        "publication_date": "2026-09-08",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "structural_value_lenses": [
+        "ess_bess",
+        "market_structure_supply_chain_execution"
+      ],
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "ess_bess",
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved material milestone or official policy signal, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "not_applicable for this disposition",
+      "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "story_id": "TF_0054",
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "federal_environmental_referral_open_for_comment",
+        "anchor_strength": "strong",
+        "stage_precision_note": "Federal EPBC referral is now a live, project-specific approval milestone for a 500 MW / 2,000 MWh BESS, with the public referral specifying the post-referral financing, EPC/LTSA, connection and Q4-2026 notice-to-proceed path."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "Current 1,599-card canonical was re-screened from the exact e19f6c baseline; no unresolved same-event canonical duplicate remains for this promoted milestone."
+      },
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "Federal EPBC referral is now a live, project-specific approval milestone for a 500 MW / 2,000 MWh BESS, with the public referral specifying the post-referral financing, EPC/LTSA, connection and Q4-2026 notice-to-proceed path.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Prompt 0.1P bounded research resolved the recorded review question without score inflation."
+      },
+      "spec_id": "STD26_0908_P_001",
+      "source_event_id": "SEP8_EVT_0025",
+      "legal_policy_stage": null,
+      "earnings_call_available": "not_applicable",
+      "earnings_ir_deck_available": "unknown",
+      "earnings_qna_available": "unknown"
+    },
+    {
+      "source_origin": "authorized_prompt_0_1P_bounded_research_from_candidate_review_pool",
+      "source_story_ids": [
+        "DISC_SEP8_004_MOSS_LANDING_CLEANUP"
+      ],
+      "original_story_ids": [
+        "DISC_SEP8_004_MOSS_LANDING_CLEANUP"
+      ],
+      "merge_status": "single_observation",
+      "merged_story_ids": [],
+      "region": "US",
+      "representative_date": "2026-09-08",
+      "representative_source": "U.S. EPA",
+      "source_tier_estimate": "official_or_reputable_to_verify",
+      "cat": "battery_ess_industrial_signal",
+      "sub_cat": "technology",
+      "signal_estimate": "monitoring",
+      "signal_rubric_estimate": {
+        "status": "standard_monitoring",
+        "score": 54
+      },
+      "strategic_lens": [
+        "battery_ESS_supply_chain"
+      ],
+      "primary_url": "https://www.epa.gov/newsreleases/epa-begins-final-phase-post-fire-battery-cleanup-moss-landing",
+      "urls": [
+        "https://www.epa.gov/newsreleases/epa-begins-final-phase-post-fire-battery-cleanup-moss-landing"
+      ],
+      "event_anchor": "structural_signal",
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "execution_anchor_type": "final_battery_cleanup_and_demolition_phase_start",
+      "execution_anchor_strength": "strong",
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "bounded_recheck_required_before_promotion",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "source_access_risk": "bounded_promotion_sources_found_requires_stage_b_body_verification",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "DISC_SEP8_004_MOSS_LANDING_CLEANUP",
+          "url": "https://www.epa.gov/newsreleases/epa-begins-final-phase-post-fire-battery-cleanup-moss-landing",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://www.epa.gov/newsreleases/epa-begins-final-phase-post-fire-battery-cleanup-moss-landing",
+        "https://www.epa.gov/ca/vistra-moss-landing-battery-fire-response"
+      ],
+      "source_domain_candidates": [
+        "www.epa.gov"
+      ],
+      "source_diversity_path": {
+        "status": "uncertain",
+        "candidate_owner_availability": "known_or_to_verify",
+        "compatibility_source_status": "candidate_sources_preserved_for_stage_b"
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "incremental_information": "EPA formally started the final cleanup phase at Vistra Moss Landing: remaining severely damaged batteries are being removed/processed and the burned building is being demolished to reach inaccessible material.",
+      "decision_relevance": "'EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS' is decision-relevant to safety_operating_risk, ess_bess, existing_card_follow_up.",
+      "baseline_expectation_changed": "The current 1,599-card baseline has no same-event card for this exact current milestone; bounded research establishes a distinct current execution/follow-up state.",
+      "evidence_needed_for_stage_b": [
+        "official filing or authoritative document for STD26_0908_P_002 EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS confirming the exact event stage/status, representative date 2026-09-08, and named authority or counterparty",
+        "independent report or dataset for STD26_0908_P_002 EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS confirming the exact capacity, volume, production, shipment, approval, price, cost, margin, customer, legal-status, or policy-pressure claim"
+      ],
+      "next_confirmation_points": [
+        "Verify the next measurable production, operation, contract, regulatory, capacity, shipment, utilisation, price, application, enforcement, cleanup, or court milestone for 'EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS'; confirmation strengthens the Stage A thesis, while delay, reversal, cancellation, or non-execution weakens it."
+      ],
+      "why_execution_event_not_required": null,
+      "structural_non_execution_reason": null,
+      "prior_state": "Before the Sep 8 intake, the exact event 'EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS' was not admitted as a same-event canonical card after reconciliation against the 1,599-card baseline.",
+      "new_verified_fact": "EPA formally started the final cleanup phase at Vistra Moss Landing: remaining severely damaged batteries are being removed/processed and the burned building is being demolished to reach inaccessible material.",
+      "changed_judgment": "Prompt 0.1P changes STD26_0908_R_010 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolved its promotion condition.",
+      "uncertainty_resolved": "The current event stage, date, distinctness and Stage B source path are resolved sufficiently for ordinary strict Stage A admission.",
+      "remaining_uncertainty": "Stage B must verify body-level facts, exact scope, counterparties and any implementation/operation dependencies before card drafting.",
+      "decision_news_value_score": 48,
+      "decision_value_breakdown": {
+        "market_structure_competition": 25,
+        "supply_demand_price_utilisation": 12,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 5,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "standard_monitoring",
+      "systemic_scale_denominator": null,
+      "denominator_used": "No defensible market-wide denominator is locked at Stage A for EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Stage A for EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Verify Stage B evidence package for EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS.",
+        "decision_deadline": null
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the earliest source-bound event date and exact selected anchor for 'EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS'."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "role": "event_date",
+        "event_date": "2026-09-08",
+        "representative_date": "2026-09-08",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.epa.gov/newsreleases/epa-begins-final-phase-post-fire-battery-cleanup-moss-landing",
+        "source_quote_emitted": false
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "title_raw": "EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS",
+      "summary_hint": "EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS",
+      "context_text": "Stage A metadata-only assessment for EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS.",
+      "why_now": "Prompt 0.1P bounded research resolved the candidate review condition against the exact current baseline.",
+      "market_relevance": "Relevant to safety_operating_risk, ess_bess, existing_card_follow_up.",
+      "source_priority_notes": "Stage B must fetch and verify the strongest official/independent source bodies; 0.1P research is promotion evidence, not evidence-complete card proof.",
+      "upstream_labels": {
+        "triage_status": "discovered",
+        "matched_buckets": [
+          "20260908_input_or_discovery",
+          "0.0C_accounted",
+          "authoritative_event_clustered"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "DISC_SEP8_004_MOSS_LANDING_CLEANUP",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-08",
+        "publication_date": "2026-09-08",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": true,
+        "staleness_override": false,
+        "decision": "current"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "structural_value_lenses": [
+        "safety_operating_risk",
+        "ess_bess",
+        "existing_card_follow_up"
+      ],
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "safety_operating_risk",
+        "ess_bess",
+        "existing_card_follow_up"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved material milestone or official policy signal, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "not_applicable for this disposition",
+      "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "story_id": "DISC_SEP8_004_MOSS_LANDING_CLEANUP",
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "final_battery_cleanup_and_demolition_phase_start",
+        "anchor_strength": "strong",
+        "stage_precision_note": "EPA formally started the final cleanup phase at Vistra Moss Landing: remaining severely damaged batteries are being removed/processed and the burned building is being demolished to reach inaccessible material."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "Current 1,599-card canonical was re-screened from the exact e19f6c baseline; no unresolved same-event canonical duplicate remains for this promoted milestone."
+      },
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "EPA formally started the final cleanup phase at Vistra Moss Landing: remaining severely damaged batteries are being removed/processed and the burned building is being demolished to reach inaccessible material.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Prompt 0.1P bounded research resolved the recorded review question without score inflation."
+      },
+      "spec_id": "STD26_0908_P_002",
+      "source_event_id": "DISC_SEP8_004_MOSS_LANDING_CLEANUP",
+      "legal_policy_stage": null,
+      "earnings_call_available": "not_applicable",
+      "earnings_ir_deck_available": "unknown",
+      "earnings_qna_available": "unknown"
+    },
+    {
+      "source_origin": "authorized_prompt_0_1P_bounded_research_from_candidate_review_pool",
+      "source_story_ids": [
+        "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS"
+      ],
+      "original_story_ids": [
+        "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS"
+      ],
+      "merge_status": "single_observation",
+      "merged_story_ids": [],
+      "region": "JP",
+      "representative_date": "2026-09-08",
+      "representative_source": "Digital Grid",
+      "source_tier_estimate": "official_or_reputable_to_verify",
+      "cat": "battery_ess_industrial_signal",
+      "sub_cat": "technology",
+      "signal_estimate": "monitoring",
+      "signal_rubric_estimate": {
+        "status": "standard_monitoring",
+        "score": 54
+      },
+      "strategic_lens": [
+        "battery_ESS_supply_chain"
+      ],
+      "primary_url": "https://www.digitalgrid.com/news/fukushimaenergy/",
+      "urls": [
+        "https://www.digitalgrid.com/news/fukushimaenergy/"
+      ],
+      "event_anchor": "structural_signal",
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "execution_anchor_type": "first_low_voltage_bess_energization",
+      "execution_anchor_strength": "strong",
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "bounded_recheck_required_before_promotion",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "source_access_risk": "bounded_promotion_sources_found_requires_stage_b_body_verification",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS",
+          "url": "https://www.digitalgrid.com/news/fukushimaenergy/",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://www.digitalgrid.com/news/fukushimaenergy/"
+      ],
+      "source_domain_candidates": [
+        "www.digitalgrid.com"
+      ],
+      "source_diversity_path": {
+        "status": "uncertain",
+        "candidate_owner_availability": "known_or_to_verify",
+        "compatibility_source_status": "candidate_sources_preserved_for_stage_b"
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "anchor_classes": [
+        "execution_event_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "incremental_information": "Digital Grid confirms its first low-voltage grid BESS began receiving power on 2026-09-08 and that it will aggregate 100 Fukushima sites for balancing-market operation, resolving the execution and aggregation-path question.",
+      "decision_relevance": "'Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites' is decision-relevant to ess_bess, market_structure_supply_chain_execution.",
+      "baseline_expectation_changed": "The current 1,599-card baseline has no same-event card for this exact current milestone; bounded research establishes a distinct current execution/follow-up state.",
+      "evidence_needed_for_stage_b": [
+        "official filing or authoritative document for STD26_0908_P_003 Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites confirming the exact event stage/status, representative date 2026-09-08, and named authority or counterparty",
+        "independent report or dataset for STD26_0908_P_003 Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites confirming the exact capacity, volume, production, shipment, approval, price, cost, margin, customer, legal-status, or policy-pressure claim"
+      ],
+      "next_confirmation_points": [
+        "Verify the next measurable production, operation, contract, regulatory, capacity, shipment, utilisation, price, application, enforcement, cleanup, or court milestone for 'Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites'; confirmation strengthens the Stage A thesis, while delay, reversal, cancellation, or non-execution weakens it."
+      ],
+      "why_execution_event_not_required": null,
+      "structural_non_execution_reason": null,
+      "prior_state": "Before the Sep 8 intake, the exact event 'Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites' was not admitted as a same-event canonical card after reconciliation against the 1,599-card baseline.",
+      "new_verified_fact": "Digital Grid confirms its first low-voltage grid BESS began receiving power on 2026-09-08 and that it will aggregate 100 Fukushima sites for balancing-market operation, resolving the execution and aggregation-path question.",
+      "changed_judgment": "Prompt 0.1P changes STD26_0908_R_013 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolved its promotion condition.",
+      "uncertainty_resolved": "The current event stage, date, distinctness and Stage B source path are resolved sufficiently for ordinary strict Stage A admission.",
+      "remaining_uncertainty": "Stage B must verify body-level facts, exact scope, counterparties and any implementation/operation dependencies before card drafting.",
+      "decision_news_value_score": 51,
+      "decision_value_breakdown": {
+        "market_structure_competition": 19,
+        "supply_demand_price_utilisation": 18,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "standard_monitoring",
+      "systemic_scale_denominator": null,
+      "denominator_used": "No defensible market-wide denominator is locked at Stage A for Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Stage A for Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Verify Stage B evidence package for Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites.",
+        "decision_deadline": null
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the earliest source-bound event date and exact selected anchor for 'Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites'."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "role": "event_date",
+        "event_date": "2026-09-08",
+        "representative_date": "2026-09-08",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.digitalgrid.com/news/fukushimaenergy/",
+        "source_quote_emitted": false
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "title_raw": "Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites",
+      "summary_hint": "Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites",
+      "context_text": "Stage A metadata-only assessment for Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites.",
+      "why_now": "Prompt 0.1P bounded research resolved the candidate review condition against the exact current baseline.",
+      "market_relevance": "Relevant to ess_bess, market_structure_supply_chain_execution.",
+      "source_priority_notes": "Stage B must fetch and verify the strongest official/independent source bodies; 0.1P research is promotion evidence, not evidence-complete card proof.",
+      "upstream_labels": {
+        "triage_status": "discovered",
+        "matched_buckets": [
+          "20260908_input_or_discovery",
+          "0.0C_accounted",
+          "authoritative_event_clustered"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-08",
+        "publication_date": "2026-09-08",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "structural_value_lenses": [
+        "ess_bess",
+        "market_structure_supply_chain_execution"
+      ],
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "ess_bess",
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved material milestone or official policy signal, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "not_applicable for this disposition",
+      "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "story_id": "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS",
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "first_low_voltage_bess_energization",
+        "anchor_strength": "strong",
+        "stage_precision_note": "Digital Grid confirms its first low-voltage grid BESS began receiving power on 2026-09-08 and that it will aggregate 100 Fukushima sites for balancing-market operation, resolving the execution and aggregation-path question."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "Current 1,599-card canonical was re-screened from the exact e19f6c baseline; no unresolved same-event canonical duplicate remains for this promoted milestone."
+      },
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "Digital Grid confirms its first low-voltage grid BESS began receiving power on 2026-09-08 and that it will aggregate 100 Fukushima sites for balancing-market operation, resolving the execution and aggregation-path question.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Prompt 0.1P bounded research resolved the recorded review question without score inflation."
+      },
+      "spec_id": "STD26_0908_P_003",
+      "source_event_id": "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS",
+      "legal_policy_stage": null,
+      "earnings_call_available": "not_applicable",
+      "earnings_ir_deck_available": "unknown",
+      "earnings_qna_available": "unknown"
+    },
+    {
+      "source_origin": "authorized_prompt_0_1P_bounded_research_from_candidate_review_pool",
+      "source_story_ids": [
+        "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW"
+      ],
+      "original_story_ids": [
+        "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW"
+      ],
+      "merge_status": "single_observation",
+      "merged_story_ids": [],
+      "region": "JP",
+      "representative_date": "2026-09-08",
+      "representative_source": "Daiwa House/Daiwa Energy news release via PR Times",
+      "source_tier_estimate": "official_or_reputable_to_verify",
+      "cat": "battery_ess_industrial_signal",
+      "sub_cat": "technology",
+      "signal_estimate": "monitoring",
+      "signal_rubric_estimate": {
+        "status": "standard_monitoring",
+        "score": 54
+      },
+      "strategic_lens": [
+        "battery_ESS_supply_chain"
+      ],
+      "primary_url": "https://prtimes.jp/main/html/rd/p/000002768.000002296.html",
+      "urls": [
+        "https://prtimes.jp/main/html/rd/p/000002768.000002296.html"
+      ],
+      "event_anchor": "structural_signal",
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "execution_anchor_type": "signed_bess_epc_contract_and_business_entry",
+      "execution_anchor_strength": "strong",
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "bounded_recheck_required_before_promotion",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "source_access_risk": "bounded_promotion_sources_found_requires_stage_b_body_verification",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW",
+          "url": "https://prtimes.jp/main/html/rd/p/000002768.000002296.html",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://www.daiwahouse.co.jp/about/release/group/20260907184222.html",
+        "https://www.daiwa-energy.com/"
+      ],
+      "source_domain_candidates": [
+        "www.daiwa-energy.com",
+        "www.daiwahouse.co.jp"
+      ],
+      "source_diversity_path": {
+        "status": "uncertain",
+        "candidate_owner_availability": "known_or_to_verify",
+        "compatibility_source_status": "candidate_sources_preserved_for_stage_b"
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "anchor_classes": [
+        "execution_event_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "incremental_information": "Daiwa Energy officially entered grid-BESS EPC and signed its first construction EPC contract with ENEOS Power for a 50 MW / 109 MWh high-voltage BESS at the Shimizu oil terminal.",
+      "decision_relevance": "'Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project' is decision-relevant to ess_bess, competitor_customer_strategy.",
+      "baseline_expectation_changed": "The current 1,599-card baseline has no same-event card for this exact current milestone; bounded research establishes a distinct current execution/follow-up state.",
+      "evidence_needed_for_stage_b": [
+        "official filing or authoritative document for STD26_0908_P_004 Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project confirming the exact event stage/status, representative date 2026-09-08, and named authority or counterparty",
+        "independent report or dataset for STD26_0908_P_004 Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project confirming the exact capacity, volume, production, shipment, approval, price, cost, margin, customer, legal-status, or policy-pressure claim"
+      ],
+      "next_confirmation_points": [
+        "Verify the next measurable production, operation, contract, regulatory, capacity, shipment, utilisation, price, application, enforcement, cleanup, or court milestone for 'Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project'; confirmation strengthens the Stage A thesis, while delay, reversal, cancellation, or non-execution weakens it."
+      ],
+      "why_execution_event_not_required": null,
+      "structural_non_execution_reason": null,
+      "prior_state": "Before the Sep 8 intake, the exact event 'Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project' was not admitted as a same-event canonical card after reconciliation against the 1,599-card baseline.",
+      "new_verified_fact": "Daiwa Energy officially entered grid-BESS EPC and signed its first construction EPC contract with ENEOS Power for a 50 MW / 109 MWh high-voltage BESS at the Shimizu oil terminal.",
+      "changed_judgment": "Prompt 0.1P changes STD26_0908_R_015 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolved its promotion condition.",
+      "uncertainty_resolved": "The current event stage, date, distinctness and Stage B source path are resolved sufficiently for ordinary strict Stage A admission.",
+      "remaining_uncertainty": "Stage B must verify body-level facts, exact scope, counterparties and any implementation/operation dependencies before card drafting.",
+      "decision_news_value_score": 52,
+      "decision_value_breakdown": {
+        "market_structure_competition": 20,
+        "supply_demand_price_utilisation": 18,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "standard_monitoring",
+      "systemic_scale_denominator": null,
+      "denominator_used": "No defensible market-wide denominator is locked at Stage A for Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Stage A for Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Verify Stage B evidence package for Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project.",
+        "decision_deadline": null
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the earliest source-bound event date and exact selected anchor for 'Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project'."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "role": "event_date",
+        "event_date": "2026-09-08",
+        "representative_date": "2026-09-08",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.daiwahouse.co.jp/about/release/group/20260907184222.html",
+        "source_quote_emitted": false
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "title_raw": "Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project",
+      "summary_hint": "Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project",
+      "context_text": "Stage A metadata-only assessment for Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project.",
+      "why_now": "Prompt 0.1P bounded research resolved the candidate review condition against the exact current baseline.",
+      "market_relevance": "Relevant to ess_bess, competitor_customer_strategy.",
+      "source_priority_notes": "Stage B must fetch and verify the strongest official/independent source bodies; 0.1P research is promotion evidence, not evidence-complete card proof.",
+      "upstream_labels": {
+        "triage_status": "discovered",
+        "matched_buckets": [
+          "20260908_input_or_discovery",
+          "0.0C_accounted",
+          "authoritative_event_clustered"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-08",
+        "publication_date": "2026-09-08",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "structural_value_lenses": [
+        "ess_bess",
+        "competitor_customer_strategy"
+      ],
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "ess_bess",
+        "competitor_customer_strategy"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved material milestone or official policy signal, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "not_applicable for this disposition",
+      "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "story_id": "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW",
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "signed_bess_epc_contract_and_business_entry",
+        "anchor_strength": "strong",
+        "stage_precision_note": "Daiwa Energy officially entered grid-BESS EPC and signed its first construction EPC contract with ENEOS Power for a 50 MW / 109 MWh high-voltage BESS at the Shimizu oil terminal."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "Current 1,599-card canonical was re-screened from the exact e19f6c baseline; no unresolved same-event canonical duplicate remains for this promoted milestone."
+      },
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "Daiwa Energy officially entered grid-BESS EPC and signed its first construction EPC contract with ENEOS Power for a 50 MW / 109 MWh high-voltage BESS at the Shimizu oil terminal.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Prompt 0.1P bounded research resolved the recorded review question without score inflation."
+      },
+      "spec_id": "STD26_0908_P_004",
+      "source_event_id": "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW",
+      "legal_policy_stage": null,
+      "earnings_call_available": "not_applicable",
+      "earnings_ir_deck_available": "unknown",
+      "earnings_qna_available": "unknown"
+    },
+    {
+      "source_origin": "authorized_prompt_0_1P_bounded_research_from_candidate_review_pool",
+      "source_story_ids": [
+        "DISC_SEP8_007_US_FORD_CATL_PRESSURE"
+      ],
+      "original_story_ids": [
+        "DISC_SEP8_007_US_FORD_CATL_PRESSURE"
+      ],
+      "merge_status": "single_observation",
+      "merged_story_ids": [],
+      "region": "US",
+      "representative_date": "2026-09-08",
+      "representative_source": "Reuters",
+      "source_tier_estimate": "official_or_reputable_to_verify",
+      "cat": "battery_ess_industrial_signal",
+      "sub_cat": "technology",
+      "signal_estimate": "monitoring",
+      "signal_rubric_estimate": {
+        "status": "standard_monitoring",
+        "score": 54
+      },
+      "strategic_lens": [
+        "battery_ESS_supply_chain"
+      ],
+      "primary_url": "https://www.reuters.com/business/autos-transportation/trump-administration-blasts-ford-business-deals-with-chinese-firms-2026-09-08/",
+      "urls": [
+        "https://www.reuters.com/business/autos-transportation/trump-administration-blasts-ford-business-deals-with-chinese-firms-2026-09-08/"
+      ],
+      "event_anchor": "structural_signal",
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "execution_anchor_type": null,
+      "execution_anchor_strength": null,
+      "baseline_relation": "distinct_follow_up",
+      "duplicate_risk": "bounded_recheck_required_before_promotion",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "source_access_risk": "bounded_promotion_sources_found_requires_stage_b_body_verification",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "DISC_SEP8_007_US_FORD_CATL_PRESSURE",
+          "url": "https://www.reuters.com/business/autos-transportation/trump-administration-blasts-ford-business-deals-with-chinese-firms-2026-09-08/",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://www.transportation.gov/briefing-room/trumps-transportation-secretary-sean-p-duffy-urges-ford-cut-ties-china-and-prioritize",
+        "https://www.reuters.com/business/autos-transportation/trump-administration-blasts-ford-business-deals-with-chinese-firms-2026-09-08/"
+      ],
+      "source_domain_candidates": [
+        "www.reuters.com",
+        "www.transportation.gov"
+      ],
+      "source_diversity_path": {
+        "status": "uncertain",
+        "candidate_owner_availability": "known_or_to_verify",
+        "compatibility_source_status": "candidate_sources_preserved_for_stage_b"
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "structural_non_execution_route",
+      "structural_value_override_applied": true,
+      "structural_value_override_reason": "'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships' changes a decision-relevant policy, market-data, strategic-behavior, technology, or follow-up judgment without requiring a conventional construction/production event.",
+      "anchor_classes": [
+        "policy_regulatory_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "incremental_information": "The U.S. Transportation Secretary issued a formal public letter urging Ford to reduce China-linked technology and manufacturing dependencies, explicitly citing CATL licensing at the Michigan battery plant; this is a material official policy/strategic signal even though it does not itself revoke legal market access.",
+      "decision_relevance": "'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships' is decision-relevant to us_cn_policy_supply_chain, competitor_customer_strategy.",
+      "baseline_expectation_changed": "The current 1,599-card baseline has no same-event card for this exact current milestone; bounded research establishes a distinct current execution/follow-up state.",
+      "evidence_needed_for_stage_b": [
+        "official filing or authoritative document for STD26_0908_P_005 Trump administration pressures Ford over CATL and other Chinese auto/battery relationships confirming the exact event stage/status, representative date 2026-09-08, and named authority or counterparty",
+        "independent report or dataset for STD26_0908_P_005 Trump administration pressures Ford over CATL and other Chinese auto/battery relationships confirming the exact capacity, volume, production, shipment, approval, price, cost, margin, customer, legal-status, or policy-pressure claim"
+      ],
+      "next_confirmation_points": [
+        "Verify the next measurable production, operation, contract, regulatory, capacity, shipment, utilisation, price, application, enforcement, cleanup, or court milestone for 'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships'; confirmation strengthens the Stage A thesis, while delay, reversal, cancellation, or non-execution weakens it."
+      ],
+      "why_execution_event_not_required": "The selected anchor is policy_regulatory_anchor, strategic_behavior_anchor; the information can independently change market or supply-chain judgment if downstream evidence verifies the source-bound fact.",
+      "structural_non_execution_reason": "'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships' changes a decision-relevant policy, market-data, strategic-behavior, technology, or follow-up judgment without requiring a conventional construction/production event.",
+      "prior_state": "Before the Sep 8 intake, the exact event 'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships' was not admitted as a same-event canonical card after reconciliation against the 1,599-card baseline.",
+      "new_verified_fact": "The U.S. Transportation Secretary issued a formal public letter urging Ford to reduce China-linked technology and manufacturing dependencies, explicitly citing CATL licensing at the Michigan battery plant; this is a material official policy/strategic signal even though it does not itself revoke legal market access.",
+      "changed_judgment": "Prompt 0.1P changes STD26_0908_R_011 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolved its promotion condition.",
+      "uncertainty_resolved": "The current event stage, date, distinctness and Stage B source path are resolved sufficiently for ordinary strict Stage A admission.",
+      "remaining_uncertainty": "Stage B must verify body-level facts, exact scope, counterparties and any implementation/operation dependencies before card drafting.",
+      "decision_news_value_score": 38,
+      "decision_value_breakdown": {
+        "market_structure_competition": 13,
+        "supply_demand_price_utilisation": 10,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 0,
+        "law_policy_market_access": 9,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "context_or_reinforcement",
+      "systemic_scale_denominator": null,
+      "denominator_used": "No defensible market-wide denominator is locked at Stage A for Trump administration pressures Ford over CATL and other Chinese auto/battery relationships; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Stage A for Trump administration pressures Ford over CATL and other Chinese auto/battery relationships; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Verify Stage B evidence package for Trump administration pressures Ford over CATL and other Chinese auto/battery relationships.",
+        "decision_deadline": null
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [
+          "2026-06-30_US_02"
+        ],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [
+          {
+            "target_candidate_id": "2026-06-30_US_02",
+            "proposed_relation_type": "distinct_follow_up",
+            "confidence": "high",
+            "reason": "The June card records Ford battery-production intent using CATL licensed technology; the Sep 8 DOT public disclosure of federal pressure is a separate policy event rather than a repeat of the June milestone.",
+            "anchor_class_to_verify": "policy_regulatory_anchor",
+            "incremental_anchor_question": "Verify that the Sep 8 U.S. DOT public pressure on Ford/CATL is chronologically distinct from the June production milestone and materially changes the policy/strategic judgment without implying a new legal ban."
+          }
+        ],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the Sep 8 public policy_regulatory_anchor against predecessor 2026-06-30_US_02 and confirm it is a distinct follow-up rather than same-event repetition."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "role": "event_date",
+        "event_date": "2026-09-08",
+        "representative_date": "2026-09-08",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.transportation.gov/briefing-room/trumps-transportation-secretary-sean-p-duffy-urges-ford-cut-ties-china-and-prioritize",
+        "source_quote_emitted": false
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": 0,
+      "novelty_cap_basis": "none",
+      "title_raw": "Trump administration pressures Ford over CATL and other Chinese auto/battery relationships",
+      "summary_hint": "Trump administration pressures Ford over CATL and other Chinese auto/battery relationships",
+      "context_text": "Stage A metadata-only assessment for Trump administration pressures Ford over CATL and other Chinese auto/battery relationships.",
+      "why_now": "Prompt 0.1P bounded research resolved the candidate review condition against the exact current baseline.",
+      "market_relevance": "Relevant to us_cn_policy_supply_chain, competitor_customer_strategy.",
+      "source_priority_notes": "Stage B must fetch and verify the strongest official/independent source bodies; 0.1P research is promotion evidence, not evidence-complete card proof.",
+      "upstream_labels": {
+        "triage_status": "discovered",
+        "matched_buckets": [
+          "20260908_input_or_discovery",
+          "0.0C_accounted",
+          "authoritative_event_clustered"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "DISC_SEP8_007_US_FORD_CATL_PRESSURE",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-08",
+        "publication_date": "2026-09-08",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "structural_value_lenses": [
+        "us_cn_policy_supply_chain",
+        "competitor_customer_strategy"
+      ],
+      "baseline_follow_up_relation": "distinct_follow_up",
+      "portfolio_coverage_contribution": [
+        "us_cn_policy_supply_chain",
+        "competitor_customer_strategy"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved material milestone or official policy signal, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "not_applicable for this disposition",
+      "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "story_id": "DISC_SEP8_007_US_FORD_CATL_PRESSURE",
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "formal_us_transportation_department_policy_pressure",
+        "anchor_strength": "strong",
+        "stage_precision_note": "The U.S. Transportation Secretary issued a formal public letter urging Ford to reduce China-linked technology and manufacturing dependencies, explicitly citing CATL licensing at the Michigan battery plant; this is a material official policy/strategic signal even though it does not itself revoke legal market access."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "Current 1,599-card canonical was re-screened from the exact e19f6c baseline; no unresolved same-event canonical duplicate remains for this promoted milestone."
+      },
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "The U.S. Transportation Secretary issued a formal public letter urging Ford to reduce China-linked technology and manufacturing dependencies, explicitly citing CATL licensing at the Michigan battery plant; this is a material official policy/strategic signal even though it does not itself revoke legal market access.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Prompt 0.1P bounded research resolved the recorded review question without score inflation."
+      },
+      "spec_id": "STD26_0908_P_005",
+      "source_event_id": "DISC_SEP8_007_US_FORD_CATL_PRESSURE",
+      "legal_policy_stage": "stage_0_rhetoric_or_advocacy",
+      "legal_instrument_type": "to_verify_in_stage_b",
+      "competent_authority": "to_verify_in_stage_b",
+      "procedural_status": "Stage A classifies this item at policy stage 0; exact operative instrument to verify in Stage B.",
+      "adoption_date": "2026-09-08",
+      "publication_date": "2026-09-08",
+      "effective_date": "to_verify_in_stage_b",
+      "mandatory_application_date": "to_verify_in_stage_b",
+      "affected_entities": [],
+      "affected_products_or_activities": [],
+      "geographic_scope": "to_verify_in_stage_b",
+      "extraterritorial_effect": "to_verify_in_stage_b",
+      "budget_or_funding_source": "to_verify_in_stage_b",
+      "implementation_mechanism": "to_verify_in_stage_b",
+      "administrative_readiness": "to_verify_in_stage_b",
+      "exemptions_and_thresholds": [],
+      "transition_and_grandfathering": [],
+      "noncompliance_consequences": [],
+      "appeal_or_litigation_risk": "to_verify_in_stage_b",
+      "reversibility_risk": "to_verify_in_stage_b",
+      "precedent_scope": "to_verify_in_stage_b",
+      "legal_policy_transmission_chain": [
+        "Verify how Trump administration pressures Ford over CATL and other Chinese auto/battery relationships changes market access, procurement, storage deployment, or supply-chain economics."
+      ],
+      "next_implementation_trigger": "to_verify_in_stage_b",
+      "earnings_call_available": "not_applicable",
+      "earnings_ir_deck_available": "unknown",
+      "earnings_qna_available": "unknown"
+    }
+  ],
+  "candidate_review_pool": [],
+  "watchlist_context_pool": [],
+  "reject_or_support_only_pool": [],
+  "review_pool": [],
+  "review_pool_partition_summary": {
+    "candidate_review_pool": 0,
+    "watchlist_context_pool": 0,
+    "reject_or_support_only_pool": 0,
+    "total_review_pool": 0
+  },
+  "review_pool_resolution_ledger": [],
+  "rejected": [],
+  "existing_reinforcement": [],
+  "support_source_only": [],
+  "dropped_treasure_hunt_result": [],
+  "decision_ledger": [
+    {
+      "candidate_id": "STD26_0908_P_001",
+      "story_id": "TF_0054",
+      "source_event_id": "SEP8_EVT_0025",
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Prompt 0.1P promoted after bounded research and user-authorized materiality review.",
+      "upstream_status": "review_promoted",
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "news_value_basis": "'Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland' is decision-relevant to ess_bess, market_structure_supply_chain_execution.",
+      "structural_value_lenses": [
+        "ess_bess",
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "official filing or authoritative document for STD26_0908_P_001 Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland confirming the exact event stage/status, representative date 2026-09-08, and named authority or counterparty",
+        "independent report or dataset for STD26_0908_P_001 Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland confirming the exact capacity, volume, production, shipment, approval, price, cost, margin, customer, legal-status, or policy-pressure claim"
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "Federal EPBC referral is now a live, project-specific approval milestone for a 500 MW / 2,000 MWh BESS, with the public referral specifying the post-referral financing, EPC/LTSA, connection and Q4-2026 notice-to-proceed path.",
+      "decision_relevance": "'Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland' is decision-relevant to ess_bess, market_structure_supply_chain_execution.",
+      "baseline_expectation_changed": "The current 1,599-card baseline has no same-event card for this exact current milestone; bounded research establishes a distinct current execution/follow-up state.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "Verify the next measurable production, operation, contract, regulatory, capacity, shipment, utilisation, price, application, enforcement, cleanup, or court milestone for 'Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland'; confirmation strengthens the Stage A thesis, while delay, reversal, cancellation, or non-execution weakens it."
+      ],
+      "portfolio_coverage_contribution": [
+        "ess_bess",
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": null,
+      "review_pool_repromotion_precondition": null,
+      "decision_news_value_score": 47,
+      "decision_value_breakdown": {
+        "market_structure_competition": 16,
+        "supply_demand_price_utilisation": 18,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 7,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "standard_monitoring",
+      "prior_state": "Before the Sep 8 intake, the exact event 'Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland' was not admitted as a same-event canonical card after reconciliation against the 1,599-card baseline.",
+      "new_verified_fact": "Federal EPBC referral is now a live, project-specific approval milestone for a 500 MW / 2,000 MWh BESS, with the public referral specifying the post-referral financing, EPC/LTSA, connection and Q4-2026 notice-to-proceed path.",
+      "changed_judgment": "Prompt 0.1P changes STD26_0908_R_005 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolved its promotion condition.",
+      "uncertainty_resolved": "The current event stage, date, distinctness and Stage B source path are resolved sufficiently for ordinary strict Stage A admission.",
+      "remaining_uncertainty": "Stage B must verify body-level facts, exact scope, counterparties and any implementation/operation dependencies before card drafting.",
+      "denominator_used": "No defensible market-wide denominator is locked at Stage A for Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Stage A for Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Verify Stage B evidence package for Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved material milestone or official policy signal, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "not_applicable for this disposition",
+      "legal_policy_stage": null,
+      "upstream_drop_reason": null,
+      "headline": "Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland",
+      "site": "Australia Critical Minerals (via Google News)",
+      "url": "https://www.indexbox.io/blog/octopus-australia-refers-500mw-blackstone-bess-for-federal-environmental-assessment",
+      "integrity_group_id": "SEP8_EVT_0025",
+      "integrity_is_best": null,
+      "spec_id": "STD26_0908_P_001",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "bounded_recheck_required_before_promotion",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "treasure_hunt_sampled": true,
+      "notes": "Promotion resolved; authorized for Stage B evidence package construction."
+    },
+    {
+      "candidate_id": "STD26_0908_P_001",
+      "story_id": "TF_0055",
+      "source_event_id": "SEP8_EVT_0025",
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Prompt 0.1P promoted after bounded research and user-authorized materiality review.",
+      "upstream_status": "review_promoted",
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "news_value_basis": "'Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland' is decision-relevant to ess_bess, market_structure_supply_chain_execution.",
+      "structural_value_lenses": [
+        "ess_bess",
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "official filing or authoritative document for STD26_0908_P_001 Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland confirming the exact event stage/status, representative date 2026-09-08, and named authority or counterparty",
+        "independent report or dataset for STD26_0908_P_001 Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland confirming the exact capacity, volume, production, shipment, approval, price, cost, margin, customer, legal-status, or policy-pressure claim"
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "Federal EPBC referral is now a live, project-specific approval milestone for a 500 MW / 2,000 MWh BESS, with the public referral specifying the post-referral financing, EPC/LTSA, connection and Q4-2026 notice-to-proceed path.",
+      "decision_relevance": "'Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland' is decision-relevant to ess_bess, market_structure_supply_chain_execution.",
+      "baseline_expectation_changed": "The current 1,599-card baseline has no same-event card for this exact current milestone; bounded research establishes a distinct current execution/follow-up state.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "Verify the next measurable production, operation, contract, regulatory, capacity, shipment, utilisation, price, application, enforcement, cleanup, or court milestone for 'Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland'; confirmation strengthens the Stage A thesis, while delay, reversal, cancellation, or non-execution weakens it."
+      ],
+      "portfolio_coverage_contribution": [
+        "ess_bess",
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": null,
+      "review_pool_repromotion_precondition": null,
+      "decision_news_value_score": 47,
+      "decision_value_breakdown": {
+        "market_structure_competition": 16,
+        "supply_demand_price_utilisation": 18,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 7,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "standard_monitoring",
+      "prior_state": "Before the Sep 8 intake, the exact event 'Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland' was not admitted as a same-event canonical card after reconciliation against the 1,599-card baseline.",
+      "new_verified_fact": "Federal EPBC referral is now a live, project-specific approval milestone for a 500 MW / 2,000 MWh BESS, with the public referral specifying the post-referral financing, EPC/LTSA, connection and Q4-2026 notice-to-proceed path.",
+      "changed_judgment": "Prompt 0.1P changes STD26_0908_R_005 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolved its promotion condition.",
+      "uncertainty_resolved": "The current event stage, date, distinctness and Stage B source path are resolved sufficiently for ordinary strict Stage A admission.",
+      "remaining_uncertainty": "Stage B must verify body-level facts, exact scope, counterparties and any implementation/operation dependencies before card drafting.",
+      "denominator_used": "No defensible market-wide denominator is locked at Stage A for Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Stage A for Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Verify Stage B evidence package for Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved material milestone or official policy signal, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "not_applicable for this disposition",
+      "legal_policy_stage": null,
+      "upstream_drop_reason": null,
+      "headline": "Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland",
+      "site": "Energy-Storage.news RSS",
+      "url": "https://www.energy-storage.news/octopus-australia-refers-2gwh-blackstone-bess-for-epbc-act-assessment-in-queensland",
+      "integrity_group_id": "SEP8_EVT_0025",
+      "integrity_is_best": null,
+      "spec_id": "STD26_0908_P_001",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "bounded_recheck_required_before_promotion",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "treasure_hunt_sampled": true,
+      "notes": "Promotion resolved; authorized for Stage B evidence package construction."
+    },
+    {
+      "candidate_id": "STD26_0908_P_002",
+      "story_id": "DISC_SEP8_004_MOSS_LANDING_CLEANUP",
+      "source_event_id": "DISC_SEP8_004_MOSS_LANDING_CLEANUP",
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Prompt 0.1P promoted after bounded research and user-authorized materiality review.",
+      "upstream_status": "review_promoted",
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "news_value_basis": "'EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS' is decision-relevant to safety_operating_risk, ess_bess, existing_card_follow_up.",
+      "structural_value_lenses": [
+        "safety_operating_risk",
+        "ess_bess",
+        "existing_card_follow_up"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "official filing or authoritative document for STD26_0908_P_002 EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS confirming the exact event stage/status, representative date 2026-09-08, and named authority or counterparty",
+        "independent report or dataset for STD26_0908_P_002 EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS confirming the exact capacity, volume, production, shipment, approval, price, cost, margin, customer, legal-status, or policy-pressure claim"
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "EPA formally started the final cleanup phase at Vistra Moss Landing: remaining severely damaged batteries are being removed/processed and the burned building is being demolished to reach inaccessible material.",
+      "decision_relevance": "'EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS' is decision-relevant to safety_operating_risk, ess_bess, existing_card_follow_up.",
+      "baseline_expectation_changed": "The current 1,599-card baseline has no same-event card for this exact current milestone; bounded research establishes a distinct current execution/follow-up state.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "Verify the next measurable production, operation, contract, regulatory, capacity, shipment, utilisation, price, application, enforcement, cleanup, or court milestone for 'EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS'; confirmation strengthens the Stage A thesis, while delay, reversal, cancellation, or non-execution weakens it."
+      ],
+      "portfolio_coverage_contribution": [
+        "safety_operating_risk",
+        "ess_bess",
+        "existing_card_follow_up"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": null,
+      "review_pool_repromotion_precondition": null,
+      "decision_news_value_score": 48,
+      "decision_value_breakdown": {
+        "market_structure_competition": 25,
+        "supply_demand_price_utilisation": 12,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 5,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "standard_monitoring",
+      "prior_state": "Before the Sep 8 intake, the exact event 'EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS' was not admitted as a same-event canonical card after reconciliation against the 1,599-card baseline.",
+      "new_verified_fact": "EPA formally started the final cleanup phase at Vistra Moss Landing: remaining severely damaged batteries are being removed/processed and the burned building is being demolished to reach inaccessible material.",
+      "changed_judgment": "Prompt 0.1P changes STD26_0908_R_010 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolved its promotion condition.",
+      "uncertainty_resolved": "The current event stage, date, distinctness and Stage B source path are resolved sufficiently for ordinary strict Stage A admission.",
+      "remaining_uncertainty": "Stage B must verify body-level facts, exact scope, counterparties and any implementation/operation dependencies before card drafting.",
+      "denominator_used": "No defensible market-wide denominator is locked at Stage A for EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Stage A for EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Verify Stage B evidence package for EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved material milestone or official policy signal, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "not_applicable for this disposition",
+      "legal_policy_stage": null,
+      "upstream_drop_reason": null,
+      "headline": "EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS",
+      "site": "U.S. EPA",
+      "url": "https://www.epa.gov/newsreleases/epa-begins-final-phase-post-fire-battery-cleanup-moss-landing",
+      "integrity_group_id": "DISC_SEP8_004_MOSS_LANDING_CLEANUP",
+      "integrity_is_best": null,
+      "spec_id": "STD26_0908_P_002",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "bounded_recheck_required_before_promotion",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "treasure_hunt_sampled": false,
+      "notes": "Promotion resolved; authorized for Stage B evidence package construction."
+    },
+    {
+      "candidate_id": "STD26_0908_P_003",
+      "story_id": "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS",
+      "source_event_id": "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS",
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Prompt 0.1P promoted after bounded research and user-authorized materiality review.",
+      "upstream_status": "review_promoted",
+      "anchor_classes": [
+        "execution_event_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "news_value_basis": "'Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites' is decision-relevant to ess_bess, market_structure_supply_chain_execution.",
+      "structural_value_lenses": [
+        "ess_bess",
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "official filing or authoritative document for STD26_0908_P_003 Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites confirming the exact event stage/status, representative date 2026-09-08, and named authority or counterparty",
+        "independent report or dataset for STD26_0908_P_003 Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites confirming the exact capacity, volume, production, shipment, approval, price, cost, margin, customer, legal-status, or policy-pressure claim"
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "Digital Grid confirms its first low-voltage grid BESS began receiving power on 2026-09-08 and that it will aggregate 100 Fukushima sites for balancing-market operation, resolving the execution and aggregation-path question.",
+      "decision_relevance": "'Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites' is decision-relevant to ess_bess, market_structure_supply_chain_execution.",
+      "baseline_expectation_changed": "The current 1,599-card baseline has no same-event card for this exact current milestone; bounded research establishes a distinct current execution/follow-up state.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "Verify the next measurable production, operation, contract, regulatory, capacity, shipment, utilisation, price, application, enforcement, cleanup, or court milestone for 'Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites'; confirmation strengthens the Stage A thesis, while delay, reversal, cancellation, or non-execution weakens it."
+      ],
+      "portfolio_coverage_contribution": [
+        "ess_bess",
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": null,
+      "review_pool_repromotion_precondition": null,
+      "decision_news_value_score": 51,
+      "decision_value_breakdown": {
+        "market_structure_competition": 19,
+        "supply_demand_price_utilisation": 18,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "standard_monitoring",
+      "prior_state": "Before the Sep 8 intake, the exact event 'Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites' was not admitted as a same-event canonical card after reconciliation against the 1,599-card baseline.",
+      "new_verified_fact": "Digital Grid confirms its first low-voltage grid BESS began receiving power on 2026-09-08 and that it will aggregate 100 Fukushima sites for balancing-market operation, resolving the execution and aggregation-path question.",
+      "changed_judgment": "Prompt 0.1P changes STD26_0908_R_013 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolved its promotion condition.",
+      "uncertainty_resolved": "The current event stage, date, distinctness and Stage B source path are resolved sufficiently for ordinary strict Stage A admission.",
+      "remaining_uncertainty": "Stage B must verify body-level facts, exact scope, counterparties and any implementation/operation dependencies before card drafting.",
+      "denominator_used": "No defensible market-wide denominator is locked at Stage A for Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Stage A for Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Verify Stage B evidence package for Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved material milestone or official policy signal, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "not_applicable for this disposition",
+      "legal_policy_stage": null,
+      "upstream_drop_reason": null,
+      "headline": "Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites",
+      "site": "Digital Grid",
+      "url": "https://www.digitalgrid.com/news/fukushimaenergy/",
+      "integrity_group_id": "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS",
+      "integrity_is_best": null,
+      "spec_id": "STD26_0908_P_003",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "bounded_recheck_required_before_promotion",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "treasure_hunt_sampled": false,
+      "notes": "Promotion resolved; authorized for Stage B evidence package construction."
+    },
+    {
+      "candidate_id": "STD26_0908_P_004",
+      "story_id": "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW",
+      "source_event_id": "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW",
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Prompt 0.1P promoted after bounded research and user-authorized materiality review.",
+      "upstream_status": "review_promoted",
+      "anchor_classes": [
+        "execution_event_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "news_value_basis": "'Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project' is decision-relevant to ess_bess, competitor_customer_strategy.",
+      "structural_value_lenses": [
+        "ess_bess",
+        "competitor_customer_strategy"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "official filing or authoritative document for STD26_0908_P_004 Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project confirming the exact event stage/status, representative date 2026-09-08, and named authority or counterparty",
+        "independent report or dataset for STD26_0908_P_004 Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project confirming the exact capacity, volume, production, shipment, approval, price, cost, margin, customer, legal-status, or policy-pressure claim"
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "Daiwa Energy officially entered grid-BESS EPC and signed its first construction EPC contract with ENEOS Power for a 50 MW / 109 MWh high-voltage BESS at the Shimizu oil terminal.",
+      "decision_relevance": "'Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project' is decision-relevant to ess_bess, competitor_customer_strategy.",
+      "baseline_expectation_changed": "The current 1,599-card baseline has no same-event card for this exact current milestone; bounded research establishes a distinct current execution/follow-up state.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "Verify the next measurable production, operation, contract, regulatory, capacity, shipment, utilisation, price, application, enforcement, cleanup, or court milestone for 'Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project'; confirmation strengthens the Stage A thesis, while delay, reversal, cancellation, or non-execution weakens it."
+      ],
+      "portfolio_coverage_contribution": [
+        "ess_bess",
+        "competitor_customer_strategy"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": null,
+      "review_pool_repromotion_precondition": null,
+      "decision_news_value_score": 52,
+      "decision_value_breakdown": {
+        "market_structure_competition": 20,
+        "supply_demand_price_utilisation": 18,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 0,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "standard_monitoring",
+      "prior_state": "Before the Sep 8 intake, the exact event 'Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project' was not admitted as a same-event canonical card after reconciliation against the 1,599-card baseline.",
+      "new_verified_fact": "Daiwa Energy officially entered grid-BESS EPC and signed its first construction EPC contract with ENEOS Power for a 50 MW / 109 MWh high-voltage BESS at the Shimizu oil terminal.",
+      "changed_judgment": "Prompt 0.1P changes STD26_0908_R_015 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolved its promotion condition.",
+      "uncertainty_resolved": "The current event stage, date, distinctness and Stage B source path are resolved sufficiently for ordinary strict Stage A admission.",
+      "remaining_uncertainty": "Stage B must verify body-level facts, exact scope, counterparties and any implementation/operation dependencies before card drafting.",
+      "denominator_used": "No defensible market-wide denominator is locked at Stage A for Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Stage A for Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Verify Stage B evidence package for Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved material milestone or official policy signal, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "not_applicable for this disposition",
+      "legal_policy_stage": null,
+      "upstream_drop_reason": null,
+      "headline": "Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project",
+      "site": "Daiwa House/Daiwa Energy news release via PR Times",
+      "url": "https://prtimes.jp/main/html/rd/p/000002768.000002296.html",
+      "integrity_group_id": "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW",
+      "integrity_is_best": null,
+      "spec_id": "STD26_0908_P_004",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "bounded_recheck_required_before_promotion",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "treasure_hunt_sampled": false,
+      "notes": "Promotion resolved; authorized for Stage B evidence package construction."
+    },
+    {
+      "candidate_id": "STD26_0908_P_005",
+      "story_id": "DISC_SEP8_007_US_FORD_CATL_PRESSURE",
+      "source_event_id": "DISC_SEP8_007_US_FORD_CATL_PRESSURE",
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "reason": "Prompt 0.1P promoted after bounded research and user-authorized materiality review.",
+      "upstream_status": "review_promoted",
+      "anchor_classes": [
+        "policy_regulatory_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "news_value_basis": "'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships' is decision-relevant to us_cn_policy_supply_chain, competitor_customer_strategy.",
+      "structural_value_lenses": [
+        "us_cn_policy_supply_chain",
+        "competitor_customer_strategy"
+      ],
+      "structural_value_override_applied": true,
+      "structural_value_override_reason": "'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships' changes a decision-relevant policy, market-data, strategic-behavior, technology, or follow-up judgment without requiring a conventional construction/production event.",
+      "evidence_needed_for_stage_b": [
+        "official filing or authoritative document for STD26_0908_P_005 Trump administration pressures Ford over CATL and other Chinese auto/battery relationships confirming the exact event stage/status, representative date 2026-09-08, and named authority or counterparty",
+        "independent report or dataset for STD26_0908_P_005 Trump administration pressures Ford over CATL and other Chinese auto/battery relationships confirming the exact capacity, volume, production, shipment, approval, price, cost, margin, customer, legal-status, or policy-pressure claim"
+      ],
+      "why_execution_event_not_required": "The selected anchor is policy_regulatory_anchor, strategic_behavior_anchor; the information can independently change market or supply-chain judgment if downstream evidence verifies the source-bound fact.",
+      "incremental_information": "The U.S. Transportation Secretary issued a formal public letter urging Ford to reduce China-linked technology and manufacturing dependencies, explicitly citing CATL licensing at the Michigan battery plant; this is a material official policy/strategic signal even though it does not itself revoke legal market access.",
+      "decision_relevance": "'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships' is decision-relevant to us_cn_policy_supply_chain, competitor_customer_strategy.",
+      "baseline_expectation_changed": "The current 1,599-card baseline has no same-event card for this exact current milestone; bounded research establishes a distinct current execution/follow-up state.",
+      "follow_up_relation": "distinct_follow_up",
+      "next_confirmation_points": [
+        "Verify the next measurable production, operation, contract, regulatory, capacity, shipment, utilisation, price, application, enforcement, cleanup, or court milestone for 'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships'; confirmation strengthens the Stage A thesis, while delay, reversal, cancellation, or non-execution weakens it."
+      ],
+      "portfolio_coverage_contribution": [
+        "us_cn_policy_supply_chain",
+        "competitor_customer_strategy"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": null,
+      "review_pool_repromotion_precondition": null,
+      "decision_news_value_score": 38,
+      "decision_value_breakdown": {
+        "market_structure_competition": 13,
+        "supply_demand_price_utilisation": 10,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 0,
+        "law_policy_market_access": 9,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 2,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "context_or_reinforcement",
+      "prior_state": "Before the Sep 8 intake, the exact event 'Trump administration pressures Ford over CATL and other Chinese auto/battery relationships' was not admitted as a same-event canonical card after reconciliation against the 1,599-card baseline.",
+      "new_verified_fact": "The U.S. Transportation Secretary issued a formal public letter urging Ford to reduce China-linked technology and manufacturing dependencies, explicitly citing CATL licensing at the Michigan battery plant; this is a material official policy/strategic signal even though it does not itself revoke legal market access.",
+      "changed_judgment": "Prompt 0.1P changes STD26_0908_R_011 from candidate_review_pool to ordinary strict_passed_spec because bounded research resolved its promotion condition.",
+      "uncertainty_resolved": "The current event stage, date, distinctness and Stage B source path are resolved sufficiently for ordinary strict Stage A admission.",
+      "remaining_uncertainty": "Stage B must verify body-level facts, exact scope, counterparties and any implementation/operation dependencies before card drafting.",
+      "denominator_used": "No defensible market-wide denominator is locked at Stage A for Trump administration pressures Ford over CATL and other Chinese auto/battery relationships; systemic scale is capped at 2/5.",
+      "denominator_gap": "No defensible market-wide denominator is locked at Stage A for Trump administration pressures Ford over CATL and other Chinese auto/battery relationships; systemic scale is capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Verify Stage B evidence package for Trump administration pressures Ford over CATL and other Chinese auto/battery relationships.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "status": "PASS",
+        "note": "Promotion is based on a newly resolved material milestone or official policy signal, not company prominence or source recovery alone.",
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": null,
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "not_applicable for this disposition",
+      "legal_policy_stage": "stage_0_rhetoric_or_advocacy",
+      "upstream_drop_reason": null,
+      "headline": "Trump administration pressures Ford over CATL and other Chinese auto/battery relationships",
+      "site": "Reuters",
+      "url": "https://www.reuters.com/business/autos-transportation/trump-administration-blasts-ford-business-deals-with-chinese-firms-2026-09-08/",
+      "integrity_group_id": "DISC_SEP8_007_US_FORD_CATL_PRESSURE",
+      "integrity_is_best": null,
+      "spec_id": "STD26_0908_P_005",
+      "merged_into_spec_id": null,
+      "baseline_match": "2026-06-30_US_02",
+      "baseline_relation": "distinct_follow_up",
+      "duplicate_risk": "bounded_recheck_completed_distinct_follow_up",
+      "staleness_decision": "current_or_fresh_follow_up",
+      "treasure_hunt_sampled": false,
+      "notes": "Promotion resolved; Stage A Related prepass identifies 2026-06-30_US_02 as a distinct predecessor. Sep 8 is the official public-disclosure policy event; the artifact does not treat Sep 8 as the letter document date."
+    }
+  ],
+  "formal_stage_a_batch": {
+    "batch": "0.1P",
+    "batch_count_total": 1,
+    "ordinal_start": 1,
+    "ordinal_end": 18,
+    "decision_batches_committed_before_this": 0,
+    "event_count": 5,
+    "strict_count": 5,
+    "candidate_review_count": 0,
+    "watchlist_count": 0,
+    "reject_or_support_only_count": 0,
+    "formal_stage_a_external_web_search_count": "bounded_prompt_0_1p_research",
+    "formal_stage_a_new_article_body_fetch_count": "bounded_prompt_0_1p_research",
+    "adjudication_method": "PROMPT_0_1P_V4_20260829 bounded research then ordinary Stage A strict re-emission"
+  },
+  "candidate_promotion_contract": {
+    "prompt_file": "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md",
+    "prompt_sha256": "86c5ab36d12dab6e4021315ff13b8241f0c0428eac09fceb4dfb3bbd998f74b3",
+    "prompt_version": "PROMPT_0_1P_V4_20260829",
+    "candidate_count": 18,
+    "promoted_count": 5,
+    "retained_count": 13,
+    "score_inflation_for_source_recovery": false,
+    "promotion_ledger": [
+      {
+        "review_pool_item_id": "STD26_0908_R_001",
+        "ordinal": 1,
+        "original_score": 52,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Official SII page confirms the supplementary-budget programme/briefing but does not yet confirm the raw item’s exact new ¥4bn open-call claim; keep review until official call terms publish.",
+        "evidence": [
+          "https://sii.or.jp/"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_002",
+        "ordinal": 2,
+        "original_score": 54,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Official Hebei evidence confirms project-specific cancellation/delay and active management rules, but not the claimed aggregate 85 projects / 11.66GW / 37.71GWh; aggregate remains unresolved.",
+        "evidence": [
+          "https://www.sjz.gov.cn/"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_003",
+        "ordinal": 3,
+        "original_score": 49,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "The 8x BEI capacity-expansion report remains insufficiently corroborated by an independent or durable primary source for strict promotion.",
+        "evidence": [
+          "https://www.thelec.kr/news/articleView.html?idxno=61898"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_004",
+        "ordinal": 4,
+        "original_score": 52,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Latvia’s official fund says the announced programme changes are not yet in force; do not promote an announced change as operative policy.",
+        "evidence": [
+          "https://lvif.gov.lv/"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_005",
+        "ordinal": 5,
+        "original_score": 47,
+        "disposition": "PROMOTE_TO_STRICT",
+        "promoted_spec_id": "STD26_0908_P_001",
+        "reason": "Federal EPBC referral is now a live, project-specific approval milestone for a 500 MW / 2,000 MWh BESS, with the public referral specifying the post-referral financing, EPC/LTSA, connection and Q4-2026 notice-to-proceed path.",
+        "evidence": [
+          "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary/?id=b82ae61b-219d-f111-b8db-6045bde6a109",
+          "https://www.energy-storage.news/octopus-australia-refers-2gwh-blackstone-bess-for-epbc-act-assessment-in-queensland/"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_006",
+        "ordinal": 6,
+        "original_score": 48,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "The Wuliangye-linked silicon-carbon investment remains unresolved at primary corporate/registry level and does not yet support a clean strict execution event.",
+        "evidence": [
+          "https://www.theguru.co.kr/news/article.html?no=106787"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_007",
+        "ordinal": 7,
+        "original_score": 46,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Korea’s mineral-list change is under consideration rather than a final operative instrument; policy-stage cap/review remains appropriate.",
+        "evidence": [
+          "http://www.e2news.com/news/articleView.html?idxno=333986"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_008",
+        "ordinal": 8,
+        "original_score": 45,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "PowerX/Smart Energy official release confirms a non-binding exploratory MOU with future targets, not a current binding deployment.",
+        "evidence": [
+          "https://power-x.jp/"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_009",
+        "ordinal": 9,
+        "original_score": 44,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Zhonglun evidence is customer sample/test validation for BOPA outer-layer substrate and explicitly not mass production; technology-commercialization question remains precommercial.",
+        "evidence": [
+          "https://www.guandian.cn/article/20260904/597465.html"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_010",
+        "ordinal": 10,
+        "original_score": 48,
+        "disposition": "PROMOTE_TO_STRICT",
+        "promoted_spec_id": "STD26_0908_P_002",
+        "reason": "EPA formally started the final cleanup phase at Vistra Moss Landing: remaining severely damaged batteries are being removed/processed and the burned building is being demolished to reach inaccessible material.",
+        "evidence": [
+          "https://www.epa.gov/newsreleases/epa-begins-final-phase-post-fire-battery-cleanup-moss-landing",
+          "https://www.epa.gov/ca/vistra-moss-landing-battery-fire-response"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_011",
+        "ordinal": 11,
+        "original_score": 38,
+        "disposition": "PROMOTE_TO_STRICT",
+        "promoted_spec_id": "STD26_0908_P_005",
+        "reason": "The U.S. Transportation Secretary issued a formal public letter urging Ford to reduce China-linked technology and manufacturing dependencies, explicitly citing CATL licensing at the Michigan battery plant; this is a material official policy/strategic signal even though it does not itself revoke legal market access.",
+        "evidence": [
+          "https://www.transportation.gov/briefing-room/trumps-transportation-secretary-sean-p-duffy-urges-ford-cut-ties-china-and-prioritize",
+          "https://www.reuters.com/business/autos-transportation/trump-administration-blasts-ford-business-deals-with-chinese-firms-2026-09-08/"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_012",
+        "ordinal": 12,
+        "original_score": 43,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Official operation is real, but the 1.988MW/8.146MWh single-site scale remains standard monitoring below independent strict cardability.",
+        "evidence": [
+          "https://www.nipponchikudenchi.co.jp/news/1878/"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_013",
+        "ordinal": 13,
+        "original_score": 51,
+        "disposition": "PROMOTE_TO_STRICT",
+        "promoted_spec_id": "STD26_0908_P_003",
+        "reason": "Digital Grid confirms its first low-voltage grid BESS began receiving power on 2026-09-08 and that it will aggregate 100 Fukushima sites for balancing-market operation, resolving the execution and aggregation-path question.",
+        "evidence": [
+          "https://www.digitalgrid.com/news/fukushimaenergy/"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_014",
+        "ordinal": 14,
+        "original_score": 46,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Two merchant BESS sites entered operation, but each is ~2MW/~4.9MWh; current scale remains standard monitoring rather than a material independent card.",
+        "evidence": [
+          "https://www.hexa-es.com/ja/news/67eskq-nyw"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_015",
+        "ordinal": 15,
+        "original_score": 52,
+        "disposition": "PROMOTE_TO_STRICT",
+        "promoted_spec_id": "STD26_0908_P_004",
+        "reason": "Daiwa Energy officially entered grid-BESS EPC and signed its first construction EPC contract with ENEOS Power for a 50 MW / 109 MWh high-voltage BESS at the Shimizu oil terminal.",
+        "evidence": [
+          "https://www.daiwahouse.co.jp/about/release/group/20260907184222.html",
+          "https://www.daiwa-energy.com/"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_016",
+        "ordinal": 16,
+        "original_score": 48,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "RMB0.395/Wh CATL marketplace price remains secondary-source pricing without a primary/durable transaction record; retain review.",
+        "evidence": [
+          "https://www.energytrend.cn/taxonomy/term/11302/"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_017",
+        "ordinal": 17,
+        "original_score": 54,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Capchem confirms an Ohio battery-chemicals base is under construction, but current evidence does not independently establish the claimed fresh Sep-2026 groundbreaking as a distinct milestone.",
+        "evidence": [
+          "https://en.capchem.com/News_detail/51.html"
+        ]
+      },
+      {
+        "review_pool_item_id": "STD26_0908_R_018",
+        "ordinal": 18,
+        "original_score": 52,
+        "disposition": "RETAIN_OUTSIDE_STRICT",
+        "reason": "Wanshun confirms high-dyne battery foil entered medium-batch supply at end-June, but the operative milestone predates this run by ~2 months; retain as stale/current-disclosure review rather than promote.",
+        "evidence": [
+          "https://www.hstong.com/news/detail/26090208574579549",
+          "https://www.fxbaogao.com/detail/5671137"
+        ]
+      }
+    ]
+  },
+  "run_id": "card-run-2026-09-09-sep8-r7-current-main-production-r1",
+  "base_main_commit_sha": "e19f6c113ccb62906e7fdefaf3bae657c58b5637",
+  "base_full_blob_sha": "cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb",
+  "formal_run_binding": {
+    "run_id": "card-run-2026-09-09-sep8-r7-current-main-production-r1",
+    "base_main_commit_sha": "e19f6c113ccb62906e7fdefaf3bae657c58b5637",
+    "base_full_blob_sha": "cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb",
+    "document_universe_manifest_ref": "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-0d.json",
+    "coverage_discovery_ref": "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-0c.json"
+  }
+}

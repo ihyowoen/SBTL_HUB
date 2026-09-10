@@ -1,0 +1,1032 @@
+{
+  "schema": "prompt_0_8_merge_prep_v4_operation_bound_r1",
+  "stage": "0.8",
+  "status": "GITHUB_MERGE_READY",
+  "run_id": "card-run-2026-09-09-sep8-r7-current-main-production-r1",
+  "base_main_commit_sha": "e19f6c113ccb62906e7fdefaf3bae657c58b5637",
+  "base_full_blob_sha": "cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb",
+  "github_main_sync_gate": {
+    "status": "PASS",
+    "baseline_locked": true,
+    "main_unchanged_since_locked_preflight": true,
+    "silent_rebase_performed": false
+  },
+  "lineage_merge_gate": {
+    "final_qc_lineage_passed": true,
+    "anchor_path_lineage_passed": true,
+    "anchor_path_hold_count": 0,
+    "github_ready_allowed": true
+  },
+  "reviewed_operations_sha256": "b197b31fbe1d58c1318461b83de6c8ba4d0dd6c2020d03f04046a45bab88e4e7",
+  "independent_completeness_ref": "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-7c.json",
+  "certified_0_7c": {
+    "status": "PASS",
+    "artifact": "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-7c.json",
+    "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37"
+  },
+  "codex_p2_remediation": {
+    "status": "PASS"
+  },
+  "operation_counts": {
+    "insert": 18,
+    "update": 0,
+    "related_add": 1
+  },
+  "id_ledger": {
+    "schema": "prompt_0_8_current_run_id_ledger_v1",
+    "ids": [
+      "2026-09-08_KR_02",
+      "2026-09-08_KR_03",
+      "2026-08-31_JP_02",
+      "2026-09-08_GL_01",
+      "2026-09-07_GL_02",
+      "2026-09-04_GL_05",
+      "2026-09-07_EU_01",
+      "2026-09-06_CN_03",
+      "2026-09-07_CN_01",
+      "2026-08-31_CN_02",
+      "2026-08-26_CN_04",
+      "2026-09-08_EU_01",
+      "2026-09-08_KR_01",
+      "2026-09-08_GL_02",
+      "2026-09-08_US_02",
+      "2026-09-08_JP_01",
+      "2026-09-08_JP_02",
+      "2026-09-08_US_01"
+    ],
+    "operation_ids": [
+      "2026-09-08_KR_02",
+      "2026-09-08_KR_03",
+      "2026-08-31_JP_02",
+      "2026-09-08_GL_01",
+      "2026-09-07_GL_02",
+      "2026-09-04_GL_05",
+      "2026-09-07_EU_01",
+      "2026-09-06_CN_03",
+      "2026-09-07_CN_01",
+      "2026-08-31_CN_02",
+      "2026-08-26_CN_04",
+      "2026-09-08_EU_01",
+      "2026-09-08_KR_01",
+      "2026-09-08_GL_02",
+      "2026-09-08_US_02",
+      "2026-09-08_JP_01",
+      "2026-09-08_JP_02",
+      "2026-09-08_US_01"
+    ]
+  },
+  "github_merge_ready": [
+    {
+      "id": "2026-09-08_KR_02",
+      "source_spec_id": "STD26_0908_A_001",
+      "source_event_id": "SEP8_EVT_0029",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "company disclosure of already-started July commercial supply; exact July start day unavailable",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.thelec.kr/news/articleView.html?idxno=61937",
+        "event_date_source_quote": "덕산일렉테라는 지난 7월부터 북미 전기차 업체에 전해액을 상업 공급하고 있다고 8일 밝혔다."
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-08_KR_02",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_KR_03",
+      "source_spec_id": "STD26_0908_A_002",
+      "source_event_id": "SEP8_EVT_0083",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "production-system operation announcement date",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.etnews.com/20260908000348",
+        "event_date_source_quote": "디알티는 군산공장에서 고효율 BM 양산설비 구축 기념행사를 열고 양산체계 가동에 본격 착수한다고 밝혔다."
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-08_KR_03",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-08-31_JP_02",
+      "source_spec_id": "STD26_0908_A_003",
+      "source_event_id": "SEP8_EVT_0090",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-08-31",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "official release locking August market-operation start",
+        "source_publication_dates": [
+          "2026-08-31",
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": true,
+        "representative_date": "2026-08-31",
+        "event_date": "2026-08-31",
+        "publication_dates": [
+          "2026-08-31",
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.nishimu.co.jp/news_top/20260831",
+        "event_date_source_quote": "2026年8月より同市場において調整力の提供を開始します。"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-08-31_JP_02",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_GL_01",
+      "source_spec_id": "STD26_0908_A_004",
+      "source_event_id": "SEP8_EVT_0105",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "formal grid-connection clearance disclosure",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.ess-news.com/2026/09/08/samsung-secures-grid-clearance-for-400-mwh-battery-in-australia",
+        "event_date_source_quote": "The Australian renewables and energy storage arm of Samsung has received formal grid connection clearance for the Mangoplah battery energy storage project."
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-08_GL_01",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-07_GL_02",
+      "source_spec_id": "STD26_0908_A_005",
+      "source_event_id": "SEP8_EVT_0136",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-07",
+        "stage_a_representative_date": "2026-09-07",
+        "role": "current H1 exporter-ranking/data disclosure",
+        "source_publication_dates": [
+          "2026-09-07"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-07",
+        "event_date": "2026-09-07",
+        "publication_dates": [
+          "2026-09-07"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.fastmarkets.com/insights/drcs-artisanally-mined-cobalt-supplier-enters-top-5-exporters-in-h1-2026",
+        "event_date_source_quote": "EGC has become a significant force in the cobalt market, exporting 3,531 tonnes of cobalt metal in H1 2026 and ranking as the DRC’s fifth-largest cobalt hydroxide exporter."
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-07_GL_02",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-04_GL_05",
+      "source_spec_id": "STD26_0908_A_006",
+      "source_event_id": "SEP8_EVT_0186",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-04",
+        "stage_a_representative_date": "2026-09-07",
+        "role": "regulator determination date",
+        "source_publication_dates": [
+          "2026-09-04",
+          "2026-09-07"
+        ],
+        "corrected_in_stage_b": true,
+        "representative_date": "2026-09-04",
+        "event_date": "2026-09-04",
+        "publication_dates": [
+          "2026-09-04",
+          "2026-09-07"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.dawn.com/news/2027489",
+        "event_date_source_quote": "prospective bidders would be required to commit to having BESS comprise at least 10 per cent"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-04_GL_05",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-07_EU_01",
+      "source_spec_id": "STD26_0908_A_007",
+      "source_event_id": "SEP8_EVT_0204",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-07",
+        "stage_a_representative_date": "2026-09-07",
+        "role": "research report release date",
+        "source_publication_dates": [
+          "2026-09-07"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-07",
+        "event_date": "2026-09-07",
+        "publication_dates": [
+          "2026-09-07"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://eupd-group.com/europes-battery-storage-boom-accelerates-as-2026-installations-set-to-jump-78-yoy/",
+        "event_date_source_quote": "annual installations forecast to rise from 32 GWh in 2025 to 57 GWh in 2026"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-07_EU_01",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-06_CN_03",
+      "source_spec_id": "STD26_0908_A_009",
+      "source_event_id": "SEP8_EVT_0223",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-06",
+        "stage_a_representative_date": "2026-09-07",
+        "role": "CATL official agreement announcement date",
+        "source_publication_dates": [
+          "2026-09-06",
+          "2026-09-07"
+        ],
+        "corrected_in_stage_b": true,
+        "representative_date": "2026-09-06",
+        "event_date": "2026-09-06",
+        "publication_dates": [
+          "2026-09-06",
+          "2026-09-07"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.catl.com/news/10161.html",
+        "event_date_source_quote": "宁德时代与泰金新能、深圳惠科等企业签署战略合作协议。"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-06_CN_03",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-07_CN_01",
+      "source_spec_id": "STD26_0908_A_010",
+      "source_event_id": "SEP8_EVT_0224",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-07",
+        "stage_a_representative_date": "2026-09-07",
+        "role": "full-capacity grid-connection event reported as recent; exact earlier day unavailable",
+        "source_publication_dates": [
+          "2026-09-07"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-07",
+        "event_date": "2026-09-07",
+        "publication_dates": [
+          "2026-09-07"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://chuneng.ofweek.com/news/2026-09/ART-180226-8120-30702016.html",
+        "event_date_source_quote": "2025年专项行动电源侧独立储能子项目2实现全容量并网。"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-07_CN_01",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-08-31_CN_02",
+      "source_spec_id": "STD26_0908_A_011",
+      "source_event_id": "DISC_SEP8_001_XINLUN_POUCH_FILM_LINE",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-08-31",
+        "stage_a_representative_date": "2026-08-31",
+        "role": "production start date disclosed on Sep 8",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-08-31",
+        "event_date": "2026-08-31",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://news.10jqka.com.cn/20260908/c679711424.shtml",
+        "event_date_source_quote": "8月31日，新纶新材料股份有限公司铝塑膜热法二号线正式投产。"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-08-31_CN_02",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-08-26_CN_04",
+      "source_spec_id": "STD26_0908_A_012",
+      "source_event_id": "DISC_SEP8_002_MINGGUAN_POUCH_FILM_H1",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-08-26",
+        "stage_a_representative_date": "2026-08-26",
+        "role": "H1 interim report filing date",
+        "source_publication_dates": [
+          "2026-08-26",
+          "2026-08-27"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-08-26",
+        "event_date": "2026-08-26",
+        "publication_dates": [
+          "2026-08-26",
+          "2026-08-27"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://4g.stockstar.com/detail/SN2026082600049498",
+        "event_date_source_quote": "公司锂电池铝塑膜实现主营业务收入8,867.33万元，同比增幅为266.01%。"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-08-26_CN_04",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_EU_01",
+      "source_spec_id": "STD26_0908_A_013",
+      "source_event_id": "DISC_SEP8_005_EU_CRMA_LIQUIDITY",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "current strategic-project liquidity disclosure",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.reuters.com/world/china/some-critical-mineral-firms-chosen-by-eu-flag-project-liquidity-concerns-2026-09-08/",
+        "event_date_source_quote": "Some key critical mineral project developers selected by the EU have called for urgent funding."
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-08_EU_01",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_KR_01",
+      "source_spec_id": "STD26_0908_A_014",
+      "source_event_id": "DISC_SEP8_006_KOREA_AI_POWER_DEMAND",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "ministerial interview / quantified demand outlook disclosure",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.reuters.com/business/energy/south-koreas-power-demand-set-soar-ai-boom-nation-weighs-expanding-nuclear-2026-09-08/",
+        "event_date_source_quote": "Those AI-driven power needs alone will lift South Korea’s demand for power by 25 to 30 gigawatts."
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-08_KR_01",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_GL_02",
+      "source_spec_id": "STD26_0908_P_001",
+      "source_event_id": "SEP8_EVT_0025",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "federal EPBC referral/open assessment milestone",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary/?id=b82ae61b-219d-f111-b8db-6045bde6a109",
+        "event_date_source_quote": "Blackstone Battery Energy Storage System (BESS) Project, a 500 MW / 2,000 MWh standalone battery energy storage facility"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-08_GL_02",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_US_02",
+      "source_spec_id": "STD26_0908_P_002",
+      "source_event_id": "DISC_SEP8_004_MOSS_LANDING_CLEANUP",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "EPA final cleanup phase start",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.epa.gov/newsreleases/epa-begins-final-phase-post-fire-battery-cleanup-moss-landing",
+        "event_date_source_quote": "EPA is announcing the start of the final phase of battery cleanup at Vistra’s battery energy storage facility."
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-08_US_02",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_JP_01",
+      "source_spec_id": "STD26_0908_P_003",
+      "source_event_id": "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "first low-voltage BESS energisation date",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.digitalgrid.com/news/fukushimaenergy/",
+        "event_date_source_quote": "デジタルグリッド初の低圧系統用蓄電所が受電開始"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-08_JP_01",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_JP_02",
+      "source_spec_id": "STD26_0908_P_004",
+      "source_event_id": "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Full current-canonical reconciliation found no same-event or predecessor relation requiring Related.",
+        "related_ids": []
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "EPC contract/business-entry announcement date",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.daiwahouse.co.jp/about/release/group/20260907184222.html",
+        "event_date_source_quote": "系統用蓄電所におけるEPC事業に本格参入"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-08_JP_02",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_US_01",
+      "source_spec_id": "STD26_0908_P_005",
+      "source_event_id": "DISC_SEP8_007_US_FORD_CATL_PRESSURE",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "distinct_follow_up",
+        "matched_baseline_current_candidates": [
+          "2026-06-30_US_02"
+        ],
+        "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+        "fresh_follow_up_anchor": "Ford CATL license faces U.S. Transportation Secretary pressure",
+        "incremental_fact": "The June card recorded Ford production-intent cells using CATL licensed technology; the September event adds formal federal political/policy pressure against that dependency.",
+        "changed_judgment": "CATL licensing at Ford is now not only an execution/localisation issue but an explicit federal national-security pressure point.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": true,
+        "related_target_id": "2026-06-30_US_02",
+        "reason": "New official policy-pressure event is chronologically and substantively distinct from the June production milestone.",
+        "related_ids": [
+          "2026-06-30_US_02"
+        ],
+        "incremental_fact_vs_predecessor": "The June card recorded Ford production-intent cells using CATL licensed technology; the September event adds formal federal political/policy pressure against that dependency.",
+        "changed_judgment_vs_predecessor": "CATL licensing at Ford is now not only an execution/localisation issue but an explicit federal national-security pressure point.",
+        "event_stage_relationship": "The June card recorded Ford production-intent cells using CATL licensed technology; the September event adds formal federal political/policy pressure against that dependency.",
+        "direction": "directional"
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "formal U.S. DOT policy-pressure letter/public announcement",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.transportation.gov/briefing-room/trumps-transportation-secretary-sean-p-duffy-urges-ford-cut-ties-china-and-prioritize",
+        "event_date_source_quote": "Ford’s continued use of licensed technology from Chinese battery manufacturer CATL at its BlueOval Battery Park facility"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+        "production_id": "2026-09-08_US_01",
+        "operation": "insert",
+        "related_add_required": true
+      }
+    }
+  ]
+}

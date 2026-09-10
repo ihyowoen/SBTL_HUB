@@ -1,0 +1,69 @@
+{
+  "schema": "stage_0_7c_independent_completeness_v4_operation_bound_r1",
+  "stage": "0.7C",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "completeness_status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "run_id": "card-run-2026-09-09-sep8-r7-current-main-production-r1",
+  "base_main_commit_sha": "e19f6c113ccb62906e7fdefaf3bae657c58b5637",
+  "base_full_blob_sha": "cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb",
+  "document_universe_manifest_ref": "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-0c.json",
+  "reviewed_operations_sha256": "b197b31fbe1d58c1318461b83de6c8ba4d0dd6c2020d03f04046a45bab88e4e7",
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "material_exclusions": [
+    {
+      "source_spec_id": "STD26_0908_A_008",
+      "disposition": "stage_b_stale_republication_blocked",
+      "reason": "Cristales testing status predates the Sep 7 report; no fresh execution milestone established."
+    },
+    {
+      "pool": "prompt_0_1P_retain",
+      "count": 13,
+      "disposition": "retained_outside_stage_b"
+    }
+  ],
+  "known_unknowns": [
+    "Thirteen Prompt 0.1P non-promotions remain outside Stage B and are not silently promoted."
+  ],
+  "residual_risks": [
+    "Absolute global completeness beyond the bound 324-candidate / 260-event universe is not claimed; one Stage B stale-republication item and 13 non-promotions remain intentionally outside production."
+  ],
+  "reviewer_independence": "SEPARATE_PASS",
+  "prompt_0_8_authorized": true,
+  "operation_freeze": {
+    "status": "PASS",
+    "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+    "insert_count": 18,
+    "update_count": 0,
+    "related_add_count": 1
+  },
+  "hash_chain": {
+    "status": "PASS",
+    "stage_a_sha256": "0ed6855fb561e9da9edb7551024d9987470293c1fcd9ebc477d67674f93d9526",
+    "stage_a_promotion5_sha256": "8ff6783252ec0f28b187376c36413585dabb47145abe72c32b272f21334fc9da",
+    "stage_b_sha256": "4da7763542b2769fa0d5c7edf75e1c55decf888582504acd0a7b46906c9023b0",
+    "stage_c_sha256": "0e973e120af480d22a58a54c947adc45b6e5453cb09c3af17db7613668c5af53",
+    "stage_0_4_sha256": "52905f4e00a965a59b76daf7e5db5113d9ab0f649e2e98bef89d0b3deaf82037",
+    "stage_0_5_sha256": "9e934e38c8466339a4e8a845775aa1dc695051b037d1d4b062a0e98843dbe767",
+    "stage_0_6_sha256": "1ae176f0fd206a5aca6b4dfa77fd8f594bd5e8487440d3cbc8fda0ddb008fecd",
+    "stage_0_7_sha256": "43af5ed150e769561cedcf69e7d05be6e38b04d9482f3b1dfb7a9e79d6235818"
+  },
+  "six_round_review": {
+    "status": "PASS",
+    "round_count": 6,
+    "blocking_findings": 0
+  },
+  "round_6_operation_binding": {
+    "status": "PASS",
+    "reviewed_operations_sha256": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37"
+  },
+  "codex_p2_remediation": {
+    "status": "PASS",
+    "note": "No unresolved P2 finding in this bounded current-main continuation."
+  }
+}

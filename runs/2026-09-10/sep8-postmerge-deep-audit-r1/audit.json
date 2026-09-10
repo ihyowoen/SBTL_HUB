@@ -1,0 +1,1431 @@
+{
+  "schema": "sep8_postmerge_deep_audit_v1",
+  "status": "REVIEW_REQUIRED",
+  "baseline_commit": "e19f6c113ccb62906e7fdefaf3bae657c58b5637",
+  "current_head": "ee24c65a48ce506bad13745613f941ca97b57dff",
+  "cardinality": {
+    "baseline": 1599,
+    "current": 1617,
+    "audit_inserted": 18,
+    "actual_added": 18,
+    "removed": 0,
+    "changed_existing": 0
+  },
+  "added_ids": [
+    "2026-08-26_CN_04",
+    "2026-08-31_CN_02",
+    "2026-08-31_JP_02",
+    "2026-09-04_GL_05",
+    "2026-09-06_CN_03",
+    "2026-09-07_CN_01",
+    "2026-09-07_EU_01",
+    "2026-09-07_GL_02",
+    "2026-09-08_EU_01",
+    "2026-09-08_GL_01",
+    "2026-09-08_GL_02",
+    "2026-09-08_JP_01",
+    "2026-09-08_JP_02",
+    "2026-09-08_KR_01",
+    "2026-09-08_KR_02",
+    "2026-09-08_KR_03",
+    "2026-09-08_US_01",
+    "2026-09-08_US_02"
+  ],
+  "audit_inserted_ids": [
+    "2026-09-08_KR_02",
+    "2026-09-08_KR_03",
+    "2026-08-31_JP_02",
+    "2026-09-08_GL_01",
+    "2026-09-07_GL_02",
+    "2026-09-04_GL_05",
+    "2026-09-07_EU_01",
+    "2026-09-06_CN_03",
+    "2026-09-07_CN_01",
+    "2026-08-31_CN_02",
+    "2026-08-26_CN_04",
+    "2026-09-08_EU_01",
+    "2026-09-08_KR_01",
+    "2026-09-08_GL_02",
+    "2026-09-08_US_02",
+    "2026-09-08_JP_01",
+    "2026-09-08_JP_02",
+    "2026-09-08_US_01"
+  ],
+  "removed_ids": [],
+  "changed_existing_ids": [],
+  "inserted_cards": [
+    {
+      "id": "2026-09-08_KR_02",
+      "title": "덕산일렉테라, 북미 최대 EV 업체에 전해액 상업 공급",
+      "date": "2026-09-08",
+      "region": "KR",
+      "importance": null,
+      "fact": "덕산일렉테라는 2026년 7월부터 북미 최대 전기차 업체에 전해액을 상업 공급하기 시작했다고 9월 8일 밝혔다. 회사는 수년간의 품질 검증과 양산 승인을 거쳤으며 북미 생산거점을 둔 고객 7곳에 공급을 확정했다고 설명했다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "company disclosure of already-started July commercial supply; exact July start day unavailable",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.thelec.kr/news/articleView.html?idxno=61937",
+        "event_date_source_quote": "덕산일렉테라는 지난 7월부터 북미 전기차 업체에 전해액을 상업 공급하고 있다고 8일 밝혔다."
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-08_KR_03",
+      "title": "디알티, 새만금 고효율 블랙매스 양산설비 본격 가동",
+      "date": "2026-09-08",
+      "region": "KR",
+      "importance": null,
+      "fact": "디알티는 전북 군산 새만금산단 공장에서 고효율 블랙매스(BM) 양산설비 구축 행사를 열고 양산체계 가동에 본격 착수했다. 회사는 독자 열처리 기술을 적용했고 대지 약 4,000평·건물 약 2,500평 규모의 양산체계를 구축했다고 밝혔다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "production-system operation announcement date",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.etnews.com/20260908000348",
+        "event_date_source_quote": "디알티는 군산공장에서 고효율 BM 양산설비 구축 기념행사를 열고 양산체계 가동에 본격 착수한다고 밝혔다."
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-08-31_JP_02",
+      "title": "丸紅新電力, FIP 태양광 연계 BESS로 조정력시장 진입",
+      "date": "2026-08-31",
+      "region": "JP",
+      "importance": null,
+      "fact": "丸紅新電力·니시무전자공업 등은 FIP 태양광발전소 병설 배터리가 일반송배전사업자의 수급조정시장 참가심사를 통과했으며 2026년 8월부터 조정력 제공을 시작한다고 8월 31일 공식 발표했다. 니시무 EMS가 태양광·배터리를 제어하고 丸紅新電力이 시장 입찰·운용을 담당한다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-08-31",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "official release locking August market-operation start",
+        "source_publication_dates": [
+          "2026-08-31",
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": true,
+        "representative_date": "2026-08-31",
+        "event_date": "2026-08-31",
+        "publication_dates": [
+          "2026-08-31",
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.nishimu.co.jp/news_top/20260831",
+        "event_date_source_quote": "2026年8月より同市場において調整力の提供を開始します。"
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-08_GL_01",
+      "title": "Samsung C&T, 호주 Mangoplah 100MW/400MWh BESS 계통접속 승인",
+      "date": "2026-09-08",
+      "region": "GL",
+      "importance": null,
+      "fact": "Samsung C&T Renewable Energy Australia의 Mangoplah BESS가 AEMO의 5.3.4A 계통접속 clearance를 받았다. 프로젝트는 NSW Wagga Wagga 인근 100MW/400MWh 규모이며 132kV망에 직접 연결될 계획이다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "formal grid-connection clearance disclosure",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.ess-news.com/2026/09/08/samsung-secures-grid-clearance-for-400-mwh-battery-in-australia",
+        "event_date_source_quote": "The Australian renewables and energy storage arm of Samsung has received formal grid connection clearance for the Mangoplah battery energy storage project."
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-07_GL_02",
+      "title": "DRC EGC, H1 2026 코발트 수산화물 수출 5위 진입",
+      "date": "2026-09-07",
+      "region": "GL",
+      "importance": null,
+      "fact": "Fastmarkets가 확인한 DRC 공식자료에 따르면 국영 Gécamines 계열 EGC는 2026년 상반기 코발트 수산화물 9,948t에 포함된 코발트 금속 기준 3,531t을 수출해 DRC 내 5위 수출자가 됐다. 같은 기간 DRC의 수산화물 기준 코발트 금속 수출은 21개 사업자 합계 41,140t이었다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-07",
+        "stage_a_representative_date": "2026-09-07",
+        "role": "current H1 exporter-ranking/data disclosure",
+        "source_publication_dates": [
+          "2026-09-07"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-07",
+        "event_date": "2026-09-07",
+        "publication_dates": [
+          "2026-09-07"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.fastmarkets.com/insights/drcs-artisanally-mined-cobalt-supplier-enters-top-5-exporters-in-h1-2026",
+        "event_date_source_quote": "EGC has become a significant force in the cobalt market, exporting 3,531 tonnes of cobalt metal in H1 2026 and ranking as the DRC’s fifth-largest cobalt hydroxide exporter."
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-04_GL_05",
+      "title": "파키스탄 NEPRA, 재생에너지 경매에 BESS 10% 요건 승인",
+      "date": "2026-09-04",
+      "region": "GL",
+      "importance": null,
+      "fact": "파키스탄 NEPRA는 9월 4일 Wheeling Auction Process 개정안을 승인해 태양광·풍력 입찰자가 발전설비 firm capacity의 최소 10%에 해당하는 현장 BESS를 갖추도록 했다. 계획된 총 800MW 조달 중 첫 경매 차수는 400MW로 추진된다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-04",
+        "stage_a_representative_date": "2026-09-07",
+        "role": "regulator determination date",
+        "source_publication_dates": [
+          "2026-09-04",
+          "2026-09-07"
+        ],
+        "corrected_in_stage_b": true,
+        "representative_date": "2026-09-04",
+        "event_date": "2026-09-04",
+        "publication_dates": [
+          "2026-09-04",
+          "2026-09-07"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.dawn.com/news/2027489",
+        "event_date_source_quote": "prospective bidders would be required to commit to having BESS comprise at least 10 per cent"
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-07_EU_01",
+      "title": "EUPD, 유럽 BESS 2026년 설치 57GWh 전망",
+      "date": "2026-09-07",
+      "region": "EU",
+      "importance": null,
+      "fact": "EUPD Research는 유럽 배터리 저장장치 연간 설치량이 2025년 32GWh에서 2026년 57GWh로 78% 증가할 것으로 전망했다. 독일·불가리아·이탈리아·영국·스페인이 주요 성장 시장으로 제시됐다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-07",
+        "stage_a_representative_date": "2026-09-07",
+        "role": "research report release date",
+        "source_publication_dates": [
+          "2026-09-07"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-07",
+        "event_date": "2026-09-07",
+        "publication_dates": [
+          "2026-09-07"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://eupd-group.com/europes-battery-storage-boom-accelerates-as-2026-installations-set-to-jump-78-yoy/",
+        "event_date_source_quote": "annual installations forecast to rise from 32 GWh in 2025 to 57 GWh in 2026"
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-06_CN_03",
+      "title": "CATL, 동박 전략협약…3년 40만t 신규능력 구축 추진",
+      "date": "2026-09-06",
+      "region": "CN",
+      "importance": null,
+      "fact": "CATL은 Taijin New Energy, Shenzhen Huike 등과 전략협약을 체결해 동박 설비의 중앙집중 조달, 공동 생산능력 구축, 원가연동(cost-plus) 가격, 공동 R&D와 재생전력 사용 등을 추진하기로 했다. 별도 보도에 따르면 CATL과 2개 파트너는 향후 3년간 신규 동박 생산능력 40만t을 개발할 계획이다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-06",
+        "stage_a_representative_date": "2026-09-07",
+        "role": "CATL official agreement announcement date",
+        "source_publication_dates": [
+          "2026-09-06",
+          "2026-09-07"
+        ],
+        "corrected_in_stage_b": true,
+        "representative_date": "2026-09-06",
+        "event_date": "2026-09-06",
+        "publication_dates": [
+          "2026-09-06",
+          "2026-09-07"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.catl.com/news/10161.html",
+        "event_date_source_quote": "宁德时代与泰金新能、深圳惠科等企业签署战略合作协议。"
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-07_CN_01",
+      "title": "내몽골 Dengkou 500MW/2GWh 독립 BESS 전용량 계통연계",
+      "date": "2026-09-07",
+      "region": "CN",
+      "importance": null,
+      "fact": "내몽골 바옌나오얼 덩커우의 2025 특별행동 전원측 독립저장 세부사업 2가 전용량 계통연계를 달성했다. 프로젝트 규모는 500MW/2,000MWh, 총투자 약 14.89억위안이며 LFP 액체냉각 조립식 캐빈 방식을 사용한다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-07",
+        "stage_a_representative_date": "2026-09-07",
+        "role": "full-capacity grid-connection event reported as recent; exact earlier day unavailable",
+        "source_publication_dates": [
+          "2026-09-07"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-07",
+        "event_date": "2026-09-07",
+        "publication_dates": [
+          "2026-09-07"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://chuneng.ofweek.com/news/2026-09/ART-180226-8120-30702016.html",
+        "event_date_source_quote": "2025年专项行动电源侧独立储能子项目2实现全容量并网。"
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-08-31_CN_02",
+      "title": "新纶新材, 알루미늄 파우치필름 열법 2호선 양산 개시",
+      "date": "2026-08-31",
+      "region": "CN",
+      "importance": null,
+      "fact": "新纶新材는 8월 31일 알루미늄 파우치필름 열법 2호선을 정식 가동했다. 신규 라인은 월 300만㎡ 설계능력으로 동력배터리·ESS·3C용 고급 열법/열접착 파우치필름을 생산한다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-08-31",
+        "stage_a_representative_date": "2026-08-31",
+        "role": "production start date disclosed on Sep 8",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-08-31",
+        "event_date": "2026-08-31",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://news.10jqka.com.cn/20260908/c679711424.shtml",
+        "event_date_source_quote": "8月31日，新纶新材料股份有限公司铝塑膜热法二号线正式投产。"
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-08-26_CN_04",
+      "title": "明冠新材, H1 알루미늄 파우치필름 매출 +266%",
+      "date": "2026-08-26",
+      "region": "CN",
+      "importance": null,
+      "fact": "明冠新材의 2026년 상반기 보고서에 따르면 리튬배터리용 알루미늄 파우치필름 매출은 8,867.33만위안으로 전년 동기 대비 266.01% 증가했다. 회사는 고체전지용 파우치필름 신제품이 중국 내 선두 고체전지 업체에 배치 출하됐다고 밝혔다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-08-26",
+        "stage_a_representative_date": "2026-08-26",
+        "role": "H1 interim report filing date",
+        "source_publication_dates": [
+          "2026-08-26",
+          "2026-08-27"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-08-26",
+        "event_date": "2026-08-26",
+        "publication_dates": [
+          "2026-08-26",
+          "2026-08-27"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://4g.stockstar.com/detail/SN2026082600049498",
+        "event_date_source_quote": "公司锂电池铝塑膜实现主营业务收入8,867.33万元，同比增幅为266.01%。"
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-08_EU_01",
+      "title": "EU 전략 핵심광물 프로젝트 23곳, 긴급 자금지원 요구",
+      "date": "2026-09-08",
+      "region": "EU",
+      "importance": null,
+      "fact": "Reuters가 확인한 문서에 따르면 EU가 전략 프로젝트로 선정한 60개 핵심광물 사업 가운데 23개 개발사가 긴급 자금지원을 요구했다. 이들은 유동성·시장접근·허가 문제로 일부 사업이 즉각적인 위험에 놓일 수 있다고 지적했으며 EU는 지난해 12월 이후 17억유로의 금융지원 체계를 마련했다고 밝혔다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "current strategic-project liquidity disclosure",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.reuters.com/world/china/some-critical-mineral-firms-chosen-by-eu-flag-project-liquidity-concerns-2026-09-08/",
+        "event_date_source_quote": "Some key critical mineral project developers selected by the EU have called for urgent funding."
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-08_KR_01",
+      "title": "한국 AI·반도체 전력수요, 추가 25~30GW 가능성",
+      "date": "2026-09-08",
+      "region": "KR",
+      "importance": null,
+      "fact": "김성환 기후에너지환경부 장관은 Reuters 인터뷰에서 반도체 생산 확대와 AI 데이터센터로 인한 추가 전력수요가 25~30GW에 이를 수 있다고 밝혔다. 정부는 장기 에너지 로드맵을 2040년까지 연장해 업데이트할 예정이며 신규 원전 필요성도 검토 중이다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "ministerial interview / quantified demand outlook disclosure",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.reuters.com/business/energy/south-koreas-power-demand-set-soar-ai-boom-nation-weighs-expanding-nuclear-2026-09-08/",
+        "event_date_source_quote": "Those AI-driven power needs alone will lift South Korea’s demand for power by 25 to 30 gigawatts."
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-08_GL_02",
+      "title": "Octopus Blackstone 500MW/2GWh BESS, 호주 연방 환경심사 진입",
+      "date": "2026-09-08",
+      "region": "GL",
+      "importance": null,
+      "fact": "호주 EPBC 공공포털에 따르면 Octopus Australia가 소유하는 Blackstone BESS는 Queensland Swanbank에 500MW/2,000MWh 규모로 계획됐으며 연방 EPBC referral 절차에 들어갔다. 포털은 이후 금융종결, Tesla EPC/LTSA, Powerlink 접속계약을 거쳐 2026년 11월 착공을 목표로 제시한다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "federal EPBC referral/open assessment milestone",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary/?id=b82ae61b-219d-f111-b8db-6045bde6a109",
+        "event_date_source_quote": "Blackstone Battery Energy Storage System (BESS) Project, a 500 MW / 2,000 MWh standalone battery energy storage facility"
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-08_US_02",
+      "title": "EPA, Moss Landing BESS 화재 후 최종 배터리 제거 단계 착수",
+      "date": "2026-09-08",
+      "region": "US",
+      "importance": null,
+      "fact": "미 EPA는 9월 8일 Vistra Moss Landing BESS의 2025년 1월 화재 후 cleanup 최종 단계를 시작했다고 밝혔다. 소실된 건물을 철거해 접근이 어려웠던 심각 손상 배터리와 잔존물질을 제거·처리하며, EPA는 배터리 제거와 건물 철거 완료를 2027년 중반으로 예상한다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "EPA final cleanup phase start",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.epa.gov/newsreleases/epa-begins-final-phase-post-fire-battery-cleanup-moss-landing",
+        "event_date_source_quote": "EPA is announcing the start of the final phase of battery cleanup at Vistra’s battery energy storage facility."
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-08_JP_01",
+      "title": "Digital Grid, 자사 첫 저압 계통용 BESS 수전 개시",
+      "date": "2026-09-08",
+      "region": "JP",
+      "importance": null,
+      "fact": "Digital Grid는 자사 최초의 저압 계통용 BESS가 9월 8일 수전을 시작했다고 발표했다. 회사는 후쿠시마현 내 저압 BESS 100개소를 집합해 수급조정시장 참여를 추진할 계획이다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "first low-voltage BESS energisation date",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.digitalgrid.com/news/fukushimaenergy/",
+        "event_date_source_quote": "デジタルグリッド初の低圧系統用蓄電所が受電開始"
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-08_JP_02",
+      "title": "Daiwa Energy, ENEOS 50MW/109MWh BESS로 EPC 본격 진입",
+      "date": "2026-09-08",
+      "region": "JP",
+      "importance": null,
+      "fact": "Daiwa Energy는 계통용 BESS EPC 사업에 본격 진입하면서 ENEOS Power의 Shimizu oil terminal 부지 50MW/109MWh BESS를 첫 EPC 프로젝트로 수주했다고 9월 8일 발표했다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "EPC contract/business-entry announcement date",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.daiwahouse.co.jp/about/release/group/20260907184222.html",
+        "event_date_source_quote": "系統用蓄電所におけるEPC事業に本格参入"
+      },
+      "related": [],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [],
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": null,
+        "incremental_fact": "Independent event not represented by a same-event canonical card at the locked 1,599-card baseline.",
+        "changed_judgment": "Adds a distinct current event to the canonical universe.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": false,
+        "related_target_id": null,
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    },
+    {
+      "id": "2026-09-08_US_01",
+      "title": "미 교통부, Ford에 CATL 등 중국 기술 의존 축소 공개 요구",
+      "date": "2026-09-08",
+      "region": "US",
+      "importance": null,
+      "fact": "미 교통부는 9월 8일 공개한 Sean Duffy 장관의 Ford CEO 대상 서한에서 중국 기술·제조 의존 축소를 요구하면서 Michigan BlueOval Battery Park의 CATL 라이선스 기술 사용을 직접 지목했다. 이번 공개 요구 자체는 라이선스 취소나 새로운 법적 금지를 신설한 조치로 확인되지 않는다.",
+      "why": null,
+      "sources": null,
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-08",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "formal U.S. DOT policy-pressure letter/public announcement",
+        "source_publication_dates": [
+          "2026-09-08"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "publication_dates": [
+          "2026-09-08"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.transportation.gov/briefing-room/trumps-transportation-secretary-sean-p-duffy-urges-ford-cut-ties-china-and-prioritize",
+        "event_date_source_quote": "U.S. Transportation Secretary Sean P. Duffy today warned Ford Motor Company against its embrace of Chinese technology and manufacturing"
+      },
+      "related": [
+        "2026-06-30_US_02"
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "distinct_follow_up",
+        "matched_baseline_current_candidates": [
+          "2026-06-30_US_02"
+        ],
+        "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+        "fresh_follow_up_anchor": "Ford CATL license faces U.S. Transportation Secretary pressure",
+        "incremental_fact": "The June card recorded Ford production-intent cells using CATL licensed technology; the September event adds formal federal political/policy pressure against that dependency.",
+        "changed_judgment": "CATL licensing at Ford is now not only an execution/localisation issue but an explicit federal national-security pressure point.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": true,
+        "related_target_id": "2026-06-30_US_02",
+        "reason": "New official policy-pressure event is chronologically and substantively distinct from the June production milestone.",
+        "related_ids": [
+          "2026-06-30_US_02"
+        ],
+        "incremental_fact_vs_predecessor": "The June card recorded Ford production-intent cells using CATL licensed technology; the September event adds formal federal political/policy pressure against that dependency.",
+        "changed_judgment_vs_predecessor": "CATL licensing at Ford is now not only an execution/localisation issue but an explicit federal national-security pressure point.",
+        "event_stage_relationship": "The June card recorded Ford production-intent cells using CATL licensed technology; the September event adds formal federal political/policy pressure against that dependency.",
+        "direction": "directional",
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      }
+    }
+  ],
+  "baseline_url_collisions_for_inserted": [],
+  "operation_counts": {
+    "insert": 18,
+    "update": 0,
+    "related_add": 1
+  },
+  "duplicate_event_anchor_groups": [
+    {
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "spec_ids": [
+        "STD26_0908_A_001",
+        "STD26_0908_A_002",
+        "STD26_0908_A_003",
+        "STD26_0908_A_004",
+        "STD26_0908_A_008",
+        "STD26_0908_A_009",
+        "STD26_0908_A_010",
+        "STD26_0908_A_011"
+      ]
+    },
+    {
+      "event_anchor": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "spec_ids": [
+        "STD26_0908_A_005",
+        "STD26_0908_A_007",
+        "STD26_0908_A_012",
+        "STD26_0908_A_013",
+        "STD26_0908_A_014"
+      ]
+    },
+    {
+      "event_anchor": "structural_signal",
+      "spec_ids": [
+        "STD26_0908_P_001",
+        "STD26_0908_P_002",
+        "STD26_0908_P_003",
+        "STD26_0908_P_004",
+        "STD26_0908_P_005",
+        "STD26_0908_R_001",
+        "STD26_0908_R_002",
+        "STD26_0908_R_003",
+        "STD26_0908_R_004",
+        "STD26_0908_R_005",
+        "STD26_0908_R_006",
+        "STD26_0908_R_007",
+        "STD26_0908_R_008",
+        "STD26_0908_R_009",
+        "STD26_0908_R_010",
+        "STD26_0908_R_011",
+        "STD26_0908_R_012",
+        "STD26_0908_R_013",
+        "STD26_0908_R_014",
+        "STD26_0908_R_015",
+        "STD26_0908_R_016",
+        "STD26_0908_R_017",
+        "STD26_0908_R_018"
+      ]
+    }
+  ],
+  "event_anchor_rows": [
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_001",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "덕산일렉테라, 북미 전기차 업체에 전해액 공급 개시",
+      "source_event_id": "SEP8_EVT_0029"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_002",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "디알티, 이차전지 재활용 고효율 BM(Black Mass) 양산설비 본격 가동",
+      "source_event_id": "SEP8_EVT_0083"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_003",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "丸紅新電力など、蓄電池で調整力供給／ニシム電子のＥＭＳ活用 9/8(3面) 9/8(3面) 丸紅子会社の丸紅新電力（東京都千代田区、鈴木敦士社長）は、ＦＩＰ（フィード・イン・プレミアム）太陽光発電所に併設した蓄電池を活用し、８月から需給調整市場で取引を開始した。太陽光発電所と蓄電池制御に…",
+      "source_event_id": "SEP8_EVT_0090"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_004",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "Samsung secures grid clearance for 400 MWh battery in Australia",
+      "source_event_id": "SEP8_EVT_0105"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_005",
+      "event_anchor": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "title_raw": "DRC’s artisanally mined cobalt supplier enters top 5 exporters in H1 2026 - Fastmarkets",
+      "source_event_id": "SEP8_EVT_0136"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_006",
+      "event_anchor": "브라질 법원, Sigma Lithium Grota do Cirilo 광산 환경허가·채굴활동 중단 명령",
+      "title_raw": "Pakistan’s regulator approves mandatory energy storage component for renewables auction",
+      "source_event_id": "SEP8_EVT_0186"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_007",
+      "event_anchor": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "title_raw": "Europe’s storage market to hit 57 GWh in 2026, says EUPD Research",
+      "source_event_id": "SEP8_EVT_0204"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_008",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "AES Andes begins testing 340 MW/1.36 GWh Cristales BESS",
+      "source_event_id": "SEP8_EVT_0209"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_009",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "CATL signs agreements to deepen cooperation across battery copper foil supply chain",
+      "source_event_id": "SEP8_EVT_0223"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_010",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "500MW/2000MWh！又一独立储能项目全容量并网",
+      "source_event_id": "SEP8_EVT_0224"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_011",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "Xinlun New Materials starts high-end aluminum-plastic pouch-film hot-process Line 2, adding 3 million m²/month",
+      "source_event_id": "DISC_SEP8_001_XINLUN_POUCH_FILM_LINE"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_012",
+      "event_anchor": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "title_raw": "Mingguan New Materials H1 pouch-film revenue rises 266.01%; solid-state pouch-film products reach batch shipments",
+      "source_event_id": "DISC_SEP8_002_MINGGUAN_POUCH_FILM_H1"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_013",
+      "event_anchor": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "title_raw": "EU-selected critical-mineral projects flag acute liquidity and financing constraints",
+      "source_event_id": "DISC_SEP8_005_EU_CRMA_LIQUIDITY"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_A_014",
+      "event_anchor": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "title_raw": "South Korea projects 25–30 GW incremental power demand from semiconductor and AI-data-centre expansion",
+      "source_event_id": "DISC_SEP8_006_KOREA_AI_POWER_DEMAND"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_001",
+      "event_anchor": "structural_signal",
+      "title_raw": "調整力を供出する系統用蓄電池の導入に最大40億円を補助 SIIが公募開始",
+      "source_event_id": "SEP8_EVT_0088"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_002",
+      "event_anchor": "structural_signal",
+      "title_raw": "河北储能大清洗！近85个储能项目被取消建设或延期，储能圈而不建，化作“纸上富贵”",
+      "source_event_id": "SEP8_EVT_0111"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_003",
+      "event_anchor": "structural_signal",
+      "title_raw": "[일렉 스타] CIA도 베팅했다…비이아이, 배터리 생산능력 8배 확대",
+      "source_event_id": "SEP8_EVT_0171"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_004",
+      "event_anchor": "structural_signal",
+      "title_raw": "Latvia expands residential solar and battery rebate scheme",
+      "source_event_id": "SEP8_EVT_0200"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_005",
+      "event_anchor": "structural_signal",
+      "title_raw": "Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland",
+      "source_event_id": "SEP8_EVT_0025"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_006",
+      "event_anchor": "structural_signal",
+      "title_raw": "五粮液拿出1.5亿“酿”电池，这家白酒巨头在固态电池赛道的豪赌能赢么？",
+      "source_event_id": "SEP8_EVT_0119"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_007",
+      "event_anchor": "structural_signal",
+      "title_raw": "10대 핵심광물서 세륨·란탄 빼고 텅스텐 편입 검토",
+      "source_event_id": "SEP8_EVT_0174"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_008",
+      "event_anchor": "structural_signal",
+      "title_raw": "パワーエックスとスマートエナジー、発電所併設蓄電池 28年までに10件",
+      "source_event_id": "SEP8_EVT_0179"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_009",
+      "event_anchor": "structural_signal",
+      "title_raw": "Zhonglun New Materials solid-state-battery BOPA outer-layer substrate in customer sample validation, not mass production",
+      "source_event_id": "DISC_SEP8_003_ZHONGLUN_BOPA_SOLID_STATE"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_010",
+      "event_anchor": "structural_signal",
+      "title_raw": "EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS",
+      "source_event_id": "DISC_SEP8_004_MOSS_LANDING_CLEANUP"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_011",
+      "event_anchor": "structural_signal",
+      "title_raw": "Trump administration pressures Ford over CATL and other Chinese auto/battery relationships",
+      "source_event_id": "DISC_SEP8_007_US_FORD_CATL_PRESSURE"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_012",
+      "event_anchor": "structural_signal",
+      "title_raw": "NC Yanai Tohzaki Rakuda BESS starts operation in Japan balancing market (1.988 MW / 8.146 MWh)",
+      "source_event_id": "DISC_SEP8_008_JP_YANAI_BESS_OPERATION"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_013",
+      "event_anchor": "structural_signal",
+      "title_raw": "Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites",
+      "source_event_id": "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_014",
+      "event_anchor": "structural_signal",
+      "title_raw": "HEXA begins commercial and market operation of two merchant high-voltage BESS sites in Fukushima and Miyagi",
+      "source_event_id": "DISC_SEP8_010_JP_HEXA_TWO_BESS_OPERATION"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_015",
+      "event_anchor": "structural_signal",
+      "title_raw": "Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project",
+      "source_event_id": "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_016",
+      "event_anchor": "structural_signal",
+      "title_raw": "CATL marketplace offers energy-storage cells from RMB 0.395/Wh",
+      "source_event_id": "DISC_SEP8_012_CATL_CELL_DIRECT_PRICE"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_017",
+      "event_anchor": "structural_signal",
+      "title_raw": "Capchem reportedly breaks ground on first scaled North American battery-electrolyte plant in Ohio",
+      "source_event_id": "DISC_SEP8_013_CAPCHEM_OHIO_ELECTROLYTE"
+    },
+    {
+      "file": "stages/stage-a.json",
+      "spec_id": "STD26_0908_R_018",
+      "event_anchor": "structural_signal",
+      "title_raw": "Wanshun New Materials says high-dyne battery aluminum foil reached medium-batch supply; 17.2 kt battery-foil capacity laid out",
+      "source_event_id": "DISC_SEP8_015_WANSHUN_BATTERY_FOIL"
+    },
+    {
+      "file": "stages/stage-a-promotion5.json",
+      "spec_id": "STD26_0908_P_001",
+      "event_anchor": "structural_signal",
+      "title_raw": "Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland",
+      "source_event_id": "SEP8_EVT_0025"
+    },
+    {
+      "file": "stages/stage-a-promotion5.json",
+      "spec_id": "STD26_0908_P_002",
+      "event_anchor": "structural_signal",
+      "title_raw": "EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS",
+      "source_event_id": "DISC_SEP8_004_MOSS_LANDING_CLEANUP"
+    },
+    {
+      "file": "stages/stage-a-promotion5.json",
+      "spec_id": "STD26_0908_P_003",
+      "event_anchor": "structural_signal",
+      "title_raw": "Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites",
+      "source_event_id": "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS"
+    },
+    {
+      "file": "stages/stage-a-promotion5.json",
+      "spec_id": "STD26_0908_P_004",
+      "event_anchor": "structural_signal",
+      "title_raw": "Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project",
+      "source_event_id": "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW"
+    },
+    {
+      "file": "stages/stage-a-promotion5.json",
+      "spec_id": "STD26_0908_P_005",
+      "event_anchor": "structural_signal",
+      "title_raw": "Trump administration pressures Ford over CATL and other Chinese auto/battery relationships",
+      "source_event_id": "DISC_SEP8_007_US_FORD_CATL_PRESSURE"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_001",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "덕산일렉테라, 북미 전기차 업체에 전해액 공급 개시",
+      "source_event_id": "SEP8_EVT_0029"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_002",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "디알티, 이차전지 재활용 고효율 BM(Black Mass) 양산설비 본격 가동",
+      "source_event_id": "SEP8_EVT_0083"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_003",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "丸紅新電力など、蓄電池で調整力供給／ニシム電子のＥＭＳ活用 9/8(3面) 9/8(3面) 丸紅子会社の丸紅新電力（東京都千代田区、鈴木敦士社長）は、ＦＩＰ（フィード・イン・プレミアム）太陽光発電所に併設した蓄電池を活用し、８月から需給調整市場で取引を開始した。太陽光発電所と蓄電池制御に…",
+      "source_event_id": "SEP8_EVT_0090"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_004",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "Samsung secures grid clearance for 400 MWh battery in Australia",
+      "source_event_id": "SEP8_EVT_0105"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_005",
+      "event_anchor": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "title_raw": "DRC’s artisanally mined cobalt supplier enters top 5 exporters in H1 2026 - Fastmarkets",
+      "source_event_id": "SEP8_EVT_0136"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_006",
+      "event_anchor": "브라질 법원, Sigma Lithium Grota do Cirilo 광산 환경허가·채굴활동 중단 명령",
+      "title_raw": "Pakistan’s regulator approves mandatory energy storage component for renewables auction",
+      "source_event_id": "SEP8_EVT_0186"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_007",
+      "event_anchor": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "title_raw": "Europe’s storage market to hit 57 GWh in 2026, says EUPD Research",
+      "source_event_id": "SEP8_EVT_0204"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_008",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "AES Andes begins testing 340 MW/1.36 GWh Cristales BESS",
+      "source_event_id": "SEP8_EVT_0209"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_009",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "CATL signs agreements to deepen cooperation across battery copper foil supply chain",
+      "source_event_id": "SEP8_EVT_0223"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_010",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "500MW/2000MWh！又一独立储能项目全容量并网",
+      "source_event_id": "SEP8_EVT_0224"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_011",
+      "event_anchor": "코스모신소재, 피노에 150억원 지분투자 계약 — 취득 후 3.13%",
+      "title_raw": "Xinlun New Materials starts high-end aluminum-plastic pouch-film hot-process Line 2, adding 3 million m²/month",
+      "source_event_id": "DISC_SEP8_001_XINLUN_POUCH_FILM_LINE"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_012",
+      "event_anchor": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "title_raw": "Mingguan New Materials H1 pouch-film revenue rises 266.01%; solid-state pouch-film products reach batch shipments",
+      "source_event_id": "DISC_SEP8_002_MINGGUAN_POUCH_FILM_H1"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_013",
+      "event_anchor": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "title_raw": "EU-selected critical-mineral projects flag acute liquidity and financing constraints",
+      "source_event_id": "DISC_SEP8_005_EU_CRMA_LIQUIDITY"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_A_014",
+      "event_anchor": "SNE Research: 2026년 1~7월 글로벌 EV 배터리 사용량 725.2GWh, 전년 대비 +20.4%",
+      "title_raw": "South Korea projects 25–30 GW incremental power demand from semiconductor and AI-data-centre expansion",
+      "source_event_id": "DISC_SEP8_006_KOREA_AI_POWER_DEMAND"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_P_001",
+      "event_anchor": "structural_signal",
+      "title_raw": "Octopus Australia refers 2GWh Blackstone BESS for EPBC Act assessment in Queensland",
+      "source_event_id": "SEP8_EVT_0025"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_P_002",
+      "event_anchor": "structural_signal",
+      "title_raw": "EPA begins final phase of post-fire battery cleanup at Vistra Moss Landing BESS",
+      "source_event_id": "DISC_SEP8_004_MOSS_LANDING_CLEANUP"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_P_003",
+      "event_anchor": "structural_signal",
+      "title_raw": "Digital Grid starts receiving power at first low-voltage grid BESS and plans aggregation of 100 Fukushima sites",
+      "source_event_id": "DISC_SEP8_009_JP_LOW_VOLTAGE_100_BESS"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_P_004",
+      "event_anchor": "structural_signal",
+      "title_raw": "Daiwa Energy enters grid-BESS EPC with first 50 MW / 109 MWh ENEOS Power project",
+      "source_event_id": "DISC_SEP8_011_JP_DAIWA_ENEOS_50MW"
+    },
+    {
+      "file": "stages/stage-b.json",
+      "spec_id": "STD26_0908_P_005",
+      "event_anchor": "structural_signal",
+      "title_raw": "Trump administration pressures Ford over CATL and other Chinese auto/battery relationships",
+      "source_event_id": "DISC_SEP8_007_US_FORD_CATL_PRESSURE"
+    }
+  ],
+  "stale_operation_hash_hits": [
+    {
+      "file": "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json",
+      "hash": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+      "count": 19
+    },
+    {
+      "file": "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-7c.json",
+      "hash": "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37",
+      "count": 2
+    }
+  ],
+  "reviewed_operation_hash_values": {
+    "b197b31fbe1d58c1318461b83de6c8ba4d0dd6c2020d03f04046a45bab88e4e7": [
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/card-run-audit.json:$.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-7c.json:$.reviewed_operations_sha256"
+    ],
+    "09bac68f66d83a8fb997e7eb93787cd21ec5ed998c4d240bb860cd4b03feae37": [
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.certified_0_7c.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[0].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[1].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[2].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[3].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[4].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[5].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[6].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[7].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[8].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[9].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[10].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[11].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[12].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[13].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[14].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[15].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[16].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-8.json:$.github_merge_ready[17].merge_prep.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-7c.json:$.operation_freeze.reviewed_operations_sha256",
+      "runs/2026-09-09/sep8-r7-current-main-production-r1/stage-0-7c.json:$.round_6_operation_binding.reviewed_operations_sha256"
+    ]
+  },
+  "expected_final_operation_sha": "b197b31fbe1d58c1318461b83de6c8ba4d0dd6c2020d03f04046a45bab88e4e7",
+  "full_sha256": "9584cee08b1f670199c77d84adbe24f4e7656c84f31c992965edd3e112b8d974",
+  "lean_sha256": "47fbda218c4484dcd747e8e0c90329ea34085839d20a617ee12d4bce3f45f5cd",
+  "checks": {
+    "cardinality_1599_to_1617": true,
+    "insert_ids_exact": true,
+    "no_removed_cards": true,
+    "no_unexpected_existing_changes": true,
+    "no_baseline_url_collision": true,
+    "operation_has_no_delete": true,
+    "has_one_related_add": true,
+    "no_stale_operation_hash": false,
+    "no_duplicate_event_anchor": false
+  }
+}

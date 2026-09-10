@@ -1,0 +1,66 @@
+{
+  "schema": "sbtl_governed_run_restart_checkpoint_v1",
+  "status": "IN_PROGRESS_PREFLIGHT",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "generated_date": "2026-09-10",
+  "source_input": {
+    "filename": "final_news_llm_input_newsletter_expanded_20260909_135804.json",
+    "run_tag": "20260909_135804",
+    "run_label": "2026-09-09 13:58 KST",
+    "schema": "final_news_llm_input_v4_newsletter_expanded",
+    "story_count": 393,
+    "status_counts": {
+      "KEEP": 298,
+      "REVIEW": 3,
+      "TRIAGE_FILTERED": 92
+    },
+    "input_orphan_count": 0,
+    "dropped_count": 0,
+    "region_counts": {
+      "KR": 176,
+      "GL": 59,
+      "CN": 59,
+      "EU": 41,
+      "US": 39,
+      "JP": 19
+    },
+    "integrity_flagged_group_count": 7,
+    "integrity_flagged_story_count": 25,
+    "integrity_excluded_story_count": 0
+  },
+  "baseline": {
+    "main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+    "canonical_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+    "canonical_card_count": 1617
+  },
+  "priority": "CURRENT_RUN_BEFORE_HISTORICAL_CARRYFORWARD",
+  "paused_parallel_work": {
+    "historical_candidate_reconciliation_pr": 369,
+    "reason": "Sep 9 current governed run must be completed before continuing historical carryforward reconciliation."
+  },
+  "required_next_stages": [
+    "0.0D",
+    "RAW_INPUT_AUDIT",
+    "0.0C",
+    "STAGE_A",
+    "0.1P",
+    "STAGE_B",
+    "STAGE_C",
+    "0.4",
+    "0.5",
+    "0.6",
+    "0.7",
+    "0.7C",
+    "0.8",
+    "PRODUCTION_APPLY",
+    "0.9"
+  ],
+  "governance_guards": {
+    "canonical_mutation_authorized": false,
+    "production_ids_authorized": false,
+    "delete_authorized": false,
+    "related_remove_authorized": false,
+    "preserve_existing_related": true,
+    "integrity_flagged_rows_must_remain_reviewable": true
+  }
+}

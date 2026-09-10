@@ -1,0 +1,114 @@
+{
+  "schema": "prompt_0_9_production_verification_v4_r1",
+  "stage": "0.9",
+  "prompt_version": "PROMPT_0_9_V4_20260829",
+  "run_id": "card-run-2026-09-09-sep8-r7-current-main-production-r1",
+  "verified_at_kst": "2026-09-10T12:15:00+09:00",
+  "overall_status": "PASS_WITH_LIMITATIONS",
+  "production_verified": false,
+  "verified_production_commit": "31a5129836c0ff1392a9d47319bd75ea25ff2f05",
+  "verified_production_tree": "1db69c80ffd83fd04753098f1f4bda5b2ee5e38e",
+  "production_merge": {
+    "canonical_cards_pr": 360,
+    "unified_postmerge_remediation_pr": 363,
+    "reverted_intermediate_pr": 362,
+    "revert_pr": 365,
+    "status": "PASS"
+  },
+  "canonical_verification": {
+    "status": "PASS",
+    "baseline_count": 1599,
+    "production_count": 1617,
+    "insert_count": 18,
+    "update_count": 0,
+    "delete_count": 0,
+    "related_add_count": 1,
+    "related_remove_count": 0,
+    "existing_card_mutation_count": 0,
+    "baseline_url_collision_count": 0,
+    "full_sha256": "9584cee08b1f670199c77d84adbe24f4e7656c84f31c992965edd3e112b8d974",
+    "lean_sha256": "47fbda218c4484dcd747e8e0c90329ea34085839d20a617ee12d4bce3f45f5cd",
+    "governed_operations_sha256": "b197b31fbe1d58c1318461b83de6c8ba4d0dd6c2020d03f04046a45bab88e4e7"
+  },
+  "introduced_ids": [
+    "2026-09-08_KR_01",
+    "2026-09-08_KR_02",
+    "2026-09-08_KR_03",
+    "2026-08-31_JP_02",
+    "2026-09-08_GL_01",
+    "2026-09-08_GL_02",
+    "2026-09-07_GL_02",
+    "2026-09-04_GL_05",
+    "2026-09-07_EU_01",
+    "2026-09-06_CN_03",
+    "2026-09-07_CN_01",
+    "2026-08-31_CN_02",
+    "2026-08-26_CN_04",
+    "2026-09-08_EU_01",
+    "2026-09-08_US_01",
+    "2026-09-08_US_02",
+    "2026-09-08_JP_01",
+    "2026-09-08_JP_02"
+  ],
+  "related_verification": {
+    "status": "PASS_STATIC_CANONICAL",
+    "source_id": "2026-09-08_US_01",
+    "target_id": "2026-06-30_US_02",
+    "relation_type": "distinct_follow_up",
+    "target_exists": true,
+    "provisional_relation_ids": 0,
+    "live_navigation_tested": false
+  },
+  "governance_remediation_verification": {
+    "status": "PASS",
+    "strict_stage_a_anchor_repairs": 14,
+    "strict_stage_b_anchor_repairs": 14,
+    "nested_operation_sha_repairs_stage_0_7c": 2,
+    "nested_operation_sha_repairs_stage_0_8": 19,
+    "independent_audit_artifact": "runs/2026-09-10/sep8-postmerge-deep-audit-r1/audit.json",
+    "validator_hardening_issue": 364,
+    "exact_repaired_tree_validated": "1db69c80ffd83fd04753098f1f4bda5b2ee5e38e"
+  },
+  "deployment_verification": {
+    "status": "PASS",
+    "provider": "Vercel",
+    "project": "sbtl-hub",
+    "production_domain": "https://sbtl-hub.vercel.app",
+    "deployment_id": "dpl_SjijZU77GuhkmjjAZAvRYFgCgFCQ",
+    "deployment_state": "READY",
+    "deployment_target": "production",
+    "deployment_git_sha": "31a5129836c0ff1392a9d47319bd75ea25ff2f05"
+  },
+  "html_verification": {
+    "status": "PASS",
+    "url": "https://sbtl-hub.vercel.app",
+    "http_status": 200,
+    "title": "SBTL 콘텐츠 허브"
+  },
+  "production_data_endpoint_verification": {
+    "status": "PASS_WITH_LIMITATIONS",
+    "url": "https://sbtl-hub.vercel.app/data/cards.json",
+    "fetch_attempted": true,
+    "exact_18_id_payload_inspection": false,
+    "limitation": "Oversized live static JSON could not be parsed ID-by-ID with the connected fetch tool; repository lean bytes are bound to the READY production deployment commit."
+  },
+  "interactive_verification": {
+    "status": "NOT_TESTED_TOOL_LIMITATION",
+    "mandatory_surface_passed": false
+  },
+  "mobile_verification": {
+    "status": "NOT_TESTED_TOOL_LIMITATION",
+    "mandatory_surface_passed": false
+  },
+  "limitations": [
+    "Live Related navigation was not interactively clicked.",
+    "The oversized live cards.json payload could not be parsed ID-by-ID with the connected fetch tool.",
+    "Interactive and mobile UI surfaces were not testable with the available tools."
+  ],
+  "closure": {
+    "run_closed": true,
+    "production_data_change_complete": true,
+    "formal_result": "PASS_WITH_LIMITATIONS",
+    "reason_production_verified_false": "Prompt 0.9 forbids setting production_verified=true when mandatory live/interactive surfaces were not actually tested."
+  }
+}

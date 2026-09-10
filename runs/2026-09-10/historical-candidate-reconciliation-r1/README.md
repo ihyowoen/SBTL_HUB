@@ -4,8 +4,11 @@ This is a **reconciliation-only cumulative working PR** for SBTL candidate gover
 
 ## Baseline
 
-- branch base: `8f3b6c3277d7cd13ccfc48f3c72a5d1ecb5d7c58`
-- base main date: 2026-09-10
+- branch creation base: `8f3b6c3277d7cd13ccfc48f3c72a5d1ecb5d7c58`
+- current relocked main: `3bb929004ff8b547b86e5f1beab0efb3dac19d62`
+- canonical `data/cards.full.json` blob before/after main move: `beb2aa7615b583b4c9c0c269974601a0b26c2684` → `beb2aa7615b583b4c9c0c269974601a0b26c2684`
+- canonical data changed across relock: **no**
+- therefore the moving-main event requires provenance relock only; previously completed candidate adjudications do **not** reset
 - canonical card data is **not modified in this PR**
 - `data/cards.full.json` and card-run production operations are out of scope
 

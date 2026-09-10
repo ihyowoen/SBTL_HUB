@@ -52,17 +52,24 @@ jobs:
           chain=[]
           for f,key,src in [('stage-0-4.json','stage_c_artifact_sha256',ch),('stage-0-5.json','stage_0_4_artifact_sha256',None),('stage-0-6.json','input_0_5_sha256',None),('stage-0-7.json','input_0_6_sha256',None)]:
             p=S/f; d=L(p); ub(d); d[key]=src if src is not None else chain[-1]; W(p,d); chain.append(H(p))
-          r=L(R/'card-run.json')
+          r=L(R/'card-run.json'); ub(r)
           promoted=0
           for op in r['operations']['insert']:
             card=op['card']; z=card.get('stage_b_lineage')
-            if isinstance(z,dict): z['artifact_sha256']=bh
             sid=card.get('source_spec_id') or (z.get('spec_id') if isinstance(z,dict) else None)
             if sid and '_P_' in sid:
               arts=op.get('stage_artifacts')
               if not isinstance(arts,list) or not arts: raise SystemExit(f'missing stage_artifacts for {sid}')
               arts[0]=promo; promoted+=1
-          if promoted!=5: raise SystemExit(f'expected 5 promoted operations, got {promoted}')
+          if promoted!=5: raise SystemExit(f'expected 5 promoted inserts, got {promoted}')
+          relops=r['operations'].get('related_add',[])
+          if len(relops)!=1: raise SystemExit(f'expected exactly 1 related_add, got {len(relops)}')
+          rop=relops[0]
+          rsid=rop.get('source_spec_id') or rop.get('spec_id')
+          if rsid!='STD26_0908_P_005': raise SystemExit(f'unexpected related_add source spec: {rsid}')
+          rarts=rop.get('stage_artifacts')
+          if not isinstance(rarts,list) or not rarts: raise SystemExit('Ford related_add missing stage_artifacts')
+          rarts[0]=promo
           oph=hashlib.sha256(json.dumps(r['operations'],sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest(); W(R/'card-run.json',r)
           x=L(R/'stage-0-7c.json'); x['reviewed_operations_sha256']=oph; x['hash_chain'].update(stage_a_promotion5_sha256=ah,stage_b_sha256=bh,stage_c_sha256=ch,stage_0_4_sha256=chain[0],stage_0_5_sha256=chain[1],stage_0_6_sha256=chain[2],stage_0_7_sha256=chain[3]); W(R/'stage-0-7c.json',x)
           for f in ['stage-0-8.json','card-run-audit.json']:

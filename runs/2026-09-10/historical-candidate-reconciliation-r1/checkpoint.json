@@ -1,0 +1,46 @@
+{
+  "schema": "sbtl_candidate_reconciliation_checkpoint_v1",
+  "status": "IN_PROGRESS",
+  "base_main_sha": "8f3b6c3277d7cd13ccfc48f3c72a5d1ecb5d7c58",
+  "canonical_mutation_allowed": false,
+  "current_sep3_sep7": {
+    "unique_events": 80,
+    "decision_counts": {
+      "PROMOTE": 3,
+      "KEEP_CANDIDATE": 4,
+      "DOWNGRADE_WATCH": 34,
+      "CLOSE": 39
+    },
+    "pending_new_stage_b": 0,
+    "promoted_already_canonicalized": [
+      "REV_NR_20260907_E0150",
+      "REV_NR_20260907_E0142",
+      "REV_NR_20260907_E0140"
+    ],
+    "active_keep": [
+      "NR_20260903_E0002",
+      "NR_20260903_E0374",
+      "REV_NR_20260907_E0100",
+      "REV_NR_20260907_E0052"
+    ]
+  },
+  "historical_aug25": {
+    "derivation": {
+      "needs_user_decision": 264,
+      "later_promoted_unique_story_ids": 18,
+      "historical_active": 246,
+      "exact_canonicalized_removed": ["U1476", "U1581", "U1989"],
+      "recheck_universe": 243
+    },
+    "materialized": 50,
+    "remaining": 193,
+    "partial_decision_counts": {
+      "PROMOTE": 15,
+      "KEEP_CANDIDATE": 10,
+      "DOWNGRADE_WATCH": 9,
+      "CLOSE": 16
+    },
+    "partial_counts_are_final": false
+  },
+  "production_rule": "PROMOTE decisions in this PR must be rematerialized and pass the normal Stage A/B/C and 0.4-0.8 chain before any canonical/apply PR."
+}

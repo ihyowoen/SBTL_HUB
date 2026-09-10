@@ -1,9 +1,23 @@
+import { execFileSync } from "node:child_process";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { validateMonthlyBriefProvenance } from "../lib/brief/monthlyProvenance.js";
+import { createGitProvenanceResolver, validateMonthlyBriefProvenance } from "../lib/brief/monthlyProvenance.js";
 
 const SNAPSHOT = {
   cards: [
-    { id: "AUG_A", date: "2026-08-10", title: "August A", urls: ["https://example.com/a"] },
+    {
+  id: "AUG_A",
+  date: "2026-08-10",
+  title: "August A",
+  urls: ["https://example.com/a"],
+  fact_sources: [
+    { source_url: "https://example.com/a", supports: ["title", "fact"] },
+    { source_url: "https://example.com/a-title", supports: ["title", "fact"] },
+    { source_url: "https://example.com/a-context", supports: ["sub"] },
+  ],
+},
     { news_id: "AUG_B", d: "2026-08-20", T: "August B", url: "https://example.com/b" },
     { id: "SEP_A", date: "2026-09-01", title: "September A", urls: ["https://example.com/sep"] },
   ],
@@ -37,6 +51,27 @@ function resolver(overrides = {}) {
 describe("Monthly Brief git provenance", () => {
   it("accepts a reachable main commit whose cards.full blob, governed cards and refs match", () => {
     expect(validateMonthlyBriefProvenance(library(), resolver())).toEqual([]);
+  });
+
+  it("reads locked card snapshots larger than Node child_process default maxBuffer", () => {
+    const cwd = fs.mkdtempSync(path.join(os.tmpdir(), "monthly-brief-large-git-"));
+    try {
+      fs.mkdirSync(path.join(cwd, "data"), { recursive: true });
+      const largeSnapshot = JSON.stringify({ cards: [{ id: "LARGE", date: "2026-08-01", title: "x".repeat(2_000_000) }] });
+      fs.writeFileSync(path.join(cwd, "data/cards.full.json"), largeSnapshot);
+      execFileSync("git", ["init"], { cwd, stdio: "ignore" });
+      execFileSync("git", ["config", "user.email", "test@example.com"], { cwd });
+      execFileSync("git", ["config", "user.name", "Monthly Brief Test"], { cwd });
+      execFileSync("git", ["add", "data/cards.full.json"], { cwd });
+      execFileSync("git", ["commit", "-m", "large snapshot"], { cwd, stdio: "ignore" });
+      const gitResolver = createGitProvenanceResolver({ cwd, mainRef: "HEAD" });
+      const text = gitResolver.sourceTextAt("HEAD");
+      expect(typeof text).toBe("string");
+      expect(text.length).toBeGreaterThan(1_000_000);
+      expect(JSON.parse(text).cards[0].id).toBe("LARGE");
+    } finally {
+      fs.rmSync(cwd, { recursive: true, force: true });
+    }
   });
 
   it("rejects a nonexistent declared commit", () => {
@@ -91,6 +126,19 @@ describe("Monthly Brief git provenance", () => {
     }
   });
 
+  it("accepts a governed alternate source that explicitly supports the locked card title", () => {
+  const lib = library();
+  lib.items[0].refs[0].url = "https://example.com/a-title";
+  expect(validateMonthlyBriefProvenance(lib, resolver())).toEqual([]);
+});
+
+it("rejects a governed source that does not support the locked card title", () => {
+  const lib = library();
+  lib.items[0].refs[0].url = "https://example.com/a-context";
+  const errors = validateMonthlyBriefProvenance(lib, resolver()).join("\n");
+  expect(errors).toContain("refs[0].url");
+  expect(errors).toContain("title-supporting governed evidence URL");
+});
   it("allows an omitted optional reference URL while still binding title and date", () => {
     const lib = library();
     delete lib.items[0].refs[0].url;

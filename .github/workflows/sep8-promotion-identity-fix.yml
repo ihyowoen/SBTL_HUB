@@ -34,6 +34,7 @@ jobs:
           for x in a['decision_ledger']:
             if x.get('spec_id')=='STD26_0908_P_005' or x.get('candidate_id')=='STD26_0908_P_005':
               x.update(baseline_relation='distinct_follow_up',follow_up_relation='distinct_follow_up',baseline_match='2026-06-30_US_02',duplicate_risk='bounded_recheck_completed_distinct_follow_up',notes='Promotion resolved; Stage A Related prepass identifies 2026-06-30_US_02 as a distinct predecessor and authorizes Stage B evidence verification.')
+          a['summary']['follow_up_candidate_ids']=['STD26_0908_P_005']
           W(S/'stage-a-promotion5.json',a); ah=H(S/'stage-a-promotion5.json')
           b=L(S/'stage-b.json')
           for x in b['strict_passed_spec']:

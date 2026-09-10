@@ -26,8 +26,16 @@ jobs:
           curl -fsSL --retry 3 --retry-delay 2 "$URL/" -o /tmp/live-index.html
           python3 - <<'PY'
           import json, pathlib
-          cards=json.loads(pathlib.Path('/tmp/live-cards.json').read_text())
-          assert isinstance(cards,list), type(cards)
+          raw=json.loads(pathlib.Path('/tmp/live-cards.json').read_text())
+          if isinstance(raw,list):
+            cards=raw; wrapper='array'
+          elif isinstance(raw,dict):
+            wrapper_keys=list(raw.keys())
+            cards=next((raw.get(k) for k in ('cards','items','data','results') if isinstance(raw.get(k),list)),None)
+            assert isinstance(cards,list), ('no card array in wrapper',wrapper_keys)
+            wrapper='object:'+','.join(wrapper_keys)
+          else:
+            raise AssertionError(type(raw))
           expected=[
             '2026-09-08_KR_02','2026-09-08_KR_03','2026-08-31_JP_02','2026-09-08_GL_01',
             '2026-09-07_GL_02','2026-09-04_GL_05','2026-09-07_EU_01','2026-09-06_CN_03',
@@ -58,12 +66,13 @@ jobs:
           assert '<div id="root"></div>' in index
           assert '/assets/' in index and '.js' in index
           result={
-            'status':'PASS', 'live_card_count':len(cards), 'introduced_ids_checked':len(expected),
-            'missing_ids':missing, 'core_field_issues':field_issues,
-            'ford_related_target':target, 'ford_related_target_exists':True,
-            'ford_related_published_edge_present':True, 'provisional_relation_ids':provisional,
-            'ford_title':ford.get('title'), 'target_title':by[target].get('title'),
-            'introduced_titles':[by[i].get('title') for i in expected]
+            'status':'PASS','wrapper':wrapper,'live_card_count':len(cards),'introduced_ids_checked':len(expected),
+            'missing_ids':missing,'core_field_issues':field_issues,
+            'ford_related_target':target,'ford_related_target_exists':True,
+            'ford_related_published_edge_present':True,'provisional_relation_ids':provisional,
+            'ford_title':ford.get('title'),'target_title':by[target].get('title'),
+            'introduced_titles':[by[i].get('title') for i in expected],
+            'sample_live_card_keys':sorted(by['2026-09-08_US_01'].keys())
           }
           pathlib.Path('/tmp/live-data-result.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
           print('LIVE_DATA_RESULT='+json.dumps(result,ensure_ascii=False))
@@ -86,7 +95,8 @@ jobs:
             '2026-09-08_KR_01','2026-09-08_GL_02','2026-09-08_US_02','2026-09-08_JP_01',
             '2026-09-08_JP_02','2026-09-08_US_01'
           ];
-          const browser=await chromium.launch({headless:true, executablePath:process.env.CHROME_PATH, args:['--no-sandbox']});
+          const unwrap=(raw)=>Array.isArray(raw)?raw:(raw.cards||raw.items||raw.data||raw.results);
+          const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH,args:['--no-sandbox']});
           async function check(viewport,label){
             const page=await browser.newPage({viewport});
             const errors=[];
@@ -98,7 +108,9 @@ jobs:
             await page.waitForTimeout(3500);
             const api=await page.request.get(base+'/data/cards.json');
             if(!api.ok()) throw new Error(label+' cards API '+api.status());
-            const cards=await api.json();
+            const raw=await api.json();
+            const cards=unwrap(raw);
+            if(!Array.isArray(cards)) throw new Error(label+' card wrapper not recognized');
             const by=new Map(cards.map(c=>[c.id,c]));
             const body=(await page.locator('body').innerText()).replace(/\s+/g,' ');
             const visibleIntroduced=expected.filter(id=>body.includes(by.get(id)?.title||'__NO__'));
@@ -136,19 +148,13 @@ jobs:
           d=json.loads(pathlib.Path('/tmp/live-data-result.json').read_text())
           b=json.loads(pathlib.Path('/tmp/live-browser-result.json').read_text())
           out={
-            'status':'PASS',
-            'production_url':'https://sbtl-hub.vercel.app',
-            'live_card_count':d['live_card_count'],
-            'introduced_ids_checked':d['introduced_ids_checked'],
-            'ford_related_target':d['ford_related_target'],
-            'data_verification':'PASS',
-            'html_verification':'PASS',
-            'interactive_render_verification':'PASS',
-            'mobile_render_verification':'PASS',
+            'status':'PASS','production_url':'https://sbtl-hub.vercel.app',
+            'live_card_count':d['live_card_count'],'introduced_ids_checked':d['introduced_ids_checked'],
+            'ford_related_target':d['ford_related_target'],'data_verification':'PASS','html_verification':'PASS',
+            'interactive_render_verification':'PASS','mobile_render_verification':'PASS',
             'desktop_visible_introduced_ids':b['desktop']['visible_introduced_ids'],
             'mobile_visible_introduced_ids':b['mobile']['visible_introduced_ids'],
-            'desktop_runtime_errors':b['desktop']['errors'],
-            'mobile_runtime_errors':b['mobile']['errors']
+            'desktop_runtime_errors':b['desktop']['errors'],'mobile_runtime_errors':b['mobile']['errors']
           }
           print('PRODUCTION_0_9='+json.dumps(out,ensure_ascii=False))
           PY

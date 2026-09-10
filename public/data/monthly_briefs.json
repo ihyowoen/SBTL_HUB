@@ -1,6 +1,6 @@
 {
   "schema_version": "monthly-brief.v1",
-  "updated_at": "2026-09-09",
+  "updated_at": "2026-09-10",
   "items": [
     {
       "id": "monthly-brief-2026-08-r1",
@@ -10,14 +10,14 @@
       "status": "published",
       "publication_class": "official_editorial",
       "publication_mode": "editorial_curated",
-      "published_at": "2026-09-09",
+      "published_at": "2026-09-10",
       "title": "SBTL Monthly Brief · 2026.08",
-      "executive_diagnosis": "8월 배터리 산업의 핵심 변화는 성장률 자체보다 어디에서 실제로 돈이 투입되고, 어떤 자산이 가동되며, 어떤 조건으로 공급망이 잠기는가로 판단 기준이 이동한 것이다. ESS는 장기 수익계약·금융종결·착공·상업운전이 여러 지역에서 동시에 이어지며 전력 인프라 자산으로 자리잡는 흐름이 뚜렷해졌고, 셀·소재 생산은 EV 단일 수요가 아니라 ESS·LFP·복수 화학계와 고객 믹스에 맞춰 재배치됐다. 동시에 정책과 전략자본은 원료·재활용·전력망 장비와 디지털 보안까지 공급망 통제 범위를 넓혔다.",
-      "what_changed": "8월에는 ‘EV 둔화와 ESS 성장’만으로는 산업 변화를 설명하기 어려워졌다. EV 배터리 수요도 성장하고 있지만, ESS 관련 수요와 투자는 장기계약·은행금융·착공·상업운전으로 이어졌고 생산 측에서는 공장 생산개시와 제품 믹스 계획이 확인됐다. 따라서 앞으로는 단순 출하량보다 COD·가동률·장기계약 집행·현지조달 적격성·세후 원가와 수익성을 함께 봐야 한다.",
+      "executive_diagnosis": "8월 배터리 산업의 핵심 변화는 성장률 자체보다 어디에서 실제로 돈이 투입되고, 어떤 자산이 가동되며, 어떤 조건으로 공급망이 잠기는가로 판단 기준이 이동한 것이다. ESS는 장기 수익계약·금융종결·착공·상업운전뿐 아니라 일본 조정력시장 실제 진입까지 이어지며 전력 인프라 자산으로 자리잡는 흐름이 뚜렷해졌다. 공급 측에서는 셀의 EV·ESS 복수 용도와 화학계 전략이 구체화되는 동시에 파우치필름에서도 ESS·3C·고체전지로 고객·용도 믹스가 넓어지고 신규 라인이 가동되면서 다변화 방향이 확인됐다. 동시에 정책과 전략자본은 원료·재활용·전력망 장비와 디지털 보안까지 공급망 통제 범위를 넓혔다.",
+      "what_changed": "8월에는 ‘EV 둔화와 ESS 성장’만으로는 산업 변화를 설명하기 어려워졌다. EV 배터리 수요도 성장하는 가운데 ESS는 장기계약·은행금융·착공·상업운전과 전력시장 참여로 실행 단계가 넓어졌고, 셀 생산에서는 복수 용도·화학계 전략이, 파우치필름에서는 신규 생산라인 가동과 매출 급증·고체전지용 배치 출하가 확인됐다. 따라서 앞으로는 단순 출하량보다 COD·가동률·장기계약 집행·고객·제품 믹스·현지조달 적격성·세후 원가와 수익성을 함께 봐야 한다.",
       "source_baseline": {
-        "main_commit_sha": "e46f85c7be99548894549b97eea4bfcb0c9a3c66",
-        "full_blob_sha": "cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb",
-        "source_month_count": 168
+        "main_commit_sha": "8f3b6c3277d7cd13ccfc48f3c72a5d1ecb5d7c58",
+        "full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+        "source_month_count": 171
       },
       "source_card_ids": [
         "2026-08-03_GL_01",
@@ -36,31 +36,37 @@
         "2026-08-07_US_01",
         "2026-08-31_US_02",
         "2026-08-27_CN_01",
-        "2026-08-27_CN_02"
+        "2026-08-27_CN_02",
+        "2026-08-31_JP_02",
+        "2026-08-31_CN_02",
+        "2026-08-26_CN_04"
       ],
       "key_flows": [
         {
           "id": "01",
           "title": "ESS, 계약·금융·COD가 이어지는 전력 인프라로",
-          "summary": "텍사스 Old 300의 250MW/500MWh 상업운전, 사우디 Red Sea의 1.2GWh BESS 상업운전, 네덜란드 Sirius 200MW/800MWh의 금융종결·Vattenfall 장기 tolling, 독일 Boxberg 400MW/1.6GWh 착공이 한 달 안에 이어졌다. 단순 프로젝트 발표가 아니라 수익계약·금융·건설·운영의 여러 단계가 동시에 채워졌다는 점이 핵심이다.",
+          "summary": "텍사스 Old 300의 250MW/500MWh 상업운전, 사우디 Red Sea의 1.2GWh BESS 상업운전, 네덜란드 Sirius 200MW/800MWh의 금융종결·Vattenfall 장기 tolling, 독일 Boxberg 400MW/1.6GWh 착공이 한 달 안에 이어졌다. 일본에서는 FIP 태양광 연계 BESS가 8월부터 수급조정시장에 실제 조정력을 제공하기 시작했다. 단순 프로젝트 발표가 아니라 수익계약·금융·건설·운영·전력시장 참여까지 여러 실행 단계가 동시에 채워졌다는 점이 핵심이다.",
           "card_ids": [
             "2026-08-05_US_03",
             "2026-08-21_GL_04",
             "2026-08-31_EU_02",
-            "2026-08-31_EU_01"
+            "2026-08-31_EU_01",
+            "2026-08-31_JP_02"
           ]
         },
         {
           "id": "02",
-          "title": "생산자산, EV 단일축에서 용도·화학계 혼합으로 재배치",
-          "summary": "Lansing 공장은 생산을 시작했고, LG에너지솔루션은 이 공장에서 EV용 NCM과 ESS용 LFP를 함께 생산하는 제품 믹스를 계획하고 있다. SK온은 미국산 LFP 9GWh 장기 공급계약으로 ESS 수요를 계약화했다. 현대차는 EREV용 자체 셀과 EV용 미드니켈 NCM을 병행하는 로드맵을 제시했으며, 중국에서는 ESS·EV용 70GWh 공장과 3GWh 나트륨이온 셀 공장이 생산 단계에 들어갔다. EV 수요가 사라진 것이 아니라 생산자산이 복수 수요와 화학계를 흡수하도록 유연해지는 변화다.",
+          "title": "생산·소재 공급전략, EV 단일축에서 복수 용도·화학계로 다변화 방향 구체화",
+          "summary": "Lansing 공장은 생산을 시작했고, LG에너지솔루션은 이 공장에서 EV용 NCM과 ESS용 LFP를 함께 생산하는 제품 믹스를 계획하고 있다. SK온은 미국산 LFP 9GWh 장기 공급계약으로 ESS 수요를 계약화했고, 현대차는 EREV용 자체 셀과 EV용 미드니켈 NCM을 병행하는 로드맵을 제시했다. 중국에서는 ESS·EV용 70GWh 공장과 3GWh 나트륨이온 셀 공장이 생산 단계에 들어갔다. 소재 측에서는 新纶新材의 월 300만㎡ 파우치필름 신규 라인이 EV·ESS·3C용으로 가동됐고, 明冠新材의 상반기 파우치필름 매출은 266.01% 증가했으며 고체전지용 제품의 배치 출하도 확인됐다. EV 수요가 사라진 것이 아니라 셀과 포장소재 공급전략이 복수 용도·화학계·고객군을 함께 흡수하는 방향으로 넓어지는 변화다.",
           "card_ids": [
             "2026-08-18_US_01",
             "2026-08-31_US_01",
             "2026-08-26_KR_01",
             "2026-08-30_CN_01",
             "2026-08-28_CN_01",
-            "2026-08-05_GL_01"
+            "2026-08-05_GL_01",
+            "2026-08-31_CN_02",
+            "2026-08-26_CN_04"
           ]
         },
         {
@@ -87,7 +93,7 @@
       ],
       "watch": [
         "미국 벌크전력 안보 명령의 후속 규칙에서 Covered Foreign Entity, 사전승인·완화조치, 소프트웨어·원격접속 기준이 어떻게 구체화되는지 확인한다.",
-        "Lansing과 미국 LFP 공급계약이 실제 ESS 출하·가동률·제품 믹스로 연결되는지 확인한다.",
+        "Lansing·미국 LFP 공급계약과 중국 파우치필름 신규 라인이 실제 출하·가동률·제품·고객 믹스로 연결되는지 확인한다.",
         "유럽·중동의 장기 tolling·저장서비스 계약이 실제 금융 인출, 착공과 COD를 거쳐 반복 가능한 수익모델로 정착하는지 본다.",
         "중국 ESS 신규 가동 둔화가 이어지는지, 신규 셀 공장의 이용률·가격·마진과 소비세 이후 원가 구조가 어떻게 변하는지 확인한다.",
         "Sila 조건부 대출과 Smackover-LGES 오프테이크가 실제 자금집행·생산개시·공급으로 이어지는지 추적한다."
@@ -208,6 +214,27 @@
           "title": "중국, ESS 소비세 경계 구체화…배터리 클러스터 과세·완성 ESS 비과세",
           "date": "2026-08-27",
           "url": "https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html"
+        },
+        {
+          "n": 18,
+          "id": "2026-08-31_JP_02",
+          "title": "丸紅新電力, FIP 태양광 연계 BESS로 조정력시장 진입",
+          "date": "2026-08-31",
+          "url": "https://www.denkishimbun.com/archives/416003"
+        },
+        {
+          "n": 19,
+          "id": "2026-08-31_CN_02",
+          "title": "新纶新材, 알루미늄 파우치필름 열법 2호선 양산 개시",
+          "date": "2026-08-31",
+          "url": "https://news.10jqka.com.cn/20260908/c679711424.shtml"
+        },
+        {
+          "n": 20,
+          "id": "2026-08-26_CN_04",
+          "title": "明冠新材, H1 알루미늄 파우치필름 매출 +266%",
+          "date": "2026-08-26",
+          "url": "https://4g.stockstar.com/detail/SN2026082600049498"
         }
       ],
       "qc": {
@@ -215,15 +242,15 @@
         "red_team_status": "PASS",
         "editorial_coherence_status": "PASS",
         "language_terminology_status": "PASS",
-        "reviewed_at": "2026-09-09",
+        "reviewed_at": "2026-09-10",
         "reviewer_role": "editorial_red_team",
-        "notes": "Full August canonical universe reviewed at the locked 1,599-card baseline: 168 August cards (31 top, 121 high, 16 mid). Three canonical September lineage follow-ups and a targeted missed-treasure scan were checked as counterevidence. Post-month evidence did not overturn the four-flow diagnosis; non-canonical late findings were excluded from official refs. The simple ‘EV down / ESS replaces EV’ narrative was explicitly rejected because August canonical evidence shows simultaneous EV-battery growth."
+        "notes": "Full August canonical universe re-reviewed at the locked 1,617-card baseline: 171 August cards (33 top, 122 high, 16 mid). Three late-admitted August cards were explicitly assessed. The Japan balancing-market operation strengthens Flow 01; two China pouch-film cards materially strengthen Flow 02 without requiring a fifth flow. Xinlun is treated as an August representative event because its Sep-8 disclosure locks an Aug-31 production-start fact rather than importing a September event; Jianxiawo remains excluded because its former enrichment imported later September facts into the August headline. September lineage and counterevidence did not overturn the four-flow diagnosis."
       },
       "approval": {
         "status": "APPROVED",
-        "approved_at": "2026-09-09",
+        "approved_at": "2026-09-10",
         "reviewer_role": "editorial_owner",
-        "notes": "Publication authorized in the active editorial session; official issue prepared under the SBTL Monthly Brief editorial contract."
+        "notes": "Publication re-authorized after exact canonical relock and explicit re-review of the three late-admitted August representative events."
       }
     }
   ]

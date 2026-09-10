@@ -2,30 +2,31 @@
   "schema": "monthly_brief_editorial_audit_v1",
   "issue_id": "monthly-brief-2026-08-r1",
   "month": "2026-08",
-  "audit_date": "2026-09-09",
+  "audit_date": "2026-09-10",
   "product": "SBTL Monthly Brief",
   "baseline": {
-    "main_commit_sha": "e46f85c7be99548894549b97eea4bfcb0c9a3c66",
-    "cards_full_blob_sha": "cc5bc78ae5b27cb58b7bfa7a3ca3800c9d0085cb",
-    "total_canonical_cards": 1599,
-    "month_card_count": 168,
+    "main_commit_sha": "8f3b6c3277d7cd13ccfc48f3c72a5d1ecb5d7c58",
+    "cards_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+    "total_canonical_cards": 1617,
+    "month_card_count": 171,
     "signal_distribution": {
-      "top": 31,
-      "high": 121,
+      "top": 33,
+      "high": 122,
       "mid": 16
     },
     "region_distribution": {
       "GL": 48,
       "US": 35,
-      "CN": 32,
+      "CN": 34,
       "EU": 26,
       "KR": 25,
-      "JP": 2
+      "JP": 3
     }
   },
   "method": [
     "Lock the current-main canonical snapshot before editorial selection.",
-    "Review all August cards, using the 31 top cards as candidate structural anchors and the 121 high cards as reinforcement/counterevidence rather than article-count votes.",
+    "Review all 171 August cards, using the 33 top cards as candidate structural anchors and the 122 high cards as reinforcement/counterevidence rather than article-count votes.",
+    "Explicitly re-review the three late-admitted August representative events introduced by the Sep-8 governed production run before preserving or changing the monthly-flow architecture.",
     "Inspect canonical September 1-9 lineage follow-ups to test whether late evidence overturns the August diagnosis.",
     "Run a targeted missed-treasure search for material policy, project-execution, supply-chain and financing evidence not represented in the locked August source set.",
     "Reject narratives that are contradicted by governed evidence, including the simple EV-down/ESS-replaces-EV framing.",
@@ -37,26 +38,29 @@
       "id": "01",
       "title": "ESS, 계약·금융·COD가 이어지는 전력 인프라로",
       "decision": "SELECT",
-      "reason": "Multiple regions supplied independent execution stages in the same month: long-term revenue contracts, financial close, construction start and commercial operation. This is stronger than shipment growth alone.",
+      "reason": "Multiple regions supplied independent execution stages in the same month: long-term revenue contracts, financial close, construction start, commercial operation and actual balancing-market participation in Japan. This is stronger than shipment growth alone.",
       "anchor_card_ids": [
         "2026-08-05_US_03",
         "2026-08-21_GL_04",
         "2026-08-31_EU_02",
-        "2026-08-31_EU_01"
+        "2026-08-31_EU_01",
+        "2026-08-31_JP_02"
       ]
     },
     {
       "id": "02",
-      "title": "생산자산, EV 단일축에서 용도·화학계 혼합으로 재배치",
+      "title": "생산·소재 공급전략, EV 단일축에서 복수 용도·화학계로 다변화 방향 구체화",
       "decision": "SELECT",
-      "reason": "The month showed a new U.S. plant entering production alongside a planned EV-NCM/ESS-LFP product mix, a binding U.S. LFP supply contract, OEM multi-chemistry strategy and sodium-ion manufacturing. Simultaneous EV-battery growth rules out an EV-disappearance interpretation.",
+      "reason": "The month showed U.S. cell production starting alongside planned EV-NCM/ESS-LFP mix, a binding U.S. LFP supply contract, OEM multi-chemistry strategy and sodium-ion manufacturing. Two late-admitted top-signal pouch-film cards add a material-layer confirmation: a new line entered production across EV/ESS/3C uses, while H1 pouch-film revenue surged and solid-state-specific product reached batch shipment. Simultaneous EV-battery growth rules out an EV-disappearance interpretation.",
       "anchor_card_ids": [
         "2026-08-18_US_01",
         "2026-08-31_US_01",
         "2026-08-26_KR_01",
         "2026-08-30_CN_01",
         "2026-08-28_CN_01",
-        "2026-08-05_GL_01"
+        "2026-08-05_GL_01",
+        "2026-08-31_CN_02",
+        "2026-08-26_CN_04"
       ]
     },
     {
@@ -139,8 +143,8 @@
     }
   ],
   "official_source_selection": {
-    "selected_card_count": 17,
-    "selection_principle": "Use decision-relevant anchors that collectively prove the four flows; avoid citing every reinforcing card or double-counting repeated stages. Global aggregate cards may support the executive diagnosis without being attached to a region-specific flow. Post-month claim enrichments are excluded from official August refs when the public source binding would cross the month boundary.",
+    "selected_card_count": 20,
+    "selection_principle": "Use decision-relevant anchors that collectively prove the four flows. The three late-admitted August representative events are included after explicit re-review because they add distinct execution evidence. Later disclosures may support an August event only when they lock the August occurrence itself; post-month facts that alter the claim remain excluded.",
     "source_card_ids": [
       "2026-08-03_GL_01",
       "2026-08-05_GL_01",
@@ -158,7 +162,10 @@
       "2026-08-07_US_01",
       "2026-08-31_US_02",
       "2026-08-27_CN_01",
-      "2026-08-27_CN_02"
+      "2026-08-27_CN_02",
+      "2026-08-31_JP_02",
+      "2026-08-31_CN_02",
+      "2026-08-26_CN_04"
     ]
   },
   "qc": {
@@ -169,6 +176,33 @@
     "causal_language": "PASS",
     "newsletter_independence": "PASS",
     "official_refs_locked_to_august_canonical": "PASS",
-    "review_remediation": "PASS — Lansing production start is separated from planned product mix; `what_changed` distinguishes ESS contract/finance/construction/COD execution from production-start/product-mix planning; black-mass wording is narrowed to the governed one-year export restriction; Old 300 public citation is bound to the governed pv magazine source that explicitly supports the title/commercial-operation claim; the Jianxiawo post-month-enriched ref is removed from official August evidence; non-canonical EU liquidity counterevidence carries source provenance; the September China approval-pause signal is bound to canonical card 2026-09-06_CN_02."
+    "review_remediation": "PASS — causal language is narrowed from completed asset reallocation to a supported diversification direction; Old 300 remains bound to title-supporting evidence; Jianxiawo later-September claim enrichment remains excluded; the three late-admitted August events were explicitly re-reviewed, strengthening Flow 01 and Flow 02 without creating a fifth flow."
+  },
+  "baseline_relock_review": {
+    "status": "PASS",
+    "prior_month_card_count": 168,
+    "current_month_card_count": 171,
+    "architecture_decision": "KEEP_FOUR_FLOWS_STRENGTHEN_01_02",
+    "official_ref_count_before": 17,
+    "official_ref_count_after": 20,
+    "publication_boundary_rule": "Representative-event date governs locked August membership. A later disclosure may support an August event when it only locks the August occurrence; later facts that change the event claim remain post-month reinforcement and are excluded from the August headline/ref set.",
+    "newly_admitted_august_cards": [
+      {
+        "id": "2026-08-31_JP_02",
+        "signal": "high",
+        "disposition": "ADD_TO_FLOW_01_AND_OFFICIAL_REFS"
+      },
+      {
+        "id": "2026-08-31_CN_02",
+        "signal": "top",
+        "disposition": "ADD_TO_FLOW_02_AND_OFFICIAL_REFS",
+        "source_note": "Sep-8 disclosure locks Aug-31 production-start event; no September event fact imported."
+      },
+      {
+        "id": "2026-08-26_CN_04",
+        "signal": "top",
+        "disposition": "ADD_TO_FLOW_02_AND_OFFICIAL_REFS"
+      }
+    ]
   }
 }

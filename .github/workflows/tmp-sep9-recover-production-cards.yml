@@ -11,13 +11,16 @@ permissions:
   contents: write
 
 jobs:
-  inspect-relations:
+  probe-card-run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Inspect relation-card payload fields
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Reconstruct candidate card-run and run non-mutating engine check
         shell: bash
         run: |
           set -euo pipefail
@@ -25,38 +28,98 @@ jobs:
           import base64, gzip, hashlib, json
           from pathlib import Path
           root = Path('runs/2026-09-10/sep9-r1-current-main-production-r1')
-          text = ''.join((root/'tmp'/f'production-cards.part{i:02d}').read_text(encoding='utf-8').strip() for i in range(4))
+          tmp = root/'tmp'
+          text = ''.join((tmp/f'production-cards.part{i:02d}').read_text(encoding='utf-8').strip() for i in range(4))
           cards = json.loads(gzip.decompress(base64.b64decode(text, validate=True)).decode('utf-8'))
-          byid = {c['id']: c for c in cards}
-          detail = {}
-          for cid in ['2026-09-09_GL_01','2026-09-07_CN_02']:
-              c = byid[cid]
-              detail[cid] = {
-                  'source_spec_id': c.get('source_spec_id'),
-                  'urls': c.get('urls'),
-                  'related': c.get('related'),
-                  'related_ids': c.get('related_ids'),
-                  'related_lineage': c.get('related_lineage'),
-                  'stage_b_lineage': c.get('stage_b_lineage'),
-                  'date_role': c.get('date_role'),
-              }
-          payload = {
-              'schema':'sep9_relation_payload_inspection_v1',
-              'status':'PASS',
-              'decoded_sha256': hashlib.sha256(gzip.decompress(base64.b64decode(text, validate=True))).hexdigest(),
-              'details': detail,
+          base = str(root)
+          common = [
+            f'{base}/stages/stage-b.json',
+            f'{base}/stages/stage-c.json',
+            f'{base}/stages/stage-0-4.json',
+            f'{base}/stages/stage-0-5.json',
+            f'{base}/stages/stage-0-6.json',
+            f'{base}/stages/stage-0-7.json',
+          ]
+          def stage_refs(card):
+              a = f'{base}/stages/stage-a-promotion2.json' if card['source_spec_id']=='STD26_0909_P_002' else f'{base}/stages/stage-a.json'
+              return [a, *common]
+          inserts=[]
+          byid={c['id']:c for c in cards}
+          for c in cards:
+              urls=[u for u in c.get('urls',[]) if isinstance(u,str) and u.startswith(('http://','https://'))]
+              if not urls:
+                  raise SystemExit(f'no evidence URL for {c["id"]}')
+              inserts.append({'card':c,'stage_artifacts':stage_refs(c),'evidence_refs':urls})
+          rel_specs = [
+            {
+              'source_id':'2026-09-09_GL_01','target_id':'2026-09-07_GL_01','source_spec_id':'STD26_0909_A_010',
+              'relation_type':'program_lineage',
+              'lineage_reason':'Fresh Jan-Jul ex-China battery dataset extends the same SNE market-tracker program lineage.',
+              'event_stage_relationship':'same_program_new_measurement_window',
+            },
+            {
+              'source_id':'2026-09-07_CN_02','target_id':'2026-09-04_CN_01','source_spec_id':'STD26_0909_P_002',
+              'relation_type':'distinct_follow_up',
+              'lineage_reason':'Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.',
+              'event_stage_relationship':'later_distinct_event',
+            },
+          ]
+          related=[]
+          for r in rel_specs:
+              c=byid[r['source_id']]
+              op={**r,
+                  'identity_card_id':r['source_id'],
+                  'direction':'directional',
+                  'stage_artifacts':stage_refs(c),
+                  'evidence_refs':c['urls'],
+                  'patches':[
+                    {'op':'add','path':'/related/-','value':r['target_id'],'card_id':r['source_id']},
+                    {'op':'add','path':'/related_lineage/related_ids/-','value':r['target_id'],'card_id':r['source_id']},
+                    {'op':'replace','path':'/related_lineage/relation_type','value':r['relation_type'],'card_id':r['source_id']},
+                    {'op':'replace','path':'/related_lineage/reason','value':r['lineage_reason'],'card_id':r['source_id']},
+                    {'op':'add','path':'/related_lineage/event_stage_relationship','value':r['event_stage_relationship'],'card_id':r['source_id']},
+                    {'op':'add','path':'/related_lineage/direction','value':'directional','card_id':r['source_id']},
+                  ]}
+              related.append(op)
+          operations={'insert':inserts,'update':[],'related_add':related}
+          def stable(v):
+              if isinstance(v,dict): return {k:stable(v[k]) for k in sorted(v)}
+              if isinstance(v,list): return [stable(x) for x in v]
+              return v
+          op_bytes=json.dumps(stable(operations),ensure_ascii=False,separators=(',',':')).encode()
+          op_sha=hashlib.sha256(op_bytes).hexdigest()
+          run={
+            'schema':'card_run_v1',
+            'run_id':'card-run-2026-09-09-sep9-r1-current-main-production-r1',
+            'base_main_commit_sha':'3bb929004ff8b547b86e5f1beab0efb3dac19d62',
+            'base_full_blob_sha':'beb2aa7615b583b4c9c0c269974601a0b26c2684',
+            'expected_before':1617,
+            'output_updated':'2026-09-11T16:05:00+09:00',
+            'operations':operations,
+            'expected_after':1633,
+            'audit_refs':[f'{base}/card-run-audit.json',f'{base}/stage-0-8-415-final.json'],
+            'document_universe_manifest_ref':f'{base}/stage-0-0d.json',
+            'coverage_discovery_ref':f'{base}/stage-0-0c-415-final.json',
+            'independent_completeness_ref':f'{base}/stage-0-7c-415-final.json',
+            'notes':'Sep9/Sep10 governed 415-identity run; 16 inserts, 2 directional Related additions, zero delete/remove.'
           }
-          p = root/'tmp'/'production-cards.relation-summary.json'
-          p.write_text(json.dumps(payload, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
-          print(json.dumps(payload, ensure_ascii=False, indent=2))
+          (tmp/'card-run.candidate.json').write_text(json.dumps(run,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          summary={'schema':'sep9_card_run_probe_v1','status':'CANDIDATE','operations_sha256':op_sha,'target_operations_sha256':'7816396048e7069d79d8faf6dec38e15a42f21a06d1c09c61fec29b953d6bfdc','hash_match':op_sha=='7816396048e7069d79d8faf6dec38e15a42f21a06d1c09c61fec29b953d6bfdc','operation_counts':{'insert':len(inserts),'update':0,'related_add':len(related)},'relation_stage_values':{r['source_id']:r['event_stage_relationship'] for r in rel_specs}}
+          (tmp/'card-run.probe.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
           PY
-      - name: Commit relation inspection summary
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/card-run.candidate.json
+          python3 validation_scripts/card_run_v4_binding_hardening.py --run runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/card-run.candidate.json
+          node scripts/apply_card_run.mjs --run runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/card-run.candidate.json --base-main-sha 3bb929004ff8b547b86e5f1beab0efb3dac19d62 --check
+      - name: Commit probe summary only
+        if: always()
         shell: bash
         run: |
           set -euo pipefail
+          test -f runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/card-run.probe.json || exit 0
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/production-cards.relation-summary.json
+          git add runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/card-run.probe.json
           git diff --cached --quiet && exit 0
-          git commit -m 'chore: record Sep9 relation-card payload inspection'
+          git commit -m 'chore: record Sep9 card-run operation probe'
           git push origin HEAD:chatgpt/sep9-r1-current-main-production-r1

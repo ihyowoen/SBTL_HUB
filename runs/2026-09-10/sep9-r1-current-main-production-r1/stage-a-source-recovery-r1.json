@@ -1,13 +1,12 @@
 {
   "schema": "sbtl_sep9_stage_a_source_recovery_v2",
-  "status": "BATCHED_EXACT_SOURCE_ADJUDICATION_IN_PROGRESS",
+  "status": "PARTIAL_EXACT_SOURCE_RECOVERY",
   "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "source": {
     "filename": "final_news_llm_input_newsletter_expanded_20260909_135804.json",
     "sha256": "623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92",
     "bytes": 10601218,
     "story_count": 393,
-    "raw_input_audit": "runs/2026-09-10/sep9-r1-current-main-production-r1/raw-input-audit.json",
     "membership_authority": "runs/2026-09-10/sep9-r1-current-main-production-r1/source-identity-ledger.json"
   },
   "baseline": {
@@ -15,83 +14,45 @@
     "canonical_count": 1617,
     "canonical_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684"
   },
-  "stage_0_0c_binding": {
-    "coverage_artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/coverage-discovery-final.json",
-    "validation_artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-validation.json",
-    "status": "PASS",
-    "original_count": 393,
-    "discovery_count": 20,
-    "expanded_count": 413,
-    "terminal_count": 413,
-    "repeat_semantic_audit": "runs/2026-09-10/sep9-r1-current-main-production-r1/semantic-repeat-map-audit-r1.json",
-    "repeat_mapping_count": 13,
-    "repeat_false_mapping_count": 0,
-    "preclean_candidates_reexamined": 4,
-    "preclean_rescued_as_discovery": ["SEP09_DISC_012","SEP09_DISC_013"],
-    "preclean_not_promoted": ["GL_2026-09-07_C12","CN_2026-09-08_C16"]
+  "recovery_method": "Use only the exact SHA-locked Sep9 raw plus the exact 393-ID identity ledger for original rows. Do not substitute story identities from older raw copies or pre-clean-only rows. Prompt 0.0C discoveries and event-split children remain provenance-distinct.",
+  "current_stage_a_progress": {
+    "universe": 415,
+    "terminal": 55,
+    "open": 360,
+    "cumulative_validation": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-cumulative-validation-r1.json"
   },
-  "adjudication_method": "Process exact SHA-locked original rows in bounded batches and append exact terminal decisions. Low-value/repeat/context rows may use compact decision records; strict/high-potential review rows preserve richer source-bound metadata. Final Stage A PASS is withheld until 413/413 exact accounting.",
+  "us32_recovery": {
+    "membership_count": 32,
+    "terminal_count": 17,
+    "already_terminal_before_batch": 2,
+    "new_terminal_count": 15,
+    "unresolved_count": 15,
+    "batch_artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-batch-us32-partial-r1.json",
+    "unresolved_exact_source_ids": [
+      "US_2026-09-08_C10","US_2026-09-08_C16","US_2026-09-08_C17","US_2026-09-08_C27","US_2026-09-08_C20","US_2026-09-08_C21","US_2026-09-08_C13","US_2026-09-08_C09","US_2026-09-08_C08","US_2026-09-08_C06","US_2026-09-07_C03","US_2026-09-07_C06","US_2026-09-07_C04","US_2026-09-07_C02","US_2026-09-07_C05"
+    ]
+  },
+  "legacy_compressed_payload": {
+    "status": "INCOMPLETE_NOT_RECOVERABLE_AS_AUTHORITY",
+    "intended_parts": 4,
+    "committed_parts": 2,
+    "part_1_commit": "bf2ca47d99b41956d7dc2670ee190dc030a63eb7",
+    "part_2_commit": "29aea4c96bbc7d7b5d2bed7911677dfdc6109f06",
+    "part_3_commit_found": false,
+    "part_4_commit_found": false,
+    "decoder_run": 34569174493,
+    "decoder_result": "gzip EOF",
+    "note": "Do not infer missing legacy production payload. Rebuild authority from exact source."
+  },
   "identity_guards": {
     "exact_393_membership_required": true,
-    "story_ids_are_run_local": true,
-    "cross_run_story_id_equality_is_not_event_evidence": true,
-    "preclean_only_rows_cannot_reenter_original_membership": true,
+    "headline_only_identity_inference_forbidden": true,
+    "alternate_copy_story_id_substitution_forbidden": true,
     "discovered_candidates_are_provenance_distinct": true,
-    "stage_a_web_fetch_forbidden": true,
-    "final_stage_a_exactly_once_accounting_required": true
+    "event_split_children_are_provenance_distinct": true,
+    "stage_a_web_fetch_forbidden": true
   },
-  "semantically_resolved_canonical_repeats": [
-    ["US_2026-09-09_C01","2026-09-08_US_01"],
-    ["KR_2026-09-08_C54","2026-09-08_KR_02"],
-    ["JP_2026-09-08_C08","2026-08-31_JP_02"],
-    ["EU_2026-09-08_C28","2026-09-08_GL_01"],
-    ["CN_2026-09-07_C04","2026-09-06_CN_03"],
-    ["CN_2026-09-07_C03","2026-09-07_CN_01"],
-    ["TF_0060","2026-09-08_GL_02"],
-    ["US_2026-09-08_C04","2026-09-02_GL_01"],
-    ["GL_2026-09-06_C03","2026-09-04_GL_03"],
-    ["EU_2026-09-07_C08","2026-09-02_US_02"],
-    ["KR_2026-09-08_C44","2026-08-05_KR_02"],
-    ["KR_2026-09-08_C43","2026-08-05_KR_02"],
-    ["CN_2026-09-08_C09","2026-09-04_CN_01"]
-  ],
-  "source_bound_examples_already_recovered": [
-    {
-      "story_id":"KR_2026-09-09_C43",
-      "headline":"LG엔솔 CTO, 美 스탠퍼드 석학들 만나 '전고체 상용화' 치트키 찾는다",
-      "primary_url":"https://www.theguru.co.kr/news/article.html?no=106849",
-      "text_coverage_state":"article_hydrated",
-      "provisional_lane":"review_or_watch_technology_non_execution"
-    },
-    {
-      "story_id":"KR_2026-09-09_C22",
-      "headline":"BYD·코르버스, 차세대 전기추진선박용 LFP 배터리 출시",
-      "primary_url":"https://www.theguru.co.kr/news/article.html?no=106888",
-      "text_coverage_state":"article_hydrated",
-      "provisional_lane":"candidate_review_pending_execution_strength"
-    },
-    {
-      "story_id":"KR_2026-09-09_C163",
-      "headline":"전기안전 영역 확장...ESS·해상풍력·전기차 사고 대응 한자리",
-      "primary_url":"https://www.energy-news.co.kr/news/articleView.html?idxno=228012",
-      "text_coverage_state":"article_hydrated",
-      "provisional_lane":"watch_or_support_context"
-    },
-    {
-      "story_id":"EU_2026-09-07_C11",
-      "headline":"Engie acquires 66-MW/264-MWh BESS project in southern Spain",
-      "primary_url":"https://renewablesnow.com/news/engie-acquires-66-mw264-mwh-bess-project-in-southern-spain-1300769",
-      "text_coverage_state":"title_only",
-      "provisional_lane":"candidate_review_source_body_needed_later_in_stage_b"
-    }
-  ],
-  "current_execution_state": {
-    "stage_a_batches_completed": 0,
-    "cumulative_decision_ledger_count": 0,
-    "expected_final_decision_ledger_count": 413,
-    "final_stage_a_pass_authorized": false,
-    "next_batch": "original Sep9 rows, beginning with authoritative US membership"
-  },
+  "next_action": "Recover exact source metadata for the remaining 15 US32 identities; close US32 32/32; then continue the next original-source regional batch and update the cumulative 415 decision ledger.",
   "production_ids_authorized": false,
   "canonical_mutation_authorized": false,
   "delete_authorized": false,

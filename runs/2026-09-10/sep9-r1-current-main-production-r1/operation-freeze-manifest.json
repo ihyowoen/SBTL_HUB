@@ -1,0 +1,69 @@
+{
+  "schema": "sep9_operation_freeze_v1",
+  "status": "PASS",
+  "run_id": "card-run-2026-09-10-sep9-r1-current-main-production-r1",
+  "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "expected_before": 1617,
+  "expected_after": 1633,
+  "insert_count": 16,
+  "update_count": 0,
+  "related_add_count": 2,
+  "delete_count": 0,
+  "related_remove_count": 0,
+  "reviewed_operations_sha256": "67aaa43295676ffec8efea1d601d504531aefa68628722d4dbbd315b6e78a733",
+  "id_map": {
+    "STD26_0909_A_002": "2026-09-08_GL_03",
+    "STD26_0909_A_003": "2026-09-02_EU_05",
+    "STD26_0909_A_004": "2026-09-02_CN_01",
+    "STD26_0909_A_007": "2026-09-08_CN_01",
+    "STD26_0909_A_009": "2026-09-08_KR_04",
+    "STD26_0909_A_010": "2026-09-09_GL_01",
+    "STD26_0909_A_012": "2026-09-09_CN_01",
+    "STD26_0909_A_013": "2026-09-08_GL_04",
+    "STD26_0909_A_015": "2026-09-08_EU_02",
+    "STD26_0909_A_016": "2026-09-09_EU_01",
+    "STD26_0909_A_017": "2026-09-09_EU_02",
+    "STD26_0909_A_018": "2026-09-09_GL_02",
+    "STD26_0909_A_019": "2026-09-09_US_01",
+    "STD26_0909_A_020": "2026-09-09_GL_03",
+    "STD26_0909_A_021": "2026-09-10_EU_01",
+    "STD26_0909_P_002": "2026-09-07_CN_02"
+  },
+  "freeze_guards": {
+    "all_insert_ids_unique": true,
+    "all_source_spec_ids_unique": true,
+    "existing_related_preserved": true,
+    "no_delete": true,
+    "no_related_remove": true,
+    "operation_hash_algorithm": "SHA256(JSON.stringify(recursively-key-sorted operations object); UTF-8; compact separators)"
+  },
+  "insert_ids": [
+    "2026-09-08_GL_03", "2026-09-02_EU_05", "2026-09-02_CN_01", "2026-09-08_CN_01",
+    "2026-09-08_KR_04", "2026-09-09_GL_01", "2026-09-09_CN_01", "2026-09-08_GL_04",
+    "2026-09-08_EU_02", "2026-09-09_EU_01", "2026-09-09_EU_02", "2026-09-09_GL_02",
+    "2026-09-09_US_01", "2026-09-09_GL_03", "2026-09-10_EU_01", "2026-09-07_CN_02"
+  ],
+  "related_additions": [
+    {
+      "source_id": "2026-09-09_GL_01",
+      "target_id": "2026-09-07_GL_01",
+      "source_spec_id": "STD26_0909_A_010",
+      "relation_type": "program_lineage",
+      "direction": "directional",
+      "lineage_reason": "Fresh Jan–Jul ex-China battery dataset extends the same SNE market-tracker program lineage.",
+      "event_stage_relationship": "The Sep 7 global Jan–Jul dataset measured 725.2GWh worldwide; the Sep 9 ex-China release isolates 316.2GWh and the Korean-three share decline to 27.2%, adding a distinct geographic market slice."
+    },
+    {
+      "source_id": "2026-09-07_CN_02",
+      "target_id": "2026-09-04_CN_01",
+      "source_spec_id": "STD26_0909_P_002",
+      "relation_type": "distinct_follow_up",
+      "direction": "directional",
+      "lineage_reason": "Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.",
+      "event_stage_relationship": "The Sep 4 predecessor recorded Li Auto’s strategic Sunwoda Power investment; the Sep 7 follow-up records Li Auto’s own 5C battery already entering production vehicles with expansion across the model lineup."
+    }
+  ],
+  "canonicalization": "recursive lexicographic object-key sort; preserve array order; compact JSON UTF-8; SHA-256",
+  "exact_operations_object_local_sha_binding": "The reviewed_operations_sha256 is computed over operation-freeze.json.operations using the repository validate_card_run_audits.mjs algorithm."
+}

@@ -12,11 +12,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Fetch all refs and recover matching raw source if present
+      - name: Recover matching raw source from fetched history
         shell: bash
         run: |
           set -euo pipefail
-          git fetch --all --prune --tags '+refs/heads/*:refs/remotes/origin/*'
           mkdir -p /tmp/recovery/recovered
           target='final_news_llm_input_newsletter_expanded_20260909_135804.json'
           git rev-list --objects --all > /tmp/recovery/all-objects.txt

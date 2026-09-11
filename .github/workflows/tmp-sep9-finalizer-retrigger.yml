@@ -1,0 +1,30 @@
+name: tmp-sep9-finalizer-retrigger
+
+on:
+  push:
+    branches:
+      - chatgpt/sep9-r1-current-main-production-r1
+    paths:
+      - .github/workflows/tmp-sep9-finalizer-retrigger.yml
+
+permissions:
+  contents: write
+
+jobs:
+  retrigger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/sep9-r1-current-main-production-r1
+          fetch-depth: 0
+      - name: Retrigger finalizer workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          printf '\n# retrigger after 0.0D array repair\n' >> .github/workflows/tmp-sep9-recover-production-cards.yml
+          git add .github/workflows/tmp-sep9-recover-production-cards.yml
+          git commit -m 'chore: retrigger Sep9 governed finalizer'
+          git push origin HEAD:chatgpt/sep9-r1-current-main-production-r1

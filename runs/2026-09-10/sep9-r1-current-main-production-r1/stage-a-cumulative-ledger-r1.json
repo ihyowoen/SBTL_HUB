@@ -8,6 +8,7 @@
     "source_input_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/source-identity-ledger.json",
     "coverage_relock_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-r3.json",
     "coverage_validation_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-validation.json",
+    "coverage_discovery_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/coverage-discovery-final.json",
     "semantic_repeat_audit_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/semantic-repeat-map-audit-r1.json",
     "source_recovery_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-source-recovery-r1.json",
     "salvage_audit_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-chain-salvage-audit-r1.json",
@@ -23,8 +24,8 @@
     "terminal_identity_total": 415
   },
   "accounting": {
-    "terminal_decision_count": 20,
-    "open_identity_count": 395,
+    "terminal_decision_count": 40,
+    "open_identity_count": 375,
     "duplicate_terminal_identity_count": 0,
     "unknown_terminal_identity_count": 0,
     "final_stage_a_pass_authorized": false
@@ -32,8 +33,8 @@
   "decision_counts": {
     "existing_reinforcement_or_same_event": 14,
     "split_parent_decomposed": 1,
-    "candidate_review_pool": 3,
-    "watchlist_or_support_context": 2
+    "candidate_review_pool": 20,
+    "watchlist_or_support_context": 5
   },
   "terminal_decisions": [
     {"identity":"US_2026-09-09_C01","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-08_US_01","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
@@ -55,7 +56,28 @@
     {"identity":"KR_2026-09-09_C43","identity_type":"original_source_row","decision":"watchlist_or_support_context","headline":"LG엔솔 CTO, 美 스탠퍼드 석학들 만나 '전고체 상용화' 치트키 찾는다","reason":"Source-bound packet establishes research/technology exchange, not a commercial production milestone.","basis":"stage_a_source_recovery_r1","new_card_authorized":false},
     {"identity":"KR_2026-09-09_C22","identity_type":"original_source_row","decision":"candidate_review_pool","headline":"BYD·코르버스, 차세대 전기추진선박용 LFP 배터리 출시","reason":"Marine LFP product launch is relevant, but deployment/customer/commercial scale requires downstream evidence-strength review.","basis":"stage_a_source_recovery_r1","new_card_authorized":false},
     {"identity":"KR_2026-09-09_C163","identity_type":"original_source_row","decision":"watchlist_or_support_context","headline":"전기안전 영역 확장...ESS·해상풍력·전기차 사고 대응 한자리","reason":"Safety-management/conference context; no discrete operative rule or execution change is source-bound.","basis":"stage_a_source_recovery_r1","new_card_authorized":false},
-    {"identity":"EU_2026-09-07_C11","identity_type":"original_source_row","decision":"candidate_review_pool","headline":"Engie acquires 66-MW/264-MWh BESS project in southern Spain","reason":"Discrete BESS transaction is identified but the supplied row is title-only; strict execution terms require Stage B source-body verification.","basis":"stage_a_source_recovery_r1","new_card_authorized":false}
+    {"identity":"EU_2026-09-07_C11","identity_type":"original_source_row","decision":"candidate_review_pool","headline":"Engie acquires 66-MW/264-MWh BESS project in southern Spain","reason":"Discrete BESS transaction is identified but the supplied row is title-only; strict execution terms require Stage B source-body verification.","basis":"stage_a_source_recovery_r1","new_card_authorized":false},
+
+    {"identity":"SEP09_DISC_001","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"Google announces €13bn Finland AI infrastructure investment and 22-year Fortum nuclear PPA","anchor_hint":"strategic_behavior_anchor","stage_cap":"verify investment scope and PPA quantity in Stage B","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP09_DISC_002","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"Panasonic Energy develops solid-state battery designed for 150°C operation; sample shipments planned Q4 2026","anchor_hint":"technology_commercialization_anchor","stage_cap":"development/sample stage; technology evidence cap","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP09_DISC_003","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"Sungrow plans Samsung SDI ESS-cell procurement for U.S.-focused storage business","anchor_hint":"strategic_behavior_anchor","stage_cap":"reported cooperation; terms undisclosed and company confirmation required","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP09_DISC_004","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"Axpo and energieUri inaugurate large Gurtnellen battery storage assets in Switzerland","anchor_hint":"execution_event_anchor","stage_cap":"verify exact MW/MWh split and operative date in Stage B","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP09_DISC_005","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"Atlas Lithium says 71% of Neves direct CAPEX is covered by executed contracts or firm agreements","anchor_hint":"execution_event_anchor","stage_cap":"verify contract-coverage definition, project status and budget comparison","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP09_DISC_006","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"USDA conditionally commits $25m loan guarantee for Milford Mining Utah copper processing expansion","anchor_hint":"policy_regulatory_anchor","stage_cap":"conditional commitment must not be described as funded disbursement","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP09_DISC_007","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"U.S. Critical Minerals enters binding framework merger with Nova Resources and Alabama tantalum asset purchase agreements","anchor_hint":"execution_event_anchor","stage_cap":"issuer-distributed claim needs independent corroboration","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP09_DISC_008","identity_type":"provenance_distinct_discovery","decision":"watchlist_or_support_context","headline":"Samsung SDI extends 1.4294 trillion won loan limit to StarPlus Energy affiliate through 2028","anchor_hint":"data_financial_anchor","reason":"Extension/revision of a prior affiliate-loan disclosure; novelty cap applies.","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP09_DISC_009","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"B2U starts commercial operation of 28MWh Bexar Martinez second-life EV-battery BESS in Texas","anchor_hint":"execution_event_anchor","stage_cap":"verify commercial-operation scope and second-life battery configuration","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP09_DISC_010","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"EVE Energy and China Railway Beijing Engineering agree to cooperate on at least 5GWh of ESS projects over three years","anchor_hint":"execution_event_anchor","stage_cap":"binding cooperation volume is material but individual project execution remains future","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP09_DISC_011","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"Kabra Extrusion Technik commissions 10MW/20MWh BESS at Phalodi, Rajasthan","anchor_hint":"execution_event_anchor","stage_cap":"verify exchange-disclosure commissioning terms","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP10_DISC_001","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"Hyundai Motor/Kia, LG Energy Solution, Hyundai Engineering and Wonik PNE launch 200kWh used-EV-battery UBESS demonstration","anchor_hint":"execution_event_anchor","stage_cap":"pilot/precommercial technology cap","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP10_DISC_002","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"Volvo Group plans Mariestad energy park with about 70MW/260MWh BESS and real-scale energy-solution test bed","anchor_hint":"strategic_behavior_anchor","stage_cap":"announced project plan; not operational asset","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP10_DISC_003","identity_type":"provenance_distinct_discovery","decision":"watchlist_or_support_context","headline":"Jinko ESS signs Middle East C&I distribution agreement with Innovative Efficient Solutions for SunGiga G2","anchor_hint":"execution_event_anchor","reason":"Signed channel agreement but no disclosed volume or project capacity; independent cardability is capped.","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP10_DISC_004","identity_type":"provenance_distinct_discovery","decision":"watchlist_or_support_context","headline":"FlexSysAI, ResetData, CSIRO and University of Queensland launch live pilot to make AI data-centre GPU workloads grid-flexible","anchor_hint":"technology_commercialization_anchor","reason":"Live pilot with early modelling only; pilot/precommercial technology cap applies.","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP10_DISC_005","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"Centrica Energy and Delta Capacity sign partial tolling agreement for 125MW/300MWh Karppio BESS in Finland","anchor_hint":"execution_event_anchor","stage_cap":"binding revenue contract; verify under-construction status and commissioning timing in Stage B","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP10_DISC_006","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"NTPC issues EOI for grid-connected sodium-ion BESS pilot at thermal plants and offices","anchor_hint":"technology_commercialization_anchor","stage_cap":"EOI/pre-award procurement stage; no awarded deployment yet","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP10_DISC_007","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"R3 Lithium announces initiation of operations at Covington recycled-lithium facility, alongside $15m Series A and signed offtakes","anchor_hint":"execution_event_anchor","stage_cap":"distinguish startup/ramp from full continuous commercial production","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP09_DISC_012","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"Cloudbreak Energy Partners announces strategic investment from GETEC Energie Holding to fund IPP transition and U.S. solar/storage portfolio","anchor_hint":"data_financial_anchor","stage_cap":"assess financing materiality separately from canonical Sep4 Pueblo BESS NTP","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false},
+    {"identity":"SEP09_DISC_013","identity_type":"provenance_distinct_discovery","decision":"candidate_review_pool","headline":"Elmet signs definitive agreement to acquire ams OSRAM Schwabmuenchen tungsten and molybdenum production operations","anchor_hint":"execution_event_anchor","stage_cap":"definitive asset-purchase agreement; battery/ESS lane fit remains bounded","basis":"coverage_discovery_final_stage_a_routing","new_card_authorized":false}
   ],
   "legacy_salvage_queue": {
     "status": "OPEN_REVALIDATION_REQUIRED",
@@ -72,5 +94,5 @@
     "related_remove_authorized": false,
     "preserve_existing_related": true
   },
-  "next_action": "Continue exact-source batching over the remaining 395 identities, resolving legacy salvage specs only after identity binding and preserving discoveries/event-split children as separate provenance lanes."
+  "next_action": "Continue exact-source batching over the remaining 375 identities, resolving legacy salvage specs only after identity binding and preserving discoveries/event-split children as separate provenance lanes."
 }

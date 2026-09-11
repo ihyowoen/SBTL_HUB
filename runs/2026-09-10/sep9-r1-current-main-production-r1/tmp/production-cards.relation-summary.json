@@ -1,0 +1,118 @@
+{
+  "schema": "sep9_relation_payload_inspection_v1",
+  "status": "PASS",
+  "decoded_sha256": "e845784387c62589a8ea73d61257cb6f03325165670d29a3f08b0baa07b89942",
+  "details": {
+    "2026-09-09_GL_01": {
+      "source_spec_id": "STD26_0909_A_010",
+      "urls": [
+        "https://www.sneresearch.com/en/insight/release_view/730/page/0?s_cat=%7C&s_keyword=",
+        "https://view.asiae.co.kr/article/2026090909460656459"
+      ],
+      "related": [],
+      "related_ids": null,
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [
+          "2026-09-07_GL_01"
+        ],
+        "fresh_follow_up_anchor_class": "execution_event_anchor",
+        "fresh_follow_up_anchor": "Fresh current-run stage progression.",
+        "incremental_fact": "Fresh Jan-Jul ex-China battery dataset extends the same SNE market-tracker program lineage.",
+        "changed_judgment": "Current evidence supports a distinct publishable event/stage progression.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": true,
+        "related_target_id": "2026-09-07_GL_01",
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      },
+      "stage_b_lineage": {
+        "status": "PASS",
+        "artifact": "stage-b.json",
+        "artifact_sha256": "PENDING",
+        "spec_id": "STD26_0909_A_010",
+        "draft_status": "verified_draft",
+        "draft_blocked": false
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-09",
+        "stage_a_representative_date": "2026-09-09",
+        "role": "operative event/stage date verified from body-level evidence",
+        "source_publication_dates": [
+          "2026-09-09"
+        ],
+        "corrected_in_stage_b": false,
+        "representative_date": "2026-09-09",
+        "event_date": "2026-09-09",
+        "publication_dates": [
+          "2026-09-09"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.sneresearch.com/en/insight/release_view/730/page/0?s_cat=%7C&s_keyword=",
+        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+      }
+    },
+    "2026-09-07_CN_02": {
+      "source_spec_id": "STD26_0909_P_002",
+      "urls": [
+        "https://cnevpost.com/2026/09/07/li-auto-plans-shift-in-house-batteries-refreshed-i6-q4/",
+        "https://autonews.gasgoo.com/articles/ev/li-auto-details-rollout-of-in-house-batteries-across-vehicle-lineup-2097236582406111233",
+        "https://www.etnews.com/20260909000366"
+      ],
+      "related": [],
+      "related_ids": null,
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_current_candidates": [
+          "2026-09-04_CN_01"
+        ],
+        "fresh_follow_up_anchor_class": "execution_event_anchor",
+        "fresh_follow_up_anchor": "Fresh current-run stage progression.",
+        "incremental_fact": "Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.",
+        "changed_judgment": "Current evidence supports a distinct publishable event/stage progression.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": [],
+        "related_target_required": true,
+        "related_target_id": "2026-09-04_CN_01",
+        "reason": "Insert operation creates the new card without an edge; any verified follow-up edge is applied by a separate governed related_add operation.",
+        "related_ids": [],
+        "note": "Operation-local pre-edge state; see governed related_add when applicable."
+      },
+      "stage_b_lineage": {
+        "status": "PASS",
+        "artifact": "stage-b.json",
+        "artifact_sha256": "PENDING",
+        "spec_id": "STD26_0909_P_002",
+        "draft_status": "verified_draft",
+        "draft_blocked": false
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-09-07",
+        "stage_a_representative_date": "2026-09-08",
+        "role": "operative event/stage date verified from body-level evidence",
+        "source_publication_dates": [
+          "2026-09-07"
+        ],
+        "corrected_in_stage_b": true,
+        "representative_date": "2026-09-07",
+        "event_date": "2026-09-07",
+        "publication_dates": [
+          "2026-09-07"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://cnevpost.com/2026/09/07/li-auto-plans-shift-in-house-batteries-refreshed-i6-q4/",
+        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+      }
+    }
+  }
+}

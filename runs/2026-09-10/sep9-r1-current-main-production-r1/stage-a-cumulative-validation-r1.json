@@ -1,0 +1,21 @@
+{
+  "schema": "sbtl_stage_a_cumulative_validation_v1",
+  "status": "PASS_PARTIAL",
+  "universe": 415,
+  "terminal": 55,
+  "open": 360,
+  "duplicate_terminal_identity_count": 0,
+  "unknown_terminal_identity_count": 0,
+  "decision_counts": {
+    "existing_reinforcement_or_same_event": 15,
+    "split_parent_decomposed": 1,
+    "candidate_review_pool": 24,
+    "watchlist_or_support_context": 6,
+    "reject_or_support_only_pool": 8,
+    "support_source_only": 1
+  },
+  "us32_membership": 32,
+  "us32_resolved": 17,
+  "us32_unresolved": 15,
+  "final_stage_a_pass_authorized": false
+}

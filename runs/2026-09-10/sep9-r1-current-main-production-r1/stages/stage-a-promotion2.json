@@ -1,6 +1,5 @@
 {
-  "schema": "card_run_stage_binding_recertified_v4",
-  "stage": "stage_a",
+  "schema": "card_run_stage_binding_sourcebound_v5_415_authority",
   "status": "PASS",
   "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
@@ -13,7 +12,7 @@
   "review_pool_partition_status": "PASS",
   "strict_pass_gate_metadata_status": "PASS",
   "baseline_duplicate_screen_status": "PASS",
-  "source_authority": "sep9-415-promotion-production-subset-v4-recertification",
+  "source_authority": "sep9_exact_sha_locked_source_plus_0_0c_discovery_and_split",
   "strict_passed_spec": [
     {
       "spec_id": "STD26_0909_P_002",
@@ -34,13 +33,19 @@
         "CN_2026-09-09_C18",
         "CN_2026-09-09_C19"
       ],
-      "primary_url": "https://cnevpost.com/2026/09/07/li-auto-plans-shift-in-house-batteries-refreshed-i6-q4/",
+      "primary_url": "https://autonews.gasgoo.com/articles/news/li-auto-details-rollout-of-in-house-batteries-across-vehicle-lineup-2097236582406111233",
       "urls": [
+        "https://autonews.gasgoo.com/articles/news/li-auto-details-rollout-of-in-house-batteries-across-vehicle-lineup-2097236582406111233",
         "https://cnevpost.com/2026/09/07/li-auto-plans-shift-in-house-batteries-refreshed-i6-q4/",
         "https://autonews.gasgoo.com/articles/ev/li-auto-details-rollout-of-in-house-batteries-across-vehicle-lineup-2097236582406111233",
         "https://www.etnews.com/20260909000366"
       ],
       "same_event_source_cluster": [
+        {
+          "story_id": "CN_2026-09-08_C11",
+          "url": "https://autonews.gasgoo.com/articles/news/li-auto-details-rollout-of-in-house-batteries-across-vehicle-lineup-2097236582406111233",
+          "preserve_for_stage_b": true
+        },
         {
           "story_id": "CN_2026-09-08_C11",
           "url": "https://cnevpost.com/2026/09/07/li-auto-plans-shift-in-house-batteries-refreshed-i6-q4/",
@@ -57,21 +62,18 @@
           "preserve_for_stage_b": true
         }
       ],
-      "support_source_candidates": [
-        "https://autonews.gasgoo.com/articles/ev/li-auto-details-rollout-of-in-house-batteries-across-vehicle-lineup-2097236582406111233",
-        "https://www.etnews.com/20260909000366"
-      ],
+      "support_source_candidates": [],
       "source_domain_candidates": [
-        "cnevpost.com",
         "autonews.gasgoo.com",
+        "cnevpost.com",
         "etnews.com"
       ],
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 3,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": true,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -84,8 +86,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for Li Auto, 자체개발 5C 배터리 양산차 적용 확대…전 차종 전환 로드맵.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for Li Auto in-house 5C battery rollout across production models; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for Li Auto in-house 5C battery rollout across production models; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -96,11 +100,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for Li Auto, 자체개발 5C 배터리 양산차 적용 확대…전 차종 전환 로드맵."
+        "reason": "The source-bound packet for Li Auto in-house 5C battery rollout across production models contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "Li Auto, 자체개발 5C 배터리 양산차 적용 확대…전 차종 전환 로드맵 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "Li Auto in-house 5C battery rollout across production models remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 54,
       "decision_value_breakdown": {
@@ -116,24 +120,24 @@
       "decision_value_classification": "standard_monitoring",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for Li Auto, 자체개발 5C 배터리 양산차 적용 확대…전 차종 전환 로드맵.",
+        "action_required": "Advance Li Auto in-house 5C battery rollout across production models only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for Li Auto, 자체개발 5C 배터리 양산차 적용 확대…전 차종 전환 로드맵; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for Li Auto, 자체개발 5C 배터리 양산차 적용 확대…전 차종 전환 로드맵.",
-      "new_verified_fact": "Li Auto는 9월 7일 자체개발 배터리를 전 차종으로 확대하는 계획을 공개했다. 자체 배터리는 이미 L8·L6·i8에 적용됐고, 9월 7일 오후 3시 이후 확정된 신형 MEGA 주문은 자체 5C 배터리로 전환될 예정이다. 2026 i6도 4분기 자체 5C 배터리 탑재를 예고했다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for Li Auto, 자체개발 5C 배터리 양산차 적용 확대…전 차종 전환 로드맵 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for Li Auto, 자체개발 5C 배터리 양산차 적용 확대…전 차종 전환 로드맵 are resolved for publication.",
-      "remaining_uncertainty": "CATL 의존도 변화와 Sunwoda·CALB 위탁생산 비중, 실제 출하 품질이 공급망 영향의 핵심이다.",
-      "incremental_information": "Li Auto는 9월 7일 자체개발 배터리를 전 차종으로 확대하는 계획을 공개했다. 자체 배터리는 이미 L8·L6·i8에 적용됐고, 9월 7일 오후 3시 이후 확정된 신형 MEGA 주문은 자체 5C 배터리로 전환될 예정이다. 2026 i6도 4분기 자체 5C 배터리 탑재를 예고했다.",
-      "baseline_expectation_changed": "완성차 업체의 배터리 내재화가 연구개발을 넘어 실제 양산차 적용과 공급전환 단계로 진입했다.",
-      "decision_relevance": "OEM의 배터리 기술 내재화가 셀 설계·팩·BMS와 조달구조를 동시에 바꾸는 실행 단계로 이동하고 있다.",
+      "prior_state": "Before this selector pass, Li Auto in-house 5C battery rollout across production models was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports Li Auto in-house 5C battery rollout across production models. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves Li Auto in-house 5C battery rollout across production models from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for Li Auto in-house 5C battery rollout across production models are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for Li Auto in-house 5C battery rollout across production models remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports Li Auto in-house 5C battery rollout across production models as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for Li Auto in-house 5C battery rollout across production models; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, Li Auto in-house 5C battery rollout across production models can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying Li Auto, 자체개발 5C 배터리 양산차 적용 확대…전 차종 전환 로드맵: event date 2026-09-07, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for Li Auto in-house 5C battery rollout across production models."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for Li Auto, 자체개발 5C 배터리 양산차 적용 확대…전 차종 전환 로드맵 would confirm or weaken the current judgment that 완성차 업체의 배터리 내재화가 연구개발을 넘어 실제 양산차 적용과 공급전환 단계로 진입했다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for Li Auto in-house 5C battery rollout across production models would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -160,21 +164,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-07",
-        "stage_a_representative_date": "2026-09-08",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-07"
-        ],
-        "corrected_in_stage_b": true,
-        "representative_date": "2026-09-07",
-        "event_date": "2026-09-07",
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "source_published_date": "2026-09-08",
         "publication_dates": [
-          "2026-09-07"
+          "2026-09-08"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://cnevpost.com/2026/09/07/li-auto-plans-shift-in-house-batteries-refreshed-i6-q4/",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-08",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -190,5 +188,36 @@
       "structural_non_execution_reason": null,
       "why_execution_event_not_required": null
     }
-  ]
+  ],
+  "required_docs_check": {
+    "docs_expected": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md"
+    ],
+    "docs_read_from_github_main": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md"
+    ],
+    "docs_missing_or_unreadable": [],
+    "status": "PASS",
+    "authority_note": "Integrated Stage A V4 active authority; all production-subset facts below are rebound to the locked Sep9 source rows, governed 0.0C discoveries, or the explicit event-split child. Stage A performs no external evidence fetch."
+  },
+  "source_bound_reconstruction": true,
+  "downstream_evidence_backfill_used": false,
+  "subset_scope": "production_candidates_only",
+  "full_stage_a_accounting_claimed": false
 }

@@ -1,6 +1,6 @@
 {
   "schema": "sep9_formal_chain_recertification_v1",
-  "status": "PENDING_VALIDATION",
+  "status": "PASS",
   "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "reason": "Original production-subset stage projections retained identities but omitted active V4/formal-stage contract fields. Re-materialized only the frozen 16 production candidates from their exact recovered production cards and locked Related/date/source-diversity decisions; no candidate added, removed, or reclassified.",
   "production_candidate_count": 16,
@@ -32,5 +32,8 @@
     "related_add": 2,
     "delete": 0,
     "related_remove": 0
-  }
+  },
+  "validators": "PASS_ALL_A_THROUGH_0_7_SOURCEBOUND_SUBSET",
+  "source_bound_stage_a_repair": true,
+  "downstream_evidence_backfill_used": false
 }

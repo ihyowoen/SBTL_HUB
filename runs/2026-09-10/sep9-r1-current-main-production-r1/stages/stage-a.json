@@ -1,6 +1,5 @@
 {
-  "schema": "card_run_stage_binding_recertified_v4",
-  "stage": "stage_a",
+  "schema": "card_run_stage_binding_sourcebound_v5_415_authority",
   "status": "PASS",
   "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
@@ -13,7 +12,7 @@
   "review_pool_partition_status": "PASS",
   "strict_pass_gate_metadata_status": "PASS",
   "baseline_duplicate_screen_status": "PASS",
-  "source_authority": "sep9-415-production-subset-v4-recertification",
+  "source_authority": "sep9_exact_sha_locked_source_plus_0_0c_discovery_and_split",
   "strict_passed_spec": [
     {
       "spec_id": "STD26_0909_A_002",
@@ -41,9 +40,7 @@
           "preserve_for_stage_b": true
         }
       ],
-      "support_source_candidates": [
-        "https://news.metal.com/newscontent/104108691-core-lithium-resumes-spodumene-production-at-finniss-boosting-capacity-by-20-after-two-year-break"
-      ],
+      "support_source_candidates": [],
       "source_domain_candidates": [
         "miningweekly.com",
         "news.metal.com"
@@ -51,9 +48,9 @@
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 2,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": true,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -66,8 +63,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for Core Lithium, Finniss 리튬 광산 스포듀민 정광 생산 재개.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for Core Lithium Finniss spodumene concentrate production restart; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for Core Lithium Finniss spodumene concentrate production restart; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -78,11 +77,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for Core Lithium, Finniss 리튬 광산 스포듀민 정광 생산 재개."
+        "reason": "The source-bound packet for Core Lithium Finniss spodumene concentrate production restart contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "Core Lithium, Finniss 리튬 광산 스포듀민 정광 생산 재개 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "Core Lithium Finniss spodumene concentrate production restart remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 59,
       "decision_value_breakdown": {
@@ -98,24 +97,24 @@
       "decision_value_classification": "material_industry_signal",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for Core Lithium, Finniss 리튬 광산 스포듀민 정광 생산 재개.",
+        "action_required": "Advance Core Lithium Finniss spodumene concentrate production restart only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for Core Lithium, Finniss 리튬 광산 스포듀민 정광 생산 재개; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for Core Lithium, Finniss 리튬 광산 스포듀민 정광 생산 재개.",
-      "new_verified_fact": "Core Lithium은 9월 8일 Northern Territory의 Finniss 공정설비에서 재가동 후 첫 스포듀민 정광을 생산했다고 밝혔다. Grants 노천광산 채굴은 5월 재개됐고, 8월에는 파쇄 회로를 재가동했다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for Core Lithium, Finniss 리튬 광산 스포듀민 정광 생산 재개 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for Core Lithium, Finniss 리튬 광산 스포듀민 정광 생산 재개 are resolved for publication.",
-      "remaining_uncertainty": "향후 램프업 속도와 판매물량, 현금원가가 공급 재편의 지속성을 가를 핵심 지표다.",
-      "incremental_information": "Core Lithium은 9월 8일 Northern Territory의 Finniss 공정설비에서 재가동 후 첫 스포듀민 정광을 생산했다고 밝혔다. Grants 노천광산 채굴은 5월 재개됐고, 8월에는 파쇄 회로를 재가동했다.",
-      "baseline_expectation_changed": "Finniss 재가동이 계획·정비 단계를 넘어 실제 정광 생산으로 전환됐다.",
-      "decision_relevance": "리튬 가격 약세로 멈췄던 호주 공급자산이 실제 생산으로 복귀하는 사례다.",
+      "prior_state": "Before this selector pass, Core Lithium Finniss spodumene concentrate production restart was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports Core Lithium Finniss spodumene concentrate production restart. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves Core Lithium Finniss spodumene concentrate production restart from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for Core Lithium Finniss spodumene concentrate production restart are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for Core Lithium Finniss spodumene concentrate production restart remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports Core Lithium Finniss spodumene concentrate production restart as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for Core Lithium Finniss spodumene concentrate production restart; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, Core Lithium Finniss spodumene concentrate production restart can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying Core Lithium, Finniss 리튬 광산 스포듀민 정광 생산 재개: event date 2026-09-08, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for Core Lithium Finniss spodumene concentrate production restart."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for Core Lithium, Finniss 리튬 광산 스포듀민 정광 생산 재개 would confirm or weaken the current judgment that Finniss 재가동이 계획·정비 단계를 넘어 실제 정광 생산으로 전환됐다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for Core Lithium Finniss spodumene concentrate production restart would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -131,21 +130,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-08",
-        "stage_a_representative_date": "2026-09-04",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-08"
-        ],
-        "corrected_in_stage_b": true,
-        "representative_date": "2026-09-08",
-        "event_date": "2026-09-08",
+        "representative_date": "2026-09-04",
+        "event_date": "2026-09-04",
+        "source_published_date": "2026-09-04",
         "publication_dates": [
-          "2026-09-08"
+          "2026-09-04"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.miningweekly.com/article/core-lithium-restarts-spodumene-concentrate-production-at-finniss-after-two-year-hiatus-2026-09-08",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-04",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -170,7 +163,7 @@
       "original_story_ids": [
         "EU_2026-09-08_C22"
       ],
-      "primary_url": "https://ebs.publicnow.com/view/14BB0744AD7FEA9FAA2A7C37252AD2486AF749A4",
+      "primary_url": "https://www.energy-storage.news/pan-european-battery-storage-and-renewable-energy-platform-aukera-closes-e460-million-credit-facility",
       "urls": [
         "https://ebs.publicnow.com/view/14BB0744AD7FEA9FAA2A7C37252AD2486AF749A4",
         "https://www.energy-storage.news/pan-european-battery-storage-and-renewable-energy-platform-aukera-closes-e460-million-credit-facility"
@@ -187,9 +180,7 @@
           "preserve_for_stage_b": true
         }
       ],
-      "support_source_candidates": [
-        "https://www.energy-storage.news/pan-european-battery-storage-and-renewable-energy-platform-aukera-closes-e460-million-credit-facility"
-      ],
+      "support_source_candidates": [],
       "source_domain_candidates": [
         "ebs.publicnow.com",
         "energy-storage.news"
@@ -197,9 +188,9 @@
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 2,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": true,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -212,8 +203,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for Aukera, 유럽 ESS·재생에너지 포트폴리오에 €4.6억 신용한도 확보.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for Aukera €460 million structured credit facility for its European storage and renewables pipeline; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for Aukera €460 million structured credit facility for its European storage and renewables pipeline; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -224,11 +217,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for Aukera, 유럽 ESS·재생에너지 포트폴리오에 €4.6억 신용한도 확보."
+        "reason": "The source-bound packet for Aukera €460 million structured credit facility for its European storage and renewables pipeline contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "Aukera, 유럽 ESS·재생에너지 포트폴리오에 €4.6억 신용한도 확보 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "Aukera €460 million structured credit facility for its European storage and renewables pipeline remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 59,
       "decision_value_breakdown": {
@@ -244,24 +237,24 @@
       "decision_value_classification": "material_industry_signal",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for Aukera, 유럽 ESS·재생에너지 포트폴리오에 €4.6억 신용한도 확보.",
+        "action_required": "Advance Aukera €460 million structured credit facility for its European storage and renewables pipeline only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for Aukera, 유럽 ESS·재생에너지 포트폴리오에 €4.6억 신용한도 확보; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for Aukera, 유럽 ESS·재생에너지 포트폴리오에 €4.6억 신용한도 확보.",
-      "new_verified_fact": "Aukera는 EIG가 주도한 총 €4.6억 규모 구조화 신용한도 거래를 마감했다. 기존 €2억 초기 확약에 €2.6억 규모 Series 2 확약 트랜치가 추가됐으며, 자금은 유럽 5개 시장의 배터리저장·재생에너지·에너지인프라 포트폴리오 확대에 쓰인다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for Aukera, 유럽 ESS·재생에너지 포트폴리오에 €4.6억 신용한도 확보 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for Aukera, 유럽 ESS·재생에너지 포트폴리오에 €4.6억 신용한도 확보 are resolved for publication.",
-      "remaining_uncertainty": "향후 실제 금융종결 프로젝트 수와 건설 전환 속도를 확인해야 한다.",
-      "incremental_information": "Aukera는 EIG가 주도한 총 €4.6억 규모 구조화 신용한도 거래를 마감했다. 기존 €2억 초기 확약에 €2.6억 규모 Series 2 확약 트랜치가 추가됐으며, 자금은 유럽 5개 시장의 배터리저장·재생에너지·에너지인프라 포트폴리오 확대에 쓰인다.",
-      "baseline_expectation_changed": "유럽 BESS 개발자금이 개별 프로젝트 대출을 넘어 플랫폼 단위 대규모 신용조달로 확대됐다.",
-      "decision_relevance": "대규모 장기자본이 유럽 저장자산 개발 파이프라인의 실행력을 높이는 신호다.",
+      "prior_state": "Before this selector pass, Aukera €460 million structured credit facility for its European storage and renewables pipeline was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports Aukera €460 million structured credit facility for its European storage and renewables pipeline. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves Aukera €460 million structured credit facility for its European storage and renewables pipeline from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for Aukera €460 million structured credit facility for its European storage and renewables pipeline are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for Aukera €460 million structured credit facility for its European storage and renewables pipeline remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports Aukera €460 million structured credit facility for its European storage and renewables pipeline as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for Aukera €460 million structured credit facility for its European storage and renewables pipeline; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, Aukera €460 million structured credit facility for its European storage and renewables pipeline can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying Aukera, 유럽 ESS·재생에너지 포트폴리오에 €4.6억 신용한도 확보: event date 2026-09-02, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for Aukera €460 million structured credit facility for its European storage and renewables pipeline."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for Aukera, 유럽 ESS·재생에너지 포트폴리오에 €4.6억 신용한도 확보 would confirm or weaken the current judgment that 유럽 BESS 개발자금이 개별 프로젝트 대출을 넘어 플랫폼 단위 대규모 신용조달로 확대됐다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for Aukera €460 million structured credit facility for its European storage and renewables pipeline would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -277,21 +270,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-02",
-        "stage_a_representative_date": "2026-09-08",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-02"
-        ],
-        "corrected_in_stage_b": true,
-        "representative_date": "2026-09-02",
-        "event_date": "2026-09-02",
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "source_published_date": "2026-09-08",
         "publication_dates": [
-          "2026-09-02"
+          "2026-09-08"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://ebs.publicnow.com/view/14BB0744AD7FEA9FAA2A7C37252AD2486AF749A4",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-08",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -318,7 +305,7 @@
         "CN_2026-09-08_C19",
         "EU_2026-09-08_C15"
       ],
-      "primary_url": "https://libattery.ofweek.com/2026-09/ART-36008-8120-30702156.html",
+      "primary_url": "https://www.ess-news.com/2026/09/08/hina-battery-scales-korean-sodium-ion-partnership-from-15-mwh-to-10-gwh",
       "urls": [
         "https://libattery.ofweek.com/2026-09/ART-36008-8120-30702156.html",
         "https://www.ess-news.com/2026/09/08/hina-battery-scales-korean-sodium-ion-partnership-from-15-mwh-to-10-gwh",
@@ -341,10 +328,7 @@
           "preserve_for_stage_b": true
         }
       ],
-      "support_source_candidates": [
-        "https://www.ess-news.com/2026/09/08/hina-battery-scales-korean-sodium-ion-partnership-from-15-mwh-to-10-gwh",
-        "https://www.pv-magazine.com/2026/09/08/hina-battery-scales-korean-sodium-ion-partnership-from-15-mwh-to-10-gwh/"
-      ],
+      "support_source_candidates": [],
       "source_domain_candidates": [
         "libattery.ofweek.com",
         "ess-news.com",
@@ -353,9 +337,9 @@
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 3,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": true,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -368,8 +352,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for HiNa Battery–Volta, 나트륨이온 배터리 5년·10GWh 공급 협력.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -380,11 +366,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for HiNa Battery–Volta, 나트륨이온 배터리 5년·10GWh 공급 협력."
+        "reason": "The source-bound packet for HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "HiNa Battery–Volta, 나트륨이온 배터리 5년·10GWh 공급 협력 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 59,
       "decision_value_breakdown": {
@@ -400,24 +386,24 @@
       "decision_value_classification": "material_industry_signal",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for HiNa Battery–Volta, 나트륨이온 배터리 5년·10GWh 공급 협력.",
+        "action_required": "Advance HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for HiNa Battery–Volta, 나트륨이온 배터리 5년·10GWh 공급 협력; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for HiNa Battery–Volta, 나트륨이온 배터리 5년·10GWh 공급 협력.",
-      "new_verified_fact": "HiNa Battery와 한국 Volta는 9월 2일 5년간 10GWh 규모의 나트륨이온 배터리 공급 협약을 체결했다. 이는 기존 15MWh 규모 ESS 협력에서 크게 확대된 것이다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for HiNa Battery–Volta, 나트륨이온 배터리 5년·10GWh 공급 협력 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for HiNa Battery–Volta, 나트륨이온 배터리 5년·10GWh 공급 협력 are resolved for publication.",
-      "remaining_uncertainty": "개별 프로젝트 발주와 실제 출하가 계약의 실행력을 확인할 다음 단계다.",
-      "incremental_information": "HiNa Battery와 한국 Volta는 9월 2일 5년간 10GWh 규모의 나트륨이온 배터리 공급 협약을 체결했다. 이는 기존 15MWh 규모 ESS 협력에서 크게 확대된 것이다.",
-      "baseline_expectation_changed": "나트륨이온 배터리가 소규모 실증을 넘어 장기 GWh급 공급계약 단계로 이동했다.",
-      "decision_relevance": "나트륨이온 기술의 상용화 경로가 실증에서 대규모 공급 약정으로 확장되는 신호다.",
+      "prior_state": "Before this selector pass, HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying HiNa Battery–Volta, 나트륨이온 배터리 5년·10GWh 공급 협력: event date 2026-09-02, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for HiNa Battery–Volta, 나트륨이온 배터리 5년·10GWh 공급 협력 would confirm or weaken the current judgment that 나트륨이온 배터리가 소규모 실증을 넘어 장기 GWh급 공급계약 단계로 이동했다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -433,21 +419,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-02",
-        "stage_a_representative_date": "2026-09-08",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-02"
-        ],
-        "corrected_in_stage_b": true,
-        "representative_date": "2026-09-02",
-        "event_date": "2026-09-02",
+        "representative_date": "2026-09-08",
+        "event_date": "2026-09-08",
+        "source_published_date": "2026-09-08",
         "publication_dates": [
-          "2026-09-02"
+          "2026-09-08"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://libattery.ofweek.com/2026-09/ART-36008-8120-30702156.html",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-08",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -489,9 +469,7 @@
           "preserve_for_stage_b": true
         }
       ],
-      "support_source_candidates": [
-        "https://www.reuters.com/world/asia-pacific/chinas-exports-up-25-yy-august-imports-surge-282-2026-09-08/"
-      ],
+      "support_source_candidates": [],
       "source_domain_candidates": [
         "mining.com",
         "reuters.com"
@@ -499,9 +477,9 @@
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 2,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": true,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -514,8 +492,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for 중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for China August rare-earth export volume update; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for China August rare-earth export volume update; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -526,11 +506,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for 중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가."
+        "reason": "The source-bound packet for China August rare-earth export volume update contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "China August rare-earth export volume update remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 54,
       "decision_value_breakdown": {
@@ -546,24 +526,24 @@
       "decision_value_classification": "standard_monitoring",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for 중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가.",
+        "action_required": "Advance China August rare-earth export volume update only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for 중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for 중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가.",
-      "new_verified_fact": "중국의 8월 희토류 수출은 약 4,735t으로 7월 4,224t 대비 12.1% 증가했다. 다만 1~8월 월평균 수준에는 못 미쳤고, 미국향 일부 품목의 접근성 불확실성도 이어졌다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for 중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for 중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가 are resolved for publication.",
-      "remaining_uncertainty": "월별 수출 회복이 지속되는지와 국가별 통관 흐름을 병행해 봐야 한다.",
-      "incremental_information": "중국의 8월 희토류 수출은 약 4,735t으로 7월 4,224t 대비 12.1% 증가했다. 다만 1~8월 월평균 수준에는 못 미쳤고, 미국향 일부 품목의 접근성 불확실성도 이어졌다.",
-      "baseline_expectation_changed": "희토류 수출량이 월간 반등했지만 글로벌 공급망의 구조적 제약은 해소되지 않았다.",
-      "decision_relevance": "배터리·모터용 핵심광물 공급은 총량뿐 아니라 목적지별 허가와 품목별 접근성이 더 중요한 변수로 남아 있다.",
+      "prior_state": "Before this selector pass, China August rare-earth export volume update was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports China August rare-earth export volume update. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves China August rare-earth export volume update from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for China August rare-earth export volume update are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for China August rare-earth export volume update remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports China August rare-earth export volume update as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for China August rare-earth export volume update; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, China August rare-earth export volume update can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying 중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가: event date 2026-09-08, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for China August rare-earth export volume update."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for 중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가 would confirm or weaken the current judgment that 희토류 수출량이 월간 반등했지만 글로벌 공급망의 구조적 제약은 해소되지 않았다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for China August rare-earth export volume update would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -579,21 +559,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-08",
-        "stage_a_representative_date": "2026-09-08",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-08"
-        ],
-        "corrected_in_stage_b": false,
         "representative_date": "2026-09-08",
         "event_date": "2026-09-08",
+        "source_published_date": "2026-09-08",
         "publication_dates": [
           "2026-09-08"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.mining.com/web/china-august-rare-earths-exports-stay-below-year-to-date-monthly-average",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-08",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -606,9 +580,9 @@
       "execution_anchor_strength": null,
       "structural_value_override_applied": true,
       "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-      "structural_value_override_reason": "중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가 changes the decision baseline through a verified data, market, or policy signal without requiring a conventional corporate execution event.",
-      "structural_non_execution_reason": "The verified rare_earth_trade signal for 중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가 is decision-useful even without a conventional execution milestone.",
-      "why_execution_event_not_required": "중국 8월 희토류 수출 4,735t…전월 대비 12.1% 증가 is selected on a non-execution data/policy anchor whose verified change directly affects the monitoring baseline."
+      "structural_value_override_reason": "The source-bound non-execution anchor for China August rare-earth export volume update is decision-relevant enough for Stage B verification.",
+      "structural_non_execution_reason": "The upstream packet reports a non-execution structural anchor for China August rare-earth export volume update that changes the monitoring baseline if confirmed.",
+      "why_execution_event_not_required": "China August rare-earth export volume update is selected on a data, policy, strategic, technology or follow-up anchor rather than requiring a conventional corporate execution event."
     },
     {
       "spec_id": "STD26_0909_A_009",
@@ -646,10 +620,7 @@
           "preserve_for_stage_b": true
         }
       ],
-      "support_source_candidates": [
-        "https://www.energy-news.co.kr/news/articleView.html?idxno=228015",
-        "https://mobile.newsis.com/view/NISX20260908_0003781402"
-      ],
+      "support_source_candidates": [],
       "source_domain_candidates": [
         "todayenergy.kr",
         "energy-news.co.kr",
@@ -658,9 +629,9 @@
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 3,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": true,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -673,8 +644,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for 상무대, 9.76MWh ESS 포함 군 차세대 하이브리드 마이크로그리드 착공.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -685,11 +658,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for 상무대, 9.76MWh ESS 포함 군 차세대 하이브리드 마이크로그리드 착공."
+        "reason": "The source-bound packet for Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "상무대, 9.76MWh ESS 포함 군 차세대 하이브리드 마이크로그리드 착공 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 59,
       "decision_value_breakdown": {
@@ -705,24 +678,24 @@
       "decision_value_classification": "material_industry_signal",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for 상무대, 9.76MWh ESS 포함 군 차세대 하이브리드 마이크로그리드 착공.",
+        "action_required": "Advance Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for 상무대, 9.76MWh ESS 포함 군 차세대 하이브리드 마이크로그리드 착공; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for 상무대, 9.76MWh ESS 포함 군 차세대 하이브리드 마이크로그리드 착공.",
-      "new_verified_fact": "한국에너지공단과 육군은 9월 8일 상무대 차세대 전력망 실증사업에 착공했다. 고정형 설비는 3,015kW 태양광, 9.76MWh ESS, 4MW 디젤발전기로 구성되며 이동형 설비와 통합 운용한다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for 상무대, 9.76MWh ESS 포함 군 차세대 하이브리드 마이크로그리드 착공 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for 상무대, 9.76MWh ESS 포함 군 차세대 하이브리드 마이크로그리드 착공 are resolved for publication.",
-      "remaining_uncertainty": "실증 결과가 군 전력망 표준과 다른 부대 확산으로 연결되는지가 후속 핵심이다.",
-      "incremental_information": "한국에너지공단과 육군은 9월 8일 상무대 차세대 전력망 실증사업에 착공했다. 고정형 설비는 3,015kW 태양광, 9.76MWh ESS, 4MW 디젤발전기로 구성되며 이동형 설비와 통합 운용한다.",
-      "baseline_expectation_changed": "군 전력망이 ESS를 포함한 실제 고정·이동형 마이크로그리드 구축 단계로 진입했다.",
-      "decision_relevance": "ESS가 군사시설의 에너지 자립과 비상전원 표준화 영역으로 확장되는 실행 사례다.",
+      "prior_state": "Before this selector pass, Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying 상무대, 9.76MWh ESS 포함 군 차세대 하이브리드 마이크로그리드 착공: event date 2026-09-08, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for 상무대, 9.76MWh ESS 포함 군 차세대 하이브리드 마이크로그리드 착공 would confirm or weaken the current judgment that 군 전력망이 ESS를 포함한 실제 고정·이동형 마이크로그리드 구축 단계로 진입했다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -738,21 +711,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-08",
-        "stage_a_representative_date": "2026-09-08",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-08"
-        ],
-        "corrected_in_stage_b": false,
         "representative_date": "2026-09-08",
         "event_date": "2026-09-08",
+        "source_published_date": "2026-09-08",
         "publication_dates": [
           "2026-09-08"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302706",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-08",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -779,12 +746,18 @@
         "TF_0134",
         "KR_2026-09-09_C39"
       ],
-      "primary_url": "https://www.sneresearch.com/en/insight/release_view/730/page/0?s_cat=%7C&s_keyword=",
+      "primary_url": "https://www.sneresearch.com/kr/insight/release_view/731/page/0",
       "urls": [
+        "https://www.sneresearch.com/kr/insight/release_view/731/page/0",
         "https://www.sneresearch.com/en/insight/release_view/730/page/0?s_cat=%7C&s_keyword=",
         "https://view.asiae.co.kr/article/2026090909460656459"
       ],
       "same_event_source_cluster": [
+        {
+          "story_id": "TF_0134",
+          "url": "https://www.sneresearch.com/kr/insight/release_view/731/page/0",
+          "preserve_for_stage_b": true
+        },
         {
           "story_id": "TF_0134",
           "url": "https://www.sneresearch.com/en/insight/release_view/730/page/0?s_cat=%7C&s_keyword=",
@@ -796,9 +769,7 @@
           "preserve_for_stage_b": true
         }
       ],
-      "support_source_candidates": [
-        "https://view.asiae.co.kr/article/2026090909460656459"
-      ],
+      "support_source_candidates": [],
       "source_domain_candidates": [
         "sneresearch.com",
         "view.asiae.co.kr"
@@ -806,9 +777,9 @@
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 2,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": true,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -821,8 +792,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for 비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2%.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for SNE Research non-China EV battery usage and Korean-three market-share update; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for SNE Research non-China EV battery usage and Korean-three market-share update; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -833,11 +806,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for 비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2%."
+        "reason": "The source-bound packet for SNE Research non-China EV battery usage and Korean-three market-share update contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2% remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "SNE Research non-China EV battery usage and Korean-three market-share update remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 59,
       "decision_value_breakdown": {
@@ -853,24 +826,24 @@
       "decision_value_classification": "material_industry_signal",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for 비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2%.",
+        "action_required": "Advance SNE Research non-China EV battery usage and Korean-three market-share update only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for 비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2%; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for 비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2%.",
-      "new_verified_fact": "SNE Research에 따르면 2026년 1~7월 중국 제외 글로벌 EV 배터리 사용량은 316.2GWh로 전년 동기 대비 25.8% 증가했다. LG에너지솔루션·SK온·삼성SDI 3사의 합산 사용량은 86.1GWh로 8.9% 감소했고 점유율은 37.6%에서 27.2%로 10.4%p 하락했다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for 비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2% from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for 비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2% are resolved for publication.",
-      "remaining_uncertainty": "북미 감소가 지속되는지와 유럽·아시아 회복이 이를 상쇄하는지가 중요하다.",
-      "incremental_information": "SNE Research에 따르면 2026년 1~7월 중국 제외 글로벌 EV 배터리 사용량은 316.2GWh로 전년 동기 대비 25.8% 증가했다. LG에너지솔루션·SK온·삼성SDI 3사의 합산 사용량은 86.1GWh로 8.9% 감소했고 점유율은 37.6%에서 27.2%로 10.4%p 하락했다.",
-      "baseline_expectation_changed": "비중국 시장 성장과 한국 배터리 3사의 점유율 하락이 동시에 확인됐다.",
-      "decision_relevance": "비중국 시장 자체는 성장하지만 공급자 경쟁구도는 중국계 확장과 한국계 약화로 재편되고 있다.",
+      "prior_state": "Before this selector pass, SNE Research non-China EV battery usage and Korean-three market-share update was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports SNE Research non-China EV battery usage and Korean-three market-share update. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves SNE Research non-China EV battery usage and Korean-three market-share update from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for SNE Research non-China EV battery usage and Korean-three market-share update are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for SNE Research non-China EV battery usage and Korean-three market-share update remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports SNE Research non-China EV battery usage and Korean-three market-share update as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for SNE Research non-China EV battery usage and Korean-three market-share update; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, SNE Research non-China EV battery usage and Korean-three market-share update can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying 비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2%: event date 2026-09-09, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for SNE Research non-China EV battery usage and Korean-three market-share update."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for 비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2% would confirm or weaken the current judgment that 비중국 시장 성장과 한국 배터리 3사의 점유율 하락이 동시에 확인됐다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for SNE Research non-China EV battery usage and Korean-three market-share update would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -897,21 +870,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-09",
-        "stage_a_representative_date": "2026-09-09",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-09"
-        ],
-        "corrected_in_stage_b": false,
         "representative_date": "2026-09-09",
         "event_date": "2026-09-09",
+        "source_published_date": "2026-09-09",
         "publication_dates": [
           "2026-09-09"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.sneresearch.com/en/insight/release_view/730/page/0?s_cat=%7C&s_keyword=",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-09",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -925,9 +892,9 @@
       "execution_anchor_strength": null,
       "structural_value_override_applied": true,
       "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-      "structural_value_override_reason": "비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2% changes the decision baseline through a verified data, market, or policy signal without requiring a conventional corporate execution event.",
-      "structural_non_execution_reason": "The verified market_share signal for 비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2% is decision-useful even without a conventional execution milestone.",
-      "why_execution_event_not_required": "비중국 EV 배터리 1~7월 316.2GWh…한국 3사 점유율 27.2% is selected on a non-execution data/policy anchor whose verified change directly affects the monitoring baseline."
+      "structural_value_override_reason": "The source-bound non-execution anchor for SNE Research non-China EV battery usage and Korean-three market-share update is decision-relevant enough for Stage B verification.",
+      "structural_non_execution_reason": "The upstream packet reports a non-execution structural anchor for SNE Research non-China EV battery usage and Korean-three market-share update that changes the monitoring baseline if confirmed.",
+      "why_execution_event_not_required": "SNE Research non-China EV battery usage and Korean-three market-share update is selected on a data, policy, strategic, technology or follow-up anchor rather than requiring a conventional corporate execution event."
     },
     {
       "spec_id": "STD26_0909_A_012",
@@ -961,10 +928,7 @@
           "preserve_for_stage_b": true
         }
       ],
-      "support_source_candidates": [
-        "https://www.pv-magazine.com/2026/09/01/china-restores-2-lithium-ion-battery-tax-after-11-year-exemption/",
-        "https://policy.mofcom.gov.cn/claw/clawContent.shtml?id=106537"
-      ],
+      "support_source_candidates": [],
       "source_domain_candidates": [
         "energy-storage.news",
         "pv-magazine.com",
@@ -973,9 +937,9 @@
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 3,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": true,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -988,8 +952,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for 중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for China ESS cell price-increase signal alongside the battery consumption-tax change; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for China ESS cell price-increase signal alongside the battery consumption-tax change; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -1000,11 +966,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for 중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영."
+        "reason": "The source-bound packet for China ESS cell price-increase signal alongside the battery consumption-tax change contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "China ESS cell price-increase signal alongside the battery consumption-tax change remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 59,
       "decision_value_breakdown": {
@@ -1020,24 +986,24 @@
       "decision_value_classification": "material_industry_signal",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for 중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영.",
+        "action_required": "Advance China ESS cell price-increase signal alongside the battery consumption-tax change only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for 중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for 중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영.",
-      "new_verified_fact": "9월 중국 ESS 셀 시장에서 가격 인상 움직임이 확산됐다. CATL 314Ah 셀 공개가격은 0.414위안/Wh에서 0.423위안/Wh로 올랐고, EVE Energy는 9월 1일부터 국내 배터리 제품에 2% 소비세 비용을 반영한다고 안내했다. 중국은 9월 1일부터 리튬이온전지 등에 2% 소비세를 적용했다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for 중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for 중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영 are resolved for publication.",
-      "remaining_uncertainty": "실제 장기계약 가격과 4%로 높아지는 2027년 세율의 전가 정도를 추적할 필요가 있다.",
-      "incremental_information": "9월 중국 ESS 셀 시장에서 가격 인상 움직임이 확산됐다. CATL 314Ah 셀 공개가격은 0.414위안/Wh에서 0.423위안/Wh로 올랐고, EVE Energy는 9월 1일부터 국내 배터리 제품에 2% 소비세 비용을 반영한다고 안내했다. 중국은 9월 1일부터 리튬이온전지 등에 2% 소비세를 적용했다.",
-      "baseline_expectation_changed": "중국 ESS 셀 가격이 장기 하락 국면에서 세금·원재료 비용을 반영하는 인상 국면으로 전환되는 조짐이다.",
-      "decision_relevance": "세제 변화와 원재료 비용이 셀 단가에 전가되기 시작하면 시스템 원가와 프로젝트 수익성 가정도 재조정될 수 있다.",
+      "prior_state": "Before this selector pass, China ESS cell price-increase signal alongside the battery consumption-tax change was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports China ESS cell price-increase signal alongside the battery consumption-tax change. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves China ESS cell price-increase signal alongside the battery consumption-tax change from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for China ESS cell price-increase signal alongside the battery consumption-tax change are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for China ESS cell price-increase signal alongside the battery consumption-tax change remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports China ESS cell price-increase signal alongside the battery consumption-tax change as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for China ESS cell price-increase signal alongside the battery consumption-tax change; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, China ESS cell price-increase signal alongside the battery consumption-tax change can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying 중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영: event date 2026-09-09, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for China ESS cell price-increase signal alongside the battery consumption-tax change."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for 중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영 would confirm or weaken the current judgment that 중국 ESS 셀 가격이 장기 하락 국면에서 세금·원재료 비용을 반영하는 인상 국면으로 전환되는 조짐이다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for China ESS cell price-increase signal alongside the battery consumption-tax change would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -1053,21 +1019,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-09",
-        "stage_a_representative_date": "2026-09-09",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-09"
-        ],
-        "corrected_in_stage_b": false,
         "representative_date": "2026-09-09",
         "event_date": "2026-09-09",
+        "source_published_date": "2026-09-09",
         "publication_dates": [
           "2026-09-09"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.energy-storage.news/catl-eve-energy-lead-chinese-manufacturers-battery-storage-cell-price-hikes/",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-09",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": 3,
@@ -1081,9 +1041,9 @@
       "execution_anchor_strength": null,
       "structural_value_override_applied": true,
       "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-      "structural_value_override_reason": "중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영 changes the decision baseline through a verified data, market, or policy signal without requiring a conventional corporate execution event.",
-      "structural_non_execution_reason": "The verified ess_cell_pricing signal for 중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영 is decision-useful even without a conventional execution milestone.",
-      "why_execution_event_not_required": "중국 ESS 셀 가격 인상 확산…배터리 소비세 2% 시행과 원가상승 반영 is selected on a non-execution data/policy anchor whose verified change directly affects the monitoring baseline."
+      "structural_value_override_reason": "The source-bound non-execution anchor for China ESS cell price-increase signal alongside the battery consumption-tax change is decision-relevant enough for Stage B verification.",
+      "structural_non_execution_reason": "The upstream packet reports a non-execution structural anchor for China ESS cell price-increase signal alongside the battery consumption-tax change that changes the monitoring baseline if confirmed.",
+      "why_execution_event_not_required": "China ESS cell price-increase signal alongside the battery consumption-tax change is selected on a data, policy, strategic, technology or follow-up anchor rather than requiring a conventional corporate execution event."
     },
     {
       "spec_id": "STD26_0909_A_013",
@@ -1111,9 +1071,7 @@
           "preserve_for_stage_b": true
         }
       ],
-      "support_source_candidates": [
-        "https://thewest.com.au/business/bulls-n-bears/viridis-scores-21m-local-govt-backing-for-brazilian-rare-earths-play-c-22846085"
-      ],
+      "support_source_candidates": [],
       "source_domain_candidates": [
         "mining.com",
         "thewest.com.au"
@@ -1121,9 +1079,9 @@
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 2,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": true,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -1136,8 +1094,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for 브라질 BNDES, Viridis Colossus 희토류 사업에 R$7,750만 장기금융 승인.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for Brazil BNDES financing for Viridis Colossus rare-earth project facilities; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for Brazil BNDES financing for Viridis Colossus rare-earth project facilities; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -1148,11 +1108,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for 브라질 BNDES, Viridis Colossus 희토류 사업에 R$7,750만 장기금융 승인."
+        "reason": "The source-bound packet for Brazil BNDES financing for Viridis Colossus rare-earth project facilities contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "브라질 BNDES, Viridis Colossus 희토류 사업에 R$7,750만 장기금융 승인 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "Brazil BNDES financing for Viridis Colossus rare-earth project facilities remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 59,
       "decision_value_breakdown": {
@@ -1168,24 +1128,24 @@
       "decision_value_classification": "material_industry_signal",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for 브라질 BNDES, Viridis Colossus 희토류 사업에 R$7,750만 장기금융 승인.",
+        "action_required": "Advance Brazil BNDES financing for Viridis Colossus rare-earth project facilities only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for 브라질 BNDES, Viridis Colossus 희토류 사업에 R$7,750만 장기금융 승인; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for 브라질 BNDES, Viridis Colossus 희토류 사업에 R$7,750만 장기금융 승인.",
-      "new_verified_fact": "브라질 BNDES는 Viridis Mining의 Colossus 희토류 프로젝트 관련 시설에 R$77.5m 규모 금융을 승인했다. 자금은 Poços de Caldas의 연구·처리센터와 실증 플랜트 운영·연구개발을 지원하며 만기는 16년이다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for 브라질 BNDES, Viridis Colossus 희토류 사업에 R$7,750만 장기금융 승인 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for 브라질 BNDES, Viridis Colossus 희토류 사업에 R$7,750만 장기금융 승인 are resolved for publication.",
-      "remaining_uncertainty": "실증 플랜트에서 상업규모 생산으로 넘어가는 추가 자금조달과 오프테이크가 다음 관건이다.",
-      "incremental_information": "브라질 BNDES는 Viridis Mining의 Colossus 희토류 프로젝트 관련 시설에 R$77.5m 규모 금융을 승인했다. 자금은 Poços de Caldas의 연구·처리센터와 실증 플랜트 운영·연구개발을 지원하며 만기는 16년이다.",
-      "baseline_expectation_changed": "비중국 희토류 공급망이 정책 구호를 넘어 개발은행 장기금융으로 구체화됐다.",
-      "decision_relevance": "비중국 희토류 정제 역량 확충에 공공 장기자본이 투입되는 실행 신호다.",
+      "prior_state": "Before this selector pass, Brazil BNDES financing for Viridis Colossus rare-earth project facilities was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports Brazil BNDES financing for Viridis Colossus rare-earth project facilities. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves Brazil BNDES financing for Viridis Colossus rare-earth project facilities from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for Brazil BNDES financing for Viridis Colossus rare-earth project facilities are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for Brazil BNDES financing for Viridis Colossus rare-earth project facilities remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports Brazil BNDES financing for Viridis Colossus rare-earth project facilities as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for Brazil BNDES financing for Viridis Colossus rare-earth project facilities; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, Brazil BNDES financing for Viridis Colossus rare-earth project facilities can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying 브라질 BNDES, Viridis Colossus 희토류 사업에 R$7,750만 장기금융 승인: event date 2026-09-08, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for Brazil BNDES financing for Viridis Colossus rare-earth project facilities."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for 브라질 BNDES, Viridis Colossus 희토류 사업에 R$7,750만 장기금융 승인 would confirm or weaken the current judgment that 비중국 희토류 공급망이 정책 구호를 넘어 개발은행 장기금융으로 구체화됐다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for Brazil BNDES financing for Viridis Colossus rare-earth project facilities would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -1201,21 +1161,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-08",
-        "stage_a_representative_date": "2026-09-08",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-08"
-        ],
-        "corrected_in_stage_b": false,
         "representative_date": "2026-09-08",
         "event_date": "2026-09-08",
+        "source_published_date": "2026-09-08",
         "publication_dates": [
           "2026-09-08"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.mining.com/web/brazil-funds-rare-earth-project-in-effort-to-tap-vast-reserves",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-08",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -1235,41 +1189,32 @@
       "spec_id": "STD26_0909_A_015",
       "source_event_id": "SEP9_EVT_A_015",
       "source_story_ids": [
-        "SEP09_SPLIT_EU_C07_ENGIE_COO"
+        "SEP09_SPLIT_COO"
       ],
       "original_story_ids": [
-        "SEP09_SPLIT_EU_C07_ENGIE_COO"
+        "EU_2026-09-08_C07"
       ],
-      "primary_url": "https://www.engie.com/",
+      "primary_url": "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/",
       "urls": [
-        "https://www.engie.com/",
         "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/"
       ],
       "same_event_source_cluster": [
         {
-          "story_id": "SEP09_SPLIT_EU_C07_ENGIE_COO",
-          "url": "https://www.engie.com/",
-          "preserve_for_stage_b": true
-        },
-        {
-          "story_id": "SEP09_SPLIT_EU_C07_ENGIE_COO",
+          "story_id": "SEP09_SPLIT_COO",
           "url": "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/",
           "preserve_for_stage_b": true
         }
       ],
-      "support_source_candidates": [
-        "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/"
-      ],
+      "support_source_candidates": [],
       "source_domain_candidates": [
-        "engie.com",
         "energy-storage.news"
       ],
       "source_diversity_path": {
         "status": "viable",
-        "probable_independent_owner_count": 2,
-        "official_or_source_owner_candidate_present": true,
-        "independent_confirmation_candidate_present": true,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": false,
+        "independent_confirmation_candidate_present": false,
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -1282,8 +1227,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for ENGIE, 벨기에 Coo 74MW/296MWh BESS 착공.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for ENGIE Coo 74 MW / 296 MWh BESS construction-start event; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for ENGIE Coo 74 MW / 296 MWh BESS construction-start event; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -1294,11 +1241,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for ENGIE, 벨기에 Coo 74MW/296MWh BESS 착공."
+        "reason": "The source-bound packet for ENGIE Coo 74 MW / 296 MWh BESS construction-start event contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "ENGIE, 벨기에 Coo 74MW/296MWh BESS 착공 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "ENGIE Coo 74 MW / 296 MWh BESS construction-start event remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 54,
       "decision_value_breakdown": {
@@ -1314,24 +1261,24 @@
       "decision_value_classification": "standard_monitoring",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for ENGIE, 벨기에 Coo 74MW/296MWh BESS 착공.",
+        "action_required": "Advance ENGIE Coo 74 MW / 296 MWh BESS construction-start event only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for ENGIE, 벨기에 Coo 74MW/296MWh BESS 착공; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for ENGIE, 벨기에 Coo 74MW/296MWh BESS 착공.",
-      "new_verified_fact": "ENGIE는 벨기에 Coo에서 74MW/296MWh BESS 건설을 시작했다. 프로젝트는 4시간 저장용량으로 설계됐고 2028년 초 가동을 목표로 한다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for ENGIE, 벨기에 Coo 74MW/296MWh BESS 착공 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for ENGIE, 벨기에 Coo 74MW/296MWh BESS 착공 are resolved for publication.",
-      "remaining_uncertainty": "공정 진척과 상업운전 시점, 수익모델을 후속 확인해야 한다.",
-      "incremental_information": "ENGIE는 벨기에 Coo에서 74MW/296MWh BESS 건설을 시작했다. 프로젝트는 4시간 저장용량으로 설계됐고 2028년 초 가동을 목표로 한다.",
-      "baseline_expectation_changed": "기존 수력 유연성 거점에 대형 BESS가 실제 건설 단계로 추가되고 있다.",
-      "decision_relevance": "양수발전과 BESS를 같은 유연성 거점에 배치하는 하이브리드 운영모델이 확대될 수 있다.",
+      "prior_state": "Before this selector pass, ENGIE Coo 74 MW / 296 MWh BESS construction-start event was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports ENGIE Coo 74 MW / 296 MWh BESS construction-start event. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves ENGIE Coo 74 MW / 296 MWh BESS construction-start event from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for ENGIE Coo 74 MW / 296 MWh BESS construction-start event are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for ENGIE Coo 74 MW / 296 MWh BESS construction-start event remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports ENGIE Coo 74 MW / 296 MWh BESS construction-start event as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for ENGIE Coo 74 MW / 296 MWh BESS construction-start event; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, ENGIE Coo 74 MW / 296 MWh BESS construction-start event can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying ENGIE, 벨기에 Coo 74MW/296MWh BESS 착공: event date 2026-09-08, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for ENGIE Coo 74 MW / 296 MWh BESS construction-start event."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for ENGIE, 벨기에 Coo 74MW/296MWh BESS 착공 would confirm or weaken the current judgment that 기존 수력 유연성 거점에 대형 BESS가 실제 건설 단계로 추가되고 있다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for ENGIE Coo 74 MW / 296 MWh BESS construction-start event would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -1347,21 +1294,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-08",
-        "stage_a_representative_date": "2026-09-08",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-08"
-        ],
-        "corrected_in_stage_b": false,
         "representative_date": "2026-09-08",
         "event_date": "2026-09-08",
+        "source_published_date": "2026-09-08",
         "publication_dates": [
           "2026-09-08"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.engie.com/",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-08",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -1386,44 +1327,27 @@
       "original_story_ids": [
         "SEP09_DISC_001"
       ],
-      "primary_url": "https://www.fortum.com/en/media/2026/09/inside-information-fortum-and-google-partner-drive-sustainable-growth-finland-sign-nuclear-power-purchase-agreement",
+      "primary_url": "https://www.reuters.com/business/energy/google-signs-nuclear-power-deal-finlands-fortum-2026-09-09/",
       "urls": [
-        "https://www.fortum.com/en/media/2026/09/inside-information-fortum-and-google-partner-drive-sustainable-growth-finland-sign-nuclear-power-purchase-agreement",
-        "https://www.googlecloudpresscorner.com/2026-09-09-Google-Deepens-Commitment-to-Finland-with-Two-Year-EUR13-Billion-investment-in-AI-Infrastructure",
         "https://www.reuters.com/business/energy/google-signs-nuclear-power-deal-finlands-fortum-2026-09-09/"
       ],
       "same_event_source_cluster": [
-        {
-          "story_id": "SEP09_DISC_001",
-          "url": "https://www.fortum.com/en/media/2026/09/inside-information-fortum-and-google-partner-drive-sustainable-growth-finland-sign-nuclear-power-purchase-agreement",
-          "preserve_for_stage_b": true
-        },
-        {
-          "story_id": "SEP09_DISC_001",
-          "url": "https://www.googlecloudpresscorner.com/2026-09-09-Google-Deepens-Commitment-to-Finland-with-Two-Year-EUR13-Billion-investment-in-AI-Infrastructure",
-          "preserve_for_stage_b": true
-        },
         {
           "story_id": "SEP09_DISC_001",
           "url": "https://www.reuters.com/business/energy/google-signs-nuclear-power-deal-finlands-fortum-2026-09-09/",
           "preserve_for_stage_b": true
         }
       ],
-      "support_source_candidates": [
-        "https://www.googlecloudpresscorner.com/2026-09-09-Google-Deepens-Commitment-to-Finland-with-Two-Year-EUR13-Billion-investment-in-AI-Infrastructure",
-        "https://www.reuters.com/business/energy/google-signs-nuclear-power-deal-finlands-fortum-2026-09-09/"
-      ],
+      "support_source_candidates": [],
       "source_domain_candidates": [
-        "fortum.com",
-        "googlecloudpresscorner.com",
         "reuters.com"
       ],
       "source_diversity_path": {
         "status": "viable",
-        "probable_independent_owner_count": 3,
-        "official_or_source_owner_candidate_present": true,
-        "independent_confirmation_candidate_present": true,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": false,
+        "independent_confirmation_candidate_present": false,
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -1436,8 +1360,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for Google, 핀란드 AI 인프라에 €130억 투자·Fortum과 22년 원전 PPA.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -1448,11 +1374,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for Google, 핀란드 AI 인프라에 €130억 투자·Fortum과 22년 원전 PPA."
+        "reason": "The source-bound packet for Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "Google, 핀란드 AI 인프라에 €130억 투자·Fortum과 22년 원전 PPA remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 59,
       "decision_value_breakdown": {
@@ -1468,24 +1394,24 @@
       "decision_value_classification": "material_industry_signal",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for Google, 핀란드 AI 인프라에 €130억 투자·Fortum과 22년 원전 PPA.",
+        "action_required": "Advance Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for Google, 핀란드 AI 인프라에 €130억 투자·Fortum과 22년 원전 PPA; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for Google, 핀란드 AI 인프라에 €130억 투자·Fortum과 22년 원전 PPA.",
-      "new_verified_fact": "Google은 2027~2028년 핀란드에 €13bn을 투자하겠다고 발표했고, Fortum과 Loviisa 원전 수명연장을 뒷받침하는 22년 PPA를 체결했다. 계약은 원전 용량의 최대 50%를 대상으로 하며, Google은 Kajaani 인근 94MW 배터리 시스템 계약도 공개했다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for Google, 핀란드 AI 인프라에 €130억 투자·Fortum과 22년 원전 PPA from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for Google, 핀란드 AI 인프라에 €130억 투자·Fortum과 22년 원전 PPA are resolved for publication.",
-      "remaining_uncertainty": "데이터센터 증설과 신규 전원·BESS의 실제 연결 일정이 핵심 후속지표다.",
-      "incremental_information": "Google은 2027~2028년 핀란드에 €13bn을 투자하겠다고 발표했고, Fortum과 Loviisa 원전 수명연장을 뒷받침하는 22년 PPA를 체결했다. 계약은 원전 용량의 최대 50%를 대상으로 하며, Google은 Kajaani 인근 94MW 배터리 시스템 계약도 공개했다.",
-      "baseline_expectation_changed": "AI 데이터센터 증설이 장기 전력오프테이크와 신규 계통 유연성 자산을 동시에 끌어들이고 있다.",
-      "decision_relevance": "AI 전력수요가 발전자산 수명연장과 대형 배터리 유연성 투자를 함께 자극하는 구조가 선명해졌다.",
+      "prior_state": "Before this selector pass, Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying Google, 핀란드 AI 인프라에 €130억 투자·Fortum과 22년 원전 PPA: event date 2026-09-09, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for Google, 핀란드 AI 인프라에 €130억 투자·Fortum과 22년 원전 PPA would confirm or weaken the current judgment that AI 데이터센터 증설이 장기 전력오프테이크와 신규 계통 유연성 자산을 동시에 끌어들이고 있다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -1501,21 +1427,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-09",
-        "stage_a_representative_date": "2026-09-09",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-09"
-        ],
-        "corrected_in_stage_b": false,
         "representative_date": "2026-09-09",
         "event_date": "2026-09-09",
+        "source_published_date": "2026-09-09",
         "publication_dates": [
           "2026-09-09"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.fortum.com/en/media/2026/09/inside-information-fortum-and-google-partner-drive-sustainable-growth-finland-sign-nuclear-power-purchase-agreement",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-09",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -1540,14 +1460,14 @@
       "original_story_ids": [
         "SEP09_DISC_004"
       ],
-      "primary_url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/switzerland-s-largest-battery--storage-system-in-operation---axp.html",
+      "primary_url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-energieuri-inaugurate-switzerlands-largest-battery-storage-facility.html",
       "urls": [
-        "https://www.axpo.com/ch/en/newsroom/media-releases/2026/switzerland-s-largest-battery--storage-system-in-operation---axp.html"
+        "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-energieuri-inaugurate-switzerlands-largest-battery-storage-facility.html"
       ],
       "same_event_source_cluster": [
         {
           "story_id": "SEP09_DISC_004",
-          "url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/switzerland-s-largest-battery--storage-system-in-operation---axp.html",
+          "url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-energieuri-inaugurate-switzerlands-largest-battery-storage-facility.html",
           "preserve_for_stage_b": true
         }
       ],
@@ -1558,9 +1478,9 @@
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 1,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": false,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -1573,8 +1493,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for Axpo·energieUri, 스위스 Gurtnellen 대형 BESS 2기 운영 개시.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for Axpo and energieUri Gurtnellen battery-storage inauguration; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for Axpo and energieUri Gurtnellen battery-storage inauguration; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -1585,11 +1507,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for Axpo·energieUri, 스위스 Gurtnellen 대형 BESS 2기 운영 개시."
+        "reason": "The source-bound packet for Axpo and energieUri Gurtnellen battery-storage inauguration contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "Axpo·energieUri, 스위스 Gurtnellen 대형 BESS 2기 운영 개시 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "Axpo and energieUri Gurtnellen battery-storage inauguration remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 54,
       "decision_value_breakdown": {
@@ -1605,24 +1527,24 @@
       "decision_value_classification": "standard_monitoring",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for Axpo·energieUri, 스위스 Gurtnellen 대형 BESS 2기 운영 개시.",
+        "action_required": "Advance Axpo and energieUri Gurtnellen battery-storage inauguration only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for Axpo·energieUri, 스위스 Gurtnellen 대형 BESS 2기 운영 개시; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for Axpo·energieUri, 스위스 Gurtnellen 대형 BESS 2기 운영 개시.",
-      "new_verified_fact": "Axpo와 energieUri는 9월 9일 스위스 Gurtnellen의 대형 BESS 2기를 공식 개장했다. Axpo 설비는 50MW, energieUri 설비는 8.4MW 규모다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for Axpo·energieUri, 스위스 Gurtnellen 대형 BESS 2기 운영 개시 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for Axpo·energieUri, 스위스 Gurtnellen 대형 BESS 2기 운영 개시 are resolved for publication.",
-      "remaining_uncertainty": "운영수익과 추가 Swiss pipeline이 시장 확장 속도를 보여줄 후속 신호다.",
-      "incremental_information": "Axpo와 energieUri는 9월 9일 스위스 Gurtnellen의 대형 BESS 2기를 공식 개장했다. Axpo 설비는 50MW, energieUri 설비는 8.4MW 규모다.",
-      "baseline_expectation_changed": "스위스 대형 배터리저장시설이 건설을 마치고 실제 운전 단계로 들어갔다.",
-      "decision_relevance": "유럽 중부에서도 독립형 대형 BESS가 실제 계통 유연성 자산으로 빠르게 늘고 있다.",
+      "prior_state": "Before this selector pass, Axpo and energieUri Gurtnellen battery-storage inauguration was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports Axpo and energieUri Gurtnellen battery-storage inauguration. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves Axpo and energieUri Gurtnellen battery-storage inauguration from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for Axpo and energieUri Gurtnellen battery-storage inauguration are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for Axpo and energieUri Gurtnellen battery-storage inauguration remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports Axpo and energieUri Gurtnellen battery-storage inauguration as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for Axpo and energieUri Gurtnellen battery-storage inauguration; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, Axpo and energieUri Gurtnellen battery-storage inauguration can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying Axpo·energieUri, 스위스 Gurtnellen 대형 BESS 2기 운영 개시: event date 2026-09-09, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for Axpo and energieUri Gurtnellen battery-storage inauguration."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for Axpo·energieUri, 스위스 Gurtnellen 대형 BESS 2기 운영 개시 would confirm or weaken the current judgment that 스위스 대형 배터리저장시설이 건설을 마치고 실제 운전 단계로 들어갔다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for Axpo and energieUri Gurtnellen battery-storage inauguration would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -1638,21 +1560,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-09",
-        "stage_a_representative_date": "2026-09-09",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-09"
-        ],
-        "corrected_in_stage_b": false,
         "representative_date": "2026-09-09",
         "event_date": "2026-09-09",
+        "source_published_date": "2026-09-09",
         "publication_dates": [
           "2026-09-09"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/switzerland-s-largest-battery--storage-system-in-operation---axp.html",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-09",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -1677,14 +1593,14 @@
       "original_story_ids": [
         "SEP09_DISC_005"
       ],
-      "primary_url": "https://www.atlas-lithium.com/news/atlas-lithium-materially-de-risks-neves-project-with-71-of-direct-capital-budget-already-contracted/",
+      "primary_url": "https://www.atlas-lithium.com/news/atlas-lithium-announces-strong-progress-at-neves-project-with-71-of-direct-capex-contracted-and-costs-16-below-dfs-budget/",
       "urls": [
-        "https://www.atlas-lithium.com/news/atlas-lithium-materially-de-risks-neves-project-with-71-of-direct-capital-budget-already-contracted/"
+        "https://www.atlas-lithium.com/news/atlas-lithium-announces-strong-progress-at-neves-project-with-71-of-direct-capex-contracted-and-costs-16-below-dfs-budget/"
       ],
       "same_event_source_cluster": [
         {
           "story_id": "SEP09_DISC_005",
-          "url": "https://www.atlas-lithium.com/news/atlas-lithium-materially-de-risks-neves-project-with-71-of-direct-capital-budget-already-contracted/",
+          "url": "https://www.atlas-lithium.com/news/atlas-lithium-announces-strong-progress-at-neves-project-with-71-of-direct-capex-contracted-and-costs-16-below-dfs-budget/",
           "preserve_for_stage_b": true
         }
       ],
@@ -1695,9 +1611,9 @@
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 1,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": false,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -1710,8 +1626,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for Atlas Lithium, Neves 직접 CAPEX 71% 계약·확약…DFS 대비 비용 16% 낮춰.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for Atlas Lithium Neves project procurement and direct-CAPEX contract coverage; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for Atlas Lithium Neves project procurement and direct-CAPEX contract coverage; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -1722,11 +1640,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for Atlas Lithium, Neves 직접 CAPEX 71% 계약·확약…DFS 대비 비용 16% 낮춰."
+        "reason": "The source-bound packet for Atlas Lithium Neves project procurement and direct-CAPEX contract coverage contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "Atlas Lithium, Neves 직접 CAPEX 71% 계약·확약…DFS 대비 비용 16% 낮춰 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "Atlas Lithium Neves project procurement and direct-CAPEX contract coverage remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 54,
       "decision_value_breakdown": {
@@ -1742,24 +1660,24 @@
       "decision_value_classification": "standard_monitoring",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for Atlas Lithium, Neves 직접 CAPEX 71% 계약·확약…DFS 대비 비용 16% 낮춰.",
+        "action_required": "Advance Atlas Lithium Neves project procurement and direct-CAPEX contract coverage only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for Atlas Lithium, Neves 직접 CAPEX 71% 계약·확약…DFS 대비 비용 16% 낮춰; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for Atlas Lithium, Neves 직접 CAPEX 71% 계약·확약…DFS 대비 비용 16% 낮춰.",
-      "new_verified_fact": "Atlas Lithium은 9월 9일 Neves 프로젝트 직접 CAPEX의 약 71%가 실행계약 또는 확약으로 커버됐다고 밝혔다. 이들 계약비용은 대응하는 DFS 예산보다 약 16% 낮고 토목·DMS 플랜트 조립·파쇄·전기 인프라 등을 포함한다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for Atlas Lithium, Neves 직접 CAPEX 71% 계약·확약…DFS 대비 비용 16% 낮춰 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for Atlas Lithium, Neves 직접 CAPEX 71% 계약·확약…DFS 대비 비용 16% 낮춰 are resolved for publication.",
-      "remaining_uncertainty": "상업생산 목표까지 실제 건설 진척과 추가 자금조달이 다음 확인 포인트다.",
-      "incremental_information": "Atlas Lithium은 9월 9일 Neves 프로젝트 직접 CAPEX의 약 71%가 실행계약 또는 확약으로 커버됐다고 밝혔다. 이들 계약비용은 대응하는 DFS 예산보다 약 16% 낮고 토목·DMS 플랜트 조립·파쇄·전기 인프라 등을 포함한다.",
-      "baseline_expectation_changed": "브라질 Neves 리튬 프로젝트가 조달·계약 실행을 통해 건설 리스크를 낮추는 단계로 진입했다.",
-      "decision_relevance": "리튬 프로젝트의 핵심 위험이 자원량보다 실제 계약·건설원가와 일정관리로 이동하고 있다.",
+      "prior_state": "Before this selector pass, Atlas Lithium Neves project procurement and direct-CAPEX contract coverage was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports Atlas Lithium Neves project procurement and direct-CAPEX contract coverage. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves Atlas Lithium Neves project procurement and direct-CAPEX contract coverage from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for Atlas Lithium Neves project procurement and direct-CAPEX contract coverage are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for Atlas Lithium Neves project procurement and direct-CAPEX contract coverage remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports Atlas Lithium Neves project procurement and direct-CAPEX contract coverage as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for Atlas Lithium Neves project procurement and direct-CAPEX contract coverage; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, Atlas Lithium Neves project procurement and direct-CAPEX contract coverage can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying Atlas Lithium, Neves 직접 CAPEX 71% 계약·확약…DFS 대비 비용 16% 낮춰: event date 2026-09-09, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for Atlas Lithium Neves project procurement and direct-CAPEX contract coverage."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for Atlas Lithium, Neves 직접 CAPEX 71% 계약·확약…DFS 대비 비용 16% 낮춰 would confirm or weaken the current judgment that 브라질 Neves 리튬 프로젝트가 조달·계약 실행을 통해 건설 리스크를 낮추는 단계로 진입했다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for Atlas Lithium Neves project procurement and direct-CAPEX contract coverage would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -1775,21 +1693,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-09",
-        "stage_a_representative_date": "2026-09-09",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-09"
-        ],
-        "corrected_in_stage_b": false,
         "representative_date": "2026-09-09",
         "event_date": "2026-09-09",
+        "source_published_date": "2026-09-09",
         "publication_dates": [
           "2026-09-09"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.atlas-lithium.com/news/atlas-lithium-materially-de-risks-neves-project-with-71-of-direct-capital-budget-already-contracted/",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-09",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -1816,34 +1728,25 @@
       ],
       "primary_url": "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
       "urls": [
-        "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
-        "https://www.energy-storage.news/"
+        "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas"
       ],
       "same_event_source_cluster": [
         {
           "story_id": "SEP09_DISC_009",
           "url": "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
           "preserve_for_stage_b": true
-        },
-        {
-          "story_id": "SEP09_DISC_009",
-          "url": "https://www.energy-storage.news/",
-          "preserve_for_stage_b": true
         }
       ],
-      "support_source_candidates": [
-        "https://www.energy-storage.news/"
-      ],
+      "support_source_candidates": [],
       "source_domain_candidates": [
-        "nacleanenergy.com",
-        "energy-storage.news"
+        "nacleanenergy.com"
       ],
       "source_diversity_path": {
         "status": "viable",
-        "probable_independent_owner_count": 2,
-        "official_or_source_owner_candidate_present": true,
-        "independent_confirmation_candidate_present": true,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": false,
+        "independent_confirmation_candidate_present": false,
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -1856,8 +1759,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for B2U, 텍사스 28MWh 재사용 EV배터리 BESS 상업운전.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -1868,11 +1773,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for B2U, 텍사스 28MWh 재사용 EV배터리 BESS 상업운전."
+        "reason": "The source-bound packet for B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "B2U, 텍사스 28MWh 재사용 EV배터리 BESS 상업운전 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 59,
       "decision_value_breakdown": {
@@ -1888,24 +1793,24 @@
       "decision_value_classification": "material_industry_signal",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for B2U, 텍사스 28MWh 재사용 EV배터리 BESS 상업운전.",
+        "action_required": "Advance B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for B2U, 텍사스 28MWh 재사용 EV배터리 BESS 상업운전; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for B2U, 텍사스 28MWh 재사용 EV배터리 BESS 상업운전.",
-      "new_verified_fact": "B2U는 9월 9일 텍사스의 28MWh Bexar Martinez 재사용 EV배터리 BESS가 상업운전을 시작했다고 발표했다. 회사의 두 번째 repurposed-battery storage 프로젝트다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for B2U, 텍사스 28MWh 재사용 EV배터리 BESS 상업운전 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for B2U, 텍사스 28MWh 재사용 EV배터리 BESS 상업운전 are resolved for publication.",
-      "remaining_uncertainty": "실제 수익·배터리 열화·교체주기 데이터가 사업모델의 확장성을 가를 핵심이다.",
-      "incremental_information": "B2U는 9월 9일 텍사스의 28MWh Bexar Martinez 재사용 EV배터리 BESS가 상업운전을 시작했다고 발표했다. 회사의 두 번째 repurposed-battery storage 프로젝트다.",
-      "baseline_expectation_changed": "사용후 EV 배터리의 재사용 모델이 유틸리티급 BESS 상업운전으로 반복 실행되고 있다.",
-      "decision_relevance": "second-life 배터리의 경제성이 실험이 아니라 반복 가능한 상업운전 모델로 검증되는 과정이다.",
+      "prior_state": "Before this selector pass, B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying B2U, 텍사스 28MWh 재사용 EV배터리 BESS 상업운전: event date 2026-09-09, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for B2U, 텍사스 28MWh 재사용 EV배터리 BESS 상업운전 would confirm or weaken the current judgment that 사용후 EV 배터리의 재사용 모델이 유틸리티급 BESS 상업운전으로 반복 실행되고 있다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -1921,21 +1826,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-09",
-        "stage_a_representative_date": "2026-09-09",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-09"
-        ],
-        "corrected_in_stage_b": false,
         "representative_date": "2026-09-09",
         "event_date": "2026-09-09",
+        "source_published_date": "2026-09-09",
         "publication_dates": [
           "2026-09-09"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-09",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -1978,9 +1877,9 @@
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 1,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": false,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -1993,8 +1892,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for Kabra, 인도 Rajasthan 10MW/20MWh BESS 준공·가동.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -2005,11 +1906,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for Kabra, 인도 Rajasthan 10MW/20MWh BESS 준공·가동."
+        "reason": "The source-bound packet for Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "Kabra, 인도 Rajasthan 10MW/20MWh BESS 준공·가동 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 54,
       "decision_value_breakdown": {
@@ -2025,24 +1926,24 @@
       "decision_value_classification": "standard_monitoring",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for Kabra, 인도 Rajasthan 10MW/20MWh BESS 준공·가동.",
+        "action_required": "Advance Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for Kabra, 인도 Rajasthan 10MW/20MWh BESS 준공·가동; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for Kabra, 인도 Rajasthan 10MW/20MWh BESS 준공·가동.",
-      "new_verified_fact": "Kabra Extrusion Technik은 Rajasthan Phalodi의 10MW/20MWh BESS를 설계·구축·시험하고 commissioning을 완료했다고 거래소 공시를 통해 밝혔다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for Kabra, 인도 Rajasthan 10MW/20MWh BESS 준공·가동 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for Kabra, 인도 Rajasthan 10MW/20MWh BESS 준공·가동 are resolved for publication.",
-      "remaining_uncertainty": "후속 발주 규모와 운영성능이 현지 ESS EPC·공급망 성장 속도를 보여줄 것이다.",
-      "incremental_information": "Kabra Extrusion Technik은 Rajasthan Phalodi의 10MW/20MWh BESS를 설계·구축·시험하고 commissioning을 완료했다고 거래소 공시를 통해 밝혔다.",
-      "baseline_expectation_changed": "인도 계통용 BESS가 계약·건설 단계를 넘어 실제 commissioning 단계로 이동했다.",
-      "decision_relevance": "인도 계통용 저장시장의 프로젝트 실행 경험이 축적되고 있다.",
+      "prior_state": "Before this selector pass, Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying Kabra, 인도 Rajasthan 10MW/20MWh BESS 준공·가동: event date 2026-09-09, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for Kabra, 인도 Rajasthan 10MW/20MWh BESS 준공·가동 would confirm or weaken the current judgment that 인도 계통용 BESS가 계약·건설 단계를 넘어 실제 commissioning 단계로 이동했다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -2058,21 +1959,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-09",
-        "stage_a_representative_date": "2026-09-09",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-09"
-        ],
-        "corrected_in_stage_b": false,
         "representative_date": "2026-09-09",
         "event_date": "2026-09-09",
+        "source_published_date": "2026-09-09",
         "publication_dates": [
           "2026-09-09"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.bazaarwatch.com/announcement/112083/kabra-extrusion-technik-limited-general-updates",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-09",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -2115,9 +2010,9 @@
       "source_diversity_path": {
         "status": "viable",
         "probable_independent_owner_count": 1,
-        "official_or_source_owner_candidate_present": true,
+        "official_or_source_owner_candidate_present": false,
         "independent_confirmation_candidate_present": false,
-        "reason": "Exact production-card source set preserved for Stage B recertification."
+        "reason": "Only upstream-provided candidate URLs are preserved here. Stage A treats them as routing inputs, never as body-level evidence."
       },
       "source_cluster_preserved": true,
       "support_source_candidates_accounted": true,
@@ -2130,8 +2025,10 @@
       ],
       "strict_pass_gate": {
         "status": "pass",
-        "reason": "Locked production evidence supports a distinct cardable Stage A event for Centrica–Delta, 핀란드 125MW/300MWh Karppio BESS 부분 tolling 계약.",
-        "all_six_conditions_passed": true
+        "reason": "The locked upstream packet reports a distinct decision-relevant anchor for Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS; evidence completeness is explicitly deferred to Stage B.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "The upstream packet already identifies the actor/event and a concrete execution, data, policy, strategic or commercialization anchor for Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS; unresolved body-level terms remain a Stage B task."
       },
       "baseline_relation": "new",
       "duplicate_risk": "low_after_locked_baseline_related_review",
@@ -2142,11 +2039,11 @@
       "primary_url_semantics": "provided_source_candidate_not_evidence",
       "execution_credibility_gate": {
         "status": "PASS",
-        "reason": "Operative status or structural signal is bounded to the verified production-card fact for Centrica–Delta, 핀란드 125MW/300MWh Karppio BESS 부분 tolling 계약."
+        "reason": "The source-bound packet for Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS contains the reported anchor needed for selector passage without treating source URLs as verified evidence."
       },
       "independent_cardability_gate": {
         "status": "PASS",
-        "reason": "Centrica–Delta, 핀란드 125MW/300MWh Karppio BESS 부분 tolling 계약 remains independently cardable after locked-baseline duplicate and Related review."
+        "reason": "Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS remains independently cardable after the Stage A duplicate/Related pre-pass; downstream evidence may still block publication."
       },
       "decision_news_value_score": 59,
       "decision_value_breakdown": {
@@ -2162,24 +2059,24 @@
       "decision_value_classification": "material_industry_signal",
       "publication_urgency": {
         "level": "near_term",
-        "action_required": "Preserve the verified production disposition for Centrica–Delta, 핀란드 125MW/300MWh Karppio BESS 부분 tolling 계약.",
+        "action_required": "Advance Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS only to Stage B evidence verification; do not treat Stage A source candidates as publication evidence.",
         "decision_deadline": null
       },
       "systemic_scale_denominator": null,
       "denominator_gap": "No defensible market-wide denominator is asserted for Centrica–Delta, 핀란드 125MW/300MWh Karppio BESS 부분 tolling 계약; systemic scale is conservatively capped at 2/5.",
-      "prior_state": "Before this Sep9 run, locked canonical baseline had no same-event production card for Centrica–Delta, 핀란드 125MW/300MWh Karppio BESS 부분 tolling 계약.",
-      "new_verified_fact": "Centrica Energy와 Delta Capacity는 핀란드 Teuva의 125MW/300MWh Karppio BESS에 대해 부분 tolling 계약을 체결했다. Delta가 건설 및 장기 자산관리를 맡고, Centrica가 Nordic 전력시장에서 최적화·거래를 수행한다.",
-      "changed_judgment": "The verified current-run evidence changes the judgment for Centrica–Delta, 핀란드 125MW/300MWh Karppio BESS 부분 tolling 계약 from unmaterialized intake to publishable production candidate.",
-      "uncertainty_resolved": "Event identity, operative date, relation status, and the reported current-stage fact for Centrica–Delta, 핀란드 125MW/300MWh Karppio BESS 부분 tolling 계약 are resolved for publication.",
-      "remaining_uncertainty": "2027년 4분기 예정 commissioning과 실제 tolling 성과가 다음 검증 포인트다.",
-      "incremental_information": "Centrica Energy와 Delta Capacity는 핀란드 Teuva의 125MW/300MWh Karppio BESS에 대해 부분 tolling 계약을 체결했다. Delta가 건설 및 장기 자산관리를 맡고, Centrica가 Nordic 전력시장에서 최적화·거래를 수행한다.",
-      "baseline_expectation_changed": "유럽 BESS의 금융모델이 건설 전·중 tolling 계약으로 수익을 선확보하는 방향으로 진화하고 있다.",
-      "decision_relevance": "BESS가 완전 merchant와 완전 고정계약 사이의 혼합형 수익구조로 금융가능성을 높이는 사례다.",
+      "prior_state": "Before this selector pass, Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS was present only as unadjudicated upstream intake/discovery and was not production-authorized.",
+      "new_verified_fact": "The locked upstream packet reports Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS. Stage A records that reported anchor only and does not claim body-level evidence verification.",
+      "changed_judgment": "The source-bound selector moves Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS from unadjudicated intake to a strict Stage A candidate requiring Stage B evidence verification.",
+      "uncertainty_resolved": "The source identity, actor/event identity and reported anchor class for Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS are sufficiently resolved for Stage A routing.",
+      "remaining_uncertainty": "Exact operative terms, body-level date semantics and material metrics for Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS remain subject to Stage B evidence review.",
+      "incremental_information": "The locked Sep9/0.0C source universe newly reports Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS as a current-run signal.",
+      "baseline_expectation_changed": "The monitoring baseline now has a source-bound candidate for Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS; canonical admission remains conditional on downstream evidence and duplicate checks.",
+      "decision_relevance": "If Stage B confirms the reported anchor, Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS can affect battery, ESS, critical-minerals, grid or industrial supply-chain decisions.",
       "evidence_needed_for_stage_b": [
-        "Official filing, contract document, or dataset verifying Centrica–Delta, 핀란드 125MW/300MWh Karppio BESS 부분 tolling 계약: event date 2026-09-10, stage/status, capacity, volume, price, cost, production, or shipment metric."
+        "Official filing, contract, regulation, dataset, issuer/source-owner document or independent report verifying the exact stage, status, date, capacity, volume, price, cost, production or shipment claim for Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS."
       ],
       "next_confirmation_points": [
-        "Next production, shipment, capacity, volume, price, cost, or status metric for Centrica–Delta, 핀란드 125MW/300MWh Karppio BESS 부분 tolling 계약 would confirm or weaken the current judgment that 유럽 BESS의 금융모델이 건설 전·중 tolling 계약으로 수익을 선확보하는 방향으로 진화하고 있다."
+        "The next measurable production, shipment, capacity, volume, price, cost, approval, contract or status milestone for Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS would confirm or weaken the current Stage A interpretation."
       ],
       "related_prepass": {
         "status": "PASS",
@@ -2195,21 +2092,15 @@
       },
       "date_role": {
         "status": "PASS",
-        "representative_event_date": "2026-09-10",
-        "stage_a_representative_date": "2026-09-10",
-        "role": "operative event/stage date verified from body-level evidence",
-        "source_publication_dates": [
-          "2026-09-10"
-        ],
-        "corrected_in_stage_b": false,
         "representative_date": "2026-09-10",
         "event_date": "2026-09-10",
+        "source_published_date": "2026-09-10",
         "publication_dates": [
           "2026-09-10"
         ],
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.centrica.com/media-centre/news/2026/centrica-energy-and-delta-capacity-sign-partial-tolling-agreement-for-125-mw-300-mwh-karppio-bess-project-in-finland/",
-        "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+        "stage_a_representative_date": "2026-09-10",
+        "role": "stage_a_source_bound_representative_date",
+        "basis": "Locked source-row/discovery metadata only; operative body-level event date is deferred to Stage B."
       },
       "technology_evidence_level": "not_applicable",
       "policy_stage": null,
@@ -2225,5 +2116,36 @@
       "structural_non_execution_reason": null,
       "why_execution_event_not_required": null
     }
-  ]
+  ],
+  "required_docs_check": {
+    "docs_expected": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md"
+    ],
+    "docs_read_from_github_main": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md"
+    ],
+    "docs_missing_or_unreadable": [],
+    "status": "PASS",
+    "authority_note": "Integrated Stage A V4 active authority; all production-subset facts below are rebound to the locked Sep9 source rows, governed 0.0C discoveries, or the explicit event-split child. Stage A performs no external evidence fetch."
+  },
+  "source_bound_reconstruction": true,
+  "downstream_evidence_backfill_used": false,
+  "subset_scope": "production_candidates_only",
+  "full_stage_a_accounting_claimed": false
 }

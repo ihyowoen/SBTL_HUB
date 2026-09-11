@@ -1,0 +1,141 @@
+{
+  "schema": "sbtl_stage_a_batch_partial_v1",
+  "stage": "A",
+  "status": "PARTIAL_EXACT_SOURCE_ACCOUNTING",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "batch_id": "US32_R1",
+  "generated_date": "2026-09-11",
+  "universe_count": 415,
+  "source": {
+    "filename": "final_news_llm_input_newsletter_expanded_20260909_135804.json",
+    "sha256": "623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92",
+    "bytes": 10601218,
+    "membership_authority": "runs/2026-09-10/sep9-r1-current-main-production-r1/source-identity-ledger.json"
+  },
+  "membership": [
+    "US_2026-09-09_C01","US_2026-09-09_C03","US_2026-09-09_C02","US_2026-09-08_C04","US_2026-09-08_C01","US_2026-09-08_C23","US_2026-09-08_C25","US_2026-09-08_C28","US_2026-09-08_C07","US_2026-09-08_C10","US_2026-09-08_C16","US_2026-09-08_C39","US_2026-09-08_C33","US_2026-09-08_C22","US_2026-09-08_C17","US_2026-09-08_C31","US_2026-09-08_C27","US_2026-09-08_C20","US_2026-09-08_C35","US_2026-09-08_C21","US_2026-09-08_C13","US_2026-09-08_C09","US_2026-09-08_C08","US_2026-09-08_C06","US_2026-09-08_C03","US_2026-09-08_C41","US_2026-09-08_C05","US_2026-09-07_C03","US_2026-09-07_C06","US_2026-09-07_C04","US_2026-09-07_C02","US_2026-09-07_C05"
+  ],
+  "already_terminal_before_batch": [
+    {"story_id":"US_2026-09-09_C01","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-08_US_01","basis":"semantic_repeat_map_audit_r1"},
+    {"story_id":"US_2026-09-08_C04","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-02_GL_01","basis":"semantic_repeat_map_audit_r1"}
+  ],
+  "new_terminal_decisions": [
+    {
+      "story_id":"US_2026-09-09_C03",
+      "decision":"reject_or_support_only_pool",
+      "event_summary":"CARKU Automechanika Frankfurt battery-innovation promotional event; same issuer event as US_2026-09-09_C02.",
+      "reason":"Issuer/product-show marketing and same-event duplicate within the batch; no independent structural event.",
+      "same_event_support_for":"US_2026-09-09_C02"
+    },
+    {
+      "story_id":"US_2026-09-09_C02",
+      "decision":"reject_or_support_only_pool",
+      "event_summary":"CARKU battery innovation promotion at Automechanika Frankfurt.",
+      "reason":"Issuer marketing/product-show event without a material execution, policy, scale or market-structure anchor."
+    },
+    {
+      "story_id":"US_2026-09-08_C01",
+      "decision":"reject_or_support_only_pool",
+      "headline":"2026 World Power Battery Conference Held in Yibin, China - USA Today",
+      "reason":"Conference/event context rather than a discrete independently cardable industrial change."
+    },
+    {
+      "story_id":"US_2026-09-08_C23",
+      "decision":"reject_or_support_only_pool",
+      "event_summary":"LiTime 12V 320Ah ComFlex LiFePO4 RV/marine battery product launch.",
+      "reason":"Routine consumer/product launch without decision-changing industrial scale or supply-chain execution."
+    },
+    {
+      "story_id":"US_2026-09-08_C25",
+      "decision":"support_source_only",
+      "event_summary":"PV Magazine analysis on risk in battery energy-storage projects and commercial/FEOC diligence.",
+      "reason":"Analytical/context article with no fresh operative event; useful only as support context."
+    },
+    {
+      "story_id":"US_2026-09-08_C28",
+      "decision":"candidate_review_pool",
+      "event_summary":"Smackover Lithium / Standard Lithium + Equinor Franklin Project positive PEA, including NPV8 about US$5.0bn, IRR 24% and up to 70,000 t/y battery-quality lithium carbonate.",
+      "reason":"Material critical-minerals economics, but still a preliminary economic assessment rather than execution; Stage B must verify PEA scope, ownership, assumptions and current project stage.",
+      "stage_b_requirement":"Primary technical/issuer package plus independent corroboration; preserve PEA/pre-execution stage wording."
+    },
+    {
+      "story_id":"US_2026-09-08_C07",
+      "decision":"reject_or_support_only_pool",
+      "event_summary":"CBAK Energy reports a 9.6% reduction in 2025 greenhouse-gas emissions at its Dalian facility.",
+      "reason":"Retrospective issuer ESG metric does not independently change battery/ESS supply, capacity, policy or market structure."
+    },
+    {
+      "story_id":"US_2026-09-08_C39",
+      "decision":"candidate_review_pool",
+      "event_summary":"Wisconsin awards about US$25m federal funding for 42 DC fast-charging stations with at least 168 ports.",
+      "reason":"Concrete charging-infrastructure funding/execution signal, but supplied reporting requires Stage B confirmation against the official award/program record.",
+      "stage_b_requirement":"Verify official award list, funding source, station/port counts and implementation stage."
+    },
+    {
+      "story_id":"US_2026-09-08_C33",
+      "decision":"existing_reinforcement_or_same_event",
+      "canonical_target":"2026-09-08_US_01",
+      "event_summary":"Trump administration / Transportation Secretary Sean Duffy pressure on Ford over CATL and other China ties.",
+      "reason":"Same Sean Duffy letter / Ford-CATL policy-pressure event already represented by the canonical Sep8 card and Sep9 repeat."
+    },
+    {
+      "story_id":"US_2026-09-08_C22",
+      "decision":"watchlist_or_support_context",
+      "event_summary":"PV Magazine USA analysis of the U.S. solar-inverter restriction / FCC Covered List action.",
+      "reason":"Sep8 article is contextual/stale relative to the operative late-July FCC action; retain for support/follow-up monitoring, not a fresh card."
+    },
+    {
+      "story_id":"US_2026-09-08_C31",
+      "decision":"candidate_review_pool",
+      "event_summary":"China August BEV/ICE/Tesla sales data reported by Electrek.",
+      "reason":"Potential decision-useful market-data signal, but Stage B must bind the primary industry series, denominator and period definitions before independent card admission.",
+      "stage_b_requirement":"Verify primary monthly sales series and denominator; separate Tesla/company observations from market-wide data."
+    },
+    {
+      "story_id":"US_2026-09-08_C35",
+      "decision":"reject_or_support_only_pool",
+      "event_summary":"Broad U.S./Canada import-ban article without a discrete battery/ESS operative event.",
+      "reason":"No independently cardable battery/ESS/materials execution or policy anchor in the supplied item."
+    },
+    {
+      "story_id":"US_2026-09-08_C03",
+      "decision":"reject_or_support_only_pool",
+      "headline":"GEEKOM bringt den Mini-PC ‘A5 2027 Edition’ auf den Markt - entwickelt für nachhaltige Produktivität",
+      "reason":"Consumer mini-PC product launch; outside the governed battery/ESS/critical-minerals industrial lane."
+    },
+    {
+      "story_id":"US_2026-09-08_C41",
+      "decision":"candidate_review_pool",
+      "event_summary":"Zeo Energy selected as Fulcrum Point primary energy-storage provider for power-development projects, with initial collaboration near Brigham City, Utah.",
+      "reason":"Potential execution/strategic storage-provider selection, but disclosed storage capacity, legal commitment and project scope are too thin for strict passage.",
+      "stage_b_requirement":"Verify contract/selection terms, storage capacity, project identity and execution stage."
+    },
+    {
+      "story_id":"US_2026-09-08_C05",
+      "decision":"reject_or_support_only_pool",
+      "event_summary":"BLUETTI anniversary sale/deals promotion.",
+      "reason":"Consumer promotion with no independent industrial or structural news value."
+    }
+  ],
+  "unresolved_exact_source_ids": [
+    "US_2026-09-08_C10","US_2026-09-08_C16","US_2026-09-08_C17","US_2026-09-08_C27","US_2026-09-08_C20","US_2026-09-08_C21","US_2026-09-08_C13","US_2026-09-08_C09","US_2026-09-08_C08","US_2026-09-08_C06","US_2026-09-07_C03","US_2026-09-07_C06","US_2026-09-07_C04","US_2026-09-07_C02","US_2026-09-07_C05"
+  ],
+  "accounting": {
+    "batch_membership": 32,
+    "already_terminal_before_batch": 2,
+    "new_terminal_decisions": 15,
+    "resolved_in_batch_total": 17,
+    "unresolved": 15,
+    "duplicate_membership": 0,
+    "batch_pass_authorized": false
+  },
+  "guards": {
+    "web_fetch_performed_for_stage_a": false,
+    "unresolved_rows_inferred": false,
+    "production_ids_authorized": false,
+    "canonical_mutation_authorized": false,
+    "delete_authorized": false,
+    "related_remove_authorized": false
+  },
+  "next_action":"Recover exact Sep9 raw source metadata for the remaining 15 US identities, then close US32 32/32 before moving to the next original-source batch."
+}

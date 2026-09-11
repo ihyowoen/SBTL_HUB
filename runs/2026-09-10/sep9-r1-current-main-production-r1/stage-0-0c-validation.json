@@ -1,10 +1,12 @@
 {
-  "schema": "stage_0_0c_validation_v2_semantic_repair",
+  "schema": "stage_0_0c_validation_v3_combined_relock",
   "status": "PASS",
   "original_input_count": 393,
-  "discovered_count": 20,
-  "expanded_count": 413,
-  "terminal_count": 413,
+  "external_or_preclean_discovery_count": 20,
+  "event_split_child_count": 2,
+  "non_original_terminal_identity_count": 22,
+  "expanded_count": 415,
+  "terminal_count": 415,
   "duplicate_candidate_identity_count": 0,
   "missing_terminal_identity_count": 0,
   "unknown_terminal_identity_count": 0,
@@ -14,6 +16,9 @@
   "semantic_repeat_false_mapping_count": 0,
   "preclean_candidates_reexamined": 4,
   "preclean_rescued_discovery_count": 2,
-  "preclean_not_promoted_count": 2,
-  "stage_a_authorized": true
+  "event_split_parent_count": 1,
+  "event_split_child_count_verified": 2,
+  "prior_413_state_superseded": true,
+  "stage_a_authorized": true,
+  "canonical_mutation_authorized": false
 }

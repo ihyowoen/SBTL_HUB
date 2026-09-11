@@ -1,6 +1,6 @@
 {
   "schema": "sbtl_governed_run_restart_checkpoint_v1",
-  "status": "IN_PROGRESS_STAGE_A_SOURCE_FEATURE_MATERIALIZATION",
+  "status": "IN_PROGRESS_STAGE_A_BATCHED_EXACT_SOURCE_ADJUDICATION",
   "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "generated_date": "2026-09-11",
   "source_input": {
@@ -12,23 +12,12 @@
     "sha256": "623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92",
     "bytes": 10601218,
     "story_count": 393,
-    "status_counts": {
-      "KEEP": 298,
-      "REVIEW": 3,
-      "TRIAGE_FILTERED": 92
-    },
+    "status_counts": {"KEEP": 298, "REVIEW": 3, "TRIAGE_FILTERED": 92},
     "input_orphan_count": 0,
     "dropped_count": 0,
     "duplicate_story_id_count": 0,
     "duplicate_primary_url_count": 0,
-    "region_counts": {
-      "KR": 176,
-      "GL": 59,
-      "CN": 59,
-      "EU": 41,
-      "US": 39,
-      "JP": 19
-    },
+    "region_counts": {"KR":176,"GL":59,"CN":59,"EU":41,"US":39,"JP":19},
     "integrity_flagged_group_count": 7,
     "integrity_flagged_story_count": 25,
     "integrity_excluded_story_count": 0,
@@ -40,25 +29,38 @@
     "stage_0_0c": "PASS",
     "stage_0_0c_validation": "PASS",
     "original_terminal_accounting": "393/393",
-    "discovered_candidate_count": 18,
-    "expanded_terminal_accounting": "411/411",
+    "discovered_candidate_count": 20,
+    "expanded_terminal_accounting": "413/413",
+    "duplicate_candidate_identity_count": 0,
+    "missing_terminal_identity_count": 0,
+    "unknown_terminal_identity_count": 0,
+    "semantic_repeat_mapping_count": 13,
+    "semantic_repeat_false_mapping_count": 0,
+    "preclean_candidates_reexamined": 4,
+    "preclean_rescued_discovery_count": 2,
+    "preclean_not_promoted_count": 2,
     "stage_a_gate_authorized": true
   },
-  "current_blocker": {
-    "code": "STAGE_A_SOURCE_FEATURE_MATERIALIZATION_INCOMPLETE",
-    "description": "The SHA-locked 393-row raw source exists and upstream gates pass, but the repo-side Stage A compact input previously contained an empty stories[] array. That misleading shell is now fail-closed and exact-ID source recovery is in progress.",
-    "feature_manifest": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-input-features.json",
-    "recovery_ledger": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-source-recovery-r1.json",
-    "expected_original_features": 393,
-    "materialized_original_features": 5,
-    "stage_a_execution_authorized": false
+  "stage_a_execution": {
+    "mode": "BATCHED_EXACT_SOURCE_ADJUDICATION",
+    "status": "IN_PROGRESS",
+    "input_universe": 413,
+    "original_input_count": 393,
+    "discovery_count": 20,
+    "final_stage_a_pass_authorized": false,
+    "final_pass_condition": "Every one of the 413 supplied candidates must appear exactly once in the cumulative Stage A decision ledger with no unknown, duplicate or missing identity.",
+    "source_binding_rule": "Original rows must be sourced from the SHA-locked Sep9 raw and exact 393 membership ledger; 0.0C discoveries remain provenance-distinct. Stage A performs no external fetch/search.",
+    "compact_feature_shell": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-input-features.json",
+    "compact_feature_shell_status": "FAIL_CLOSED_UNUSED_FOR_FINAL_ACCOUNTING",
+    "source_recovery_ledger": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-source-recovery-r1.json",
+    "semantic_repeat_audit": "runs/2026-09-10/sep9-r1-current-main-production-r1/semantic-repeat-map-audit-r1.json"
   },
   "discovery_scope_extension": {
     "authorized": true,
     "dates": ["2026-09-09", "2026-09-10"],
     "mode": "PROMPT_0_0C_DISCOVERY_ONLY",
     "original_input_story_count_unchanged": 393,
-    "final_discovered_candidate_count": 18,
+    "final_discovered_candidate_count": 20,
     "artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/coverage-discovery-final.json",
     "provenance_guard": "Discovered candidates must never be represented as original-input rows from the 2026-09-09 source file."
   },
@@ -75,21 +77,7 @@
     "historical_promote_rematerialization_status": "DRAFT_PREFLIGHT_PAUSED",
     "reason": "Finish the Sep9 current governed run first to avoid canonical race conditions before historical PROMOTE-95 downstream admission."
   },
-  "required_next_stages": [
-    "STAGE_A_SOURCE_FEATURE_MATERIALIZATION",
-    "STAGE_A",
-    "0.1P",
-    "STAGE_B",
-    "STAGE_C",
-    "0.4",
-    "0.5",
-    "0.6",
-    "0.7",
-    "0.7C",
-    "0.8",
-    "PRODUCTION_APPLY",
-    "0.9"
-  ],
+  "required_next_stages": ["STAGE_A","0.1P","STAGE_B","STAGE_C","0.4","0.5","0.6","0.7","0.7C","0.8","PRODUCTION_APPLY","0.9"],
   "governance_guards": {
     "canonical_mutation_authorized": false,
     "production_ids_authorized": false,
@@ -97,8 +85,9 @@
     "related_remove_authorized": false,
     "preserve_existing_related": true,
     "integrity_flagged_rows_must_remain_reviewable": true,
-    "sep10_discoveries_must_remain_provenance_distinct": true,
+    "discoveries_must_remain_provenance_distinct": true,
     "stage_a_must_not_use_web_fetch": true,
-    "exact_393_source_identity_must_be_preserved": true
+    "exact_393_source_identity_must_be_preserved": true,
+    "story_ids_are_run_local": true
   }
 }

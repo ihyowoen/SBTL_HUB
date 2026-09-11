@@ -1,0 +1,97 @@
+{
+  "schema": "stage_0_0c_coverage_discovery_v4_current_main_r1",
+  "stage": "0.0C",
+  "status": "BLOCKED_COVERAGE_DISCOVERY_INCOMPLETE",
+  "generated_date": "2026-09-11",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "document_universe_manifest_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0d.json",
+  "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "base_card_count": 1617,
+  "input_filename": "final_news_llm_input_newsletter_expanded_20260909_135804.json",
+  "input_story_count": 393,
+  "original_input_accounted": false,
+  "original_input_ledger": [],
+  "discovered_missing_candidates": [
+    {
+      "candidate_id": "SEP10_DISC_001",
+      "origin": "2026-09-10 discovery",
+      "region": "KR",
+      "headline": "Hyundai Motor Group/Kia + LG Energy Solution + Hyundai Engineering + Wonik PNE 200kWh used-EV-battery UBESS demonstration",
+      "status": "RETAIN_FOR_STAGE_A_AFTER_SOURCE_GATE"
+    },
+    {
+      "candidate_id": "SEP10_DISC_002",
+      "origin": "2026-09-10 discovery",
+      "region": "EU",
+      "headline": "Volvo Group planned large-scale battery storage facility/test bed in Mariestad, Sweden",
+      "status": "RETAIN_FOR_STAGE_A_AFTER_SOURCE_GATE"
+    },
+    {
+      "candidate_id": "SEP10_DISC_003",
+      "origin": "2026-09-10 discovery",
+      "region": "GL",
+      "headline": "Jinko ESS + Innovative Efficient Solutions Middle East C&I SunGiga G2 distribution agreement",
+      "status": "RETAIN_FOR_BOUNDED_STAGE_A_REVIEW_AFTER_SOURCE_GATE"
+    }
+  ],
+  "baseline_follow_up_candidates": [
+    {
+      "candidate_id": "US_2026-09-09_C01",
+      "target_id": "2026-09-08_US_01",
+      "disposition": "existing_card_reinforcement_or_same_event_republication",
+      "note": "Same Sean Duffy/Ford-CATL policy-pressure event already canonicalized Sep 8; later article date does not create a fresh event."
+    }
+  ],
+  "existing_card_reinforcements": [],
+  "existing_card_update_candidates": [],
+  "correction_or_reversal_candidates": [],
+  "treasure_rescue_candidates": [],
+  "regional_coverage_matrix": {
+    "korea": {"status": "blocked", "reason": "complete 393-row source ledger not materialized"},
+    "north_america": {"status": "blocked", "reason": "complete 393-row source ledger not materialized"},
+    "china": {"status": "blocked", "reason": "complete 393-row source ledger not materialized"},
+    "japan": {"status": "blocked", "reason": "complete 393-row source ledger not materialized"},
+    "europe": {"status": "blocked", "reason": "complete 393-row source ledger not materialized"},
+    "material_global_markets": {"status": "blocked", "reason": "complete 393-row source ledger not materialized"}
+  },
+  "topic_coverage_matrix": {
+    "cells_chemistries": {"status": "blocked", "reason": "source ledger incomplete"},
+    "materials_components": {"status": "blocked", "reason": "source ledger incomplete"},
+    "pouch_pouch_film_demand": {"status": "blocked", "reason": "source ledger incomplete"},
+    "ess_bess": {"status": "blocked", "reason": "source ledger incomplete"},
+    "ev_charging": {"status": "blocked", "reason": "source ledger incomplete"},
+    "manufacturing_capacity_utilisation": {"status": "blocked", "reason": "source ledger incomplete"},
+    "grid_ai_data_centre_power": {"status": "blocked", "reason": "source ledger incomplete"},
+    "critical_minerals_refining": {"status": "blocked", "reason": "source ledger incomplete"},
+    "recycling": {"status": "blocked", "reason": "source ledger incomplete"},
+    "policy_trade_sanctions_subsidies_localisation": {"status": "blocked", "reason": "source ledger incomplete"},
+    "competitors_customers": {"status": "blocked", "reason": "source ledger incomplete"},
+    "prices_costs_margins": {"status": "blocked", "reason": "source ledger incomplete"},
+    "financing": {"status": "blocked", "reason": "source ledger incomplete"},
+    "safety_recall_commissioning_operation": {"status": "blocked", "reason": "source ledger incomplete"}
+  },
+  "searched_but_no_material_event_ledger": [],
+  "source_universe_expansion_ledger": [],
+  "must_report_candidate_ledger": [],
+  "known_unknowns": [
+    "Exact 393 original candidate identities are unavailable as a machine-readable byte stream in the current execution environment.",
+    "Exact raw input SHA256/byte length and duplicate story-id/URL checks cannot be computed from semantic-search snippets."
+  ],
+  "residual_coverage_risks": [
+    "Partial File Library snippets are insufficient to prove every source row received exactly one terminal disposition.",
+    "The 7 malformed integrity groups/25 flagged stories must be individually reassessed after source materialization; none may be silently dropped."
+  ],
+  "terminal_discovery_disposition_ledger": [],
+  "stage_a_authorized": false,
+  "blocking_gate": {
+    "code": "SOURCE_LEDGER_NOT_MATERIALIZED",
+    "required_to_resume": "exact input bytes or equivalent complete machine-readable 393-row ledger",
+    "recovery_attempts": {
+      "git_history_exact_filename_scan": "0 matches",
+      "google_drive_exact_filename_scan": "0 matches",
+      "file_library_semantic_access": "available_but_not_byte_materializable",
+      "canonical_compact_index": "recovered_1617_cards"
+    }
+  }
+}

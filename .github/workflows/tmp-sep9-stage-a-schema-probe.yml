@@ -1,0 +1,46 @@
+name: tmp-sep9-stage-a-schema-probe
+on:
+  push:
+    branches:
+      - chatgpt/sep9-r1-current-main-production-r1
+    paths:
+      - '.github/workflows/tmp-sep9-stage-a-schema-probe.yml'
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/sep9-r1-current-main-production-r1
+          fetch-depth: 0
+      - name: Extract passing Stage A shapes from main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git show origin/main:runs/2026-09-07/r7-20260905-production-r1/stages/stage-a.json > /tmp/stage-a.json
+          python - <<'PY'
+          import json, pathlib
+          p=json.load(open('/tmp/stage-a.json'))
+          pools=['strict_passed_spec','review_pool','candidate_review_pool','watchlist_context_pool','reject_or_support_only_pool','rejected','existing_reinforcement','support_source_only','decision_ledger','review_pool_resolution_ledger']
+          out={'top_level_keys':list(p.keys()),'top_level_scalar_types':{},'pool_counts':{},'samples':{}}
+          for k,v in p.items():
+              if not isinstance(v,(list,dict)):
+                  out['top_level_scalar_types'][k]={'type':type(v).__name__,'value':v}
+          for k in pools:
+              v=p.get(k)
+              out['pool_counts'][k]=len(v) if isinstance(v,list) else None
+              if isinstance(v,list) and v:
+                  item=v[0]
+                  out['samples'][k]={'keys':list(item.keys()) if isinstance(item,dict) else [],'item':item}
+          pathlib.Path('runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-schema-probe.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+          PY
+      - name: Commit probe
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-schema-probe.json
+          git commit -m 'chore: capture passing Stage A schema probe'
+          git push origin HEAD:chatgpt/sep9-r1-current-main-production-r1

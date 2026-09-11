@@ -1,0 +1,53 @@
+name: tmp-sep9-invoke-finalizer
+
+on:
+  push:
+    branches:
+      - chatgpt/sep9-r1-current-main-production-r1
+    paths:
+      - .github/workflows/tmp-sep9-invoke-finalizer.yml
+
+permissions:
+  contents: write
+
+jobs:
+  invoke-current-finalizer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Execute existing governed finalizer run steps
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet pyyaml
+          python3 - <<'PY'
+          import os
+          import subprocess
+          import tempfile
+          from pathlib import Path
+          import yaml
+
+          workflow = Path('.github/workflows/tmp-sep9-recover-production-cards.yml')
+          doc = yaml.safe_load(workflow.read_text())
+          steps = doc['jobs']['finalize-card-run']['steps']
+          run_steps = [s for s in steps if isinstance(s, dict) and s.get('run')]
+          if len(run_steps) < 4:
+              raise SystemExit(f'Unexpected finalizer shape: {len(run_steps)} run steps')
+          for idx, step in enumerate(run_steps, 1):
+              name = step.get('name', f'run-{idx}')
+              print(f'::group::{idx}/{len(run_steps)} {name}', flush=True)
+              script = step['run']
+              with tempfile.NamedTemporaryFile('w', suffix='.sh', delete=False) as f:
+                  f.write(script)
+                  script_path = f.name
+              try:
+                  subprocess.run(['bash', script_path], check=True, env=os.environ.copy())
+              finally:
+                  os.unlink(script_path)
+              print('::endgroup::', flush=True)
+          PY

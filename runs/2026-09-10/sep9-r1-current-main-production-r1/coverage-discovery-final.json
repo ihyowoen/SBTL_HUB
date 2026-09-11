@@ -1,1 +1,369 @@
-{"schema":"sbtl_coverage_discovery_final_v2","run_id":"card-run-2026-09-09-sep9-r1-current-main-production-r1","source_input_story_count":393,"source_input_sha256":"623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92","baseline":{"main":"3bb929004ff8b547b86e5f1beab0efb3dac19d62","full_blob":"beb2aa7615b583b4c9c0c269974601a0b26c2684","cards":1617},"discovered_missing_candidates":[{"candidate_id":"SEP09_DISC_001","published_date":"2026-09-09","region":"EU","headline":"Google announces €13bn Finland AI infrastructure investment and 22-year Fortum nuclear PPA","discovery_origin":"coverage_discovery_web","anchor_hint":"strategic_behavior_anchor","event_stage_hint":"investment_and_long_term_power_contract_announced","source_candidate_urls":["https://www.reuters.com/business/energy/google-signs-nuclear-power-deal-finlands-fortum-2026-09-09/"],"stage_a_routing":"evaluate","notes":"Raw 393 keyword screen found no Google-Finland/Fortum match; candidate combines AI-load expansion with long-duration power procurement. Verify exact investment scope and PPA quantity in Stage B."},{"candidate_id":"SEP09_DISC_002","published_date":"2026-09-09","region":"JP","headline":"Panasonic Energy develops solid-state battery designed for 150°C operation; sample shipments planned Q4 2026","discovery_origin":"coverage_discovery_web","anchor_hint":"technology_commercialization_anchor","event_stage_hint":"development_complete_sample_stage","source_candidate_urls":["https://www.reuters.com/business/energy/panasonic-energy-develops-solid-state-battery-that-can-operate-150-degrees-2026-09-09/"],"stage_a_routing":"bounded_review","notes":"Company development/sample-stage technology; technology evidence cap applies. Raw screen found no Panasonic solid-state match."},{"candidate_id":"SEP09_DISC_003","published_date":"2026-09-09","region":"KR","headline":"Sungrow plans Samsung SDI ESS-cell procurement for U.S.-focused storage business","discovery_origin":"coverage_discovery_web","anchor_hint":"strategic_behavior_anchor","event_stage_hint":"reported_supply_cooperation","source_candidate_urls":["https://www.ess-news.com/2026/09/09/sungrow-turns-to-samsung-sdi-for-battery-cells/"],"stage_a_routing":"candidate_review","notes":"Reported multi-year/multi-GWh cooperation but terms undisclosed and companies did not comment; requires Stage B confirmation. Raw screen found no Sungrow+Samsung SDI match."},{"candidate_id":"SEP09_DISC_004","published_date":"2026-09-09","region":"EU","headline":"Axpo and energieUri inaugurate large Gurtnellen battery storage assets in Switzerland","discovery_origin":"coverage_discovery_web","anchor_hint":"execution_event_anchor","event_stage_hint":"commissioned_or_operational","source_candidate_urls":["https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-energieuri-inaugurate-switzerlands-largest-battery-storage-facility.html"],"stage_a_routing":"evaluate","notes":"Operational/commissioning anchor; verify exact split MW/MWh and date in Stage B. Raw screen found no Gurtnellen match."},{"candidate_id":"SEP09_DISC_005","published_date":"2026-09-09","region":"GL","headline":"Atlas Lithium says 71% of Neves direct CAPEX is covered by executed contracts or firm agreements","discovery_origin":"coverage_discovery_web","anchor_hint":"execution_event_anchor","event_stage_hint":"construction_procurement_execution","source_candidate_urls":["https://www.atlas-lithium.com/news/atlas-lithium-announces-strong-progress-at-neves-project-with-71-of-direct-capex-contracted-and-costs-16-below-dfs-budget/"],"stage_a_routing":"evaluate","notes":"Critical-minerals execution/de-risking signal; Stage B should verify contract coverage definition, project status and budget comparison. Raw screen found no Atlas Lithium match."},{"candidate_id":"SEP09_DISC_006","published_date":"2026-09-09","region":"US","headline":"USDA conditionally commits $25m loan guarantee for Milford Mining Utah copper processing expansion","discovery_origin":"coverage_discovery_web","anchor_hint":"policy_regulatory_anchor","event_stage_hint":"conditional_financing_commitment","source_candidate_urls":["https://www.rd.usda.gov/newsroom/news-release/usda-rural-development-announces-25-million-loan-guarantee-support-critical-minerals-processing-utah"],"stage_a_routing":"evaluate_with_policy_stage_cap","notes":"Critical-minerals financing; distinguish conditional commitment from funded disbursement. Raw screen found no Milford Mining match."},{"candidate_id":"SEP09_DISC_007","published_date":"2026-09-09","region":"US","headline":"U.S. Critical Minerals enters binding framework merger with Nova Resources and Alabama tantalum asset purchase agreements","discovery_origin":"coverage_discovery_web","anchor_hint":"execution_event_anchor","event_stage_hint":"binding_transaction_framework_and_purchase_agreements","source_candidate_urls":["https://www.globenewswire.com/news-release/2026/09/09/"],"stage_a_routing":"candidate_review","notes":"Binding transaction claim but primarily issuer-distributed source; independent corroboration required. Raw screen found no U.S. Critical Minerals match."},{"candidate_id":"SEP09_DISC_008","published_date":"2026-09-09","region":"KR","headline":"Samsung SDI extends 1.4294 trillion won loan limit to StarPlus Energy affiliate through 2028","discovery_origin":"coverage_discovery_web","anchor_hint":"data_financial_anchor","event_stage_hint":"related_party_loan_extension","source_candidate_urls":["https://en.sedaily.ai/finance/2026/09/09/corporate-disclosures-september-9"],"stage_a_routing":"bounded_review","notes":"Disclosure is an extension/revision of a previously disclosed affiliate loan rather than wholly new capital; novelty cap likely applies. Raw screen found no StarPlus loan match."},{"candidate_id":"SEP09_DISC_009","published_date":"2026-09-09","region":"US","headline":"B2U starts commercial operation of 28MWh Bexar Martinez second-life EV-battery BESS in Texas","discovery_origin":"coverage_discovery_web","anchor_hint":"execution_event_anchor","event_stage_hint":"commercial_operation","source_candidate_urls":["https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas"],"stage_a_routing":"evaluate","notes":"Commercial-operation anchor and second-life battery use at utility scale. Raw screen found no B2U/Bexar match."},{"candidate_id":"SEP09_DISC_010","published_date":"2026-09-09","region":"CN","headline":"EVE Energy and China Railway Beijing Engineering agree to cooperate on at least 5GWh of ESS projects over three years","discovery_origin":"coverage_discovery_web","anchor_hint":"execution_event_anchor","event_stage_hint":"strategic_cooperation_agreement","source_candidate_urls":["https://chinaevhome.com/2026/09/10/eve-energy-taps-china-railway-unit-for-5-gwh-ess-projects-over-3-years/"],"stage_a_routing":"evaluate","notes":"Agreement announced Sep 9; 5GWh minimum project-cooperation volume is material but individual project execution remains future. Raw screen found no EVE/China Railway match."},{"candidate_id":"SEP09_DISC_011","published_date":"2026-09-09","region":"GL","headline":"Kabra Extrusion Technik commissions 10MW/20MWh BESS at Phalodi, Rajasthan","discovery_origin":"coverage_discovery_web","anchor_hint":"execution_event_anchor","event_stage_hint":"commissioned","source_candidate_urls":["https://www.bazaarwatch.com/announcement/112083/kabra-extrusion-technik-limited-general-updates"],"stage_a_routing":"evaluate","notes":"Exchange-disclosure-backed commissioning event. Raw screen found no Kabra/Phalodi match."},{"candidate_id":"SEP10_DISC_001","published_date":"2026-09-10","region":"KR","headline":"Hyundai Motor/Kia, LG Energy Solution, Hyundai Engineering and Wonik PNE launch 200kWh used-EV-battery UBESS demonstration","discovery_origin":"coverage_discovery_web","anchor_hint":"execution_event_anchor","event_stage_hint":"demonstration_execution","source_candidate_urls":["https://www.yna.co.kr/amp/view/AKR20260910082800003","https://en.sedaily.com/finance/2026/09/10/hyundai-kia-test-reusing-old-ev-batteries-as-energy-storage"],"stage_a_routing":"evaluate","notes":"Korea's first E-GMP used-battery UBESS demonstration; 200kWh and EV fast-charger linked. Pilot/precommercial technology cap applies."},{"candidate_id":"SEP10_DISC_002","published_date":"2026-09-10","region":"EU","headline":"Volvo Group plans Mariestad energy park with about 70MW/260MWh BESS and real-scale energy-solution test bed","discovery_origin":"coverage_discovery_web","anchor_hint":"strategic_behavior_anchor","event_stage_hint":"announced_project_plan","source_candidate_urls":["https://www.volvogroup.com/en/news-and-media/news/2026/sep/volvo-group-announces-energy-park-initiative-as-next-step-in-mariestad.html"],"stage_a_routing":"evaluate_with_plan_stage_cap","notes":"Official disclosure now provides scale and expected 2027 operation; distinguish planned asset from existing Mariestad battery-cell plant planned after 2030."},{"candidate_id":"SEP10_DISC_003","published_date":"2026-09-10","region":"GL","headline":"Jinko ESS signs Middle East C&I distribution agreement with Innovative Efficient Solutions for SunGiga G2","discovery_origin":"coverage_discovery_web","anchor_hint":"execution_event_anchor","event_stage_hint":"distribution_agreement_signed","source_candidate_urls":["https://www.jinkosolar.com/en/site/newsdetail/3021"],"stage_a_routing":"bounded_review","notes":"Signed channel agreement but no disclosed volume/project capacity; independent cardability may be capped."},{"candidate_id":"SEP10_DISC_004","published_date":"2026-09-10","region":"GL","headline":"FlexSysAI, ResetData, CSIRO and University of Queensland launch live pilot to make AI data-centre GPU workloads grid-flexible","discovery_origin":"coverage_discovery_web","anchor_hint":"technology_commercialization_anchor","event_stage_hint":"live_pilot","source_candidate_urls":["https://www.csiro.au/en/news/All/News/2026/September/Australia-first-pilot-to-transform-data-centres-from-static-loads-into-dynamic-grid-aware-assets"],"stage_a_routing":"bounded_review","notes":"Platform is live on ResetData H200 cluster; early modelling suggests 20–50% workload adjustability within seconds. Pilot/precommercial technology cap applies."},{"candidate_id":"SEP10_DISC_005","published_date":"2026-09-10","region":"EU","headline":"Centrica Energy and Delta Capacity sign partial tolling agreement for 125MW/300MWh Karppio BESS in Finland","discovery_origin":"coverage_discovery_web","anchor_hint":"execution_event_anchor","event_stage_hint":"revenue_contract_signed_project_under_construction","source_candidate_urls":["https://www.centrica.com/media-centre/news/2026/centrica-energy-and-delta-capacity-sign-partial-tolling-agreement-for-125-mw-300-mwh-karppio-bess-project-in-finland/"],"stage_a_routing":"evaluate","notes":"Binding partial tolling agreement secures revenue while retaining merchant upside; Q4 2027 commissioning planned."},{"candidate_id":"SEP10_DISC_006","published_date":"2026-09-10","region":"GL","headline":"NTPC issues EOI for grid-connected sodium-ion BESS pilot at thermal plants and offices","discovery_origin":"coverage_discovery_web","anchor_hint":"technology_commercialization_anchor","event_stage_hint":"eoi_open","source_candidate_urls":["https://ntpctender.ntpc.co.in/","https://www.pv-magazine-india.com/2026/09/10/ntpc-invites-eoi-for-sodium-ion-battery-pilot-at-its-thermal-power-stations/"],"stage_a_routing":"bounded_review","notes":"Official NTPC tender lists EOI NTPC/PE/ET&PR/EOI-06/2026-27, closing Oct 15. Procurement/technology validation is pre-award."},{"candidate_id":"SEP10_DISC_007","published_date":"2026-09-10","region":"US","headline":"R3 Lithium announces initiation of operations at Covington recycled-lithium facility, alongside $15m Series A and signed offtakes","discovery_origin":"coverage_discovery_web","anchor_hint":"execution_event_anchor","event_stage_hint":"startup_and_ramp","source_candidate_urls":["https://www.r3lithium.com/","https://www.ajc.com/business/2026/09/r3-lithium-to-restart-former-ascend-elements-battery-material-recycling-factory-east-of-atlanta/"],"stage_a_routing":"evaluate_with_execution_wording_check","notes":"Issuer says initiation of operations; independent AJC reports continuous commercial production expected later in 2027, so Stage B must distinguish startup/ramp from full commercial operation."}],"searched_not_promoted":[{"topic":"China EV penetration could reach 75-80% by 2030","disposition":"not_promoted","reason":"forecast/commentary rather than a discrete operative event"},{"topic":"CATL battery price-war analysis","disposition":"not_promoted","reason":"analytical synthesis of existing market data rather than a discrete new event"},{"topic":"Standard Energy EU delegation visit to VIB ESS demo site","disposition":"not_promoted","reason":"visit/visibility event without a new binding commercial, financing, production or deployment milestone"},{"topic":"JSW Energy 100MW solar + 100MWh BESS BESCOM PPA surfaced on Sep 10 search","disposition":"not_promoted","reason":"official underlying PPA is dated July 24 2025; Sep 10 surfacing is stale, not a 2026 new event"},{"topic":"Equinor Citrus Flatts 100MW Texas BESS","disposition":"not_promoted","reason":"Sep 3 event already canonicalized; no Sep 10 incremental anchor"},{"topic":"Korea LS Electric-Korea Midland Power renewables MOU","disposition":"not_promoted","reason":"current operative cooperation centers on renewables/onshore wind; BESS is stated as future expansion scope without a specific storage project"},{"topic":"Korea autumn power-supply seasonal operating measures","disposition":"not_promoted","reason":"seasonal grid operations include ESS/EV-charge timing but do not yet establish a durable battery/ESS structural policy change"},{"topic":"U.S.-Kenya critical-minerals processing assistance statement","disposition":"not_promoted","reason":"policy intent reported without a fresh formal mineral deal or operative financing instrument"}],"discovered_count":18,"sep9_discovered_count":11,"sep10_discovered_count":7}
+{
+  "schema": "sbtl_coverage_discovery_final_v2",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "source_input_story_count": 393,
+  "source_input_sha256": "623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92",
+  "baseline": {
+    "main": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+    "full_blob": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+    "cards": 1617
+  },
+  "discovered_missing_candidates": [
+    {
+      "candidate_id": "SEP09_DISC_001",
+      "published_date": "2026-09-09",
+      "region": "EU",
+      "headline": "Google announces €13bn Finland AI infrastructure investment and 22-year Fortum nuclear PPA",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "strategic_behavior_anchor",
+      "event_stage_hint": "investment_and_long_term_power_contract_announced",
+      "source_candidate_urls": [
+        "https://www.reuters.com/business/energy/google-signs-nuclear-power-deal-finlands-fortum-2026-09-09/"
+      ],
+      "stage_a_routing": "evaluate",
+      "notes": "Raw 393 keyword screen found no Google-Finland/Fortum match; candidate combines AI-load expansion with long-duration power procurement. Verify exact investment scope and PPA quantity in Stage B."
+    },
+    {
+      "candidate_id": "SEP09_DISC_002",
+      "published_date": "2026-09-09",
+      "region": "JP",
+      "headline": "Panasonic Energy develops solid-state battery designed for 150°C operation; sample shipments planned Q4 2026",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "technology_commercialization_anchor",
+      "event_stage_hint": "development_complete_sample_stage",
+      "source_candidate_urls": [
+        "https://www.reuters.com/business/energy/panasonic-energy-develops-solid-state-battery-that-can-operate-150-degrees-2026-09-09/"
+      ],
+      "stage_a_routing": "bounded_review",
+      "notes": "Company development/sample-stage technology; technology evidence cap applies. Raw screen found no Panasonic solid-state match."
+    },
+    {
+      "candidate_id": "SEP09_DISC_003",
+      "published_date": "2026-09-09",
+      "region": "KR",
+      "headline": "Sungrow plans Samsung SDI ESS-cell procurement for U.S.-focused storage business",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "strategic_behavior_anchor",
+      "event_stage_hint": "reported_supply_cooperation",
+      "source_candidate_urls": [
+        "https://www.ess-news.com/2026/09/09/sungrow-turns-to-samsung-sdi-for-battery-cells/"
+      ],
+      "stage_a_routing": "candidate_review",
+      "notes": "Reported multi-year/multi-GWh cooperation but terms undisclosed and companies did not comment; requires Stage B confirmation. Raw screen found no Sungrow+Samsung SDI match."
+    },
+    {
+      "candidate_id": "SEP09_DISC_004",
+      "published_date": "2026-09-09",
+      "region": "EU",
+      "headline": "Axpo and energieUri inaugurate large Gurtnellen battery storage assets in Switzerland",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "execution_event_anchor",
+      "event_stage_hint": "commissioned_or_operational",
+      "source_candidate_urls": [
+        "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-energieuri-inaugurate-switzerlands-largest-battery-storage-facility.html"
+      ],
+      "stage_a_routing": "evaluate",
+      "notes": "Operational/commissioning anchor; verify exact split MW/MWh and date in Stage B. Raw screen found no Gurtnellen match."
+    },
+    {
+      "candidate_id": "SEP09_DISC_005",
+      "published_date": "2026-09-09",
+      "region": "GL",
+      "headline": "Atlas Lithium says 71% of Neves direct CAPEX is covered by executed contracts or firm agreements",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "execution_event_anchor",
+      "event_stage_hint": "construction_procurement_execution",
+      "source_candidate_urls": [
+        "https://www.atlas-lithium.com/news/atlas-lithium-announces-strong-progress-at-neves-project-with-71-of-direct-capex-contracted-and-costs-16-below-dfs-budget/"
+      ],
+      "stage_a_routing": "evaluate",
+      "notes": "Critical-minerals execution/de-risking signal; Stage B should verify contract coverage definition, project status and budget comparison. Raw screen found no Atlas Lithium match."
+    },
+    {
+      "candidate_id": "SEP09_DISC_006",
+      "published_date": "2026-09-09",
+      "region": "US",
+      "headline": "USDA conditionally commits $25m loan guarantee for Milford Mining Utah copper processing expansion",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "policy_regulatory_anchor",
+      "event_stage_hint": "conditional_financing_commitment",
+      "source_candidate_urls": [
+        "https://www.rd.usda.gov/newsroom/news-release/usda-rural-development-announces-25-million-loan-guarantee-support-critical-minerals-processing-utah"
+      ],
+      "stage_a_routing": "evaluate_with_policy_stage_cap",
+      "notes": "Critical-minerals financing; distinguish conditional commitment from funded disbursement. Raw screen found no Milford Mining match."
+    },
+    {
+      "candidate_id": "SEP09_DISC_007",
+      "published_date": "2026-09-09",
+      "region": "US",
+      "headline": "U.S. Critical Minerals enters binding framework merger with Nova Resources and Alabama tantalum asset purchase agreements",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "execution_event_anchor",
+      "event_stage_hint": "binding_transaction_framework_and_purchase_agreements",
+      "source_candidate_urls": [
+        "https://www.globenewswire.com/news-release/2026/09/09/"
+      ],
+      "stage_a_routing": "candidate_review",
+      "notes": "Binding transaction claim but primarily issuer-distributed source; independent corroboration required. Raw screen found no U.S. Critical Minerals match."
+    },
+    {
+      "candidate_id": "SEP09_DISC_008",
+      "published_date": "2026-09-09",
+      "region": "KR",
+      "headline": "Samsung SDI extends 1.4294 trillion won loan limit to StarPlus Energy affiliate through 2028",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "data_financial_anchor",
+      "event_stage_hint": "related_party_loan_extension",
+      "source_candidate_urls": [
+        "https://en.sedaily.ai/finance/2026/09/09/corporate-disclosures-september-9"
+      ],
+      "stage_a_routing": "bounded_review",
+      "notes": "Disclosure is an extension/revision of a previously disclosed affiliate loan rather than wholly new capital; novelty cap likely applies. Raw screen found no StarPlus loan match."
+    },
+    {
+      "candidate_id": "SEP09_DISC_009",
+      "published_date": "2026-09-09",
+      "region": "US",
+      "headline": "B2U starts commercial operation of 28MWh Bexar Martinez second-life EV-battery BESS in Texas",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "execution_event_anchor",
+      "event_stage_hint": "commercial_operation",
+      "source_candidate_urls": [
+        "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas"
+      ],
+      "stage_a_routing": "evaluate",
+      "notes": "Commercial-operation anchor and second-life battery use at utility scale. Raw screen found no B2U/Bexar match."
+    },
+    {
+      "candidate_id": "SEP09_DISC_010",
+      "published_date": "2026-09-09",
+      "region": "CN",
+      "headline": "EVE Energy and China Railway Beijing Engineering agree to cooperate on at least 5GWh of ESS projects over three years",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "execution_event_anchor",
+      "event_stage_hint": "strategic_cooperation_agreement",
+      "source_candidate_urls": [
+        "https://chinaevhome.com/2026/09/10/eve-energy-taps-china-railway-unit-for-5-gwh-ess-projects-over-3-years/"
+      ],
+      "stage_a_routing": "evaluate",
+      "notes": "Agreement announced Sep 9; 5GWh minimum project-cooperation volume is material but individual project execution remains future. Raw screen found no EVE/China Railway match."
+    },
+    {
+      "candidate_id": "SEP09_DISC_011",
+      "published_date": "2026-09-09",
+      "region": "GL",
+      "headline": "Kabra Extrusion Technik commissions 10MW/20MWh BESS at Phalodi, Rajasthan",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "execution_event_anchor",
+      "event_stage_hint": "commissioned",
+      "source_candidate_urls": [
+        "https://www.bazaarwatch.com/announcement/112083/kabra-extrusion-technik-limited-general-updates"
+      ],
+      "stage_a_routing": "evaluate",
+      "notes": "Exchange-disclosure-backed commissioning event. Raw screen found no Kabra/Phalodi match."
+    },
+    {
+      "candidate_id": "SEP10_DISC_001",
+      "published_date": "2026-09-10",
+      "region": "KR",
+      "headline": "Hyundai Motor/Kia, LG Energy Solution, Hyundai Engineering and Wonik PNE launch 200kWh used-EV-battery UBESS demonstration",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "execution_event_anchor",
+      "event_stage_hint": "demonstration_execution",
+      "source_candidate_urls": [
+        "https://www.yna.co.kr/amp/view/AKR20260910082800003",
+        "https://en.sedaily.com/finance/2026/09/10/hyundai-kia-test-reusing-old-ev-batteries-as-energy-storage"
+      ],
+      "stage_a_routing": "evaluate",
+      "notes": "Korea's first E-GMP used-battery UBESS demonstration; 200kWh and EV fast-charger linked. Pilot/precommercial technology cap applies."
+    },
+    {
+      "candidate_id": "SEP10_DISC_002",
+      "published_date": "2026-09-10",
+      "region": "EU",
+      "headline": "Volvo Group plans Mariestad energy park with about 70MW/260MWh BESS and real-scale energy-solution test bed",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "strategic_behavior_anchor",
+      "event_stage_hint": "announced_project_plan",
+      "source_candidate_urls": [
+        "https://www.volvogroup.com/en/news-and-media/news/2026/sep/volvo-group-announces-energy-park-initiative-as-next-step-in-mariestad.html"
+      ],
+      "stage_a_routing": "evaluate_with_plan_stage_cap",
+      "notes": "Official disclosure now provides scale and expected 2027 operation; distinguish planned asset from existing Mariestad battery-cell plant planned after 2030."
+    },
+    {
+      "candidate_id": "SEP10_DISC_003",
+      "published_date": "2026-09-10",
+      "region": "GL",
+      "headline": "Jinko ESS signs Middle East C&I distribution agreement with Innovative Efficient Solutions for SunGiga G2",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "execution_event_anchor",
+      "event_stage_hint": "distribution_agreement_signed",
+      "source_candidate_urls": [
+        "https://www.jinkosolar.com/en/site/newsdetail/3021"
+      ],
+      "stage_a_routing": "bounded_review",
+      "notes": "Signed channel agreement but no disclosed volume/project capacity; independent cardability may be capped."
+    },
+    {
+      "candidate_id": "SEP10_DISC_004",
+      "published_date": "2026-09-10",
+      "region": "GL",
+      "headline": "FlexSysAI, ResetData, CSIRO and University of Queensland launch live pilot to make AI data-centre GPU workloads grid-flexible",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "technology_commercialization_anchor",
+      "event_stage_hint": "live_pilot",
+      "source_candidate_urls": [
+        "https://www.csiro.au/en/news/All/News/2026/September/Australia-first-pilot-to-transform-data-centres-from-static-loads-into-dynamic-grid-aware-assets"
+      ],
+      "stage_a_routing": "bounded_review",
+      "notes": "Platform is live on ResetData H200 cluster; early modelling suggests 20–50% workload adjustability within seconds. Pilot/precommercial technology cap applies."
+    },
+    {
+      "candidate_id": "SEP10_DISC_005",
+      "published_date": "2026-09-10",
+      "region": "EU",
+      "headline": "Centrica Energy and Delta Capacity sign partial tolling agreement for 125MW/300MWh Karppio BESS in Finland",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "execution_event_anchor",
+      "event_stage_hint": "revenue_contract_signed_project_under_construction",
+      "source_candidate_urls": [
+        "https://www.centrica.com/media-centre/news/2026/centrica-energy-and-delta-capacity-sign-partial-tolling-agreement-for-125-mw-300-mwh-karppio-bess-project-in-finland/"
+      ],
+      "stage_a_routing": "evaluate",
+      "notes": "Binding partial tolling agreement secures revenue while retaining merchant upside; Q4 2027 commissioning planned."
+    },
+    {
+      "candidate_id": "SEP10_DISC_006",
+      "published_date": "2026-09-10",
+      "region": "GL",
+      "headline": "NTPC issues EOI for grid-connected sodium-ion BESS pilot at thermal plants and offices",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "technology_commercialization_anchor",
+      "event_stage_hint": "eoi_open",
+      "source_candidate_urls": [
+        "https://ntpctender.ntpc.co.in/",
+        "https://www.pv-magazine-india.com/2026/09/10/ntpc-invites-eoi-for-sodium-ion-battery-pilot-at-its-thermal-power-stations/"
+      ],
+      "stage_a_routing": "bounded_review",
+      "notes": "Official NTPC tender lists EOI NTPC/PE/ET&PR/EOI-06/2026-27, closing Oct 15. Procurement/technology validation is pre-award."
+    },
+    {
+      "candidate_id": "SEP10_DISC_007",
+      "published_date": "2026-09-10",
+      "region": "US",
+      "headline": "R3 Lithium announces initiation of operations at Covington recycled-lithium facility, alongside $15m Series A and signed offtakes",
+      "discovery_origin": "coverage_discovery_web",
+      "anchor_hint": "execution_event_anchor",
+      "event_stage_hint": "startup_and_ramp",
+      "source_candidate_urls": [
+        "https://www.r3lithium.com/",
+        "https://www.ajc.com/business/2026/09/r3-lithium-to-restart-former-ascend-elements-battery-material-recycling-factory-east-of-atlanta/"
+      ],
+      "stage_a_routing": "evaluate_with_execution_wording_check",
+      "notes": "Issuer says initiation of operations; independent AJC reports continuous commercial production expected later in 2027, so Stage B must distinguish startup/ramp from full commercial operation."
+    },
+    {
+      "candidate_id": "SEP09_DISC_012",
+      "published_date": "2026-09-08",
+      "operative_event_date": "2026-09-02",
+      "region": "US",
+      "headline": "Cloudbreak Energy Partners announces strategic investment from GETEC Energie Holding to fund IPP transition and U.S. solar/storage portfolio",
+      "discovery_origin": "coverage_discovery_preclean_rescue_plus_web",
+      "raw_preclean_source_story_id": "EU_2026-09-08_C29",
+      "anchor_hint": "data_financial_anchor",
+      "event_stage_hint": "strategic_investment_announced",
+      "source_candidate_urls": [
+        "https://cloudbreakenergy.com/announcing-a-strategic-investment-from-getec-energie-holding-into-cloudbreak-energy/",
+        "https://www.orrick.com/en/News/2026/09/Cloudbreak-Energy-Partners-Announces-Strategic-Investment-from-GETEC-to-Move-into-US-Market"
+      ],
+      "stage_a_routing": "candidate_review",
+      "notes": "Exact Sep9 raw preserves this only in pre-clean, not the locked 393 original membership. Official Cloudbreak disclosure says GETEC investment funds Cloudbreak IPP transition, a 106 MWdc safe-harbored solar portfolio and solar/storage pipeline. Treat as provenance-distinct discovery; assess financing materiality separately from the canonical Sep4 Pueblo BESS NTP event."
+    },
+    {
+      "candidate_id": "SEP09_DISC_013",
+      "published_date": "2026-09-08",
+      "operative_event_date": "2026-09-03",
+      "region": "US",
+      "headline": "Elmet signs definitive agreement to acquire ams OSRAM Schwabmuenchen tungsten and molybdenum production operations",
+      "discovery_origin": "coverage_discovery_preclean_rescue_plus_web",
+      "raw_preclean_source_story_id": "US_2026-09-08_C30",
+      "anchor_hint": "execution_event_anchor",
+      "event_stage_hint": "definitive_asset_purchase_agreement_signed",
+      "source_candidate_urls": [
+        "https://investors.theelmetgroup.com/sec-filings/content/0001213900-26-097862/ea0304152-8k_elmet.htm",
+        "https://www.elmettechnologies.com/manufacturing/elmet-signs-agreement-to-acquire-ams-osram-schwabmunchen/"
+      ],
+      "stage_a_routing": "candidate_review",
+      "notes": "Exact Sep9 raw preserves this only in pre-clean, not the locked 393 original membership. The Sep8 filing states a material definitive asset-purchase agreement entered Sep3 for a fully integrated German tungsten/molybdenum operation; closing expected Q1 2027. Critical-minerals lane fit and battery/ESS decision relevance remain bounded for Stage A."
+    }
+  ],
+  "searched_not_promoted": [
+    {
+      "topic": "China EV penetration could reach 75-80% by 2030",
+      "disposition": "not_promoted",
+      "reason": "forecast/commentary rather than a discrete operative event"
+    },
+    {
+      "topic": "CATL battery price-war analysis",
+      "disposition": "not_promoted",
+      "reason": "analytical synthesis of existing market data rather than a discrete new event"
+    },
+    {
+      "topic": "Standard Energy EU delegation visit to VIB ESS demo site",
+      "disposition": "not_promoted",
+      "reason": "visit/visibility event without a new binding commercial, financing, production or deployment milestone"
+    },
+    {
+      "topic": "JSW Energy 100MW solar + 100MWh BESS BESCOM PPA surfaced on Sep 10 search",
+      "disposition": "not_promoted",
+      "reason": "official underlying PPA is dated July 24 2025; Sep 10 surfacing is stale, not a 2026 new event"
+    },
+    {
+      "topic": "Equinor Citrus Flatts 100MW Texas BESS",
+      "disposition": "not_promoted",
+      "reason": "Sep 3 event already canonicalized; no Sep 10 incremental anchor"
+    },
+    {
+      "topic": "Korea LS Electric-Korea Midland Power renewables MOU",
+      "disposition": "not_promoted",
+      "reason": "current operative cooperation centers on renewables/onshore wind; BESS is stated as future expansion scope without a specific storage project"
+    },
+    {
+      "topic": "Korea autumn power-supply seasonal operating measures",
+      "disposition": "not_promoted",
+      "reason": "seasonal grid operations include ESS/EV-charge timing but do not yet establish a durable battery/ESS structural policy change"
+    },
+    {
+      "topic": "U.S.-Kenya critical-minerals processing assistance statement",
+      "disposition": "not_promoted",
+      "reason": "policy intent reported without a fresh formal mineral deal or operative financing instrument"
+    },
+    {
+      "topic": "Sep7 article describing Google, Tesla, Sunrun and PG&E California SHARE VPP",
+      "disposition": "not_promoted_same_event_repeat",
+      "reason": "PG&E official Sep3 launch already named Tesla and Sunrun as SHARE partners and nearly 21,000 flexible devices; no new Sep7 execution anchor beyond canonical 2026-09-03_US_03.",
+      "raw_preclean_source_story_id": "GL_2026-09-07_C12"
+    },
+    {
+      "topic": "Zeekr 7X 200,000th unit production milestone",
+      "disposition": "not_promoted_routine_progression",
+      "reason": "Round-number single-model production milestone does not independently change market-share, capacity or battery-demand judgment; related 85kWh model update remains ordinary product progression at this gate.",
+      "raw_preclean_source_story_id": "CN_2026-09-08_C16"
+    }
+  ],
+  "discovered_count": 20,
+  "sep9_discovered_count": 13,
+  "sep10_discovered_count": 7,
+  "semantic_completeness_repair": {
+    "status": "PASS",
+    "date": "2026-09-11",
+    "preclean_candidates_reexamined": 4,
+    "rescued_as_discovery": 2,
+    "same_event_repeat_not_promoted": 1,
+    "routine_progression_not_promoted": 1,
+    "story_id_scope": "run_local",
+    "repeat_audit_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/semantic-repeat-map-audit-r1.json"
+  }
+}

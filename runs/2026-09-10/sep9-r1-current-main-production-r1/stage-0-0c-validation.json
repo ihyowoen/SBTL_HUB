@@ -1,14 +1,19 @@
 {
-  "schema": "stage_0_0c_validation_v1",
+  "schema": "stage_0_0c_validation_v2_semantic_repair",
   "status": "PASS",
   "original_input_count": 393,
-  "discovered_count": 18,
-  "expanded_count": 411,
-  "terminal_count": 411,
+  "discovered_count": 20,
+  "expanded_count": 413,
+  "terminal_count": 413,
   "duplicate_candidate_identity_count": 0,
   "missing_terminal_identity_count": 0,
   "unknown_terminal_identity_count": 0,
   "mandatory_region_axes": 6,
   "mandatory_topic_axes": 14,
+  "semantic_repeat_mapping_count": 13,
+  "semantic_repeat_false_mapping_count": 0,
+  "preclean_candidates_reexamined": 4,
+  "preclean_rescued_discovery_count": 2,
+  "preclean_not_promoted_count": 2,
   "stage_a_authorized": true
 }

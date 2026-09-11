@@ -1,5 +1,5 @@
 {
-  "schema": "stage_0_0c_coverage_discovery_v4_current_main_r2",
+  "schema": "stage_0_0c_coverage_discovery_v4_current_main_r3",
   "stage": "0.0C",
   "status": "PASS",
   "generated_date": "2026-09-11",
@@ -2241,9 +2241,43 @@
       ],
       "stage_a_routing": "evaluate_with_execution_wording_check",
       "notes": "Issuer says initiation of operations; independent AJC reports continuous commercial production expected later in 2027, so Stage B must distinguish startup/ramp from full commercial operation."
+    },
+    {
+      "candidate_id": "SEP09_DISC_012",
+      "published_date": "2026-09-08",
+      "operative_event_date": "2026-09-02",
+      "region": "US",
+      "headline": "Cloudbreak Energy Partners announces strategic investment from GETEC Energie Holding to fund IPP transition and U.S. solar/storage portfolio",
+      "discovery_origin": "coverage_discovery_preclean_rescue_plus_web",
+      "raw_preclean_source_story_id": "EU_2026-09-08_C29",
+      "anchor_hint": "data_financial_anchor",
+      "event_stage_hint": "strategic_investment_announced",
+      "source_candidate_urls": [
+        "https://cloudbreakenergy.com/announcing-a-strategic-investment-from-getec-energie-holding-into-cloudbreak-energy/",
+        "https://www.orrick.com/en/News/2026/09/Cloudbreak-Energy-Partners-Announces-Strategic-Investment-from-GETEC-to-Move-into-US-Market"
+      ],
+      "stage_a_routing": "candidate_review",
+      "notes": "Exact Sep9 raw preserves this only in pre-clean, not the locked 393 original membership. Official Cloudbreak disclosure says GETEC investment funds Cloudbreak IPP transition, a 106 MWdc safe-harbored solar portfolio and solar/storage pipeline. Treat as provenance-distinct discovery; assess financing materiality separately from the canonical Sep4 Pueblo BESS NTP event."
+    },
+    {
+      "candidate_id": "SEP09_DISC_013",
+      "published_date": "2026-09-08",
+      "operative_event_date": "2026-09-03",
+      "region": "US",
+      "headline": "Elmet signs definitive agreement to acquire ams OSRAM Schwabmuenchen tungsten and molybdenum production operations",
+      "discovery_origin": "coverage_discovery_preclean_rescue_plus_web",
+      "raw_preclean_source_story_id": "US_2026-09-08_C30",
+      "anchor_hint": "execution_event_anchor",
+      "event_stage_hint": "definitive_asset_purchase_agreement_signed",
+      "source_candidate_urls": [
+        "https://investors.theelmetgroup.com/sec-filings/content/0001213900-26-097862/ea0304152-8k_elmet.htm",
+        "https://www.elmettechnologies.com/manufacturing/elmet-signs-agreement-to-acquire-ams-osram-schwabmunchen/"
+      ],
+      "stage_a_routing": "candidate_review",
+      "notes": "Exact Sep9 raw preserves this only in pre-clean, not the locked 393 original membership. The Sep8 filing states a material definitive asset-purchase agreement entered Sep3 for a fully integrated German tungsten/molybdenum operation; closing expected Q1 2027. Critical-minerals lane fit and battery/ESS decision relevance remain bounded for Stage A."
     }
   ],
-  "discovered_missing_candidate_count": 18,
+  "discovered_missing_candidate_count": 20,
   "baseline_follow_up_candidates": [],
   "existing_card_reinforcements": [
     {
@@ -2880,6 +2914,18 @@
       "topic": "U.S.-Kenya critical-minerals processing assistance statement",
       "disposition": "not_promoted",
       "reason": "policy intent reported without a fresh formal mineral deal or operative financing instrument"
+    },
+    {
+      "topic": "Sep7 article describing Google, Tesla, Sunrun and PG&E California SHARE VPP",
+      "disposition": "not_promoted_same_event_repeat",
+      "reason": "PG&E official Sep3 launch already named Tesla and Sunrun as SHARE partners and nearly 21,000 flexible devices; no new Sep7 execution anchor beyond canonical 2026-09-03_US_03.",
+      "raw_preclean_source_story_id": "GL_2026-09-07_C12"
+    },
+    {
+      "topic": "Zeekr 7X 200,000th unit production milestone",
+      "disposition": "not_promoted_routine_progression",
+      "reason": "Round-number single-model production milestone does not independently change market-share, capacity or battery-demand judgment; related 85kWh model update remains ordinary product progression at this gate.",
+      "raw_preclean_source_story_id": "CN_2026-09-08_C16"
     }
   ],
   "source_universe_expansion_ledger": [
@@ -4526,9 +4572,17 @@
     {
       "candidate_id": "SEP10_DISC_007",
       "origin": "discovered"
+    },
+    {
+      "candidate_id": "SEP09_DISC_012",
+      "origin": "discovered"
+    },
+    {
+      "candidate_id": "SEP09_DISC_013",
+      "origin": "discovered"
     }
   ],
-  "source_universe_expansion_count": 411,
+  "source_universe_expansion_count": 413,
   "must_report_candidate_ledger": [
     {
       "candidate_id": "SEP09_DISC_001",
@@ -4573,6 +4627,14 @@
     {
       "candidate_id": "SEP10_DISC_007",
       "reason": "material execution, financing, scale, infrastructure or strategic-demand signal requiring explicit Stage A disposition"
+    },
+    {
+      "candidate_id": "SEP09_DISC_012",
+      "reason": "Pre-clean rescue with material financing/critical-mineral execution signal requiring explicit Stage A disposition"
+    },
+    {
+      "candidate_id": "SEP09_DISC_013",
+      "reason": "Pre-clean rescue with material financing/critical-mineral execution signal requiring explicit Stage A disposition"
     }
   ],
   "known_unknowns": [
@@ -6225,13 +6287,21 @@
     {
       "candidate_id": "SEP10_DISC_007",
       "disposition": "retain_for_stage_a_selector"
+    },
+    {
+      "candidate_id": "SEP09_DISC_012",
+      "disposition": "retain_for_stage_a_selector"
+    },
+    {
+      "candidate_id": "SEP09_DISC_013",
+      "disposition": "retain_for_stage_a_selector"
     }
   ],
-  "terminal_discovery_disposition_count": 411,
+  "terminal_discovery_disposition_count": 413,
   "reconciliation": {
     "original_input_identity_count": 393,
-    "expanded_universe_identity_count": 411,
-    "terminal_identity_count": 411,
+    "expanded_universe_identity_count": 413,
+    "terminal_identity_count": 413,
     "duplicate_candidate_identity_count": 0,
     "unknown_terminal_identity_count": 0,
     "missing_terminal_identity_count": 0,
@@ -6244,5 +6314,21 @@
     "surviving_flagged_rows_in_original_393": 12,
     "rule": "Only the 12 flagged rows present in final 393 are original-input candidates; all remain independently reviewable. Integrity grouping is not same-event evidence."
   },
-  "stage_a_authorized": true
+  "stage_a_authorized": true,
+  "semantic_completeness_audit": {
+    "status": "PASS",
+    "repeat_map_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/semantic-repeat-map-audit-r1.json",
+    "repeat_mappings_semantically_confirmed": 13,
+    "false_repeat_mappings": 0,
+    "preclean_candidates_reexamined": 4,
+    "preclean_rescued_discoveries": [
+      "SEP09_DISC_012",
+      "SEP09_DISC_013"
+    ],
+    "preclean_not_promoted": [
+      "GL_2026-09-07_C12",
+      "CN_2026-09-08_C16"
+    ],
+    "story_id_scope": "run_local"
+  }
 }

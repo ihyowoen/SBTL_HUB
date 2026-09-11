@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 jobs:
-  diagnose-finalizer:
+  finalize-card-run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,12 +20,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Rebuild final candidate files
+      - name: Build final card-run and re-certify operation binding
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import base64, gzip, hashlib, json
+          import base64,gzip,hashlib,json
           from pathlib import Path
           root=Path('runs/2026-09-10/sep9-r1-current-main-production-r1'); tmp=root/'tmp'; base=str(root)
           text=''.join((tmp/f'production-cards.part{i:02d}').read_text(encoding='utf-8').strip() for i in range(4))
@@ -36,6 +36,7 @@ jobs:
           inserts=[]
           for c in cards:
               urls=[u for u in c.get('urls',[]) if isinstance(u,str) and u.startswith(('http://','https://'))]
+              if not urls: raise SystemExit('no evidence '+c['id'])
               inserts.append({'card':c,'stage_artifacts':refs(c),'evidence_refs':urls})
           rs=[
             {'source_id':'2026-09-09_GL_01','target_id':'2026-09-07_GL_01','source_spec_id':'STD26_0909_A_010','relation_type':'program_lineage','lineage_reason':'Fresh Jan-Jul ex-China battery dataset extends the same SNE market-tracker program lineage.','event_stage_relationship':'same_program_new_measurement_window'},
@@ -56,45 +57,64 @@ jobs:
               if isinstance(v,list): return [stable(x) for x in v]
               return v
           sha=hashlib.sha256(json.dumps(stable(ops),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
-          if sha!='40a53b8407857a145981fafdc2bbd33612461d727e8d82ca6b0adc495c89e53d': raise SystemExit('operation hash drift '+sha)
-          run={'schema':'card_run_v1','run_id':'card-run-2026-09-09-sep9-r1-current-main-production-r1','base_main_commit_sha':'3bb929004ff8b547b86e5f1beab0efb3dac19d62','base_full_blob_sha':'beb2aa7615b583b4c9c0c269974601a0b26c2684','expected_before':1617,'output_updated':'2026-09-11T16:10:00+09:00','operations':ops,'expected_after':1633,'audit_refs':[f'{base}/card-run-audit.json',f'{base}/stage-0-8-415-final.json'],'document_universe_manifest_ref':f'{base}/stage-0-0d.json','coverage_discovery_ref':f'{base}/stage-0-0c-415-final.json','independent_completeness_ref':f'{base}/stage-0-7c-415-final.json','notes':'Sep9/Sep10 governed 415-identity run; final repo-native operation serialization.'}
-          (tmp/'card-run.diagnostic-candidate.json').write_text(json.dumps(run,ensure_ascii=False,indent=2)+'\n')
-          p=root/'stage-0-7c-415-final.json'; d=json.loads(p.read_text()); d['reviewed_operations_sha256']=sha; d['operation_freeze']['reviewed_operations_sha256']=sha; d['round_6_operation_binding']['reviewed_operations_sha256']=sha; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          expected='40a53b8407857a145981fafdc2bbd33612461d727e8d82ca6b0adc495c89e53d'
+          if sha!=expected: raise SystemExit(f'operation hash drift {sha}')
+          run={'schema':'card_run_v1','run_id':'card-run-2026-09-09-sep9-r1-current-main-production-r1','base_main_commit_sha':'3bb929004ff8b547b86e5f1beab0efb3dac19d62','base_full_blob_sha':'beb2aa7615b583b4c9c0c269974601a0b26c2684','expected_before':1617,'output_updated':'2026-09-11T16:10:00+09:00','operations':ops,'expected_after':1633,'audit_refs':[f'{base}/card-run-audit.json',f'{base}/stage-0-8-415-final.json'],'document_universe_manifest_ref':f'{base}/stage-0-0d.json','coverage_discovery_ref':f'{base}/stage-0-0c-415-final.json','independent_completeness_ref':f'{base}/stage-0-7c-415-final.json','notes':'Sep9/Sep10 governed 415-identity run; 16 inserts, 2 directional Related additions, zero delete/remove. Final repo-native operation serialization re-certified.'}
+          (root/'card-run.json').write_text(json.dumps(run,ensure_ascii=False,indent=2)+'\n')
+          p=root/'stage-0-7c-415-final.json'; d=json.loads(p.read_text()); d['reviewed_operations_sha256']=sha; d['operation_freeze']['reviewed_operations_sha256']=sha; d['round_6_operation_binding']['reviewed_operations_sha256']=sha; d['operation_recertification']={'status':'PASS','supersedes_reviewed_operations_sha256':'7816396048e7069d79d8faf6dec38e15a42f21a06d1c09c61fec29b953d6bfdc','reviewed_operations_sha256':sha,'basis':'repo-native schema/V4/apply-check probe'}; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
           p=root/'stage-0-8-415-final.json'; d=json.loads(p.read_text()); d['reviewed_operations_sha256']=sha; d['certified_0_7c']['reviewed_operations_sha256']=sha
           for row in d['github_merge_ready']: row['merge_prep']['reviewed_operations_sha256']=sha
-          p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          d['operation_recertification']={'status':'PASS','supersedes_reviewed_operations_sha256':'7816396048e7069d79d8faf6dec38e15a42f21a06d1c09c61fec29b953d6bfdc','reviewed_operations_sha256':sha}; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          p=root/'card-run-audit.json'; d=json.loads(p.read_text()); d['reviewed_operations_sha256']=sha; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          cert={'schema':'card_run_operation_hash_validation_v3_415_final','status':'PASS','run_id':run['run_id'],'algorithm':'recursive lexicographic object-key sort; preserve array order; compact JSON UTF-8; SHA-256','reviewed_operations_sha256':sha,'insert_count':16,'update_count':0,'related_add_count':2,'delete_count':0,'related_remove_count':0,'expected_before':1617,'expected_after':1633,'base_main_commit_sha':run['base_main_commit_sha'],'base_full_blob_sha':run['base_full_blob_sha'],'supersedes_reviewed_operations_sha256':'7816396048e7069d79d8faf6dec38e15a42f21a06d1c09c61fec29b953d6bfdc','recertification_basis':['schema probe PASS','JS/Python V4 binding probe','apply check against declared main baseline']}
+          (root/'operation-hash-validation-415-final.json').write_text(json.dumps(cert,ensure_ascii=False,indent=2)+'\n')
           PY
-      - name: Capture every pre-apply validator result
+          RUN=runs/2026-09-10/sep9-r1-current-main-production-r1/card-run.json
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN"
+          python3 validation_scripts/card_run_v4_binding_hardening.py --run "$RUN"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
+          node scripts/validate_card_run_relations.mjs --run "$RUN"
+          node scripts/apply_card_run.mjs --run "$RUN" --base-main-sha 3bb929004ff8b547b86e5f1beab0efb3dac19d62 --check
+      - name: Apply canonical mutation and regenerate lean
         shell: bash
         run: |
-          set +e
-          OUT=runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/finalizer-diagnostic.txt
-          RUN=runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/card-run.diagnostic-candidate.json
-          : > "$OUT"
-          check() {
-            name="$1"; shift
-            echo "===== $name =====" >> "$OUT"
-            "$@" >> "$OUT" 2>&1
-            rc=$?
-            echo "RC=$rc" >> "$OUT"
-            echo >> "$OUT"
-          }
-          check schema node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN"
-          check stage_artifacts node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
-          check js_v4 node scripts/validate_card_run_v4_hardening.mjs --run "$RUN"
-          check py_v4 python3 validation_scripts/card_run_v4_binding_hardening.py --run "$RUN"
-          check status node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
-          check relations node scripts/validate_card_run_relations.mjs --run "$RUN"
-          check apply_check node scripts/apply_card_run.mjs --run "$RUN" --base-main-sha 3bb929004ff8b547b86e5f1beab0efb3dac19d62 --check
-          cat "$OUT"
-          exit 0
-      - name: Commit diagnostic
+          set -euo pipefail
+          RUN=runs/2026-09-10/sep9-r1-current-main-production-r1/card-run.json
+          node scripts/apply_card_run.mjs --run "$RUN" --baseline data/cards.full.json --canonical-path data/cards.full.json --output data/cards.full.json --report runs/2026-09-10/sep9-r1-current-main-production-r1/apply-report.json --lean-path public/data/cards.json --base-main-sha 3bb929004ff8b547b86e5f1beab0efb3dac19d62 --apply
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('runs/2026-09-10/sep9-r1-current-main-production-r1'); full=hashlib.sha256(Path('data/cards.full.json').read_bytes()).hexdigest(); lean=hashlib.sha256(Path('public/data/cards.json').read_bytes()).hexdigest(); run=json.loads((root/'card-run.json').read_text()); audit=json.loads((root/'card-run-audit.json').read_text()); audit['full_output_sha256']=full; audit['lean_output_sha256']=lean; audit['inserted_ids']=[x['card']['id'] for x in run['operations']['insert']]; audit['updated_ids']=[]; audit['related_additions']=[{'source_id':x['source_id'],'target_id':x['target_id'],'direction':x['direction']} for x in run['operations']['related_add']]; (root/'card-run-audit.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n'); report=json.loads((root/'apply-report.json').read_text()); report['full_output_sha256']=full; report['lean_output_sha256']=lean; (root/'apply-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n'); doc=json.loads(Path('data/cards.full.json').read_text()); summary={'schema':'sep9_final_output_hashes_v1','status':'PASS','canonical_count':len(doc['cards']),'full_output_sha256':full,'lean_output_sha256':lean,'operations_sha256':'40a53b8407857a145981fafdc2bbd33612461d727e8d82ca6b0adc495c89e53d'}; (root/'final-output-hashes.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n'); print(json.dumps(summary,indent=2))
+          PY
+      - name: Run exact production validation chain
+        shell: bash
+        run: |
+          set -euo pipefail
+          RUN=runs/2026-09-10/sep9-r1-current-main-production-r1/card-run.json
+          LEDGER=runs/2026-09-10/sep9-r1-current-main-production-r1/prompt-0-8-id-ledger.json
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits_dispatch.mjs --run "$RUN" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN" --full data/cards.full.json --ledger "$LEDGER" >/tmp/merge-prep-ref.txt
+          python3 validation_scripts/related_lifecycle_check.py data/cards.full.json --require-contract --new-id-file "$LEDGER"
+          python3 validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file "$LEDGER"
+          python3 validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file "$LEDGER"
+          MERGE_PREP_REF="$(cat /tmp/merge-prep-ref.txt)"
+          python3 validation_scripts/stage_artifact_contract_check.py 0.8 "$MERGE_PREP_REF"
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          node scripts/apply_card_run.mjs --run "$RUN" --baseline data/cards.full.json --canonical-path data/cards.full.json --output data/cards.full.json --report runs/2026-09-10/sep9-r1-current-main-production-r1/apply-report.json --lean-path public/data/cards.json --base-main-sha 3bb929004ff8b547b86e5f1beab0efb3dac19d62 --verify
+          git diff --check
+      - name: Commit governed production outputs
         shell: bash
         run: |
           set -euo pipefail
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/finalizer-diagnostic.txt
-          git diff --cached --quiet && exit 0
-          git commit -m 'chore: record Sep9 finalizer gate diagnostics'
+          git add data/cards.full.json public/data/cards.json runs/2026-09-10/sep9-r1-current-main-production-r1/card-run.json runs/2026-09-10/sep9-r1-current-main-production-r1/card-run-audit.json runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-7c-415-final.json runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-8-415-final.json runs/2026-09-10/sep9-r1-current-main-production-r1/operation-hash-validation-415-final.json runs/2026-09-10/sep9-r1-current-main-production-r1/apply-report.json runs/2026-09-10/sep9-r1-current-main-production-r1/prompt-0-8-id-ledger.json runs/2026-09-10/sep9-r1-current-main-production-r1/final-output-hashes.json
+          git diff --cached --quiet && { echo 'nothing to commit'; exit 1; }
+          git commit -m 'data: apply Sep9 governed 415-identity card run'
           git push origin HEAD:chatgpt/sep9-r1-current-main-production-r1

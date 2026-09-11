@@ -11,89 +11,52 @@ permissions:
   contents: write
 
 jobs:
-  inspect-payload:
+  inspect-relations:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Reconstruct and inspect four-part production payload
+      - name: Inspect relation-card payload fields
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           import base64, gzip, hashlib, json
           from pathlib import Path
-
           root = Path('runs/2026-09-10/sep9-r1-current-main-production-r1')
-          parts = [root / 'tmp' / f'production-cards.part{i:02d}' for i in range(4)]
-          missing = [str(p) for p in parts if not p.is_file()]
-          if missing:
-              raise SystemExit(f'missing payload parts: {missing}')
-          text = ''.join(p.read_text(encoding='utf-8').strip() for p in parts)
-          compressed = base64.b64decode(text, validate=True)
-          decoded = gzip.decompress(compressed)
-          payload = json.loads(decoded.decode('utf-8'))
-
-          if isinstance(payload, dict):
-              keys = sorted(payload.keys())
-              if isinstance(payload.get('cards'), list):
-                  items = payload['cards']
-              elif isinstance(payload.get('operations'), dict):
-                  items = payload['operations'].get('insert', [])
-              else:
-                  items = []
-              payload_type = 'object'
-          elif isinstance(payload, list):
-              keys = []
-              items = payload
-              payload_type = 'array'
-          else:
-              keys = []
-              items = []
-              payload_type = type(payload).__name__
-
-          ids = []
-          source_specs = []
-          for item in items:
-              if isinstance(item, dict) and isinstance(item.get('card'), dict):
-                  card = item['card']
-              elif isinstance(item, dict):
-                  card = item
-              else:
-                  continue
-              if card.get('id'):
-                  ids.append(card['id'])
-              if card.get('source_spec_id'):
-                  source_specs.append(card['source_spec_id'])
-
-          summary = {
-              'schema': 'sep9_production_payload_inspection_v1',
-              'status': 'PASS',
-              'part_sizes': [p.stat().st_size for p in parts],
-              'base64_chars': len(text),
-              'compressed_bytes': len(compressed),
-              'compressed_sha256': hashlib.sha256(compressed).hexdigest(),
-              'decoded_bytes': len(decoded),
-              'decoded_sha256': hashlib.sha256(decoded).hexdigest(),
-              'payload_type': payload_type,
-              'top_level_keys': keys,
-              'item_count': len(items),
-              'ids': ids,
-              'source_spec_ids': source_specs,
+          text = ''.join((root/'tmp'/f'production-cards.part{i:02d}').read_text(encoding='utf-8').strip() for i in range(4))
+          cards = json.loads(gzip.decompress(base64.b64decode(text, validate=True)).decode('utf-8'))
+          byid = {c['id']: c for c in cards}
+          detail = {}
+          for cid in ['2026-09-09_GL_01','2026-09-07_CN_02']:
+              c = byid[cid]
+              detail[cid] = {
+                  'source_spec_id': c.get('source_spec_id'),
+                  'urls': c.get('urls'),
+                  'related': c.get('related'),
+                  'related_ids': c.get('related_ids'),
+                  'related_lineage': c.get('related_lineage'),
+                  'stage_b_lineage': c.get('stage_b_lineage'),
+                  'date_role': c.get('date_role'),
+              }
+          payload = {
+              'schema':'sep9_relation_payload_inspection_v1',
+              'status':'PASS',
+              'decoded_sha256': hashlib.sha256(gzip.decompress(base64.b64decode(text, validate=True))).hexdigest(),
+              'details': detail,
           }
-          (root / 'tmp' / 'production-cards.summary.json').write_text(
-              json.dumps(summary, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
-          )
-          print(json.dumps(summary, ensure_ascii=False, indent=2))
+          p = root/'tmp'/'production-cards.relation-summary.json'
+          p.write_text(json.dumps(payload, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          print(json.dumps(payload, ensure_ascii=False, indent=2))
           PY
-      - name: Commit inspection summary
+      - name: Commit relation inspection summary
         shell: bash
         run: |
           set -euo pipefail
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/production-cards.summary.json
+          git add runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/production-cards.relation-summary.json
           git diff --cached --quiet && exit 0
-          git commit -m 'chore: record Sep9 production payload inspection'
+          git commit -m 'chore: record Sep9 relation-card payload inspection'
           git push origin HEAD:chatgpt/sep9-r1-current-main-production-r1

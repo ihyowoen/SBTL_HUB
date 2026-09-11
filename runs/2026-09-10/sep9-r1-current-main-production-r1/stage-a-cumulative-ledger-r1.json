@@ -1,0 +1,76 @@
+{
+  "schema": "sbtl_stage_a_cumulative_ledger_v1",
+  "stage": "A",
+  "status": "IN_PROGRESS",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "generated_date": "2026-09-11",
+  "authority": {
+    "source_input_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/source-identity-ledger.json",
+    "coverage_relock_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-r3.json",
+    "coverage_validation_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-validation.json",
+    "semantic_repeat_audit_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/semantic-repeat-map-audit-r1.json",
+    "source_recovery_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-source-recovery-r1.json",
+    "salvage_audit_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-chain-salvage-audit-r1.json",
+    "input_sha256": "623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92",
+    "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+    "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+    "base_card_count": 1617
+  },
+  "universe": {
+    "original_source_rows": 393,
+    "external_or_preclean_discoveries": 20,
+    "event_split_children": 2,
+    "terminal_identity_total": 415
+  },
+  "accounting": {
+    "terminal_decision_count": 20,
+    "open_identity_count": 395,
+    "duplicate_terminal_identity_count": 0,
+    "unknown_terminal_identity_count": 0,
+    "final_stage_a_pass_authorized": false
+  },
+  "decision_counts": {
+    "existing_reinforcement_or_same_event": 14,
+    "split_parent_decomposed": 1,
+    "candidate_review_pool": 3,
+    "watchlist_or_support_context": 2
+  },
+  "terminal_decisions": [
+    {"identity":"US_2026-09-09_C01","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-08_US_01","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"KR_2026-09-08_C54","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-08_KR_02","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"JP_2026-09-08_C08","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-08-31_JP_02","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"EU_2026-09-08_C28","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-08_GL_01","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"CN_2026-09-07_C04","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-06_CN_03","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"CN_2026-09-07_C03","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-07_CN_01","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"TF_0060","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-08_GL_02","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"US_2026-09-08_C04","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-02_GL_01","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"GL_2026-09-06_C03","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-04_GL_03","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"EU_2026-09-07_C08","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-02_US_02","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"KR_2026-09-08_C44","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-08-05_KR_02","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"KR_2026-09-08_C43","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-08-05_KR_02","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"CN_2026-09-08_C09","identity_type":"original_source_row","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-04_CN_01","basis":"semantic_repeat_map_audit_r1","new_card_authorized":false},
+    {"identity":"EU_2026-09-08_C07","identity_type":"original_source_row","decision":"split_parent_decomposed","child_identities":["SEP09_SPLIT_LIXHE","SEP09_SPLIT_COO"],"basis":"stage_0_0c_combined_relock","new_card_authorized":false},
+    {"identity":"SEP09_SPLIT_LIXHE","identity_type":"event_split_child","source_parent":"EU_2026-09-08_C07","source_spec_id":"STD26_0909_A_014","decision":"existing_reinforcement_or_same_event","canonical_target":"2026-09-01_EU_01","event":"Luminus/EDF Lixhe 150MW/600MWh BESS commercial operation","basis":"stage_0_0c_event_split_plus_legacy_relation_salvage","new_card_authorized":false},
+    {"identity":"SEP09_SPLIT_COO","identity_type":"event_split_child","source_parent":"EU_2026-09-08_C07","source_spec_id":"STD26_0909_A_015","decision":"candidate_review_pool","event":"ENGIE Coo 74MW/296MWh BESS construction start","basis":"stage_0_0c_event_split","next_gate":"revalidate legacy A_015 strict disposition against exact source packet","new_card_authorized":false},
+    {"identity":"KR_2026-09-09_C43","identity_type":"original_source_row","decision":"watchlist_or_support_context","headline":"LG엔솔 CTO, 美 스탠퍼드 석학들 만나 '전고체 상용화' 치트키 찾는다","reason":"Source-bound packet establishes research/technology exchange, not a commercial production milestone.","basis":"stage_a_source_recovery_r1","new_card_authorized":false},
+    {"identity":"KR_2026-09-09_C22","identity_type":"original_source_row","decision":"candidate_review_pool","headline":"BYD·코르버스, 차세대 전기추진선박용 LFP 배터리 출시","reason":"Marine LFP product launch is relevant, but deployment/customer/commercial scale requires downstream evidence-strength review.","basis":"stage_a_source_recovery_r1","new_card_authorized":false},
+    {"identity":"KR_2026-09-09_C163","identity_type":"original_source_row","decision":"watchlist_or_support_context","headline":"전기안전 영역 확장...ESS·해상풍력·전기차 사고 대응 한자리","reason":"Safety-management/conference context; no discrete operative rule or execution change is source-bound.","basis":"stage_a_source_recovery_r1","new_card_authorized":false},
+    {"identity":"EU_2026-09-07_C11","identity_type":"original_source_row","decision":"candidate_review_pool","headline":"Engie acquires 66-MW/264-MWh BESS project in southern Spain","reason":"Discrete BESS transaction is identified but the supplied row is title-only; strict execution terms require Stage B source-body verification.","basis":"stage_a_source_recovery_r1","new_card_authorized":false}
+  ],
+  "legacy_salvage_queue": {
+    "status": "OPEN_REVALIDATION_REQUIRED",
+    "note": "These are legacy spec bindings, not additional universe identities. Resolve each to a current identity before any reuse and do not double-count A_014/A_015 which already map to the Lixhe/Coo split children.",
+    "legacy_stage_a_specs": ["STD26_0909_A_002","STD26_0909_A_003","STD26_0909_A_004","STD26_0909_A_007","STD26_0909_A_009","STD26_0909_A_010","STD26_0909_A_012","STD26_0909_A_013","STD26_0909_A_016","STD26_0909_A_017","STD26_0909_A_018","STD26_0909_A_019","STD26_0909_A_020","STD26_0909_A_021"],
+    "already_resolved_split_specs": ["STD26_0909_A_014","STD26_0909_A_015"],
+    "legacy_0_1p_specs": ["STD26_0909_P_002"]
+  },
+  "guards": {
+    "stage_a_external_web_fetch_used": false,
+    "production_ids_authorized": false,
+    "canonical_mutation_authorized": false,
+    "delete_authorized": false,
+    "related_remove_authorized": false,
+    "preserve_existing_related": true
+  },
+  "next_action": "Continue exact-source batching over the remaining 395 identities, resolving legacy salvage specs only after identity binding and preserving discoveries/event-split children as separate provenance lanes."
+}

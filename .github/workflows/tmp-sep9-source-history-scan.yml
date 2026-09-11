@@ -1,0 +1,57 @@
+name: tmp-sep9-source-history-scan
+on:
+  push:
+    branches:
+      - chatgpt/sep9-source-history-scan-final
+permissions:
+  contents: read
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fetch all refs and recover matching raw source if present
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --all --prune --tags '+refs/heads/*:refs/remotes/origin/*'
+          mkdir -p /tmp/recovery/recovered
+          target='final_news_llm_input_newsletter_expanded_20260909_135804.json'
+          git rev-list --objects --all > /tmp/recovery/all-objects.txt
+          grep -F "$target" /tmp/recovery/all-objects.txt > /tmp/recovery/matches.txt || true
+          python - <<'PY'
+          import json, pathlib, subprocess, hashlib
+          root=pathlib.Path('/tmp/recovery')
+          matches=[]
+          for line in (root/'matches.txt').read_text(errors='replace').splitlines():
+              if not line.strip(): continue
+              parts=line.split(' ',1)
+              sha=parts[0]; path=parts[1] if len(parts)>1 else ''
+              typ=subprocess.check_output(['git','cat-file','-t',sha],text=True).strip()
+              size=int(subprocess.check_output(['git','cat-file','-s',sha],text=True).strip())
+              rec={'sha':sha,'path':path,'type':typ,'size':size}
+              if typ=='blob':
+                  data=subprocess.check_output(['git','cat-file','-p',sha])
+                  out=root/'recovered'/f'{sha}_{pathlib.Path(path).name}'
+                  out.write_bytes(data)
+                  rec['sha256']=hashlib.sha256(data).hexdigest()
+                  try:
+                      j=json.loads(data)
+                      rec['json_parse']=True
+                      rec['story_count']=(j.get('summary') or {}).get('story_count')
+                      rec['run_tag']=(j.get('meta') or {}).get('run_tag')
+                  except Exception as e:
+                      rec['json_parse']=False; rec['error']=str(e)
+              matches.append(rec)
+          report={'target':'final_news_llm_input_newsletter_expanded_20260909_135804.json','match_count':len(matches),'matches':matches}
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sep9-source-history-scan
+          path: /tmp/recovery
+          if-no-files-found: error
+          retention-days: 2

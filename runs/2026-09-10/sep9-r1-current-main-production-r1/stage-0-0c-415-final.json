@@ -1,0 +1,61 @@
+{
+  "schema": "stage_0_0c_coverage_discovery_v6_415_final",
+  "stage": "0.0C",
+  "status": "PASS",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "generated_date": "2026-09-11",
+  "document_universe_manifest_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0d.json",
+  "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "base_card_count": 1617,
+  "input_filename": "final_news_llm_input_newsletter_expanded_20260909_135804.json",
+  "input_sha256": "623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92",
+  "input_story_count": 393,
+  "original_input_accounted": true,
+  "original_input_count": 393,
+  "external_or_preclean_discovery_count": 20,
+  "event_split_child_count": 2,
+  "non_original_terminal_identity_count": 22,
+  "expanded_count": 415,
+  "terminal_count": 415,
+  "duplicate_candidate_identity_count": 0,
+  "missing_terminal_identity_count": 0,
+  "unknown_terminal_identity_count": 0,
+  "stage_a_authorized": true,
+  "identity_relock_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-r3.json",
+  "full_coverage_source_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c.json",
+  "coverage_discovery_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/coverage-discovery-final.json",
+  "regional_coverage_matrix": {
+    "korea": {"status":"searched"},
+    "north_america": {"status":"searched"},
+    "china": {"status":"searched"},
+    "japan": {"status":"searched"},
+    "europe": {"status":"searched"},
+    "material_global_markets": {"status":"searched"}
+  },
+  "topic_coverage_matrix": {
+    "cells_chemistries": {"status":"searched"},
+    "materials_components": {"status":"searched"},
+    "pouch_pouch_film_demand": {"status":"searched"},
+    "ess_bess": {"status":"searched"},
+    "ev_charging": {"status":"searched"},
+    "manufacturing_capacity_utilisation": {"status":"searched"},
+    "grid_ai_data_centre_power": {"status":"searched"},
+    "critical_minerals_refining": {"status":"searched"},
+    "recycling": {"status":"searched"},
+    "policy_trade_sanctions_subsidies_localisation": {"status":"searched"},
+    "competitors_customers": {"status":"searched"},
+    "prices_costs_margins": {"status":"searched"},
+    "financing": {"status":"searched"},
+    "safety_recall_commissioning_operation": {"status":"searched"}
+  },
+  "event_split_corrections": [
+    {"parent_story_id":"EU_2026-09-08_C07","child_event_id":"SEP09_SPLIT_LIXHE","source_spec_id":"STD26_0909_A_014","disposition":"existing_reinforcement","canonical_target":"2026-09-01_EU_01"},
+    {"parent_story_id":"EU_2026-09-08_C07","child_event_id":"SEP09_SPLIT_COO","source_spec_id":"STD26_0909_A_015","disposition":"new_event_stage_a"}
+  ],
+  "preclean_rescue_corrections": [
+    {"candidate_id":"SEP09_DISC_012","disposition":"provenance_distinct_discovery_stage_a"},
+    {"candidate_id":"SEP09_DISC_013","disposition":"provenance_distinct_discovery_stage_a"}
+  ],
+  "authority_note": "This final artifact combines the exact 415-identity relock with the completed region/topic search matrices from the full 0.0C artifact. The original 393 source membership remains unchanged; no deletion or related_remove is introduced."
+}

@@ -1,15 +1,21 @@
 {
-  "schema": "card_run_stage_binding_subset_v1",
+  "schema": "card_run_stage_binding_subset_v2_superseded",
   "stage": "stage_a",
-  "status": "PASS",
+  "status": "SUPERSEDED_REVALIDATION_REQUIRED",
   "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
   "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
-  "source_full_artifact_sha256": "d09d22492a2ee853167358dc19199c379cbb862020ba31f13c5b9f755d67d920",
-  "subset_scope": "15 production strict specs originating from Stage A before 0.1P promotion",
+  "legacy_source_full_artifact_sha256": "d09d22492a2ee853167358dc19199c379cbb862020ba31f13c5b9f755d67d920",
+  "legacy_source_full_artifact_present_in_repo": false,
+  "subset_scope": "15 legacy production strict specs originating from Stage A before 0.1P promotion",
+  "current_universe_count": 415,
+  "salvage_only": true,
+  "production_authorized": false,
   "strict_passed_spec": [
     {"spec_id":"STD26_0909_A_002"},{"spec_id":"STD26_0909_A_003"},{"spec_id":"STD26_0909_A_004"},{"spec_id":"STD26_0909_A_007"},{"spec_id":"STD26_0909_A_009"},
-    {"spec_id":"STD26_0909_A_010","related_prepass":{"status":"PASS","relation_candidates":[{"target_candidate_id":"2026-09-07_GL_01","proposed_relation_type":"program_lineage"}]}},
+    {"spec_id":"STD26_0909_A_010","related_prepass":{"status":"LEGACY_HINT_REVALIDATION_REQUIRED","relation_candidates":[{"target_candidate_id":"2026-09-07_GL_01","proposed_relation_type":"program_lineage"}]}},
     {"spec_id":"STD26_0909_A_012"},{"spec_id":"STD26_0909_A_013"},{"spec_id":"STD26_0909_A_015"},{"spec_id":"STD26_0909_A_016"},{"spec_id":"STD26_0909_A_017"},{"spec_id":"STD26_0909_A_018"},{"spec_id":"STD26_0909_A_019"},{"spec_id":"STD26_0909_A_020"},{"spec_id":"STD26_0909_A_021"}
-  ]
+  ],
+  "supersession_reason": "This binding subset predates the authoritative 415-identity relock and its referenced full Stage A artifact is not present in the repo. Each spec may be salvaged only after exact-source and current canonical-relation revalidation.",
+  "salvage_audit_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-chain-salvage-audit-r1.json"
 }

@@ -1,7 +1,7 @@
 {
-  "schema": "sbtl_raw_input_audit_v1",
+  "schema": "sbtl_raw_input_audit_v2_exact_source",
   "stage": "RAW_INPUT_AUDIT",
-  "status": "BLOCKED_SOURCE_BYTES_NOT_MATERIALIZED",
+  "status": "PASS",
   "generated_date": "2026-09-11",
   "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
@@ -9,22 +9,23 @@
   "base_lean_blob_sha": "f079457c2e734d75d8190633edda1031d487cc47",
   "base_card_count": 1617,
   "input_file": "final_news_llm_input_newsletter_expanded_20260909_135804.json",
-  "input_sha256": null,
-  "input_bytes": null,
+  "materialized_upload_name": "final_news_llm_input_newsletter_expanded_20260909_135804(1).json",
+  "input_sha256": "623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92",
+  "input_bytes": 10601218,
   "input_summary": {
     "story_count": 393,
     "status_counts": {
       "KEEP": 298,
-      "REVIEW": 3,
-      "TRIAGE_FILTERED": 92
+      "TRIAGE_FILTERED": 92,
+      "REVIEW": 3
     },
     "region_counts": {
-      "KR": 176,
-      "GL": 59,
-      "CN": 59,
-      "EU": 41,
       "US": 39,
-      "JP": 19
+      "KR": 176,
+      "JP": 19,
+      "GL": 59,
+      "EU": 41,
+      "CN": 59
     },
     "keep_story_count": 298,
     "review_story_count": 3,
@@ -36,54 +37,89 @@
       "FIRST": 257,
       "REPEAT": 135,
       "REPUBLISH": 1
-    }
+    },
+    "run_tag": "20260909_135804",
+    "run_label": "2026-09-09 13:58 KST",
+    "source_schema": "final_news_llm_input_v4_newsletter_expanded"
   },
   "identity_checks": {
-    "duplicate_story_id_count": null,
-    "duplicate_primary_url_count": null,
+    "story_row_count": 393,
+    "nonempty_story_id_count": 393,
+    "unique_story_id_count": 393,
+    "duplicate_story_id_count": 0,
+    "nonempty_primary_url_count": 393,
+    "unique_primary_url_count": 393,
+    "duplicate_primary_url_count": 0,
     "orphan_count": 0,
-    "status": "BLOCKED_EXACT_SOURCE_BYTES_REQUIRED"
+    "status": "PASS"
   },
   "integrity_grouping_findings": {
-    "flagged_group_count": 7,
-    "flagged_story_count": 25,
-    "upstream_excluded_story_count": 0,
-    "disposition": "REASSESS_ALL_FLAGGED_ROWS_AS_INDIVIDUAL_EVENTS",
-    "delete_from_input": false,
-    "known_false_grouping_classes": [
-      "Mining.com unrelated critical-mineral timeline and Albemarle CEO events",
-      "Denki Shimbun unrelated power/energy/industrial stories grouped together",
-      "Li Auto/CATL sourcing shift and Dongfeng/CATL battery-swap filing treated as distinct events",
-      "Zeekr 7X delivery milestone and 2027 filing/new-battery event treated as distinct or follow-up events, not same-event duplicate",
-      "Gaon Cable Canada entry, Singapore PM compensation article, and Kia PBV story grouped together despite unrelated event identity",
-      "HS Hyosung AI-infrastructure article and unrelated edtech article grouped together"
-    ]
+    "upstream_flagged_group_count": 7,
+    "upstream_flagged_story_count": 25,
+    "upstream_integrity_excluded_story_count": 0,
+    "flagged_rows_present_in_final_393": 12,
+    "flagged_rows_not_present_in_final_393": 13,
+    "final_393_flagged_story_ids": [
+      "CN_2026-09-08_C12",
+      "CN_2026-09-09_C05",
+      "GL_2026-09-07_C07",
+      "GL_2026-09-08_C15",
+      "JP_2026-09-07_C01",
+      "JP_2026-09-07_C03",
+      "JP_2026-09-07_C06",
+      "JP_2026-09-08_C08",
+      "JP_2026-09-08_C13",
+      "JP_2026-09-08_C14",
+      "JP_2026-09-09_C03",
+      "KR_2026-09-09_C97"
+    ],
+    "upstream_flagged_not_in_final_story_ids": [
+      "CN_2026-09-08_C16",
+      "CN_2026-09-09_C03",
+      "JP_2026-09-07_C04",
+      "JP_2026-09-07_C07",
+      "JP_2026-09-07_C08",
+      "JP_2026-09-08_C10",
+      "JP_2026-09-08_C12",
+      "JP_2026-09-09_C08",
+      "JP_2026-09-09_C09",
+      "KR_2026-09-08_C39",
+      "KR_2026-09-09_C14",
+      "KR_2026-09-09_C161",
+      "KR_2026-09-09_C31"
+    ],
+    "interpretation": "The 25-row integrity_summary describes the upstream/pre-clean universe. Exactly 12 flagged rows survive into the final 393-row input. The other 13 were not removed by the integrity exclusion mechanism (integrity excluded count is 0); they are outside the final 393 output after downstream newsletter-clean/expanded selection. They must not be misrepresented as original_input_ledger rows.",
+    "final_input_disposition": "REASSESS_THE_12_SURVIVING_FLAGGED_ROWS_AS_INDIVIDUAL_EVENTS",
+    "delete_from_input": false
   },
   "known_canonical_reconciliation": [
     {
       "story_id": "US_2026-09-09_C01",
-      "headline": "'Deeply Alarmed': Trump Administration Slams Ford's Deal With Chinese Battery Company",
       "disposition": "EXISTING_CARD_REINFORCEMENT_OR_SAME_EVENT_REPUBLICATION",
       "target_id": "2026-09-08_US_01",
-      "reason": "The Sep 9 InsideEVs article reports the same Transportation Secretary Sean Duffy letter/Ford-CATL licensing pressure event already canonicalized on Sep 8; article date alone does not create a new event."
+      "reason": "Same Sean Duffy/Ford-CATL licensing-pressure event already canonicalized Sep 8; later article date alone is not a fresh event."
+    },
+    {
+      "story_id": "JP_2026-09-08_C08",
+      "disposition": "EXISTING_CARD_REINFORCEMENT_OR_REPEAT",
+      "target_id": "2026-08-31_JP_02",
+      "reason": "Marubeni New Power FIP solar co-located BESS balancing-market operation was already admitted in the Sep 8 production run."
+    },
+    {
+      "story_id": "EU_2026-09-08_C27",
+      "disposition": "EXISTING_CARD_REINFORCEMENT_OR_REPEAT",
+      "target_id": "2026-09-08_GL_01",
+      "reason": "Samsung C&T Mangoplah 100MW/400MWh BESS grid-connection milestone already exists in canonical."
     }
   ],
-  "sep10_discovery_extension": {
-    "authorized": true,
-    "original_input_cardinality_unchanged": 393,
-    "discovered_candidate_artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/coverage-discovery-2026-09-10-supplement.json",
-    "initial_discovered_candidate_count": 3
-  },
-  "source_recovery_audit": {
-    "file_library_metadata_and_search_available": true,
-    "file_library_raw_bytes_materialized": false,
-    "git_history_exact_filename_matches": 0,
-    "git_history_scan_run_id": 34554702742,
-    "git_history_scan_conclusion": "success_no_match",
-    "google_drive_exact_filename_matches": 0,
-    "canonical_compact_index_recovered": true,
-    "canonical_compact_index_card_count": 1617,
-    "formal_original_input_ledger_complete": false
+  "source_materialization": {
+    "exact_bytes_available": true,
+    "source_sha256_verified": true,
+    "source_byte_size_verified": true,
+    "json_parse_verified": true,
+    "story_count_verified": true,
+    "formal_original_input_ledger_can_be_built": true,
+    "previous_source_gate": "RESOLVED_BY_USER_UPLOAD_2026-09-11"
   },
   "legacy_related_boundary": {
     "disposition": "PRESERVE_EXISTING_RELATED",
@@ -92,15 +128,10 @@
   },
   "audit_conclusion": {
     "raw_input_metadata_verified": true,
-    "raw_input_full_identity_accounting_verified": false,
-    "raw_input_usable_for_formal_0_0c_pass": false,
+    "raw_input_full_identity_accounting_verified": true,
+    "raw_input_usable_for_formal_0_0c_pass": true,
     "stories_deleted_by_audit": 0,
-    "blocking_requirements": [
-      "Materialize the exact Sep 9 input bytes or an equivalent complete machine-readable 393-row source ledger.",
-      "Compute exact input SHA256 and byte count from those bytes.",
-      "Verify duplicate story-id and primary-URL counts over all 393 rows.",
-      "Build the complete 393-row original_input_ledger required by Prompt 0.0C before authorizing Stage A."
-    ],
-    "fail_closed_note": "Do not fabricate 393/393 accounting from partial semantic-search snippets. Stage A, production IDs, canonical mutation, delete and related_remove remain unauthorized until the source ledger is complete."
+    "next_stage": "PROMPT_0_0C_COVERAGE_DISCOVERY",
+    "note": "Exact source gate is cleared. Proceed with 393/393 original_input ledger plus provenance-distinct discovery candidates."
   }
 }

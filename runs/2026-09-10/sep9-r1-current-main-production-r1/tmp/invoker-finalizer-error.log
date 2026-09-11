@@ -1,0 +1,2826 @@
+FINALIZER_RUN_STEP_COUNT=5
+=== STEP 1/5: Materialize exact 415 coverage authority and final card-run ===
+=== STEP_RC=0 ===
+=== STEP 2/5: Fail-closed pre-apply validation ===
+{
+  "status": "PASS",
+  "schema": "schemas/card-run.v1.schema.json",
+  "instance": "runs/2026-09-10/sep9-r1-current-main-production-r1/card-run.json"
+}
+{
+  "status": "PASS",
+  "run_path": "runs/2026-09-10/sep9-r1-current-main-production-r1/card-run.json",
+  "output_updated": "2026-09-11T16:10:00+09:00",
+  "validated_stage_artifact_count": 126,
+  "allowed_statuses": [
+    "ACCEPTED_FACT_SAFE",
+    "ACCEPTED_FACT_SAFE_AFTER_CONTROLLED_RESCUE",
+    "ADDABLE_MERGE_SAFE",
+    "CONTENT_ENRICHED",
+    "CONTENT_ENRICHED_AND_LANGUAGE_TERMINOLOGY_POLISHED",
+    "EVIDENCE_COMPLETE",
+    "EVIDENCE_COMPLETE_AND_SOURCE_CLAIM_COVERED",
+    "GITHUB_MERGE_READY",
+    "LANGUAGE_TERMINOLOGY_POLISHED",
+    "PASS",
+    "PASSED",
+    "PASS_WITH_DECLARED_RESIDUAL_RISK",
+    "PASS_WITH_NOTES",
+    "PASS_WITH_WARNINGS",
+    "PUBLISH_READY",
+    "SOURCE_CLAIM_COVERED",
+    "VERIFIED"
+  ],
+  "completeness_binding": {
+    "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-7c-415-final.json",
+    "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+    "reviewed_operations_sha256": "40a53b8407857a145981fafdc2bbd33612461d727e8d82ca6b0adc495c89e53d"
+  },
+  "artifacts": [
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a-promotion2.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a-promotion2.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    },
+    {
+      "reference": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json",
+      "status": "PASS",
+      "normalized_status": "PASS"
+    }
+  ]
+}
+PASS: 126 stage artifacts pass; Stage 0.7C is bound to card-run-2026-09-09-sep9-r1-current-main-production-r1; output_updated is RFC3339
+FAIL [BLOCKED_STAGE_CHAIN_CONTRACT]: insert[0].stage_artifacts[0]: {
+  "status": "BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT",
+  "stage": "A",
+  "item_count": 15,
+  "missing_count": 1233,
+  "findings": [
+    {
+      "scope": "top_level",
+      "field": "stage_a_validity_status"
+    },
+    {
+      "scope": "top_level",
+      "field": "artifact_consistency_status"
+    },
+    {
+      "scope": "top_level",
+      "field": "csv_schema_status"
+    },
+    {
+      "scope": "top_level",
+      "field": "review_pool_partition_status"
+    },
+    {
+      "scope": "top_level",
+      "field": "strict_pass_gate_metadata_status"
+    },
+    {
+      "scope": "top_level",
+      "field": "baseline_duplicate_screen_status"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "strict_pass_gate"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "execution_anchor_type"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "baseline_relation"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "related_prepass"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "date_role"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "selection_policy_version"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "selection_route"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "execution_credibility_gate"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "independent_cardability_gate"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "anchor_classes"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "decision_news_value_score"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "decision_value_breakdown"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "decision_value_classification"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "publication_urgency"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "systemic_scale_denominator"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "prior_state"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "new_verified_fact"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "changed_judgment"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "uncertainty_resolved"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "remaining_uncertainty"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "incremental_information"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "baseline_expectation_changed"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "decision_relevance"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "evidence_needed_for_stage_b"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "next_confirmation_points"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "structural_non_execution_reason"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "why_execution_event_not_required"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "technology_evidence_level"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "policy_stage"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "field": "novelty_cap_basis"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field selection_policy_version"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field selection_route"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field execution_credibility_gate"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field independent_cardability_gate"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field anchor_classes"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field decision_news_value_score"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field decision_value_breakdown"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field decision_value_classification"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field publication_urgency"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field systemic_scale_denominator"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field prior_state"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field new_verified_fact"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field changed_judgment"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field uncertainty_resolved"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field remaining_uncertainty"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field incremental_information"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field baseline_expectation_changed"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field decision_relevance"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field evidence_needed_for_stage_b"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field next_confirmation_points"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field related_prepass"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field structural_non_execution_reason"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 field why_execution_event_not_required"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: selection_policy_version must be EMBEDDED_NEWS_VALUE_SELECTION_V4"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: selection_route must be one of ['execution_anchor_route', 'structural_non_execution_route']"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: execution_credibility_gate must resolve to PASS"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: independent_cardability_gate must resolve to PASS"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: anchor_classes must be a non-empty array"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: decision_news_value_score must be finite numeric 0..100"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: decision_value_breakdown must be an object"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing defensible systemic_scale_denominator requires non-empty denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: decision_value_classification must be non-empty"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: publication_urgency must resolve to one of ['immediate', 'monitor', 'near_term']"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: prior_state must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: new_verified_fact must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: changed_judgment must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: uncertainty_resolved must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: remaining_uncertainty must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: incremental_information must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: baseline_expectation_changed must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: decision_relevance must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: evidence_needed_for_stage_b must be a non-empty unique array of text"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: next_confirmation_points must be a non-empty unique array of text"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: related_prepass must be an object"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 hardening field technology_evidence_level"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 hardening field policy_stage"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing Stage A V4 hardening field novelty_cap_basis"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: technology_evidence_level must be one of ['commercial_scale_or_long_duration_field', 'company_target_or_unsupported_claim', 'independent_test_or_customer_qualification', 'laboratory_unvalidated', 'material_failure_evidence', 'not_applicable', 'pilot_precommercial']"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: missing defensible systemic_scale_denominator requires non-empty denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_002",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_002: novelty_cap_basis must be one of ['company_target_without_validation_or_effect', 'none', 'repeated_announcement_no_new_fact', 'routine_progression_no_material_uncertainty', 'unsupported_political_rhetoric']"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "strict_pass_gate"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "execution_anchor_type"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "baseline_relation"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "related_prepass"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "date_role"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "selection_policy_version"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "selection_route"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "execution_credibility_gate"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "independent_cardability_gate"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "anchor_classes"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "decision_news_value_score"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "decision_value_breakdown"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "decision_value_classification"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "publication_urgency"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "systemic_scale_denominator"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "prior_state"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "new_verified_fact"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "changed_judgment"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "uncertainty_resolved"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "remaining_uncertainty"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "incremental_information"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "baseline_expectation_changed"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "decision_relevance"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "evidence_needed_for_stage_b"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "next_confirmation_points"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "structural_non_execution_reason"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "why_execution_event_not_required"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "technology_evidence_level"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "policy_stage"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "field": "novelty_cap_basis"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field selection_policy_version"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field selection_route"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field execution_credibility_gate"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field independent_cardability_gate"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field anchor_classes"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field decision_news_value_score"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field decision_value_breakdown"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field decision_value_classification"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field publication_urgency"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field systemic_scale_denominator"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field prior_state"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field new_verified_fact"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field changed_judgment"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field uncertainty_resolved"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field remaining_uncertainty"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field incremental_information"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field baseline_expectation_changed"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field decision_relevance"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field evidence_needed_for_stage_b"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field next_confirmation_points"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field related_prepass"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field structural_non_execution_reason"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 field why_execution_event_not_required"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: selection_policy_version must be EMBEDDED_NEWS_VALUE_SELECTION_V4"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: selection_route must be one of ['execution_anchor_route', 'structural_non_execution_route']"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: execution_credibility_gate must resolve to PASS"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: independent_cardability_gate must resolve to PASS"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: anchor_classes must be a non-empty array"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: decision_news_value_score must be finite numeric 0..100"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: decision_value_breakdown must be an object"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing defensible systemic_scale_denominator requires non-empty denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: decision_value_classification must be non-empty"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: publication_urgency must resolve to one of ['immediate', 'monitor', 'near_term']"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: prior_state must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: new_verified_fact must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: changed_judgment must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: uncertainty_resolved must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: remaining_uncertainty must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: incremental_information must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: baseline_expectation_changed must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: decision_relevance must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: evidence_needed_for_stage_b must be a non-empty unique array of text"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: next_confirmation_points must be a non-empty unique array of text"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: related_prepass must be an object"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 hardening field technology_evidence_level"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 hardening field policy_stage"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing Stage A V4 hardening field novelty_cap_basis"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: technology_evidence_level must be one of ['commercial_scale_or_long_duration_field', 'company_target_or_unsupported_claim', 'independent_test_or_customer_qualification', 'laboratory_unvalidated', 'material_failure_evidence', 'not_applicable', 'pilot_precommercial']"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: missing defensible systemic_scale_denominator requires non-empty denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_003",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_003: novelty_cap_basis must be one of ['company_target_without_validation_or_effect', 'none', 'repeated_announcement_no_new_fact', 'routine_progression_no_material_uncertainty', 'unsupported_political_rhetoric']"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "strict_pass_gate"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "execution_anchor_type"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "baseline_relation"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "related_prepass"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "date_role"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "selection_policy_version"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "selection_route"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "execution_credibility_gate"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "independent_cardability_gate"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "anchor_classes"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "decision_news_value_score"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "decision_value_breakdown"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "decision_value_classification"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "publication_urgency"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "systemic_scale_denominator"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "prior_state"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "new_verified_fact"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "changed_judgment"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "uncertainty_resolved"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "remaining_uncertainty"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "incremental_information"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "baseline_expectation_changed"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "decision_relevance"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "evidence_needed_for_stage_b"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "next_confirmation_points"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "structural_non_execution_reason"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "why_execution_event_not_required"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "technology_evidence_level"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "policy_stage"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "field": "novelty_cap_basis"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field selection_policy_version"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field selection_route"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field execution_credibility_gate"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field independent_cardability_gate"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field anchor_classes"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field decision_news_value_score"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field decision_value_breakdown"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field decision_value_classification"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field publication_urgency"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field systemic_scale_denominator"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field prior_state"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field new_verified_fact"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field changed_judgment"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field uncertainty_resolved"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field remaining_uncertainty"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field incremental_information"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field baseline_expectation_changed"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field decision_relevance"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field evidence_needed_for_stage_b"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field next_confirmation_points"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field related_prepass"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field structural_non_execution_reason"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 field why_execution_event_not_required"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: selection_policy_version must be EMBEDDED_NEWS_VALUE_SELECTION_V4"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: selection_route must be one of ['execution_anchor_route', 'structural_non_execution_route']"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: execution_credibility_gate must resolve to PASS"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: independent_cardability_gate must resolve to PASS"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: anchor_classes must be a non-empty array"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: decision_news_value_score must be finite numeric 0..100"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: decision_value_breakdown must be an object"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing defensible systemic_scale_denominator requires non-empty denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: decision_value_classification must be non-empty"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: publication_urgency must resolve to one of ['immediate', 'monitor', 'near_term']"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: prior_state must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: new_verified_fact must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: changed_judgment must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: uncertainty_resolved must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: remaining_uncertainty must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: incremental_information must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: baseline_expectation_changed must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: decision_relevance must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: evidence_needed_for_stage_b must be a non-empty unique array of text"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: next_confirmation_points must be a non-empty unique array of text"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: related_prepass must be an object"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 hardening field technology_evidence_level"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 hardening field policy_stage"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing Stage A V4 hardening field novelty_cap_basis"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: technology_evidence_level must be one of ['commercial_scale_or_long_duration_field', 'company_target_or_unsupported_claim', 'independent_test_or_customer_qualification', 'laboratory_unvalidated', 'material_failure_evidence', 'not_applicable', 'pilot_precommercial']"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: missing defensible systemic_scale_denominator requires non-empty denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_004",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_004: novelty_cap_basis must be one of ['company_target_without_validation_or_effect', 'none', 'repeated_announcement_no_new_fact', 'routine_progression_no_material_uncertainty', 'unsupported_political_rhetoric']"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "strict_pass_gate"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "execution_anchor_type"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "baseline_relation"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "related_prepass"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "date_role"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "selection_policy_version"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "selection_route"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "execution_credibility_gate"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "independent_cardability_gate"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "anchor_classes"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "decision_news_value_score"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "decision_value_breakdown"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "decision_value_classification"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "publication_urgency"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "systemic_scale_denominator"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "prior_state"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "new_verified_fact"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "changed_judgment"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "uncertainty_resolved"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "remaining_uncertainty"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "incremental_information"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "baseline_expectation_changed"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "decision_relevance"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "evidence_needed_for_stage_b"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "next_confirmation_points"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "structural_non_execution_reason"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "why_execution_event_not_required"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "technology_evidence_level"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "policy_stage"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "field": "novelty_cap_basis"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field selection_policy_version"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field selection_route"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field execution_credibility_gate"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field independent_cardability_gate"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field anchor_classes"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field decision_news_value_score"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field decision_value_breakdown"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field decision_value_classification"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field publication_urgency"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field systemic_scale_denominator"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field prior_state"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field new_verified_fact"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field changed_judgment"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field uncertainty_resolved"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field remaining_uncertainty"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field incremental_information"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field baseline_expectation_changed"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field decision_relevance"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field evidence_needed_for_stage_b"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field next_confirmation_points"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field related_prepass"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field structural_non_execution_reason"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 field why_execution_event_not_required"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: selection_policy_version must be EMBEDDED_NEWS_VALUE_SELECTION_V4"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: selection_route must be one of ['execution_anchor_route', 'structural_non_execution_route']"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: execution_credibility_gate must resolve to PASS"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: independent_cardability_gate must resolve to PASS"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: anchor_classes must be a non-empty array"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: decision_news_value_score must be finite numeric 0..100"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: decision_value_breakdown must be an object"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing defensible systemic_scale_denominator requires non-empty denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: decision_value_classification must be non-empty"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: publication_urgency must resolve to one of ['immediate', 'monitor', 'near_term']"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: prior_state must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: new_verified_fact must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: changed_judgment must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: uncertainty_resolved must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: remaining_uncertainty must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: incremental_information must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: baseline_expectation_changed must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: decision_relevance must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: evidence_needed_for_stage_b must be a non-empty unique array of text"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: next_confirmation_points must be a non-empty unique array of text"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: related_prepass must be an object"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 hardening field technology_evidence_level"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 hardening field policy_stage"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing Stage A V4 hardening field novelty_cap_basis"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: technology_evidence_level must be one of ['commercial_scale_or_long_duration_field', 'company_target_or_unsupported_claim', 'independent_test_or_customer_qualification', 'laboratory_unvalidated', 'material_failure_evidence', 'not_applicable', 'pilot_precommercial']"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: missing defensible systemic_scale_denominator requires non-empty denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_007",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_007: novelty_cap_basis must be one of ['company_target_without_validation_or_effect', 'none', 'repeated_announcement_no_new_fact', 'routine_progression_no_material_uncertainty', 'unsupported_political_rhetoric']"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "strict_pass_gate"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "execution_anchor_type"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "baseline_relation"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "related_prepass"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "date_role"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "selection_policy_version"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "selection_route"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "execution_credibility_gate"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "independent_cardability_gate"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "anchor_classes"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "decision_news_value_score"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "decision_value_breakdown"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "decision_value_classification"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "publication_urgency"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "systemic_scale_denominator"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "prior_state"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "new_verified_fact"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "changed_judgment"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "uncertainty_resolved"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "remaining_uncertainty"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "incremental_information"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "baseline_expectation_changed"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "decision_relevance"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "evidence_needed_for_stage_b"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "next_confirmation_points"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "structural_non_execution_reason"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "why_execution_event_not_required"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "technology_evidence_level"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "policy_stage"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "field": "novelty_cap_basis"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field selection_policy_version"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field selection_route"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field execution_credibility_gate"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field independent_cardability_gate"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field anchor_classes"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field decision_news_value_score"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field decision_value_breakdown"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field decision_value_classification"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field publication_urgency"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field systemic_scale_denominator"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field prior_state"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field new_verified_fact"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field changed_judgment"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field uncertainty_resolved"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field remaining_uncertainty"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field incremental_information"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field baseline_expectation_changed"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field decision_relevance"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field evidence_needed_for_stage_b"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field next_confirmation_points"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field related_prepass"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field structural_non_execution_reason"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 field why_execution_event_not_required"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: selection_policy_version must be EMBEDDED_NEWS_VALUE_SELECTION_V4"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: selection_route must be one of ['execution_anchor_route', 'structural_non_execution_route']"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: execution_credibility_gate must resolve to PASS"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: independent_cardability_gate must resolve to PASS"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: anchor_classes must be a non-empty array"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: decision_news_value_score must be finite numeric 0..100"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: decision_value_breakdown must be an object"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing defensible systemic_scale_denominator requires non-empty denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: decision_value_classification must be non-empty"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: publication_urgency must resolve to one of ['immediate', 'monitor', 'near_term']"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: prior_state must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: new_verified_fact must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: changed_judgment must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: uncertainty_resolved must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: remaining_uncertainty must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: incremental_information must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: baseline_expectation_changed must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: decision_relevance must be non-empty narrative text"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: evidence_needed_for_stage_b must be a non-empty unique array of text"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: next_confirmation_points must be a non-empty unique array of text"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: related_prepass must be an object"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 hardening field technology_evidence_level"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 hardening field policy_stage"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing Stage A V4 hardening field novelty_cap_basis"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: technology_evidence_level must be one of ['commercial_scale_or_long_duration_field', 'company_target_or_unsupported_claim', 'independent_test_or_customer_qualification', 'laboratory_unvalidated', 'material_failure_evidence', 'not_applicable', 'pilot_precommercial']"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: missing defensible systemic_scale_denominator requires non-empty denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_009",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_009: novelty_cap_basis must be one of ['company_target_without_validation_or_effect', 'none', 'repeated_announcement_no_new_fact', 'routine_progression_no_material_uncertainty', 'unsupported_political_rhetoric']"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "strict_pass_gate"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "execution_anchor_type"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "baseline_relation"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "date_role"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "selection_policy_version"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "selection_route"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "execution_credibility_gate"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "independent_cardability_gate"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "anchor_classes"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "decision_news_value_score"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "decision_value_breakdown"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "decision_value_classification"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "publication_urgency"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "systemic_scale_denominator"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "prior_state"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "new_verified_fact"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "changed_judgment"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "uncertainty_resolved"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "remaining_uncertainty"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "incremental_information"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "baseline_expectation_changed"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "decision_relevance"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "evidence_needed_for_stage_b"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "next_confirmation_points"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "structural_non_execution_reason"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "why_execution_event_not_required"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "technology_evidence_level"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "policy_stage"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "field": "novelty_cap_basis"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field selection_policy_version"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field selection_route"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field execution_credibility_gate"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field independent_cardability_gate"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field anchor_classes"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field decision_news_value_score"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field decision_value_breakdown"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field decision_value_classification"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field publication_urgency"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field systemic_scale_denominator"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field denominator_gap"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field prior_state"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field new_verified_fact"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field changed_judgment"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field uncertainty_resolved"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field remaining_uncertainty"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field incremental_information"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field baseline_expectation_changed"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field decision_relevance"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field evidence_needed_for_stage_b"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage A V4 field next_confirmation_points"
+    },
+    {
+      "scope": "STD26_0909_A_010",
+      "contract": "stage_a_v4",
+      "message": "STD26_0909_A_010: missing Stage === STEP_RC=1 ===

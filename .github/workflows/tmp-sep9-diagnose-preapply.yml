@@ -1,0 +1,75 @@
+name: tmp-sep9-diagnose-preapply
+
+on:
+  push:
+    branches:
+      - chatgpt/sep9-r1-current-main-production-r1
+    paths:
+      - .github/workflows/tmp-sep9-diagnose-preapply.yml
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Replay finalizer materialization exactly
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, textwrap
+          p=Path('.github/workflows/tmp-sep9-recover-production-cards.yml')
+          s=p.read_text()
+          m=re.search(r"      - name: Materialize exact 415 coverage authority and final card-run\n        shell: bash\n        run: \|\n(?P<body>.*?)(?=\n      - name: Fail-closed pre-apply validation)", s, re.S)
+          if not m:
+              raise SystemExit('materialization block not found')
+          lines=m.group('body').splitlines()
+          body='\n'.join(line[10:] if line.startswith('          ') else line for line in lines)+'\n'
+          Path('/tmp/materialize.sh').write_text(body)
+          PY
+          bash /tmp/materialize.sh
+      - name: Capture validator matrix
+        shell: bash
+        run: |
+          set -u
+          RUN=runs/2026-09-10/sep9-r1-current-main-production-r1/card-run.json
+          OUT=runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/preapply-validator-diagnostic.txt
+          : > "$OUT"
+          runcheck() {
+            name="$1"; shift
+            echo "===== $name =====" >> "$OUT"
+            set +e
+            "$@" >> "$OUT" 2>&1
+            rc=$?
+            set -e
+            echo "RC=$rc" >> "$OUT"
+            echo >> "$OUT"
+          }
+          set -e
+          runcheck schema node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN"
+          runcheck stage_artifacts node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
+          runcheck js_v4 node scripts/validate_card_run_v4_hardening.mjs --run "$RUN"
+          runcheck py_v4 python3 validation_scripts/card_run_v4_binding_hardening.py --run "$RUN"
+          runcheck status_consistency node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
+          runcheck relations node scripts/validate_card_run_relations.mjs --run "$RUN"
+          runcheck apply_check node scripts/apply_card_run.mjs --run "$RUN" --base-main-sha 3bb929004ff8b547b86e5f1beab0efb3dac19d62 --check
+          cat "$OUT"
+      - name: Commit diagnostic only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/preapply-validator-diagnostic.txt
+          git diff --cached --quiet && exit 0
+          git commit -m 'chore: capture Sep9 pre-apply validator diagnostic'
+          git push origin HEAD:chatgpt/sep9-r1-current-main-production-r1

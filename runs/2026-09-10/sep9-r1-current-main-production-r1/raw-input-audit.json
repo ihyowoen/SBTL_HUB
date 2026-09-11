@@ -1,0 +1,106 @@
+{
+  "schema": "sbtl_raw_input_audit_v1",
+  "stage": "RAW_INPUT_AUDIT",
+  "status": "BLOCKED_SOURCE_BYTES_NOT_MATERIALIZED",
+  "generated_date": "2026-09-11",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "base_lean_blob_sha": "f079457c2e734d75d8190633edda1031d487cc47",
+  "base_card_count": 1617,
+  "input_file": "final_news_llm_input_newsletter_expanded_20260909_135804.json",
+  "input_sha256": null,
+  "input_bytes": null,
+  "input_summary": {
+    "story_count": 393,
+    "status_counts": {
+      "KEEP": 298,
+      "REVIEW": 3,
+      "TRIAGE_FILTERED": 92
+    },
+    "region_counts": {
+      "KR": 176,
+      "GL": 59,
+      "CN": 59,
+      "EU": 41,
+      "US": 39,
+      "JP": 19
+    },
+    "keep_story_count": 298,
+    "review_story_count": 3,
+    "triage_filtered_count": 92,
+    "input_orphan_count": 0,
+    "dropped_count": 0,
+    "input_only_count": 0,
+    "ledger_state_counts": {
+      "FIRST": 257,
+      "REPEAT": 135,
+      "REPUBLISH": 1
+    }
+  },
+  "identity_checks": {
+    "duplicate_story_id_count": null,
+    "duplicate_primary_url_count": null,
+    "orphan_count": 0,
+    "status": "BLOCKED_EXACT_SOURCE_BYTES_REQUIRED"
+  },
+  "integrity_grouping_findings": {
+    "flagged_group_count": 7,
+    "flagged_story_count": 25,
+    "upstream_excluded_story_count": 0,
+    "disposition": "REASSESS_ALL_FLAGGED_ROWS_AS_INDIVIDUAL_EVENTS",
+    "delete_from_input": false,
+    "known_false_grouping_classes": [
+      "Mining.com unrelated critical-mineral timeline and Albemarle CEO events",
+      "Denki Shimbun unrelated power/energy/industrial stories grouped together",
+      "Li Auto/CATL sourcing shift and Dongfeng/CATL battery-swap filing treated as distinct events",
+      "Zeekr 7X delivery milestone and 2027 filing/new-battery event treated as distinct or follow-up events, not same-event duplicate",
+      "Gaon Cable Canada entry, Singapore PM compensation article, and Kia PBV story grouped together despite unrelated event identity",
+      "HS Hyosung AI-infrastructure article and unrelated edtech article grouped together"
+    ]
+  },
+  "known_canonical_reconciliation": [
+    {
+      "story_id": "US_2026-09-09_C01",
+      "headline": "'Deeply Alarmed': Trump Administration Slams Ford's Deal With Chinese Battery Company",
+      "disposition": "EXISTING_CARD_REINFORCEMENT_OR_SAME_EVENT_REPUBLICATION",
+      "target_id": "2026-09-08_US_01",
+      "reason": "The Sep 9 InsideEVs article reports the same Transportation Secretary Sean Duffy letter/Ford-CATL licensing pressure event already canonicalized on Sep 8; article date alone does not create a new event."
+    }
+  ],
+  "sep10_discovery_extension": {
+    "authorized": true,
+    "original_input_cardinality_unchanged": 393,
+    "discovered_candidate_artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/coverage-discovery-2026-09-10-supplement.json",
+    "initial_discovered_candidate_count": 3
+  },
+  "source_recovery_audit": {
+    "file_library_metadata_and_search_available": true,
+    "file_library_raw_bytes_materialized": false,
+    "git_history_exact_filename_matches": 0,
+    "git_history_scan_run_id": 34554702742,
+    "git_history_scan_conclusion": "success_no_match",
+    "google_drive_exact_filename_matches": 0,
+    "canonical_compact_index_recovered": true,
+    "canonical_compact_index_card_count": 1617,
+    "formal_original_input_ledger_complete": false
+  },
+  "legacy_related_boundary": {
+    "disposition": "PRESERVE_EXISTING_RELATED",
+    "related_remove_count": 0,
+    "retarget_count": 0
+  },
+  "audit_conclusion": {
+    "raw_input_metadata_verified": true,
+    "raw_input_full_identity_accounting_verified": false,
+    "raw_input_usable_for_formal_0_0c_pass": false,
+    "stories_deleted_by_audit": 0,
+    "blocking_requirements": [
+      "Materialize the exact Sep 9 input bytes or an equivalent complete machine-readable 393-row source ledger.",
+      "Compute exact input SHA256 and byte count from those bytes.",
+      "Verify duplicate story-id and primary-URL counts over all 393 rows.",
+      "Build the complete 393-row original_input_ledger required by Prompt 0.0C before authorizing Stage A."
+    ],
+    "fail_closed_note": "Do not fabricate 393/393 accounting from partial semantic-search snippets. Stage A, production IDs, canonical mutation, delete and related_remove remain unauthorized until the source ledger is complete."
+  }
+}

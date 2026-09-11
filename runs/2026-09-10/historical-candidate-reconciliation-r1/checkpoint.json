@@ -1,15 +1,20 @@
 {
   "schema": "sbtl_candidate_reconciliation_checkpoint_v1",
-  "status": "MEMBERSHIP_COMPLETE_COLLISION_RELOCK_PENDING",
+  "status": "READY_FOR_REVIEW",
   "base_main_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
   "baseline_relock": {
-    "previous_main_sha": "8f3b6c3277d7cd13ccfc48f3c72a5d1ecb5d7c58",
+    "historical_1_50_original_main_sha": "e19f6c113ccb62906e7fdefaf3bae657c58b5637",
+    "historical_1_50_original_card_count": 1599,
     "current_main_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
-    "canonical_blob_sha_before": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
-    "canonical_blob_sha_after": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
-    "canonical_card_count": 1617,
-    "canonical_data_changed": false,
-    "reason": "main remains at the Today/monthly-brief shelf UI merge baseline and data/cards.full.json remains byte-identical"
+    "current_canonical_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+    "current_canonical_card_count": 1617,
+    "delta_insert_count": 18,
+    "delta_update_count": 0,
+    "historical_1_50_checked": 50,
+    "new_exact_or_same_event_collisions": 0,
+    "decision_supersessions": 0,
+    "status": "PASS",
+    "artifact": "historical-candidate-1-50-final-1617-collision-relock.md"
   },
   "canonical_mutation_allowed": false,
   "current_sep3_sep7": {
@@ -50,26 +55,12 @@
       "DOWNGRADE_WATCH": 37,
       "CLOSE": 62
     },
-    "latest_batch": {
-      "range": "226-243",
-      "exact_membership": [
-        "U0891", "U0335", "U1219", "U1660", "U0920", "U1518", "U0617", "U0675", "U1139",
-        "U0626", "U1350", "U0503", "U0897", "U1047", "U1655", "U0794", "U1036", "U1746"
-      ],
-      "decision_counts": {
-        "PROMOTE": 2,
-        "KEEP_CANDIDATE": 5,
-        "DOWNGRADE_WATCH": 5,
-        "CLOSE": 6
-      },
-      "unassigned": 0,
-      "duplicate_membership": 0,
-      "artifact": "historical-candidate-243-progress-243.md"
-    },
     "membership_accounting_complete": true,
+    "unassigned": 0,
+    "duplicate_membership": 0,
     "baseline_status_by_batch": {
-      "1-25": "FINAL_1617_CARD_COLLISION_RELOCK_PENDING",
-      "26-50": "FINAL_1617_CARD_COLLISION_RELOCK_PENDING",
+      "1-25": "CURRENT_1617_CARD_BASELINE_COLLISION_RELOCK_PASS",
+      "26-50": "CURRENT_1617_CARD_BASELINE_COLLISION_RELOCK_PASS",
       "51-75": "CURRENT_1617_CARD_BASELINE_SCREENED_AND_PROVENANCE_RELOCKED",
       "76-100": "CURRENT_1617_CARD_BASELINE_SCREENED_AND_PROVENANCE_RELOCKED",
       "101-125": "CURRENT_1617_CARD_BASELINE_SCREENED",
@@ -79,7 +70,14 @@
       "201-225": "CURRENT_1617_CARD_BASELINE_SCREENED_AND_MEMBERSHIP_SUPERSESSION_RECORDED",
       "226-243": "CURRENT_1617_CARD_BASELINE_SCREENED"
     },
-    "final_1617_collision_relock_complete": false
+    "final_1617_collision_relock_complete": true
+  },
+  "closure": {
+    "membership_gate": "PASS",
+    "collision_relock_gate": "PASS",
+    "canonical_mutation_in_reconciliation_pr": false,
+    "ready_for_review": true,
+    "production_followup_required_for_promotes": true
   },
   "production_rule": "PROMOTE decisions in this PR must be rematerialized and pass the normal Stage A/B/C and 0.4-0.8 chain before any canonical/apply PR."
 }

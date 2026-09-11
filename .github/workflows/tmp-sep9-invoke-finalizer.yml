@@ -20,14 +20,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Execute existing governed finalizer run steps
+      - name: Execute existing governed finalizer run steps with diagnostics
         shell: bash
         run: |
-          set -euo pipefail
-          python3 -m pip install --quiet pyyaml
-          python3 - <<'PY'
+          set -u -o pipefail
+          LOG=runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/invoker-finalizer-error.log
+          mkdir -p "$(dirname "$LOG")"
+          : > "$LOG"
+          set +e
+          python3 -m pip install --quiet pyyaml >>"$LOG" 2>&1
+          pip_rc=$?
+          if [ "$pip_rc" -ne 0 ]; then
+            echo "PYAML_INSTALL_FAILED rc=$pip_rc" >>"$LOG"
+            rc=$pip_rc
+          else
+            python3 - <<'PY' >>"$LOG" 2>&1
           import os
           import subprocess
+          import sys
           import tempfile
           from pathlib import Path
           import yaml
@@ -36,18 +46,36 @@ jobs:
           doc = yaml.safe_load(workflow.read_text())
           steps = doc['jobs']['finalize-card-run']['steps']
           run_steps = [s for s in steps if isinstance(s, dict) and s.get('run')]
+          print(f'FINALIZER_RUN_STEP_COUNT={len(run_steps)}', flush=True)
           if len(run_steps) < 4:
               raise SystemExit(f'Unexpected finalizer shape: {len(run_steps)} run steps')
           for idx, step in enumerate(run_steps, 1):
               name = step.get('name', f'run-{idx}')
-              print(f'::group::{idx}/{len(run_steps)} {name}', flush=True)
+              print(f'=== STEP {idx}/{len(run_steps)}: {name} ===', flush=True)
               script = step['run']
               with tempfile.NamedTemporaryFile('w', suffix='.sh', delete=False) as f:
                   f.write(script)
                   script_path = f.name
               try:
-                  subprocess.run(['bash', script_path], check=True, env=os.environ.copy())
+                  proc = subprocess.run(['bash', script_path], env=os.environ.copy(), text=True,
+                                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                  if proc.stdout:
+                      print(proc.stdout, end='', flush=True)
+                  print(f'=== STEP_RC={proc.returncode} ===', flush=True)
+                  if proc.returncode != 0:
+                      raise SystemExit(proc.returncode)
               finally:
                   os.unlink(script_path)
-              print('::endgroup::', flush=True)
           PY
+            rc=$?
+          fi
+          set -e
+          cat "$LOG"
+          if [ "${rc:-0}" -ne 0 ]; then
+            git config user.name github-actions[bot]
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add "$LOG"
+            git commit -m 'chore(sep9): capture finalizer failure diagnostic' || true
+            git push origin HEAD:chatgpt/sep9-r1-current-main-production-r1
+            exit "$rc"
+          fi

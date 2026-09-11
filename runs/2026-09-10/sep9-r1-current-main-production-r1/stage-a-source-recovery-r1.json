@@ -1,6 +1,6 @@
 {
-  "schema": "sbtl_sep9_stage_a_source_recovery_v1",
-  "status": "PARTIAL_SOURCE_FEATURE_RECOVERY",
+  "schema": "sbtl_sep9_stage_a_source_recovery_v2",
+  "status": "BATCHED_EXACT_SOURCE_ADJUDICATION_IN_PROGRESS",
   "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "source": {
     "filename": "final_news_llm_input_newsletter_expanded_20260909_135804.json",
@@ -15,85 +15,83 @@
     "canonical_count": 1617,
     "canonical_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684"
   },
-  "recovery_method": "Recover only exact IDs contained in the SHA-locked 393-ID source-identity ledger from the exact File Library raw source. Do not promote IDs seen only in older/pre-clean/audit sections or alternate file copies.",
+  "stage_0_0c_binding": {
+    "coverage_artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/coverage-discovery-final.json",
+    "validation_artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-validation.json",
+    "status": "PASS",
+    "original_count": 393,
+    "discovery_count": 20,
+    "expanded_count": 413,
+    "terminal_count": 413,
+    "repeat_semantic_audit": "runs/2026-09-10/sep9-r1-current-main-production-r1/semantic-repeat-map-audit-r1.json",
+    "repeat_mapping_count": 13,
+    "repeat_false_mapping_count": 0,
+    "preclean_candidates_reexamined": 4,
+    "preclean_rescued_as_discovery": ["SEP09_DISC_012","SEP09_DISC_013"],
+    "preclean_not_promoted": ["GL_2026-09-07_C12","CN_2026-09-08_C16"]
+  },
+  "adjudication_method": "Process exact SHA-locked original rows in bounded batches and append exact terminal decisions. Low-value/repeat/context rows may use compact decision records; strict/high-potential review rows preserve richer source-bound metadata. Final Stage A PASS is withheld until 413/413 exact accounting.",
   "identity_guards": {
     "exact_393_membership_required": true,
-    "headline_only_identity_inference_forbidden": true,
-    "alternate_copy_story_id_substitution_forbidden": true,
+    "story_ids_are_run_local": true,
+    "cross_run_story_id_equality_is_not_event_evidence": true,
+    "preclean_only_rows_cannot_reenter_original_membership": true,
     "discovered_candidates_are_provenance_distinct": true,
-    "stage_a_web_fetch_forbidden": true
+    "stage_a_web_fetch_forbidden": true,
+    "final_stage_a_exactly_once_accounting_required": true
   },
-  "known_source_bound_recoveries": [
+  "semantically_resolved_canonical_repeats": [
+    ["US_2026-09-09_C01","2026-09-08_US_01"],
+    ["KR_2026-09-08_C54","2026-09-08_KR_02"],
+    ["JP_2026-09-08_C08","2026-08-31_JP_02"],
+    ["EU_2026-09-08_C28","2026-09-08_GL_01"],
+    ["CN_2026-09-07_C04","2026-09-06_CN_03"],
+    ["CN_2026-09-07_C03","2026-09-07_CN_01"],
+    ["TF_0060","2026-09-08_GL_02"],
+    ["US_2026-09-08_C04","2026-09-02_GL_01"],
+    ["GL_2026-09-06_C03","2026-09-04_GL_03"],
+    ["EU_2026-09-07_C08","2026-09-02_US_02"],
+    ["KR_2026-09-08_C44","2026-08-05_KR_02"],
+    ["KR_2026-09-08_C43","2026-08-05_KR_02"],
+    ["CN_2026-09-08_C09","2026-09-04_CN_01"]
+  ],
+  "source_bound_examples_already_recovered": [
     {
-      "story_id": "US_2026-09-09_C01",
-      "status": "KNOWN_CURRENT_CANONICAL_REPEAT",
-      "canonical_target": "2026-09-08_US_01",
-      "note": "Ford/CATL federal policy-pressure event; already terminally mapped by 0.0C. Preserve source identity for Stage A accounting, do not create a new strict candidate."
+      "story_id":"KR_2026-09-09_C43",
+      "headline":"LG엔솔 CTO, 美 스탠퍼드 석학들 만나 '전고체 상용화' 치트키 찾는다",
+      "primary_url":"https://www.theguru.co.kr/news/article.html?no=106849",
+      "text_coverage_state":"article_hydrated",
+      "provisional_lane":"review_or_watch_technology_non_execution"
     },
     {
-      "story_id": "KR_2026-09-09_C43",
-      "headline": "LG엔솔 CTO, 美 스탠퍼드 석학들 만나 '전고체 상용화' 치트키 찾는다",
-      "site": "더구루",
-      "primary_url": "https://www.theguru.co.kr/news/article.html?no=106849",
-      "text_coverage_state": "article_hydrated",
-      "source_bound_note": "LG Energy Solution R&D leaders engaged Stanford scholars on solid-state battery technology; source supports research/technology exchange, not a commercial production milestone.",
-      "provisional_stage_a_lane": "review_or_watch_technology_non_execution"
+      "story_id":"KR_2026-09-09_C22",
+      "headline":"BYD·코르버스, 차세대 전기추진선박용 LFP 배터리 출시",
+      "primary_url":"https://www.theguru.co.kr/news/article.html?no=106888",
+      "text_coverage_state":"article_hydrated",
+      "provisional_lane":"candidate_review_pending_execution_strength"
     },
     {
-      "story_id": "KR_2026-09-09_C22",
-      "headline": "BYD·코르버스, 차세대 전기추진선박용 LFP 배터리 출시",
-      "site": "더구루",
-      "primary_url": "https://www.theguru.co.kr/news/article.html?no=106888",
-      "text_coverage_state": "article_hydrated",
-      "source_bound_note": "Marine LFP battery product launch; exact deployment/customer/commercial scale must remain bounded to the uploaded source packet before any strict route.",
-      "provisional_stage_a_lane": "candidate_review_pending_execution_strength"
+      "story_id":"KR_2026-09-09_C163",
+      "headline":"전기안전 영역 확장...ESS·해상풍력·전기차 사고 대응 한자리",
+      "primary_url":"https://www.energy-news.co.kr/news/articleView.html?idxno=228012",
+      "text_coverage_state":"article_hydrated",
+      "provisional_lane":"watch_or_support_context"
     },
     {
-      "story_id": "KR_2026-09-09_C163",
-      "headline": "전기안전 영역 확장...ESS·해상풍력·전기차 사고 대응 한자리",
-      "site": "에너지신문",
-      "primary_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=228012",
-      "text_coverage_state": "article_hydrated",
-      "source_bound_note": "Safety-management/conference context spanning ESS, offshore wind and EV charging; no discrete operative rule or execution change yet bound.",
-      "provisional_stage_a_lane": "watch_or_support_context"
-    },
-    {
-      "story_id": "EU_2026-09-07_C11",
-      "headline": "Engie acquires 66-MW/264-MWh BESS project in southern Spain",
-      "site": "Renewables Now Europe RSS",
-      "primary_url": "https://renewablesnow.com/news/engie-acquires-66-mw264-mwh-bess-project-in-southern-spain-1300769",
-      "text_coverage_state": "title_only",
-      "source_bound_note": "Acquisition headline identifies a discrete BESS transaction but the uploaded row is title-only; strict execution terms are not source-bound enough for direct strict passage.",
-      "provisional_stage_a_lane": "candidate_review_source_body_needed_later_in_stage_b"
+      "story_id":"EU_2026-09-07_C11",
+      "headline":"Engie acquires 66-MW/264-MWh BESS project in southern Spain",
+      "primary_url":"https://renewablesnow.com/news/engie-acquires-66-mw264-mwh-bess-project-in-southern-spain-1300769",
+      "text_coverage_state":"title_only",
+      "provisional_lane":"candidate_review_source_body_needed_later_in_stage_b"
     }
   ],
-  "known_0_0c_canonical_repeat_map": [
-    ["US_2026-09-09_C01", "2026-09-08_US_01"],
-    ["KR_2026-09-08_C54", "2026-09-08_KR_02"],
-    ["JP_2026-09-08_C08", "2026-08-31_JP_02"],
-    ["EU_2026-09-08_C28", "2026-09-08_GL_01"],
-    ["CN_2026-09-07_C04", "2026-09-06_CN_03"],
-    ["CN_2026-09-07_C03", "2026-09-07_CN_01"],
-    ["TF_0060", "2026-09-08_GL_02"],
-    ["US_2026-09-08_C04", "2026-09-02_GL_01"],
-    ["GL_2026-09-06_C03", "2026-09-04_GL_03"],
-    ["EU_2026-09-07_C08", "2026-09-02_US_02"],
-    ["KR_2026-09-08_C44", "2026-08-05_KR_02"],
-    ["KR_2026-09-08_C43", "2026-08-05_KR_02"],
-    ["CN_2026-09-08_C09", "2026-09-04_CN_01"]
-  ],
-  "discovered_lane": {
-    "count": 18,
-    "artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/coverage-discovery-final.json",
-    "note": "These are Prompt 0.0C discoveries and are not members of the original 393-row source file. Keep provenance separate through Stage A."
+  "current_execution_state": {
+    "stage_a_batches_completed": 0,
+    "cumulative_decision_ledger_count": 0,
+    "expected_final_decision_ledger_count": 413,
+    "final_stage_a_pass_authorized": false,
+    "next_batch": "original Sep9 rows, beginning with authoritative US membership"
   },
-  "recovery_progress": {
-    "exact_original_membership": 393,
-    "source_bound_records_materialized_in_this_ledger": 5,
-    "remaining_exact_original_records_for_feature_materialization": 388,
-    "stage_a_execution_authorized": false
-  },
-  "next_action": "Continue exact-ID source recovery from the SHA-locked raw upload, materialize all 393 compact source feature rows, validate 393/393 identity/cardinality, then execute Stage A over 393 originals plus 18 provenance-distinct discoveries.",
   "production_ids_authorized": false,
   "canonical_mutation_authorized": false,
   "delete_authorized": false,

@@ -1,5 +1,5 @@
 {
-  "schema": "sbtl_governed_run_restart_checkpoint_v2",
+  "schema": "sbtl_governed_run_restart_checkpoint_v3",
   "status": "IN_PROGRESS_STAGE_A_BATCHED_EXACT_SOURCE_ADJUDICATION",
   "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "generated_date": "2026-09-11",
@@ -50,9 +50,33 @@
     "mode": "BATCHED_EXACT_SOURCE_ADJUDICATION",
     "status": "IN_PROGRESS",
     "input_universe": 415,
+    "terminal_decision_count": 55,
+    "open_identity_count": 360,
+    "duplicate_terminal_identity_count": 0,
+    "unknown_terminal_identity_count": 0,
     "original_input_count": 393,
     "external_or_preclean_discovery_count": 20,
     "event_split_child_count": 2,
+    "decision_counts": {
+      "existing_reinforcement_or_same_event": 15,
+      "split_parent_decomposed": 1,
+      "candidate_review_pool": 24,
+      "watchlist_or_support_context": 6,
+      "reject_or_support_only_pool": 8,
+      "support_source_only": 1
+    },
+    "latest_batch": {
+      "batch_id": "US32_R1",
+      "membership": 32,
+      "resolved_total": 17,
+      "already_terminal_before_batch": 2,
+      "new_terminal_decisions": 15,
+      "unresolved": 15,
+      "artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-batch-us32-partial-r1.json",
+      "batch_pass_authorized": false
+    },
+    "cumulative_ledger": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-cumulative-ledger-r1.json",
+    "cumulative_validation": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-cumulative-validation-r1.json",
     "final_stage_a_pass_authorized": false,
     "final_pass_condition": "Every one of the 415 terminal identities must appear exactly once in the cumulative Stage A decision ledger with no unknown, duplicate or missing identity.",
     "source_binding_rule": "Original rows must be sourced from the SHA-locked Sep9 raw and exact 393 membership ledger; 0.0C discoveries and event-split child identities remain provenance-distinct. Stage A performs no external fetch/search.",
@@ -64,6 +88,16 @@
     "legacy_strict_salvage_candidates": 15,
     "legacy_0_1p_salvage_candidates": 1,
     "legacy_chain_authorized": false
+  },
+  "compressed_payload_recovery": {
+    "status": "CLOSED_INCOMPLETE_SOURCE",
+    "expected_part_count_from_commit_messages": 4,
+    "committed_part_count": 2,
+    "present_parts": ["tmp/production-cards.part00","tmp/production-cards.part01"],
+    "missing_parts": ["tmp/production-cards.part02","tmp/production-cards.part03"],
+    "decoder_result": "FAIL_GZIP_EOF",
+    "decoder_run_id": 34569174493,
+    "conclusion": "Legacy compressed payload cannot be treated as recoverable authority; continue exact-source Stage A from the SHA-locked raw."
   },
   "discovery_scope_extension": {
     "authorized": true,

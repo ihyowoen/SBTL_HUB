@@ -46,20 +46,22 @@ Derivation locked as:
 
 `264 needs_user_decision - 18 later-promoted unique story IDs = 246 - 3 exact canonicalized = 243`
 
-Reconciliation progress is now committed through **175/243**:
+Reconciliation progress is now committed through **200/243**:
 
-- PROMOTE **78**
-- KEEP **25**
-- WATCH **27**
-- CLOSE **45**
-- remaining **68**
+- PROMOTE **87**
+- KEEP **37**
+- WATCH **28**
+- CLOSE **48**
+- remaining **43**
 
-Latest batch `151–175` is fully assigned at **PROMOTE 13 / KEEP 3 / WATCH 1 / CLOSE 8**, with unassigned=0 and duplicate_membership=0.
+Latest batch `176–200` is fully assigned at **PROMOTE 9 / KEEP 12 / WATCH 1 / CLOSE 3**, with unassigned=0 and duplicate_membership=0.
 
-Membership is red-teamed against the authoritative Stage A final-review dispositions before each new batch; already terminal watchlist members are not reintroduced into the active reconciliation queue.
+The batch combines the remaining selected source-augmentation tail with nine unresolved earnings-deep-dive items. Earnings items were not auto-promoted: finalized results alone are insufficient where the governed lane still requires same-period/post-results management Q&A to test margins, mix, timing and risk claims.
+
+Membership is red-teamed against authoritative Stage A/final promotion artifacts before each new batch; where later governance artifacts explicitly supersede an earlier disposition, the later authoritative state governs.
 
 These counts remain partial until 243/243 is terminally accounted and the 1–50 cohort receives its final 1,617-card collision relock.
 
 ## PR operating rule
 
-This PR stays **draft** while reconciliation is incomplete. New checkpoints are appended as commits (`200/243`, `225/243`, `243/243`). Existing decisions may be corrected only with an explicit supersession note and provenance. When 243/243 is terminally accounted, the reconciliation PR can be made ready for review. Production card changes remain a separate PR.
+This PR stays **draft** while reconciliation is incomplete. New checkpoints are appended as commits (`225/243`, `243/243`). Existing decisions may be corrected only with an explicit supersession note and provenance. When 243/243 is terminally accounted, the reconciliation PR can be made ready for review. Production card changes remain a separate PR.

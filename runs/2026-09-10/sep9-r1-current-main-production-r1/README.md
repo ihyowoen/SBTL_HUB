@@ -34,6 +34,31 @@ The authoritative Prompt 0.0C universe is **415 terminal identities**:
 
 Terminal accounting is **415/415**, with duplicate / missing / unknown identities **0 / 0 / 0**. The prior **413** state is superseded because it counted only one of two independent `+2` repairs: the Lixhe/Coo event split and the later Cloudbreak/Elmet pre-clean rescue.
 
+## Current Stage A progress
+
+The current cumulative Stage A ledger is:
+
+- terminal identities: **55 / 415**
+- open identities: **360**
+- duplicate terminal identities: **0**
+- unknown terminal identities: **0**
+- existing reinforcement / same-event: **15**
+- split parent decomposed: **1**
+- candidate review: **24**
+- watch / support context: **6**
+- reject / support only: **8**
+- support-source-only: **1**
+
+The active U.S. batch contains **32 original source rows**. Current exact-source accounting is **17 / 32 resolved**, including 2 identities already terminal before the batch and 15 newly adjudicated rows. **15 U.S. identities remain unresolved** because their exact Sep9 source metadata has not yet been safely recovered; they are not inferred from older raw copies or reused story IDs.
+
+Authoritative progress artifacts:
+
+- `stage-a-cumulative-ledger-r1.json`
+- `stage-a-cumulative-validation-r1.json`
+- `stage-a-batch-us32-partial-r1.json`
+
+## Semantic and cardinality red-team
+
 A semantic red-team of the 13 hard-coded canonical-repeat mappings confirmed **13/13 same-event**, false mapping **0**. Because story IDs are run-local and may be reused between raw runs, cross-run story-ID equality is never treated as event evidence.
 
 A second completeness repair re-examined four battery/ESS/materials events present only in the raw pre-clean universe. Cloudbreak–GETEC and Elmet–ams OSRAM were rescued into 0.0C as provenance-distinct discoveries (`SEP09_DISC_012`, `SEP09_DISC_013`); the PG&E SHARE VPP re-report and Zeekr 200,000-unit milestone were explicitly not promoted.
@@ -44,17 +69,16 @@ A prior static Stage A→0.7C chain and a 16-insert / 2-related-add operation fr
 
 - the associated `.github/workflows/tmp-sep9-stage-chain-materialize.yml` contained a placeholder payload and all four workflow runs failed before creating any job;
 - the static chain predated the combined 415-universe relock;
-- the old Stage A full artifact is referenced only by SHA and is not present in the repo.
+- the old Stage A full artifact is referenced only by SHA and is not present in the repo;
+- the preserved compressed production-card payload was intended as **4 parts**, but only **part00 and part01** were ever committed. Decoder run `34569174493` failed with gzip EOF, so the incomplete payload is not recoverable authority.
 
-The legacy chain is therefore marked **SUPERSEDED_REVALIDATION_REQUIRED**. Its 15 Stage A strict specs, one 0.1P-promoted spec, relation hints, and downstream block/reinforcement findings may be reused only as **per-spec salvage candidates** after current source identity, event semantics, canonical relation, and 415-universe membership are revalidated.
-
-`stage-chain-salvage-audit-r1.json` is the governing audit for this boundary. The old 0.7C certification, operation freeze and operation hash are explicitly inactive; production IDs and canonical mutation remain unauthorized.
+The legacy chain is therefore marked **SUPERSEDED_REVALIDATION_REQUIRED**. Its 15 Stage A strict specs, one 0.1P-promoted spec, relation hints, and downstream findings may be reused only as per-spec salvage candidates after current source identity, event semantics, canonical relation, and 415-universe membership are revalidated.
 
 ## Stage A execution mode
 
 Stage A is processed in **bounded exact-source batches** directly against the SHA-locked raw plus the authoritative 393-ID membership ledger, together with the 20 discovery identities and 2 event-split children. The final Stage A artifact cannot PASS until all **415/415 terminal identities** appear exactly once in the cumulative decision ledger.
 
-The previously created `stage-a-input-features.json` contained an empty `stories[]` array and has been fail-closed. It is not authority for Stage A accounting. The source-recovery ledger and batch artifacts preserve source-bound metadata and decisions while the complete selector ledger is built.
+The previously created `stage-a-input-features.json` contained an empty `stories[]` array and has been fail-closed. It is not authority for Stage A accounting.
 
 Stage A rules remain unchanged:
 
@@ -72,6 +96,6 @@ Stage A rules remain unchanged:
 
 ## Required chain from here
 
-`Stage A → 0.1P → Stage B → Stage C → 0.4 → 0.5 → 0.6 → 0.7 → 0.7C → 0.8 → apply/merge → 0.9`
+`Stage A 415/415 → 0.1P → Stage B → Stage C → 0.4 → 0.5 → 0.6 → 0.7 → 0.7C → 0.8 → apply/merge → 0.9`
 
 No canonical card mutation, production ID, delete or `related_remove` is authorized by this checkpoint.

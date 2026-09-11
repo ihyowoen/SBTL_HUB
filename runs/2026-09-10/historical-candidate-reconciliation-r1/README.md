@@ -1,63 +1,57 @@
 # Historical Candidate Reconciliation R1
 
-This is a **reconciliation-only cumulative working PR** for SBTL candidate governance.
+This is a **reconciliation-only cumulative PR** for SBTL candidate governance.
 
-## Baseline
+## Final baseline
 
-- branch creation base: `8f3b6c3277d7cd13ccfc48f3c72a5d1ecb5d7c58`
+- original 1–50 review baseline: main `e19f6c113ccb62906e7fdefaf3bae657c58b5637` / canonical **1,599**
 - current relocked main: `3bb929004ff8b547b86e5f1beab0efb3dac19d62`
-- canonical `data/cards.full.json` blob: `beb2aa7615b583b4c9c0c269974601a0b26c2684`
+- current canonical `data/cards.full.json` blob: `beb2aa7615b583b4c9c0c269974601a0b26c2684`
 - current canonical card count: **1,617**
-- canonical card data is **not modified in this PR**
-- historical batches 1–50 still require their final collision relock against this 1,617-card baseline before PR closure/readiness
+- canonical card data modified by this PR: **no**
 
-## Purpose
+## Historical membership reconciliation — COMPLETE
 
-Accumulate candidate-review corrections and historical backlog reconciliation without losing provenance between chat sessions or moving-main events.
-
-Allowed current dispositions: `PROMOTE`, `KEEP_CANDIDATE`, `DOWNGRADE_WATCH`, `CLOSE`.
-
-`PROMOTE` means **authorized for formal re-entry/rematerialization**, not permission to edit canonical data directly. Any promoted item must still run through the normal Stage A/B/C → 0.4 → 0.5 → 0.6 → 0.7 → 0.7C → 0.8 production chain before a separate production/apply PR.
-
-## Membership authority
-
-For the Aug25 historical backlog, the **final 0.1P review-pool promotion artifact** is the membership authority. Where it explicitly re-tiered an item after the merged Stage A rescue audit, the later 0.1P disposition supersedes the earlier Stage A disposition.
-
-The source-augmentation correction cohorts therefore restore lineages that had been omitted when pre-0.1P watchlist states were mistakenly treated as terminal. No candidates were invented to force the denominator.
-
-## Current checkpoints
-
-### Sep3 + Sep7 current candidate master
-
-- 80 unique events
-- PROMOTE 3 / KEEP 4 / WATCH 34 / CLOSE 39
-- the 3 promotions are already canonicalized Sep7 items
-- pending new Stage-B admission from Sep3 retained cohort: 0
-
-### Historical Aug25-derived backlog
-
-Derivation locked as:
+Derivation:
 
 `264 needs_user_decision - 18 later-promoted unique story IDs = 246 - 3 exact canonicalized = 243`
 
-Historical membership reconciliation is now **243/243 complete**:
+Membership authority is the **final 0.1P review-pool promotion artifact**. When final 0.1P explicitly re-tiered an item after the merged Stage A rescue audit, the later 0.1P disposition superseded the earlier Stage A disposition.
+
+All **243 / 243** historical memberships now have exactly one terminal reconciliation disposition:
 
 - PROMOTE **95**
 - KEEP **49**
 - WATCH **37**
 - CLOSE **62**
-- remaining membership **0**
+- remaining **0**
 - unassigned **0**
 - duplicate membership **0**
 
-Latest batch `226–243` is fully assigned at **PROMOTE 2 / KEEP 5 / WATCH 5 / CLOSE 6**. Its exact membership and reasons are recorded in `historical-candidate-243-progress-243.md`.
+`PROMOTE` means **authorized for formal re-entry/rematerialization only**. It does not authorize direct canonical admission. Promoted items must still pass the ordinary Stage A/B/C → 0.4 → 0.5 → 0.6 → 0.7 → 0.7C → 0.8 production chain in a separate production workflow.
 
-## Remaining closure gate
+## Final 1–50 collision relock — PASS
 
-Membership accounting is complete, but this PR intentionally remains **draft**. Batches 1–50 were adjudicated before the current 1,617-card canonical baseline and therefore require a focused final collision relock. Batches 51–243 were already screened/relocked on the current baseline.
+Batches 1–50 had originally been adjudicated against the 1,599-card `e19f6c113…` baseline. The Sep8 production audit proves the canonical transition from that exact base to the current 1,617-card state was **18 inserts / 0 updates**.
 
-The next action is:
+The 18 inserted cards were read from the authoritative `id-allocation`, `card-run-audit` and Stage 0.8 lineage artifacts and checked against all 50 historical memberships.
 
-`identify the canonical baseline used by batches 1–50 → compare only canonical additions since that baseline → test the 50 historical memberships for exact/same-event collisions → supersede any affected decisions → record final 1,617-card relock`.
+Result:
 
-Only after that gate is PASS may PR #369 be made ready for review. Production card changes remain a separate PR.
+- 50 / 50 checked
+- delta cards checked: 18 / 18
+- new exact/same-event collisions: **0**
+- decision supersessions required: **0**
+- relock status: **PASS**
+
+Detailed audit: `historical-candidate-1-50-final-1617-collision-relock.md`.
+
+## Current closure state
+
+- membership gate: **PASS**
+- 1–50 current-canonical collision gate: **PASS**
+- reconciliation artifact consistency: **PASS**
+- canonical mutation in this PR: **0**
+- reconciliation PR state target: **READY FOR REVIEW**
+
+The next workflow is not another reconciliation batch. It is the separate rematerialization/production handling of the 95 `PROMOTE` decisions under normal governed Stage A/B/C and 0.4–0.8 rules.

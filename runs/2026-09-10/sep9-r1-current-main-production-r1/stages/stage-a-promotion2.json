@@ -1,9 +1,17 @@
 {
-  "schema":"card_run_stage_binding_subset_v1","stage":"stage_a","status":"PASS",
+  "schema":"card_run_stage_binding_subset_v2_superseded",
+  "stage":"stage_a_0_1P_promotion",
+  "status":"SUPERSEDED_REVALIDATION_REQUIRED",
   "run_id":"card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "base_main_commit_sha":"3bb929004ff8b547b86e5f1beab0efb3dac19d62",
   "base_full_blob_sha":"beb2aa7615b583b4c9c0c269974601a0b26c2684",
-  "source_full_artifact_sha256":"5c35ba1db747746351afd5cccdfa06fdef02b5765e7552a96890bd170db13fc9",
-  "subset_scope":"single 0.1P-promoted production strict spec",
-  "strict_passed_spec":[{"spec_id":"STD26_0909_P_002","related_prepass":{"status":"PASS","relation_candidates":[{"target_candidate_id":"2026-09-04_CN_01","proposed_relation_type":"distinct_follow_up"}]}}]
+  "legacy_source_full_artifact_sha256":"5c35ba1db747746351afd5cccdfa06fdef02b5765e7552a96890bd170db13fc9",
+  "legacy_source_full_artifact_present_in_repo":false,
+  "subset_scope":"single legacy 0.1P-promoted strict spec",
+  "current_universe_count":415,
+  "salvage_only":true,
+  "production_authorized":false,
+  "strict_passed_spec":[{"spec_id":"STD26_0909_P_002","related_prepass":{"status":"LEGACY_HINT_REVALIDATION_REQUIRED","relation_candidates":[{"target_candidate_id":"2026-09-04_CN_01","proposed_relation_type":"distinct_follow_up"}]}}],
+  "supersession_reason":"Promotion binding predates the authoritative 415-identity relock and cannot establish current Stage A/0.1P authority without exact-source revalidation.",
+  "salvage_audit_ref":"runs/2026-09-10/sep9-r1-current-main-production-r1/stage-chain-salvage-audit-r1.json"
 }

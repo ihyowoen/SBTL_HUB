@@ -1,1 +1,173 @@
-{"schema":"card_run_stage_binding_subset_v3_415_authority","stage":"0.4","status":"PASS","run_id":"card-run-2026-09-09-sep9-r1-current-main-production-r1","base_main_commit_sha":"3bb929004ff8b547b86e5f1beab0efb3dac19d62","base_full_blob_sha":"beb2aa7615b583b4c9c0c269974601a0b26c2684","current_universe_count":415,"production_authorized":true,"addable_merge_safe":[{"source_spec_id":"STD26_0909_A_002"},{"source_spec_id":"STD26_0909_A_003"},{"source_spec_id":"STD26_0909_A_004"},{"source_spec_id":"STD26_0909_A_007"},{"source_spec_id":"STD26_0909_A_009"},{"source_spec_id":"STD26_0909_A_010","related_lineage":{"status":"PASS","same_event_checked":true,"earliest_same_event_date_checked":true,"relation_type":"program_lineage","matched_baseline_current_candidates":["2026-09-07_GL_01"],"fresh_follow_up_anchor_class":"execution_event_anchor","fresh_follow_up_anchor":"Fresh current-run stage progression.","incremental_fact":"Fresh Jan-Jul ex-China battery dataset extends the same SNE market-tracker program lineage.","changed_judgment":"Current evidence supports a distinct publishable event/stage progression.","rejected_relation_candidates":[],"reinforcement_transfer_ledger":[],"related_target_required":true,"related_target_id":"2026-09-07_GL_01","reason":"Fresh Jan-Jul ex-China battery dataset extends the same SNE market-tracker program lineage.","related_ids":["2026-09-07_GL_01"]}},{"source_spec_id":"STD26_0909_A_012"},{"source_spec_id":"STD26_0909_A_013"},{"source_spec_id":"STD26_0909_A_015","source_story_ids":["SEP09_SPLIT_COO"]},{"source_spec_id":"STD26_0909_A_016"},{"source_spec_id":"STD26_0909_A_017"},{"source_spec_id":"STD26_0909_A_018"},{"source_spec_id":"STD26_0909_A_019"},{"source_spec_id":"STD26_0909_A_020"},{"source_spec_id":"STD26_0909_A_021"},{"source_spec_id":"STD26_0909_P_002","related_lineage":{"status":"PASS","same_event_checked":true,"earliest_same_event_date_checked":true,"relation_type":"distinct_follow_up","matched_baseline_current_candidates":["2026-09-04_CN_01"],"fresh_follow_up_anchor_class":"execution_event_anchor","fresh_follow_up_anchor":"Fresh current-run stage progression.","incremental_fact":"Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.","changed_judgment":"Current evidence supports a distinct publishable event/stage progression.","rejected_relation_candidates":[],"reinforcement_transfer_ledger":[],"related_target_required":true,"related_target_id":"2026-09-04_CN_01","reason":"Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.","related_ids":["2026-09-04_CN_01"]}}]}
+{
+  "schema": "card_run_stage_binding_recertified_v4",
+  "status": "PASS",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "current_universe_count": 415,
+  "production_authorized": true,
+  "stage": "0.4",
+  "lineage_guard": "PASS",
+  "addable_merge_safe": [
+    {
+      "source_spec_id": "STD26_0909_A_002",
+      "event_fingerprint": "SEP9_EVT_A_002|2026-09-08|2026-09-08_GL_03",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_003",
+      "event_fingerprint": "SEP9_EVT_A_003|2026-09-02|2026-09-02_EU_05",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_004",
+      "event_fingerprint": "SEP9_EVT_A_004|2026-09-02|2026-09-02_CN_01",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_007",
+      "event_fingerprint": "SEP9_EVT_A_007|2026-09-08|2026-09-08_CN_01",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_009",
+      "event_fingerprint": "SEP9_EVT_A_009|2026-09-08|2026-09-08_KR_04",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_010",
+      "event_fingerprint": "SEP9_EVT_A_010|2026-09-09|2026-09-09_GL_01",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_012",
+      "event_fingerprint": "SEP9_EVT_A_012|2026-09-09|2026-09-09_CN_01",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_013",
+      "event_fingerprint": "SEP9_EVT_A_013|2026-09-08|2026-09-08_GL_04",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_015",
+      "event_fingerprint": "SEP9_EVT_A_015|2026-09-08|2026-09-08_EU_02",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_016",
+      "event_fingerprint": "SEP9_EVT_A_016|2026-09-09|2026-09-09_EU_01",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_017",
+      "event_fingerprint": "SEP9_EVT_A_017|2026-09-09|2026-09-09_EU_02",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_018",
+      "event_fingerprint": "SEP9_EVT_A_018|2026-09-09|2026-09-09_GL_02",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_019",
+      "event_fingerprint": "SEP9_EVT_A_019|2026-09-09|2026-09-09_US_01",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_020",
+      "event_fingerprint": "SEP9_EVT_A_020|2026-09-09|2026-09-09_GL_03",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_A_021",
+      "event_fingerprint": "SEP9_EVT_A_021|2026-09-10|2026-09-10_EU_01",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    },
+    {
+      "source_spec_id": "STD26_0909_P_002",
+      "event_fingerprint": "SEP9_EVT_R_015|2026-09-07|2026-09-07_CN_02",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "addability_outcome": "addable_merge_safe_new_unrelated_event"
+    }
+  ]
+}

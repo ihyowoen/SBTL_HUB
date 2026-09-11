@@ -41,31 +41,37 @@
       "exact_canonicalized_removed": ["U1476", "U1581", "U1989"],
       "recheck_universe": 243
     },
-    "materialized": 200,
-    "remaining": 43,
+    "membership_authority": "final 0.1P review-pool promotion artifact; later governance dispositions supersede earlier merged Stage A rescue dispositions",
+    "materialized": 225,
+    "remaining": 18,
     "partial_decision_counts": {
-      "PROMOTE": 87,
-      "KEEP_CANDIDATE": 37,
-      "DOWNGRADE_WATCH": 28,
-      "CLOSE": 48
+      "PROMOTE": 93,
+      "KEEP_CANDIDATE": 44,
+      "DOWNGRADE_WATCH": 32,
+      "CLOSE": 56
     },
     "latest_batch": {
-      "range": "176-200",
+      "range": "201-225",
       "exact_membership": [
-        "U1975", "U0559", "U0830", "U1238", "U1229", "U1556", "U1551", "U1739", "U1747", "U2045",
-        "U2051", "U2026", "U1501", "U1066", "U1178", "U1921", "U1559", "U1562", "U1222", "U2060",
-        "U1237", "U0823", "U0469", "U1042", "U1269"
+        "U2070", "U0499", "U0596", "U0568", "U1084", "U1085", "U1293", "U1270", "U1271", "U1278",
+        "U1774", "U1775", "U0147", "U0909", "U0903", "U0904", "U1512", "U1513", "U1502", "U1495",
+        "U1731", "U1993", "U1516", "U0414", "U0426"
       ],
       "decision_counts": {
-        "PROMOTE": 9,
-        "KEEP_CANDIDATE": 12,
-        "DOWNGRADE_WATCH": 1,
-        "CLOSE": 3
+        "PROMOTE": 6,
+        "KEEP_CANDIDATE": 7,
+        "DOWNGRADE_WATCH": 4,
+        "CLOSE": 8
       },
       "unassigned": 0,
       "duplicate_membership": 0,
-      "artifact": "historical-candidate-243-progress-200.md"
+      "membership_correction": "restores final-0.1P source-augmentation members previously omitted when pre-0.1P Stage A watchlist dispositions were treated as terminal",
+      "artifact": "historical-candidate-243-progress-225.md"
     },
+    "remaining_exact_membership": [
+      "U0891", "U0335", "U1219", "U1660",
+      "U0920", "U1518", "U0617", "U0675", "U1139", "U0626", "U1350", "U0503", "U0897", "U1047", "U1655", "U0794", "U1036", "U1746"
+    ],
     "baseline_status_by_batch": {
       "1-25": "FINAL_1617_CARD_COLLISION_RELOCK_PENDING",
       "26-50": "FINAL_1617_CARD_COLLISION_RELOCK_PENDING",
@@ -74,7 +80,8 @@
       "101-125": "CURRENT_1617_CARD_BASELINE_SCREENED",
       "126-150": "CURRENT_1617_CARD_BASELINE_SCREENED",
       "151-175": "CURRENT_1617_CARD_BASELINE_SCREENED",
-      "176-200": "CURRENT_1617_CARD_BASELINE_SCREENED"
+      "176-200": "CURRENT_1617_CARD_BASELINE_SCREENED",
+      "201-225": "CURRENT_1617_CARD_BASELINE_SCREENED_AND_MEMBERSHIP_SUPERSESSION_RECORDED"
     },
     "partial_counts_are_final": false
   },

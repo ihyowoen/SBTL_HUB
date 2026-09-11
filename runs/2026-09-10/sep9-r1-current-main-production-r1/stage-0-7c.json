@@ -1,0 +1,66 @@
+{
+  "schema": "stage_0_7c_independent_completeness_v4_operation_bound_r1",
+  "stage": "0.7C",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "completeness_status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "run_id": "card-run-2026-09-10-sep9-r1-current-main-production-r1",
+  "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "document_universe_manifest_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-r3.json",
+  "reviewed_operations_sha256": "67aaa43295676ffec8efea1d601d504531aefa68628722d4dbbd315b6e78a733",
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "material_exclusions": [
+    {"source_spec_id":"STD26_0909_A_001","disposition":"stage_b_stale_republication_blocked","reason":"PJM backstop item resolves to the July 31/August 7 proposal lineage; the Sep 8 article did not establish a fresh operative milestone."},
+    {"source_spec_id":"STD26_0909_A_006","disposition":"stage_b_primary_series_gap_blocked","reason":"AU$28.79m NEM battery-revenue claim lacked a directly reproducible primary-series package for the full visible claim set."},
+    {"source_spec_id":"STD26_0909_A_011","disposition":"stage_b_stale_republication_blocked","reason":"Energy Fuels qualification was announced Aug 19; the Sep 8 report did not establish a fresh qualification or shipment milestone."},
+    {"source_spec_id":"STD26_0909_P_001","disposition":"stage_b_stale_republication_blocked","reason":"Hebei ESS cleanup notice is dated Aug 20; Sep 8 surfacing did not establish a new operative milestone."},
+    {"pool":"prompt_0_1P_retain","count":24,"disposition":"retained_outside_stage_b"},
+    {"source_spec_id":"STD26_0909_A_005","disposition":"canonical_same_event_reinforcement","canonical_id":"2026-08-21_GL_04","reason":"ACWA Red Sea commercial-operation event already exists in canonical lineage."},
+    {"source_spec_id":"STD26_0909_A_008","disposition":"canonical_same_event_reinforcement","canonical_id":"2026-09-06_CN_01","reason":"INPOW 587Ah cell production event already exists in canonical lineage."},
+    {"source_spec_id":"STD26_0909_A_014","disposition":"canonical_same_event_reinforcement","canonical_id":"2026-09-01_EU_01","reason":"Luminus/EDF Lixhe 150MW/600MWh commercial-operation event already exists in canonical lineage."}
+  ],
+  "known_unknowns": [
+    "Twenty-four Prompt 0.1P non-promotions remain outside Stage B and are not silently promoted.",
+    "Four Stage B blocks remain intentionally outside production until a genuinely fresh milestone or stronger source package emerges."
+  ],
+  "residual_risks": [
+    "Absolute global completeness beyond the SHA-locked Sep 9 393-row input plus the governed discovery/event-split extension is not claimed.",
+    "Three same-event candidates were converted to canonical reinforcement rather than duplicate insertion."
+  ],
+  "reviewer_independence": "SEPARATE_PASS",
+  "prompt_0_8_authorized": true,
+  "operation_freeze": {
+    "status": "PASS",
+    "manifest_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/operation-freeze-manifest.json",
+    "reviewed_operations_sha256": "67aaa43295676ffec8efea1d601d504531aefa68628722d4dbbd315b6e78a733",
+    "insert_count": 16,
+    "update_count": 0,
+    "related_add_count": 2
+  },
+  "hash_chain": {
+    "status": "PASS",
+    "stage_a_sha256": "d09d22492a2ee853167358dc19199c379cbb862020ba31f13c5b9f755d67d920",
+    "stage_a_promotion2_sha256": "5c35ba1db747746351afd5cccdfa06fdef02b5765e7552a96890bd170db13fc9",
+    "stage_b_sha256": "d599d5e8280271fea603c4d8e745ccf231893a13479733d27cb03beb80104170",
+    "stage_c_sha256": "e2b6ab6b9b08515924034a0313847a589903c666b69df2ae3426228ab56668ec",
+    "stage_0_4_sha256": "4a110683a97f5b1f64fcc931663dac4bc173b7c864045dcab036a23719b9a358",
+    "stage_0_5_sha256": "e285494509c11d91b38cf7472a5ed28651133ac4f3222c43b01e4128449018e8",
+    "stage_0_6_sha256": "be948396f59201e397e5a174c70a6ffa339f823485f781eddc6256f9247b6072",
+    "stage_0_7_sha256": "aff6a54b87689d4566211a0694a027b5876048e045985b4c09187894574b56e4"
+  },
+  "six_round_review": {"status":"PASS","round_count":6,"blocking_findings":0},
+  "round_6_operation_binding": {"status":"PASS","reviewed_operations_sha256":"67aaa43295676ffec8efea1d601d504531aefa68628722d4dbbd315b6e78a733"},
+  "codex_p2_remediation": {"status":"PASS","note":"No unresolved P2 finding remains in the bounded current-main continuation."},
+  "independent_review_notes": [
+    "Source-byte and identity accounting remain locked to the recovered Sep 9 input SHA256.",
+    "All 16 production candidates are publish-ready at Stage 0.7 and have no unresolved downstream issues.",
+    "The two lineage edges are append-only and use allowed related metadata paths only."
+  ],
+  "coverage_event_split_addendum_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-r3.json"
+}

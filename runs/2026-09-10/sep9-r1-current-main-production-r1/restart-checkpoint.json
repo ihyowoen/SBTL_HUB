@@ -1,5 +1,5 @@
 {
-  "schema": "sbtl_governed_run_restart_checkpoint_v1",
+  "schema": "sbtl_governed_run_restart_checkpoint_v2",
   "status": "IN_PROGRESS_STAGE_A_BATCHED_EXACT_SOURCE_ADJUDICATION",
   "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "generated_date": "2026-09-11",
@@ -26,11 +26,13 @@
   "completed_gates": {
     "stage_0_0d": "PASS",
     "raw_input_audit": "PASS",
-    "stage_0_0c": "PASS",
+    "stage_0_0c": "PASS_RELOCKED_415",
     "stage_0_0c_validation": "PASS",
     "original_terminal_accounting": "393/393",
-    "discovered_candidate_count": 20,
-    "expanded_terminal_accounting": "413/413",
+    "external_or_preclean_discovery_count": 20,
+    "event_split_child_count": 2,
+    "non_original_terminal_identity_count": 22,
+    "expanded_terminal_accounting": "415/415",
     "duplicate_candidate_identity_count": 0,
     "missing_terminal_identity_count": 0,
     "unknown_terminal_identity_count": 0,
@@ -39,30 +41,49 @@
     "preclean_candidates_reexamined": 4,
     "preclean_rescued_discovery_count": 2,
     "preclean_not_promoted_count": 2,
+    "event_split_parent_count": 1,
+    "event_split_child_count_verified": 2,
+    "prior_413_state_superseded": true,
     "stage_a_gate_authorized": true
   },
   "stage_a_execution": {
     "mode": "BATCHED_EXACT_SOURCE_ADJUDICATION",
     "status": "IN_PROGRESS",
-    "input_universe": 413,
+    "input_universe": 415,
     "original_input_count": 393,
-    "discovery_count": 20,
+    "external_or_preclean_discovery_count": 20,
+    "event_split_child_count": 2,
     "final_stage_a_pass_authorized": false,
-    "final_pass_condition": "Every one of the 413 supplied candidates must appear exactly once in the cumulative Stage A decision ledger with no unknown, duplicate or missing identity.",
-    "source_binding_rule": "Original rows must be sourced from the SHA-locked Sep9 raw and exact 393 membership ledger; 0.0C discoveries remain provenance-distinct. Stage A performs no external fetch/search.",
+    "final_pass_condition": "Every one of the 415 terminal identities must appear exactly once in the cumulative Stage A decision ledger with no unknown, duplicate or missing identity.",
+    "source_binding_rule": "Original rows must be sourced from the SHA-locked Sep9 raw and exact 393 membership ledger; 0.0C discoveries and event-split child identities remain provenance-distinct. Stage A performs no external fetch/search.",
     "compact_feature_shell": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-input-features.json",
     "compact_feature_shell_status": "FAIL_CLOSED_UNUSED_FOR_FINAL_ACCOUNTING",
     "source_recovery_ledger": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-source-recovery-r1.json",
-    "semantic_repeat_audit": "runs/2026-09-10/sep9-r1-current-main-production-r1/semantic-repeat-map-audit-r1.json"
+    "semantic_repeat_audit": "runs/2026-09-10/sep9-r1-current-main-production-r1/semantic-repeat-map-audit-r1.json",
+    "salvage_audit": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-chain-salvage-audit-r1.json",
+    "legacy_strict_salvage_candidates": 15,
+    "legacy_0_1p_salvage_candidates": 1,
+    "legacy_chain_authorized": false
   },
   "discovery_scope_extension": {
     "authorized": true,
     "dates": ["2026-09-09", "2026-09-10"],
     "mode": "PROMPT_0_0C_DISCOVERY_ONLY",
     "original_input_story_count_unchanged": 393,
-    "final_discovered_candidate_count": 20,
+    "final_external_or_preclean_discovered_candidate_count": 20,
+    "event_split_child_identity_count": 2,
     "artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/coverage-discovery-final.json",
-    "provenance_guard": "Discovered candidates must never be represented as original-input rows from the 2026-09-09 source file."
+    "event_split_artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-r3.json",
+    "provenance_guard": "Discovered candidates and split child identities must never be represented as original-input rows from the 2026-09-09 source file."
+  },
+  "legacy_downstream_chain": {
+    "status": "SUPERSEDED_REVALIDATION_REQUIRED",
+    "reason": "Static Stage A-to-0.7C artifacts predate the combined 415-universe relock and their associated Actions workflow created zero jobs.",
+    "legacy_stage_a_subset_count": 15,
+    "legacy_0_1p_subset_count": 1,
+    "legacy_insert_candidate_count": 16,
+    "legacy_related_add_candidate_count": 2,
+    "reuse_policy": "Per-spec salvage only after current exact-source and canonical-relation revalidation."
   },
   "baseline": {
     "main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
@@ -86,6 +107,7 @@
     "preserve_existing_related": true,
     "integrity_flagged_rows_must_remain_reviewable": true,
     "discoveries_must_remain_provenance_distinct": true,
+    "event_split_children_must_remain_provenance_distinct": true,
     "stage_a_must_not_use_web_fetch": true,
     "exact_393_source_identity_must_be_preserved": true,
     "story_ids_are_run_local": true

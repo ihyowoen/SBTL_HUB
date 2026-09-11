@@ -1,0 +1,30 @@
+name: tmp-sep9-semantic-summary
+on:
+  push:
+    branches: [chatgpt/sep9-r1-current-main-production-r1]
+    paths: [.github/workflows/tmp-sep9-semantic-summary.yml]
+permissions:
+  contents: write
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Summarize exact production candidates
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('runs/2026-09-10/sep9-r1-current-main-production-r1')
+          p=json.loads((root/'tmp/production-cards.detail.json').read_text())
+          out=[]
+          for c in p['cards']:
+              out.append({k:c.get(k) for k in ['id','source_spec_id','source_event_id','source_story_ids','region','date','cat','sub_cat','signal','title','sub','gate','fact','implication','urls','date_role','related_lineage']})
+          path=root/'tmp/production-cards.semantic-summary.json'
+          path.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+          PY
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add runs/2026-09-10/sep9-r1-current-main-production-r1/tmp/production-cards.semantic-summary.json
+          git commit -m 'chore(sep9): record production semantic summary'
+          git push origin HEAD:chatgpt/sep9-r1-current-main-production-r1

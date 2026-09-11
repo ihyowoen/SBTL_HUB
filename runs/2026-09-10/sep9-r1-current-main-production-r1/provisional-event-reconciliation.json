@@ -1,0 +1,145 @@
+{
+  "schema": "sbtl_provisional_event_reconciliation_v1",
+  "status": "NON_AUTHORITATIVE_SOURCE_RECOVERY_PENDING",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "generated_date": "2026-09-11",
+  "baseline": {
+    "main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+    "canonical_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+    "canonical_card_count": 1617,
+    "compact_canonical_index_verified_count": 1617
+  },
+  "governance_boundary": {
+    "formal_stage_a": false,
+    "production_ids_authorized": false,
+    "canonical_mutation_authorized": false,
+    "purpose": "Preserve high-confidence duplicate/lineage work and bounded candidate triage that can be inherited once the exact 393-row source ledger is materialized."
+  },
+  "reconciled_items": [
+    {
+      "source_story_id": "US_2026-09-09_C01",
+      "headline": "'Deeply Alarmed': Trump Administration Slams Ford's Deal With Chinese Battery Company",
+      "provisional_disposition": "existing_card_reinforcement_or_same_event_republication",
+      "canonical_target_id": "2026-09-08_US_01",
+      "confidence": "high",
+      "reason": "Reports the same Transportation Secretary Sean Duffy letter/Ford-CATL licensing pressure event already admitted on Sep 8. Later publication date does not create a new event."
+    },
+    {
+      "source_story_id": "JP_2026-09-08_C08",
+      "headline": "Marubeni New Power uses co-located battery to supply balancing power / Nishimu EMS",
+      "provisional_disposition": "existing_card_reinforcement_or_repeat",
+      "canonical_target_id": "2026-08-31_JP_02",
+      "confidence": "high",
+      "reason": "The canonical card already records Marubeni New Power's FIP solar co-located BESS entering Japan's balancing market from August; the Sep 8 Denki Shimbun story is not a fresh execution event."
+    },
+    {
+      "source_story_id": "EU_2026-09-08_C27",
+      "headline": "Samsung C&T wins permit to connect 400-MWh Aussie BESS",
+      "provisional_disposition": "existing_card_reinforcement_or_repeat",
+      "canonical_target_id": "2026-09-08_GL_01",
+      "confidence": "high",
+      "reason": "Exact project milestone is already canonicalized as Samsung C&T Mangoplah 100MW/400MWh BESS grid-connection approval."
+    },
+    {
+      "source_story_id": "EU_2026-09-07_C01",
+      "headline": "Abei Energy, Shell unit sign PPA for solar-storage project in Spain",
+      "provisional_disposition": "stage_a_evaluate_new_event",
+      "canonical_target_id": null,
+      "confidence": "medium",
+      "reason": "No exact same-event card was found in the locked 1,617-card canonical compact index. A signed PPA may be a material execution anchor, but project MW/MWh, offtaker entity and contract tenor require evidence verification."
+    },
+    {
+      "source_story_id": "EU_2026-09-08_C29",
+      "headline": "Solar, BESS developer Cloudbreak bags investment from Germany's Getec",
+      "provisional_disposition": "possible_distinct_follow_up_stage_a_review",
+      "canonical_target_id": "2026-09-04_US_01",
+      "confidence": "medium",
+      "reason": "Current canonical contains Cloudbreak/Linxon Pueblo 50MW/200MWh BESS FID/NTP, but not the Getec investment event. Financing/ownership change is distinct in principle; materiality and transaction details need verification before strict passage."
+    },
+    {
+      "source_story_id": "GL_2026-09-07_C12",
+      "headline": "Google, Tesla, Sunrun, and PG&E partner on new California virtual power plant programme",
+      "provisional_disposition": "lineage_review_likely_reinforcement_or_distinct_follow_up",
+      "canonical_target_id": "2026-09-03_US_03",
+      "confidence": "medium",
+      "reason": "Canonical already contains PG&E/Google/Rewiring America SHARE VPP launch. The Sep 7 article must be checked for a genuinely new Tesla/Sunrun participation or implementation milestone rather than repackaging of the same California VPP program."
+    },
+    {
+      "source_story_id": "CN_2026-09-08_C12",
+      "headline": "Li Auto battery sourcing shift / bids farewell to CATL",
+      "provisional_disposition": "possible_distinct_follow_up_stage_a_review",
+      "canonical_target_id": "2026-09-04_CN_01",
+      "confidence": "medium",
+      "reason": "Canonical already contains Li Auto's RMB2.65bn strategic investment in Sunwoda Power. A verified supplier/self-developed-battery shift could be a distinct strategic follow-up, but article inference must be separated from operative sourcing facts."
+    },
+    {
+      "source_story_id": "CN_2026-09-09_C19",
+      "headline": "Li Auto self-developed battery officially installed in vehicle",
+      "provisional_disposition": "high_potential_stage_a_review",
+      "canonical_target_id": "2026-09-04_CN_01",
+      "confidence": "medium",
+      "reason": "If independently/officially verified as a production-vehicle installation, this may be a technology-commercialization and vertical-integration follow-up beyond the prior Sunwoda investment. Current source is a single trade article, so exact model, cell origin and commercial status must be verified."
+    },
+    {
+      "source_story_id": "CN_2026-09-09_C05",
+      "headline": "Dongfeng battery-swapping sedan filing / CATL ecosystem",
+      "provisional_disposition": "bounded_stage_a_review",
+      "canonical_target_id": null,
+      "confidence": "medium",
+      "reason": "No exact same-event canonical card found. A vehicle filing alone can be routine; retain only if it establishes a material battery-swap ecosystem deployment or binding supplier/platform change."
+    },
+    {
+      "source_story_id": "CN_2026-09-08_C16",
+      "headline": "Zeekr 7X reaches 200,000 deliveries",
+      "provisional_disposition": "watchlist_or_low_independent_value",
+      "canonical_target_id": null,
+      "confidence": "medium",
+      "reason": "Round-number model delivery milestone is normally routine progression unless it changes a defensible market-share, capacity or battery-demand judgment."
+    },
+    {
+      "source_story_id": "CN_2026-09-09_C03",
+      "headline": "2027 Zeekr 7X filing / new LFP battery",
+      "provisional_disposition": "bounded_stage_a_review",
+      "canonical_target_id": null,
+      "confidence": "medium",
+      "reason": "Model filing may provide a chemistry/supplier signal but is not automatically an independently cardable structural event; verify battery supplier, chemistry change and commercial timing."
+    },
+    {
+      "source_story_id": "US_2026-09-08_C30",
+      "headline": "Elmet Group signs agreement to acquire ams OSRAM Schwabmuenchen metal production operations",
+      "provisional_disposition": "bounded_materials_review",
+      "canonical_target_id": null,
+      "confidence": "medium",
+      "reason": "No exact tungsten/molybdenum event is present in the locked canonical index. The transaction may matter to critical-material manufacturing but battery/ESS relevance is indirect; retain only if Stage A lane-fit and market-access impact are defensible."
+    }
+  ],
+  "sep10_discovery_items": [
+    {
+      "candidate_id": "SEP10_DISC_001",
+      "provisional_disposition": "high_potential_stage_a_evaluate",
+      "headline": "Hyundai Motor Group/Kia + LG Energy Solution + Hyundai Engineering + Wonik PNE 200kWh used-EV-battery UBESS demonstration",
+      "canonical_same_event_match": null
+    },
+    {
+      "candidate_id": "SEP10_DISC_002",
+      "provisional_disposition": "stage_a_evaluate_plan_stage",
+      "headline": "Volvo Group planned large-scale battery storage facility/test bed in Mariestad",
+      "canonical_same_event_match": null
+    },
+    {
+      "candidate_id": "SEP10_DISC_003",
+      "provisional_disposition": "bounded_stage_a_review",
+      "headline": "Jinko ESS + Innovative Efficient Solutions Middle East C&I SunGiga G2 distribution agreement",
+      "canonical_same_event_match": null
+    }
+  ],
+  "known_integrity_group_repairs": {
+    "rule": "All 25 flagged rows remain individually reviewable; malformed upstream group membership is not a deletion or same-event decision.",
+    "examples": [
+      "JP_2026-09-08_C08 Marubeni balancing-market event must not be collapsed with unrelated Denki Shimbun stories.",
+      "CN_2026-09-08_C12 Li Auto sourcing story and CN_2026-09-09_C05 Dongfeng battery-swap filing are distinct events despite upstream grouping.",
+      "CN_2026-09-08_C16 Zeekr delivery milestone and CN_2026-09-09_C03 Zeekr filing/battery story require separate event/follow-up assessment."
+    ]
+  },
+  "resume_condition": "Replace provisional decisions with formal 0.0C terminal accounting and Stage A objects only after exact 393-row source ledger materialization."
+}

@@ -88,7 +88,8 @@ def governed_stage_a_decisions(run,ledger):
     ref=ledger.get("governed_stage_a_ledger_ref") or ledger.get("prior_partial_ledger_ref")
     if not _nonempty_text(ref):
         raise Blocked("Stage A terminal identity ledger must reference its governed Stage A decision ledger")
-    source=load(repo_json(ref.strip()))
+    source_path=repo_json(ref.strip())
+    source=load(source_path)
     if source.get("stage")!="A" or source.get("run_id")!=run.get("run_id"):
         raise Blocked("governed Stage A decision ledger stage/run_id mismatch")
     authority=source.get("authority") if isinstance(source.get("authority"),dict) else source
@@ -96,6 +97,17 @@ def governed_stage_a_decisions(run,ledger):
         if authority.get(field)!=run.get(field):
             raise Blocked(f"governed Stage A decision ledger {field} mismatch")
     if ledger.get("status")=="PASS":
+        checker=ROOT / "validation_scripts/stage_lineage_contract_check.py"
+        proc=subprocess.run(
+            [sys.executable,str(checker),"stage_a",str(source_path)],
+            text=True,capture_output=True,
+        )
+        if proc.returncode!=0:
+            detail=(proc.stderr or proc.stdout or "Stage A checker failed").strip().replace("\n"," ")
+            raise Blocked(
+                "passing terminal ledger requires governed Stage A decision ledger to pass the full Stage A checker: "
+                + detail[:600]
+            )
         accounting=source.get("accounting")
         if source.get("status")!="PASS":
             raise Blocked("passing terminal ledger requires a PASS governed Stage A decision ledger")
@@ -393,6 +405,23 @@ def _relation_review_matches(review,op,target_tokens,require_reason):
     except Blocked:
         return False
 
+def validate_source_diversity_chain(rows_by_stage,label):
+    observed={}
+    for s in ("B","C","0.5","0.6","0.7"):
+        values={
+            row.get("source_diversity_status").strip()
+            for row in rows_by_stage.get(s,[])
+            if isinstance(row.get("source_diversity_status"),str) and row.get("source_diversity_status").strip()
+        }
+        if len(values)>1:
+            raise Blocked(f"{label} stage {s} has contradictory source_diversity_status values {sorted(values)}")
+        if values:
+            observed[s]=next(iter(values))
+    statuses=set(observed.values())
+    if len(statuses)>1:
+        detail=", ".join(f"{stage}={status}" for stage,status in observed.items())
+        raise Blocked(f"{label} source_diversity_status drifts across the bound stage chain: {detail}")
+
 def validate_operations(run):
     base=baseline_canonical(run); known=canonical_map_from_data(base)
     insert_ops=run.get("operations",{}).get("insert",[])
@@ -415,6 +444,7 @@ def validate_operations(run):
                     matched.add(s); rows_by_stage.setdefault(s,[]).extend(rows)
             missing=[s for s in STAGES if s not in matched]
             if missing: raise Blocked(f"{label} missing current-run candidate binding at stages {missing}")
+            validate_source_diversity_chain(rows_by_stage,label)
             if kind=="related_add": validate_related_semantics(op,expected,rows_by_stage,known,inserted,label)
 
 def main():
@@ -445,6 +475,12 @@ def main():
             try: validate_terminal_decision_binding(bad_terminal,governed)
             except Blocked: pass
             else: raise RuntimeError("ungoverned terminal disposition/basis not blocked")
+        source_rows={s:[{"source_diversity_status":"PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"}] for s in ("B","C","0.5","0.6","0.7")}
+        validate_source_diversity_chain(source_rows,"source-chain")
+        bad_source_rows={**source_rows,"0.5":[{"source_diversity_status":"PASS_MULTI_SOURCE"}]}
+        try: validate_source_diversity_chain(bad_source_rows,"source-chain")
+        except Blocked: pass
+        else: raise RuntimeError("source-diversity stage-chain drift not blocked")
         known={"OLD":"SPEC_BASE"}
         validate_insert_identities([{"card":{"id":"NEW","source_spec_id":"SPEC_NEW"}}],known)
         for bad in ([{"card":{"id":"A","source_spec_id":"SPEC_NEW"}},{"card":{"id":"B","source_spec_id":"SPEC_NEW"}}],[{"card":{"id":"A","source_spec_id":"SPEC_BASE"}}]):
@@ -469,9 +505,9 @@ def main():
         try: validate_related_semantics(op,"SPEC_NEW",bad_status,known,{"NEW":"SPEC_NEW"},"related_add[0]")
         except Blocked: pass
         else: raise RuntimeError("non-canonical Stage B Related review status not blocked")
-        print("PASS: V4 binding hardening self-test; terminal decisions are vocabulary- and Stage-A-basis-bound, empty remediation allowed, baseline identities immutable, insert identities unique, Related semantics/status bound, and coverage contract override supported"); return 0
+        print("PASS: V4 binding hardening self-test; passing governed Stage A ledgers require the full Stage A checker, terminal decisions are vocabulary/basis-bound, source-diversity status is stage-chain consistent, baseline identities immutable, and Related semantics/status are bound"); return 0
     if not args.run: raise Blocked("--run PATH required")
-    run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); validate_completeness(run); validate_operations(run); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","terminal_decision_binding":"PASS","related_semantics":"PASS"})); return 0
+    run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); validate_completeness(run); validate_operations(run); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","terminal_decision_binding":"PASS","source_diversity_chain":"PASS","related_semantics":"PASS"})); return 0
 
 if __name__=="__main__":
     try: raise SystemExit(main())

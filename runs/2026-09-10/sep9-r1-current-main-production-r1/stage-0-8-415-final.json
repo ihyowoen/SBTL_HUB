@@ -80,6 +80,8 @@
     "discovered_on_pr": 371,
     "reason": "The referenced 0.7C certification did not contain a complete Stage A identity ledger and cannot authorize Prompt 0.8.",
     "prior_published_card_count": 16,
-    "remediation_manifest": "direct-adds/2026-09-12-pr371-post-merge-remediation/direct-add.json"
+    "remediation_audit": "direct-adds/2026-09-12-pr371-post-merge-remediation/audit.json",
+    "canonical_remediation_status": "PENDING_SEPARATE_GOVERNED_DIRECT_ADD_PR",
+    "canonical_remediation_manifest": null
   }
 }

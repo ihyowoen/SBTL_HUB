@@ -161,8 +161,13 @@
       "language_terminology_polished": true,
       "related_lineage": {
         "status": "PASS",
-        "relation_type": "new_unrelated_event",
-        "related_ids": []
+        "relation_type": "program_lineage",
+        "related_ids": [
+          "2026-09-07_GL_01"
+        ],
+        "reason": "Fresh Jan-Jul ex-China battery dataset extends the same SNE market-tracker program lineage.",
+        "event_stage_relationship": "same_program_new_measurement_window",
+        "direction": "directional"
       },
       "date_role": {
         "status": "PASS",
@@ -451,8 +456,13 @@
       "language_terminology_polished": true,
       "related_lineage": {
         "status": "PASS",
-        "relation_type": "new_unrelated_event",
-        "related_ids": []
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-09-04_CN_01"
+        ],
+        "reason": "Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.",
+        "event_stage_relationship": "later_distinct_event",
+        "direction": "directional"
       },
       "date_role": {
         "status": "PASS",

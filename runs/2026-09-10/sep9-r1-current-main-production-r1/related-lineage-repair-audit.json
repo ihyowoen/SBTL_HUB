@@ -1,0 +1,25 @@
+{
+  "schema": "sep9_related_lineage_repair_v2",
+  "status": "PASS",
+  "facts_changed": false,
+  "dates_changed": false,
+  "acceptance_decisions_changed": false,
+  "source_authority": "Stage A related_prepass + Stage B fact_sources",
+  "relations": [
+    {
+      "source_spec_id": "STD26_0909_A_010",
+      "target": "2026-09-07_GL_01",
+      "type": "program_lineage",
+      "reason": "Fresh Jan-Jul ex-China battery dataset extends the same SNE market-tracker program lineage.",
+      "event_stage_relationship": "same_program_new_measurement_window"
+    },
+    {
+      "source_spec_id": "STD26_0909_P_002",
+      "target": "2026-09-04_CN_01",
+      "type": "distinct_follow_up",
+      "reason": "Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.",
+      "event_stage_relationship": "later_distinct_event"
+    }
+  ],
+  "binding_validator": "validation_scripts.card_run_v4_binding_hardening.require_target_and_type"
+}

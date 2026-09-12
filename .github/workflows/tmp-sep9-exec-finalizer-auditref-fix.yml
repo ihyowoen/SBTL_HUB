@@ -1,0 +1,54 @@
+name: tmp-sep9-exec-finalizer-auditref-fix
+
+on:
+  push:
+    branches:
+      - chatgpt/sep9-r1-current-main-production-r1
+    paths:
+      - .github/workflows/tmp-sep9-exec-finalizer-auditref-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  execute-fixed-finalizer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Execute finalizer with audit-ref dispatch corrected in working tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet pyyaml
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('.github/workflows/tmp-sep9-recover-production-cards.yml')
+          s = p.read_text()
+          old = "'audit_refs':[f'{base}/card-run-audit.json',f'{base}/stage-0-8-415-final.json',f'{base}/evidence-url-resolution-audit.json']"
+          new = "'audit_refs':[f'{base}/card-run-audit.json',f'{base}/stage-0-8-415-final.json']"
+          if s.count(old) != 1:
+              raise SystemExit(f'expected exactly one bad audit_refs binding, found {s.count(old)}')
+          p.write_text(s.replace(old, new, 1))
+          print('PASS: working-tree finalizer audit_refs corrected without relaxing validators')
+          PY
+          python3 - <<'PY'
+          import subprocess
+          from pathlib import Path
+          import yaml
+
+          workflow = yaml.safe_load(Path('.github/workflows/tmp-sep9-recover-production-cards.yml').read_text())
+          steps = workflow['jobs']['finalize-card-run']['steps']
+          run_steps = [step for step in steps if isinstance(step, dict) and isinstance(step.get('run'), str)]
+          if len(run_steps) != 5:
+              raise SystemExit(f'expected 5 executable finalizer run steps, found {len(run_steps)}')
+          for index, step in enumerate(run_steps, 1):
+              name = step.get('name', f'run-step-{index}')
+              print(f'=== FINALIZER STEP {index}/{len(run_steps)}: {name} ===', flush=True)
+              subprocess.run(step['run'], shell=True, executable='/bin/bash', check=True)
+          print('PASS: fixed finalizer completed all executable steps', flush=True)
+          PY

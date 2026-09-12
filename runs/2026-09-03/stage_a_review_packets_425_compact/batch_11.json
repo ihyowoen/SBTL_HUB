@@ -1,0 +1,1441 @@
+{
+  "schema": "stage_a_compact_review_packet_v1",
+  "batch": 11,
+  "event_count": 25,
+  "events": [
+    {
+      "ordinal": 251,
+      "event_id": "XRUN_REPLAY_20260903_E0295",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C88",
+        "story_id": "KR_2026-09-01_C88",
+        "date": "2026-09-01",
+        "title": "[올댓차이나] 中 증시, 중동 긴장고조에 혼조 개장…창업판 1.66%↓",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260901_0003771310",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "e7e25f20815fd56fbee624c9fdf10ae70eaa54e9c22ce4c7f87d7e0a9e0d8ec5"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C88"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C88",
+          "date": "2026-09-01",
+          "site": "뉴시스 RSS",
+          "title": "[올댓차이나] 中 증시, 중동 긴장고조에 혼조 개장…창업판 1.66%↓",
+          "url": "https://www.newsis.com/view/NISX20260901_0003771310"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 252,
+      "event_id": "XRUN_REPLAY_20260903_E0300",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C36",
+        "story_id": "KR_2026-08-31_C36",
+        "date": "2026-08-31",
+        "title": "[영상] LS전선, 美에 1조원 베팅…이유는 F-35·핵잠수함?",
+        "site": "더구루",
+        "url": "https://www.theguru.co.kr/news/article.html?no=106344",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "25865217743ac943f861d97b18361a7b265783b1fa2ec7b956d1efda667b408f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C36"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C36",
+          "date": "2026-08-31",
+          "site": "더구루",
+          "title": "[영상] LS전선, 美에 1조원 베팅…이유는 F-35·핵잠수함?",
+          "url": "https://www.theguru.co.kr/news/article.html?no=106344"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "조원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 253,
+      "event_id": "XRUN_REPLAY_20260903_E0333",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C33",
+        "story_id": "GL_2026-08-31_C33",
+        "date": "2026-08-31",
+        "title": "U.S. startup exceeds 10% solar-to-hydrogen efficiency with 100 cm² module",
+        "site": "PV Magazine RSS (Global)",
+        "url": "https://www.pv-magazine.com/2026/08/31/u-s-startup-exceeds-10-solar-to-hydrogen-efficiency-with-100-cm%c2%b2-module",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "48adba738deab10a82816c4b4506f0b572c2805bec726389be24effe12ebc596"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-31_C33"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-31_C33",
+          "date": "2026-08-31",
+          "site": "PV Magazine RSS (Global)",
+          "title": "U.S. startup exceeds 10% solar-to-hydrogen efficiency with 100 cm² module",
+          "url": "https://www.pv-magazine.com/2026/08/31/u-s-startup-exceeds-10-solar-to-hydrogen-efficiency-with-100-cm%c2%b2-module"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 254,
+      "event_id": "XRUN_REPLAY_20260903_E0349",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C07",
+        "story_id": "EU_2026-08-31_C07",
+        "date": "2026-08-31",
+        "title": "German storage revenues remained high in July, says Enervis",
+        "site": "ESS News RSS",
+        "url": "https://www.ess-news.com/2026/08/31/german-storage-revenues-remained-high-in-july-says-enervis",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "2af4ae0a987209634648be954fb9149d7d3a3651c061dd9913d0f6549039c999"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "EU_2026-08-31_C07"
+      ],
+      "source_titles": [
+        {
+          "story_id": "EU_2026-08-31_C07",
+          "date": "2026-08-31",
+          "site": "ESS News RSS",
+          "title": "German storage revenues remained high in July, says Enervis",
+          "url": "https://www.ess-news.com/2026/08/31/german-storage-revenues-remained-high-in-july-says-enervis"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "revenue"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 255,
+      "event_id": "XRUN_REPLAY_20260903_E0374",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C03",
+        "story_id": "CN_2026-08-31_C03",
+        "date": "2026-08-31",
+        "title": "2026上半年电池市场：宁德时代拿下全球四成份额，中国七强占全球72.4%",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36001-12003-30700835.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "8cf75ce1d8ae31d6095918b13ecebe41103f35b4e5f039d5146e121a4ff62f15"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "CN_2026-08-31_C03"
+      ],
+      "source_titles": [
+        {
+          "story_id": "CN_2026-08-31_C03",
+          "date": "2026-08-31",
+          "site": "OFweek Li-Battery",
+          "title": "2026上半年电池市场：宁德时代拿下全球四成份额，中国七强占全球72.4%",
+          "url": "https://libattery.ofweek.com/2026-08/ART-36001-12003-30700835.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 256,
+      "event_id": "XRUN_REPLAY_20260903_E0379",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C18",
+        "story_id": "CN_2026-08-31_C18",
+        "date": "2026-08-31",
+        "title": "宁德时代2026上半年：拿下40%的全球电池市场，领先优势还在扩大",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36001-8420-30700836.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "312744be6e4b8a5861bd01e2d603be288ec8ea4178414adaa2fdd51dbd0fcb4b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "CN_2026-08-31_C18"
+      ],
+      "source_titles": [
+        {
+          "story_id": "CN_2026-08-31_C18",
+          "date": "2026-08-31",
+          "site": "OFweek Li-Battery",
+          "title": "宁德时代2026上半年：拿下40%的全球电池市场，领先优势还在扩大",
+          "url": "https://libattery.ofweek.com/2026-08/ART-36001-8420-30700836.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 257,
+      "event_id": "XRUN_REPLAY_20260903_E0380",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C37",
+        "story_id": "CN_2026-08-31_C37",
+        "date": "2026-08-31",
+        "title": "高温循环提升超100%！星恒新一代材料技术再突破，高效抑制姜-泰勒效应",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36002-8120-30700930.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "7fab11560574ab00a11cf863b5b9f78964371a478efd445ebb228bb24ea9c569"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "CN_2026-08-31_C37"
+      ],
+      "source_titles": [
+        {
+          "story_id": "CN_2026-08-31_C37",
+          "date": "2026-08-31",
+          "site": "OFweek Li-Battery",
+          "title": "高温循环提升超100%！星恒新一代材料技术再突破，高效抑制姜-泰勒效应",
+          "url": "https://libattery.ofweek.com/2026-08/ART-36002-8120-30700930.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 258,
+      "event_id": "XRUN_REPLAY_20260903_E0404",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0058",
+        "story_id": "TF_0058",
+        "date": "2026-08-31",
+        "title": "1GW·2GW 사업 준비했는데…전기도 못 받는 원전수소",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371903",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "a20a377f4827c5ae827dded569511890e6fe6c3ffe3ff24b3f5344ec9256e658"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0058"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0058",
+          "date": "2026-08-31",
+          "site": "전기신문",
+          "title": "1GW·2GW 사업 준비했는데…전기도 못 받는 원전수소",
+          "url": "https://www.electimes.com/news/articleView.html?idxno=371903"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gw "
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 259,
+      "event_id": "XRUN_REPLAY_20260903_E0406",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0043",
+        "story_id": "TF_0043",
+        "date": "2026-09-01",
+        "title": "欧州で余る車生産能力、中国勢の手に 30年に4%握る見通し",
+        "site": "Nikkei (日本経済新聞)",
+        "url": "https://www.nikkei.com/article/DGXZQOGR07AZ50X00C26A8000000",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "fd3e685d1d7df486cacd2f6eb206e093995f733f5034202e80420e829272960a"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0043"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0043",
+          "date": "2026-09-01",
+          "site": "Nikkei (日本経済新聞)",
+          "title": "欧州で余る車生産能力、中国勢の手に 30年に4%握る見通し",
+          "url": "https://www.nikkei.com/article/DGXZQOGR07AZ50X00C26A8000000"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 260,
+      "event_id": "XRUN_REPLAY_20260903_E0192",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C79",
+        "story_id": "KR_2026-08-31_C79",
+        "date": "2026-08-31",
+        "title": "지역 첨단산업 인재 키운다…산업부, 특성화대학원 6곳에 최대 900억 지원",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260830173610260",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "a98b0107e366fa32fade05ca520c75b1f0f2fae9eba6a69d1c88a4c9f524a82f"
+        }
+      },
+      "observation_count": 4,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0130",
+        "KR_2026-08-31_C79",
+        "TF_0109",
+        "TF_0108"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0130",
+          "date": "2026-08-31",
+          "site": "에너지신문",
+          "title": "지역 산업 맞춰 석·박사 키운다…첨단산업 대학원 6곳 가동",
+          "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227757"
+        },
+        {
+          "story_id": "KR_2026-08-31_C79",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "지역 첨단산업 인재 키운다…산업부, 특성화대학원 6곳에 최대 900억 지원",
+          "url": "https://www.ajunews.com/view/20260830173610260"
+        },
+        {
+          "story_id": "TF_0109",
+          "date": "2026-08-31",
+          "site": "이투뉴스",
+          "title": "지역 첨단산업 키울 특성화대학원 6곳 신규 지정",
+          "url": "http://www.e2news.com/news/articleView.html?idxno=333750"
+        },
+        {
+          "story_id": "TF_0108",
+          "date": "2026-08-31",
+          "site": "에너지신문",
+          "title": "지역 산업 맞춰 석·박사 키운다…첨단산업 대학원 6곳 가동",
+          "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227757"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 261,
+      "event_id": "XRUN_REPLAY_20260903_E0017",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C223",
+        "story_id": "KR_2026-08-31_C223",
+        "date": "2026-08-31",
+        "title": "현대차그룹, 수소사업 수장에 ‘bp 출신’ 홍은희 부사장 영입",
+        "site": "서울경제TV",
+        "url": "https://www.sentv.co.kr/article/view/sentv202608310070",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "e4476beba0e3e9708ab7879ffca3a5a34bb0c6510f51c42ae41d5ddb2b675527"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C223",
+        "KR_2026-08-31_C222",
+        "KR_2026-08-31_C98"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C223",
+          "date": "2026-08-31",
+          "site": "서울경제TV",
+          "title": "현대차그룹, 수소사업 수장에 ‘bp 출신’ 홍은희 부사장 영입",
+          "url": "https://www.sentv.co.kr/article/view/sentv202608310070"
+        },
+        {
+          "story_id": "KR_2026-08-31_C222",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "현대차그룹, HMG에너지·수소사업본부장에 홍은희 부사장 영입",
+          "url": "https://www.ajunews.com/view/20260831101158171"
+        },
+        {
+          "story_id": "KR_2026-08-31_C98",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "현대차그룹, HMG에너지·수소사업본부장에 홍은희 부사장 영입",
+          "url": "https://www.ajunews.com/view/20260831101158171"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 262,
+      "event_id": "XRUN_REPLAY_20260903_E0051",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C108",
+        "story_id": "KR_2026-08-31_C108",
+        "date": "2026-08-31",
+        "title": "금호석유화학그룹 회장단, 中 웨이하이시장 면담...파트너십 지속 강화",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831103554269",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "79f9b2bad16f5f70ca5d3d38794173aa8dcda8cba796aafe11a96ab30ffb105c"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C108",
+        "REVIEW_1",
+        "KR_2026-08-31_C49"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C108",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "금호석유화학그룹 회장단, 中 웨이하이시장 면담...파트너십 지속 강화",
+          "url": "https://www.ajunews.com/view/20260831103554269"
+        },
+        {
+          "story_id": "REVIEW_1",
+          "date": "2026-08-31",
+          "site": "서울경제TV",
+          "title": "금호석유화학그룹, 中 웨이하이시와 민·관 협력 확대 논의",
+          "url": "https://www.sentv.co.kr/article/view/sentv202608310078"
+        },
+        {
+          "story_id": "KR_2026-08-31_C49",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "금호석유화학그룹 회장단, 中 웨이하이시장 면담...파트너십 지속 강화",
+          "url": "https://www.ajunews.com/view/20260831103554269"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 263,
+      "event_id": "XRUN_REPLAY_20260903_E0195",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0108",
+        "story_id": "TF_0108",
+        "date": "2026-08-31",
+        "title": "석유공사, 거제 집중호우 피해복구 성금 3000만원 전달",
+        "site": "에너지신문",
+        "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227761",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "830c0ba9103e2ce9442abf52687c71469e7e0b98469fe43ed82085e0d225f404"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0108",
+        "TF_0155",
+        "TF_0093"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0108",
+          "date": "2026-08-31",
+          "site": "에너지신문",
+          "title": "석유공사, 거제 집중호우 피해복구 성금 3000만원 전달",
+          "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227761"
+        },
+        {
+          "story_id": "TF_0155",
+          "date": "2026-09-01",
+          "site": "이투뉴스",
+          "title": "석유공사 임직원, 수해지역 지원에 3000만원 기부",
+          "url": "http://www.e2news.com/news/articleView.html?idxno=333757"
+        },
+        {
+          "story_id": "TF_0093",
+          "date": "2026-08-31",
+          "site": "에너지신문",
+          "title": "석유공사, 거제 집중호우 피해복구 성금 3000만원 전달",
+          "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227761"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 264,
+      "event_id": "XRUN_REPLAY_20260903_E0249",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C201",
+        "story_id": "KR_2026-09-01_C201",
+        "date": "2026-09-01",
+        "title": "폐휴대폰, 집 앞에 두면 우체국이 수거…연내 '안심 방문수거' 도입",
+        "site": "전자신문",
+        "url": "https://www.etnews.com/20260901000119",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "38353ed11465c81c96a93cab1274e5e303008398a5358abb26417e26a339c6ef"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C201",
+        "KR_2026-09-01_C157",
+        "KR_2026-09-01_C144"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C201",
+          "date": "2026-09-01",
+          "site": "전자신문",
+          "title": "폐휴대폰, 집 앞에 두면 우체국이 수거…연내 '안심 방문수거' 도입",
+          "url": "https://www.etnews.com/20260901000119"
+        },
+        {
+          "story_id": "KR_2026-09-01_C157",
+          "date": "2026-09-01",
+          "site": "아주경제",
+          "title": "서랍 속 잠자는 폐휴대폰, 집 앞에서 수거한다…연내 방문수거 도입",
+          "url": "https://www.ajunews.com/view/20260901095509307"
+        },
+        {
+          "story_id": "KR_2026-09-01_C144",
+          "date": "2026-09-01",
+          "site": "전자신문",
+          "title": "방치된 폐휴대폰, 우체국 방문택배로 수거한다",
+          "url": "https://www.etnews.com/20260901000168"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 265,
+      "event_id": "XRUN_REPLAY_20260903_E0036",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C180",
+        "story_id": "KR_2026-08-31_C180",
+        "date": "2026-08-31",
+        "title": "유나코퍼레이션·천연가스수소차량협회, BioLNG 사업화 본격 추진",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302203",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "6903f66d3dedf3a1b9e8e3dc24d3677513a2dbfa1bcce9bd602318396aad6386"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C180",
+        "KR_2026-08-31_C73"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C180",
+          "date": "2026-08-31",
+          "site": "투데이에너지",
+          "title": "유나코퍼레이션·천연가스수소차량협회, BioLNG 사업화 본격 추진",
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302203"
+        },
+        {
+          "story_id": "KR_2026-08-31_C73",
+          "date": "2026-08-31",
+          "site": "투데이에너지",
+          "title": "유나코퍼레이션·천연가스수소차량협회, BioLNG 사업화 본격 추진",
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302203"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 266,
+      "event_id": "XRUN_REPLAY_20260903_E0042",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C140",
+        "story_id": "KR_2026-08-31_C140",
+        "date": "2026-08-31",
+        "title": "산업부, 한·영 FTA 협정문 한글본 초안 공개…내달 11일까지 의견 수렴",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831091121870",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "7f2f4580614a76c0baf5b9b9b3815cc1f75c0da32eec665d875e7e4ce0421ace"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C140",
+        "KR_2026-08-31_C61"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C140",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "산업부, 한·영 FTA 협정문 한글본 초안 공개…내달 11일까지 의견 수렴",
+          "url": "https://www.ajunews.com/view/20260831091121870"
+        },
+        {
+          "story_id": "KR_2026-08-31_C61",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "산업부, 한·영 FTA 협정문 한글본 초안 공개…내달 11일까지 의견 수렴",
+          "url": "https://www.ajunews.com/view/20260831091121870"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 267,
+      "event_id": "XRUN_REPLAY_20260903_E0047",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C217",
+        "story_id": "KR_2026-08-31_C217",
+        "date": "2026-08-31",
+        "title": "해외 BioLNG 국내 도입 검토…자동차·선박·수소 수요처 찾는다",
+        "site": "에너지신문",
+        "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227771",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "46219f1541dc3bf163028be753ad8bd70a2bedf46c49348ff8737818f92cc473"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C217",
+        "KR_2026-08-31_C94"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C217",
+          "date": "2026-08-31",
+          "site": "에너지신문",
+          "title": "해외 BioLNG 국내 도입 검토…자동차·선박·수소 수요처 찾는다",
+          "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227771"
+        },
+        {
+          "story_id": "KR_2026-08-31_C94",
+          "date": "2026-08-31",
+          "site": "에너지신문",
+          "title": "해외 BioLNG 국내 도입 검토…자동차·선박·수소 수요처 찾는다",
+          "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227771"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 268,
+      "event_id": "XRUN_REPLAY_20260903_E0053",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C114",
+        "story_id": "KR_2026-08-31_C114",
+        "date": "2026-08-31",
+        "title": "기후차관, 美 에너지부 차관보 대행과 에너지안보 논의",
+        "site": "이투뉴스",
+        "url": "http://www.e2news.com/news/articleView.html?idxno=333735",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "627d43efe4ef674d37865a08a4dd678b78854e76df7292adaeeae6cd83e1aedc"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C114",
+        "KR_2026-08-31_C51"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C114",
+          "date": "2026-08-31",
+          "site": "이투뉴스",
+          "title": "기후차관, 美 에너지부 차관보 대행과 에너지안보 논의",
+          "url": "http://www.e2news.com/news/articleView.html?idxno=333735"
+        },
+        {
+          "story_id": "KR_2026-08-31_C51",
+          "date": "2026-08-31",
+          "site": "이투뉴스",
+          "title": "기후차관, 美 에너지부 차관보 대행과 에너지안보 논의",
+          "url": "http://www.e2news.com/news/articleView.html?idxno=333735"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 269,
+      "event_id": "XRUN_REPLAY_20260903_E0056",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C195",
+        "story_id": "KR_2026-08-31_C195",
+        "date": "2026-08-31",
+        "title": "충남교육청, 전국기능경기대회 금 4개·47개 입상…직업계고 기술력 입증",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831152209032",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "a3bff4abf1a6ced3cb551cbd8d1d28f0378d1ecb776e74f691d7495ee68b2be8"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C195",
+        "KR_2026-08-31_C82"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C195",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "충남교육청, 전국기능경기대회 금 4개·47개 입상…직업계고 기술력 입증",
+          "url": "https://www.ajunews.com/view/20260831152209032"
+        },
+        {
+          "story_id": "KR_2026-08-31_C82",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "충남교육청, 전국기능경기대회 금 4개·47개 입상…직업계고 기술력 입증",
+          "url": "https://www.ajunews.com/view/20260831152209032"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 270,
+      "event_id": "XRUN_REPLAY_20260903_E0066",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C203",
+        "story_id": "KR_2026-08-31_C203",
+        "date": "2026-08-31",
+        "title": "포스코이앤씨, 리모델링 층간소음 기술 국내 첫 인증",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831141856781",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "c63be7ea6708f31f817eafe07b2e109853994be871a5f1859c59081f3d029d99"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C203",
+        "KR_2026-08-31_C87"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C203",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "포스코이앤씨, 리모델링 층간소음 기술 국내 첫 인증",
+          "url": "https://www.ajunews.com/view/20260831141856781"
+        },
+        {
+          "story_id": "KR_2026-08-31_C87",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "포스코이앤씨, 리모델링 층간소음 기술 국내 첫 인증",
+          "url": "https://www.ajunews.com/view/20260831141856781"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 271,
+      "event_id": "XRUN_REPLAY_20260903_E0069",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C79",
+        "story_id": "KR_2026-08-31_C79",
+        "date": "2026-08-31",
+        "title": "[입찰 정보] 8월31일자",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302199",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "264253b0cd305b1e79f33f65027bda4cf219fe85b9a71ddd99311d37e89e5a36"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C79",
+        "KR_2026-08-31_C38"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C79",
+          "date": "2026-08-31",
+          "site": "투데이에너지",
+          "title": "[입찰 정보] 8월31일자",
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302199"
+        },
+        {
+          "story_id": "KR_2026-08-31_C38",
+          "date": "2026-08-31",
+          "site": "투데이에너지",
+          "title": "[입찰 정보] 8월31일자",
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302199"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 272,
+      "event_id": "XRUN_REPLAY_20260903_E0071",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C57",
+        "story_id": "KR_2026-08-31_C57",
+        "date": "2026-08-31",
+        "title": "[ENTECH 2026 참가기업] 에스웰즈 - 소형 모빌리티 위한 차세대 수소저장 솔루션 선도",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302212",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "9cd6c886aac2cc8f80331b3ff25faf496f9708a751932a99ca613d670f64632c"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C57",
+        "KR_2026-08-31_C30"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C57",
+          "date": "2026-08-31",
+          "site": "투데이에너지",
+          "title": "[ENTECH 2026 참가기업] 에스웰즈 - 소형 모빌리티 위한 차세대 수소저장 솔루션 선도",
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302212"
+        },
+        {
+          "story_id": "KR_2026-08-31_C30",
+          "date": "2026-08-31",
+          "site": "투데이에너지",
+          "title": "[ENTECH 2026 참가기업] 에스웰즈 - 소형 모빌리티 위한 차세대 수소저장 솔루션 선도",
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302212"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 273,
+      "event_id": "XRUN_REPLAY_20260903_E0072",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C183",
+        "story_id": "KR_2026-08-31_C183",
+        "date": "2026-08-31",
+        "title": "이철규 의원, 광업협회 법적 근거·광업인 공제조합 도입 추진",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831145352930",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "6e43cc3bd9a5e97759162a99ff1b77eab084a4b768f238df571c1aa575022d8c"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C183",
+        "KR_2026-08-31_C74"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C183",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "이철규 의원, 광업협회 법적 근거·광업인 공제조합 도입 추진",
+          "url": "https://www.ajunews.com/view/20260831145352930"
+        },
+        {
+          "story_id": "KR_2026-08-31_C74",
+          "date": "2026-08-31",
+          "site": "아주경제",
+          "title": "이철규 의원, 광업협회 법적 근거·광업인 공제조합 도입 추진",
+          "url": "https://www.ajunews.com/view/20260831145352930"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 274,
+      "event_id": "XRUN_REPLAY_20260903_E0086",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C21",
+        "story_id": "JP_2026-08-31_C21",
+        "date": "2026-08-31",
+        "title": "簡単EV充電の「Plug&Charge」日本普及へ、独Hubjectとプラゴがパートナーシップ締結",
+        "site": "Response.jp Battery Special",
+        "url": "https://response.jp/article/2026/08/31/415926.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "df43114c51df000b66ef60e9fc49af5dabd4f8cc283facffb01a6c506a7bd947"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "JP_2026-08-31_C21",
+        "JP_2026-08-31_C15"
+      ],
+      "source_titles": [
+        {
+          "story_id": "JP_2026-08-31_C21",
+          "date": "2026-08-31",
+          "site": "Response.jp Battery Special",
+          "title": "簡単EV充電の「Plug&Charge」日本普及へ、独Hubjectとプラゴがパートナーシップ締結",
+          "url": "https://response.jp/article/2026/08/31/415926.html"
+        },
+        {
+          "story_id": "JP_2026-08-31_C15",
+          "date": "2026-08-31",
+          "site": "Response.jp Battery Special",
+          "title": "簡単EV充電の「Plug&Charge」日本普及へ、独Hubjectとプラゴがパートナーシップ締結",
+          "url": "https://response.jp/article/2026/08/31/415926.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 275,
+      "event_id": "XRUN_REPLAY_20260903_E0087",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C20",
+        "story_id": "JP_2026-08-31_C20",
+        "date": "2026-08-31",
+        "title": "燃料電池触媒の自動・自律実験システム、堀場製作所が開発…JASIS 2026で初公開へ",
+        "site": "Response.jp Battery Special",
+        "url": "https://response.jp/article/2026/08/31/415928.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "c365afdb79c659ae2151e5af807c93f32c3bbe424c376b788aeea1b8ed22b261"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "JP_2026-08-31_C20",
+        "JP_2026-08-31_C13"
+      ],
+      "source_titles": [
+        {
+          "story_id": "JP_2026-08-31_C20",
+          "date": "2026-08-31",
+          "site": "Response.jp Battery Special",
+          "title": "燃料電池触媒の自動・自律実験システム、堀場製作所が開発…JASIS 2026で初公開へ",
+          "url": "https://response.jp/article/2026/08/31/415928.html"
+        },
+        {
+          "story_id": "JP_2026-08-31_C13",
+          "date": "2026-08-31",
+          "site": "Response.jp Battery Special",
+          "title": "燃料電池触媒の自動・自律実験システム、堀場製作所が開発…JASIS 2026で初公開へ",
+          "url": "https://response.jp/article/2026/08/31/415928.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

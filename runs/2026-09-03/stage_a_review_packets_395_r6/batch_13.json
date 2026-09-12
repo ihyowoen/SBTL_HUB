@@ -1,0 +1,1808 @@
+{
+  "schema": "stage_a_review_packet_r6_v1",
+  "batch": 13,
+  "ordinal_start": 301,
+  "ordinal_end": 325,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 301,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0229",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C03",
+        "story_id": "US_2026-08-31_C03",
+        "date": "2026-08-31",
+        "title": "EnergyLIB strengthens Australian presence with local entity, NSW stock and Autra retail partnership",
+        "site": "GlobeNewswire Energy Industry",
+        "url": "https://www.globenewswire.com/news-release/2026/08/31/3353751/0/en/energylib-strengthens-australian-presence-with-local-entity-nsw-stock-and-autra-retail-partnership.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "4bc39c26db8d2cf46a64e82958d86cfc6dc6113b7ac400bf47302eebc490b8b6"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C03"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C03",
+          "source_run": "20260901",
+          "source_index": 17,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C03",
+          "story_id": "US_2026-08-31_C03",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "EnergyLIB strengthens Australian presence with local entity, NSW stock and Autra retail partnership",
+          "site": "GlobeNewswire Energy Industry",
+          "source_url": "https://www.globenewswire.com/news-release/2026/08/31/3353751/0/en/energylib-strengthens-australian-presence-with-local-entity-nsw-stock-and-autra-retail-partnership.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4bc39c26db8d2cf46a64e82958d86cfc6dc6113b7ac400bf47302eebc490b8b6"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0241"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 302,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0230",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C28",
+        "story_id": "US_2026-08-31_C28",
+        "date": "2026-08-31",
+        "title": "Uzbekistan Independence Day",
+        "site": "US State Department",
+        "url": "https://www.state.gov/releases/office-of-the-spokesperson/2026/08/uzbekistan-independence-day-2",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "c802fe9a379207200c1f297fce5d3f7292fe8a8512e605d54bd64a453fec1159"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C28"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C28",
+          "source_run": "20260901",
+          "source_index": 18,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C28",
+          "story_id": "US_2026-08-31_C28",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Uzbekistan Independence Day",
+          "site": "US State Department",
+          "source_url": "https://www.state.gov/releases/office-of-the-spokesperson/2026/08/uzbekistan-independence-day-2",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "c802fe9a379207200c1f297fce5d3f7292fe8a8512e605d54bd64a453fec1159"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0242"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 303,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0236",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C142",
+        "story_id": "KR_2026-09-01_C142",
+        "date": "2026-09-01",
+        "title": "반도체 다음은 양자·우주…41.4조 들여 '초격차 영토' 넓힌다[2027년 예산안]",
+        "site": "파이낸셜뉴스 RSS",
+        "url": "https://www.fnnews.com/news/202609010618364985",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "923fda6e94986f2e823729cfb1556086794cfca9fc1e166451304ce9ef8cd016"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C142"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C142",
+          "source_run": "20260901",
+          "source_index": 42,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C142",
+          "story_id": "KR_2026-09-01_C142",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "반도체 다음은 양자·우주…41.4조 들여 '초격차 영토' 넓힌다[2027년 예산안]",
+          "site": "파이낸셜뉴스 RSS",
+          "source_url": "https://www.fnnews.com/news/202609010618364985",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "923fda6e94986f2e823729cfb1556086794cfca9fc1e166451304ce9ef8cd016"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0248"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 304,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0237",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C201",
+        "story_id": "KR_2026-09-01_C201",
+        "date": "2026-09-01",
+        "title": "폐휴대폰, 집 앞에 두면 우체국이 수거…연내 '안심 방문수거' 도입",
+        "site": "전자신문",
+        "url": "https://www.etnews.com/20260901000119",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "38353ed11465c81c96a93cab1274e5e303008398a5358abb26417e26a339c6ef"
+        }
+      },
+      "observation_count": 5,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C04",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C102",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C144",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C157",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C201"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C04",
+          "source_run": "20260901",
+          "source_index": 48,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C04",
+          "story_id": "KR_2026-09-01_C04",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "\"서랍 속 폐휴대폰 안전 배출하세요\"…기후부, 회수 실천운동 전개",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260901_0003770562",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b84b99bbeea1e6289822acf5484d41d8a46c47f0a90638b4c07b4e8d97ecc430"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C102",
+          "source_run": "20260901",
+          "source_index": 81,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C102",
+          "story_id": "KR_2026-09-01_C102",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "“폐휴대폰 안전하게 배출하세요”…기후부, 한 달간 회수 실천운동 추진",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371930",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "ffce397f9852056b0955e701bc2c82741d05b3daf9e875cf204cc21c15fc8fdd"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C144",
+          "source_run": "20260901",
+          "source_index": 96,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C144",
+          "story_id": "KR_2026-09-01_C144",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "방치된 폐휴대폰, 우체국 방문택배로 수거한다",
+          "site": "전자신문",
+          "source_url": "https://www.etnews.com/20260901000168",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "9e9aaa56c3e29c5b0eb79f96b16ad15af6f6968e6129e0fdabecf84e16a0959b"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C157",
+          "source_run": "20260901",
+          "source_index": 91,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C157",
+          "story_id": "KR_2026-09-01_C157",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "서랍 속 잠자는 폐휴대폰, 집 앞에서 수거한다…연내 방문수거 도입",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260901095509307",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "53efc13fe7fe146d7dded42b92604c3804cfb05e076ec443f05345ee17dd8c20"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C201",
+          "source_run": "20260901",
+          "source_index": 43,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C201",
+          "story_id": "KR_2026-09-01_C201",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "폐휴대폰, 집 앞에 두면 우체국이 수거…연내 '안심 방문수거' 도입",
+          "site": "전자신문",
+          "source_url": "https://www.etnews.com/20260901000119",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "38353ed11465c81c96a93cab1274e5e303008398a5358abb26417e26a339c6ef"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "출하"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0249",
+        "XRUN_REPLAY_20260903_E0253"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 305,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0238",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C193",
+        "story_id": "KR_2026-09-01_C193",
+        "date": "2026-09-01",
+        "title": "중동발 위기 막는다…1.4조 자원안보기금 신설해 원유·광물 확보 [2027년 예산안]",
+        "site": "파이낸셜뉴스 RSS",
+        "url": "https://www.fnnews.com/news/202609010638408420",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "0cdf063629ff3954513da029518c779e434ae20ebfe08f7617a221ab39051b2c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C193"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C193",
+          "source_run": "20260901",
+          "source_index": 44,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C193",
+          "story_id": "KR_2026-09-01_C193",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "중동발 위기 막는다…1.4조 자원안보기금 신설해 원유·광물 확보 [2027년 예산안]",
+          "site": "파이낸셜뉴스 RSS",
+          "source_url": "https://www.fnnews.com/news/202609010638408420",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "0cdf063629ff3954513da029518c779e434ae20ebfe08f7617a221ab39051b2c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0250"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 306,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0240",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C11",
+        "story_id": "KR_2026-09-01_C11",
+        "date": "2026-09-01",
+        "title": "'11% 급락' 개미 충격 만회했다…강력 수주 모멘텀에 '급등' SK이노베이션이 자회사 SK온의 미국 에너지저장장치(ESS)용 배터리셀 수주 소식에 강세다.1일 오전 10시 현재 유가증권시장에서 SK이노베이션은 전날보다 1만400원(8.29%) 오른 13만5,900원에 거래되고 있다. 장 초반 10% 이상 뛰어올라 13만8,500원을 터치했다. 전체 업종 가운데 '에너지'가 SK이노베이션 강세에 힘입어 가장 큰 폭으로 오른다. SK온은 지난달 27일 미국 ESS 제조기업 네오볼타 파워와 ESS용 배터리 셀 공급계약을 체결했다고 전날 밝혔다.계약에 따라 SK온은 2027년부터 2031년까지 5년간 총 9기가와트시(GWh) 규모의 리튬인산철(LFP) 파우치 배터리 셀을 공급한다.이는 SK온이 올해 미국 시장에서 처음 따낸 대규모 배터리 셀 수주로 업계에서는 공급계약 규모를 약 1조5천억원으로 추산한다.SK온은 이와 별도로 연내 네오볼타 파워와 9GWh 규모의 추가 협력 계약도 추진하고 있다. 추가 계약까지 성사되면 양사의 협력 규모는 총 18GWh로 확대될 전망이다.전유진 iM증권 연구원은 \"SK온은 올해 수주 가이던스(전망치)를 20GWh로 제시했는데 이번 계약으로 목표치의 45%를 채웠고, 연내 추가로 추진하는 9GWh까지 감안하면 사실상 올해 수주 목표 대부분을 달성하게 된다\"고 설명했다.그는 \"찬물을 끼얹었던 SK이노베이션과 SK아이이테크놀로지(SKIET) 합병에 대한 실망감을 조금은 덜어내는 이벤트\"라고 평가했다.다만 \"이번 계약만으로 SK온과 SKIET 지원에 대한 시장의 불만과 불안을 해소하기에는 역부족\"이라면서도 \"미국 ESS 시장 진출의 첫걸음을 뗐다는 점은 긍정적\"이라고 말했다.앞서 SK이노베이션은 지난달 25일 분리막 사업 자회사 SKIET를 흡수합병한다고 공시했는데 다음 날인 26일 주가가 11.04% 급락한 바 있다.이후 27일부터 이날까지 4거래일 연속 반등 시세를 보이는 가운데 전날 8.04% 급등에 이어 2거래일 동안에만 20% 가까이 상승, 급락 분을 만회하는 모습이다.",
+        "site": "한국경제TV",
+        "url": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609010432",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "76af5d4b1de8346a6a2abcdc2337210a9df165f9530801333b726d37f6eafe44"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C11",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C17",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C76"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C11",
+          "source_run": "20260901",
+          "source_index": 47,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C11",
+          "story_id": "KR_2026-09-01_C11",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "'11% 급락' 개미 충격 만회했다…강력 수주 모멘텀에 '급등' SK이노베이션이 자회사 SK온의 미국 에너지저장장치(ESS)용 배터리셀 수주 소식에 강세다.1일 오전 10시 현재 유가증권시장에서 SK이노베이션은 전날보다 1만400원(8.29%) 오른 13만5,900원에 거래되고 있다. 장 초반 10% 이상 뛰어올라 13만8,500원을 터치했다. 전체 업종 가운데 '에너지'가 SK이노베이션 강세에 힘입어 가장 큰 폭으로 오른다. SK온은 지난달 27일 미국 ESS 제조기업 네오볼타 파워와 ESS용 배터리 셀 공급계약을 체결했다고 전날 밝혔다.계약에 따라 SK온은 2027년부터 2031년까지 5년간 총 9기가와트시(GWh) 규모의 리튬인산철(LFP) 파우치 배터리 셀을 공급한다.이는 SK온이 올해 미국 시장에서 처음 따낸 대규모 배터리 셀 수주로 업계에서는 공급계약 규모를 약 1조5천억원으로 추산한다.SK온은 이와 별도로 연내 네오볼타 파워와 9GWh 규모의 추가 협력 계약도 추진하고 있다. 추가 계약까지 성사되면 양사의 협력 규모는 총 18GWh로 확대될 전망이다.전유진 iM증권 연구원은 \"SK온은 올해 수주 가이던스(전망치)를 20GWh로 제시했는데 이번 계약으로 목표치의 45%를 채웠고, 연내 추가로 추진하는 9GWh까지 감안하면 사실상 올해 수주 목표 대부분을 달성하게 된다\"고 설명했다.그는 \"찬물을 끼얹었던 SK이노베이션과 SK아이이테크놀로지(SKIET) 합병에 대한 실망감을 조금은 덜어내는 이벤트\"라고 평가했다.다만 \"이번 계약만으로 SK온과 SKIET 지원에 대한 시장의 불만과 불안을 해소하기에는 역부족\"이라면서도 \"미국 ESS 시장 진출의 첫걸음을 뗐다는 점은 긍정적\"이라고 말했다.앞서 SK이노베이션은 지난달 25일 분리막 사업 자회사 SKIET를 흡수합병한다고 공시했는데 다음 날인 26일 주가가 11.04% 급락한 바 있다.이후 27일부터 이날까지 4거래일 연속 반등 시세를 보이는 가운데 전날 8.04% 급등에 이어 2거래일 동안에만 20% 가까이 상승, 급락 분을 만회하는 모습이다.",
+          "site": "한국경제TV",
+          "source_url": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609010432",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "76af5d4b1de8346a6a2abcdc2337210a9df165f9530801333b726d37f6eafe44"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C17",
+          "source_run": "20260901",
+          "source_index": 55,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C17",
+          "story_id": "KR_2026-09-01_C17",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "2차전지株 살아나나...SK온 수주 소식에 SK이노베이 급등",
+          "site": "파이낸셜뉴스 RSS",
+          "source_url": "https://www.fnnews.com/news/202609011013191193",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "5b3a86f16dfc9e2d06887678109c94dd58ffd538ec3cf17379bda3d304326809"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C76",
+          "source_run": "20260901",
+          "source_index": 46,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C76",
+          "story_id": "KR_2026-09-01_C76",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[ET특징주] SK온 美 ESS 수주 소식에… SK이노베이션 주가 8%↑",
+          "site": "전자신문",
+          "source_url": "https://www.etnews.com/20260901000178",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "ddd70010f2282247236ea667c84f22735100714a752bbf025e7d50a7aa132b41"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "lfp",
+          "리튬",
+          "배터리",
+          "분리막",
+          "전지"
+        ],
+        "execution": [
+          "계약",
+          "공급계약",
+          "수주",
+          "합병"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%",
+          "gwh",
+          "억원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "급등",
+          "급락",
+          "주가"
+        ],
+        "context": [
+          "연구",
+          "전망"
+        ]
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0252"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 307,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0242",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C166",
+        "story_id": "KR_2026-09-01_C166",
+        "date": "2026-09-01",
+        "title": "안두릴 CEO &quot;韓日 민간공장, 전시엔 무기 생산시설로 전환해야&quot;",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260901134819967",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "3a7390a572a479a5bba6a7356e7b1420cd36a6ced93f920796d580ccebf97c29"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C166"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C166",
+          "source_run": "20260901",
+          "source_index": 50,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C166",
+          "story_id": "KR_2026-09-01_C166",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "안두릴 CEO &quot;韓日 민간공장, 전시엔 무기 생산시설로 전환해야&quot;",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260901134819967",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "3a7390a572a479a5bba6a7356e7b1420cd36a6ced93f920796d580ccebf97c29"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "공장"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0255"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 308,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0243",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C151",
+        "story_id": "KR_2026-09-01_C151",
+        "date": "2026-09-01",
+        "title": "산업부, 내년 예산 13.2조 편성 ‘역대 최대’…메가프로젝트·M.AX 총력 지원",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371867",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "684cea9e87a1ca028fcf7dd18dd51431bf53d9af0e60cb2230b388d4edfa6281"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C151",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C152",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C72"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C151",
+          "source_run": "20260901",
+          "source_index": 51,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C151",
+          "story_id": "KR_2026-09-01_C151",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "산업부, 내년 예산 13.2조 편성 ‘역대 최대’…메가프로젝트·M.AX 총력 지원",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371867",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "684cea9e87a1ca028fcf7dd18dd51431bf53d9af0e60cb2230b388d4edfa6281"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C152",
+          "source_run": "20260901",
+          "source_index": 99,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C152",
+          "story_id": "KR_2026-09-01_C152",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "산업부, 자원안보·통상환경 대응 4.5조…4Q 최고가격제 1.4조 편성",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260831_0003769806",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "90091351c26219b029db4ee57d2a3a24fd11e3e781d0d91cf656049f39a73641"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C72",
+          "source_run": "20260901",
+          "source_index": 70,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C72",
+          "story_id": "KR_2026-09-01_C72",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[2027 예산안] 서남권 반도체에 매년 1.5조…M.AX·지역 주도 성장 '방점'",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260901111912659",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "e258c8d8d1bdd8829e6c814e0366e18bf19324b810163f54400f031701c39a6a"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0256",
+        "XRUN_REPLAY_20260903_E0266",
+        "XRUN_REPLAY_20260903_E0286"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 309,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0248",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C206",
+        "story_id": "KR_2026-09-01_C206",
+        "date": "2026-09-01",
+        "title": "한국앤컴퍼니그룹, 전사 업무 플랫폼 전면 개편…&quot;AI로 업무 효율 제고&quot;",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260901091016124",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "4d55e6a77696f86e98dfc683f2b69815fdf6d7350a32f98fd092e7867c83061d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C206"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C206",
+          "source_run": "20260901",
+          "source_index": 65,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C206",
+          "story_id": "KR_2026-09-01_C206",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "한국앤컴퍼니그룹, 전사 업무 플랫폼 전면 개편…&quot;AI로 업무 효율 제고&quot;",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260901091016124",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4d55e6a77696f86e98dfc683f2b69815fdf6d7350a32f98fd092e7867c83061d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0261"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 310,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0249",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C112",
+        "story_id": "KR_2026-09-01_C112",
+        "date": "2026-09-01",
+        "title": "광해공단, 제32회 통계의 날 기념 '대통령 표창' 수상",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260901_0003771442",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "9ef98b59b81a832b52add91adac13191a7234967a41e1c619a546352bcbb7b46"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C112"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C112",
+          "source_run": "20260901",
+          "source_index": 66,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C112",
+          "story_id": "KR_2026-09-01_C112",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "광해공단, 제32회 통계의 날 기념 '대통령 표창' 수상",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260901_0003771442",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "9ef98b59b81a832b52add91adac13191a7234967a41e1c619a546352bcbb7b46"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0262"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 311,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0250",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C96",
+        "story_id": "KR_2026-09-01_C96",
+        "date": "2026-09-01",
+        "title": "‘피지컬AI’ 예산 3배로 증액…과기정통부, 전 부처 CTO 역할",
+        "site": "ZDNet Korea RSS",
+        "url": "https://zdnet.co.kr/view?no=20260901084925",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "8a6628e65ba5ffd88e54a1a1c741fae7677ee6883b68617ee549844c82453824"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C96"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C96",
+          "source_run": "20260901",
+          "source_index": 67,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C96",
+          "story_id": "KR_2026-09-01_C96",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "‘피지컬AI’ 예산 3배로 증액…과기정통부, 전 부처 CTO 역할",
+          "site": "ZDNet Korea RSS",
+          "source_url": "https://zdnet.co.kr/view?no=20260901084925",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "8a6628e65ba5ffd88e54a1a1c741fae7677ee6883b68617ee549844c82453824"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0263"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 312,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0251",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C95",
+        "story_id": "KR_2026-09-01_C95",
+        "date": "2026-09-01",
+        "title": "‘칩플레이션’에…삼성·LG 실속형 PC 연달아 출시",
+        "site": "Donga Ilbo RSS",
+        "url": "https://www.donga.com/news/Economy/article/all/20260901/134581827/1",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "06997ac34f8efce03500efced485b83e6388cac3c505b17df970773d264c362d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C95"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C95",
+          "source_run": "20260901",
+          "source_index": 68,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C95",
+          "story_id": "KR_2026-09-01_C95",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "‘칩플레이션’에…삼성·LG 실속형 PC 연달아 출시",
+          "site": "Donga Ilbo RSS",
+          "source_url": "https://www.donga.com/news/Economy/article/all/20260901/134581827/1",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "06997ac34f8efce03500efced485b83e6388cac3c505b17df970773d264c362d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0264"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 313,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0255",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C119",
+        "story_id": "KR_2026-09-01_C119",
+        "date": "2026-09-01",
+        "title": "김보라 안성시장, 중앙대와 푸드테크·반도체·문화예술 잇는다...상생협력 실행단계로",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260901135606001",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "fd8f98aa4e82fbc5be9e0537fec3ed612ce91ad0d39b81697ac9c74d168051fb"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C119"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C119",
+          "source_run": "20260901",
+          "source_index": 76,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C119",
+          "story_id": "KR_2026-09-01_C119",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "김보라 안성시장, 중앙대와 푸드테크·반도체·문화예술 잇는다...상생협력 실행단계로",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260901135606001",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "fd8f98aa4e82fbc5be9e0537fec3ed612ce91ad0d39b81697ac9c74d168051fb"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0270"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 314,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0256",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C109",
+        "story_id": "KR_2026-09-01_C109",
+        "date": "2026-09-01",
+        "title": "경영통합 무산된 혼다·닛산, '자동차 두뇌' 공동개발",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260901104517521",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "9fce539efc1553a903b6d0ed0bcae5f7ffe0cea712d908fc85bf54be2f794b96"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C109"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C109",
+          "source_run": "20260901",
+          "source_index": 77,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C109",
+          "story_id": "KR_2026-09-01_C109",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "경영통합 무산된 혼다·닛산, '자동차 두뇌' 공동개발",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260901104517521",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "9fce539efc1553a903b6d0ed0bcae5f7ffe0cea712d908fc85bf54be2f794b96"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0271"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 315,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0258",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C91",
+        "story_id": "KR_2026-09-01_C91",
+        "date": "2026-09-01",
+        "title": "[종합] 반도체 수출 '역대 최대', 8월 수출 982.5억 달러…3개월 연속 900억 달러 ↑",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260901093735224",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "57c42a60bfc16749704e4b42266bb1ab2a3b2d0a1001ec1083ea8facacd1addb"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C91"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C91",
+          "source_run": "20260901",
+          "source_index": 79,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C91",
+          "story_id": "KR_2026-09-01_C91",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[종합] 반도체 수출 '역대 최대', 8월 수출 982.5억 달러…3개월 연속 900억 달러 ↑",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260901093735224",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "57c42a60bfc16749704e4b42266bb1ab2a3b2d0a1001ec1083ea8facacd1addb"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0273"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 316,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0259",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C83",
+        "story_id": "KR_2026-09-01_C83",
+        "date": "2026-09-01",
+        "title": "[미리보는 2026 국정감사(2)] 5개 발전공기업 재통합 추진",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302189",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "7341f78b1143ef08f60e49d2a9addc62187fdb4cc213b3d7dbe0a975c697c9d6"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C83"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C83",
+          "source_run": "20260901",
+          "source_index": 82,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C83",
+          "story_id": "KR_2026-09-01_C83",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[미리보는 2026 국정감사(2)] 5개 발전공기업 재통합 추진",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302189",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "7341f78b1143ef08f60e49d2a9addc62187fdb4cc213b3d7dbe0a975c697c9d6"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0274"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 317,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0261",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C215",
+        "story_id": "KR_2026-09-01_C215",
+        "date": "2026-09-01",
+        "title": "현대차, 14억 인구 인도 '대중 EV' 시장 정조준 \"콤팩트 전기 SUV 내년 투입\"",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260901_0003771226",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "07e21ec3f3548f4b97aadf007d812cb42e3b06ed29b02e07d3b7fb0817dffee2"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C215"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C215",
+          "source_run": "20260901",
+          "source_index": 84,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C215",
+          "story_id": "KR_2026-09-01_C215",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "현대차, 14억 인구 인도 '대중 EV' 시장 정조준 \"콤팩트 전기 SUV 내년 투입\"",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260901_0003771226",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "07e21ec3f3548f4b97aadf007d812cb42e3b06ed29b02e07d3b7fb0817dffee2"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0276"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 318,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0262",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C70",
+        "story_id": "KR_2026-09-01_C70",
+        "date": "2026-09-01",
+        "title": "UAE, 이란 전쟁으로 멈춘 정유시설 5개월 만에 정상화",
+        "site": "더구루",
+        "url": "https://www.theguru.co.kr/news/article.html?no=106504",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "f198e1616d72f0635806189ab7da27e7817ff3c492f72f5ea5d0d3cfde2def58"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C70"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C70",
+          "source_run": "20260901",
+          "source_index": 87,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C70",
+          "story_id": "KR_2026-09-01_C70",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "UAE, 이란 전쟁으로 멈춘 정유시설 5개월 만에 정상화",
+          "site": "더구루",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=106504",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "f198e1616d72f0635806189ab7da27e7817ff3c492f72f5ea5d0d3cfde2def58"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0278"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 319,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0263",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C174",
+        "story_id": "KR_2026-09-01_C174",
+        "date": "2026-09-01",
+        "title": "우주청, 차세대발사체 내년 R&D 2,916억원 편성",
+        "site": "ZDNet Korea RSS",
+        "url": "https://zdnet.co.kr/view?no=20260831185110",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "bc2c64acbdc0c4d4a02b59e155f96f9020dab24e2458199b3bed016da9094fac"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C174"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C174",
+          "source_run": "20260901",
+          "source_index": 89,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C174",
+          "story_id": "KR_2026-09-01_C174",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "우주청, 차세대발사체 내년 R&D 2,916억원 편성",
+          "site": "ZDNet Korea RSS",
+          "source_url": "https://zdnet.co.kr/view?no=20260831185110",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "bc2c64acbdc0c4d4a02b59e155f96f9020dab24e2458199b3bed016da9094fac"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "억원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0279"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 320,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0264",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C159",
+        "story_id": "KR_2026-09-01_C159",
+        "date": "2026-09-01",
+        "title": "성수품 역대 최대 18.3만t 푼다…농축수산물 최대 50% 할인[추석 민생대책]",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260831_0003769876",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "7d8ea87b0ccbf505cc9242c444b2c74ef0b1b8dd4f6b225e187e75700fd3856e"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C159"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C159",
+          "source_run": "20260901",
+          "source_index": 90,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C159",
+          "story_id": "KR_2026-09-01_C159",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "성수품 역대 최대 18.3만t 푼다…농축수산물 최대 50% 할인[추석 민생대책]",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260831_0003769876",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "7d8ea87b0ccbf505cc9242c444b2c74ef0b1b8dd4f6b225e187e75700fd3856e"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0280"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 321,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0265",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C99",
+        "story_id": "KR_2026-09-01_C99",
+        "date": "2026-09-01",
+        "title": "“전작권 회복·방첩사 해체 등 많은 진척”",
+        "site": "국방일보 (국방안보)",
+        "url": "http://kookbang.dema.mil.kr/newsWeb/20260901/7/ATCE_CTGR_0010010000/view.do",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "594b6f0ca52864ca160710346eaddbf5edb0f600fb7792332fd061949aab6ed8"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C99"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C99",
+          "source_run": "20260901",
+          "source_index": 92,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C99",
+          "story_id": "KR_2026-09-01_C99",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "“전작권 회복·방첩사 해체 등 많은 진척”",
+          "site": "국방일보 (국방안보)",
+          "source_url": "http://kookbang.dema.mil.kr/newsWeb/20260901/7/ATCE_CTGR_0010010000/view.do",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "594b6f0ca52864ca160710346eaddbf5edb0f600fb7792332fd061949aab6ed8"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0281"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 322,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0266",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C98",
+        "story_id": "KR_2026-09-01_C98",
+        "date": "2026-09-01",
+        "title": "“수백 개 지하도시로 은폐”…이란이 말하는 ‘자급자족’ 미사일 공장의 비밀 [밀리터리노트]",
+        "site": "Seoul Newspaper RSS",
+        "url": "https://www.seoul.co.kr/news/newsView.php?id=20260901500114",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "3dc9afa0912906afcc223adf3cac3b97679eb38a8e82f3cd08cdafcc02d268e9"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C98"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C98",
+          "source_run": "20260901",
+          "source_index": 93,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C98",
+          "story_id": "KR_2026-09-01_C98",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "“수백 개 지하도시로 은폐”…이란이 말하는 ‘자급자족’ 미사일 공장의 비밀 [밀리터리노트]",
+          "site": "Seoul Newspaper RSS",
+          "source_url": "https://www.seoul.co.kr/news/newsView.php?id=20260901500114",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "3dc9afa0912906afcc223adf3cac3b97679eb38a8e82f3cd08cdafcc02d268e9"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "공장"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0282"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 323,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0268",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C61",
+        "story_id": "KR_2026-09-01_C61",
+        "date": "2026-09-01",
+        "title": "LG전자, 14인치 그램북으로 국내 중저가 PC 시장 노린다",
+        "site": "아시아경제",
+        "url": "https://view.asiae.co.kr/article/2026090109281120717",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "6111de90e3391627e5b4ddafcff4d52ff264894d7cca8752b2e5fe322c1ecf1b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C61"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C61",
+          "source_run": "20260901",
+          "source_index": 97,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C61",
+          "story_id": "KR_2026-09-01_C61",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "LG전자, 14인치 그램북으로 국내 중저가 PC 시장 노린다",
+          "site": "아시아경제",
+          "source_url": "https://view.asiae.co.kr/article/2026090109281120717",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "6111de90e3391627e5b4ddafcff4d52ff264894d7cca8752b2e5fe322c1ecf1b"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0284"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 324,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0269",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C185",
+        "story_id": "KR_2026-09-01_C185",
+        "date": "2026-09-01",
+        "title": "전기동 재고 미국 쏠림…LME는 35.8% 급감",
+        "site": "이투뉴스",
+        "url": "http://www.e2news.com/news/articleView.html?idxno=333779",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "cef52c02b413e4cd115b64fac080a19ae582fefd41460c9df40e8f1305bc1d4d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C185"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C185",
+          "source_run": "20260901",
+          "source_index": 98,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C185",
+          "story_id": "KR_2026-09-01_C185",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "전기동 재고 미국 쏠림…LME는 35.8% 급감",
+          "site": "이투뉴스",
+          "source_url": "http://www.e2news.com/news/articleView.html?idxno=333779",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "cef52c02b413e4cd115b64fac080a19ae582fefd41460c9df40e8f1305bc1d4d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0285"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 325,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0270",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C122",
+        "story_id": "KR_2026-09-01_C122",
+        "date": "2026-09-01",
+        "title": "내년 국방예산 73.3조…핵추진잠수함 착수·KF-21 양산 확대[2027 예산안]",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260829_0003767801",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "1d9c2d480e87afc129a97d70c65ad2711145045b1a697eec05d8167dc7df36c6"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C122"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C122",
+          "source_run": "20260901",
+          "source_index": 100,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C122",
+          "story_id": "KR_2026-09-01_C122",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "내년 국방예산 73.3조…핵추진잠수함 착수·KF-21 양산 확대[2027 예산안]",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260829_0003767801",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "1d9c2d480e87afc129a97d70c65ad2711145045b1a697eec05d8167dc7df36c6"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "양산"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0287"
+      ],
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

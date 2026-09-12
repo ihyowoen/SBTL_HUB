@@ -1,0 +1,1454 @@
+{
+  "schema": "stage_a_review_packet_r6_v1",
+  "batch": 16,
+  "ordinal_start": 376,
+  "ordinal_end": 395,
+  "event_count": 20,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 376,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0367",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0157",
+        "story_id": "TF_0157",
+        "date": "2026-09-01",
+        "title": "수성아트피아, A-ARTISTⅣ. . .하지원 '한밤의 롤러코스터' 개최",
+        "site": "서울경제TV",
+        "url": "https://www.sentv.co.kr/article/view/sentv202609010056",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b246dfc2937d453217f51b95bd16d01788ca0e7f465f44b8282860cdab1b83ff"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0157"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0157",
+          "source_run": "20260901",
+          "source_index": 302,
+          "candidate_id": "orig:20260901_123511:TF_0157",
+          "story_id": "TF_0157",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "수성아트피아, A-ARTISTⅣ. . .하지원 '한밤의 롤러코스터' 개최",
+          "site": "서울경제TV",
+          "source_url": "https://www.sentv.co.kr/article/view/sentv202609010056",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b246dfc2937d453217f51b95bd16d01788ca0e7f465f44b8282860cdab1b83ff"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0393"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 377,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0368",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0156",
+        "story_id": "TF_0156",
+        "date": "2026-09-01",
+        "title": "수성아트피아, A-ARTISTⅢ. . .박세호 '行者之靜-유랑하는 고요' 개최",
+        "site": "서울경제TV",
+        "url": "https://www.sentv.co.kr/article/view/sentv202609010051",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b565a1578724a522db2645e215044ecfad85539fc6cfc59cfcf9b093f77b1b83"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0156"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0156",
+          "source_run": "20260901",
+          "source_index": 303,
+          "candidate_id": "orig:20260901_123511:TF_0156",
+          "story_id": "TF_0156",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "수성아트피아, A-ARTISTⅢ. . .박세호 '行者之靜-유랑하는 고요' 개최",
+          "site": "서울경제TV",
+          "source_url": "https://www.sentv.co.kr/article/view/sentv202609010051",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b565a1578724a522db2645e215044ecfad85539fc6cfc59cfcf9b093f77b1b83"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0394"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 378,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0369",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0129",
+        "story_id": "TF_0129",
+        "date": "2026-09-01",
+        "title": "KT, 해외 로밍 데이터 최대 2배 늘린다…40GB 상품도 신설",
+        "site": "디지털데일리",
+        "url": "https://www.ddaily.co.kr/page/view/2026090111282594384",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "e9f42b0ebf7e8a7011f47ab88fbe5ff1a7daa32c528c5821ca8e218e84bd3c29"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0129"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0129",
+          "source_run": "20260901",
+          "source_index": 304,
+          "candidate_id": "orig:20260901_123511:TF_0129",
+          "story_id": "TF_0129",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "KT, 해외 로밍 데이터 최대 2배 늘린다…40GB 상품도 신설",
+          "site": "디지털데일리",
+          "source_url": "https://www.ddaily.co.kr/page/view/2026090111282594384",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "e9f42b0ebf7e8a7011f47ab88fbe5ff1a7daa32c528c5821ca8e218e84bd3c29"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0395"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 379,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0370",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0152",
+        "story_id": "TF_0152",
+        "date": "2026-09-01",
+        "title": "삼성전기, AI 서버 MLCC '1조700억 수주'…빅테크 공급 역대 최대 계약",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260901100508342",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "2022df3ee01b1ea2c0a3f12ff939fd80e8b1046f87558f94eca11831f3cad394"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0152"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0152",
+          "source_run": "20260901",
+          "source_index": 305,
+          "candidate_id": "orig:20260901_123511:TF_0152",
+          "story_id": "TF_0152",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "삼성전기, AI 서버 MLCC '1조700억 수주'…빅테크 공급 역대 최대 계약",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260901100508342",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "2022df3ee01b1ea2c0a3f12ff939fd80e8b1046f87558f94eca11831f3cad394"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "계약",
+          "수주"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0396"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 380,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0371",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0143",
+        "story_id": "TF_0143",
+        "date": "2026-09-01",
+        "title": "기후부 “용수 공급 예산, 전력보다 적은 건 사업 초기 단계 때문”",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371909",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "f2138c29ed97cd43ba2ae4c78373f5f9e5c14c41b25b21356a925b2cf771c8ab"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0143"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0143",
+          "source_run": "20260901",
+          "source_index": 306,
+          "candidate_id": "orig:20260901_123511:TF_0143",
+          "story_id": "TF_0143",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "기후부 “용수 공급 예산, 전력보다 적은 건 사업 초기 단계 때문”",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371909",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "f2138c29ed97cd43ba2ae4c78373f5f9e5c14c41b25b21356a925b2cf771c8ab"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0397"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 381,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0372",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0130",
+        "story_id": "TF_0130",
+        "date": "2026-09-01",
+        "title": "LGU+, AI 에이전트 ‘품질관리’ 나선다…어라이즈AI와 맞손",
+        "site": "디지털데일리",
+        "url": "https://www.ddaily.co.kr/page/view/2026090111430495906",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "a1e984b7c093a2311f1fa52473f781ee6009b0ecd452760d60d3853d2b20895c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0130"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0130",
+          "source_run": "20260901",
+          "source_index": 307,
+          "candidate_id": "orig:20260901_123511:TF_0130",
+          "story_id": "TF_0130",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "LGU+, AI 에이전트 ‘품질관리’ 나선다…어라이즈AI와 맞손",
+          "site": "디지털데일리",
+          "source_url": "https://www.ddaily.co.kr/page/view/2026090111430495906",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "a1e984b7c093a2311f1fa52473f781ee6009b0ecd452760d60d3853d2b20895c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0398"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 382,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0373",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0176",
+        "story_id": "TF_0176",
+        "date": "2026-09-01",
+        "title": "휴가철에도 전력수요 95.3GW...폭염이 산업수요 감소 상쇄",
+        "site": "에너지신문",
+        "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227810",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "31ef13f55b7672b2a9bf640d2cbc7359e41d286e368e74ae7377c98444cdce2f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0176"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0176",
+          "source_run": "20260901",
+          "source_index": 308,
+          "candidate_id": "orig:20260901_123511:TF_0176",
+          "story_id": "TF_0176",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "휴가철에도 전력수요 95.3GW...폭염이 산업수요 감소 상쇄",
+          "site": "에너지신문",
+          "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227810",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "31ef13f55b7672b2a9bf640d2cbc7359e41d286e368e74ae7377c98444cdce2f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0399"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 383,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0374",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0149",
+        "story_id": "TF_0149",
+        "date": "2026-09-01",
+        "title": "미-이란 군사공격 재개 등에 8월31일 국제유가 상승",
+        "site": "에너지신문",
+        "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227808",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "27b84d0e9c1ef5b47145efb8746735e87b70d811e0b05ba1e3994d8a61ace9b0"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0149"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0149",
+          "source_run": "20260901",
+          "source_index": 310,
+          "candidate_id": "orig:20260901_123511:TF_0149",
+          "story_id": "TF_0149",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "미-이란 군사공격 재개 등에 8월31일 국제유가 상승",
+          "site": "에너지신문",
+          "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227808",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "27b84d0e9c1ef5b47145efb8746735e87b70d811e0b05ba1e3994d8a61ace9b0"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0401"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 384,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0375",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0057",
+        "story_id": "TF_0057",
+        "date": "2026-08-31",
+        "title": "'말랑이·왁뿌볼'서 유해물질 최대 176배 초과...&quot;KC마크 확인 필수&quot;",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831115334493",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b8c010e5f8cea069dad03a075011dca74bf2f7cda6d8b922cb8003c642f40881"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0057"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0057",
+          "source_run": "20260901",
+          "source_index": 319,
+          "candidate_id": "orig:20260901_123511:TF_0057",
+          "story_id": "TF_0057",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "'말랑이·왁뿌볼'서 유해물질 최대 176배 초과...&quot;KC마크 확인 필수&quot;",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831115334493",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b8c010e5f8cea069dad03a075011dca74bf2f7cda6d8b922cb8003c642f40881"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0403"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 385,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0376",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0058",
+        "story_id": "TF_0058",
+        "date": "2026-08-31",
+        "title": "1GW·2GW 사업 준비했는데…전기도 못 받는 원전수소",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371903",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "a20a377f4827c5ae827dded569511890e6fe6c3ffe3ff24b3f5344ec9256e658"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0058"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0058",
+          "source_run": "20260901",
+          "source_index": 321,
+          "candidate_id": "orig:20260901_123511:TF_0058",
+          "story_id": "TF_0058",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "1GW·2GW 사업 준비했는데…전기도 못 받는 원전수소",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371903",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "a20a377f4827c5ae827dded569511890e6fe6c3ffe3ff24b3f5344ec9256e658"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gw "
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0404"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 386,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0377",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0043",
+        "story_id": "TF_0043",
+        "date": "2026-09-01",
+        "title": "欧州で余る車生産能力、中国勢の手に 30年に4%握る見通し",
+        "site": "Nikkei (日本経済新聞)",
+        "url": "https://www.nikkei.com/article/DGXZQOGR07AZ50X00C26A8000000",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "fd3e685d1d7df486cacd2f6eb206e093995f733f5034202e80420e829272960a"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0043"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0043",
+          "source_run": "20260901",
+          "source_index": 336,
+          "candidate_id": "orig:20260901_123511:TF_0043",
+          "story_id": "TF_0043",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "欧州で余る車生産能力、中国勢の手に 30年に4%握る見通し",
+          "site": "Nikkei (日本経済新聞)",
+          "source_url": "https://www.nikkei.com/article/DGXZQOGR07AZ50X00C26A8000000",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "fd3e685d1d7df486cacd2f6eb206e093995f733f5034202e80420e829272960a"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0406"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 387,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0378",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0038",
+        "story_id": "TF_0038",
+        "date": "2026-08-31",
+        "title": "DSTs-CLEVR-gold-extraction-plant-in-Thetford-Mines-Canada-777x437 - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/joint-venture/dundee-sustainable-offers-alternative-processing/dsts-clevr-gold-extraction-plant-in-thetford-mines-canada-777x437-2",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "0d843a5528c9978c126068de76daa9cb61f6fd4ccd44defbb9e1ea10bccf554c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0038"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0038",
+          "source_run": "20260901",
+          "source_index": 338,
+          "candidate_id": "orig:20260901_123511:TF_0038",
+          "story_id": "TF_0038",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "DSTs-CLEVR-gold-extraction-plant-in-Thetford-Mines-Canada-777x437 - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/joint-venture/dundee-sustainable-offers-alternative-processing/dsts-clevr-gold-extraction-plant-in-thetford-mines-canada-777x437-2",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "0d843a5528c9978c126068de76daa9cb61f6fd4ccd44defbb9e1ea10bccf554c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "plant"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0408"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 388,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0383",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0020",
+        "story_id": "TF_0020",
+        "date": "2026-09-01",
+        "title": "7月动力电池装机量TOP10",
+        "site": "中国能源网",
+        "url": "https://www.china5e.com/news/news-1208550-1.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "0d42e76b65c0589866d65969b588709806e686de9dc461adb67489cc147b7998"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0020"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0020",
+          "source_run": "20260901",
+          "source_index": 345,
+          "candidate_id": "orig:20260901_123511:TF_0020",
+          "story_id": "TF_0020",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "7月动力电池装机量TOP10",
+          "site": "中国能源网",
+          "source_url": "https://www.china5e.com/news/news-1208550-1.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "0d42e76b65c0589866d65969b588709806e686de9dc461adb67489cc147b7998"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0413"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 389,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0385",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0025",
+        "story_id": "TF_0025",
+        "date": "2026-09-01",
+        "title": "坤天新能源易主",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-09/ART-36008-8120-30700939.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "8fb0f5f5e8f6184dbd2d4788c4e2908577c1a3168988a41feee0615e95a94e8b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0025"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0025",
+          "source_run": "20260901",
+          "source_index": 347,
+          "candidate_id": "orig:20260901_123511:TF_0025",
+          "story_id": "TF_0025",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "坤天新能源易主",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-09/ART-36008-8120-30700939.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "8fb0f5f5e8f6184dbd2d4788c4e2908577c1a3168988a41feee0615e95a94e8b"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0415"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 390,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0386",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0030",
+        "story_id": "TF_0030",
+        "date": "2026-09-01",
+        "title": "生产/检测设备",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/CAT-36005-shengchanjianceshebei.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "1c98f9818d156dbfaa4b80d509a19f26da65aa850f89b3a28d8179bb0b62f3a0"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0030"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0030",
+          "source_run": "20260901",
+          "source_index": 348,
+          "candidate_id": "orig:20260901_123511:TF_0030",
+          "story_id": "TF_0030",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "生产/检测设备",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/CAT-36005-shengchanjianceshebei.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "1c98f9818d156dbfaa4b80d509a19f26da65aa850f89b3a28d8179bb0b62f3a0"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0416"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 391,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0393",
+      "representative": {
+        "observation_key": "20260831::rescue:20260831:KR_2026-08-31_C37",
+        "story_id": "KR_2026-08-31_C37",
+        "date": "2026-08-28",
+        "title": "KT Everyone's AI service blueprint",
+        "site": null,
+        "url": null,
+        "binding": {
+          "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+          "coverage_payload_sha256": "3064eb5784c45fbe490d298804366ecdaf22423b6f1163da3c152992db734bb7"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::rescue:20260831:KR_2026-08-31_C37"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::rescue:20260831:KR_2026-08-31_C37",
+          "source_run": "20260831",
+          "source_index": 270,
+          "candidate_id": "rescue:20260831:KR_2026-08-31_C37",
+          "story_id": "KR_2026-08-31_C37",
+          "origin": "rescue",
+          "event_date": "2026-08-28",
+          "title": "KT Everyone's AI service blueprint",
+          "site": null,
+          "source_url": null,
+          "binding": {
+            "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+            "coverage_payload_sha256": "3064eb5784c45fbe490d298804366ecdaf22423b6f1163da3c152992db734bb7"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0423"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 392,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0028",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C90",
+        "story_id": "KR_2026-08-31_C90",
+        "date": "2026-08-31",
+        "title": "美 트럼프 전력망 비상사태 선포…韓 에너지 보안은 어디까지 왔나",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260831_0003769699",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "0a9bf0d7185c15026aa911fe1a176b4c3f12883c417400e283bbc7f0fab8ca5d"
+        }
+      },
+      "observation_count": 4,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-29_C05",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C90",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C37",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C44"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-29_C05",
+          "source_run": "20260831",
+          "source_index": 111,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-29_C05",
+          "story_id": "KR_2026-08-29_C05",
+          "origin": "original_input",
+          "event_date": "2026-08-29",
+          "title": "트럼프가 '국가 비상사태' 선포…덕분에 돈 벌 수 있는 주식이 있다? [주末머니]",
+          "site": "아시아경제",
+          "source_url": "https://view.asiae.co.kr/article/2026082815161926667",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "e6c1afd6ea313018c2b1ab9e878e4d4bc9ffc66ff0ba6b7ee9cd48d4a2eb9639"
+          }
+        },
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C90",
+          "source_run": "20260831",
+          "source_index": 42,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C90",
+          "story_id": "KR_2026-08-31_C90",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "美 트럼프 전력망 비상사태 선포…韓 에너지 보안은 어디까지 왔나",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260831_0003769699",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "0a9bf0d7185c15026aa911fe1a176b4c3f12883c417400e283bbc7f0fab8ca5d"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C37",
+          "source_run": "20260901",
+          "source_index": 114,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C37",
+          "story_id": "KR_2026-08-31_C37",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[이충재의 에너지 프리즘] 미국 대형 전력망 국가 비상 사태 선포: 미국 AI 전력 공급망에서 배제된 중국",
+          "site": "SK-on",
+          "source_url": "https://askinno.com/archives/170762",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "3bee657c4808ad90bfa625f08a40cab2f3bc45daa339e614ee2cd8a68a4c0ad6"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C44",
+          "source_run": "20260901",
+          "source_index": 127,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C44",
+          "story_id": "KR_2026-08-31_C44",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "美 트럼프 전력망 비상사태 선포…韓 에너지 보안은 어디까지 왔나",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260831_0003769699",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "600690c1c9148598fd27426c3700c10d1b165efad26d98e44f594fd53e2444e2"
+          }
+        }
+      ],
+      "canonical_relation": {
+        "legacy_event_id": "XRUN_20260831_20260901_E0217",
+        "replay_event_id": "XRUN_REPLAY_20260903_R6_E0028",
+        "relation_type": "same_event_reinforcement",
+        "target_ids": [
+          "2026-08-26_US_01"
+        ],
+        "confidence": "high",
+        "historical_title": "미국 대형 전력망 국가 비상 사태 선포 후속 보도",
+        "reanchor_score": 1.0,
+        "top_margin": 0.483871,
+        "r5_replay_event_id": "XRUN_REPLAY_20260903_E0298",
+        "r6_mapping_method": "deterministic_old_event_component_union"
+      },
+      "preselection_bucket": "existing_reinforcement",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전력망"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0028",
+        "XRUN_REPLAY_20260903_E0082",
+        "XRUN_REPLAY_20260903_E0298"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 393,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0030",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C40",
+        "story_id": "KR_2026-08-31_C40",
+        "date": "2026-08-31",
+        "title": "LG전자, 버려지는 가전에서 핵심광물 희토류 캔다 LG전자가 가전 부품의 폐기 단계에서 희토류 영구자석을 회수해 산업 자원으로 재활용하는 독자 기술을 개발, 국가 순환경제 생태계 구축에 나선다고 밝혔다. 희토류는 전기차, 산업용 모터, 가전 등 첨단 산업에 폭넓게 사용되는 핵심 광물로 안정적인 공급망 확보의 중요성이 커지고 있다. LG전자는 8월 27일 경기도 용인시에 위치한 수도권자원순환센터에서 기후에너지환경부, E-순환거버넌스와 ‘폐가전 냉매압축기 폐영구자석 회수 시범사업’ 업무협약을 맺었다. 2026-08-28",
+        "site": "일렉포",
+        "url": "https://elec4.co.kr/contents/article_detail?article_idx=38109&s_cate=11",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "d8a21093f45ef84990d586c0179476712b757f38b3e99925d7d0b32920c85920"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-29_C03",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C40"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-29_C03",
+          "source_run": "20260831",
+          "source_index": 110,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-29_C03",
+          "story_id": "KR_2026-08-29_C03",
+          "origin": "original_input",
+          "event_date": "2026-08-29",
+          "title": "LG전자, 폐가전서 희토류 영구자석 회수…핵심광물 순환경제 구축 나선다 - 코리아포스트 한글판",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "source_url": "https://www.koreapost.co.kr/news/articleView.html?idxno=88554",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "c3ec308eeb54bdd37e7b88d8e586a23e16d6ca45f73e65e442622ad791d8651b"
+          }
+        },
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C40",
+          "source_run": "20260831",
+          "source_index": 45,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C40",
+          "story_id": "KR_2026-08-31_C40",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "LG전자, 버려지는 가전에서 핵심광물 희토류 캔다 LG전자가 가전 부품의 폐기 단계에서 희토류 영구자석을 회수해 산업 자원으로 재활용하는 독자 기술을 개발, 국가 순환경제 생태계 구축에 나선다고 밝혔다. 희토류는 전기차, 산업용 모터, 가전 등 첨단 산업에 폭넓게 사용되는 핵심 광물로 안정적인 공급망 확보의 중요성이 커지고 있다. LG전자는 8월 27일 경기도 용인시에 위치한 수도권자원순환센터에서 기후에너지환경부, E-순환거버넌스와 ‘폐가전 냉매압축기 폐영구자석 회수 시범사업’ 업무협약을 맺었다. 2026-08-28",
+          "site": "일렉포",
+          "source_url": "https://elec4.co.kr/contents/article_detail?article_idx=38109&s_cate=11",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "d8a21093f45ef84990d586c0179476712b757f38b3e99925d7d0b32920c85920"
+          }
+        }
+      ],
+      "canonical_relation": {
+        "legacy_event_id": "XRUN_20260831_20260901_E0263",
+        "replay_event_id": "XRUN_REPLAY_20260903_R6_E0030",
+        "relation_type": "same_event_reinforcement",
+        "target_ids": [
+          "2026-08-27_KR_01"
+        ],
+        "confidence": "high",
+        "historical_title": "LG전자 폐가전 희토류 영구자석 회수",
+        "reanchor_score": 0.8,
+        "top_margin": 0.453846,
+        "r5_replay_event_id": "XRUN_REPLAY_20260903_E0031",
+        "r6_mapping_method": "deterministic_old_event_component_union"
+      },
+      "preselection_bucket": "existing_reinforcement",
+      "routing_hint_score": null,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0031"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 394,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0189",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0048",
+        "story_id": "TF_0048",
+        "date": "2026-08-19",
+        "title": "LG Energy Solution Announces Start of Production at All-New Lansing Battery Plant",
+        "site": "LG Energy Solution Newsroom RSS",
+        "url": "https://news.lgensol.com/company-news/press-releases/5163",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "e9a6fad352763b7310fa021b8a65ac31f4fbb059953d00419abc09f3d0cf48fd"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0048",
+        "20260901::orig:20260901_123511:TF_0051"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0048",
+          "source_run": "20260831",
+          "source_index": 238,
+          "candidate_id": "orig:20260831_143419:TF_0048",
+          "story_id": "TF_0048",
+          "origin": "original_input",
+          "event_date": "2026-08-19",
+          "title": "LG Energy Solution Announces Start of Production at All-New Lansing Battery Plant",
+          "site": "LG Energy Solution Newsroom RSS",
+          "source_url": "https://news.lgensol.com/company-news/press-releases/5163",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "e9a6fad352763b7310fa021b8a65ac31f4fbb059953d00419abc09f3d0cf48fd"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0051",
+          "source_run": "20260901",
+          "source_index": 328,
+          "candidate_id": "orig:20260901_123511:TF_0051",
+          "story_id": "TF_0051",
+          "origin": "original_input",
+          "event_date": "2026-08-19",
+          "title": "LG Energy Solution Announces Start of Production at All-New Lansing Battery Plant",
+          "site": "LG Energy Solution Newsroom RSS",
+          "source_url": "https://news.lgensol.com/company-news/press-releases/5163",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "0ba2eb4af41ef3699f3be42d6407b7a4634ba14f3c3d45917be203dc7f0a598f"
+          }
+        }
+      ],
+      "canonical_relation": {
+        "legacy_event_id": "XRUN_20260831_20260901_E0437",
+        "replay_event_id": "XRUN_REPLAY_20260903_R6_E0189",
+        "relation_type": "same_event_reinforcement",
+        "target_ids": [
+          "2026-08-18_US_01"
+        ],
+        "confidence": "high",
+        "historical_title": "LG Energy Solution Lansing production start",
+        "reanchor_score": 1.0,
+        "top_margin": 0.4375,
+        "r5_replay_event_id": "XRUN_REPLAY_20260903_E0200",
+        "r6_mapping_method": "deterministic_old_event_component_union"
+      },
+      "preselection_bucket": "existing_reinforcement",
+      "routing_hint_score": null,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0200"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 395,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0307",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C32",
+        "story_id": "GL_2026-08-31_C32",
+        "date": "2026-08-31",
+        "title": "Trump cites ‘unusual and extraordinary threat’ in executive order banning inverter, BESS & transformer imports",
+        "site": "Energy-Storage.news RSS",
+        "url": "https://www.energy-storage.news/trump-cites-unusual-and-extraordinary-threat-in-executive-order-banning-inverter-bess-transformer-imports",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "0b2aee4dc03c3a2dfb1b0776c9817db49233646e30a3559ee943ed57fbc3c088"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C32"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C32",
+          "source_run": "20260901",
+          "source_index": 198,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C32",
+          "story_id": "GL_2026-08-31_C32",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Trump cites ‘unusual and extraordinary threat’ in executive order banning inverter, BESS & transformer imports",
+          "site": "Energy-Storage.news RSS",
+          "source_url": "https://www.energy-storage.news/trump-cites-unusual-and-extraordinary-threat-in-executive-order-banning-inverter-bess-transformer-imports",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "0b2aee4dc03c3a2dfb1b0776c9817db49233646e30a3559ee943ed57fbc3c088"
+          }
+        }
+      ],
+      "canonical_relation": {
+        "legacy_event_id": "XRUN_20260831_20260901_E0233",
+        "replay_event_id": "XRUN_REPLAY_20260903_R6_E0307",
+        "relation_type": "same_event_reinforcement",
+        "target_ids": [
+          "2026-08-26_US_01"
+        ],
+        "confidence": "high",
+        "historical_title": "U.S. inverter/BESS/transformer executive-order follow-up report",
+        "reanchor_score": 0.625,
+        "top_margin": 0.233392,
+        "r5_replay_event_id": "XRUN_REPLAY_20260903_E0328",
+        "r6_mapping_method": "deterministic_old_event_component_union"
+      },
+      "preselection_bucket": "existing_reinforcement",
+      "routing_hint_score": null,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0328"
+      ],
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "schema": "raw_input_chat_attachment_binding_v1",
+  "status": "PASS_EXACT_RAW_IDENTITY_VERIFIED_TRANSPORT_PENDING",
+  "generated_date": "2026-09-03",
+  "run": "20260901_123511",
+  "expected_binding": {
+    "expected_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+    "expected_byte_count": 9604884,
+    "expected_story_count": 357
+  },
+  "verified_current_chat_attachments": [
+    {
+      "uploaded_name": "final_news_llm_input_newsletter_expanded_20260901_123511(1).json",
+      "sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+      "byte_count": 9604884,
+      "story_count_summary": 357,
+      "stories_array_count": 357,
+      "run_tag": "20260901_123511"
+    },
+    {
+      "uploaded_name": "final_news_llm_input_newsletter_expanded_20260901_123511.json",
+      "sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+      "byte_count": 9604884,
+      "story_count_summary": 357,
+      "stories_array_count": 357,
+      "run_tag": "20260901_123511"
+    }
+  ],
+  "cross_copy_verification": {
+    "byte_identical": true,
+    "duplicate_story_id_count": 0,
+    "story_array_json_path": "$.stories",
+    "ordered_story_ids_sha256": "7383d648aabe346a5005357f1130ba221cc4904cc306a7eaf440c32804cbf0c6",
+    "sorted_story_ids_sha256": "249a4432bd8d8122035941655e8f2c9c21f78dff6f6de7a216af4f70bebc935f",
+    "ordered_canonical_row_hashes_sha256": "1c4b11acc6600f3a176b783714ea2d461d51561e61c88ea644e594a41d43ec28",
+    "source_schema": "final_news_llm_input_v4_newsletter_expanded",
+    "source_generated_kst": "2026-09-01T14:35:48+09:00"
+  },
+  "pipeline_authority": {
+    "raw_identity_verified": true,
+    "raw_bytes_present_in_current_execution_context": true,
+    "repo_transport_complete": false,
+    "source_replay_from_repo_authorized": false,
+    "current_execution_materialization_authorized": true,
+    "formal_stage_a_authorized": false
+  },
+  "remaining_raw_gate": {
+    "run": "20260831_143419",
+    "expected_filename": "final_news_llm_input_newsletter_expanded_20260831_143419.json",
+    "expected_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+    "expected_byte_count": 7265646,
+    "expected_story_count": 264,
+    "file_library_located": true,
+    "exact_bytes_mounted_in_current_execution_context": false
+  }
+}

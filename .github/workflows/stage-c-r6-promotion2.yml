@@ -1,0 +1,40 @@
+name: Stage C R6 Promotion 2
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/stage-c-r6-promotion2/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  stage-c-promotion2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build and validate Stage C promotion2
+        run: python3 scripts/stage_c_r6_promotion2.py
+      - name: Commit validated Stage C promotion2 outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          p='runs/2026-09-03/stage_c_r6_promotion2_validation_20260903_R1.json'
+          r=json.load(open(p,encoding='utf-8'))
+          assert r['status']=='PASS', r
+          assert r['input_count']==2 and r['accepted_fact_safe_count']==2 and r['revise_required_count']==0
+          assert r['stage_c_lineage_check_rc']==0 and r['stage_c_production_contract_rc']==0
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/stage_c_r6_promotion2_20260903_R1.json \
+                  runs/2026-09-03/stage_c_r6_promotion2_validation_20260903_R1.json
+          git rm -r .tmp/stage-c-r6-promotion2
+          git commit -m 'audit: Stage C R6 Prompt 0.1P promotion2 fact-safe'
+          git push

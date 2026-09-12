@@ -1,0 +1,50 @@
+name: Materialize compact Stage A review packets for replayable 425
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/stagea425compact/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  compact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build compact packets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          membership=json.loads(Path('runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json').read_text())
+          source=json.loads(Path('runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json').read_text())
+          pre=json.loads(Path('runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R2.json').read_text())
+          relation=json.loads(Path('runs/2026-09-03/canonical_relation_replay_closure_425_20260903_R3.json').read_text())
+          src={o['observation_key']:o for o in source['observations']}; mev={e['event_id']:e for e in membership['events']}; rel={r['replay_event_id']:r for r in relation['reanchored_relations']}
+          outdir=Path('runs/2026-09-03/stage_a_review_packets_425_compact'); outdir.mkdir(parents=True,exist_ok=True)
+          for bi in range(17):
+              rows=[]
+              for idx,x in enumerate(pre['events'][bi*25:(bi+1)*25],start=bi*25+1):
+                  e=mev[x['event_id']]; obs=[src[k] for k in e['observation_keys']]
+                  rows.append({'ordinal':idx,'event_id':x['event_id'],'representative':e.get('representative'),'observation_count':e.get('observation_count'),'source_runs':e.get('source_runs'),'source_story_ids':[o.get('story_id') for o in obs if o.get('story_id')],'source_titles':[{'story_id':o.get('story_id'),'date':o.get('event_date'),'site':o.get('site'),'title':o.get('title'),'url':o.get('source_url')} for o in obs],'canonical_relation':rel.get(x['event_id']),'preselection_bucket':x['preselection_bucket'],'routing_hint_score':x.get('routing_hint_score'),'matched_features':x.get('matched_features'),'formal_stage_a_judgment_required':True})
+              (outdir/f'batch_{bi+1:02d}.json').write_text(json.dumps({'schema':'stage_a_compact_review_packet_v1','batch':bi+1,'event_count':len(rows),'events':rows},ensure_ascii=False,indent=2)+'\n')
+          print('PASS compact 17 batches')
+          PY
+      - name: Commit compact packets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/stage_a_review_packets_425_compact
+          git rm -r .tmp/stagea425compact
+          git commit -m 'audit: materialize compact Stage A review packets for replayable 425'
+          git push

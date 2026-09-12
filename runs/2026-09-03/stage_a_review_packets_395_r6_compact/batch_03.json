@@ -1,0 +1,910 @@
+{
+  "schema": "stage_a_compact_review_packet_r6_v1",
+  "batch": 3,
+  "ordinal_start": 51,
+  "ordinal_end": 75,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 51,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0280",
+      "title": "삼성SDI, 글로벌 톱티어 ESS기업에 LFP 배터리 공급",
+      "date": "2026-08-31",
+      "site": "더일렉",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "삼성SDI, 글로벌 톱티어 ESS기업에 LFP 배터리 공급"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "lfp",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0299"
+      ]
+    },
+    {
+      "ordinal": 52,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0310",
+      "title": "Defense Metals drills 6% rare earths in British Columbia - Mining.com",
+      "date": "2026-08-31",
+      "site": "Mining.com Battery Minerals (via Google News)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Defense Metals drills 6% rare earths in BC - The Northern Miner",
+        "Defense Metals drills 6% rare earths in British Columbia - Mining.com"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0331"
+      ]
+    },
+    {
+      "ordinal": 53,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0322",
+      "title": "Clean Energy Regulator: Australia’s clean energy transition ‘accelerating’ as Q2 records tumble",
+      "date": "2026-09-01",
+      "site": "PV Tech RSS",
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Battery installations hit record as Australia’s clean energy shift accelerates",
+        "Clean Energy Regulator: Australia’s clean energy transition ‘accelerating’ as Q2 records tumble"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "installations",
+          "q2",
+          "record "
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0343"
+      ]
+    },
+    {
+      "ordinal": 54,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0323",
+      "title": "Grenergy plans 516.9 MWp solar plant with 3.01 GWh BESS in Chile",
+      "date": "2026-08-31",
+      "site": "ESS News RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Grenergy plans 516.9 MWp solar plant with 3.01 GWh BESS in Chile"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 6,
+      "matched_features": {
+        "scope": [
+          "bess",
+          "ess"
+        ],
+        "execution": [
+          "plant"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gwh"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0344"
+      ]
+    },
+    {
+      "ordinal": 55,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0346",
+      "title": "IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新",
+      "date": "2026-09-01",
+      "site": "中国能源网",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 6,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "量产"
+        ],
+        "policy": [
+          "税"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0369"
+      ]
+    },
+    {
+      "ordinal": 56,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0348",
+      "title": "总投资35.5亿！贵州一年产20万吨锂电负极材料项目环评公示",
+      "date": "2026-09-01",
+      "site": "北极星储能网",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "总投资35.5亿！贵州一年产20万吨锂电负极材料项目环评公示"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 6,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [
+          "投资"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "万吨"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0371"
+      ]
+    },
+    {
+      "ordinal": 57,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0352",
+      "title": "Q2净利环比增509%、储能收入同增超200%，林洋能源半年报交出逆周期答卷！",
+      "date": "2026-08-31",
+      "site": "OFweek储能网",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Q2净利环比增509%、储能收入同增超200%，林洋能源半年报交出逆周期答卷！"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 5,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "q2"
+        ],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0377"
+      ]
+    },
+    {
+      "ordinal": 58,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0362",
+      "title": "정제마진 확대·배터리 수주 쌍끌이…질주하는 SK이노",
+      "date": "2026-09-01",
+      "site": "매일경제",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "정제마진 확대·배터리 수주 쌍끌이…질주하는 SK이노"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [
+          "수주"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0388"
+      ]
+    },
+    {
+      "ordinal": 59,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0379",
+      "title": "Rare earths miner Mont Royal inks joint study agreement with refiner to form value chain - miningweekly.com",
+      "date": "2026-08-31",
+      "site": "Mining Weekly (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Rare earths miner Mont Royal inks joint study agreement with refiner to form value chain - miningweekly.com"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "rare earth"
+        ],
+        "execution": [
+          "agreement"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "study"
+        ]
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0409"
+      ]
+    },
+    {
+      "ordinal": 60,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0382",
+      "title": "[Gasgoo Express] Xiaomi Auto Shares 100,000+ km Data; Arcfox T7 Tops 30,000 Pre-Orders",
+      "date": "2026-09-01",
+      "site": "Gasgoo RSS - Class 2",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "[Gasgoo Express] Xiaomi Auto Shares 100,000+ km Data; Arcfox T7 Tops 30,000 Pre-Orders"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [
+          "order"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0412"
+      ]
+    },
+    {
+      "ordinal": 61,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0389",
+      "title": "Japan EPRX lowers primary/secondary-1/composite ΔkW price cap to 10 yen from Sep. 1 delivery",
+      "date": "2026-07-30",
+      "site": "www.eprx.or.jp",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "Japan EPRX lowers primary/secondary-1/composite ΔkW price cap to 10 yen from Sep. 1 delivery",
+        "Japan EPRX 10-yen ΔkW cap becomes applicable to Sep. 1 delivery"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "price cap"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0419"
+      ]
+    },
+    {
+      "ordinal": 62,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0001",
+      "title": "State Of Charge Goes Inside EVgo Headquarters and Lab - EVChargingStations.com",
+      "date": "2026-08-29",
+      "site": "Tesla NACS (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "State Of Charge Goes Inside EVgo Headquarters and Lab - EVChargingStations.com"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "charging"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "quarter"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0001"
+      ]
+    },
+    {
+      "ordinal": 63,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0006",
+      "title": "A new solution for flame-retardant tapes in EVs and energy storage applications: CleanTape® FR (Webinar)",
+      "date": "2026-08-28",
+      "site": "Charged EVs RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "A new solution for flame-retardant tapes in EVs and energy storage applications: CleanTape® FR (Webinar)"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [
+          "energy storage"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "webinar"
+        ],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0006"
+      ]
+    },
+    {
+      "ordinal": 64,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0009",
+      "title": "Indian bus operator Fresh Bus adds 400 electric buses to ChargeZone’s charging network",
+      "date": "2026-08-28",
+      "site": "Charged EVs RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "Indian bus operator Fresh Bus adds 400 electric buses to ChargeZone’s charging network"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "charging"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0009"
+      ]
+    },
+    {
+      "ordinal": 65,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0010",
+      "title": "K-12 school solar tops 2.4 GW, while battery storage emerges as next growth market",
+      "date": "2026-08-31",
+      "site": "PV Magazine USA RSS",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "1 in 7 US students now goes to a solar-powered school",
+        "K-12 school solar tops 2.4 GW, while battery storage emerges as next growth market"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "school solar"
+        ],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0010"
+      ]
+    },
+    {
+      "ordinal": 66,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0013",
+      "title": "Canada and Chile advance critical minerals partnership to diversify trade, grow our economy and create jobs",
+      "date": "2026-08-28",
+      "site": "Canada.ca News API (National News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "Canada and Chile advance critical minerals partnership to diversify trade, grow our economy and create jobs"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0013"
+      ]
+    },
+    {
+      "ordinal": 67,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0014",
+      "title": "Battery boom brings round-the-clock solar closer, Ember says",
+      "date": "2026-08-28",
+      "site": "PV Magazine USA RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "Battery boom brings round-the-clock solar closer, Ember says"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0014"
+      ]
+    },
+    {
+      "ordinal": 68,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0018",
+      "title": "전북테크노파크, 나트륨배터리 활용기술 개발 추진…국책과제 발굴 등 연구회 킥-오프",
+      "date": "2026-08-31",
+      "site": "전자신문",
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "전북TP, 도내 산middot;학middot;연과 '나트륨배터리 활용기술 개발 연구회' 발족",
+        "전북테크노파크, 나트륨배터리 활용기술 개발 추진…국책과제 발굴 등 연구회 킥-오프",
+        "전북테크노파크, 나트륨배터리 활용기술 개발 추진…국책과제 발굴 등 연구회 킥-오프"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "나트륨",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [
+          "나트륨"
+        ],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "연구"
+        ]
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0018",
+        "XRUN_REPLAY_20260903_E0041"
+      ]
+    },
+    {
+      "ordinal": 69,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0024",
+      "title": "신흥국 6개국, 전기차로 완성차 '진입장벽' 넘는다…\"자체 브랜드 잰걸음\"",
+      "date": "2026-08-31",
+      "site": "파이낸셜뉴스 RSS",
+      "observation_count": 3,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "신흥국 6개국, 전기차로 완성차 '진입장벽' 넘는다…\"자체 브랜드 잰걸음\"",
+        "신흥국 ‘자체 전기차’ 키운다…K-부품사엔 새 공급망 기회",
+        "신흥국도 ‘내수용 전기차’ 만든다…글로벌 車시장 판도 흔들"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전기차"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0024",
+        "XRUN_REPLAY_20260903_E0029",
+        "XRUN_REPLAY_20260903_E0044"
+      ]
+    },
+    {
+      "ordinal": 70,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0026",
+      "title": "[단독] \"中 수출제한 공등 대응\" 아세안 '배터리 블록' 뜬다",
+      "date": "2026-08-31",
+      "site": "더구루",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "[단독] \"中 수출제한 공등 대응\" 아세안 '배터리 블록' 뜬다"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0026"
+      ]
+    },
+    {
+      "ordinal": 71,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0027",
+      "title": "극한 추위에도 끄덕없는 스마트폰 배터리 나올까",
+      "date": "2026-08-31",
+      "site": "ZDNet Korea RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "극한 추위에도 끄덕없는 스마트폰 배터리 나올까"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0027"
+      ]
+    },
+    {
+      "ordinal": 72,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0031",
+      "title": "한일 상의, 핵심광물·에너지 공급망 협력…AI·반도체 공동 육성 - edaily.co.kr",
+      "date": "2026-08-31",
+      "site": "핵심광물 다자·G7 (via Google News)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "한일 상의, 핵심광물·에너지 공급망 협력…AI·반도체 공동 육성 - edaily.co.kr",
+        "한일 상의, 핵심광물·에너지 공급망 협력…AI·반도체 공동 육성 - 네이트"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "핵심광물"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망",
+          "핵심광물"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0033"
+      ]
+    },
+    {
+      "ordinal": 73,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0035",
+      "title": "루모라, 9월 자가소비 태양광 계약 시 kWh당 10원 추가 할인",
+      "date": "2026-08-31",
+      "site": "투데이에너지",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "루모라, 9월 자가소비 태양광 계약 시 kWh당 10원 추가 할인",
+        "루모라, 9월 자가소비 태양광 계약 시 kWh당 10원 추가 할인"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "계약"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0037"
+      ]
+    },
+    {
+      "ordinal": 74,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0037",
+      "title": "SK온도 ESS 사업 드라이브 가동… K배터리 캐즘 탈출 준비",
+      "date": "2026-08-31",
+      "site": "Segye Ilbo RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "SK온도 ESS 사업 드라이브 가동… K배터리 캐즘 탈출 준비"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0039"
+      ]
+    },
+    {
+      "ordinal": 75,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0038",
+      "title": "KTC, EV 급속충전기 파워모듈 통신 프로토콜 표준화 나선다",
+      "date": "2026-08-31",
+      "site": "전기신문",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "KTC, EV 급속충전기 파워모듈 통신 프로토콜 표준화 나선다"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ev ",
+          "충전"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0040"
+      ]
+    }
+  ]
+}

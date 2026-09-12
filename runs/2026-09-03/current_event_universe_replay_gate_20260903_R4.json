@@ -1,0 +1,56 @@
+{
+  "schema": "current_event_universe_replay_gate_v1",
+  "stage": "EVENT_UNIVERSE_RECONCILIATION",
+  "status": "PASS_REPLAYABLE_CURRENT_EVENT_UNIVERSE_STAGE_A_STILL_BLOCKED",
+  "generated_date": "2026-09-03",
+  "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "canonical_card_count": 1514,
+  "raw_attachment_binding": {
+    "path": "runs/2026-09-03/raw_input_chat_attachment_binding_20260831_20260901_R2.json",
+    "sha256": "422f076881f7ea27635a6f9dd446e362c0cf5c6488b405f173a6ab0c701ea0c2"
+  },
+  "source_identity_index": {
+    "path": "runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json",
+    "sha256": "49359afb0f4cb6a1065e8cd8e3c2f27365c686e22148e6870bb38cceb8888550"
+  },
+  "merge_decision_ledger": {
+    "path": "runs/2026-09-03/xrun_event_reconciliation_merge_decisions_20260903_R1.json",
+    "sha256": "75a1052d84812f7ce42caa0b0f22a1a96c490ecdce326d5cf0b5885e4bc06b0f"
+  },
+  "event_membership": {
+    "path": "runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json",
+    "sha256": "9d4922dac8ac622e95fccdf915abf6807546fbb502863799855039fc6b2fd38b"
+  },
+  "accounting": {
+    "raw_observations": 621,
+    "coverage_discovery_or_rescue": 11,
+    "total_observations": 632,
+    "exact_url_or_normalized_headline_event_count": 532,
+    "first_pass_event_count": 437,
+    "final_event_count": 425,
+    "all_observations_accounted": true,
+    "duplicate_membership_count": 0,
+    "unassigned_count": 0
+  },
+  "historical_governed_carry_forward": {
+    "gross": 290,
+    "terminally_accounted": 290,
+    "current_stage_a_entries": 0,
+    "status": "PASS_TERMINAL_ACCOUNTING_NO_CURRENT_STAGE_A_ENTRY"
+  },
+  "historical_comparison": {
+    "legacy_reported_current_event_count": 425,
+    "legacy_full_membership_recovered": false,
+    "new_replay_event_count": 425,
+    "count_equality_is_sanity_check_only": true,
+    "legacy_hash_not_targeted": true
+  },
+  "authorization": {
+    "event_universe_reconciliation_pass": true,
+    "canonical_relation_reclassification_authorized": true,
+    "preselection_regeneration_authorized": true,
+    "formal_stage_a_authorized": false,
+    "next_gate": "RECOMPUTE_CANONICAL_RELATION_AND_PRESELECTION_FROM_REPLAYABLE_425_ON_MAIN_DF6FCCC"
+  }
+}

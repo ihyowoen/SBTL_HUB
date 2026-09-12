@@ -1,0 +1,269 @@
+{
+  "schema": "stage_a_review_packet_manifest_r6_v1",
+  "status": "PASS_EXACT_395_ACCOUNTING_READY_FOR_FORMAL_STAGE_A_REVIEW",
+  "generated_date": "2026-09-03",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "refs": {
+    "event_gate": "runs/2026-09-03/current_event_universe_replay_gate_20260903_R6.json",
+    "membership": "runs/2026-09-03/current_crossrun_event_membership_replay_corrected_395_20260903_R6.json",
+    "source_index": "runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json",
+    "relation": "runs/2026-09-03/canonical_relation_replay_closure_395_20260903_R6.json",
+    "preselection": "runs/2026-09-03/stage_a_v4_preselection_replay_395_20260903_R6.json"
+  },
+  "sha256": {
+    "membership": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+    "source_index": "49359afb0f4cb6a1065e8cd8e3c2f27365c686e22148e6870bb38cceb8888550",
+    "relation": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+    "preselection": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf"
+  },
+  "accounting": {
+    "event_count": 395,
+    "batch_count": 16,
+    "batch_size": 25,
+    "last_batch_size": 20,
+    "unique_event_ids": 395,
+    "duplicate_event_ids": 0,
+    "unassigned_event_ids": 0,
+    "all_r6_events_present_exactly_once": true
+  },
+  "ordering_policy": [
+    "high_potential_review",
+    "candidate_review",
+    "watchlist_context",
+    "reject_or_support_only",
+    "existing_reinforcement"
+  ],
+  "formal_stage_a": {
+    "decision_batches_committed": 0,
+    "packet_generation_pass": true,
+    "authorized_to_begin_item_level_review": true,
+    "not_a_stage_a_decision": true
+  },
+  "batches": [
+    {
+      "batch": 1,
+      "count": 25,
+      "ordinal_start": 1,
+      "ordinal_end": 25,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_01.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_01.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_01.txt",
+      "sha256": {
+        "full": "ced264d0e06cb24bbe8ddee89cfb511ddca1dcfec207582c6184437231898907",
+        "compact": "60191ef1a175de5592d7323c450e51225cbb62cdbb2a7a17fb53d40ea6ef3db5",
+        "digest": "6e95558ccc66a77540aebf25126a0ee59e4acb2ac6c68328884cbff2007a5fc1"
+      }
+    },
+    {
+      "batch": 2,
+      "count": 25,
+      "ordinal_start": 26,
+      "ordinal_end": 50,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_02.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_02.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_02.txt",
+      "sha256": {
+        "full": "64e1b7e9aad869471aceb073fea71ec71577e637c206b7b4c5162ef902fafb0c",
+        "compact": "f21bc85a2a46c205ab68c09fb55cfe12d81d8e698e768c7f833b25d2e96e0c92",
+        "digest": "877b9426f080a700395a8ae85b8ced4a44e65ee1b9fba62e58c22dd2aad78547"
+      }
+    },
+    {
+      "batch": 3,
+      "count": 25,
+      "ordinal_start": 51,
+      "ordinal_end": 75,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_03.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_03.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_03.txt",
+      "sha256": {
+        "full": "41f0173fc681f7dd3551e037b661ef00fa4d9a963bed26582c320ec7c69f1784",
+        "compact": "0801bd679b3633c18c9e07f502da4f86abccb4fbde556c04dafeef2f7b92d8fd",
+        "digest": "e698875fc10186ff6b2e116c1ef4385251e3ce30ce333b2545dfb6a58a7a87b5"
+      }
+    },
+    {
+      "batch": 4,
+      "count": 25,
+      "ordinal_start": 76,
+      "ordinal_end": 100,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_04.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_04.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_04.txt",
+      "sha256": {
+        "full": "3c3cc1b1f23315e68aa334ce7c229f5f9b6789d6283b3f008e13291ef263625a",
+        "compact": "8b47e4acaa3f73c6f84be69bbb809d89cd351efc08d5b449a6a36dc1145e0539",
+        "digest": "b4ac1525ec42e3d14daf18c300f26dfd5e94b7c911397e8336258a8394b701c0"
+      }
+    },
+    {
+      "batch": 5,
+      "count": 25,
+      "ordinal_start": 101,
+      "ordinal_end": 125,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_05.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_05.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_05.txt",
+      "sha256": {
+        "full": "d63f56e56c5db5e09976d2109d98c66698de6490cc9f075626934c35d124badb",
+        "compact": "500554956c9365f52416c68d5f89898e3ce0b8282ebe531461ed2a6f897472d2",
+        "digest": "93adb2de8ea6aed6c8c90030fc5e8dc5e2020e49894cc036873b9db04a77e3cf"
+      }
+    },
+    {
+      "batch": 6,
+      "count": 25,
+      "ordinal_start": 126,
+      "ordinal_end": 150,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_06.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_06.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_06.txt",
+      "sha256": {
+        "full": "37940a9feef3064c3914e87a76b3936abae0e83af715c704fc8f1bc1f246bf29",
+        "compact": "8ee06bfc4315b7898d6f4da3a9203d279b11d2ea8ac024250baab7536233f626",
+        "digest": "92d306775e21b7732bfca50b7bed976f621d2463a07296bd2677e641f837c529"
+      }
+    },
+    {
+      "batch": 7,
+      "count": 25,
+      "ordinal_start": 151,
+      "ordinal_end": 175,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_07.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_07.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_07.txt",
+      "sha256": {
+        "full": "278458960e7a7541d34103c17b1a217fb3c231cae0ad2b94d6a31a503856ce87",
+        "compact": "a978fd7e08f6dbffa464b706cce24143682887892c7a31a264725fd20a12bc61",
+        "digest": "74c880a898dfc30583a82dc439fc8f0ac98a6f3b2c3d2a8894a11ee272838f91"
+      }
+    },
+    {
+      "batch": 8,
+      "count": 25,
+      "ordinal_start": 176,
+      "ordinal_end": 200,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_08.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_08.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_08.txt",
+      "sha256": {
+        "full": "2d68d9773884c4849e6ad4dddefbcf72f7162e6eb5061b82a6c48bdfdc1410ff",
+        "compact": "0262f583f5328ca7ad47ef2066d45b5296f7b57c74d238f7dadcffcd68707210",
+        "digest": "34ade04f97d98655633e6eab7c7a8a37d6e292597347f6b8e3d7c291b1187dbc"
+      }
+    },
+    {
+      "batch": 9,
+      "count": 25,
+      "ordinal_start": 201,
+      "ordinal_end": 225,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_09.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_09.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_09.txt",
+      "sha256": {
+        "full": "65f01fa81502c7b1f96208b646e040f66bd5b6ea99c0d23cb910cfdf7379a4e7",
+        "compact": "9f52ad09904bb10eac473df3129a38b56c6a02a31afb16a744b1c760aa7d9cac",
+        "digest": "f2d660666ab251f720de26a4db9c467fd2e052bbbd4828e37f89b7e642ca698f"
+      }
+    },
+    {
+      "batch": 10,
+      "count": 25,
+      "ordinal_start": 226,
+      "ordinal_end": 250,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_10.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_10.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_10.txt",
+      "sha256": {
+        "full": "32630dc0917de983b88b8d488ff465fc2b87075be06948f6442452491dea98d3",
+        "compact": "e5c2b503636efe54560a9be83976925d32827d33c5afcba9842e640011581dc0",
+        "digest": "7e0afe211929dcfc2157c412bd2e1998ba3991bffe9ece36a945bdaed02b0bdc"
+      }
+    },
+    {
+      "batch": 11,
+      "count": 25,
+      "ordinal_start": 251,
+      "ordinal_end": 275,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_11.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_11.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_11.txt",
+      "sha256": {
+        "full": "cfc4fcf68b7d24fbab385fcb67bb26f8fb2bae607415b12bd05114560f72034b",
+        "compact": "105990461e9055ff2b1f7cc85634ebd0cac90e3e8a8ace7af9556ed10b571822",
+        "digest": "b822afbd122fbbd44152f3c915cf4defbd4a53ba6c5f7b79959927d1877f7d80"
+      }
+    },
+    {
+      "batch": 12,
+      "count": 25,
+      "ordinal_start": 276,
+      "ordinal_end": 300,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_12.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_12.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_12.txt",
+      "sha256": {
+        "full": "4863026cf6415394a84108dcf3c9ca38affb7a60e9f73b31362aff44ea87dc2e",
+        "compact": "56700652e8e1d357b27e217bd58dbb899c838dedbf6bc3ada03ef4738ac9ef3e",
+        "digest": "520c3944492cee4d748902e302c2d5e3d9c04e424893ffc18d592cf5bb3562b8"
+      }
+    },
+    {
+      "batch": 13,
+      "count": 25,
+      "ordinal_start": 301,
+      "ordinal_end": 325,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_13.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_13.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_13.txt",
+      "sha256": {
+        "full": "c3c07eefbf9b0c24f07e4e8ca5bb98dfbf8384a569a9a5e9899974be1fe95415",
+        "compact": "fbc8c180628557f6583322fa309b99e55878c76270784b7536c8f4617130b1c9",
+        "digest": "497d76f37f36ee69d52702ae2d338eb982b1f94546056eea4a7f1bfa48e24f4b"
+      }
+    },
+    {
+      "batch": 14,
+      "count": 25,
+      "ordinal_start": 326,
+      "ordinal_end": 350,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_14.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_14.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_14.txt",
+      "sha256": {
+        "full": "49b7b98b0a9fe04416ab8006fa3d0e4c2982feb8eac192d61992b658e0b6c65d",
+        "compact": "176effba50f6a1133bef014fbd9f1711fd2f86dbfe7d2280bd250ae0059ce021",
+        "digest": "7c79f110debbe3ba6ce546b60baf93dfa94f1dda161f67585251ddc4b64ce3f6"
+      }
+    },
+    {
+      "batch": 15,
+      "count": 25,
+      "ordinal_start": 351,
+      "ordinal_end": 375,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_15.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_15.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_15.txt",
+      "sha256": {
+        "full": "ea00677ab4229f9afc5bbd6664e3fe07e7e831bcd6b8c872778050920b638d50",
+        "compact": "895dabd0ca40b88c4183dbd1721d5f933d9298eb5bff543e4e4c6e7be65f7171",
+        "digest": "a1867a2844385f298cf660ab2046cb6fa12a39b10423c89cc47eb479bb42993c"
+      }
+    },
+    {
+      "batch": 16,
+      "count": 20,
+      "ordinal_start": 376,
+      "ordinal_end": 395,
+      "full_path": "runs/2026-09-03/stage_a_review_packets_395_r6/batch_16.json",
+      "compact_path": "runs/2026-09-03/stage_a_review_packets_395_r6_compact/batch_16.json",
+      "digest_path": "runs/2026-09-03/stage_a_review_digests_395_r6/batch_16.txt",
+      "sha256": {
+        "full": "70d49cf25fffdfa6841f074f87d73b89b84d21afe63a90342b3cc090c6e8275a",
+        "compact": "2429256648f84ef950bc82a1fae0e1969d61459f0f5d9feaa7ea133ac080364e",
+        "digest": "1148ff764450d69cccc9f72f0139bd0b67b11863f11b77077d05ea81111ac933"
+      }
+    }
+  ]
+}

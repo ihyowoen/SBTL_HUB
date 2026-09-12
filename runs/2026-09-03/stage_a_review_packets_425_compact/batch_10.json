@@ -1,0 +1,1348 @@
+{
+  "schema": "stage_a_compact_review_packet_v1",
+  "batch": 10,
+  "event_count": 25,
+  "events": [
+    {
+      "ordinal": 226,
+      "event_id": "XRUN_REPLAY_20260903_E0046",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C54",
+        "story_id": "KR_2026-08-31_C54",
+        "date": "2026-08-31",
+        "title": "SK이터닉스, 국내 최대 99MW 의성 황학산 풍력 상업운전",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302195",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "6847e78e40f47d0187aa7374c234b9744a01001e0d16b08c01b5d2628aa55874"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C54",
+        "KR_2026-08-31_C26"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C54",
+          "date": "2026-08-31",
+          "site": "투데이에너지",
+          "title": "SK이터닉스, 국내 최대 99MW 의성 황학산 풍력 상업운전",
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302195"
+        },
+        {
+          "story_id": "KR_2026-08-31_C26",
+          "date": "2026-08-31",
+          "site": "투데이에너지",
+          "title": "SK이터닉스, 국내 최대 99MW 의성 황학산 풍력 상업운전",
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302195"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "mw "
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 227,
+      "event_id": "XRUN_REPLAY_20260903_E0089",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C08",
+        "story_id": "JP_2026-08-31_C08",
+        "date": "2026-08-31",
+        "title": "三菱重工Ｅ＆Ｔ、工場向けエンジンを水素混焼に／５０％まで安定 8/31(4面) 8/31(4面) 三菱重工業グループの三菱重工エンジン＆ターボチャージャ（相模原市、古殿通義社長）は出力３６５０～５７５０キロワットの「ＫＵガスエンジン」の水素混焼仕様を確立したと２７日に発表した。既設エンジンに最…",
+        "site": "Denki Shimbun (電気新聞)",
+        "url": "https://www.denkishimbun.com/archives/415606",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "fa676fb3a7f29951dd2e54244cb43ab2c9f1306ab7584dbac9692d7cc90c021a"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "JP_2026-08-31_C08",
+        "JP_2026-08-31_C05"
+      ],
+      "source_titles": [
+        {
+          "story_id": "JP_2026-08-31_C08",
+          "date": "2026-08-31",
+          "site": "Denki Shimbun (電気新聞)",
+          "title": "三菱重工Ｅ＆Ｔ、工場向けエンジンを水素混焼に／５０％まで安定 8/31(4面) 8/31(4面) 三菱重工業グループの三菱重工エンジン＆ターボチャージャ（相模原市、古殿通義社長）は出力３６５０～５７５０キロワットの「ＫＵガスエンジン」の水素混焼仕様を確立したと２７日に発表した。既設エンジンに最…",
+          "url": "https://www.denkishimbun.com/archives/415606"
+        },
+        {
+          "story_id": "JP_2026-08-31_C05",
+          "date": "2026-08-31",
+          "site": "Denki Shimbun (電気新聞)",
+          "title": "三菱重工Ｅ＆Ｔ、工場向けエンジンを水素混焼に／５０％まで安定 8/31(4面) 8/31(4面) 三菱重工業グループの三菱重工エンジン＆ターボチャージャ（相模原市、古殿通義社長）は出力３６５０～５７５０キロワットの「ＫＵガスエンジン」の水素混焼仕様を確立したと２７日に発表した。既設エンジンに最…",
+          "url": "https://www.denkishimbun.com/archives/415606"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 228,
+      "event_id": "XRUN_REPLAY_20260903_E0105",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-30_C05",
+        "story_id": "GL_2026-08-30_C05",
+        "date": "2026-08-30",
+        "title": "India and Uzbekistan deepen ties, eye $5bn trade and long-term uranium supplies",
+        "site": "Euronews RSS (EN Home)",
+        "url": "http://www.euronews.com/2026/08/30/india-and-uzbekistan-deepen-ties-eye-5bn-trade-and-long-term-uranium-supplies",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "88f0d3f4e83cd0c020e644cd66f4617a32ba03eb9ceb86f4ac70207be857b571"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-30_C05",
+        "GL_2026-08-30_C06"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-30_C05",
+          "date": "2026-08-30",
+          "site": "Euronews RSS (EN Home)",
+          "title": "India and Uzbekistan deepen ties, eye $5bn trade and long-term uranium supplies",
+          "url": "http://www.euronews.com/2026/08/30/india-and-uzbekistan-deepen-ties-eye-5bn-trade-and-long-term-uranium-supplies"
+        },
+        {
+          "story_id": "GL_2026-08-30_C06",
+          "date": "2026-08-30",
+          "site": "Euronews RSS (EN Home)",
+          "title": "India and Uzbekistan deepen ties, eye $5bn trade and long-term uranium supplies",
+          "url": "http://www.euronews.com/2026/08/30/india-and-uzbekistan-deepen-ties-eye-5bn-trade-and-long-term-uranium-supplies"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "$"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 229,
+      "event_id": "XRUN_REPLAY_20260903_E0148",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C18",
+        "story_id": "CN_2026-08-31_C18",
+        "date": "2026-08-31",
+        "title": "营收超381 亿！ 二线电池企业欣旺达半年报如何拆解？动储业务高增背后有三笔账需要细看",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36001-12008-30700686.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "38fc57e3e972a6c650f1158f6790a9372d6c80a750a3056911ef8d5488cc6551"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "CN_2026-08-31_C18",
+        "CN_2026-08-31_C28"
+      ],
+      "source_titles": [
+        {
+          "story_id": "CN_2026-08-31_C18",
+          "date": "2026-08-31",
+          "site": "OFweek Li-Battery",
+          "title": "营收超381 亿！ 二线电池企业欣旺达半年报如何拆解？动储业务高增背后有三笔账需要细看",
+          "url": "https://libattery.ofweek.com/2026-08/ART-36001-12008-30700686.html"
+        },
+        {
+          "story_id": "CN_2026-08-31_C28",
+          "date": "2026-08-31",
+          "site": "OFweek Li-Battery",
+          "title": "营收超381 亿！ 二线电池企业欣旺达半年报如何拆解？动储业务高增背后有三笔账需要细看",
+          "url": "https://libattery.ofweek.com/2026-08/ART-36001-12008-30700686.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "营收"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 230,
+      "event_id": "XRUN_REPLAY_20260903_E0175",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0179",
+        "story_id": "TF_0179",
+        "date": "2026-08-30",
+        "title": "Amazon’s massive 2026 Labor Day sale now live! Thousands of deals: Apple, Android, TVs, tech under $100, more from under $5",
+        "site": "Electrek RSS",
+        "url": "https://9to5toys.com/2026/08/30/amazon-2026-labor-day-now-live",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "0a5893e4ff32e3580f82d4e7a9961b8ca81c44b1ff55015b4ce41cee892fe8ce"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0151",
+        "TF_0179"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0151",
+          "date": "2026-08-30",
+          "site": "Electrek RSS",
+          "title": "Amazon’s massive 2026 Labor Day sale now live! Thousands of deals: Apple, Android, TVs, tech under $100, more from under $5",
+          "url": "https://9to5toys.com/2026/08/30/amazon-2026-labor-day-now-live"
+        },
+        {
+          "story_id": "TF_0179",
+          "date": "2026-08-30",
+          "site": "Electrek RSS",
+          "title": "Amazon’s massive 2026 Labor Day sale now live! Thousands of deals: Apple, Android, TVs, tech under $100, more from under $5",
+          "url": "https://9to5toys.com/2026/08/30/amazon-2026-labor-day-now-live"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "$"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 231,
+      "event_id": "XRUN_REPLAY_20260903_E0253",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C102",
+        "story_id": "KR_2026-09-01_C102",
+        "date": "2026-09-01",
+        "title": "“폐휴대폰 안전하게 배출하세요”…기후부, 한 달간 회수 실천운동 추진",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371930",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "ffce397f9852056b0955e701bc2c82741d05b3daf9e875cf204cc21c15fc8fdd"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C04",
+        "KR_2026-09-01_C102"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C04",
+          "date": "2026-09-01",
+          "site": "뉴시스 RSS",
+          "title": "\"서랍 속 폐휴대폰 안전 배출하세요\"…기후부, 회수 실천운동 전개",
+          "url": "https://www.newsis.com/view/NISX20260901_0003770562"
+        },
+        {
+          "story_id": "KR_2026-09-01_C102",
+          "date": "2026-09-01",
+          "site": "전기신문",
+          "title": "“폐휴대폰 안전하게 배출하세요”…기후부, 한 달간 회수 실천운동 추진",
+          "url": "https://www.electimes.com/news/articleView.html?idxno=371930"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "출하"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 232,
+      "event_id": "XRUN_REPLAY_20260903_E0045",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C157",
+        "story_id": "KR_2026-08-31_C157",
+        "date": "2026-08-31",
+        "title": "수주 13조→2.8조…80조 계약도 시험대",
+        "site": "딜사이트TV",
+        "url": "https://news.dealsitetv.com/articles/175370",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "6e0b0fe37776fbaf608c659d831d8dd6b973958ac512c2f461a121f895a6e19f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C157"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C157",
+          "date": "2026-08-31",
+          "site": "딜사이트TV",
+          "title": "수주 13조→2.8조…80조 계약도 시험대",
+          "url": "https://news.dealsitetv.com/articles/175370"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "계약",
+          "수주"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 233,
+      "event_id": "XRUN_REPLAY_20260903_E0141",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C10",
+        "story_id": "EU_2026-08-28_C10",
+        "date": "2026-08-28",
+        "title": "General Atomics Microreactor selected for US Army Janus Program",
+        "site": "European Defence Review RSS",
+        "url": "https://www.edrmagazine.eu/general-atomics-microreactor-selected-for-us-army-janus-program",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "0343ec52832a2e5bbfee22ca5ad4f0d5ea065c0d26b3338da2563b43d39a9588"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "EU_2026-08-28_C10"
+      ],
+      "source_titles": [
+        {
+          "story_id": "EU_2026-08-28_C10",
+          "date": "2026-08-28",
+          "site": "European Defence Review RSS",
+          "title": "General Atomics Microreactor selected for US Army Janus Program",
+          "url": "https://www.edrmagazine.eu/general-atomics-microreactor-selected-for-us-army-janus-program"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "selected"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 234,
+      "event_id": "XRUN_REPLAY_20260903_E0185",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0091",
+        "story_id": "TF_0091",
+        "date": "2026-08-31",
+        "title": "덕산하이메탈, 반도체 패키징 소재 ‘국가전략기술’ 인정…R&D·설비 투자 확대",
+        "site": "디지털데일리",
+        "url": "https://www.ddaily.co.kr/page/view/2026083109552252298",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "c7b7c49bc0dbdbe3fc711414c19225a6d39d6bf6187ce7b8a6ca48ca26ca8718"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "TF_0091"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0091",
+          "date": "2026-08-31",
+          "site": "디지털데일리",
+          "title": "덕산하이메탈, 반도체 패키징 소재 ‘국가전략기술’ 인정…R&D·설비 투자 확대",
+          "url": "https://www.ddaily.co.kr/page/view/2026083109552252298"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "투자"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 235,
+      "event_id": "XRUN_REPLAY_20260903_E0189",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0100",
+        "story_id": "TF_0100",
+        "date": "2026-08-31",
+        "title": "삐걱대는 대미 투자 1호 발표…정부, 사업비 증액 요구에 고민↑",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260830_0003768235",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "42b91cca476ccc942aae6db7baacccb608c0aae678705e0d54d1233656bbaa37"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "TF_0100"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0100",
+          "date": "2026-08-31",
+          "site": "뉴시스 RSS",
+          "title": "삐걱대는 대미 투자 1호 발표…정부, 사업비 증액 요구에 고민↑",
+          "url": "https://www.newsis.com/view/NISX20260830_0003768235"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "투자"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 236,
+      "event_id": "XRUN_REPLAY_20260903_E0191",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0090",
+        "story_id": "TF_0090",
+        "date": "2026-08-31",
+        "title": "대한테니스협회, 국가 상대 30억 손배소…“육사코트 투자금 돌려달라”",
+        "site": "E Today RSS",
+        "url": "https://www.etoday.co.kr/news/view/2620044",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "a074d491dddcc09d4070959ec768c5320761c0149adb399bca11381d999ab69e"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "TF_0090"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0090",
+          "date": "2026-08-31",
+          "site": "E Today RSS",
+          "title": "대한테니스협회, 국가 상대 30억 손배소…“육사코트 투자금 돌려달라”",
+          "url": "https://www.etoday.co.kr/news/view/2620044"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "투자"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 237,
+      "event_id": "XRUN_REPLAY_20260903_E0229",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C16",
+        "story_id": "US_2026-08-31_C16",
+        "date": "2026-08-31",
+        "title": "PowerFlex acquires The Mobility House North America",
+        "site": "Charged EVs RSS",
+        "url": "https://chargedevs.com/newswire/powerflex-acquires-the-mobility-house-north-america",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "56c5221f1f552ea92d68e8c9e74236ec9ab031e25ffb4a5be739a102f97ea335"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "US_2026-08-31_C16"
+      ],
+      "source_titles": [
+        {
+          "story_id": "US_2026-08-31_C16",
+          "date": "2026-08-31",
+          "site": "Charged EVs RSS",
+          "title": "PowerFlex acquires The Mobility House North America",
+          "url": "https://chargedevs.com/newswire/powerflex-acquires-the-mobility-house-north-america"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "acquire"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 238,
+      "event_id": "XRUN_REPLAY_20260903_E0255",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C166",
+        "story_id": "KR_2026-09-01_C166",
+        "date": "2026-09-01",
+        "title": "안두릴 CEO &quot;韓日 민간공장, 전시엔 무기 생산시설로 전환해야&quot;",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260901134819967",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "3a7390a572a479a5bba6a7356e7b1420cd36a6ced93f920796d580ccebf97c29"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C166"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C166",
+          "date": "2026-09-01",
+          "site": "아주경제",
+          "title": "안두릴 CEO &quot;韓日 민간공장, 전시엔 무기 생산시설로 전환해야&quot;",
+          "url": "https://www.ajunews.com/view/20260901134819967"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "공장"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 239,
+      "event_id": "XRUN_REPLAY_20260903_E0282",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C98",
+        "story_id": "KR_2026-09-01_C98",
+        "date": "2026-09-01",
+        "title": "“수백 개 지하도시로 은폐”…이란이 말하는 ‘자급자족’ 미사일 공장의 비밀 [밀리터리노트]",
+        "site": "Seoul Newspaper RSS",
+        "url": "https://www.seoul.co.kr/news/newsView.php?id=20260901500114",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "3dc9afa0912906afcc223adf3cac3b97679eb38a8e82f3cd08cdafcc02d268e9"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C98"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C98",
+          "date": "2026-09-01",
+          "site": "Seoul Newspaper RSS",
+          "title": "“수백 개 지하도시로 은폐”…이란이 말하는 ‘자급자족’ 미사일 공장의 비밀 [밀리터리노트]",
+          "url": "https://www.seoul.co.kr/news/newsView.php?id=20260901500114"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "공장"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 240,
+      "event_id": "XRUN_REPLAY_20260903_E0287",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C122",
+        "story_id": "KR_2026-09-01_C122",
+        "date": "2026-09-01",
+        "title": "내년 국방예산 73.3조…핵추진잠수함 착수·KF-21 양산 확대[2027 예산안]",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260829_0003767801",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "1d9c2d480e87afc129a97d70c65ad2711145045b1a697eec05d8167dc7df36c6"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C122"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C122",
+          "date": "2026-09-01",
+          "site": "뉴시스 RSS",
+          "title": "내년 국방예산 73.3조…핵추진잠수함 착수·KF-21 양산 확대[2027 예산안]",
+          "url": "https://www.newsis.com/view/NISX20260829_0003767801"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "양산"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 241,
+      "event_id": "XRUN_REPLAY_20260903_E0355",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C19",
+        "story_id": "CN_2026-09-01_C19",
+        "date": "2026-09-01",
+        "title": "年产值15亿，比亚迪湖北电解液项目投产在即",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-09/ART-36002-8120-30701021.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "d58e905431be01ad15483f9b817e963d4dcc99286439f3bcef5f9e4aa6ebf251"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "CN_2026-09-01_C19"
+      ],
+      "source_titles": [
+        {
+          "story_id": "CN_2026-09-01_C19",
+          "date": "2026-09-01",
+          "site": "OFweek Li-Battery",
+          "title": "年产值15亿，比亚迪湖北电解液项目投产在即",
+          "url": "https://libattery.ofweek.com/2026-09/ART-36002-8120-30701021.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "投产"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 242,
+      "event_id": "XRUN_REPLAY_20260903_E0396",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0152",
+        "story_id": "TF_0152",
+        "date": "2026-09-01",
+        "title": "삼성전기, AI 서버 MLCC '1조700억 수주'…빅테크 공급 역대 최대 계약",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260901100508342",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "2022df3ee01b1ea2c0a3f12ff939fd80e8b1046f87558f94eca11831f3cad394"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0152"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0152",
+          "date": "2026-09-01",
+          "site": "아주경제",
+          "title": "삼성전기, AI 서버 MLCC '1조700억 수주'…빅테크 공급 역대 최대 계약",
+          "url": "https://www.ajunews.com/view/20260901100508342"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "계약",
+          "수주"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 243,
+      "event_id": "XRUN_REPLAY_20260903_E0405",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0088",
+        "story_id": "TF_0088",
+        "date": "2026-08-31",
+        "title": "볼보차, ES90 주행거리 520km 인증…파격적인 가격에 사전계약 3000 돌파",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371912",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "96e70b15ff0158557bfe0f978a20c703d1f86ed286fb2c86d297d22e049c053a"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0088"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0088",
+          "date": "2026-08-31",
+          "site": "전기신문",
+          "title": "볼보차, ES90 주행거리 520km 인증…파격적인 가격에 사전계약 3000 돌파",
+          "url": "https://www.electimes.com/news/articleView.html?idxno=371912"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "계약"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 244,
+      "event_id": "XRUN_REPLAY_20260903_E0408",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0038",
+        "story_id": "TF_0038",
+        "date": "2026-08-31",
+        "title": "DSTs-CLEVR-gold-extraction-plant-in-Thetford-Mines-Canada-777x437 - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/joint-venture/dundee-sustainable-offers-alternative-processing/dsts-clevr-gold-extraction-plant-in-thetford-mines-canada-777x437-2",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "0d843a5528c9978c126068de76daa9cb61f6fd4ccd44defbb9e1ea10bccf554c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0038"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0038",
+          "date": "2026-08-31",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "title": "DSTs-CLEVR-gold-extraction-plant-in-Thetford-Mines-Canada-777x437 - Mining.com",
+          "url": "https://www.mining.com/joint-venture/dundee-sustainable-offers-alternative-processing/dsts-clevr-gold-extraction-plant-in-thetford-mines-canada-777x437-2"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "plant"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 245,
+      "event_id": "XRUN_REPLAY_20260903_E0184",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0135",
+        "story_id": "TF_0135",
+        "date": "2026-08-31",
+        "title": "트럼프 정책에 美 청정전력 최대 540GW 감소 전망…캘리포니아, 풍력 취소 소송",
+        "site": "임팩트온",
+        "url": "https://www.impacton.net/news/articleView.html?idxno=20151",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "6aeb62ce8bf94f774073b0a017d2f75feac2fa5605c390789fddf205f562e2e2"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0135",
+        "TF_0114"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0135",
+          "date": "2026-08-31",
+          "site": "임팩트온",
+          "title": "트럼프 정책에 美 청정전력 최대 540GW 감소 전망…캘리포니아, 풍력 취소 소송",
+          "url": "https://www.impacton.net/news/articleView.html?idxno=20151"
+        },
+        {
+          "story_id": "TF_0114",
+          "date": "2026-08-31",
+          "site": "임팩트온",
+          "title": "트럼프 정책에 美 청정전력 최대 540GW 감소 전망…캘리포니아, 풍력 취소 소송",
+          "url": "https://www.impacton.net/news/articleView.html?idxno=20151"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gw "
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "전망"
+        ]
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 246,
+      "event_id": "XRUN_REPLAY_20260903_E0049",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C204",
+        "story_id": "KR_2026-08-31_C204",
+        "date": "2026-08-31",
+        "title": "피노, 코스모신소재 대상 150억원 규모 유상증자 결정",
+        "site": "아시아경제",
+        "url": "https://view.asiae.co.kr/article/2026083108112803239",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "db36b137b8a9512fb22d0af1522051d2154d3dd2489b16019d26e8fe80090b13"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C204"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C204",
+          "date": "2026-08-31",
+          "site": "아시아경제",
+          "title": "피노, 코스모신소재 대상 150억원 규모 유상증자 결정",
+          "url": "https://view.asiae.co.kr/article/2026083108112803239"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "억원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 247,
+      "event_id": "XRUN_REPLAY_20260903_E0058",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C87",
+        "story_id": "KR_2026-08-31_C87",
+        "date": "2026-08-31",
+        "title": "“전력소비 10년 새 51% 급증”…K전력기업, 호주시장 진출 ‘잰걸음’",
+        "site": "E-Daily",
+        "url": "https://www.edaily.co.kr/News/Read?newsId=03509606645552896",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "58c5731354536678803ad0fc9385e3cca29a02ee038fd43e8020bc2862312d20"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C87"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C87",
+          "date": "2026-08-31",
+          "site": "E-Daily",
+          "title": "“전력소비 10년 새 51% 급증”…K전력기업, 호주시장 진출 ‘잰걸음’",
+          "url": "https://www.edaily.co.kr/News/Read?newsId=03509606645552896"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 248,
+      "event_id": "XRUN_REPLAY_20260903_E0279",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C174",
+        "story_id": "KR_2026-09-01_C174",
+        "date": "2026-09-01",
+        "title": "우주청, 차세대발사체 내년 R&D 2,916억원 편성",
+        "site": "ZDNet Korea RSS",
+        "url": "https://zdnet.co.kr/view?no=20260831185110",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "bc2c64acbdc0c4d4a02b59e155f96f9020dab24e2458199b3bed016da9094fac"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C174"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C174",
+          "date": "2026-09-01",
+          "site": "ZDNet Korea RSS",
+          "title": "우주청, 차세대발사체 내년 R&D 2,916억원 편성",
+          "url": "https://zdnet.co.kr/view?no=20260831185110"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "억원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 249,
+      "event_id": "XRUN_REPLAY_20260903_E0280",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C159",
+        "story_id": "KR_2026-09-01_C159",
+        "date": "2026-09-01",
+        "title": "성수품 역대 최대 18.3만t 푼다…농축수산물 최대 50% 할인[추석 민생대책]",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260831_0003769876",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "7d8ea87b0ccbf505cc9242c444b2c74ef0b1b8dd4f6b225e187e75700fd3856e"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C159"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C159",
+          "date": "2026-09-01",
+          "site": "뉴시스 RSS",
+          "title": "성수품 역대 최대 18.3만t 푼다…농축수산물 최대 50% 할인[추석 민생대책]",
+          "url": "https://www.newsis.com/view/NISX20260831_0003769876"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 250,
+      "event_id": "XRUN_REPLAY_20260903_E0285",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C185",
+        "story_id": "KR_2026-09-01_C185",
+        "date": "2026-09-01",
+        "title": "전기동 재고 미국 쏠림…LME는 35.8% 급감",
+        "site": "이투뉴스",
+        "url": "http://www.e2news.com/news/articleView.html?idxno=333779",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "cef52c02b413e4cd115b64fac080a19ae582fefd41460c9df40e8f1305bc1d4d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C185"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C185",
+          "date": "2026-09-01",
+          "site": "이투뉴스",
+          "title": "전기동 재고 미국 쏠림…LME는 35.8% 급감",
+          "url": "http://www.e2news.com/news/articleView.html?idxno=333779"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

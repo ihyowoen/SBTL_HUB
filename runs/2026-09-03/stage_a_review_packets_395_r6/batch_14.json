@@ -1,0 +1,1622 @@
+{
+  "schema": "stage_a_review_packet_r6_v1",
+  "batch": 14,
+  "ordinal_start": 326,
+  "ordinal_end": 350,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 326,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0271",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C84",
+        "story_id": "KR_2026-09-01_C84",
+        "date": "2026-09-01",
+        "title": "[백범 김구와 대한민국 국군의 군사역사] 3·1운동 이후 국민이 주인인 나라 세워",
+        "site": "국방일보 (국방안보)",
+        "url": "http://kookbang.dema.mil.kr/newsWeb/20260901/1/ATCE_CTGR_0010010000/view.do",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "efc7758d7bc6c29e90aeb4cf6c129c686bc112c840d882805434970cebdd257d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C84"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C84",
+          "source_run": "20260901",
+          "source_index": 101,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C84",
+          "story_id": "KR_2026-09-01_C84",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[백범 김구와 대한민국 국군의 군사역사] 3·1운동 이후 국민이 주인인 나라 세워",
+          "site": "국방일보 (국방안보)",
+          "source_url": "http://kookbang.dema.mil.kr/newsWeb/20260901/1/ATCE_CTGR_0010010000/view.do",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "efc7758d7bc6c29e90aeb4cf6c129c686bc112c840d882805434970cebdd257d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0288"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 327,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0275",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C165",
+        "story_id": "KR_2026-09-01_C165",
+        "date": "2026-09-01",
+        "title": "신민아, 15년 동안 '조용히' 37억 기부…역대급 미담",
+        "site": "머니S",
+        "url": "https://www.moneys.co.kr/article/2026090107075577683",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "e7ce0d3550698be319d6de78b5e65a32fbc4f7d471eb4011418e1c1d59c0024e"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C165"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C165",
+          "source_run": "20260901",
+          "source_index": 108,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C165",
+          "story_id": "KR_2026-09-01_C165",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "신민아, 15년 동안 '조용히' 37억 기부…역대급 미담",
+          "site": "머니S",
+          "source_url": "https://www.moneys.co.kr/article/2026090107075577683",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "e7ce0d3550698be319d6de78b5e65a32fbc4f7d471eb4011418e1c1d59c0024e"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0293"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 328,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0276",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C105",
+        "story_id": "KR_2026-09-01_C105",
+        "date": "2026-09-01",
+        "title": "美·이란 충돌 재개…3대지수 일제 하락",
+        "site": "딜사이트TV",
+        "url": "https://news.dealsitetv.com/articles/175450",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "d20cebd950a24faaaf41dc11c3979282318e9d5c085aa2fffa4b8d540a39ab5b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C105"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C105",
+          "source_run": "20260901",
+          "source_index": 109,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C105",
+          "story_id": "KR_2026-09-01_C105",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "美·이란 충돌 재개…3대지수 일제 하락",
+          "site": "딜사이트TV",
+          "source_url": "https://news.dealsitetv.com/articles/175450",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "d20cebd950a24faaaf41dc11c3979282318e9d5c085aa2fffa4b8d540a39ab5b"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0294"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 329,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0277",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C88",
+        "story_id": "KR_2026-09-01_C88",
+        "date": "2026-09-01",
+        "title": "[올댓차이나] 中 증시, 중동 긴장고조에 혼조 개장…창업판 1.66%↓",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260901_0003771310",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "e7e25f20815fd56fbee624c9fdf10ae70eaa54e9c22ce4c7f87d7e0a9e0d8ec5"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C88"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C88",
+          "source_run": "20260901",
+          "source_index": 110,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C88",
+          "story_id": "KR_2026-09-01_C88",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[올댓차이나] 中 증시, 중동 긴장고조에 혼조 개장…창업판 1.66%↓",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260901_0003771310",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "e7e25f20815fd56fbee624c9fdf10ae70eaa54e9c22ce4c7f87d7e0a9e0d8ec5"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0295"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 330,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0278",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C219",
+        "story_id": "KR_2026-09-01_C219",
+        "date": "2026-09-01",
+        "title": "홍콩증시 상장 첫날 부진한 쉬인…'성장 둔화' 돌파구 찾을까",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260901093545217",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "cb23f0c42a36cc5e3eeb2510ec3240cbb966707408fd6c721b819e37a33d0c9e"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C219"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C219",
+          "source_run": "20260901",
+          "source_index": 111,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C219",
+          "story_id": "KR_2026-09-01_C219",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "홍콩증시 상장 첫날 부진한 쉬인…'성장 둔화' 돌파구 찾을까",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260901093545217",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "cb23f0c42a36cc5e3eeb2510ec3240cbb966707408fd6c721b819e37a33d0c9e"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0296"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 331,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0279",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C10",
+        "story_id": "KR_2026-09-01_C10",
+        "date": "2026-09-01",
+        "title": "\"철강주 다시 달궈진다\"…본업에 신사업까지 '쌍끌이'",
+        "site": "파이낸셜뉴스 RSS",
+        "url": "https://www.fnnews.com/news/202609011020039379",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "ffbd57b7897ba0a8a0f37443c186a383fe240a5b52f26ba2fb627bbfea20de13"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C10"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C10",
+          "source_run": "20260901",
+          "source_index": 113,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C10",
+          "story_id": "KR_2026-09-01_C10",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "\"철강주 다시 달궈진다\"…본업에 신사업까지 '쌍끌이'",
+          "site": "파이낸셜뉴스 RSS",
+          "source_url": "https://www.fnnews.com/news/202609011020039379",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "ffbd57b7897ba0a8a0f37443c186a383fe240a5b52f26ba2fb627bbfea20de13"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0297"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 332,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0281",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C36",
+        "story_id": "KR_2026-08-31_C36",
+        "date": "2026-08-31",
+        "title": "[영상] LS전선, 美에 1조원 베팅…이유는 F-35·핵잠수함?",
+        "site": "더구루",
+        "url": "https://www.theguru.co.kr/news/article.html?no=106344",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "25865217743ac943f861d97b18361a7b265783b1fa2ec7b956d1efda667b408f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-08-31_C36"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C36",
+          "source_run": "20260901",
+          "source_index": 137,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C36",
+          "story_id": "KR_2026-08-31_C36",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[영상] LS전선, 美에 1조원 베팅…이유는 F-35·핵잠수함?",
+          "site": "더구루",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=106344",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "25865217743ac943f861d97b18361a7b265783b1fa2ec7b956d1efda667b408f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "조원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0300"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 333,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0282",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C07",
+        "story_id": "KR_2026-08-31_C07",
+        "date": "2026-08-31",
+        "title": "(수요광장)이제는 산업이 전력을 찾아가는 시대다",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371853",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "c5849805a078f7f7f621a84fb8ee13fde6ac5557669e9f3c5f8d0ce555ed4833"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-08-31_C07"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C07",
+          "source_run": "20260901",
+          "source_index": 142,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C07",
+          "story_id": "KR_2026-08-31_C07",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "(수요광장)이제는 산업이 전력을 찾아가는 시대다",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371853",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "c5849805a078f7f7f621a84fb8ee13fde6ac5557669e9f3c5f8d0ce555ed4833"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0301"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 334,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0283",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C08",
+        "story_id": "KR_2026-08-31_C08",
+        "date": "2026-08-31",
+        "title": "9월 LPG 수입가격, 프로판 5달러 · 부탄 20달러 인상",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302250",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "610adfba4e78157a363fd7103c66e99462df0247cad6cc7668c3c7f1415c5e43"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-08-31_C08"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C08",
+          "source_run": "20260901",
+          "source_index": 145,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C08",
+          "story_id": "KR_2026-08-31_C08",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "9월 LPG 수입가격, 프로판 5달러 · 부탄 20달러 인상",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302250",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "610adfba4e78157a363fd7103c66e99462df0247cad6cc7668c3c7f1415c5e43"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0302"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 335,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0284",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C13",
+        "story_id": "KR_2026-08-31_C13",
+        "date": "2026-08-31",
+        "title": "GS칼텍스, 9월 LPG가격 동결",
+        "site": "에너지신문",
+        "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227789",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "7b5a0158b6d4a963329a2fd7597173316d3ec4e6d498d5cb86b3ce35f0d6db22"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-08-31_C13"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C13",
+          "source_run": "20260901",
+          "source_index": 149,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C13",
+          "story_id": "KR_2026-08-31_C13",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "GS칼텍스, 9월 LPG가격 동결",
+          "site": "에너지신문",
+          "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227789",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "7b5a0158b6d4a963329a2fd7597173316d3ec4e6d498d5cb86b3ce35f0d6db22"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0303"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 336,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0285",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C10",
+        "story_id": "KR_2026-08-31_C10",
+        "date": "2026-08-31",
+        "title": "E1 · SK가스, 9월 국내 LPG 판매가격 '동결'",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302252",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "1d8117b20a86702e4d8b217b9a0a6dac0f0c4c5a9d464f27b0748ebc91fb2983"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-08-31_C10"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C10",
+          "source_run": "20260901",
+          "source_index": 150,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C10",
+          "story_id": "KR_2026-08-31_C10",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "E1 · SK가스, 9월 국내 LPG 판매가격 '동결'",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302252",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "1d8117b20a86702e4d8b217b9a0a6dac0f0c4c5a9d464f27b0748ebc91fb2983"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0304"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 337,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0286",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C11",
+        "story_id": "KR_2026-08-31_C11",
+        "date": "2026-08-31",
+        "title": "E1, 9월 국내LPG가격 동결…GS칼텍스 이어",
+        "site": "에너지신문",
+        "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227791",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b01d02cf99ebe140515effe49c08de9d12fc99a01ea2b181891343e0fc75d03b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-08-31_C11"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C11",
+          "source_run": "20260901",
+          "source_index": 156,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C11",
+          "story_id": "KR_2026-08-31_C11",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "E1, 9월 국내LPG가격 동결…GS칼텍스 이어",
+          "site": "에너지신문",
+          "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227791",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b01d02cf99ebe140515effe49c08de9d12fc99a01ea2b181891343e0fc75d03b"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0305"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 338,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0287",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C20",
+        "story_id": "KR_2026-08-31_C20",
+        "date": "2026-08-31",
+        "title": "SK가스‧SK에너지 등도 9월 LPG가격 동결",
+        "site": "에너지신문",
+        "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227792",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "277a03d790fc1429b946c419f13cb018d7a7a6995645f5bc6b490c7711f64995"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-08-31_C20"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C20",
+          "source_run": "20260901",
+          "source_index": 158,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C20",
+          "story_id": "KR_2026-08-31_C20",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "SK가스‧SK에너지 등도 9월 LPG가격 동결",
+          "site": "에너지신문",
+          "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227792",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "277a03d790fc1429b946c419f13cb018d7a7a6995645f5bc6b490c7711f64995"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0306"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 339,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0288",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C54",
+        "story_id": "KR_2026-08-31_C54",
+        "date": "2026-08-31",
+        "title": "네팔 홍수서 구조된 두산 직원 9명 귀국…현장소장은 수색 지원",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371915",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "d46755464dc279433ebc25d13a56681a6194f778cbbcc95bf15e804c405992a9"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-08-31_C54"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C54",
+          "source_run": "20260901",
+          "source_index": 161,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C54",
+          "story_id": "KR_2026-08-31_C54",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "네팔 홍수서 구조된 두산 직원 9명 귀국…현장소장은 수색 지원",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371915",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "d46755464dc279433ebc25d13a56681a6194f778cbbcc95bf15e804c405992a9"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0307"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 340,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0289",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C52",
+        "story_id": "KR_2026-08-31_C52",
+        "date": "2026-08-31",
+        "title": "김세훈 화천군수 &quot;민주·국힘 떠나 '화천당'으로&quot;…여소야대 화천군정 '협치' 승부수",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831221623731",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "9a88514aa8befce186c418a0f67259ae3009337a1ea46a8c7b7eabf868f6c625"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-08-31_C52"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C52",
+          "source_run": "20260901",
+          "source_index": 162,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C52",
+          "story_id": "KR_2026-08-31_C52",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "김세훈 화천군수 &quot;민주·국힘 떠나 '화천당'으로&quot;…여소야대 화천군정 '협치' 승부수",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831221623731",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "9a88514aa8befce186c418a0f67259ae3009337a1ea46a8c7b7eabf868f6c625"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0308"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 341,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0290",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C06",
+        "story_id": "KR_2026-08-31_C06",
+        "date": "2026-08-31",
+        "title": "(기자의 눈) LMP보다 먼저 필요한 것들",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371865",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "30b6600bb7dfeb6cbe0b669d57b1bd80bc3f741ec48b3825bfecee4a98739cef"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-08-31_C06"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C06",
+          "source_run": "20260901",
+          "source_index": 165,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C06",
+          "story_id": "KR_2026-08-31_C06",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "(기자의 눈) LMP보다 먼저 필요한 것들",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371865",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "30b6600bb7dfeb6cbe0b669d57b1bd80bc3f741ec48b3825bfecee4a98739cef"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0309"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 342,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0292",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C03",
+        "story_id": "JP_2026-09-01_C03",
+        "date": "2026-09-01",
+        "title": "EVトラックの使用済みバッテリーを再利用、グリーンコープと日野自動車など4社が実証実験へ",
+        "site": "Response.jp Battery Special",
+        "url": "https://response.jp/article/2026/09/01/415963.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "67d8d765080658e52437f3ad09033fb77dda15e87b307045d0d49a00b94fafee"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:JP_2026-09-01_C03"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C03",
+          "source_run": "20260901",
+          "source_index": 170,
+          "candidate_id": "orig:20260901_123511:JP_2026-09-01_C03",
+          "story_id": "JP_2026-09-01_C03",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "EVトラックの使用済みバッテリーを再利用、グリーンコープと日野自動車など4社が実証実験へ",
+          "site": "Response.jp Battery Special",
+          "source_url": "https://response.jp/article/2026/09/01/415963.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "67d8d765080658e52437f3ad09033fb77dda15e87b307045d0d49a00b94fafee"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0312"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 343,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0294",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C05",
+        "story_id": "JP_2026-09-01_C05",
+        "date": "2026-09-01",
+        "title": "【調査レポート】EUバッテリーパスポートの義務化～自動車業界への実務的な影響～",
+        "site": "Response.jp Battery Special",
+        "url": "https://response.jp/article/2026/09/01/415954.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "323aebf01e6a3bfe632063e2b338e8cd93e91b92272a67107f5a1164db3d3f72"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:JP_2026-09-01_C05"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C05",
+          "source_run": "20260901",
+          "source_index": 172,
+          "candidate_id": "orig:20260901_123511:JP_2026-09-01_C05",
+          "story_id": "JP_2026-09-01_C05",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "【調査レポート】EUバッテリーパスポートの義務化～自動車業界への実務的な影響～",
+          "site": "Response.jp Battery Special",
+          "source_url": "https://response.jp/article/2026/09/01/415954.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "323aebf01e6a3bfe632063e2b338e8cd93e91b92272a67107f5a1164db3d3f72"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0314"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 344,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0295",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C08",
+        "story_id": "JP_2026-09-01_C08",
+        "date": "2026-09-01",
+        "title": "九州送配電、ＤＸ推進の社員表彰／ファインプレー賞創設 9/1(3面) 9/1(3面) 九州電力送配電はＤＸ（デジタルトランスフォーメーション）の取り組みで成果を上げた社員を表彰する「ＤＸファインプレー表彰制度」を創設し、２０２６年度の表彰式を３１日に福岡市内で開催した。全社の模範と…",
+        "site": "Denki Shimbun (電気新聞)",
+        "url": "https://www.denkishimbun.com/archives/415662",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "abf94678ef9607794f112bf80b3fead09171ec29f64f648a9b4995f3f51ee9b4"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:JP_2026-09-01_C08"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C08",
+          "source_run": "20260901",
+          "source_index": 173,
+          "candidate_id": "orig:20260901_123511:JP_2026-09-01_C08",
+          "story_id": "JP_2026-09-01_C08",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "九州送配電、ＤＸ推進の社員表彰／ファインプレー賞創設 9/1(3面) 9/1(3面) 九州電力送配電はＤＸ（デジタルトランスフォーメーション）の取り組みで成果を上げた社員を表彰する「ＤＸファインプレー表彰制度」を創設し、２０２６年度の表彰式を３１日に福岡市内で開催した。全社の模範と…",
+          "site": "Denki Shimbun (電気新聞)",
+          "source_url": "https://www.denkishimbun.com/archives/415662",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "abf94678ef9607794f112bf80b3fead09171ec29f64f648a9b4995f3f51ee9b4"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0315"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 345,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0299",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C03",
+        "story_id": "GL_2026-09-01_C03",
+        "date": "2026-09-01",
+        "title": "Australian Miner Larvotto Launches Major New Source of Antimony",
+        "site": "Bloomberg Industries RSS",
+        "url": "https://www.bloomberg.com/news/articles/2026-09-01/australian-miner-larvotto-launches-major-new-source-of-antimony",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "9f63ebd56a97b843e0a5107657ff29f5d75b2edc38a6582712ab2aea2e4e1351"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-09-01_C03"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C03",
+          "source_run": "20260901",
+          "source_index": 184,
+          "candidate_id": "orig:20260901_123511:GL_2026-09-01_C03",
+          "story_id": "GL_2026-09-01_C03",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "Australian Miner Larvotto Launches Major New Source of Antimony",
+          "site": "Bloomberg Industries RSS",
+          "source_url": "https://www.bloomberg.com/news/articles/2026-09-01/australian-miner-larvotto-launches-major-new-source-of-antimony",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "9f63ebd56a97b843e0a5107657ff29f5d75b2edc38a6582712ab2aea2e4e1351"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0320"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 346,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0305",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C08",
+        "story_id": "GL_2026-08-31_C08",
+        "date": "2026-08-31",
+        "title": "Cameroon’s mining moment has arrived - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/op-ed-cameroons-mining-moment-has-arrived/cameroon",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "bd81a6a5a8148ddb7071df6b657d865bd05adfc23fee0ee7fa327f05e02b4b6c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C08"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C08",
+          "source_run": "20260901",
+          "source_index": 196,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C08",
+          "story_id": "GL_2026-08-31_C08",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Cameroon’s mining moment has arrived - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/op-ed-cameroons-mining-moment-has-arrived/cameroon",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "bd81a6a5a8148ddb7071df6b657d865bd05adfc23fee0ee7fa327f05e02b4b6c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0326"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 347,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0306",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C01",
+        "story_id": "GL_2026-08-31_C01",
+        "date": "2026-08-31",
+        "title": "3D-CPF-drawing - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/smackover-seals-10-year-lithium-supply-deal-with-lg/3d-cpf-drawing",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "67bba01f38ca3bcd3311061b4296f5b6263b8bdb240a7a835dd00e2aa9901e53"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C01"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C01",
+          "source_run": "20260901",
+          "source_index": 197,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C01",
+          "story_id": "GL_2026-08-31_C01",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "3D-CPF-drawing - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/smackover-seals-10-year-lithium-supply-deal-with-lg/3d-cpf-drawing",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "67bba01f38ca3bcd3311061b4296f5b6263b8bdb240a7a835dd00e2aa9901e53"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0327"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 348,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0308",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C09",
+        "story_id": "GL_2026-08-31_C09",
+        "date": "2026-08-31",
+        "title": "Case Western Reserve University leads U.S. Department of Energy project to unlock domestic production of critical rare-earth metals",
+        "site": "Newswise SciNews",
+        "url": "https://www.newswise.com/articles/case-western-reserve-university-to-lead-u-s-department-of-energy-project-to-enhance-domestic-production-of-rare-earth-elements-critical-to-energy-defense-industries?sc=rssn",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "c34b313fa65fd4d8338263d112c55445556fa60f564e75644f09c9c660187471"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C09"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C09",
+          "source_run": "20260901",
+          "source_index": 200,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C09",
+          "story_id": "GL_2026-08-31_C09",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Case Western Reserve University leads U.S. Department of Energy project to unlock domestic production of critical rare-earth metals",
+          "site": "Newswise SciNews",
+          "source_url": "https://www.newswise.com/articles/case-western-reserve-university-to-lead-u-s-department-of-energy-project-to-enhance-domestic-production-of-rare-earth-elements-critical-to-energy-defense-industries?sc=rssn",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "c34b313fa65fd4d8338263d112c55445556fa60f564e75644f09c9c660187471"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0329"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 349,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0312",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C33",
+        "story_id": "GL_2026-08-31_C33",
+        "date": "2026-08-31",
+        "title": "U.S. startup exceeds 10% solar-to-hydrogen efficiency with 100 cm² module",
+        "site": "PV Magazine RSS (Global)",
+        "url": "https://www.pv-magazine.com/2026/08/31/u-s-startup-exceeds-10-solar-to-hydrogen-efficiency-with-100-cm%c2%b2-module",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "48adba738deab10a82816c4b4506f0b572c2805bec726389be24effe12ebc596"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C33"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C33",
+          "source_run": "20260901",
+          "source_index": 205,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C33",
+          "story_id": "GL_2026-08-31_C33",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "U.S. startup exceeds 10% solar-to-hydrogen efficiency with 100 cm² module",
+          "site": "PV Magazine RSS (Global)",
+          "source_url": "https://www.pv-magazine.com/2026/08/31/u-s-startup-exceeds-10-solar-to-hydrogen-efficiency-with-100-cm%c2%b2-module",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "48adba738deab10a82816c4b4506f0b572c2805bec726389be24effe12ebc596"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0333"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 350,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0315",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C18",
+        "story_id": "GL_2026-08-31_C18",
+        "date": "2026-08-31",
+        "title": "Journey Ahead: JA Roadshow 2026 to spotlight integrated energy solutions",
+        "site": "PV Magazine RSS (Global)",
+        "url": "https://www.pv-magazine.com/2026/08/31/journey-ahead-ja-roadshow-2026-to-spotlight-integrated-energy-solutions",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "437614a38dfbba313db194d3df7429e82c0e276590b82bb21295b3f149bc5be2"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C18"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C18",
+          "source_run": "20260901",
+          "source_index": 209,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C18",
+          "story_id": "GL_2026-08-31_C18",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Journey Ahead: JA Roadshow 2026 to spotlight integrated energy solutions",
+          "site": "PV Magazine RSS (Global)",
+          "source_url": "https://www.pv-magazine.com/2026/08/31/journey-ahead-ja-roadshow-2026-to-spotlight-integrated-energy-solutions",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "437614a38dfbba313db194d3df7429e82c0e276590b82bb21295b3f149bc5be2"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0336"
+      ],
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

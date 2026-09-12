@@ -1,0 +1,174 @@
+name: Regenerate V4 preselection for replayable 425
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/preselection425/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  preselection:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build conservative item-level preselection
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,re,unicodedata
+          from pathlib import Path
+
+          membership=json.loads(Path('runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json').read_text())
+          source=json.loads(Path('runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json').read_text())
+          relations=json.loads(Path('runs/2026-09-03/canonical_relation_replay_closure_425_20260903_R3.json').read_text())
+          assert len(membership['events'])==425
+          assert len(source['observations'])==632
+          assert relations['accounting']['event_count']==425
+          src={o['observation_key']:o for o in source['observations']}
+          rel={x['replay_event_id']:x for x in relations['reanchored_relations']}
+
+          def norm(s):
+              s=unicodedata.normalize('NFKC',str(s or '')).lower()
+              s=re.sub(r'\s+',' ',s)
+              return s
+          def hits(text, patterns):
+              return sorted({p for p in patterns if p in text})
+
+          scope=[
+            'battery','batteries','배터리','전지','ess','bess','energy storage','储能','蓄電','lithium','리튬','锂','リチウム',
+            'cathode','anode','양극','음극','전해질','separator','분리막','graphite','흑연','nickel','니켈','cobalt','코발트',
+            'ev ','electric vehicle','전기차','charging','charger','충전','grid','전력망','critical mineral','핵심광물','rare earth','희토류',
+            'recycling','재활용','재자원','lithium-ion','lfp','ncm','nca','solid-state','전고체','sodium-ion','나트륨','silicon anode','실리콘 음극'
+          ]
+          exec_kw=[
+            'contract','agreement','offtake','supply deal','supply contract','order','award','selected','acquisition','acquire','merger','joint venture',
+            'financing','funding','loan','investment','invests','invest ','series a','series b','series c','production start','starts production','begins production',
+            'commercial operation','commissioning','construction','groundbreaking','factory','plant','capacity','expansion','launches production','opens ',
+            '계약','공급계약','수주','투자','인수','합병','합작','생산 시작','생산 개시','양산','착공','준공','공장','증설','대출','금융','펀딩','融资','投资','收购','并购','投产','量产','工厂','着工','稼働','生産開始'
+          ]
+          policy_kw=[
+            'tax','tariff','regulation','rule','law','bill ','executive order','ban ','restriction','export control','subsidy','guidance','permit','approval','price cap',
+            'passport','local content','foreign entity','feoc','policy','mandate','standard','과세','세금','관세','규제','법안','법률','행정명령','시행','금지','수출통제','보조금','가이드라인','허가','승인','상한','패스포트','税','規制','法案','補助金'
+          ]
+          data_kw=[
+            'earnings','revenue','profit','loss','sales','shipment','shipments','installations','installed','market share','utilization','utilisation','record ','quarter','q1','q2','q3','q4','guidance','capex',
+            '실적','매출','영업이익','순이익','적자','출하','설치량','점유율','가동률','분기','판매량','营收','利润','出货','市占率'
+          ]
+          scale_kw=['gwh','gw ','mw ','mwh','billion','million','$','€','krw','억원','억 원','조원','조 원','万吨','万套','ktpa','tonnes','tons','mtpa','%']
+          tech_kw=['solid-state','전고체','sodium-ion','나트륨','silicon','실리콘','semi-solid','반고체','lithium metal','리튬메탈','pre-doping','dry electrode','건식전극','qualification','validated','pilot line','prototype','commercialize','commercialisation','상용화']
+          strategic_kw=['supply chain','공급망','localization','localisation','현지화','critical mineral','핵심광물','data center','data centre','ai power','grid-forming','long-duration','recycling','재활용']
+          negative=[
+            'podcast','webinar','opinion','column','인터뷰','기고','전망만','rumor','rumour','speculation','school solar','e-bike','ebike','golf cart','giveaway','promotion','discount',
+            'job opening','hiring','채용','행사','conference','exhibition','전시회','부스','award ceremony','stock rises','stock jumps','shares jump','주가','급등','급락','analyst says','증권가'
+          ]
+          context_kw=['study','research','report says','analysis','survey','forecast','outlook','연구','분석','조사','전망','보고서','백서','concept','prototype','demonstrates','test result']
+
+          rows=[]
+          for e in membership['events']:
+              eid=e['event_id']
+              obs=[src[k] for k in e['observation_keys']]
+              corpus=' | '.join(norm(o.get('title')) for o in obs)
+              rep=e['representative']
+              relation=rel.get(eid)
+              if relation and relation['relation_type']=='same_event_reinforcement':
+                  cat='existing_reinforcement'; score=None
+                  features={'relation':['same_event_reinforcement']}
+                  reason='Re-anchored authoritative same-event/existing-card reinforcement; excluded from new-card preselection.'
+              else:
+                  h_scope=hits(corpus,scope); h_exec=hits(corpus,exec_kw); h_policy=hits(corpus,policy_kw); h_data=hits(corpus,data_kw); h_scale=hits(corpus,scale_kw); h_tech=hits(corpus,tech_kw); h_strat=hits(corpus,strategic_kw); h_neg=hits(corpus,negative); h_ctx=hits(corpus,context_kw)
+                  score=0
+                  if h_scope: score+=1
+                  if h_exec: score+=3
+                  if h_policy: score+=3
+                  if h_data: score+=2
+                  if h_scale: score+=2
+                  if h_tech: score+=1
+                  if h_strat: score+=1
+                  if e.get('observation_count',1)>=2: score+=1
+                  if e.get('observation_count',1)>=5: score+=1
+                  if relation and relation['relation_type'] in ('distinct_follow_up','program_lineage'): score+=2
+                  score-=min(4,2*len(h_neg))
+                  if h_ctx and not (h_exec or h_policy or h_data): score-=1
+                  if not h_scope and not h_policy: score-=3
+                  features={'scope':h_scope,'execution':h_exec,'policy':h_policy,'data_financial':h_data,'scale':h_scale,'technology':h_tech,'strategic':h_strat,'negative':h_neg,'context':h_ctx}
+                  if score>=8:
+                      cat='high_potential_review'
+                  elif score>=5:
+                      cat='candidate_review'
+                  elif score>=2:
+                      cat='watchlist_context'
+                  else:
+                      cat='reject_or_support_only'
+                  reason=f'Conservative routing score={score}; formal Stage A four-judgment/100-point decision-value assessment not performed here.'
+              rows.append({
+                'event_id':eid,
+                'representative':rep,
+                'observation_count':e.get('observation_count'),
+                'source_runs':e.get('source_runs'),
+                'relation':None if not relation else {'relation_type':relation['relation_type'],'target_ids':relation['target_ids'],'confidence':relation['confidence']},
+                'preselection_bucket':cat,
+                'routing_hint_score':score,
+                'matched_features':features,
+                'routing_reason':reason,
+                'formal_stage_a_judgment':False,
+                'recommended_action': 'full_stage_a_item_review' if cat in ('high_potential_review','candidate_review') else ('retain_watchlist_context' if cat=='watchlist_context' else ('retain_as_existing_reinforcement' if cat=='existing_reinforcement' else 'support_or_reject_unless_stage_a_rescue'))
+              })
+
+          order={'high_potential_review':0,'candidate_review':1,'watchlist_context':2,'reject_or_support_only':3,'existing_reinforcement':4}
+          rows.sort(key=lambda x:(order[x['preselection_bucket']], -(x['routing_hint_score'] if isinstance(x['routing_hint_score'],int) else -999), -int(x['observation_count'] or 0), x['event_id']))
+          counts={k:sum(1 for x in rows if x['preselection_bucket']==k) for k in order}
+          assert sum(counts.values())==425
+          assert counts['existing_reinforcement']==4, counts
+          assert len({x['event_id'] for x in rows})==425
+
+          result={
+            'schema':'stage_a_v4_preselection_replay_v1',
+            'status':'PASS_ITEM_LEVEL_PRESELECTION_FORMAL_STAGE_A_NOT_YET_RUN',
+            'generated_date':'2026-09-03',
+            'current_main_sha':'df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4',
+            'canonical_blob_sha':'53219907cdb435c3822c41d097b23e475662aa8a',
+            'selection_policy_version':'EMBEDDED_NEWS_VALUE_SELECTION_V4',
+            'event_membership_ref':'runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json',
+            'relation_closure_ref':'runs/2026-09-03/canonical_relation_replay_closure_425_20260903_R3.json',
+            'policy':{
+              'preselection_only_not_formal_stage_a':True,
+              'routing_hint_score_is_not_decision_news_value_score':True,
+              'ambiguous_items_route_upward_not_silently_rejected':True,
+              'same_event_reinforcement_excluded_from_new_card_queue':True,
+              'all_425_events_accounted':True
+            },
+            'accounting':{'event_count':425,'bucket_counts':counts,'formal_stage_a_authorized':False},
+            'events':rows
+          }
+          Path('runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R1.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          summary={
+            'schema':'stage_a_v4_preselection_replay_summary_v1',
+            'status':'PASS',
+            'generated_date':'2026-09-03',
+            'event_count':425,
+            'bucket_counts':counts,
+            'high_potential_top50':[{'event_id':x['event_id'],'title':x['representative'].get('title'),'score':x['routing_hint_score'],'relation':x['relation']} for x in rows if x['preselection_bucket']=='high_potential_review'][:50],
+            'candidate_top30':[{'event_id':x['event_id'],'title':x['representative'].get('title'),'score':x['routing_hint_score'],'relation':x['relation']} for x in rows if x['preselection_bucket']=='candidate_review'][:30],
+            'formal_stage_a_authorized':False,
+            'next_gate':'RUN_FORMAL_STAGE_A_V4_ITEM_LEVEL_ON_ALL_425_USING_REPLAYABLE_MEMBERSHIP_AND_RELATION_CLOSURE'
+          }
+          Path('runs/2026-09-03/stage_a_v4_preselection_replay_summary_20260903_R1.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(summary,ensure_ascii=False))
+          PY
+      - name: Commit preselection outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R1.json runs/2026-09-03/stage_a_v4_preselection_replay_summary_20260903_R1.json
+          git rm -r .tmp/preselection425
+          git commit -m 'audit: regenerate V4 preselection on replayable 425'
+          git push

@@ -1,0 +1,824 @@
+{
+  "schema": "stage_a_compact_review_packet_r6_v1",
+  "batch": 10,
+  "ordinal_start": 226,
+  "ordinal_end": 250,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 226,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0055",
+      "title": "서울시청 앞 광장, 10월까지 '운동하는 서울광장' 변신⋯\"서울의 밤 확대\"",
+      "date": "2026-08-31",
+      "site": "E Today RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "서울시청 앞 광장, 10월까지 '운동하는 서울광장' 변신⋯\"서울의 밤 확대\""
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0061"
+      ]
+    },
+    {
+      "ordinal": 227,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0056",
+      "title": "기아, 대형 전동화 PBV ‘더 기아 PV7’ 티저 최초 공개",
+      "date": "2026-08-31",
+      "site": "서울경제TV",
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "기아, 대형 전동화 PBV ‘더 기아 PV7’ 티저 최초 공개",
+        "[EV플러그IN] 한국산 PBV, 난공불락 유럽 LCV 시장 뚫는다…기아 PV7 티저 공개",
+        "Kia confirms PV7 debut and previews the larger electric van for the first time [Video]"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0062",
+        "XRUN_REPLAY_20260903_E0386",
+        "XRUN_REPLAY_20260903_E0400"
+      ]
+    },
+    {
+      "ordinal": 228,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0059",
+      "title": "포스코이앤씨, 리모델링 층간소음 기술 국내 첫 인증",
+      "date": "2026-08-31",
+      "site": "아주경제",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "포스코이앤씨, 리모델링 층간소음 기술 국내 첫 인증",
+        "포스코이앤씨, 리모델링 층간소음 기술 국내 첫 인증"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0066"
+      ]
+    },
+    {
+      "ordinal": 229,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0061",
+      "title": "한화에어로, 스페인 K9 수출로 ‘EU 장벽 뚫었다’…“서유럽 첫 깃발”",
+      "date": "2026-08-31",
+      "site": "Donga Ilbo RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "한화에어로, 스페인 K9 수출로 ‘EU 장벽 뚫었다’…“서유럽 첫 깃발”"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0068"
+      ]
+    },
+    {
+      "ordinal": 230,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0062",
+      "title": "[입찰 정보] 8월31일자",
+      "date": "2026-08-31",
+      "site": "투데이에너지",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "[입찰 정보] 8월31일자",
+        "[입찰 정보] 8월31일자"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0069"
+      ]
+    },
+    {
+      "ordinal": 231,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0063",
+      "title": "[기자수첩] 시장 없이 에너지안보도 없다",
+      "date": "2026-08-31",
+      "site": "이투뉴스",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "[기자수첩] 시장 없이 에너지안보도 없다"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0070"
+      ]
+    },
+    {
+      "ordinal": 232,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0064",
+      "title": "[ENTECH 2026 참가기업] 에스웰즈 - 소형 모빌리티 위한 차세대 수소저장 솔루션 선도",
+      "date": "2026-08-31",
+      "site": "투데이에너지",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "[ENTECH 2026 참가기업] 에스웰즈 - 소형 모빌리티 위한 차세대 수소저장 솔루션 선도",
+        "[ENTECH 2026 참가기업] 에스웰즈 - 소형 모빌리티 위한 차세대 수소저장 솔루션 선도"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0071"
+      ]
+    },
+    {
+      "ordinal": 233,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0067",
+      "title": "GIST, 호남권 지역자율R&amp;D 사업 설명회…국비 131억 시범사업 닻 올린다",
+      "date": "2026-08-30",
+      "site": "아주경제",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "GIST, 호남권 지역자율R&amp;D 사업 설명회…국비 131억 시범사업 닻 올린다"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0074"
+      ]
+    },
+    {
+      "ordinal": 234,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0071",
+      "title": "포항시, 첫 직업계고 취업박람회에 2000여 명 몰려 대성황",
+      "date": "2026-08-30",
+      "site": "아주경제",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "포항시, 첫 직업계고 취업박람회에 2000여 명 몰려 대성황"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0078"
+      ]
+    },
+    {
+      "ordinal": 235,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0072",
+      "title": "스마트폰으로 '몰래 카메라' 순식간에 高정확도로 찾아내...KAIST, 저비용 탐지 기술 개발",
+      "date": "2026-08-30",
+      "site": "전자신문",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "스마트폰으로 '몰래 카메라' 순식간에 高정확도로 찾아내...KAIST, 저비용 탐지 기술 개발"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0079"
+      ]
+    },
+    {
+      "ordinal": 236,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0073",
+      "title": "대구시, 온실가스 줄이고 세입 늘리고… 배출권 매도로 12억3000만원 확보",
+      "date": "2026-08-30",
+      "site": "전기신문",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "대구시, 온실가스 줄이고 세입 늘리고… 배출권 매도로 12억3000만원 확보"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0080"
+      ]
+    },
+    {
+      "ordinal": 237,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0078",
+      "title": "簡単EV充電の「Plug&Charge」日本普及へ、独Hubjectとプラゴがパートナーシップ締結",
+      "date": "2026-08-31",
+      "site": "Response.jp Battery Special",
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "Hubject advances Plug&Charge in Japan in collaboration with Plugo",
+        "簡単EV充電の「Plug&Charge」日本普及へ、独Hubjectとプラゴがパートナーシップ締結",
+        "簡単EV充電の「Plug&Charge」日本普及へ、独Hubjectとプラゴがパートナーシップ締結"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0086",
+        "XRUN_REPLAY_20260903_E0146"
+      ]
+    },
+    {
+      "ordinal": 238,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0079",
+      "title": "燃料電池触媒の自動・自律実験システム、堀場製作所が開発…JASIS 2026で初公開へ",
+      "date": "2026-08-31",
+      "site": "Response.jp Battery Special",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "燃料電池触媒の自動・自律実験システム、堀場製作所が開発…JASIS 2026で初公開へ",
+        "燃料電池触媒の自動・自律実験システム、堀場製作所が開発…JASIS 2026で初公開へ"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0087"
+      ]
+    },
+    {
+      "ordinal": 239,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0080",
+      "title": "日立エナジー、欧米でエコニック受注／ＳＦ６フリー機器広がる 8/31(4面) 8/31(4面) 日立エナジーはＳＦ６（六フッ化硫黄）ガスを使わない高電圧機器「ＥｃｏｎｉＱ（エコニック）」の受注を欧米で拡大している。各国が温室効果ガス排出量の削減に向けた取り組みを加速する中、電力の安定供給を維…",
+      "date": "2026-08-31",
+      "site": "Denki Shimbun (電気新聞)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "日立エナジー、欧米でエコニック受注／ＳＦ６フリー機器広がる 8/31(4面) 8/31(4面) 日立エナジーはＳＦ６（六フッ化硫黄）ガスを使わない高電圧機器「ＥｃｏｎｉＱ（エコニック）」の受注を欧米で拡大している。各国が温室効果ガス排出量の削減に向けた取り組みを加速する中、電力の安定供給を維…",
+        "日立エナジー、欧米でエコニック受注／ＳＦ６フリー機器広がる 8/31(4面) 8/31(4面) 日立エナジーはＳＦ６（六フッ化硫黄）ガスを使わない高電圧機器「ＥｃｏｎｉＱ（エコニック）」の受注を欧米で拡大している。各国が温室効果ガス排出量の削減に向けた取り組みを加速する中、電力の安定供給を維…"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0088"
+      ]
+    },
+    {
+      "ordinal": 240,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0081",
+      "title": "三菱重工Ｅ＆Ｔ、工場向けエンジンを水素混焼に／５０％まで安定 8/31(4面) 8/31(4面) 三菱重工業グループの三菱重工エンジン＆ターボチャージャ（相模原市、古殿通義社長）は出力３６５０～５７５０キロワットの「ＫＵガスエンジン」の水素混焼仕様を確立したと２７日に発表した。既設エンジンに最…",
+      "date": "2026-08-31",
+      "site": "Denki Shimbun (電気新聞)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "三菱重工Ｅ＆Ｔ、工場向けエンジンを水素混焼に／５０％まで安定 8/31(4面) 8/31(4面) 三菱重工業グループの三菱重工エンジン＆ターボチャージャ（相模原市、古殿通義社長）は出力３６５０～５７５０キロワットの「ＫＵガスエンジン」の水素混焼仕様を確立したと２７日に発表した。既設エンジンに最…",
+        "三菱重工Ｅ＆Ｔ、工場向けエンジンを水素混焼に／５０％まで安定 8/31(4面) 8/31(4面) 三菱重工業グループの三菱重工エンジン＆ターボチャージャ（相模原市、古殿通義社長）は出力３６５０～５７５０キロワットの「ＫＵガスエンジン」の水素混焼仕様を確立したと２７日に発表した。既設エンジンに最…"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0089"
+      ]
+    },
+    {
+      "ordinal": 241,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0082",
+      "title": "ＪＡＰＥＸ、ノルウェーでガス田始動／計画から１年前倒し 8/31(3面) 8/31(3面) 石油資源開発（ＪＡＰＥＸ）は２８日、ノルウェーのアルベ・ノルド油ガス田「ＰＬ１２７Ｃ」で、２７日から天然ガスの生産を始めたと発表した。主要サプライヤーとの連携強化などにより、当初計画から約１年前倒…",
+      "date": "2026-08-31",
+      "site": "Denki Shimbun (電気新聞)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "ＪＡＰＥＸ、ノルウェーでガス田始動／計画から１年前倒し 8/31(3面) 8/31(3面) 石油資源開発（ＪＡＰＥＸ）は２８日、ノルウェーのアルベ・ノルド油ガス田「ＰＬ１２７Ｃ」で、２７日から天然ガスの生産を始めたと発表した。主要サプライヤーとの連携強化などにより、当初計画から約１年前倒…",
+        "ＪＡＰＥＸ、ノルウェーでガス田始動／計画から１年前倒し 8/31(3面) 8/31(3面) 石油資源開発（ＪＡＰＥＸ）は２８日、ノルウェーのアルベ・ノルド油ガス田「ＰＬ１２７Ｃ」で、２７日から天然ガスの生産を始めたと発表した。主要サプライヤーとの連携強化などにより、当初計画から約１年前倒…"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0090"
+      ]
+    },
+    {
+      "ordinal": 242,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0088",
+      "title": "🔒 ホンダのEV「スーパーワン」、80年代「シティターボⅡ」の味わいと走行感",
+      "date": "2026-08-28",
+      "site": "Kankyo Business Online Energy News",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "🔒 ホンダのEV「スーパーワン」、80年代「シティターボⅡ」の味わいと走行感"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0096"
+      ]
+    },
+    {
+      "ordinal": 243,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0094",
+      "title": "Business Analyst Mining Operations at Vale - Mining.com",
+      "date": "2026-08-30",
+      "site": "Mining.com Battery Minerals (via Google News)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "Business Analyst Mining Operations at Vale - Mining.com",
+        "Business Analyst Mining Operations at Vale - Mining.com"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0102"
+      ]
+    },
+    {
+      "ordinal": 244,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0097",
+      "title": "India and Uzbekistan deepen ties, eye $5bn trade and long-term uranium supplies",
+      "date": "2026-08-30",
+      "site": "Euronews RSS (EN Home)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "India and Uzbekistan deepen ties, eye $5bn trade and long-term uranium supplies",
+        "India and Uzbekistan deepen ties, eye $5bn trade and long-term uranium supplies"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "$"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0105"
+      ]
+    },
+    {
+      "ordinal": 245,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0100",
+      "title": "Chile’s hybrid heroics",
+      "date": "2026-08-29",
+      "site": "PV Magazine RSS (Global)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "Chile’s hybrid heroics"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0108"
+      ]
+    },
+    {
+      "ordinal": 246,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0106",
+      "title": "The Hydrogen Stream: Africa’s first PV-driven hydrogen hub powers up",
+      "date": "2026-08-28",
+      "site": "PV Magazine RSS (Global)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "The Hydrogen Stream: Africa’s first PV-driven hydrogen hub powers up"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0114"
+      ]
+    },
+    {
+      "ordinal": 247,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0110",
+      "title": "Machine learning improves irradiance prediction in bifacial PV systems",
+      "date": "2026-08-28",
+      "site": "PV Magazine RSS (Global)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "Machine learning improves irradiance prediction in bifacial PV systems"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0118"
+      ]
+    },
+    {
+      "ordinal": 248,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0111",
+      "title": "Four South American nations sign strategic minerals pact - Mining.com",
+      "date": "2026-08-28",
+      "site": "Mining.com Battery Minerals (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "Four South American nations sign strategic minerals pact - Mining.com"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0119"
+      ]
+    },
+    {
+      "ordinal": 249,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0112",
+      "title": "Asst. Energy Secretary to visit - - The Mining Gazette",
+      "date": "2026-08-28",
+      "site": "G7 Critical Minerals Multilateral (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "Asst. Energy Secretary to visit - - The Mining Gazette"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0120"
+      ]
+    },
+    {
+      "ordinal": 250,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0117",
+      "title": "The president doesn’t need a one-trick Army",
+      "date": "2026-08-28",
+      "site": "Breaking Defense RSS (FeedBurner)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "The president doesn’t need a one-trick Army"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0125"
+      ]
+    }
+  ]
+}

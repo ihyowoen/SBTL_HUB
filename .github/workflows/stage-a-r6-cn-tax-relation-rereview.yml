@@ -1,0 +1,73 @@
+name: Stage A R6 China Tax Relation Rereview
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/stage-a-r6-cn-tax-relation-rereview/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  validate-stage-a-relation-rereview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Lock exact main and canonical baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4"
+          test "$(git rev-parse origin/main:data/cards.full.json)" = "53219907cdb435c3822c41d097b23e475662aa8a"
+
+      - name: Build relation-only Stage A rereview
+        run: python3 scripts/stage_a_r6_cn_tax_relation_rereview.py
+
+      - name: Validate Stage A production contract and lineage
+        shell: bash
+        run: |
+          set -euo pipefail
+          A='runs/2026-09-04/stage_a_r6_batch01_cn_tax_relation_rereview_R1.json'
+          python3 validation_scripts/stage_artifact_contract_check.py A "$A"
+          python3 validation_scripts/stage_lineage_contract_check.py stage_a "$A"
+
+      - name: Assert relation-only scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          p='runs/2026-09-04/stage_a_r6_batch01_cn_tax_relation_rereview_R1.json'
+          x=json.load(open(p,encoding='utf-8'))
+          s=x['relation_rereview_scope']
+          assert s['spec_id']=='STD26_R6_B01_010'
+          assert s['counterpart_spec_id']=='STD26_R6_B01_009'
+          assert s['selection_changed'] is False
+          assert s['decision_news_value_score_changed'] is False
+          assert s['strict_membership_changed'] is False
+          assert s['fact_or_evidence_changed'] is False
+          assert s['related_prepass_changed'] is True
+          assert len(x['strict_passed_spec'])==7
+          row=[r for r in x['strict_passed_spec'] if r.get('spec_id')=='STD26_R6_B01_010'][0]
+          candidates=row['related_prepass']['relation_candidates']
+          assert any(c.get('target_candidate_id')=='STD26_R6_B01_009' and c.get('proposed_relation_type')=='program_lineage' for c in candidates)
+          print('PASS: relation-only Stage A rereview scope locked')
+          PY
+
+      - name: Commit validated Stage A rereview artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-04/stage_a_r6_batch01_cn_tax_relation_rereview_R1.json
+          git rm -r .tmp/stage-a-r6-cn-tax-relation-rereview
+          git diff --cached --check
+          git commit -m 'audit: validate China tax Stage A relation rereview'
+          git push

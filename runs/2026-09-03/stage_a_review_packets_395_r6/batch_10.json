@@ -1,0 +1,1883 @@
+{
+  "schema": "stage_a_review_packet_r6_v1",
+  "batch": 10,
+  "ordinal_start": 226,
+  "ordinal_end": 250,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 226,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0055",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C146",
+        "story_id": "KR_2026-08-31_C146",
+        "date": "2026-08-31",
+        "title": "서울시청 앞 광장, 10월까지 '운동하는 서울광장' 변신⋯\"서울의 밤 확대\"",
+        "site": "E Today RSS",
+        "url": "https://www.etoday.co.kr/news/view/2619886",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "b2050affa045d4770156afdf6ebf6bb78ff4900e36e6e6fc771394ce90c5db68"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C146"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C146",
+          "source_run": "20260831",
+          "source_index": 88,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C146",
+          "story_id": "KR_2026-08-31_C146",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "서울시청 앞 광장, 10월까지 '운동하는 서울광장' 변신⋯\"서울의 밤 확대\"",
+          "site": "E Today RSS",
+          "source_url": "https://www.etoday.co.kr/news/view/2619886",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "b2050affa045d4770156afdf6ebf6bb78ff4900e36e6e6fc771394ce90c5db68"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0061"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 227,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0056",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C110",
+        "story_id": "KR_2026-08-31_C110",
+        "date": "2026-08-31",
+        "title": "기아, 대형 전동화 PBV ‘더 기아 PV7’ 티저 최초 공개",
+        "site": "서울경제TV",
+        "url": "https://www.sentv.co.kr/article/view/sentv202608310035",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "542169f4c4ea8085ed383a584da136dd55a6c371ed7505bd46ea7871babb7e42"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C110",
+        "20260901::orig:20260901_123511:TF_0138",
+        "20260901::orig:20260901_123511:TF_0189"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C110",
+          "source_run": "20260831",
+          "source_index": 89,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C110",
+          "story_id": "KR_2026-08-31_C110",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "기아, 대형 전동화 PBV ‘더 기아 PV7’ 티저 최초 공개",
+          "site": "서울경제TV",
+          "source_url": "https://www.sentv.co.kr/article/view/sentv202608310035",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "542169f4c4ea8085ed383a584da136dd55a6c371ed7505bd46ea7871babb7e42"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0138",
+          "source_run": "20260901",
+          "source_index": 309,
+          "candidate_id": "orig:20260901_123511:TF_0138",
+          "story_id": "TF_0138",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[EV플러그IN] 한국산 PBV, 난공불락 유럽 LCV 시장 뚫는다…기아 PV7 티저 공개",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371886",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "ae4a76cd952aa52f7aec167f97041382b9c31b6a462089dbaee0f0655afb69a6"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0189",
+          "source_run": "20260901",
+          "source_index": 292,
+          "candidate_id": "orig:20260901_123511:TF_0189",
+          "story_id": "TF_0189",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Kia confirms PV7 debut and previews the larger electric van for the first time [Video]",
+          "site": "Electrek RSS",
+          "source_url": "https://electrek.co/2026/08/31/kia-confirms-pv7-debut-previews-larger-ev-van-video",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "79b72b4ca83267d833f2792aa6ddc881d17272e07ad79973ec787428a535fd5c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0062",
+        "XRUN_REPLAY_20260903_E0386",
+        "XRUN_REPLAY_20260903_E0400"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 228,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0059",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C203",
+        "story_id": "KR_2026-08-31_C203",
+        "date": "2026-08-31",
+        "title": "포스코이앤씨, 리모델링 층간소음 기술 국내 첫 인증",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831141856781",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "c63be7ea6708f31f817eafe07b2e109853994be871a5f1859c59081f3d029d99"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C203",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C87"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C203",
+          "source_run": "20260831",
+          "source_index": 93,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C203",
+          "story_id": "KR_2026-08-31_C203",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "포스코이앤씨, 리모델링 층간소음 기술 국내 첫 인증",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831141856781",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "c63be7ea6708f31f817eafe07b2e109853994be871a5f1859c59081f3d029d99"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C87",
+          "source_run": "20260901",
+          "source_index": 160,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C87",
+          "story_id": "KR_2026-08-31_C87",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "포스코이앤씨, 리모델링 층간소음 기술 국내 첫 인증",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831141856781",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "af23f0f1f711fde560dfd492e47d80d2f760a0ab60aa0b3f580169143cc59efe"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0066"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 229,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0061",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C214",
+        "story_id": "KR_2026-08-31_C214",
+        "date": "2026-08-31",
+        "title": "한화에어로, 스페인 K9 수출로 ‘EU 장벽 뚫었다’…“서유럽 첫 깃발”",
+        "site": "Donga Ilbo RSS",
+        "url": "https://www.donga.com/news/Politics/article/all/20260831/134576100/1",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "9522bbda35dc77e4f9df1e182abcd798a587f0babfa32371573b0114abee603a"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C214"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C214",
+          "source_run": "20260831",
+          "source_index": 96,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C214",
+          "story_id": "KR_2026-08-31_C214",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "한화에어로, 스페인 K9 수출로 ‘EU 장벽 뚫었다’…“서유럽 첫 깃발”",
+          "site": "Donga Ilbo RSS",
+          "source_url": "https://www.donga.com/news/Politics/article/all/20260831/134576100/1",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "9522bbda35dc77e4f9df1e182abcd798a587f0babfa32371573b0114abee603a"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0068"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 230,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0062",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C79",
+        "story_id": "KR_2026-08-31_C79",
+        "date": "2026-08-31",
+        "title": "[입찰 정보] 8월31일자",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302199",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "264253b0cd305b1e79f33f65027bda4cf219fe85b9a71ddd99311d37e89e5a36"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C79",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C38"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C79",
+          "source_run": "20260831",
+          "source_index": 97,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C79",
+          "story_id": "KR_2026-08-31_C79",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[입찰 정보] 8월31일자",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302199",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "264253b0cd305b1e79f33f65027bda4cf219fe85b9a71ddd99311d37e89e5a36"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C38",
+          "source_run": "20260901",
+          "source_index": 163,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C38",
+          "story_id": "KR_2026-08-31_C38",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[입찰 정보] 8월31일자",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302199",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b0569dce9d1222d91ddb8a01e2d39759357204a840ef12bfc2856957f34a1e11"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0069"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 231,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0063",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C65",
+        "story_id": "KR_2026-08-31_C65",
+        "date": "2026-08-31",
+        "title": "[기자수첩] 시장 없이 에너지안보도 없다",
+        "site": "이투뉴스",
+        "url": "http://www.e2news.com/news/articleView.html?idxno=333612",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "7bf4d2affae7b6e0da72c16f9a6dc8a2a044547ebec537926423b5594406d372"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C65"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C65",
+          "source_run": "20260831",
+          "source_index": 98,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C65",
+          "story_id": "KR_2026-08-31_C65",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[기자수첩] 시장 없이 에너지안보도 없다",
+          "site": "이투뉴스",
+          "source_url": "http://www.e2news.com/news/articleView.html?idxno=333612",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "7bf4d2affae7b6e0da72c16f9a6dc8a2a044547ebec537926423b5594406d372"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0070"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 232,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0064",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C57",
+        "story_id": "KR_2026-08-31_C57",
+        "date": "2026-08-31",
+        "title": "[ENTECH 2026 참가기업] 에스웰즈 - 소형 모빌리티 위한 차세대 수소저장 솔루션 선도",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302212",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "9cd6c886aac2cc8f80331b3ff25faf496f9708a751932a99ca613d670f64632c"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C57",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C30"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C57",
+          "source_run": "20260831",
+          "source_index": 99,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C57",
+          "story_id": "KR_2026-08-31_C57",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[ENTECH 2026 참가기업] 에스웰즈 - 소형 모빌리티 위한 차세대 수소저장 솔루션 선도",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302212",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "9cd6c886aac2cc8f80331b3ff25faf496f9708a751932a99ca613d670f64632c"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C30",
+          "source_run": "20260901",
+          "source_index": 164,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C30",
+          "story_id": "KR_2026-08-31_C30",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[ENTECH 2026 참가기업] 에스웰즈 - 소형 모빌리티 위한 차세대 수소저장 솔루션 선도",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302212",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "aa8947d598ff2ea7236a45be00278b383d6a91aba4b388f4a11ede27306ca194"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0071"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 233,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0067",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C05",
+        "story_id": "KR_2026-08-30_C05",
+        "date": "2026-08-30",
+        "title": "GIST, 호남권 지역자율R&amp;D 사업 설명회…국비 131억 시범사업 닻 올린다",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260830101230494",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "22436ee61feedc28d72793b9184ec3bd846ef6ef2444862ac0feb83cd666e228"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-30_C05"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C05",
+          "source_run": "20260831",
+          "source_index": 102,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-30_C05",
+          "story_id": "KR_2026-08-30_C05",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "GIST, 호남권 지역자율R&amp;D 사업 설명회…국비 131억 시범사업 닻 올린다",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260830101230494",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "22436ee61feedc28d72793b9184ec3bd846ef6ef2444862ac0feb83cd666e228"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0074"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 234,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0071",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C28",
+        "story_id": "KR_2026-08-30_C28",
+        "date": "2026-08-30",
+        "title": "포항시, 첫 직업계고 취업박람회에 2000여 명 몰려 대성황",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260830012019390",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "311a8bdd8ee9bd364cb6fee6d5ba26b9fe16249217cb05dec5ebd5345715fa1d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-30_C28"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C28",
+          "source_run": "20260831",
+          "source_index": 106,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-30_C28",
+          "story_id": "KR_2026-08-30_C28",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "포항시, 첫 직업계고 취업박람회에 2000여 명 몰려 대성황",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260830012019390",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "311a8bdd8ee9bd364cb6fee6d5ba26b9fe16249217cb05dec5ebd5345715fa1d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0078"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 235,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0072",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C23",
+        "story_id": "KR_2026-08-30_C23",
+        "date": "2026-08-30",
+        "title": "스마트폰으로 '몰래 카메라' 순식간에 高정확도로 찾아내...KAIST, 저비용 탐지 기술 개발",
+        "site": "전자신문",
+        "url": "https://www.etnews.com/20260828000317",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "4d5d053e029177a23aa8fefabafda41f34a525cb07b9cd8ddd5a69415d7a02db"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-30_C23"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C23",
+          "source_run": "20260831",
+          "source_index": 107,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-30_C23",
+          "story_id": "KR_2026-08-30_C23",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "스마트폰으로 '몰래 카메라' 순식간에 高정확도로 찾아내...KAIST, 저비용 탐지 기술 개발",
+          "site": "전자신문",
+          "source_url": "https://www.etnews.com/20260828000317",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "4d5d053e029177a23aa8fefabafda41f34a525cb07b9cd8ddd5a69415d7a02db"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0079"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 236,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0073",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C18",
+        "story_id": "KR_2026-08-30_C18",
+        "date": "2026-08-30",
+        "title": "대구시, 온실가스 줄이고 세입 늘리고… 배출권 매도로 12억3000만원 확보",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371823",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "a885128ad8f27d6fae1bb7b0dc366ce1bad25d0f282646ff6f91647df9c0818b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-30_C18"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C18",
+          "source_run": "20260831",
+          "source_index": 108,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-30_C18",
+          "story_id": "KR_2026-08-30_C18",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "대구시, 온실가스 줄이고 세입 늘리고… 배출권 매도로 12억3000만원 확보",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371823",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "a885128ad8f27d6fae1bb7b0dc366ce1bad25d0f282646ff6f91647df9c0818b"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0080"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 237,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0078",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C21",
+        "story_id": "JP_2026-08-31_C21",
+        "date": "2026-08-31",
+        "title": "簡単EV充電の「Plug&Charge」日本普及へ、独Hubjectとプラゴがパートナーシップ締結",
+        "site": "Response.jp Battery Special",
+        "url": "https://response.jp/article/2026/08/31/415926.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "df43114c51df000b66ef60e9fc49af5dabd4f8cc283facffb01a6c506a7bd947"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C12",
+        "20260831::orig:20260831_143419:JP_2026-08-31_C21",
+        "20260901::orig:20260901_123511:JP_2026-08-31_C15"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C12",
+          "source_run": "20260831",
+          "source_index": 182,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C12",
+          "story_id": "EU_2026-08-28_C12",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Hubject advances Plug&Charge in Japan in collaboration with Plugo",
+          "site": "Electrive RSS",
+          "source_url": "https://www.electrive.com/2026/08/28/hubject-advances-plugcharge-in-japan-in-collaboration-with-plugo",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "e0d49c1e05d4132d8dd86b97a3bffd4126109ce6821b4b0ab4be3f4dd5dbf285"
+          }
+        },
+        {
+          "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C21",
+          "source_run": "20260831",
+          "source_index": 115,
+          "candidate_id": "orig:20260831_143419:JP_2026-08-31_C21",
+          "story_id": "JP_2026-08-31_C21",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "簡単EV充電の「Plug&Charge」日本普及へ、独Hubjectとプラゴがパートナーシップ締結",
+          "site": "Response.jp Battery Special",
+          "source_url": "https://response.jp/article/2026/08/31/415926.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "df43114c51df000b66ef60e9fc49af5dabd4f8cc283facffb01a6c506a7bd947"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:JP_2026-08-31_C15",
+          "source_run": "20260901",
+          "source_index": 174,
+          "candidate_id": "orig:20260901_123511:JP_2026-08-31_C15",
+          "story_id": "JP_2026-08-31_C15",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "簡単EV充電の「Plug&Charge」日本普及へ、独Hubjectとプラゴがパートナーシップ締結",
+          "site": "Response.jp Battery Special",
+          "source_url": "https://response.jp/article/2026/08/31/415926.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "1e279e39cfd1350bdef7019da45a4a7e73ad24f27c570f64cd83b9357d4cec7f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0086",
+        "XRUN_REPLAY_20260903_E0146"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 238,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0079",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C20",
+        "story_id": "JP_2026-08-31_C20",
+        "date": "2026-08-31",
+        "title": "燃料電池触媒の自動・自律実験システム、堀場製作所が開発…JASIS 2026で初公開へ",
+        "site": "Response.jp Battery Special",
+        "url": "https://response.jp/article/2026/08/31/415928.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "c365afdb79c659ae2151e5af807c93f32c3bbe424c376b788aeea1b8ed22b261"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:JP_2026-08-31_C20",
+        "20260901::orig:20260901_123511:JP_2026-08-31_C13"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C20",
+          "source_run": "20260831",
+          "source_index": 116,
+          "candidate_id": "orig:20260831_143419:JP_2026-08-31_C20",
+          "story_id": "JP_2026-08-31_C20",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "燃料電池触媒の自動・自律実験システム、堀場製作所が開発…JASIS 2026で初公開へ",
+          "site": "Response.jp Battery Special",
+          "source_url": "https://response.jp/article/2026/08/31/415928.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "c365afdb79c659ae2151e5af807c93f32c3bbe424c376b788aeea1b8ed22b261"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:JP_2026-08-31_C13",
+          "source_run": "20260901",
+          "source_index": 175,
+          "candidate_id": "orig:20260901_123511:JP_2026-08-31_C13",
+          "story_id": "JP_2026-08-31_C13",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "燃料電池触媒の自動・自律実験システム、堀場製作所が開発…JASIS 2026で初公開へ",
+          "site": "Response.jp Battery Special",
+          "source_url": "https://response.jp/article/2026/08/31/415928.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "e6b51a4a2a4b740b9bff50983be8f5fa6b5f88aa08559e5b4d8387c43e80a1c4"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0087"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 239,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0080",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C16",
+        "story_id": "JP_2026-08-31_C16",
+        "date": "2026-08-31",
+        "title": "日立エナジー、欧米でエコニック受注／ＳＦ６フリー機器広がる 8/31(4面) 8/31(4面) 日立エナジーはＳＦ６（六フッ化硫黄）ガスを使わない高電圧機器「ＥｃｏｎｉＱ（エコニック）」の受注を欧米で拡大している。各国が温室効果ガス排出量の削減に向けた取り組みを加速する中、電力の安定供給を維…",
+        "site": "Denki Shimbun (電気新聞)",
+        "url": "https://www.denkishimbun.com/archives/415603",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "b009439566be12bb3b8d2f6492718208bbbde03b84e7db6b58254054fdb1c642"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:JP_2026-08-31_C16",
+        "20260901::orig:20260901_123511:JP_2026-08-31_C10"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C16",
+          "source_run": "20260831",
+          "source_index": 117,
+          "candidate_id": "orig:20260831_143419:JP_2026-08-31_C16",
+          "story_id": "JP_2026-08-31_C16",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "日立エナジー、欧米でエコニック受注／ＳＦ６フリー機器広がる 8/31(4面) 8/31(4面) 日立エナジーはＳＦ６（六フッ化硫黄）ガスを使わない高電圧機器「ＥｃｏｎｉＱ（エコニック）」の受注を欧米で拡大している。各国が温室効果ガス排出量の削減に向けた取り組みを加速する中、電力の安定供給を維…",
+          "site": "Denki Shimbun (電気新聞)",
+          "source_url": "https://www.denkishimbun.com/archives/415603",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "b009439566be12bb3b8d2f6492718208bbbde03b84e7db6b58254054fdb1c642"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:JP_2026-08-31_C10",
+          "source_run": "20260901",
+          "source_index": 176,
+          "candidate_id": "orig:20260901_123511:JP_2026-08-31_C10",
+          "story_id": "JP_2026-08-31_C10",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "日立エナジー、欧米でエコニック受注／ＳＦ６フリー機器広がる 8/31(4面) 8/31(4面) 日立エナジーはＳＦ６（六フッ化硫黄）ガスを使わない高電圧機器「ＥｃｏｎｉＱ（エコニック）」の受注を欧米で拡大している。各国が温室効果ガス排出量の削減に向けた取り組みを加速する中、電力の安定供給を維…",
+          "site": "Denki Shimbun (電気新聞)",
+          "source_url": "https://www.denkishimbun.com/archives/415603",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "19bedc61d113809c0a6efb39b15704d32fc850232373509276b7aba45d41d230"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0088"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 240,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0081",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C08",
+        "story_id": "JP_2026-08-31_C08",
+        "date": "2026-08-31",
+        "title": "三菱重工Ｅ＆Ｔ、工場向けエンジンを水素混焼に／５０％まで安定 8/31(4面) 8/31(4面) 三菱重工業グループの三菱重工エンジン＆ターボチャージャ（相模原市、古殿通義社長）は出力３６５０～５７５０キロワットの「ＫＵガスエンジン」の水素混焼仕様を確立したと２７日に発表した。既設エンジンに最…",
+        "site": "Denki Shimbun (電気新聞)",
+        "url": "https://www.denkishimbun.com/archives/415606",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "fa676fb3a7f29951dd2e54244cb43ab2c9f1306ab7584dbac9692d7cc90c021a"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:JP_2026-08-31_C08",
+        "20260901::orig:20260901_123511:JP_2026-08-31_C05"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C08",
+          "source_run": "20260831",
+          "source_index": 118,
+          "candidate_id": "orig:20260831_143419:JP_2026-08-31_C08",
+          "story_id": "JP_2026-08-31_C08",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "三菱重工Ｅ＆Ｔ、工場向けエンジンを水素混焼に／５０％まで安定 8/31(4面) 8/31(4面) 三菱重工業グループの三菱重工エンジン＆ターボチャージャ（相模原市、古殿通義社長）は出力３６５０～５７５０キロワットの「ＫＵガスエンジン」の水素混焼仕様を確立したと２７日に発表した。既設エンジンに最…",
+          "site": "Denki Shimbun (電気新聞)",
+          "source_url": "https://www.denkishimbun.com/archives/415606",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "fa676fb3a7f29951dd2e54244cb43ab2c9f1306ab7584dbac9692d7cc90c021a"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:JP_2026-08-31_C05",
+          "source_run": "20260901",
+          "source_index": 177,
+          "candidate_id": "orig:20260901_123511:JP_2026-08-31_C05",
+          "story_id": "JP_2026-08-31_C05",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "三菱重工Ｅ＆Ｔ、工場向けエンジンを水素混焼に／５０％まで安定 8/31(4面) 8/31(4面) 三菱重工業グループの三菱重工エンジン＆ターボチャージャ（相模原市、古殿通義社長）は出力３６５０～５７５０キロワットの「ＫＵガスエンジン」の水素混焼仕様を確立したと２７日に発表した。既設エンジンに最…",
+          "site": "Denki Shimbun (電気新聞)",
+          "source_url": "https://www.denkishimbun.com/archives/415606",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "aea5b2d57712f154d355fe6e8e49375fe1d28a862f123e0d510c0b7f359077f8"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0089"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 241,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0082",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C24",
+        "story_id": "JP_2026-08-31_C24",
+        "date": "2026-08-31",
+        "title": "ＪＡＰＥＸ、ノルウェーでガス田始動／計画から１年前倒し 8/31(3面) 8/31(3面) 石油資源開発（ＪＡＰＥＸ）は２８日、ノルウェーのアルベ・ノルド油ガス田「ＰＬ１２７Ｃ」で、２７日から天然ガスの生産を始めたと発表した。主要サプライヤーとの連携強化などにより、当初計画から約１年前倒…",
+        "site": "Denki Shimbun (電気新聞)",
+        "url": "https://www.denkishimbun.com/archives/415627",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "fbe3fcf4431f3d3a8fc4867a56dd80981c31cbc31f23ae857cba827056e99ec5"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:JP_2026-08-31_C24",
+        "20260901::orig:20260901_123511:JP_2026-08-31_C18"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C24",
+          "source_run": "20260831",
+          "source_index": 119,
+          "candidate_id": "orig:20260831_143419:JP_2026-08-31_C24",
+          "story_id": "JP_2026-08-31_C24",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "ＪＡＰＥＸ、ノルウェーでガス田始動／計画から１年前倒し 8/31(3面) 8/31(3面) 石油資源開発（ＪＡＰＥＸ）は２８日、ノルウェーのアルベ・ノルド油ガス田「ＰＬ１２７Ｃ」で、２７日から天然ガスの生産を始めたと発表した。主要サプライヤーとの連携強化などにより、当初計画から約１年前倒…",
+          "site": "Denki Shimbun (電気新聞)",
+          "source_url": "https://www.denkishimbun.com/archives/415627",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "fbe3fcf4431f3d3a8fc4867a56dd80981c31cbc31f23ae857cba827056e99ec5"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:JP_2026-08-31_C18",
+          "source_run": "20260901",
+          "source_index": 178,
+          "candidate_id": "orig:20260901_123511:JP_2026-08-31_C18",
+          "story_id": "JP_2026-08-31_C18",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "ＪＡＰＥＸ、ノルウェーでガス田始動／計画から１年前倒し 8/31(3面) 8/31(3面) 石油資源開発（ＪＡＰＥＸ）は２８日、ノルウェーのアルベ・ノルド油ガス田「ＰＬ１２７Ｃ」で、２７日から天然ガスの生産を始めたと発表した。主要サプライヤーとの連携強化などにより、当初計画から約１年前倒…",
+          "site": "Denki Shimbun (電気新聞)",
+          "source_url": "https://www.denkishimbun.com/archives/415627",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "fc96c352589fb5e03a78e29ba4eca39bf8898d0d90f1e7cd603bfdc1ecb717f6"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0090"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 242,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0088",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-28_C03",
+        "story_id": "JP_2026-08-28_C03",
+        "date": "2026-08-28",
+        "title": "🔒 ホンダのEV「スーパーワン」、80年代「シティターボⅡ」の味わいと走行感",
+        "site": "Kankyo Business Online Energy News",
+        "url": "https://www.kankyo-business.jp/column/630f662d-f0fa-4e66-82e3-835ec63be1b8",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "4d583f7d52dafc83f91cffce5adb18ef0af2996bb5fcd52edbeff1b3fe1d1a30"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:JP_2026-08-28_C03"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:JP_2026-08-28_C03",
+          "source_run": "20260831",
+          "source_index": 125,
+          "candidate_id": "orig:20260831_143419:JP_2026-08-28_C03",
+          "story_id": "JP_2026-08-28_C03",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "🔒 ホンダのEV「スーパーワン」、80年代「シティターボⅡ」の味わいと走行感",
+          "site": "Kankyo Business Online Energy News",
+          "source_url": "https://www.kankyo-business.jp/column/630f662d-f0fa-4e66-82e3-835ec63be1b8",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "4d583f7d52dafc83f91cffce5adb18ef0af2996bb5fcd52edbeff1b3fe1d1a30"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0096"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 243,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0094",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-30_C02",
+        "story_id": "GL_2026-08-30_C02",
+        "date": "2026-08-30",
+        "title": "Business Analyst Mining Operations at Vale - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/jobs/653090190-business-analyst-mining-operations",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "8234e4ce46edb0cfa8dc06dedd4a31cf2de0904ce1b487628fbea2cea08754ad"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-30_C02",
+        "20260901::orig:20260901_123511:GL_2026-08-30_C03"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-30_C02",
+          "source_run": "20260831",
+          "source_index": 131,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-30_C02",
+          "story_id": "GL_2026-08-30_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "Business Analyst Mining Operations at Vale - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/jobs/653090190-business-analyst-mining-operations",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "8234e4ce46edb0cfa8dc06dedd4a31cf2de0904ce1b487628fbea2cea08754ad"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-30_C03",
+          "source_run": "20260901",
+          "source_index": 220,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-30_C03",
+          "story_id": "GL_2026-08-30_C03",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "Business Analyst Mining Operations at Vale - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/jobs/653090190-business-analyst-mining-operations",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "0b1eb3e2f12c9de1612415a54ca3d1d9c982c41703eea74e56e68d1880e20286"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0102"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 244,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0097",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-30_C05",
+        "story_id": "GL_2026-08-30_C05",
+        "date": "2026-08-30",
+        "title": "India and Uzbekistan deepen ties, eye $5bn trade and long-term uranium supplies",
+        "site": "Euronews RSS (EN Home)",
+        "url": "http://www.euronews.com/2026/08/30/india-and-uzbekistan-deepen-ties-eye-5bn-trade-and-long-term-uranium-supplies",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "88f0d3f4e83cd0c020e644cd66f4617a32ba03eb9ceb86f4ac70207be857b571"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-30_C05",
+        "20260901::orig:20260901_123511:GL_2026-08-30_C06"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-30_C05",
+          "source_run": "20260831",
+          "source_index": 134,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-30_C05",
+          "story_id": "GL_2026-08-30_C05",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "India and Uzbekistan deepen ties, eye $5bn trade and long-term uranium supplies",
+          "site": "Euronews RSS (EN Home)",
+          "source_url": "http://www.euronews.com/2026/08/30/india-and-uzbekistan-deepen-ties-eye-5bn-trade-and-long-term-uranium-supplies",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "88f0d3f4e83cd0c020e644cd66f4617a32ba03eb9ceb86f4ac70207be857b571"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-30_C06",
+          "source_run": "20260901",
+          "source_index": 225,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-30_C06",
+          "story_id": "GL_2026-08-30_C06",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "India and Uzbekistan deepen ties, eye $5bn trade and long-term uranium supplies",
+          "site": "Euronews RSS (EN Home)",
+          "source_url": "http://www.euronews.com/2026/08/30/india-and-uzbekistan-deepen-ties-eye-5bn-trade-and-long-term-uranium-supplies",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b39bfd82682465d949888eb454031697a5a1cc598c0dd56fd4a4881c50311cea"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "$"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0105"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 245,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0100",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-29_C02",
+        "story_id": "GL_2026-08-29_C02",
+        "date": "2026-08-29",
+        "title": "Chile’s hybrid heroics",
+        "site": "PV Magazine RSS (Global)",
+        "url": "https://www.pv-magazine.com/2026/08/29/chiles-hybrid-heroics",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "2d36cc7b66d9a1fef2fbab1722c0d64bdd8fda236bdf4ef4f94cd7ac78c97daa"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-29_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-29_C02",
+          "source_run": "20260831",
+          "source_index": 137,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-29_C02",
+          "story_id": "GL_2026-08-29_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-29",
+          "title": "Chile’s hybrid heroics",
+          "site": "PV Magazine RSS (Global)",
+          "source_url": "https://www.pv-magazine.com/2026/08/29/chiles-hybrid-heroics",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "2d36cc7b66d9a1fef2fbab1722c0d64bdd8fda236bdf4ef4f94cd7ac78c97daa"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0108"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 246,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0106",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C26",
+        "story_id": "GL_2026-08-28_C26",
+        "date": "2026-08-28",
+        "title": "The Hydrogen Stream: Africa’s first PV-driven hydrogen hub powers up",
+        "site": "PV Magazine RSS (Global)",
+        "url": "https://www.pv-magazine.com/2026/08/28/the-hydrogen-stream-africas-first-full-stack-pv-driven-hydrogen-hub-powers-up-in-namibia",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "e86ed8409630fc72ad70d764089ecdfe418e354a2411d36205a027055addfaa5"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C26"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C26",
+          "source_run": "20260831",
+          "source_index": 145,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C26",
+          "story_id": "GL_2026-08-28_C26",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "The Hydrogen Stream: Africa’s first PV-driven hydrogen hub powers up",
+          "site": "PV Magazine RSS (Global)",
+          "source_url": "https://www.pv-magazine.com/2026/08/28/the-hydrogen-stream-africas-first-full-stack-pv-driven-hydrogen-hub-powers-up-in-namibia",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "e86ed8409630fc72ad70d764089ecdfe418e354a2411d36205a027055addfaa5"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0114"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 247,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0110",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C16",
+        "story_id": "GL_2026-08-28_C16",
+        "date": "2026-08-28",
+        "title": "Machine learning improves irradiance prediction in bifacial PV systems",
+        "site": "PV Magazine RSS (Global)",
+        "url": "https://www.pv-magazine.com/2026/08/28/machine-learning-improves-irradiance-prediction-in-bifacial-pv-systems",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "0c07a871ca9b7f4c5f974f2f5a519bc9be0e3dca497cf4e18170a5672443dbed"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C16"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C16",
+          "source_run": "20260831",
+          "source_index": 151,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C16",
+          "story_id": "GL_2026-08-28_C16",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Machine learning improves irradiance prediction in bifacial PV systems",
+          "site": "PV Magazine RSS (Global)",
+          "source_url": "https://www.pv-magazine.com/2026/08/28/machine-learning-improves-irradiance-prediction-in-bifacial-pv-systems",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "0c07a871ca9b7f4c5f974f2f5a519bc9be0e3dca497cf4e18170a5672443dbed"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0118"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 248,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0111",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C09",
+        "story_id": "GL_2026-08-28_C09",
+        "date": "2026-08-28",
+        "title": "Four South American nations sign strategic minerals pact - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/web/four-south-american-nations-sign-strategic-minerals-pact",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "18e3d91d044519299e4cf629e8ce17819bd14057dc81b47ebcfd8f4f4733266a"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C09"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C09",
+          "source_run": "20260831",
+          "source_index": 152,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C09",
+          "story_id": "GL_2026-08-28_C09",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Four South American nations sign strategic minerals pact - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/web/four-south-american-nations-sign-strategic-minerals-pact",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "18e3d91d044519299e4cf629e8ce17819bd14057dc81b47ebcfd8f4f4733266a"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0119"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 249,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0112",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C03",
+        "story_id": "GL_2026-08-28_C03",
+        "date": "2026-08-28",
+        "title": "Asst. Energy Secretary to visit - - The Mining Gazette",
+        "site": "G7 Critical Minerals Multilateral (via Google News)",
+        "url": "https://www.mininggazette.com/news/local-news/2026/08/asst-energy-secretary-to-visit",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "eaf0bb10e5e58a0d12639e889e222c47e3fc037d9c66f9e76f9645b286e2828a"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C03"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C03",
+          "source_run": "20260831",
+          "source_index": 154,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C03",
+          "story_id": "GL_2026-08-28_C03",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Asst. Energy Secretary to visit - - The Mining Gazette",
+          "site": "G7 Critical Minerals Multilateral (via Google News)",
+          "source_url": "https://www.mininggazette.com/news/local-news/2026/08/asst-energy-secretary-to-visit",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "eaf0bb10e5e58a0d12639e889e222c47e3fc037d9c66f9e76f9645b286e2828a"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0120"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 250,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0117",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C28",
+        "story_id": "GL_2026-08-28_C28",
+        "date": "2026-08-28",
+        "title": "The president doesn’t need a one-trick Army",
+        "site": "Breaking Defense RSS (FeedBurner)",
+        "url": "https://breakingdefense.com/2026/08/the-president-doesnt-need-a-one-trick-army",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "747b123280686b4a47928ecb755e8ba00e25b714956df54b0d9c3718cc9930c3"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C28"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C28",
+          "source_run": "20260831",
+          "source_index": 160,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C28",
+          "story_id": "GL_2026-08-28_C28",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "The president doesn’t need a one-trick Army",
+          "site": "Breaking Defense RSS (FeedBurner)",
+          "source_url": "https://breakingdefense.com/2026/08/the-president-doesnt-need-a-one-trick-army",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "747b123280686b4a47928ecb755e8ba00e25b714956df54b0d9c3718cc9930c3"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0125"
+      ],
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+name: Fix R6 relation preselection schema adapter
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/fix-r6-relation-schema/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Patch legacy prepass accounting field adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('.github/workflows/r6-relation-preselection-regen.yml')
+          s=p.read_text()
+          old="""          old_exact=oldprepass.get('accounting',{}).get('exact_canonical_collision_events')
+          if old_exact is None:
+              old_exact=oldprepass.get('summary',{}).get('exact_canonical_collision_events',0)
+          assert old_exact==0, old_exact
+"""
+          new="""          old_exact=oldprepass.get('accounting',{}).get('events_with_exact_canonical_match')
+          if old_exact is None:
+              old_exact=oldprepass.get('accounting',{}).get('exact_canonical_collision_events')
+          if old_exact is None:
+              old_exact=oldprepass.get('summary',{}).get('exact_canonical_collision_events',0)
+          assert old_exact==0, old_exact
+"""
+          assert old in s
+          p.write_text(s.replace(old,new))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .github/workflows/r6-relation-preselection-regen.yml
+          git rm -r .tmp/fix-r6-relation-schema
+          git commit -m 'fix: adapt R6 relation regen to legacy prepass field'
+          git push

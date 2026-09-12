@@ -1,0 +1,111 @@
+{
+  "schema": "exact_425_recovery_and_632_replay_gate_v2",
+  "status": "BLOCKED_RAW_INPUT_BYTES_NOT_REPO_BOUND",
+  "generated_date": "2026-09-03",
+  "supersedes": "runs/2026-09-03/exact_425_recovery_and_632_replay_gate_R1.json",
+  "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_card_count": 1514,
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "exact_425_recovery": {
+    "reported_event_count": 425,
+    "reported_observation_count": 632,
+    "expected_membership_sha256": "90719eb1067241df6b201c2722cca5280f89ea69d0e3fd3e7865b9e91d9e8c13",
+    "expected_handoff_sha256": "ff58d295d0d2360fdb053d18aea1921de29397f891db4d957ecf7140a49ac119",
+    "full_files_found_in_current_refs": false,
+    "full_files_found_in_reachable_git_history": false,
+    "actions_artifact_found": false,
+    "temporary_transfer_chunks_found": 1,
+    "temporary_transfer_complete": false,
+    "validation_workflow_result": "WAITING_FOR_FULL_425_ARTIFACTS",
+    "disposition": "NON_REPLAYABLE_HISTORICAL_SUMMARY_ONLY",
+    "policy": "Do not reconstruct bytes to match historical hashes and do not force any rebuilt event universe to 425 events."
+  },
+  "current_authoritative_observation_accounting": {
+    "raw_input_observations": 621,
+    "coverage_discovery_or_rescue_observations": 11,
+    "authoritative_observations_total": 632,
+    "replay_manifest_ref": "runs/2026-09-03/current_authoritative_632_replay_manifest_R1.json",
+    "replay_manifest_sha256": "e312413375fbffc4ecb16b5eb1a9bcb6b631e87aa4971e75ddc426542b42aa0d",
+    "event_count": null,
+    "event_count_policy": "Rebuild from exact source bytes under the locked clustering contract; do not force 425."
+  },
+  "raw_input_gate": {
+    "20260831": {
+      "filename": "final_news_llm_input_newsletter_expanded_20260831_143419.json",
+      "expected_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+      "expected_byte_count": 7265646,
+      "story_count": 264,
+      "file_library_located": true,
+      "repo_bound": false,
+      "reachable_git_exact_match": false,
+      "reachable_git_same_size_candidate_count": 0
+    },
+    "20260901": {
+      "audit_filename": "final_news_llm_input_newsletter_expanded_20260901_123511(1).json",
+      "file_library_display_filename": "final_news_llm_input_newsletter_expanded_20260901_123511.json",
+      "expected_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+      "expected_byte_count": 9604884,
+      "story_count": 357,
+      "file_library_located": true,
+      "repo_bound": false,
+      "reachable_git_exact_match": false,
+      "reachable_git_same_size_candidate_count": 0
+    }
+  },
+  "historical_carry_forward_gate": {
+    "status": "PASS_TERMINAL_HISTORICAL_ACCOUNTING",
+    "current_main_rebind_ref": "runs/2026-09-02/stage_0_0c_historical_carry_forward_terminal_reconciliation_20260902_R3.json",
+    "auditable_historical_gross": 290,
+    "historical_rows_terminally_accounted": 290,
+    "historical_rows_entering_current_stage_a": 0,
+    "active_20260825_exact": {
+      "input_total": 246,
+      "already_canonicalized_exact": 3,
+      "provenance_hold_not_stage_a_evaluable": 243,
+      "active_carry_forward_to_current_stage_a": 0,
+      "accounted_total": 246
+    },
+    "residual_44_exact": {
+      "source_ref": "runs/2026-09-02/historical_residual_44_terminal_reconciliation_20260902_R2.json",
+      "source_blob_sha": "18a5a3041b2e60973f2c93e63027f429c9b8083f",
+      "input_total": 44,
+      "later_publish_ready_and_canonicalized": 4,
+      "intra_cohort_duplicate_collapse": 1,
+      "terminal_reject_or_stale": 4,
+      "old_anchor_contamination_rejected_and_rewritten_outside_residual_row": 1,
+      "conditional_hold_watchlist": 34,
+      "active_carry_forward_to_stage_a_from_this_residual_cohort": 0,
+      "accounted_total": 44,
+      "accounting_pass": true,
+      "canonicalized_source_spec_ids": [
+        "REC26_A2_024",
+        "REC26_A2_028",
+        "REC26_A2_049",
+        "REC26_A2_050"
+      ],
+      "duplicate_collapse_source_spec_ids": ["REC26_A2_011"],
+      "terminal_reject_or_stale_source_spec_ids": [
+        "REC26_A2_010",
+        "REC26_A2_013",
+        "REC26_A2_019",
+        "LGES_HONDA_PRISMATIC"
+      ],
+      "old_anchor_contamination_source_spec_ids": ["REC26_A2_065"]
+    },
+    "old_reported_37_5_2": {
+      "status": "SUPERSEDED_FOR_CURRENT_ACCOUNTING",
+      "reason": "The later item-level residual-44 R2 terminal reconciliation accounts 44/44 and is explicitly rebound by the df6fccc historical R3. The older 37/5/2 count-only summary is not required to authorize or deny current Stage A and must not be reconstructed by inference."
+    },
+    "occurrence_matrix_ref": "runs/2026-09-03/residual_44_occurrence_matrix_R1.json",
+    "occurrence_matrix_sha256": "c59225d3708bd241e8081cd432d9e2863555012518250e563b2832f0600a6a68",
+    "occurrence_matrix_role": "corroborating reachability audit only; keyword signals are non-authoritative for disposition"
+  },
+  "authorization": {
+    "historical_accounting_blocker_open": false,
+    "pr314_merge_authorized": false,
+    "event_reconciliation_authorized": false,
+    "formal_stage_a_authorized": false,
+    "sole_current_blocker": "RAW_INPUT_BYTES_NOT_REPO_BOUND",
+    "next_gate": "REPO_BIND_AND_SHA_VERIFY_TWO_RAW_INPUT_FILES_THEN_MATERIALIZE_FULL_632_OBSERVATION_PAYLOADS_AND_REBUILD_CURRENT_EVENT_UNIVERSE"
+  }
+}

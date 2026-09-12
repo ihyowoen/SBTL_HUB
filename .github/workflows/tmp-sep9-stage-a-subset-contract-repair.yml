@@ -29,7 +29,7 @@ jobs:
           validator = Path('validation_scripts/stage_lineage_contract_check.py')
           text = validator.read_text(encoding='utf-8')
           old = '    is_full = require_full or _compat.looks_like_full_stage_a_artifact(data)\n'
-          new = '''    explicit_source_bound_production_subset = (\n        not require_full\n        and data.get("stage") in {"A", "stage_a", "0.1"}\n        and data.get("subset_scope") == "production_candidates_only"\n        and data.get("full_stage_a_accounting_claimed") is False\n        and data.get("source_bound_reconstruction") is True\n        and data.get("downstream_evidence_backfill_used") is False\n    )\n    is_full = (\n        False\n        if explicit_source_bound_production_subset\n        else (require_full or _compat.looks_like_full_stage_a_artifact(data))\n    )\n'''
+          new = '''    explicit_source_bound_production_subset = (\n        not require_full\n        and data.get("stage") in {"A", "stage_a", "0.1"}\n        and data.get("subset_scope") == "production_candidates_only"\n        and data.get("full_stage_a_accounting_claimed") is False\n        and data.get("source_bound_reconstruction") is True\n        and data.get("downstream_evidence_backfill_used") is False\n    )\n    if explicit_source_bound_production_subset:\n        # Card-run V4 requires an explicit ordinary stage on persisted artifacts.\n        # Frozen V3 interprets any stage marker as a full Stage A accounting claim.\n        # Strip only that marker in a private compatibility copy; never mutate the artifact.\n        projected = copy.deepcopy(dict(data))\n        projected.pop("stage", None)\n        return projected, None\n    is_full = require_full or _compat.looks_like_full_stage_a_artifact(data)\n'''
           if old not in text:
               if new not in text:
                   raise SystemExit('expected Stage A full-detection line not found')
@@ -61,7 +61,8 @@ jobs:
               'source_bound_reconstruction_required': True,
               'downstream_evidence_backfill_forbidden': True,
               'ordinary_stage_declared': 'A',
-              'reason': 'Card-run V4 requires an explicit ordinary stage while Stage A full-artifact detection historically treated any stage marker as a full-accounting claim. The active lineage gate now exempts only the exact source-bound production-subset sentinel; all other stage=A artifacts remain fail-closed under full-artifact detection.',
+              'compatibility_projection': 'private_copy_strips_stage_marker_only_for_exact_source_bound_subset',
+              'reason': 'Card-run V4 requires an explicit ordinary stage while frozen V3 historically treats any stage marker as a full-accounting claim. Only the exact source-bound production-subset sentinel receives a private V3 projection with stage removed; persisted artifacts remain stage=A and all non-matching artifacts remain fail-closed.',
               'artifacts': [str(p) for p in stage_paths],
           }
           (root/'stage-a-subset-contract-bridge-audit.json').write_text(json.dumps(audit, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
@@ -84,13 +85,18 @@ jobs:
           from validation_scripts import stage_lineage_contract_check_v3_compat as compat
           p = Path('runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json')
           data = json.loads(p.read_text())
-          assert compat.looks_like_full_stage_a_artifact(data) is True, 'historical detector must remain fail-closed on stage marker'
+          assert data['stage'] == 'A'
+          assert compat.looks_like_full_stage_a_artifact(data) is True, 'historical detector must remain fail-closed on persisted stage marker'
           projected, blocked = gate._prepare_v3_compat_payload(data, require_full=False)
           assert blocked is None, 'exact source-bound subset must remain route/subset-valid'
+          assert 'stage' not in projected, 'private V3 subset projection must strip only the stage marker'
+          assert data['stage'] == 'A', 'persisted artifact must remain unchanged'
           probe = dict(data)
           probe.pop('subset_scope', None)
-          assert compat.looks_like_full_stage_a_artifact(probe) is True, 'removing subset sentinel must restore full-artifact classification'
-          print('PASS: explicit source-bound production subset bridge is narrow and historical full detector remains fail-closed')
+          probe_projected, probe_blocked = gate._prepare_v3_compat_payload(probe, require_full=False)
+          assert compat.looks_like_full_stage_a_artifact(probe) is True
+          assert 'stage' in probe_projected or probe_blocked is not None, 'non-matching subset must not receive private route-only projection'
+          print('PASS: exact source-bound subset gets private V3 projection; all non-matching stage=A payloads remain full/fail-closed')
           PY
           python3 - <<'PY'
           import json

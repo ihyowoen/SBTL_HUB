@@ -6,7 +6,7 @@
   "findings_addressed_in_this_pr": {
     "stage_a_subset_gate": "validator fail-closes ordinary Stage A subsets",
     "stage_a_415_accounting": "corrected to 55/415; 360 open identities are explicit",
-    "terminal_decision_binding": "a passing terminal ledger must use the governed Stage A disposition vocabulary and match the governed Stage A identity/decision/basis ledger",
+    "terminal_decision_binding": "a passing terminal ledger must use the governed Stage A disposition vocabulary, match the governed Stage A identity/decision/basis ledger, and the governed decision artifact itself must pass the full Stage A checker",
     "stage_b_artifact": "source publication dates and Reuters-syndication accounting are corrected in the run-bound Stage B/C artifacts; final canonical provenance-hash rebinding remains a separate governed data change",
     "source_publication_dates": [
       "STD26_0909_A_004-S2",
@@ -15,6 +15,16 @@
     ],
     "syndicated_source_owner": "STD26_0909_A_007 is one Reuters owner across two checked URLs/domains; the general Reuters trade URL is explicitly not used for visible rare-earth claims",
     "readme_state": "updated to reflect completed historical merge and open Stage A/canonical remediation"
+  },
+  "downstream_artifact_invalidation": {
+    "status": "INVALIDATED_REGENERATION_REQUIRED",
+    "source_spec_id": "STD26_0909_A_007",
+    "artifact_refs": [
+      "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+      "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+      "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json"
+    ],
+    "reason": "These historical downstream artifacts still assert PASS_MULTI_SOURCE for STD26_0909_A_007 and are invalid after the Stage B/C Reuters-owner correction. They must be regenerated before any future completeness repair may reuse this chain. The production binding checker now independently rejects source_diversity_status drift across B/C/0.5/0.6/0.7."
   },
   "canonical_remediation": {
     "status": "PENDING_SEPARATE_GOVERNED_DIRECT_ADD_PR",

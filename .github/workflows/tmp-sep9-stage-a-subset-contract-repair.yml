@@ -1,0 +1,114 @@
+name: tmp-sep9-stage-a-subset-contract-repair
+
+on:
+  push:
+    branches:
+      - chatgpt/sep9-r1-current-main-production-r1
+    paths:
+      - .github/workflows/tmp-sep9-stage-a-subset-contract-repair.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair-stage-a-subset-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply narrow source-bound subset contract bridge
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          validator = Path('validation_scripts/stage_lineage_contract_check.py')
+          text = validator.read_text(encoding='utf-8')
+          old = '    is_full = require_full or _compat.looks_like_full_stage_a_artifact(data)\n'
+          new = '''    explicit_source_bound_production_subset = (\n        not require_full\n        and data.get("stage") in {"A", "stage_a", "0.1"}\n        and data.get("subset_scope") == "production_candidates_only"\n        and data.get("full_stage_a_accounting_claimed") is False\n        and data.get("source_bound_reconstruction") is True\n        and data.get("downstream_evidence_backfill_used") is False\n    )\n    is_full = (\n        False\n        if explicit_source_bound_production_subset\n        else (require_full or _compat.looks_like_full_stage_a_artifact(data))\n    )\n'''
+          if old not in text:
+              if new not in text:
+                  raise SystemExit('expected Stage A full-detection line not found')
+          else:
+              text = text.replace(old, new, 1)
+              validator.write_text(text, encoding='utf-8')
+
+          root = Path('runs/2026-09-10/sep9-r1-current-main-production-r1')
+          stage_paths = [root/'stages/stage-a.json', root/'stages/stage-a-promotion2.json']
+          for path in stage_paths:
+              data = json.loads(path.read_text(encoding='utf-8'))
+              required = {
+                  'subset_scope': 'production_candidates_only',
+                  'full_stage_a_accounting_claimed': False,
+                  'source_bound_reconstruction': True,
+                  'downstream_evidence_backfill_used': False,
+              }
+              for key, expected in required.items():
+                  if data.get(key) != expected:
+                      raise SystemExit(f'{path}: subset sentinel mismatch {key}={data.get(key)!r}')
+              data['stage'] = 'A'
+              path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          audit = {
+              'schema': 'sep9_stage_a_subset_contract_bridge_v1',
+              'status': 'PASS_PENDING_VALIDATION',
+              'scope': 'production_candidates_only',
+              'full_stage_a_accounting_claimed': False,
+              'source_bound_reconstruction_required': True,
+              'downstream_evidence_backfill_forbidden': True,
+              'ordinary_stage_declared': 'A',
+              'reason': 'Card-run V4 requires an explicit ordinary stage while Stage A full-artifact detection historically treated any stage marker as a full-accounting claim. The active lineage gate now exempts only the exact source-bound production-subset sentinel; all other stage=A artifacts remain fail-closed under full-artifact detection.',
+              'artifacts': [str(p) for p in stage_paths],
+          }
+          (root/'stage-a-subset-contract-bridge-audit.json').write_text(json.dumps(audit, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Validate repaired Stage A contract fail closed
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT=runs/2026-09-10/sep9-r1-current-main-production-r1/stages
+          python3 -m py_compile validation_scripts/stage_lineage_contract_check.py
+          python3 validation_scripts/stage_artifact_contract_check.py A "$ROOT/stage-a.json"
+          python3 validation_scripts/stage_lineage_contract_check.py stage_a "$ROOT/stage-a.json"
+          python3 validation_scripts/stage_artifact_contract_check.py A "$ROOT/stage-a-promotion2.json"
+          python3 validation_scripts/stage_lineage_contract_check.py stage_a "$ROOT/stage-a-promotion2.json"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from validation_scripts import stage_lineage_contract_check as gate
+          from validation_scripts import stage_lineage_contract_check_v3_compat as compat
+          p = Path('runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json')
+          data = json.loads(p.read_text())
+          assert compat.looks_like_full_stage_a_artifact(data) is True, 'historical detector must remain fail-closed on stage marker'
+          projected, blocked = gate._prepare_v3_compat_payload(data, require_full=False)
+          assert blocked is None, 'exact source-bound subset must remain route/subset-valid'
+          probe = dict(data)
+          probe.pop('subset_scope', None)
+          assert compat.looks_like_full_stage_a_artifact(probe) is True, 'removing subset sentinel must restore full-artifact classification'
+          print('PASS: explicit source-bound production subset bridge is narrow and historical full detector remains fail-closed')
+          PY
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-subset-contract-bridge-audit.json')
+          d=json.loads(p.read_text()); d['status']='PASS'; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          PY
+
+      - name: Commit contract repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add validation_scripts/stage_lineage_contract_check.py \
+            runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json \
+            runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a-promotion2.json \
+            runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-subset-contract-bridge-audit.json
+          git diff --cached --check
+          git commit -m 'fix: bridge explicit source-bound Stage A production subset'
+          git push origin HEAD:chatgpt/sep9-r1-current-main-production-r1

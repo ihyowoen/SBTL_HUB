@@ -105,6 +105,43 @@ class Pr371PostMergeRemediationTests(unittest.TestCase):
         with self.assertRaisesRegex(hardening.Blocked, "full Stage A checker"):
             hardening.governed_stage_a_decisions(run, ledger)
 
+    def test_stage_a_alias_is_accepted_before_authoritative_checker(self):
+        self.assertEqual(hardening.stage({"stage": "stage_a"}, "test"), "A")
+        self.assertEqual(hardening.stage({"stage": "A"}, "test"), "A")
+
+    def test_terminal_authority_is_derived_from_checked_pools_not_terminal_decisions(self):
+        source = {
+            "strict_passed_spec": [
+                {"spec_id": "SPEC_1", "source_story_ids": ["CAND_1"]}
+            ],
+            "candidate_review_pool": [],
+            "watchlist_context_pool": [],
+            "reject_or_support_only_pool": [],
+            "rejected": [],
+            "existing_reinforcement": [],
+            "support_source_only": [],
+            "decision_ledger": [
+                {
+                    "story_id": "CAND_1",
+                    "ledger_decision": "strict_passed_spec",
+                    "editorial_bucket": "strict_passed_spec",
+                    "spec_id": "SPEC_1",
+                }
+            ],
+            "terminal_decisions": [
+                {
+                    "identity": "CAND_1",
+                    "decision": "rejected",
+                    "basis": "invented",
+                }
+            ],
+        }
+        governed = hardening.checker_validated_stage_a_decisions(source)
+        self.assertEqual(
+            governed["CAND_1"],
+            ("strict_passed_spec", "stage_a_checker:strict_passed_spec:SPEC_1"),
+        )
+
     def test_mining_com_reuters_copy_is_not_an_independent_owner(self):
         card = {
             "fact_sources": [
@@ -164,6 +201,16 @@ class Pr371PostMergeRemediationTests(unittest.TestCase):
             rows_by_stage[stage] = rows
         with self.assertRaisesRegex(hardening.Blocked, "source_diversity_status drifts"):
             hardening.validate_source_diversity_chain(rows_by_stage, "STD26_0909_A_007")
+
+    def test_source_diversity_status_is_required_at_every_stage(self):
+        rows_by_stage = {
+            stage: [{"source_diversity_status": "PASS_MULTI_SOURCE"}]
+            for stage in ("B", "C", "0.5", "0.6", "0.7")
+        }
+        hardening.validate_source_diversity_chain(rows_by_stage, "SPEC")
+        rows_by_stage["C"] = [{}]
+        with self.assertRaisesRegex(hardening.Blocked, "requires non-empty source_diversity_status"):
+            hardening.validate_source_diversity_chain(rows_by_stage, "SPEC")
 
 
 if __name__ == "__main__":

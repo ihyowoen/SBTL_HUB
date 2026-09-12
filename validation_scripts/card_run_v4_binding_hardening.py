@@ -36,15 +36,6 @@ STAGE_A_GOVERNED_POOLS = (
     "existing_reinforcement",
     "support_source_only",
 )
-STAGE_A_LEDGER_DECISION_VALUES = {
-    "strict_passed_spec": {"strict_passed_spec"},
-    "candidate_review_pool": {"review_pool", "candidate_review_pool"},
-    "watchlist_context_pool": {"review_pool", "watchlist_context_pool"},
-    "reject_or_support_only_pool": {"review_pool", "reject_or_support_only_pool"},
-    "rejected": {"rejected"},
-    "existing_reinforcement": {"existing_reinforcement", "reinforcement"},
-    "support_source_only": {"support_source_only"},
-}
 IDENTITY_ROOT = "source_spec_id"
 
 class Blocked(Exception): pass
@@ -82,7 +73,7 @@ def validate_preflight(run):
     expected_m=set(r.get("open_remediations",[]))|set(r.get("activation_required_migrations",[]))
     if strings(a.get("active_canonical_paths"),"0.0D.active_canonical_paths")!=expected_c: raise Blocked("0.0D active_canonical_paths != current registry active set")
     if strings(a.get("active_validator_contract_paths"),"0.0D.active_validator_contract_paths")!=expected_v: raise Blocked("0.0D active_validator_contract_paths != current registry validator set")
-    if strings(a.get("applicable_remediation_or_migration"),"0.0D.applicable_remediation_or_migration",allow_empty=True)!=expected_m: raise Blocked("0.0D applicable remediation/migration != current registry set")
+    if strings(a.get("applicable_remediation_or_migration"),"0.0D.applicable remediation/migration",allow_empty=True)!=expected_m: raise Blocked("0.0D applicable remediation/migration != current registry set")
     required=len(expected_c|expected_v|expected_m)
     if a.get("active_full_read_count")!=required: raise Blocked(f"0.0D active_full_read_count must equal exact active/dependency closure ({required})")
 
@@ -114,7 +105,18 @@ def _stage_a_story_ids(item,pool):
     return out
 
 def checker_validated_stage_a_decisions(source):
-    emitted={}
+    # The authoritative full Stage A checker validates these canonical outcome
+    # pools and reconciles them to its decision ledger. Do not duplicate the
+    # checker's historical ledger enums here and do not trust any separately
+    # appended terminal_decisions/accounting surface.
+    for legacy_pool in ("legacy_keep","review_pool"):
+        values=source.get(legacy_pool)
+        if not isinstance(values,list):
+            raise Blocked(f"checker-validated Stage A {legacy_pool} must be an array")
+        if values:
+            raise Blocked(f"checker-validated Stage A {legacy_pool} must be empty before terminal authority; rematerialize into canonical disposition pools")
+
+    governed={}
     for pool in STAGE_A_GOVERNED_POOLS:
         values=source.get(pool)
         if not isinstance(values,list):
@@ -127,41 +129,10 @@ def checker_validated_stage_a_decisions(source):
             if not identities:
                 raise Blocked(f"checker-validated Stage A {pool}[{index}] has no governed story identity")
             for identity in identities:
-                if identity in emitted:
+                if identity in governed:
                     raise Blocked(f"checker-validated Stage A identity {identity} appears in multiple output dispositions")
-                emitted[identity]=(pool,spec_id)
-
-    ledger=source.get("decision_ledger")
-    if not isinstance(ledger,list):
-        raise Blocked("checker-validated Stage A decision_ledger must be an array")
-    ledger_by_story={}
-    for index,row in enumerate(ledger):
-        if not isinstance(row,dict):
-            raise Blocked(f"checker-validated Stage A decision_ledger[{index}] must be an object")
-        story_id=row.get("story_id")
-        if not _nonempty_text(story_id):
-            raise Blocked(f"checker-validated Stage A decision_ledger[{index}].story_id required")
-        story_id=story_id.strip()
-        if story_id in ledger_by_story:
-            raise Blocked(f"checker-validated Stage A decision_ledger duplicates story {story_id}")
-        ledger_by_story[story_id]=row
-
-    if set(ledger_by_story)!=set(emitted):
-        missing=sorted(set(emitted)-set(ledger_by_story))
-        extra=sorted(set(ledger_by_story)-set(emitted))
-        raise Blocked(f"checker-validated Stage A decision_ledger/output-pool identity mismatch; missing={missing[:5]} extra={extra[:5]}")
-
-    governed={}
-    for identity,(pool,spec_id) in emitted.items():
-        row=ledger_by_story[identity]
-        if row.get("ledger_decision") not in STAGE_A_LEDGER_DECISION_VALUES[pool]:
-            raise Blocked(f"checker-validated Stage A story {identity} ledger_decision contradicts output pool {pool}")
-        if row.get("editorial_bucket") not in STAGE_A_LEDGER_DECISION_VALUES[pool]:
-            raise Blocked(f"checker-validated Stage A story {identity} editorial_bucket contradicts output pool {pool}")
-        if spec_id is not None and row.get("spec_id")!=spec_id:
-            raise Blocked(f"checker-validated Stage A story {identity} spec_id does not match emitted strict spec")
-        basis=f"stage_a_checker:{pool}:{spec_id or identity}"
-        governed[identity]=(pool,basis)
+                basis=f"stage_a_checker:{pool}:{spec_id or identity}"
+                governed[identity]=(pool,basis)
     return governed
 
 def governed_stage_a_decisions(run,ledger):
@@ -573,7 +544,7 @@ def main():
         try: validate_related_semantics(op,"SPEC_NEW",bad_status,known,{"NEW":"SPEC_NEW"},"related_add[0]")
         except Blocked: pass
         else: raise RuntimeError("non-canonical Stage B Related review status not blocked")
-        print("PASS: V4 binding hardening self-test; terminal authority is derived from checker-validated Stage A pools/decision_ledger, stage_a aliases normalize correctly, source-diversity status is present and consistent at every governed stage, baseline identities are immutable, and Related semantics/status are bound"); return 0
+        print("PASS: V4 binding hardening self-test; terminal authority is derived only from full-checker-validated Stage A canonical pools, stage_a aliases normalize correctly, source-diversity status is present and consistent at every governed stage, baseline identities are immutable, and Related semantics/status are bound"); return 0
     if not args.run: raise Blocked("--run PATH required")
     run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); validate_completeness(run); validate_operations(run); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","terminal_decision_binding":"PASS","source_diversity_chain":"PASS","related_semantics":"PASS"})); return 0
 

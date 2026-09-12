@@ -1,0 +1,20 @@
+{
+  "schema": "sep9_stage_a_compact_input_v1",
+  "status": "SOURCE_FEATURE_MATERIALIZATION_IN_PROGRESS",
+  "source_filename": "final_news_llm_input_newsletter_expanded_20260909_135804.json",
+  "source_sha256": "623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92",
+  "source_bytes": 10601218,
+  "expected_story_count": 393,
+  "materialized_story_count": 0,
+  "membership_authority": "runs/2026-09-10/sep9-r1-current-main-production-r1/source-identity-ledger.json",
+  "stories": [],
+  "stage_a_gate_authorized_by_0_0c": true,
+  "stage_a_execution_authorized": false,
+  "blocker": "The exact 393-row identity universe is locked and Raw Input Audit / 0.0C are PASS, but this compact source-feature manifest has not yet materialized the source-bound headline/URL/date/text metadata required for a reproducible Stage A selector run.",
+  "correction_note": "Supersedes the prior misleading note that described this empty stories[] file as already derived from all 393 source rows. No Stage A result may be generated from an empty feature shell.",
+  "required_unlock": "Materialize source-bound features for the exact 393 story IDs from the SHA-locked raw source, preserving identity and provenance; then re-check 393/393 cardinality before Stage A execution.",
+  "production_ids_authorized": false,
+  "canonical_mutation_authorized": false,
+  "delete_authorized": false,
+  "related_remove_authorized": false
+}

@@ -1,0 +1,137 @@
+{
+  "schema": "sbtl_raw_input_audit_v2_exact_source",
+  "stage": "RAW_INPUT_AUDIT",
+  "status": "PASS",
+  "generated_date": "2026-09-11",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "base_lean_blob_sha": "f079457c2e734d75d8190633edda1031d487cc47",
+  "base_card_count": 1617,
+  "input_file": "final_news_llm_input_newsletter_expanded_20260909_135804.json",
+  "materialized_upload_name": "final_news_llm_input_newsletter_expanded_20260909_135804(1).json",
+  "input_sha256": "623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92",
+  "input_bytes": 10601218,
+  "input_summary": {
+    "story_count": 393,
+    "status_counts": {
+      "KEEP": 298,
+      "TRIAGE_FILTERED": 92,
+      "REVIEW": 3
+    },
+    "region_counts": {
+      "US": 39,
+      "KR": 176,
+      "JP": 19,
+      "GL": 59,
+      "EU": 41,
+      "CN": 59
+    },
+    "keep_story_count": 298,
+    "review_story_count": 3,
+    "triage_filtered_count": 92,
+    "input_orphan_count": 0,
+    "dropped_count": 0,
+    "input_only_count": 0,
+    "ledger_state_counts": {
+      "FIRST": 257,
+      "REPEAT": 135,
+      "REPUBLISH": 1
+    },
+    "run_tag": "20260909_135804",
+    "run_label": "2026-09-09 13:58 KST",
+    "source_schema": "final_news_llm_input_v4_newsletter_expanded"
+  },
+  "identity_checks": {
+    "story_row_count": 393,
+    "nonempty_story_id_count": 393,
+    "unique_story_id_count": 393,
+    "duplicate_story_id_count": 0,
+    "nonempty_primary_url_count": 393,
+    "unique_primary_url_count": 393,
+    "duplicate_primary_url_count": 0,
+    "orphan_count": 0,
+    "status": "PASS"
+  },
+  "integrity_grouping_findings": {
+    "upstream_flagged_group_count": 7,
+    "upstream_flagged_story_count": 25,
+    "upstream_integrity_excluded_story_count": 0,
+    "flagged_rows_present_in_final_393": 12,
+    "flagged_rows_not_present_in_final_393": 13,
+    "final_393_flagged_story_ids": [
+      "CN_2026-09-08_C12",
+      "CN_2026-09-09_C05",
+      "GL_2026-09-07_C07",
+      "GL_2026-09-08_C15",
+      "JP_2026-09-07_C01",
+      "JP_2026-09-07_C03",
+      "JP_2026-09-07_C06",
+      "JP_2026-09-08_C08",
+      "JP_2026-09-08_C13",
+      "JP_2026-09-08_C14",
+      "JP_2026-09-09_C03",
+      "KR_2026-09-09_C97"
+    ],
+    "upstream_flagged_not_in_final_story_ids": [
+      "CN_2026-09-08_C16",
+      "CN_2026-09-09_C03",
+      "JP_2026-09-07_C04",
+      "JP_2026-09-07_C07",
+      "JP_2026-09-07_C08",
+      "JP_2026-09-08_C10",
+      "JP_2026-09-08_C12",
+      "JP_2026-09-09_C08",
+      "JP_2026-09-09_C09",
+      "KR_2026-09-08_C39",
+      "KR_2026-09-09_C14",
+      "KR_2026-09-09_C161",
+      "KR_2026-09-09_C31"
+    ],
+    "interpretation": "The 25-row integrity_summary describes the upstream/pre-clean universe. Exactly 12 flagged rows survive into the final 393-row input. The other 13 were not removed by the integrity exclusion mechanism (integrity excluded count is 0); they are outside the final 393 output after downstream newsletter-clean/expanded selection. They must not be misrepresented as original_input_ledger rows.",
+    "final_input_disposition": "REASSESS_THE_12_SURVIVING_FLAGGED_ROWS_AS_INDIVIDUAL_EVENTS",
+    "delete_from_input": false
+  },
+  "known_canonical_reconciliation": [
+    {
+      "story_id": "US_2026-09-09_C01",
+      "disposition": "EXISTING_CARD_REINFORCEMENT_OR_SAME_EVENT_REPUBLICATION",
+      "target_id": "2026-09-08_US_01",
+      "reason": "Same Sean Duffy/Ford-CATL licensing-pressure event already canonicalized Sep 8; later article date alone is not a fresh event."
+    },
+    {
+      "story_id": "JP_2026-09-08_C08",
+      "disposition": "EXISTING_CARD_REINFORCEMENT_OR_REPEAT",
+      "target_id": "2026-08-31_JP_02",
+      "reason": "Marubeni New Power FIP solar co-located BESS balancing-market operation was already admitted in the Sep 8 production run."
+    },
+    {
+      "story_id": "EU_2026-09-08_C27",
+      "disposition": "EXISTING_CARD_REINFORCEMENT_OR_REPEAT",
+      "target_id": "2026-09-08_GL_01",
+      "reason": "Samsung C&T Mangoplah 100MW/400MWh BESS grid-connection milestone already exists in canonical."
+    }
+  ],
+  "source_materialization": {
+    "exact_bytes_available": true,
+    "source_sha256_verified": true,
+    "source_byte_size_verified": true,
+    "json_parse_verified": true,
+    "story_count_verified": true,
+    "formal_original_input_ledger_can_be_built": true,
+    "previous_source_gate": "RESOLVED_BY_USER_UPLOAD_2026-09-11"
+  },
+  "legacy_related_boundary": {
+    "disposition": "PRESERVE_EXISTING_RELATED",
+    "related_remove_count": 0,
+    "retarget_count": 0
+  },
+  "audit_conclusion": {
+    "raw_input_metadata_verified": true,
+    "raw_input_full_identity_accounting_verified": true,
+    "raw_input_usable_for_formal_0_0c_pass": true,
+    "stories_deleted_by_audit": 0,
+    "next_stage": "PROMPT_0_0C_COVERAGE_DISCOVERY",
+    "note": "Exact source gate is cleared. Proceed with 393/393 original_input ledger plus provenance-distinct discovery candidates."
+  }
+}

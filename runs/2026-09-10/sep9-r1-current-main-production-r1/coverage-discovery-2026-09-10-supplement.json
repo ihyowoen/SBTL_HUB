@@ -1,0 +1,89 @@
+{
+  "schema": "sbtl_coverage_discovery_supplement_v1",
+  "status": "INCLUDED_IN_0_0C_DISCOVERY_SCOPE",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "source_input_remains_locked": "final_news_llm_input_newsletter_expanded_20260909_135804.json",
+  "source_input_story_count": 393,
+  "discovery_extension": {
+    "authorized_by_user": true,
+    "date": "2026-09-10",
+    "purpose": "Include material new events published after the Sep 9 raw input without rewriting the identity or cardinality of the locked source input.",
+    "provenance_rule": "Sep 10 events enter only as Prompt 0.0C discovered_missing_candidates and remain distinct from original_input_ledger rows."
+  },
+  "baseline": {
+    "main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+    "canonical_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+    "canonical_card_count": 1617
+  },
+  "discovered_missing_candidates": [
+    {
+      "candidate_id": "SEP10_DISC_001",
+      "published_date": "2026-09-10",
+      "region": "KR",
+      "headline": "Hyundai Motor Group, LG Energy Solution, Hyundai Engineering and Wonik PNE launch 200kWh used-EV-battery UBESS demonstration",
+      "source_candidate_urls": [
+        "https://www2.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=03673606645578808"
+      ],
+      "discovery_origin": "2026-09-10 current discovery",
+      "preliminary_anchor_class": "execution_event_anchor",
+      "preliminary_event_stage": "demonstration_execution",
+      "incremental_signal": "The parties began validation of a 200kWh UBESS linked to EV fast charging, using used E-GMP battery packs; this is an operational pilot rather than a generic circular-economy plan.",
+      "canonical_collision_search": "no same-event repository match found",
+      "stage_a_routing": "evaluate",
+      "notes": "Strong candidate. Preserve exact pilot scale and participant roles; do not generalize pilot validation into commercial deployment."
+    },
+    {
+      "candidate_id": "SEP10_DISC_002",
+      "published_date": "2026-09-10",
+      "region": "EU",
+      "headline": "Volvo Group plans large-scale battery storage facility and future energy-solution test bed in Mariestad, Sweden",
+      "source_candidate_urls": [
+        "https://www.reuters.com/business/swedens-volvo-group-plans-large-scale-battery-storage-facility-2026-09-10/"
+      ],
+      "discovery_origin": "2026-09-10 current discovery",
+      "preliminary_anchor_class": "strategic_behavior_anchor",
+      "preliminary_event_stage": "announced_plan",
+      "incremental_signal": "Volvo Group disclosed a new stationary battery-storage and test-bed initiative at Mariestad, creating a distinct energy-infrastructure use case around its electrification footprint.",
+      "canonical_collision_search": "no same-event repository match found",
+      "stage_a_routing": "evaluate_with_policy_stage_cap_if_only_planning",
+      "notes": "Potentially material but exact MW/MWh, timing, ownership and investment need Stage B sourcing if selected."
+    },
+    {
+      "candidate_id": "SEP10_DISC_003",
+      "published_date": "2026-09-10",
+      "region": "GL",
+      "headline": "Jinko ESS signs Middle East C&I distribution agreement with Innovative Efficient Solutions for SunGiga G2 systems",
+      "source_candidate_urls": [
+        "https://www.jinkosolar.com/en/site/newsdetail/3021"
+      ],
+      "discovery_origin": "2026-09-10 current discovery",
+      "preliminary_anchor_class": "execution_event_anchor",
+      "preliminary_event_stage": "distribution_agreement_signed",
+      "incremental_signal": "Jinko ESS appointed IES as an authorized distributor for SunGiga G2 C&I storage solutions in the Middle East, with local execution support from Ruya Energy.",
+      "canonical_collision_search": "no same-event repository match found",
+      "stage_a_routing": "bounded_review",
+      "notes": "Retain in discovery universe, but no disclosed contract volume or project capacity means independent cardability may be capped."
+    }
+  ],
+  "searched_not_promoted_as_new_candidates": [
+    {
+      "topic": "China EV penetration could reach 75-80% by 2030",
+      "reason": "forecast/commentary from a researcher rather than a new operative market or policy event"
+    },
+    {
+      "topic": "CATL battery price-war analysis",
+      "reason": "analytical synthesis of existing market data; useful context but not a discrete new event for this run"
+    },
+    {
+      "topic": "Standard Energy hosts EU delegation at VIB ESS demonstration site",
+      "reason": "visit/visibility event without a new binding commercial, financing, production or deployment milestone"
+    }
+  ],
+  "governance": {
+    "canonical_mutation_authorized": false,
+    "production_ids_authorized": false,
+    "stage_a_selection_required": true,
+    "stage_b_evidence_required_if_selected": true,
+    "source_candidates_are_not_final_evidence": true
+  }
+}

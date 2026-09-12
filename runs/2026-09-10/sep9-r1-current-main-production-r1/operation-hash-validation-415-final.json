@@ -1,0 +1,28 @@
+{
+  "schema": "card_run_operation_hash_validation_v4_415_final",
+  "status": "PASS",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "algorithm": "recursive lexicographic object-key sort; preserve array order; compact JSON UTF-8; SHA-256",
+  "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+  "insert_count": 16,
+  "update_count": 0,
+  "related_add_count": 2,
+  "delete_count": 0,
+  "related_remove_count": 0,
+  "expected_before": 1617,
+  "expected_after": 1633,
+  "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "supersedes_reviewed_operations_sha256": "40a53b8407857a145981fafdc2bbd33612461d727e8d82ca6b0adc495c89e53d",
+  "supersedes_runtime_operations_sha256": "e63b8aab5f87625b517bea2aa21e93d581e4e87c500bd0a571faab6b21b8cb23",
+  "p002_related_lifecycle_binding": {
+    "status": "PASS",
+    "source_spec_id": "STD26_0909_P_002",
+    "target_id": "2026-09-04_CN_01",
+    "fresh_follow_up_anchor_class": "technology_commercialization_anchor",
+    "fresh_follow_up_anchor": "Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.",
+    "incremental_fact_vs_predecessor": "Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.",
+    "changed_judgment_vs_predecessor": "Li Auto's battery-system lineage advances from the Sep-4 strategic battery-supply/investment event to a distinct production-vehicle commercialization and execution milestone."
+  },
+  "evidence_url_resolution_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/evidence-url-resolution-audit.json"
+}

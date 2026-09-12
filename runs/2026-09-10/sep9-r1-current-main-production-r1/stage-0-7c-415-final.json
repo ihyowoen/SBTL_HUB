@@ -1,0 +1,102 @@
+{
+  "schema": "stage_0_7c_independent_completeness_v5_415_identity_bound_r1",
+  "stage": "0.7C",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "completeness_status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "document_universe_manifest_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-415-final.json",
+  "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "reviewer_independence": "SEPARATE_PASS",
+  "prompt_0_8_authorized": true,
+  "universe_accounting": {
+    "original_source_rows": 393,
+    "external_or_preclean_discoveries": 20,
+    "event_split_children": 2,
+    "terminal_identity_total": 415,
+    "terminal_identity_accounted": 415,
+    "duplicate_identity_count": 0,
+    "missing_identity_count": 0
+  },
+  "stage_a_revalidation": {
+    "status": "PASS",
+    "strict": 18,
+    "review_pool": 28,
+    "reinforcement_or_same_event": 20,
+    "support_or_context": 337,
+    "identity_binding_corrections": [
+      {
+        "source_spec_id": "STD26_0909_A_014",
+        "authoritative_source_story_id": "SEP09_SPLIT_LIXHE",
+        "disposition": "existing_reinforcement"
+      },
+      {
+        "source_spec_id": "STD26_0909_A_015",
+        "authoritative_source_story_id": "SEP09_SPLIT_COO",
+        "disposition": "production_candidate"
+      }
+    ]
+  },
+  "downstream_revalidation": {
+    "stage_b_input_count": 20,
+    "stage_b_ready_count": 16,
+    "stage_b_blocked_count": 4,
+    "stage_c_to_0_7_identity_consistent_count": 16,
+    "stage_c_to_0_7_status": "PASS"
+  },
+  "operation_freeze": {
+    "status": "PASS",
+    "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+    "insert_count": 16,
+    "update_count": 0,
+    "related_add_count": 2,
+    "delete_count": 0,
+    "related_remove_count": 0,
+    "expected_before": 1617,
+    "expected_after": 1633
+  },
+  "material_exclusions": [
+    {
+      "pool": "stage_b_blocked",
+      "count": 4,
+      "disposition": "not_production"
+    },
+    {
+      "pool": "prompt_0_1P_retain",
+      "count": 26,
+      "disposition": "retained_outside_stage_b"
+    }
+  ],
+  "known_unknowns": [
+    "Four Stage B candidates remain blocked and are not silently promoted.",
+    "Twenty-six 0.1P review-pool candidates remain retained outside Stage B and are not silently promoted."
+  ],
+  "residual_risks": [
+    "Absolute global completeness beyond the locked 415-identity Sep9/Sep10 governed universe is not claimed; bounded exclusions remain explicitly retained or blocked rather than deleted.",
+    "The two event identities split from EU_2026-09-08_C07 depend on the current 0.0C relock; downstream production binding was revalidated to SEP09_SPLIT_LIXHE / SEP09_SPLIT_COO before Prompt 0.8 authorization."
+  ],
+  "six_round_review": {
+    "status": "PASS",
+    "round_count": 6,
+    "blocking_findings": 0
+  },
+  "round_6_operation_binding": {
+    "status": "PASS",
+    "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833"
+  },
+  "operation_recertification": {
+    "status": "PASS",
+    "supersedes_reviewed_operations_sha256": "7816396048e7069d79d8faf6dec38e15a42f21a06d1c09c61fec29b953d6bfdc",
+    "supersedes_runtime_operations_sha256": "e63b8aab5f87625b517bea2aa21e93d581e4e87c500bd0a571faab6b21b8cb23",
+    "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+    "basis": "source-bound P002 lifecycle plus durable A015/A019 evidence URL resolution and repo-native schema/V4/apply-check probe"
+  }
+}

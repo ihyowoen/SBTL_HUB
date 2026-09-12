@@ -1,0 +1,135 @@
+{
+  "schema": "sep9_stage_a_sourcebound_repair_v1",
+  "status": "PASS_ALL_A_THROUGH_0_7",
+  "input_sha256": "623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92",
+  "original_membership_count": 393,
+  "current_universe_count": 415,
+  "stage_a_spec_count": 15,
+  "promotion_spec_count": 1,
+  "downstream_evidence_backfill_used": false,
+  "split_identity_corrected_to": "SEP09_SPLIT_COO",
+  "spec_bindings": {
+    "STD26_0909_A_002": {
+      "source_ids": [
+        "TF_0048"
+      ],
+      "label": "Core Lithium Finniss spodumene concentrate production restart",
+      "authority": "original"
+    },
+    "STD26_0909_A_003": {
+      "source_ids": [
+        "EU_2026-09-08_C22"
+      ],
+      "label": "Aukera €460 million structured credit facility for its European storage and renewables pipeline",
+      "authority": "original"
+    },
+    "STD26_0909_A_004": {
+      "source_ids": [
+        "CN_2026-09-08_C19",
+        "EU_2026-09-08_C15"
+      ],
+      "label": "HiNa Battery and Volta five-year 10 GWh sodium-ion battery cooperation",
+      "authority": "original"
+    },
+    "STD26_0909_A_007": {
+      "source_ids": [
+        "GL_2026-09-08_C03"
+      ],
+      "label": "China August rare-earth export volume update",
+      "authority": "original"
+    },
+    "STD26_0909_A_009": {
+      "source_ids": [
+        "KR_2026-09-08_C74",
+        "KR_2026-09-09_C134",
+        "KR_2026-09-09_C15"
+      ],
+      "label": "Sangmu military hybrid microgrid construction including 9.76 MWh stationary ESS",
+      "authority": "original"
+    },
+    "STD26_0909_A_010": {
+      "source_ids": [
+        "TF_0134",
+        "KR_2026-09-09_C39"
+      ],
+      "label": "SNE Research non-China EV battery usage and Korean-three market-share update",
+      "authority": "original"
+    },
+    "STD26_0909_A_012": {
+      "source_ids": [
+        "GL_2026-09-09_C04"
+      ],
+      "label": "China ESS cell price-increase signal alongside the battery consumption-tax change",
+      "authority": "original"
+    },
+    "STD26_0909_A_013": {
+      "source_ids": [
+        "GL_2026-09-08_C02"
+      ],
+      "label": "Brazil BNDES financing for Viridis Colossus rare-earth project facilities",
+      "authority": "original"
+    },
+    "STD26_0909_A_015": {
+      "source_ids": [
+        "SEP09_SPLIT_COO"
+      ],
+      "label": "ENGIE Coo 74 MW / 296 MWh BESS construction-start event",
+      "authority": "split"
+    },
+    "STD26_0909_A_016": {
+      "source_ids": [
+        "SEP09_DISC_001"
+      ],
+      "label": "Google Finland AI-infrastructure investment and long-term Fortum nuclear PPA",
+      "authority": "discovery"
+    },
+    "STD26_0909_A_017": {
+      "source_ids": [
+        "SEP09_DISC_004"
+      ],
+      "label": "Axpo and energieUri Gurtnellen battery-storage inauguration",
+      "authority": "discovery"
+    },
+    "STD26_0909_A_018": {
+      "source_ids": [
+        "SEP09_DISC_005"
+      ],
+      "label": "Atlas Lithium Neves project procurement and direct-CAPEX contract coverage",
+      "authority": "discovery"
+    },
+    "STD26_0909_A_019": {
+      "source_ids": [
+        "SEP09_DISC_009"
+      ],
+      "label": "B2U 28 MWh Bexar Martinez second-life EV-battery BESS commercial operation",
+      "authority": "discovery"
+    },
+    "STD26_0909_A_020": {
+      "source_ids": [
+        "SEP09_DISC_011"
+      ],
+      "label": "Kabra Extrusion Technik 10 MW / 20 MWh Phalodi BESS commissioning",
+      "authority": "discovery"
+    },
+    "STD26_0909_A_021": {
+      "source_ids": [
+        "SEP10_DISC_005"
+      ],
+      "label": "Centrica Energy and Delta Capacity partial tolling agreement for 125 MW / 300 MWh Karppio BESS",
+      "authority": "discovery"
+    },
+    "STD26_0909_P_002": {
+      "source_ids": [
+        "CN_2026-09-08_C11",
+        "CN_2026-09-08_C13",
+        "CN_2026-09-08_C31",
+        "CN_2026-09-08_C35",
+        "CN_2026-09-09_C18",
+        "CN_2026-09-09_C19"
+      ],
+      "label": "Li Auto in-house 5C battery rollout across production models",
+      "authority": "original"
+    }
+  },
+  "artifact_mode": "production_subset_not_full_415_ledger"
+}

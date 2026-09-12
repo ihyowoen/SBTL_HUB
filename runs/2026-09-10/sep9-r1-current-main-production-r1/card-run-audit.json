@@ -1,0 +1,60 @@
+{
+  "schema": "card_run_audit_v1",
+  "status": "PASS",
+  "audit_complete": true,
+  "reviewer_independence": "SEPARATE_PASS",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "document_universe_manifest_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-415-final.json",
+  "independent_completeness_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-7c-415-final.json",
+  "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+  "expected_before": 1617,
+  "expected_after": 1633,
+  "inserted_ids": [
+    "2026-09-08_GL_03",
+    "2026-09-02_EU_05",
+    "2026-09-02_CN_01",
+    "2026-09-08_CN_01",
+    "2026-09-08_KR_04",
+    "2026-09-09_GL_01",
+    "2026-09-09_CN_01",
+    "2026-09-08_GL_04",
+    "2026-09-08_EU_02",
+    "2026-09-09_EU_01",
+    "2026-09-09_EU_02",
+    "2026-09-09_GL_02",
+    "2026-09-09_US_01",
+    "2026-09-09_GL_03",
+    "2026-09-10_EU_01",
+    "2026-09-07_CN_02"
+  ],
+  "updated_ids": [],
+  "related_additions": [
+    {
+      "source_id": "2026-09-09_GL_01",
+      "target_id": "2026-09-07_GL_01",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-09-07_CN_02",
+      "target_id": "2026-09-04_CN_01",
+      "direction": "directional"
+    }
+  ],
+  "zero_deletion_assertion": true,
+  "zero_related_remove_assertion": true,
+  "full_output_sha256": "759dd849659af58f1e84f7069ec956d7899f35cbda285602a2dcc23cf48f4934",
+  "lean_output_sha256": "8ae5a53acdaadd824bc932d82ca3c9abebe3be3c737c6a33138d6b884cf0b859",
+  "p002_related_lifecycle_binding": {
+    "status": "PASS",
+    "source_spec_id": "STD26_0909_P_002",
+    "target_id": "2026-09-04_CN_01",
+    "fresh_follow_up_anchor_class": "technology_commercialization_anchor",
+    "fresh_follow_up_anchor": "Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.",
+    "incremental_fact_vs_predecessor": "Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.",
+    "changed_judgment_vs_predecessor": "Li Auto's battery-system lineage advances from the Sep-4 strategic battery-supply/investment event to a distinct production-vehicle commercialization and execution milestone."
+  },
+  "evidence_url_resolution_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/evidence-url-resolution-audit.json"
+}

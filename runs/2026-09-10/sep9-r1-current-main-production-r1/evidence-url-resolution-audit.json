@@ -1,0 +1,39 @@
+{
+  "schema": "sep9_evidence_url_resolution_v1",
+  "status": "PASS",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "repair_scope": "two Evidence-QC landing-page bindings only; no visible claim expansion; Stage A selector authority untouched",
+  "verified_live_pages_date": "2026-09-12",
+  "repairs": [
+    {
+      "source_spec_id": "STD26_0909_A_015",
+      "card_id": "2026-09-08_EU_02",
+      "old_url": "https://www.engie.com/",
+      "new_url": "https://corporate.engie.be/en/press/engie-has-started-construction-of-a-new-large-scale-battery-park-in-coo-belgium",
+      "event_date_source_url": "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_unique_url_count": 2,
+      "source_independent_owner_count": 2,
+      "basis": "Replace ENGIE corporate landing page with the exact ENGIE Belgium Coo project press release; retain the already-governed Energy-Storage.News article as representative-date source."
+    },
+    {
+      "source_spec_id": "STD26_0909_A_019",
+      "card_id": "2026-09-09_US_01",
+      "old_url": "https://www.energy-storage.news/",
+      "new_url": "https://www.energy-storage.news/second-life-bess-firms-b2u-moment-and-rebaba-advance-project-operations-us-compliance-and-new-financing/",
+      "event_date_source_url": "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_unique_url_count": 2,
+      "source_independent_owner_count": 2,
+      "basis": "Resolve the Energy-Storage.News landing page to its exact B2U Bexar Martinez article while preserving North American Clean Energy as the Sep-9 representative-date source."
+    }
+  ],
+  "stage_artifacts_repaired": [
+    "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json",
+    "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json",
+    "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json",
+    "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json",
+    "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json"
+  ],
+  "a015_authoritative_split_identity": "SEP09_SPLIT_COO"
+}

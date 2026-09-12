@@ -1,0 +1,39 @@
+{
+  "schema": "sep9_formal_chain_recertification_v1",
+  "status": "PASS",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "reason": "Original production-subset stage projections retained identities but omitted active V4/formal-stage contract fields. Re-materialized only the frozen 16 production candidates from their exact recovered production cards and locked Related/date/source-diversity decisions; no candidate added, removed, or reclassified.",
+  "production_candidate_count": 16,
+  "structural_non_execution_specs": [
+    "STD26_0909_A_007",
+    "STD26_0909_A_010",
+    "STD26_0909_A_012"
+  ],
+  "execution_specs": [
+    "STD26_0909_A_002",
+    "STD26_0909_A_003",
+    "STD26_0909_A_004",
+    "STD26_0909_A_009",
+    "STD26_0909_A_013",
+    "STD26_0909_A_015",
+    "STD26_0909_A_016",
+    "STD26_0909_A_017",
+    "STD26_0909_A_018",
+    "STD26_0909_A_019",
+    "STD26_0909_A_020",
+    "STD26_0909_A_021",
+    "STD26_0909_P_002"
+  ],
+  "baseline_main": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "baseline_full_blob": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "operation_target_unchanged": {
+    "insert": 16,
+    "update": 0,
+    "related_add": 2,
+    "delete": 0,
+    "related_remove": 0
+  },
+  "validators": "PASS_ALL_A_THROUGH_0_7_SOURCEBOUND_SUBSET",
+  "source_bound_stage_a_repair": true,
+  "downstream_evidence_backfill_used": false
+}

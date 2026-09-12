@@ -1,0 +1,74 @@
+{
+  "schema": "stage_0_0c_coverage_discovery_v5_current_main_r4_combined_relock",
+  "stage": "0.0C",
+  "status": "PASS",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "generated_date": "2026-09-11",
+  "supersedes_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-r3.json@prior-413-state",
+  "document_universe_manifest_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/coverage-discovery-final.json",
+  "semantic_repeat_audit_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/semantic-repeat-map-audit-r1.json",
+  "stage_chain_salvage_audit_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-chain-salvage-audit-r1.json",
+  "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "base_card_count": 1617,
+  "source_input_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/source-identity-ledger.json",
+  "input_filename": "final_news_llm_input_newsletter_expanded_20260909_135804.json",
+  "input_sha256": "623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92",
+  "input_story_count": 393,
+  "original_input_accounted": true,
+  "original_input_count": 393,
+  "external_or_preclean_discovery_count": 20,
+  "event_split_child_count": 2,
+  "non_original_terminal_identity_count": 22,
+  "expanded_count": 415,
+  "terminal_count": 415,
+  "duplicate_candidate_identity_count": 0,
+  "missing_terminal_identity_count": 0,
+  "unknown_terminal_identity_count": 0,
+  "semantic_repeat_mapping_count": 13,
+  "semantic_repeat_false_mapping_count": 0,
+  "event_split_corrections": [
+    {
+      "parent_story_id": "EU_2026-09-08_C07",
+      "child_event_id": "SEP09_SPLIT_LIXHE",
+      "disposition": "existing_reinforcement",
+      "source_spec_id": "STD26_0909_A_014",
+      "canonical_target": "2026-09-01_EU_01",
+      "event": "Luminus/EDF Lixhe 150MW/600MWh BESS commercial operation",
+      "reason": "The source row bundles two distinct Belgian BESS projects; this child is the already-canonicalized Lixhe operation event."
+    },
+    {
+      "parent_story_id": "EU_2026-09-08_C07",
+      "child_event_id": "SEP09_SPLIT_COO",
+      "disposition": "new_event_stage_a",
+      "source_spec_id": "STD26_0909_A_015",
+      "event": "ENGIE Coo 74MW/296MWh BESS construction start",
+      "reason": "The source row bundles two distinct Belgian BESS projects; Coo construction is independently cardable from Lixhe operation."
+    }
+  ],
+  "preclean_rescue_corrections": [
+    {
+      "candidate_id": "SEP09_DISC_012",
+      "event": "Cloudbreak Energy Partners / GETEC strategic investment",
+      "disposition": "provenance_distinct_discovery_stage_a"
+    },
+    {
+      "candidate_id": "SEP09_DISC_013",
+      "event": "Elmet / ams OSRAM Schwabmuenchen tungsten-molybdenum asset acquisition agreement",
+      "disposition": "provenance_distinct_discovery_stage_a"
+    }
+  ],
+  "mandatory_region_axes": 6,
+  "mandatory_topic_axes": 14,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "stage_a_authorized": true,
+  "notes": [
+    "The original 393-row source membership is unchanged.",
+    "Twenty provenance-distinct external/pre-clean discoveries remain outside the original source membership.",
+    "Two event-level child identities are additionally required to split the two discrete projects bundled in EU_2026-09-08_C07.",
+    "The prior 413 total conflated two separate +2 repairs and is superseded.",
+    "No deletion, related_remove, or silent source-row mutation is introduced."
+  ]
+}

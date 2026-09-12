@@ -1,0 +1,50 @@
+{
+  "schema": "sbtl_sep9_stage_chain_salvage_audit_v1",
+  "status": "PASS_FAIL_CLOSED",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "generated_date": "2026-09-11",
+  "baseline": {
+    "main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+    "canonical_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+    "canonical_card_count": 1617
+  },
+  "workflow_audit": {
+    "workflow_path": ".github/workflows/tmp-sep9-stage-chain-materialize.yml",
+    "runs_checked": [34565003758, 34565088673, 34565110322, 34565128312],
+    "run_conclusions": ["failure", "failure", "failure", "failure"],
+    "job_count_each": [0, 0, 0, 0],
+    "workflow_blob_at_first_head": "<TOO_LARGE_PLACEHOLDER>",
+    "finding": "No GitHub Actions job executed. These runs do not validate the static stage artifacts that were committed around the failed workflow attempts."
+  },
+  "static_chain_salvage": {
+    "stage_a_subset_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+    "stage_a_subset_count": 15,
+    "stage_a_source_full_artifact_sha256": "d09d22492a2ee853167358dc19199c379cbb862020ba31f13c5b9f755d67d920",
+    "stage_a_full_artifact_present_in_repo": false,
+    "promotion_subset_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a-promotion2.json",
+    "promotion_subset_count": 1,
+    "promotion_source_full_artifact_sha256": "5c35ba1db747746351afd5cccdfa06fdef02b5765e7552a96890bd170db13fc9",
+    "legacy_operation_candidate_count": 16,
+    "legacy_related_add_candidate_count": 2,
+    "salvage_policy": "Per-spec reuse is allowed only after exact-source identity, event semantics, current 415-universe membership and canonical relation are revalidated. The old chain itself is not authority."
+  },
+  "universe_relock": {
+    "original_source_rows": 393,
+    "external_or_preclean_discoveries": 20,
+    "event_split_child_identities": 2,
+    "authoritative_expanded_identity_count": 415,
+    "prior_incomplete_count": 413,
+    "reason": "The prior 413 accounting independently counted either the two event-split child identities or the two later pre-clean rescue discoveries, but not both classes simultaneously."
+  },
+  "authorization": {
+    "stage_a_gate_authorized": true,
+    "legacy_stage_a_pass_authorized": false,
+    "legacy_stage_b_to_0_7c_authorized": false,
+    "legacy_operation_freeze_authorized": false,
+    "production_ids_authorized": false,
+    "canonical_mutation_authorized": false,
+    "delete_authorized": false,
+    "related_remove_authorized": false
+  },
+  "next_action": "Relock Prompt 0.0C at 415/415, then reconstruct cumulative Stage A accounting directly from the exact Sep9 source plus provenance-distinct discovery and event-split identities. Revalidate the 16 legacy production candidates as salvage candidates, not as accepted output."
+}

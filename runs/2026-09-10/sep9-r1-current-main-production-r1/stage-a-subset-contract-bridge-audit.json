@@ -1,0 +1,15 @@
+{
+  "schema": "sep9_stage_a_subset_contract_bridge_v1",
+  "status": "PASS",
+  "scope": "production_candidates_only",
+  "full_stage_a_accounting_claimed": false,
+  "source_bound_reconstruction_required": true,
+  "downstream_evidence_backfill_forbidden": true,
+  "ordinary_stage_declared": "A",
+  "compatibility_projection": "private_copy_strips_stage_marker_only_for_exact_source_bound_subset",
+  "reason": "Card-run V4 requires an explicit ordinary stage while frozen V3 historically treats any stage marker as a full-accounting claim. Only the exact source-bound production-subset sentinel receives a private V3 projection with stage removed; persisted artifacts remain stage=A and all non-matching artifacts remain fail-closed.",
+  "artifacts": [
+    "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a.json",
+    "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-a-promotion2.json"
+  ]
+}

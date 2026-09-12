@@ -1,0 +1,659 @@
+{
+  "top_level_keys": [
+    "stage",
+    "status",
+    "run_id",
+    "base_main_commit_sha",
+    "base_full_blob_sha",
+    "run_tag",
+    "run_label",
+    "source_prompt_file",
+    "source_prompt_sha256",
+    "source_prompt_version",
+    "source_prompt_authority",
+    "source_prompt_provenance_status",
+    "selection_policy_version",
+    "input_file",
+    "baseline_file",
+    "baseline_source_declaration",
+    "baseline_count",
+    "github_main_sync_required_later",
+    "source_universe",
+    "story_count",
+    "event_count",
+    "original_status_counts",
+    "integrity_summary",
+    "recommended_for",
+    "stage_a_validity_status",
+    "artifact_consistency_status",
+    "csv_schema_status",
+    "review_pool_partition_status",
+    "strict_pass_gate_metadata_status",
+    "baseline_duplicate_screen_status",
+    "review_pool_carry_forward_ledger_status",
+    "next_call_recommendation",
+    "required_docs_check",
+    "lane_sanity_rules_applied",
+    "dropped_treasure_hunt",
+    "summary",
+    "legacy_keep",
+    "strict_passed_spec",
+    "candidate_review_pool",
+    "watchlist_context_pool",
+    "reject_or_support_only_pool",
+    "review_pool",
+    "dropped_treasure_hunt_result",
+    "rejected",
+    "existing_reinforcement",
+    "support_source_only",
+    "review_pool_resolution_ledger",
+    "decision_ledger",
+    "accounting",
+    "review_pool_partition_summary"
+  ],
+  "top_level_scalar_types": {
+    "stage": {
+      "type": "str",
+      "value": "stage_a"
+    },
+    "status": {
+      "type": "str",
+      "value": "PASS"
+    },
+    "run_id": {
+      "type": "str",
+      "value": "card-run-2026-09-07-r7-20260905-production-r1"
+    },
+    "base_main_commit_sha": {
+      "type": "str",
+      "value": "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62"
+    },
+    "base_full_blob_sha": {
+      "type": "str",
+      "value": "707fe5ea9836a0c2341771397da32c818a95cbed"
+    },
+    "run_tag": {
+      "type": "str",
+      "value": "20260907_R8_SEP5_PRODUCTION9_STAGE_A_COMPOSITE"
+    },
+    "run_label": {
+      "type": "str",
+      "value": "Sep 5 R8 production9 Stage A composite from machine-adjudicated strict candidates; full discovery accounting remains in Stage 0.0C."
+    },
+    "source_prompt_file": {
+      "type": "str",
+      "value": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md"
+    },
+    "source_prompt_sha256": {
+      "type": "str",
+      "value": "617b775d8ce711b7631073f4a335d385ee6e474efa80d6948435d2434af8461e"
+    },
+    "source_prompt_version": {
+      "type": "str",
+      "value": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901"
+    },
+    "source_prompt_authority": {
+      "type": "str",
+      "value": "uploaded_or_repo_source_file_prompt"
+    },
+    "source_prompt_provenance_status": {
+      "type": "str",
+      "value": "PASS"
+    },
+    "selection_policy_version": {
+      "type": "str",
+      "value": "EMBEDDED_NEWS_VALUE_SELECTION_V4"
+    },
+    "input_file": {
+      "type": "str",
+      "value": "runs/2026-09-07/r7-20260905-production-r1/stage-0-0c.json"
+    },
+    "baseline_file": {
+      "type": "str",
+      "value": "data/cards.full.json"
+    },
+    "baseline_source_declaration": {
+      "type": "str",
+      "value": "current main eb1a311ed378fcdf547b52ad5da0652cb9f1fc62; canonical blob 707fe5ea9836a0c2341771397da32c818a95cbed; 1569 cards"
+    },
+    "baseline_count": {
+      "type": "int",
+      "value": 1569
+    },
+    "github_main_sync_required_later": {
+      "type": "bool",
+      "value": false
+    },
+    "source_universe": {
+      "type": "str",
+      "value": "11 source observations / 9 final strict Stage A specs filtered from the fully-accounted 0.0C discovery universe."
+    },
+    "story_count": {
+      "type": "int",
+      "value": 11
+    },
+    "event_count": {
+      "type": "int",
+      "value": 9
+    },
+    "stage_a_validity_status": {
+      "type": "str",
+      "value": "PASS"
+    },
+    "artifact_consistency_status": {
+      "type": "str",
+      "value": "PASS"
+    },
+    "csv_schema_status": {
+      "type": "str",
+      "value": "PASS"
+    },
+    "review_pool_partition_status": {
+      "type": "str",
+      "value": "PASS"
+    },
+    "strict_pass_gate_metadata_status": {
+      "type": "str",
+      "value": "PASS"
+    },
+    "baseline_duplicate_screen_status": {
+      "type": "str",
+      "value": "PASS"
+    },
+    "review_pool_carry_forward_ledger_status": {
+      "type": "str",
+      "value": "PASS"
+    }
+  },
+  "pool_counts": {
+    "strict_passed_spec": 9,
+    "review_pool": 0,
+    "candidate_review_pool": 0,
+    "watchlist_context_pool": 0,
+    "reject_or_support_only_pool": 0,
+    "rejected": 0,
+    "existing_reinforcement": 0,
+    "support_source_only": 0,
+    "decision_ledger": 11,
+    "review_pool_resolution_ledger": 0
+  },
+  "samples": {
+    "strict_passed_spec": {
+      "keys": [
+        "source_event_id",
+        "source_origin",
+        "source_story_ids",
+        "original_story_ids",
+        "primary_url",
+        "urls",
+        "same_event_source_cluster",
+        "merge_status",
+        "merged_story_ids",
+        "enhanced_selector_precision_version",
+        "selector_policy_version",
+        "selection_policy_version",
+        "selection_route",
+        "strict_gate_check",
+        "format_risk_tags",
+        "anchor_classes",
+        "decision_news_value_score",
+        "decision_value_breakdown",
+        "decision_value_classification",
+        "publication_urgency",
+        "technology_evidence_level",
+        "policy_stage",
+        "novelty_cap_basis",
+        "systemic_scale_denominator",
+        "denominator_gap",
+        "prior_state",
+        "new_verified_fact",
+        "changed_judgment",
+        "uncertainty_resolved",
+        "remaining_uncertainty",
+        "incremental_information",
+        "baseline_expectation_changed",
+        "decision_relevance",
+        "evidence_needed_for_stage_b",
+        "next_confirmation_points",
+        "related_prepass",
+        "date_role",
+        "execution_credibility_gate",
+        "independent_cardability_gate",
+        "execution_anchor_type",
+        "execution_anchor_strength",
+        "structural_value_override_applied",
+        "structural_selector_policy_version",
+        "structural_value_override_reason",
+        "structural_non_execution_reason",
+        "why_execution_event_not_required",
+        "baseline_relation",
+        "baseline_match",
+        "duplicate_risk",
+        "staleness_decision",
+        "source_access_risk",
+        "stage_a_evidence_status",
+        "stage_b_evidence_package_required",
+        "primary_url_semantics",
+        "source_cluster_preserved",
+        "support_source_candidates",
+        "source_domain_candidates",
+        "source_diversity_path",
+        "support_source_candidates_accounted",
+        "stage_b_requirement_note",
+        "region",
+        "representative_date",
+        "representative_source",
+        "source_tier_estimate",
+        "cat",
+        "sub_cat",
+        "signal_estimate",
+        "signal_rubric_estimate",
+        "strategic_lens",
+        "event_anchor",
+        "title_raw",
+        "summary_hint",
+        "context_text",
+        "why_now",
+        "market_relevance",
+        "source_priority_notes",
+        "upstream_labels",
+        "staleness",
+        "needs_review",
+        "review_reason",
+        "denominator_used",
+        "baseline_follow_up_relation",
+        "portfolio_coverage_contribution",
+        "structural_value_lenses",
+        "earnings_deep_dive_required",
+        "earnings_release_available",
+        "ir_deck_available",
+        "call_or_transcript_expected",
+        "qna_status",
+        "prior_period_comparison_required",
+        "earnings_rescue_questions",
+        "anti_bias_check",
+        "structural_rescue_required",
+        "structural_rescue_question",
+        "search_before_delete_status",
+        "technology_validation_stage",
+        "technology_score_cap_applied",
+        "technology_validation_gap",
+        "legal_policy_stage",
+        "spec_id",
+        "strict_pass_gate"
+      ],
+      "item": {
+        "source_event_id": "SEP5_001_CITRUS",
+        "source_origin": "sep5_exact_input_sha_plus_0_0c_discovery",
+        "source_story_ids": [
+          "GL_2026-09-04_C21",
+          "US_2026-09-03_C05"
+        ],
+        "original_story_ids": [
+          "GL_2026-09-04_C21",
+          "US_2026-09-03_C05"
+        ],
+        "primary_url": "https://www.equinor.com/news/20260903-citrus-flatts-energy-center",
+        "urls": [
+          "https://www.equinor.com/news/20260903-citrus-flatts-energy-center"
+        ],
+        "same_event_source_cluster": [
+          {
+            "story_id": "GL_2026-09-04_C21",
+            "url": "https://www.equinor.com/news/20260903-citrus-flatts-energy-center",
+            "preserve_for_stage_b": true
+          },
+          {
+            "story_id": "US_2026-09-03_C05",
+            "url": "https://www.equinor.com/news/20260903-citrus-flatts-energy-center",
+            "preserve_for_stage_b": true
+          }
+        ],
+        "merge_status": "source_cluster",
+        "merged_story_ids": [
+          "US_2026-09-03_C05"
+        ],
+        "enhanced_selector_precision_version": "v3",
+        "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+        "selection_route": "execution_anchor_route",
+        "strict_gate_check": "pass",
+        "format_risk_tags": [
+          "none"
+        ],
+        "anchor_classes": [
+          "execution_event_anchor"
+        ],
+        "decision_news_value_score": 59,
+        "decision_value_breakdown": {
+          "market_structure_competition": 18,
+          "supply_demand_price_utilisation": 24,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 8,
+          "law_policy_market_access": 2,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": {
+          "level": "near_term",
+          "action_required": "Track next measurable milestone for SEP5_001_CITRUS.",
+          "decision_deadline": null
+        },
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": null,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "No market-wide denominator asserted for SEP5_001_CITRUS; systemic scale capped at 2/5.",
+        "prior_state": "No same-event canonical card at frozen main eb1a311.",
+        "new_verified_fact": "Equinor는 9월 3일 자회사 East Point Energy가 텍사스 Harlingen의 100MW/200MWh Citrus Flatts 에너지저장시설 건설을 완료하고 운영을 시작했다고 밝혔다. Citrus Flatts는 East Point의 두 번째 운영 프로젝트다.",
+        "changed_judgment": "Current evidence supports strict treatment for SEP5_001_CITRUS.",
+        "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+        "remaining_uncertainty": "향후 실제 가동률과 시장수익, Equinor 계열 최적화 서비스의 기여가 후속 확인 포인트다.",
+        "incremental_information": "Equinor는 9월 3일 자회사 East Point Energy가 텍사스 Harlingen의 100MW/200MWh Citrus Flatts 에너지저장시설 건설을 완료하고 운영을 시작했다고 밝혔다. Citrus Flatts는 East Point의 두 번째 운영 프로젝트다.",
+        "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+        "decision_relevance": "Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다.",
+        "evidence_needed_for_stage_b": [
+          "Regulatory notice, filing, or issuer document verifying Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시: event date 2026-09-03, stage/status, and reported capacity, volume, price, or cost metric."
+        ],
+        "next_confirmation_points": [
+          "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시 would strengthen or weaken the judgment that Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다."
+        ],
+        "related_prepass": {
+          "status": "PASS",
+          "same_event_checked": true,
+          "matched_baseline_candidate_ids": [],
+          "matched_current_batch_candidate_ids": [],
+          "relation_candidates": [],
+          "duplicate_disposition": "no_duplicate_found",
+          "earliest_same_event_check_status": "PASS",
+          "fresh_anchor_questions": [
+            "Confirm next measurable stage after 2026-09-03 for SEP5_001_CITRUS."
+          ]
+        },
+        "date_role": {
+          "status": "PASS",
+          "representative_date": "2026-09-03",
+          "event_date": "2026-09-03",
+          "publication_dates": [
+            "2026-09-03"
+          ],
+          "earliest_same_event_date_checked": true,
+          "event_date_source_url": "https://www.equinor.com/news/20260903-citrus-flatts-energy-center",
+          "event_date_source_quote": "completed construction and started operations at Citrus Flatts, a 100 MW/200 MWh energy storage facility in Harlingen, Texas.",
+          "source_quote_emitted": false,
+          "note": "Operative date bound to body-level source evidence."
+        },
+        "execution_credibility_gate": {
+          "status": "PASS",
+          "anchor_type": "current_execution_event",
+          "anchor_strength": "strong",
+          "stage_precision_note": "Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다."
+        },
+        "independent_cardability_gate": {
+          "status": "PASS",
+          "distinct_event_or_stage_progression": true,
+          "full_schema_viability": "PASS",
+          "duplicate_or_reinforcement_note": "No same-event canonical card found."
+        },
+        "execution_anchor_type": "current_execution_event",
+        "execution_anchor_strength": "strong",
+        "structural_value_override_applied": false,
+        "structural_selector_policy_version": null,
+        "structural_value_override_reason": null,
+        "structural_non_execution_reason": null,
+        "why_execution_event_not_required": null,
+        "baseline_relation": "new_unrelated",
+        "baseline_match": [],
+        "duplicate_risk": "low",
+        "staleness_decision": "current",
+        "source_access_risk": "low",
+        "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+        "stage_b_evidence_package_required": true,
+        "primary_url_semantics": "provided_source_candidate_not_evidence",
+        "source_cluster_preserved": true,
+        "support_source_candidates": [],
+        "source_domain_candidates": [
+          "www.equinor.com"
+        ],
+        "source_diversity_path": {
+          "status": "viable",
+          "probable_independent_owner_count": 1,
+          "official_or_source_owner_candidate_present": true,
+          "independent_confirmation_candidate_present": false,
+          "context_candidate_present": true,
+          "reason": "Body-level source-owner path available."
+        },
+        "support_source_candidates_accounted": true,
+        "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+        "region": "US",
+        "representative_date": "2026-09-03",
+        "representative_source": "Equinor",
+        "source_tier_estimate": "tier_1_or_source_owner_candidate",
+        "cat": "battery_ess_materials_grid",
+        "sub_cat": "execution",
+        "signal_estimate": "material",
+        "signal_rubric_estimate": {
+          "status": "material_industry_signal",
+          "score": 59
+        },
+        "strategic_lens": [
+          "market_structure_supply_chain_execution"
+        ],
+        "event_anchor": "current_execution_event",
+        "title_raw": "Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시",
+        "summary_hint": "Equinor는 9월 3일 자회사 East Point Energy가 텍사스 Harlingen의 100MW/200MWh Citrus Flatts 에너지저장시설 건설을 완료하고 운영을 시작했다고 밝혔다. Citrus Flatts는 East Point의 두 번째 운영 프로젝트다.",
+        "context_text": "Current 9/5 governed intake.",
+        "why_now": "Source-bound event/effective milestone dated 2026-09-03.",
+        "market_relevance": "Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다.",
+        "source_priority_notes": "Use strongest source-owner or authoritative material.",
+        "upstream_labels": {
+          "triage_status": "KEEP",
+          "matched_buckets": [
+            "battery_ess_materials_grid"
+          ],
+          "drop_reason": null,
+          "integrity_group_id": "NR_20260903_E0001",
+          "integrity_is_best": true,
+          "drop_reason_overridden": false
+        },
+        "staleness": {
+          "event_date": "2026-09-03",
+          "publication_date": "2026-09-03",
+          "staleness_gap_days": 0,
+          "staleness_suspected": false,
+          "fresh_followup": false,
+          "staleness_override": false,
+          "decision": "current_or_effective_date_milestone"
+        },
+        "needs_review": false,
+        "review_reason": null,
+        "denominator_used": "Named event/program only.",
+        "baseline_follow_up_relation": "new_unrelated",
+        "portfolio_coverage_contribution": [
+          "market_structure_supply_chain_execution"
+        ],
+        "structural_value_lenses": [
+          "market_structure_supply_chain_execution"
+        ],
+        "earnings_deep_dive_required": false,
+        "earnings_release_available": "not_applicable",
+        "ir_deck_available": "not_applicable",
+        "call_or_transcript_expected": "not_applicable",
+        "qna_status": "not_applicable",
+        "prior_period_comparison_required": false,
+        "earnings_rescue_questions": [],
+        "anti_bias_check": {
+          "binding_status_used_as_importance_proxy": false,
+          "legal_formality_used_as_importance_proxy": false,
+          "headline_amount_used_without_denominator": false,
+          "announced_capacity_treated_as_actual_output": false,
+          "routine_execution_event_overranked": false,
+          "conventional_execution_event_required_without_reason": false
+        },
+        "structural_rescue_required": false,
+        "structural_rescue_question": null,
+        "search_before_delete_status": "applied",
+        "technology_validation_stage": "concept_or_target",
+        "technology_score_cap_applied": false,
+        "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+        "legal_policy_stage": null,
+        "spec_id": "STD26_R8_001",
+        "strict_pass_gate": {
+          "status": "pass",
+          "reason": "SEP5_001_CITRUS satisfies current V4 strict Stage A.",
+          "all_six_conditions_passed": true,
+          "anchor_supported_by_upstream_text": true,
+          "why_not_review_pool": "Precise anchor and Stage B evidence path available."
+        }
+      }
+    },
+    "decision_ledger": {
+      "keys": [
+        "story_id",
+        "anchor_classes",
+        "news_value_basis",
+        "structural_value_lenses",
+        "structural_value_override_applied",
+        "structural_value_override_reason",
+        "evidence_needed_for_stage_b",
+        "why_execution_event_not_required",
+        "incremental_information",
+        "decision_relevance",
+        "baseline_expectation_changed",
+        "follow_up_relation",
+        "next_confirmation_points",
+        "portfolio_coverage_contribution",
+        "earnings_deep_dive_required",
+        "qna_status",
+        "review_pool_subtype",
+        "review_pool_repromotion_precondition",
+        "decision_news_value_score",
+        "decision_value_breakdown",
+        "decision_value_classification",
+        "prior_state",
+        "new_verified_fact",
+        "changed_judgment",
+        "uncertainty_resolved",
+        "remaining_uncertainty",
+        "denominator_used",
+        "denominator_gap",
+        "publication_urgency",
+        "anti_bias_check",
+        "structural_rescue_required",
+        "structural_rescue_question",
+        "technology_validation_stage",
+        "technology_score_cap_applied",
+        "technology_validation_gap",
+        "legal_policy_stage",
+        "ledger_decision",
+        "editorial_bucket",
+        "spec_id",
+        "upstream_status",
+        "upstream_drop_reason",
+        "headline",
+        "site",
+        "url",
+        "integrity_group_id",
+        "integrity_is_best",
+        "reason",
+        "merged_into_spec_id",
+        "baseline_match",
+        "baseline_relation",
+        "duplicate_risk",
+        "staleness_decision",
+        "treasure_hunt_sampled",
+        "notes",
+        "review_pool_item_id"
+      ],
+      "item": {
+        "story_id": "GL_2026-09-04_C21",
+        "anchor_classes": [
+          "execution_event_anchor"
+        ],
+        "news_value_basis": "Current evidence supports strict treatment for SEP5_001_CITRUS.",
+        "structural_value_lenses": [
+          "market_structure_supply_chain_execution"
+        ],
+        "structural_value_override_applied": false,
+        "structural_value_override_reason": null,
+        "evidence_needed_for_stage_b": [
+          "Regulatory notice, filing, or issuer document verifying Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시: event date 2026-09-03, stage/status, and reported capacity, volume, price, or cost metric."
+        ],
+        "why_execution_event_not_required": null,
+        "incremental_information": "Equinor는 9월 3일 자회사 East Point Energy가 텍사스 Harlingen의 100MW/200MWh Citrus Flatts 에너지저장시설 건설을 완료하고 운영을 시작했다고 밝혔다. Citrus Flatts는 East Point의 두 번째 운영 프로젝트다.",
+        "decision_relevance": "Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다.",
+        "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+        "follow_up_relation": "new_unrelated",
+        "next_confirmation_points": [
+          "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시 would strengthen or weaken the judgment that Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다."
+        ],
+        "portfolio_coverage_contribution": [
+          "market_structure_supply_chain_execution"
+        ],
+        "earnings_deep_dive_required": false,
+        "qna_status": "not_applicable",
+        "review_pool_subtype": "not_applicable_strict",
+        "review_pool_repromotion_precondition": "not_applicable_strict",
+        "decision_news_value_score": 59,
+        "decision_value_breakdown": {
+          "market_structure_competition": 18,
+          "supply_demand_price_utilisation": 24,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 8,
+          "law_policy_market_access": 2,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "prior_state": "No same-event canonical card at frozen main eb1a311.",
+        "new_verified_fact": "Equinor는 9월 3일 자회사 East Point Energy가 텍사스 Harlingen의 100MW/200MWh Citrus Flatts 에너지저장시설 건설을 완료하고 운영을 시작했다고 밝혔다. Citrus Flatts는 East Point의 두 번째 운영 프로젝트다.",
+        "changed_judgment": "Current evidence supports strict treatment for SEP5_001_CITRUS.",
+        "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+        "remaining_uncertainty": "향후 실제 가동률과 시장수익, Equinor 계열 최적화 서비스의 기여가 후속 확인 포인트다.",
+        "denominator_used": "Named event/program only.",
+        "denominator_gap": "No market-wide denominator asserted for SEP5_001_CITRUS; systemic scale capped at 2/5.",
+        "publication_urgency": {
+          "level": "near_term",
+          "action_required": "Track next measurable milestone for SEP5_001_CITRUS.",
+          "decision_deadline": null
+        },
+        "anti_bias_check": {
+          "binding_status_used_as_importance_proxy": false,
+          "legal_formality_used_as_importance_proxy": false,
+          "headline_amount_used_without_denominator": false,
+          "announced_capacity_treated_as_actual_output": false,
+          "routine_execution_event_overranked": false,
+          "conventional_execution_event_required_without_reason": false
+        },
+        "structural_rescue_required": false,
+        "structural_rescue_question": null,
+        "technology_validation_stage": "concept_or_target",
+        "technology_score_cap_applied": false,
+        "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+        "legal_policy_stage": null,
+        "ledger_decision": "passed",
+        "editorial_bucket": "strict_passed_spec",
+        "spec_id": "STD26_R8_001",
+        "upstream_status": "kept",
+        "upstream_drop_reason": null,
+        "headline": "Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시",
+        "site": "www.equinor.com",
+        "url": "https://www.equinor.com/news/20260903-citrus-flatts-energy-center",
+        "integrity_group_id": "STD26_R8_001_EVENT_CLUSTER",
+        "integrity_is_best": true,
+        "reason": "SEP5_001_CITRUS satisfies current V4 strict Stage A.",
+        "merged_into_spec_id": null,
+        "baseline_match": null,
+        "baseline_relation": "new_unrelated",
+        "duplicate_risk": "low",
+        "staleness_decision": "current",
+        "treasure_hunt_sampled": false,
+        "notes": "Source-bound observation retained in the Sep 5 production Stage A composite after 0.0C full-universe reconciliation.",
+        "review_pool_item_id": null
+      }
+    }
+  }
+}

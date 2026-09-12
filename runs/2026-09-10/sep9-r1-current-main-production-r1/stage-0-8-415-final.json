@@ -1,0 +1,484 @@
+{
+  "schema": "prompt_0_8_merge_prep_v4_operation_bound_r1",
+  "stage": "0.8",
+  "status": "GITHUB_MERGE_READY",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "github_main_sync_gate": {
+    "status": "PASS",
+    "baseline_locked": true,
+    "main_unchanged_since_locked_preflight": true,
+    "silent_rebase_performed": false
+  },
+  "lineage_merge_gate": {
+    "final_qc_lineage_passed": true,
+    "anchor_path_lineage_passed": true,
+    "anchor_path_hold_count": 0,
+    "github_ready_allowed": true
+  },
+  "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+  "independent_completeness_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-7c-415-final.json",
+  "certified_0_7c": {
+    "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+    "artifact": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-7c-415-final.json",
+    "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833"
+  },
+  "operation_counts": {
+    "insert": 16,
+    "update": 0,
+    "related_add": 2
+  },
+  "id_ledger": {
+    "schema": "prompt_0_8_current_run_id_ledger_v1",
+    "ids": [
+      "2026-09-08_GL_03",
+      "2026-09-02_EU_05",
+      "2026-09-02_CN_01",
+      "2026-09-08_CN_01",
+      "2026-09-08_KR_04",
+      "2026-09-09_GL_01",
+      "2026-09-09_CN_01",
+      "2026-09-08_GL_04",
+      "2026-09-08_EU_02",
+      "2026-09-09_EU_01",
+      "2026-09-09_EU_02",
+      "2026-09-09_GL_02",
+      "2026-09-09_US_01",
+      "2026-09-09_GL_03",
+      "2026-09-10_EU_01",
+      "2026-09-07_CN_02"
+    ],
+    "operation_ids": [
+      "2026-09-08_GL_03",
+      "2026-09-02_EU_05",
+      "2026-09-02_CN_01",
+      "2026-09-08_CN_01",
+      "2026-09-08_KR_04",
+      "2026-09-09_GL_01",
+      "2026-09-09_CN_01",
+      "2026-09-08_GL_04",
+      "2026-09-08_EU_02",
+      "2026-09-09_EU_01",
+      "2026-09-09_EU_02",
+      "2026-09-09_GL_02",
+      "2026-09-09_US_01",
+      "2026-09-09_GL_03",
+      "2026-09-10_EU_01",
+      "2026-09-07_CN_02"
+    ]
+  },
+  "github_merge_ready": [
+    {
+      "id": "2026-09-08_GL_03",
+      "source_spec_id": "STD26_0909_A_002",
+      "source_event_id": "SEP9_EVT_A_002",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-08"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-08_GL_03",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-02_EU_05",
+      "source_spec_id": "STD26_0909_A_003",
+      "source_event_id": "SEP9_EVT_A_003",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-02"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-02_EU_05",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-02_CN_01",
+      "source_spec_id": "STD26_0909_A_004",
+      "source_event_id": "SEP9_EVT_A_004",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-02"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-02_CN_01",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_CN_01",
+      "source_spec_id": "STD26_0909_A_007",
+      "source_event_id": "SEP9_EVT_A_007",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-08"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-08_CN_01",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_KR_04",
+      "source_spec_id": "STD26_0909_A_009",
+      "source_event_id": "SEP9_EVT_A_009",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-08"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-08_KR_04",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-09_GL_01",
+      "source_spec_id": "STD26_0909_A_010",
+      "source_event_id": "SEP9_EVT_A_010",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "program_lineage",
+        "related_ids": [
+          "2026-09-07_GL_01"
+        ]
+      },
+      "date_role": {
+        "representative_date": "2026-09-09"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-09_GL_01",
+        "operation": "insert",
+        "related_add_required": true
+      }
+    },
+    {
+      "id": "2026-09-09_CN_01",
+      "source_spec_id": "STD26_0909_A_012",
+      "source_event_id": "SEP9_EVT_A_012",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-09"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-09_CN_01",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_GL_04",
+      "source_spec_id": "STD26_0909_A_013",
+      "source_event_id": "SEP9_EVT_A_013",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-08"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-08_GL_04",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-08_EU_02",
+      "source_spec_id": "STD26_0909_A_015",
+      "source_event_id": "SEP9_EVT_A_015",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-08"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-08_EU_02",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-09_EU_01",
+      "source_spec_id": "STD26_0909_A_016",
+      "source_event_id": "SEP9_EVT_A_016",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-09"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-09_EU_01",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-09_EU_02",
+      "source_spec_id": "STD26_0909_A_017",
+      "source_event_id": "SEP9_EVT_A_017",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-09"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-09_EU_02",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-09_GL_02",
+      "source_spec_id": "STD26_0909_A_018",
+      "source_event_id": "SEP9_EVT_A_018",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-09"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-09_GL_02",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-09_US_01",
+      "source_spec_id": "STD26_0909_A_019",
+      "source_event_id": "SEP9_EVT_A_019",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-09"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-09_US_01",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-09_GL_03",
+      "source_spec_id": "STD26_0909_A_020",
+      "source_event_id": "SEP9_EVT_A_020",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-09"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-09_GL_03",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-10_EU_01",
+      "source_spec_id": "STD26_0909_A_021",
+      "source_event_id": "SEP9_EVT_A_021",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-09-10"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-10_EU_01",
+        "operation": "insert",
+        "related_add_required": false
+      }
+    },
+    {
+      "id": "2026-09-07_CN_02",
+      "source_spec_id": "STD26_0909_P_002",
+      "source_event_id": "SEP9_EVT_R_015",
+      "status": "GITHUB_MERGE_READY",
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-09-04_CN_01"
+        ]
+      },
+      "date_role": {
+        "representative_date": "2026-09-07"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "merge_prep": {
+        "status": "PASS",
+        "final_qc_passed": true,
+        "baseline_sync_passed": true,
+        "operation_identity_bound": true,
+        "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+        "production_id": "2026-09-07_CN_02",
+        "operation": "insert",
+        "related_add_required": true
+      }
+    }
+  ],
+  "operation_recertification": {
+    "status": "PASS",
+    "supersedes_reviewed_operations_sha256": "7816396048e7069d79d8faf6dec38e15a42f21a06d1c09c61fec29b953d6bfdc",
+    "supersedes_runtime_operations_sha256": "e63b8aab5f87625b517bea2aa21e93d581e4e87c500bd0a571faab6b21b8cb23",
+    "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
+    "basis": "source-bound lifecycle plus durable evidence URL resolution"
+  }
+}

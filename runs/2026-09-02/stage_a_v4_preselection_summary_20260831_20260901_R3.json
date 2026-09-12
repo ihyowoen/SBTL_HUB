@@ -1,0 +1,40 @@
+{
+  "schema": "stage_a_v4_preselection_summary_v1",
+  "status": "PRESELECTION_SUPERSEDED_PENDING_HISTORICAL_CARRY_FORWARD_RECONCILIATION",
+  "run_id": "SBTL_V4_XRUN_20260831_143419__20260901_123511_R3",
+  "base_main_commit_sha": "f2792958a85470c11030211642012865c69f56ab",
+  "base_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "authoritative_event_universe_ref": "runs/2026-09-02/authoritative_cross_run_event_universe_lock_20260831_20260901_V4_R3.json",
+  "superseding_gate_ref": "runs/2026-09-02/authoritative_cross_run_event_universe_lock_20260831_20260901_V4_R4_BLOCKED.json",
+  "historical_carry_forward_ledger_ref": "runs/2026-09-02/current_governed_carry_forward_ledger_20260902_R1.json",
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "current_only_event_count": 425,
+  "superseded_current_only_partition_counts": {
+    "high_potential_review": 50,
+    "candidate_review": 81,
+    "watchlist_context": 137,
+    "reject_or_support_only": 153,
+    "existing_reinforcement": 4
+  },
+  "formal_stage_a_exit": false,
+  "formal_stage_a_authorized": false,
+  "preselection_reuse_policy": "Do not use the 425-event current-only partition as formal Stage A input. Recompute after historical carry-forward union and event-level dedupe.",
+  "superseded_priority_precision_queue_snapshot": [
+    {"event_id":"XRUN_20260831_20260901_R3_E0237","title":"SK온 미국 9GWh ESS용 LFP 셀 공급계약","prepass":"STRICT_LEADING"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0112","title":"LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake","prepass":"STRICT_LEADING"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0098","title":"China 2% consumption tax on lithium-ion and specified batteries takes effect","prepass":"STRICT_LEADING"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0415","title":"China battery consumption-tax scope clarification for ESS clusters and semi-solid batteries","prepass":"STRICT_LEADING"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0421","title":"European Commission Battery Passport guidance covering 71 data points","prepass":"STRICT_LEADING"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0317","title":"POSCO Holdings Argentina lithium project $700m IDB financing facility","prepass":"STRICT_LEADING"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0111","title":"CIP Gawara Baya 408MW wind + 104MW grid-forming BESS acquisition/FID/financing/construction","prepass":"STRICT_LEADING"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0031","title":"DeltaX closes KRW32bn Series B for U.S. BESS production base","prepass":"STRICT_CANDIDATE"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0227","title":"U.S. battery storage adds record 20.2GWh in Q2 2026","prepass":"STRICT_CANDIDATE"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0366","title":"Metlen expands BESS contracts/tolling across Europe","prepass":"STRICT_CANDIDATE"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0188","title":"楚能 Xiangyang 70GWh battery industrial park enters production","prepass":"STRICT_CANDIDATE"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0149","title":"Samsung SDI negotiating LFP supply with global top-tier ESS integrator","prepass":"REVIEW_NOT_STRICT_YET"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0139","title":"Wonjun–Silvatex U.S. precursor-free LFP partnership","prepass":"REVIEW_NOT_STRICT_YET"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0140","title":"EcoPro BM all-solid-state value-chain consortium targeting 2027 commercialization","prepass":"REVIEW_NOT_STRICT_YET"},
+    {"event_id":"XRUN_20260831_20260901_R3_E0393","title":"California SB 913 customer-owned DER/resource-adequacy legislation","prepass":"REVIEW_POLICY_STAGE_CHECK"}
+  ],
+  "next_gate": "Recover/rebuild the residual-44 37/5/2 item mapping, reconcile all 290 auditable historical rows against canonical 1514 and current 425, materialize a replayable R4 event ledger, then recompute preselection."
+}

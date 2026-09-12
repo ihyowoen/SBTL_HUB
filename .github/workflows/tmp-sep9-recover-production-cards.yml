@@ -131,6 +131,42 @@ jobs:
           common=[f'{base}/stages/stage-b.json',f'{base}/stages/stage-c.json',f'{base}/stages/stage-0-4.json',f'{base}/stages/stage-0-5.json',f'{base}/stages/stage-0-6.json',f'{base}/stages/stage-0-7.json']
           def refs(c): return [f'{base}/stages/stage-a-promotion2.json' if c['source_spec_id']=='STD26_0909_P_002' else f'{base}/stages/stage-a.json',*common]
           byid={c['id']:c for c in cards}
+
+          # Bind the P002 distinct-follow-up lifecycle from already-governed upstream artifacts.
+          p002 = byid.get('2026-09-07_CN_02')
+          if not isinstance(p002, dict) or p002.get('source_spec_id') != 'STD26_0909_P_002':
+              raise SystemExit('P002 production identity binding missing')
+          stage_b = json.loads((root / 'stages/stage-b.json').read_text())
+          p002_b = next((row for row in stage_b.get('draft_cards', []) if row.get('source_spec_id') == 'STD26_0909_P_002'), None)
+          if not isinstance(p002_b, dict):
+              raise SystemExit('P002 Stage B evidence row missing')
+          review = p002_b.get('related_evidence_review')
+          if not isinstance(review, dict):
+              raise SystemExit('P002 Stage B related_evidence_review missing')
+          if review.get('status') != 'PASS' or review.get('relation_type') != 'distinct_follow_up' or review.get('related_target_id') != '2026-09-04_CN_01':
+              raise SystemExit(f'P002 Stage B lineage drift: {review}')
+          promotion = json.loads((root / 'stages/stage-a-promotion2.json').read_text())
+          p002_a = next((row for row in promotion.get('strict_passed_spec', []) if row.get('spec_id') == 'STD26_0909_P_002'), None)
+          candidates = ((p002_a or {}).get('related_prepass') or {}).get('relation_candidates') or []
+          candidate = next((row for row in candidates if row.get('target_candidate_id') == '2026-09-04_CN_01' and row.get('proposed_relation_type') == 'distinct_follow_up'), None)
+          if not isinstance(candidate, dict):
+              raise SystemExit('P002 Stage A related_prepass binding missing')
+          anchor_class = candidate.get('anchor_class_to_verify')
+          if anchor_class != 'technology_commercialization_anchor':
+              raise SystemExit(f'P002 anchor class drift: {anchor_class}')
+          lineage = p002.get('related_lineage')
+          if not isinstance(lineage, dict) or lineage.get('relation_type') != 'new_unrelated_event' or (lineage.get('related_ids') or []):
+              raise SystemExit('P002 insert must remain pre-edge new_unrelated_event')
+          lifecycle_binding = {
+              'fresh_follow_up_anchor_class': anchor_class,
+              'fresh_follow_up_anchor': review.get('reason'),
+              'incremental_fact_vs_predecessor': review.get('incremental_fact'),
+              'changed_judgment_vs_predecessor': "Li Auto's battery-system lineage advances from the Sep-4 strategic battery-supply/investment event to a distinct production-vehicle commercialization and execution milestone.",
+          }
+          if not all(isinstance(v, str) and v.strip() for v in lifecycle_binding.values()):
+              raise SystemExit(f'P002 lifecycle binding incomplete: {lifecycle_binding}')
+          lineage.update(lifecycle_binding)
+
           inserts=[]
           for c in cards:
               urls=[u for u in c.get('urls',[]) if isinstance(u,str) and u.startswith(('http://','https://'))]
@@ -155,19 +191,21 @@ jobs:
               if isinstance(v,list): return [stable(x) for x in v]
               return v
           op_sha=hashlib.sha256(json.dumps(stable(ops),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
-          expected='40a53b8407857a145981fafdc2bbd33612461d727e8d82ca6b0adc495c89e53d'
-          if op_sha!=expected: raise SystemExit(f'operation hash drift {op_sha}')
-          run={'schema':'card_run_v1','run_id':'card-run-2026-09-09-sep9-r1-current-main-production-r1','base_main_commit_sha':'3bb929004ff8b547b86e5f1beab0efb3dac19d62','base_full_blob_sha':'beb2aa7615b583b4c9c0c269974601a0b26c2684','expected_before':1617,'output_updated':'2026-09-11T16:10:00+09:00','operations':ops,'expected_after':1633,'audit_refs':[f'{base}/card-run-audit.json',f'{base}/stage-0-8-415-final.json'],'document_universe_manifest_ref':f'{base}/stage-0-0d.json','coverage_discovery_ref':f'{base}/stage-0-0c-415-final.json','independent_completeness_ref':f'{base}/stage-0-7c-415-final.json','notes':'Sep9/Sep10 governed 415-identity run; 16 inserts, 2 directional Related additions, zero delete/remove. Final repo-native operation serialization re-certified.'}
+          previous_op_sha='40a53b8407857a145981fafdc2bbd33612461d727e8d82ca6b0adc495c89e53d'
+          if op_sha == previous_op_sha:
+              raise SystemExit('operation hash failed to move after P002 lifecycle materialization')
+          run={'schema':'card_run_v1','run_id':'card-run-2026-09-09-sep9-r1-current-main-production-r1','base_main_commit_sha':'3bb929004ff8b547b86e5f1beab0efb3dac19d62','base_full_blob_sha':'beb2aa7615b583b4c9c0c269974601a0b26c2684','expected_before':1617,'output_updated':'2026-09-12T03:30:00+00:00','operations':ops,'expected_after':1633,'audit_refs':[f'{base}/card-run-audit.json',f'{base}/stage-0-8-415-final.json'],'document_universe_manifest_ref':f'{base}/stage-0-0d.json','coverage_discovery_ref':f'{base}/stage-0-0c-415-final.json','independent_completeness_ref':f'{base}/stage-0-7c-415-final.json','notes':'Sep9/Sep10 governed 415-identity run; 16 inserts, 2 directional Related additions, zero delete/remove. P002 follow-up lifecycle metadata is source-bound to Stage A prepass and Stage B evidence review before final serialization.'}
           (root/'card-run.json').write_text(json.dumps(run,ensure_ascii=False,indent=2)+'\n')
 
-          # 4) Re-certify 0.7C, 0.8 and audit to the exact operation bytes.
-          p=root/'stage-0-7c-415-final.json'; d=json.loads(p.read_text()); d['reviewed_operations_sha256']=op_sha; d['operation_freeze']['reviewed_operations_sha256']=op_sha; d['round_6_operation_binding']['reviewed_operations_sha256']=op_sha; d['operation_recertification']={'status':'PASS','supersedes_reviewed_operations_sha256':'7816396048e7069d79d8faf6dec38e15a42f21a06d1c09c61fec29b953d6bfdc','reviewed_operations_sha256':op_sha,'basis':'repo-native schema/V4/apply-check probe'}; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
-          p=root/'stage-0-8-415-final.json'; d=json.loads(p.read_text()); d['reviewed_operations_sha256']=op_sha; d['certified_0_7c']['reviewed_operations_sha256']=op_sha
+          # 4) Re-certify 0.7C, 0.8 and audit to the exact final operation bytes.
+          p=root/'stage-0-7c-415-final.json'; d=json.loads(p.read_text()); prev_07=d.get('reviewed_operations_sha256'); d['reviewed_operations_sha256']=op_sha; d['operation_freeze']['reviewed_operations_sha256']=op_sha; d['round_6_operation_binding']['reviewed_operations_sha256']=op_sha; d['operation_recertification']={'status':'PASS','supersedes_reviewed_operations_sha256':prev_07,'reviewed_operations_sha256':op_sha,'basis':'source-bound P002 lifecycle materialization plus repo-native schema/V4/apply-check probe'}; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          p=root/'stage-0-8-415-final.json'; d=json.loads(p.read_text()); prev_08=d.get('reviewed_operations_sha256'); d['reviewed_operations_sha256']=op_sha; d['certified_0_7c']['reviewed_operations_sha256']=op_sha
           for row in d['github_merge_ready']: row['merge_prep']['reviewed_operations_sha256']=op_sha
-          d['operation_recertification']={'status':'PASS','supersedes_reviewed_operations_sha256':'7816396048e7069d79d8faf6dec38e15a42f21a06d1c09c61fec29b953d6bfdc','reviewed_operations_sha256':op_sha}; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
-          p=root/'card-run-audit.json'; d=json.loads(p.read_text()); d['reviewed_operations_sha256']=op_sha; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
-          cert={'schema':'card_run_operation_hash_validation_v3_415_final','status':'PASS','run_id':run['run_id'],'algorithm':'recursive lexicographic object-key sort; preserve array order; compact JSON UTF-8; SHA-256','reviewed_operations_sha256':op_sha,'insert_count':16,'update_count':0,'related_add_count':2,'delete_count':0,'related_remove_count':0,'expected_before':1617,'expected_after':1633,'base_main_commit_sha':run['base_main_commit_sha'],'base_full_blob_sha':run['base_full_blob_sha'],'supersedes_reviewed_operations_sha256':'7816396048e7069d79d8faf6dec38e15a42f21a06d1c09c61fec29b953d6bfdc'}
+          d['operation_recertification']={'status':'PASS','supersedes_reviewed_operations_sha256':prev_08,'reviewed_operations_sha256':op_sha,'basis':'source-bound P002 lifecycle materialization'}; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          p=root/'card-run-audit.json'; d=json.loads(p.read_text()); d['reviewed_operations_sha256']=op_sha; d['p002_related_lifecycle_binding']={'status':'PASS','source_spec_id':'STD26_0909_P_002','target_id':'2026-09-04_CN_01',**lifecycle_binding}; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          cert={'schema':'card_run_operation_hash_validation_v4_415_final','status':'PASS','run_id':run['run_id'],'algorithm':'recursive lexicographic object-key sort; preserve array order; compact JSON UTF-8; SHA-256','reviewed_operations_sha256':op_sha,'insert_count':16,'update_count':0,'related_add_count':2,'delete_count':0,'related_remove_count':0,'expected_before':1617,'expected_after':1633,'base_main_commit_sha':run['base_main_commit_sha'],'base_full_blob_sha':run['base_full_blob_sha'],'supersedes_reviewed_operations_sha256':previous_op_sha,'p002_related_lifecycle_binding':{'status':'PASS','source_spec_id':'STD26_0909_P_002','target_id':'2026-09-04_CN_01',**lifecycle_binding}}
           (root/'operation-hash-validation-415-final.json').write_text(json.dumps(cert,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({'status':'PASS','reviewed_operations_sha256':op_sha,'supersedes':previous_op_sha,'p002_related_lifecycle_binding':lifecycle_binding}, ensure_ascii=False, indent=2))
           PY
 
       - name: Fail-closed pre-apply validation
@@ -194,11 +232,11 @@ jobs:
           from pathlib import Path
           root=Path('runs/2026-09-10/sep9-r1-current-main-production-r1')
           full=hashlib.sha256(Path('data/cards.full.json').read_bytes()).hexdigest(); lean=hashlib.sha256(Path('public/data/cards.json').read_bytes()).hexdigest()
-          run=json.loads((root/'card-run.json').read_text()); audit=json.loads((root/'card-run-audit.json').read_text())
+          run=json.loads((root/'card-run.json').read_text()); audit=json.loads((root/'card-run-audit.json').read_text()); cert=json.loads((root/'operation-hash-validation-415-final.json').read_text())
           audit['full_output_sha256']=full; audit['lean_output_sha256']=lean; audit['inserted_ids']=[x['card']['id'] for x in run['operations']['insert']]; audit['updated_ids']=[]; audit['related_additions']=[{'source_id':x['source_id'],'target_id':x['target_id'],'direction':x['direction']} for x in run['operations']['related_add']]
           (root/'card-run-audit.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n')
           report=json.loads((root/'apply-report.json').read_text()); report['full_output_sha256']=full; report['lean_output_sha256']=lean; (root/'apply-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-          doc=json.loads(Path('data/cards.full.json').read_text()); summary={'schema':'sep9_final_output_hashes_v1','status':'PASS','canonical_count':len(doc['cards']),'full_output_sha256':full,'lean_output_sha256':lean,'operations_sha256':'40a53b8407857a145981fafdc2bbd33612461d727e8d82ca6b0adc495c89e53d'}; (root/'final-output-hashes.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n'); print(json.dumps(summary,indent=2))
+          doc=json.loads(Path('data/cards.full.json').read_text()); summary={'schema':'sep9_final_output_hashes_v2','status':'PASS','canonical_count':len(doc['cards']),'full_output_sha256':full,'lean_output_sha256':lean,'operations_sha256':cert['reviewed_operations_sha256']}; (root/'final-output-hashes.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n'); print(json.dumps(summary,indent=2))
           PY
 
       - name: Exact production validation chain
@@ -236,3 +274,4 @@ jobs:
 # retrigger-sourcebound-r2 2026-09-12
 # retrigger-after-sourcebound-stage-a-subset-contract-pass 2026-09-12
 # retrigger-after-related-lineage-binding-pass 2026-09-12
+# retrigger-after-p002-lifecycle-binding 2026-09-12

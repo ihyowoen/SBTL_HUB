@@ -8,6 +8,9 @@ from pathlib import Path
 from validation_scripts import stage_lineage_contract_check as lineage
 from validation_scripts import card_run_v4_binding_hardening as hardening
 from validation_scripts.card_audit_utils import load_owner_registry, source_audit_measure
+from validation_scripts.tests.test_stage_a_v4_required_docs_authority import (
+    StageAV4RequiredDocsAuthorityTest,
+)
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -111,6 +114,8 @@ class Pr371PostMergeRemediationTests(unittest.TestCase):
 
     def test_terminal_authority_is_derived_from_checked_pools_not_terminal_decisions(self):
         source = {
+            "legacy_keep": [],
+            "review_pool": [],
             "strict_passed_spec": [
                 {"spec_id": "SPEC_1", "source_story_ids": ["CAND_1"]}
             ],
@@ -123,7 +128,7 @@ class Pr371PostMergeRemediationTests(unittest.TestCase):
             "decision_ledger": [
                 {
                     "story_id": "CAND_1",
-                    "ledger_decision": "strict_passed_spec",
+                    "ledger_decision": "passed",
                     "editorial_bucket": "strict_passed_spec",
                     "spec_id": "SPEC_1",
                 }
@@ -140,6 +145,25 @@ class Pr371PostMergeRemediationTests(unittest.TestCase):
         self.assertEqual(
             governed["CAND_1"],
             ("strict_passed_spec", "stage_a_checker:strict_passed_spec:SPEC_1"),
+        )
+
+    def test_real_passing_v4_artifact_ignores_unchecked_terminal_array(self):
+        artifact = StageAV4RequiredDocsAuthorityTest().active_full_artifact()
+        self.assertEqual(artifact["stage"], "stage_a")
+        self.assertEqual(self.check(artifact), 0)
+        spec = artifact["strict_passed_spec"][0]
+        identity = spec["source_story_ids"][0]
+        artifact["terminal_decisions"] = [
+            {"identity": identity, "decision": "rejected", "basis": "invented"}
+        ]
+        self.assertEqual(self.check(artifact), 0)
+        governed = hardening.checker_validated_stage_a_decisions(artifact)
+        self.assertEqual(
+            governed[identity],
+            (
+                "strict_passed_spec",
+                f"stage_a_checker:strict_passed_spec:{spec['spec_id']}",
+            ),
         )
 
     def test_mining_com_reuters_copy_is_not_an_independent_owner(self):

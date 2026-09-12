@@ -14,6 +14,19 @@ ALIASES = {"a":"A","stage_a":"A","0.1":"A","b":"B","stage_b":"B","0.2":"B","c":"
 BUCKETS = {"A":["strict_passed_spec"],"B":["draft_cards","draft_card"],"C":["accepted_fact_safe"],"0.4":["addable_merge_safe"],"0.5":["evidence_complete_and_source_claim_covered"],"0.6":["content_enriched_and_language_polished"],"0.7":["publish_ready"]}
 STAGES = tuple(BUCKETS)
 ALLOWED_RELATED_ADD_TYPES = {"distinct_follow_up", "program_lineage"}
+ALLOWED_STAGE_A_TERMINAL_DISPOSITIONS = {
+    "strict_passed_spec",
+    "candidate_review_pool",
+    "watchlist_context_pool",
+    "watchlist_or_support_context",
+    "reject_or_support_only_pool",
+    "rejected",
+    "existing_reinforcement",
+    "existing_reinforcement_or_same_event",
+    "reinforcement",
+    "support_source_only",
+    "split_parent_decomposed",
+}
 IDENTITY_ROOT = "source_spec_id"
 
 class Blocked(Exception): pass
@@ -68,6 +81,68 @@ def validate_coverage(run):
     regions,topics=coverage_axes()
     a=load(repo_json(run["coverage_discovery_ref"])); axis_matrix(a.get("regional_coverage_matrix"),regions,"0.0C.regional_coverage_matrix"); axis_matrix(a.get("topic_coverage_matrix"),topics,"0.0C.topic_coverage_matrix")
 
+def _nonempty_text(value):
+    return isinstance(value,str) and bool(value.strip())
+
+def governed_stage_a_decisions(run,ledger):
+    ref=ledger.get("governed_stage_a_ledger_ref") or ledger.get("prior_partial_ledger_ref")
+    if not _nonempty_text(ref):
+        raise Blocked("Stage A terminal identity ledger must reference its governed Stage A decision ledger")
+    source=load(repo_json(ref.strip()))
+    if source.get("stage")!="A" or source.get("run_id")!=run.get("run_id"):
+        raise Blocked("governed Stage A decision ledger stage/run_id mismatch")
+    authority=source.get("authority") if isinstance(source.get("authority"),dict) else source
+    for field in ("base_main_commit_sha","base_full_blob_sha"):
+        if authority.get(field)!=run.get(field):
+            raise Blocked(f"governed Stage A decision ledger {field} mismatch")
+    if ledger.get("status")=="PASS":
+        accounting=source.get("accounting")
+        if source.get("status")!="PASS":
+            raise Blocked("passing terminal ledger requires a PASS governed Stage A decision ledger")
+        if not isinstance(accounting,dict) or accounting.get("final_stage_a_pass_authorized") is not True or accounting.get("open_identity_count")!=0:
+            raise Blocked("passing terminal ledger requires fully authorized Stage A accounting with zero open identities")
+    entries=source.get("terminal_decisions")
+    if not isinstance(entries,list):
+        raise Blocked("governed Stage A decision ledger terminal_decisions must be an array")
+    governed={}
+    decisions=[]
+    for index,row in enumerate(entries):
+        identity=row.get("identity") if isinstance(row,dict) else None
+        decision=row.get("decision") if isinstance(row,dict) else None
+        basis=row.get("basis") if isinstance(row,dict) else None
+        if not _nonempty_text(identity): raise Blocked(f"governed Stage A terminal_decisions[{index}].identity required")
+        if decision not in ALLOWED_STAGE_A_TERMINAL_DISPOSITIONS: raise Blocked(f"governed Stage A terminal_decisions[{index}].decision is not an allowed terminal disposition")
+        if not _nonempty_text(basis): raise Blocked(f"governed Stage A terminal_decisions[{index}].basis required")
+        identity=identity.strip(); basis=basis.strip()
+        if identity in governed: raise Blocked("governed Stage A decision ledger contains duplicate identities")
+        governed[identity]=(decision,basis); decisions.append(decision)
+    source_counts=source.get("decision_counts")
+    actual_counts=dict(sorted(Counter(decisions).items()))
+    if source_counts is not None and source_counts!=actual_counts:
+        raise Blocked("governed Stage A decision_counts do not match terminal_decisions")
+    return governed
+
+def validate_terminal_decision_binding(entries,governed):
+    if not isinstance(entries,list):
+        raise Blocked("Stage A terminal identity ledger terminal_decisions must be an array")
+    terminal_ids=[]; dispositions=[]
+    for index,row in enumerate(entries):
+        identity=row.get("identity") if isinstance(row,dict) else None
+        disposition=row.get("disposition") if isinstance(row,dict) else None
+        basis=row.get("basis") if isinstance(row,dict) else None
+        if not _nonempty_text(identity): raise Blocked(f"Stage A terminal_decisions[{index}].identity required")
+        if disposition not in ALLOWED_STAGE_A_TERMINAL_DISPOSITIONS: raise Blocked(f"Stage A terminal_decisions[{index}].disposition is not an allowed terminal disposition")
+        if not _nonempty_text(basis): raise Blocked(f"Stage A terminal_decisions[{index}].basis required")
+        if row.get("terminal") is not True: raise Blocked(f"Stage A terminal_decisions[{index}] must declare terminal=true")
+        identity=identity.strip(); basis=basis.strip()
+        expected=governed.get(identity)
+        if expected is None: raise Blocked(f"Stage A terminal_decisions[{index}] identity={identity} has no governed Stage A decision")
+        if expected!=(disposition,basis): raise Blocked(f"Stage A terminal_decisions[{index}] disposition/basis does not match governed Stage A decision")
+        terminal_ids.append(identity); dispositions.append(disposition)
+    if len(terminal_ids)!=len(set(terminal_ids)):
+        raise Blocked("Stage A terminal identity ledger contains duplicate identities")
+    return terminal_ids,dispositions
+
 def validate_completeness(run):
     a=load(repo_json(run["independent_completeness_ref"]))
     if a.get("stage")!="0.7C": raise Blocked("0.7C stage must be explicit")
@@ -92,6 +167,7 @@ def validate_completeness(run):
         raise Blocked("0.7C terminal identity ledger must be a passing Stage A ledger")
     if ledger.get("run_id")!=run.get("run_id"):
         raise Blocked("0.7C terminal identity ledger run_id mismatch")
+    governed=governed_stage_a_decisions(run,ledger)
 
     coverage=load(repo_json(run["coverage_discovery_ref"]))
     coverage_rows=coverage.get("source_universe_expansion_ledger")
@@ -107,29 +183,17 @@ def validate_completeness(run):
         raise Blocked("0.0C source_universe_expansion_ledger contains duplicate identities")
 
     entries=ledger.get("terminal_decisions")
-    if not isinstance(entries,list):
-        raise Blocked("Stage A terminal identity ledger terminal_decisions must be an array")
-    terminal_ids=[]
-    dispositions=[]
-    for index,row in enumerate(entries):
-        identity=row.get("identity") if isinstance(row,dict) else None
-        disposition=row.get("disposition") if isinstance(row,dict) else None
-        if not isinstance(identity,str) or not identity.strip():
-            raise Blocked(f"Stage A terminal_decisions[{index}].identity required")
-        if not isinstance(disposition,str) or not disposition.strip():
-            raise Blocked(f"Stage A terminal_decisions[{index}].disposition required")
-        if row.get("terminal") is not True:
-            raise Blocked(f"Stage A terminal_decisions[{index}] must declare terminal=true")
-        terminal_ids.append(identity.strip())
-        dispositions.append(disposition.strip())
-    if len(terminal_ids)!=len(set(terminal_ids)):
-        raise Blocked("Stage A terminal identity ledger contains duplicate identities")
+    terminal_ids,dispositions=validate_terminal_decision_binding(entries,governed)
     if set(terminal_ids)!=set(coverage_ids):
         missing=sorted(set(coverage_ids)-set(terminal_ids))
         unknown=sorted(set(terminal_ids)-set(coverage_ids))
         raise Blocked(
             f"Stage A terminal identity ledger does not exactly reconcile 0.0C; missing={missing[:5]} unknown={unknown[:5]}"
         )
+    if set(governed)!=set(coverage_ids):
+        missing=sorted(set(coverage_ids)-set(governed))
+        unknown=sorted(set(governed)-set(coverage_ids))
+        raise Blocked(f"governed Stage A decision ledger does not exactly reconcile 0.0C; missing={missing[:5]} unknown={unknown[:5]}")
 
     universe=a.get("universe_accounting")
     if not isinstance(universe,dict):
@@ -372,6 +436,15 @@ def main():
         try: strings([],"coverage axes")
         except Blocked: pass
         else: raise RuntimeError("coverage-axis empty list unexpectedly accepted")
+        governed={"CAND_1":("candidate_review_pool","real_stage_a_basis")}
+        validate_terminal_decision_binding([{"identity":"CAND_1","disposition":"candidate_review_pool","terminal":True,"basis":"real_stage_a_basis"}],governed)
+        for bad_terminal in (
+            [{"identity":"CAND_1","disposition":"invented","terminal":True,"basis":"real_stage_a_basis"}],
+            [{"identity":"CAND_1","disposition":"candidate_review_pool","terminal":True,"basis":"self_asserted_basis"}],
+        ):
+            try: validate_terminal_decision_binding(bad_terminal,governed)
+            except Blocked: pass
+            else: raise RuntimeError("ungoverned terminal disposition/basis not blocked")
         known={"OLD":"SPEC_BASE"}
         validate_insert_identities([{"card":{"id":"NEW","source_spec_id":"SPEC_NEW"}}],known)
         for bad in ([{"card":{"id":"A","source_spec_id":"SPEC_NEW"}},{"card":{"id":"B","source_spec_id":"SPEC_NEW"}}],[{"card":{"id":"A","source_spec_id":"SPEC_BASE"}}]):
@@ -396,9 +469,9 @@ def main():
         try: validate_related_semantics(op,"SPEC_NEW",bad_status,known,{"NEW":"SPEC_NEW"},"related_add[0]")
         except Blocked: pass
         else: raise RuntimeError("non-canonical Stage B Related review status not blocked")
-        print("PASS: V4 binding hardening self-test; empty remediation allowed, baseline identities immutable, insert identities unique, Related semantics/status bound, and coverage contract override supported"); return 0
+        print("PASS: V4 binding hardening self-test; terminal decisions are vocabulary- and Stage-A-basis-bound, empty remediation allowed, baseline identities immutable, insert identities unique, Related semantics/status bound, and coverage contract override supported"); return 0
     if not args.run: raise Blocked("--run PATH required")
-    run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); validate_completeness(run); validate_operations(run); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","related_semantics":"PASS"})); return 0
+    run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); validate_completeness(run); validate_operations(run); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","terminal_decision_binding":"PASS","related_semantics":"PASS"})); return 0
 
 if __name__=="__main__":
     try: raise SystemExit(main())

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, json, os, subprocess, sys
+import argparse, hashlib, json, os, subprocess, sys
+from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -77,6 +78,78 @@ def validate_completeness(run):
         if a.get(field)!=run.get(field): raise Blocked(f"0.7C {field} must match card run")
     if a.get("document_universe_manifest_ref")!=run.get("document_universe_manifest_ref"): raise Blocked("0.7C document_universe_manifest_ref must match card run")
     if a.get("coverage_discovery_ref")!=run.get("coverage_discovery_ref"): raise Blocked("0.7C coverage_discovery_ref must match card run")
+
+    ledger_ref=a.get("terminal_identity_ledger_ref")
+    if not isinstance(ledger_ref,str) or not ledger_ref.strip():
+        raise Blocked("0.7C terminal_identity_ledger_ref is required")
+    ledger_path=repo_json(ledger_ref)
+    recorded_sha=a.get("terminal_identity_ledger_sha256")
+    actual_sha=hashlib.sha256(ledger_path.read_bytes()).hexdigest()
+    if recorded_sha!=actual_sha:
+        raise Blocked("0.7C terminal_identity_ledger_sha256 does not match referenced bytes")
+    ledger=load(ledger_path)
+    if ledger.get("status")!="PASS" or ledger.get("stage")!="A":
+        raise Blocked("0.7C terminal identity ledger must be a passing Stage A ledger")
+    if ledger.get("run_id")!=run.get("run_id"):
+        raise Blocked("0.7C terminal identity ledger run_id mismatch")
+
+    coverage=load(repo_json(run["coverage_discovery_ref"]))
+    coverage_rows=coverage.get("source_universe_expansion_ledger")
+    if not isinstance(coverage_rows,list):
+        raise Blocked("0.0C source_universe_expansion_ledger must be an array")
+    coverage_ids=[]
+    for index,row in enumerate(coverage_rows):
+        candidate_id=row.get("candidate_id") if isinstance(row,dict) else None
+        if not isinstance(candidate_id,str) or not candidate_id.strip():
+            raise Blocked(f"0.0C source_universe_expansion_ledger[{index}].candidate_id required")
+        coverage_ids.append(candidate_id.strip())
+    if len(coverage_ids)!=len(set(coverage_ids)):
+        raise Blocked("0.0C source_universe_expansion_ledger contains duplicate identities")
+
+    entries=ledger.get("terminal_decisions")
+    if not isinstance(entries,list):
+        raise Blocked("Stage A terminal identity ledger terminal_decisions must be an array")
+    terminal_ids=[]
+    dispositions=[]
+    for index,row in enumerate(entries):
+        identity=row.get("identity") if isinstance(row,dict) else None
+        disposition=row.get("disposition") if isinstance(row,dict) else None
+        if not isinstance(identity,str) or not identity.strip():
+            raise Blocked(f"Stage A terminal_decisions[{index}].identity required")
+        if not isinstance(disposition,str) or not disposition.strip():
+            raise Blocked(f"Stage A terminal_decisions[{index}].disposition required")
+        if row.get("terminal") is not True:
+            raise Blocked(f"Stage A terminal_decisions[{index}] must declare terminal=true")
+        terminal_ids.append(identity.strip())
+        dispositions.append(disposition.strip())
+    if len(terminal_ids)!=len(set(terminal_ids)):
+        raise Blocked("Stage A terminal identity ledger contains duplicate identities")
+    if set(terminal_ids)!=set(coverage_ids):
+        missing=sorted(set(coverage_ids)-set(terminal_ids))
+        unknown=sorted(set(terminal_ids)-set(coverage_ids))
+        raise Blocked(
+            f"Stage A terminal identity ledger does not exactly reconcile 0.0C; missing={missing[:5]} unknown={unknown[:5]}"
+        )
+
+    universe=a.get("universe_accounting")
+    if not isinstance(universe,dict):
+        raise Blocked("0.7C universe_accounting must be an object")
+    total=len(coverage_ids)
+    if universe.get("terminal_identity_total")!=total or universe.get("terminal_identity_accounted")!=total:
+        raise Blocked("0.7C terminal identity totals must equal the exact identity ledger cardinality")
+    if universe.get("duplicate_identity_count")!=0 or universe.get("missing_identity_count")!=0:
+        raise Blocked("0.7C duplicate/missing identity counts must both be zero")
+    if ledger.get("terminal_identity_total")!=total or ledger.get("terminal_identity_accounted")!=total:
+        raise Blocked("Stage A terminal identity ledger cardinality fields are inconsistent")
+    if ledger.get("open_identity_count")!=0:
+        raise Blocked("Stage A terminal identity ledger open_identity_count must be zero")
+
+    actual_counts=dict(sorted(Counter(dispositions).items()))
+    if ledger.get("disposition_counts")!=actual_counts:
+        raise Blocked("Stage A terminal identity ledger disposition_counts do not match identity rows")
+    revalidation=a.get("stage_a_revalidation")
+    if not isinstance(revalidation,dict) or revalidation.get("disposition_counts")!=actual_counts:
+        raise Blocked("0.7C stage_a_revalidation.disposition_counts must match the identity ledger")
 
 def stage(payload,label):
     raw=payload.get("stage")

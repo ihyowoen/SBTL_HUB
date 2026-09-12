@@ -112,11 +112,13 @@
         },
         {
           "url": "https://www.ess-news.com/2026/09/08/hina-battery-scales-korean-sodium-ion-partnership-from-15-mwh-to-10-gwh",
-          "role": "production-card evidence source"
+          "role": "production-card evidence source",
+          "source_owner_id_normalized": "pv_magazine_group"
         },
         {
           "url": "https://www.pv-magazine.com/2026/09/08/hina-battery-scales-korean-sodium-ion-partnership-from-15-mwh-to-10-gwh/",
-          "role": "production-card evidence source"
+          "role": "production-card evidence source",
+          "source_owner_id_normalized": "pv_magazine_group"
         }
       ],
       "related_evidence_review": {
@@ -138,13 +140,15 @@
         "stage_a_representative_date": "2026-09-08",
         "role": "operative event/stage date verified from body-level evidence",
         "source_publication_dates": [
-          "2026-09-02"
+          "2026-09-02",
+          "2026-09-08"
         ],
         "corrected_in_stage_b": true,
         "representative_date": "2026-09-02",
         "event_date": "2026-09-02",
         "publication_dates": [
-          "2026-09-02"
+          "2026-09-02",
+          "2026-09-08"
         ],
         "earliest_same_event_date_checked": true,
         "event_date_source_url": "https://libattery.ofweek.com/2026-09/ART-36008-8120-30702156.html",
@@ -193,6 +197,30 @@
         "earliest_same_event_date_checked": true,
         "event_date_source_url": "https://www.mining.com/web/china-august-rare-earths-exports-stay-below-year-to-date-monthly-average",
         "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "source_diversity_measure": {
+        "unique_urls": 1,
+        "unique_domains": 1,
+        "independent_owner_count": 1
+      },
+      "source_synthesis_applied": false,
+      "source_synthesis_fields": [],
+      "source_synthesis_audit": {
+        "status": "PASS_SINGLE_SOURCE_BOUNDED",
+        "primary_or_official_controls_operative_facts": true,
+        "independent_confirmation_used": false,
+        "conflicts_explicitly_resolved": true
+      },
+      "single_source_exception": {
+        "allowed": true,
+        "reason": "The Mining.com page is a Reuters-syndicated report; the second Reuters URL is not an independent owner or rare-earth-specific confirmation.",
+        "mitigation": "Treat the two URLs as one Reuters reporting chain and limit the card to the attributed August customs figures and explicitly bounded interpretation.",
+        "scope_limits": [
+          "No independent-owner corroboration is claimed.",
+          "The general Reuters trade article is retained as checked but not used for visible rare-earth claims.",
+          "Re-verify against a durable GACC commodity table when available."
+        ]
       }
     },
     {
@@ -328,12 +356,14 @@
         "stage_a_representative_date": "2026-09-09",
         "role": "operative event/stage date verified from body-level evidence",
         "source_publication_dates": [
+          "2026-09-01",
           "2026-09-09"
         ],
         "corrected_in_stage_b": false,
         "representative_date": "2026-09-09",
         "event_date": "2026-09-09",
         "publication_dates": [
+          "2026-09-01",
           "2026-09-09"
         ],
         "earliest_same_event_date_checked": true,

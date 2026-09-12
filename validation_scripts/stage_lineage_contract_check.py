@@ -205,21 +205,14 @@ def _project_full_stage_a_for_v3_compat(data: Mapping[str, Any]) -> dict[str, An
 
 def _prepare_v3_compat_payload(data: Mapping[str, Any], *, require_full: bool) -> tuple[Any, int | None]:
     """Enforce V4 authority first, then return a private V3 compatibility projection."""
-    explicit_source_bound_production_subset = (
-        not require_full
-        and data.get("stage") in {"A", "stage_a", "0.1"}
-        and data.get("subset_scope") == "production_candidates_only"
-        and data.get("full_stage_a_accounting_claimed") is False
-        and data.get("source_bound_reconstruction") is True
-        and data.get("downstream_evidence_backfill_used") is False
-    )
-    if explicit_source_bound_production_subset:
-        # Card-run V4 requires an explicit ordinary stage on persisted artifacts.
-        # Frozen V3 interprets any stage marker as a full Stage A accounting claim.
-        # Strip only that marker in a private compatibility copy; never mutate the artifact.
-        projected = copy.deepcopy(dict(data))
-        projected.pop("stage", None)
-        return projected, None
+    # A persisted ordinary Stage A artifact is always a completeness claim.  A
+    # caller-controlled collection of subset flags must never turn it back into
+    # a route-only payload: doing so skips the frozen full-artifact checks for
+    # the required-document closure, source universe and terminal disposition
+    # ledger.  Production subsets must therefore be carried inside a complete
+    # Stage A artifact (or validated before projection by a future, explicit
+    # machine-readable subset-accounting contract); they cannot self-authorize
+    # by removing the stage discriminator in a private copy.
     is_full = require_full or _compat.looks_like_full_stage_a_artifact(data)
     if not is_full:
         return data, None

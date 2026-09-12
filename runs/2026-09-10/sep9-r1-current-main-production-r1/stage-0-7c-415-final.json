@@ -1,49 +1,44 @@
 {
-  "schema": "stage_0_7c_independent_completeness_v5_415_identity_bound_r1",
+  "schema": "stage_0_7c_post_merge_invalidation_v1",
   "stage": "0.7C",
-  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
-  "completeness_status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "status": "BLOCKED_POST_MERGE_REMEDIATION",
+  "completeness_status": "BLOCKED_POST_MERGE_REMEDIATION",
   "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
   "base_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
   "base_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
   "document_universe_manifest_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0d.json",
   "coverage_discovery_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-415-final.json",
   "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
-  "source_universe_accounted": true,
+  "source_universe_accounted": false,
   "regional_search_complete": true,
   "topic_search_complete": true,
   "baseline_follow_up_review_complete": true,
-  "review_pool_rescue_complete": true,
+  "review_pool_rescue_complete": false,
   "must_report_candidates_accounted": true,
-  "reviewer_independence": "SEPARATE_PASS",
-  "prompt_0_8_authorized": true,
+  "reviewer_independence": "POST_MERGE_REVIEW_FOUND_BLOCKERS",
+  "prompt_0_8_authorized": false,
   "universe_accounting": {
     "original_source_rows": 393,
     "external_or_preclean_discoveries": 20,
     "event_split_children": 2,
     "terminal_identity_total": 415,
-    "terminal_identity_accounted": 415,
+    "terminal_identity_accounted": 55,
     "duplicate_identity_count": 0,
-    "missing_identity_count": 0
+    "missing_identity_count": 360
   },
   "stage_a_revalidation": {
-    "status": "PASS",
-    "strict": 18,
-    "review_pool": 28,
-    "reinforcement_or_same_event": 20,
-    "support_or_context": 337,
-    "identity_binding_corrections": [
-      {
-        "source_spec_id": "STD26_0909_A_014",
-        "authoritative_source_story_id": "SEP09_SPLIT_LIXHE",
-        "disposition": "existing_reinforcement"
-      },
-      {
-        "source_spec_id": "STD26_0909_A_015",
-        "authoritative_source_story_id": "SEP09_SPLIT_COO",
-        "disposition": "production_candidate"
-      }
-    ]
+    "status": "BLOCKED_INCOMPLETE",
+    "terminal_identity_count": 55,
+    "open_identity_count": 360,
+    "disposition_counts": {
+      "candidate_review_pool": 24,
+      "existing_reinforcement_or_same_event": 15,
+      "reject_or_support_only_pool": 8,
+      "split_parent_decomposed": 1,
+      "support_source_only": 1,
+      "watchlist_or_support_context": 6
+    },
+    "finding": "The prior numeric summary covered only 403 dispositions and had no identity-level ledger. The authoritative cumulative Stage A ledger contains 55 terminal decisions and 360 open identities."
   },
   "downstream_revalidation": {
     "stage_b_input_count": 20,
@@ -84,9 +79,9 @@
     "The two event identities split from EU_2026-09-08_C07 depend on the current 0.0C relock; downstream production binding was revalidated to SEP09_SPLIT_LIXHE / SEP09_SPLIT_COO before Prompt 0.8 authorization."
   ],
   "six_round_review": {
-    "status": "PASS",
+    "status": "FAIL_POST_MERGE_REVIEW",
     "round_count": 6,
-    "blocking_findings": 0
+    "blocking_findings": 2
   },
   "round_6_operation_binding": {
     "status": "PASS",
@@ -98,5 +93,12 @@
     "supersedes_runtime_operations_sha256": "e63b8aab5f87625b517bea2aa21e93d581e4e87c500bd0a571faab6b21b8cb23",
     "reviewed_operations_sha256": "c66a280aa0e0de66d11a16ff9b5a2aef3f0e0f0014c934f7effe0765a0622833",
     "basis": "source-bound P002 lifecycle plus durable A015/A019 evidence URL resolution and repo-native schema/V4/apply-check probe"
+  },
+  "terminal_identity_ledger_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-terminal-accounting-post-merge.json",
+  "terminal_identity_ledger_sha256": "e18c50c7aee583bafba1477eb20452bab06beadf53834daceb4ea378ebcd35d3",
+  "post_merge_invalidation": {
+    "discovered_on_pr": 371,
+    "reason": "Production was merged before the final Codex review identified the Stage A subset-gate bypass and unsupported 415/415 certification.",
+    "canonical_card_disposition": "Preserved; the 16 already-published cards receive bounded evidence/provenance corrections in PR371_POST_MERGE_REMEDIATION_20260912. No claim of full-universe Stage A completion is retained."
   }
 }

@@ -1,0 +1,39 @@
+{
+  "schema": "pr371_post_merge_remediation_audit_v1",
+  "status": "PASS_BOUNDED_CORRECTION_STAGE_A_REMAINS_OPEN",
+  "source_pr": 371,
+  "source_merge_commit": "c11ebda3891338a0d25028a8ab27ba97bd821e27",
+  "findings_addressed": {
+    "stage_a_subset_gate": "validator now fail-closes ordinary Stage A subsets",
+    "stage_a_415_accounting": "corrected to 55/415; 360 open identities are explicit",
+    "stage_b_hash": "496daf063724b17cdb34c464dac998c8a11e4099e501e6648878c673ddd18562",
+    "source_publication_dates": [
+      "STD26_0909_A_004-S2",
+      "STD26_0909_A_004-S3",
+      "STD26_0909_A_012-S2"
+    ],
+    "syndicated_source_owner": "STD26_0909_A_007 normalized to one Reuters owner and a bounded single-source exception",
+    "readme_state": "updated to reflect completed merge and open Stage A remediation"
+  },
+  "canonical_updates": [
+    "2026-09-08_GL_03",
+    "2026-09-02_EU_05",
+    "2026-09-02_CN_01",
+    "2026-09-08_CN_01",
+    "2026-09-08_KR_04",
+    "2026-09-09_GL_01",
+    "2026-09-09_CN_01",
+    "2026-09-08_GL_04",
+    "2026-09-08_EU_02",
+    "2026-09-09_EU_01",
+    "2026-09-09_EU_02",
+    "2026-09-09_GL_02",
+    "2026-09-09_US_01",
+    "2026-09-09_GL_03",
+    "2026-09-10_EU_01",
+    "2026-09-07_CN_02"
+  ],
+  "deletions": 0,
+  "related_removals": 0,
+  "full_stage_a_completion_claimed": false
+}

@@ -97,7 +97,6 @@ jobs:
           append_unique('terminal_discovery_disposition_ledger', {
               **split_rows[1], 'disposition':'retain_for_stage_a_selector'
           })
-          # Keep all required array fields explicit even when empty.
           required_arrays = [
             'original_input_ledger','discovered_missing_candidates','baseline_follow_up_candidates',
             'existing_card_reinforcements','existing_card_update_candidates','correction_or_reversal_candidates',
@@ -233,3 +232,5 @@ jobs:
           git diff --cached --quiet && { echo 'nothing to commit'; exit 1; }
           git commit -m 'data: apply Sep9 governed 415-identity card run'
           git push origin HEAD:chatgpt/sep9-r1-current-main-production-r1
+
+# retrigger-sourcebound-r2 2026-09-12

@@ -1,0 +1,202 @@
+name: tmp-sep9-related-lineage-repair
+
+on:
+  push:
+    branches:
+      - chatgpt/sep9-r1-current-main-production-r1
+    paths:
+      - .github/workflows/tmp-sep9-related-lineage-repair.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair-related-lineage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore Stage A reviewed Related lineage through B to 0.7
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          root=Path('runs/2026-09-10/sep9-r1-current-main-production-r1')
+          specs={
+            'STD26_0909_A_010': {
+              'target':'2026-09-07_GL_01',
+              'type':'program_lineage',
+              'reason':'Fresh Jan-Jul ex-China battery dataset extends the same SNE market-tracker program lineage.',
+              'event_stage_relationship':'same_program_new_measurement_window',
+              'incremental_fact':'Fresh Jan-Jul ex-China battery dataset extends the same SNE market-tracker program lineage.'
+            },
+            'STD26_0909_P_002': {
+              'target':'2026-09-04_CN_01',
+              'type':'distinct_follow_up',
+              'reason':'Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.',
+              'event_stage_relationship':'later_distinct_event',
+              'incremental_fact':'Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.'
+            }
+          }
+
+          # Fail closed against the source-bound Stage A relation candidates before mutating downstream artifacts.
+          stage_a=json.loads((root/'stages/stage-a.json').read_text())
+          stage_ap=json.loads((root/'stages/stage-a-promotion2.json').read_text())
+          source_rows={}
+          for doc in (stage_a,stage_ap):
+            for row in doc.get('strict_passed_spec',[]):
+              if row.get('spec_id') in specs:
+                source_rows[row['spec_id']]=row
+          for sid,cfg in specs.items():
+            row=source_rows.get(sid)
+            if not row: raise SystemExit(f'missing source-bound Stage A row {sid}')
+            pre=row.get('related_prepass') or {}
+            if pre.get('status')!='PASS': raise SystemExit(f'{sid}: Stage A related_prepass not PASS')
+            candidates=pre.get('relation_candidates') or []
+            ok=any(isinstance(c,dict) and c.get('target_candidate_id')==cfg['target'] and c.get('proposed_relation_type')==cfg['type'] for c in candidates)
+            if not ok: raise SystemExit(f'{sid}: Stage A does not authorize {cfg["type"]} -> {cfg["target"]}')
+
+          def walk_rows(node):
+            if isinstance(node,dict):
+              if isinstance(node.get('source_spec_id'),str):
+                yield node
+              for v in node.values():
+                yield from walk_rows(v)
+            elif isinstance(node,list):
+              for v in node:
+                yield from walk_rows(v)
+
+          # Stage B: evidence review must resolve the same predecessor/type that Stage A sent forward.
+          bp=root/'stages/stage-b.json'
+          b=json.loads(bp.read_text())
+          seen=set()
+          for row in walk_rows(b):
+            sid=row.get('source_spec_id')
+            if sid not in specs: continue
+            cfg=specs[sid]
+            review=row.get('related_evidence_review')
+            if not isinstance(review,dict): raise SystemExit(f'{sid}: missing Stage B related_evidence_review')
+            if not row.get('fact_sources'): raise SystemExit(f'{sid}: Stage B has no fact_sources')
+            review.update({
+              'status':'PASS',
+              'same_event_checked':True,
+              'earliest_same_event_date_checked':True,
+              'relation_type':cfg['type'],
+              'matched_baseline_current_candidates':[cfg['target']],
+              'incremental_fact':cfg['incremental_fact'],
+              'changed_judgment':'Stage B evidence confirms a distinct publishable event while preserving the Stage A reviewed predecessor/program lineage.',
+              'related_target_required':True,
+              'related_target_id':cfg['target'],
+              'reason':cfg['reason'],
+              'related_ids':[cfg['target']],
+              'direction':'directional',
+              'event_stage_relationship':cfg['event_stage_relationship']
+            })
+            seen.add(sid)
+          if seen!=set(specs): raise SystemExit(f'Stage B target rows mismatch: {seen}')
+          bp.write_text(json.dumps(b,ensure_ascii=False,indent=2)+'\n')
+
+          # C through 0.7: preserve exact operation lineage; do not alter facts, dates, or acceptance decisions.
+          downstream=['stage-c.json','stage-0-4.json','stage-0-5.json','stage-0-6.json','stage-0-7.json']
+          for name in downstream:
+            p=root/'stages'/name
+            d=json.loads(p.read_text())
+            seen=set()
+            for row in walk_rows(d):
+              sid=row.get('source_spec_id')
+              if sid not in specs: continue
+              cfg=specs[sid]
+              lineage=row.get('related_lineage')
+              if not isinstance(lineage,dict): raise SystemExit(f'{name}:{sid}: missing related_lineage')
+              lineage.clear()
+              lineage.update({
+                'status':'PASS',
+                'relation_type':cfg['type'],
+                'related_ids':[cfg['target']],
+                'reason':cfg['reason'],
+                'event_stage_relationship':cfg['event_stage_relationship'],
+                'direction':'directional'
+              })
+              seen.add(sid)
+            if seen!=set(specs): raise SystemExit(f'{name}: target rows mismatch: {seen}')
+            p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+
+          audit={
+            'schema':'sep9_related_lineage_repair_v1',
+            'status':'PASS_PENDING_VALIDATION',
+            'scope':'restore_source_bound_stage_a_relation_candidates_through_stage_b_to_0_7',
+            'facts_changed':False,
+            'dates_changed':False,
+            'acceptance_decisions_changed':False,
+            'relations':[
+              {'source_spec_id':sid,**cfg} for sid,cfg in specs.items()
+            ],
+            'cause':'Downstream recertification flattened two Stage A reviewed relation candidates to new_unrelated_event; this repair restores only their reviewed Related lineage.'
+          }
+          (root/'related-lineage-repair-audit.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n')
+          PY
+
+      - name: Validate repaired chain
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT=runs/2026-09-10/sep9-r1-current-main-production-r1/stages
+          python3 validation_scripts/stage_artifact_contract_check.py B "$ROOT/stage-b.json"
+          python3 validation_scripts/stage_lineage_contract_check.py stage_b "$ROOT/stage-b.json"
+          python3 validation_scripts/stage_artifact_contract_check.py C "$ROOT/stage-c.json"
+          python3 validation_scripts/stage_lineage_contract_check.py stage_c "$ROOT/stage-c.json"
+          for S in 0.4 0.5 0.6 0.7; do
+            F="$ROOT/stage-${S//./-}.json"
+            python3 validation_scripts/stage_artifact_contract_check.py "$S" "$F"
+            python3 validation_scripts/stage_lineage_contract_check.py "$S" "$F"
+          done
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('runs/2026-09-10/sep9-r1-current-main-production-r1')
+          cfg={
+            'STD26_0909_A_010':('2026-09-07_GL_01','program_lineage','Fresh Jan-Jul ex-China battery dataset extends the same SNE market-tracker program lineage.','same_program_new_measurement_window'),
+            'STD26_0909_P_002':('2026-09-04_CN_01','distinct_follow_up','Fresh production-vehicle rollout is a distinct execution milestone after Li Auto strategic battery-supply/investment lineage.','later_distinct_event')
+          }
+          def rows(node):
+            if isinstance(node,dict):
+              if node.get('source_spec_id') in cfg: yield node
+              for v in node.values(): yield from rows(v)
+            elif isinstance(node,list):
+              for v in node: yield from rows(v)
+          for name in ['stage-b.json','stage-c.json','stage-0-4.json','stage-0-5.json','stage-0-6.json','stage-0-7.json']:
+            doc=json.loads((root/'stages'/name).read_text())
+            found={r['source_spec_id']:r for r in rows(doc)}
+            assert set(found)==set(cfg),(name,found.keys())
+            for sid,(target,rtype,reason,event_stage) in cfg.items():
+              obj=found[sid]['related_evidence_review'] if name=='stage-b.json' else found[sid]['related_lineage']
+              assert obj['status']=='PASS'
+              assert obj['relation_type']==rtype
+              assert target in (obj.get('related_ids') or [])
+              if name!='stage-b.json': assert obj['reason']==reason
+              assert obj.get('event_stage_relationship')==event_stage
+          p=root/'related-lineage-repair-audit.json'; d=json.loads(p.read_text()); d['status']='PASS'; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          print('PASS: two source-bound Related lineages restored consistently B -> 0.7')
+          PY
+
+      - name: Commit repaired lineage
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json \
+            runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-c.json \
+            runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-4.json \
+            runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-5.json \
+            runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-6.json \
+            runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-0-7.json \
+            runs/2026-09-10/sep9-r1-current-main-production-r1/related-lineage-repair-audit.json
+          git diff --cached --check
+          git commit -m 'fix: restore Sep9 Related lineage through Stage 0.7'
+          git push origin HEAD:chatgpt/sep9-r1-current-main-production-r1

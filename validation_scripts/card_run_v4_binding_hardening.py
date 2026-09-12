@@ -27,6 +27,24 @@ ALLOWED_STAGE_A_TERMINAL_DISPOSITIONS = {
     "support_source_only",
     "split_parent_decomposed",
 }
+STAGE_A_GOVERNED_POOLS = (
+    "strict_passed_spec",
+    "candidate_review_pool",
+    "watchlist_context_pool",
+    "reject_or_support_only_pool",
+    "rejected",
+    "existing_reinforcement",
+    "support_source_only",
+)
+STAGE_A_LEDGER_DECISION_VALUES = {
+    "strict_passed_spec": {"strict_passed_spec"},
+    "candidate_review_pool": {"review_pool", "candidate_review_pool"},
+    "watchlist_context_pool": {"review_pool", "watchlist_context_pool"},
+    "reject_or_support_only_pool": {"review_pool", "reject_or_support_only_pool"},
+    "rejected": {"rejected"},
+    "existing_reinforcement": {"existing_reinforcement", "reinforcement"},
+    "support_source_only": {"support_source_only"},
+}
 IDENTITY_ROOT = "source_spec_id"
 
 class Blocked(Exception): pass
@@ -84,55 +102,97 @@ def validate_coverage(run):
 def _nonempty_text(value):
     return isinstance(value,str) and bool(value.strip())
 
+def _stage_a_story_ids(item,pool):
+    if not isinstance(item,dict): return []
+    if pool=="strict_passed_spec":
+        values=item.get("source_story_ids")
+        return [x.strip() for x in values if _nonempty_text(x)] if isinstance(values,list) else []
+    out=[]
+    if _nonempty_text(item.get("story_id")): out.append(item["story_id"].strip())
+    grouped=item.get("grouped_story_ids")
+    if isinstance(grouped,list): out.extend(x.strip() for x in grouped if _nonempty_text(x))
+    return out
+
+def checker_validated_stage_a_decisions(source):
+    emitted={}
+    for pool in STAGE_A_GOVERNED_POOLS:
+        values=source.get(pool)
+        if not isinstance(values,list):
+            raise Blocked(f"checker-validated Stage A output pool {pool} must be an array")
+        for index,item in enumerate(values):
+            if not isinstance(item,dict):
+                raise Blocked(f"checker-validated Stage A {pool}[{index}] must be an object")
+            spec_id=item.get("spec_id") if _nonempty_text(item.get("spec_id")) else None
+            identities=_stage_a_story_ids(item,pool)
+            if not identities:
+                raise Blocked(f"checker-validated Stage A {pool}[{index}] has no governed story identity")
+            for identity in identities:
+                if identity in emitted:
+                    raise Blocked(f"checker-validated Stage A identity {identity} appears in multiple output dispositions")
+                emitted[identity]=(pool,spec_id)
+
+    ledger=source.get("decision_ledger")
+    if not isinstance(ledger,list):
+        raise Blocked("checker-validated Stage A decision_ledger must be an array")
+    ledger_by_story={}
+    for index,row in enumerate(ledger):
+        if not isinstance(row,dict):
+            raise Blocked(f"checker-validated Stage A decision_ledger[{index}] must be an object")
+        story_id=row.get("story_id")
+        if not _nonempty_text(story_id):
+            raise Blocked(f"checker-validated Stage A decision_ledger[{index}].story_id required")
+        story_id=story_id.strip()
+        if story_id in ledger_by_story:
+            raise Blocked(f"checker-validated Stage A decision_ledger duplicates story {story_id}")
+        ledger_by_story[story_id]=row
+
+    if set(ledger_by_story)!=set(emitted):
+        missing=sorted(set(emitted)-set(ledger_by_story))
+        extra=sorted(set(ledger_by_story)-set(emitted))
+        raise Blocked(f"checker-validated Stage A decision_ledger/output-pool identity mismatch; missing={missing[:5]} extra={extra[:5]}")
+
+    governed={}
+    for identity,(pool,spec_id) in emitted.items():
+        row=ledger_by_story[identity]
+        if row.get("ledger_decision") not in STAGE_A_LEDGER_DECISION_VALUES[pool]:
+            raise Blocked(f"checker-validated Stage A story {identity} ledger_decision contradicts output pool {pool}")
+        if row.get("editorial_bucket") not in STAGE_A_LEDGER_DECISION_VALUES[pool]:
+            raise Blocked(f"checker-validated Stage A story {identity} editorial_bucket contradicts output pool {pool}")
+        if spec_id is not None and row.get("spec_id")!=spec_id:
+            raise Blocked(f"checker-validated Stage A story {identity} spec_id does not match emitted strict spec")
+        basis=f"stage_a_checker:{pool}:{spec_id or identity}"
+        governed[identity]=(pool,basis)
+    return governed
+
 def governed_stage_a_decisions(run,ledger):
     ref=ledger.get("governed_stage_a_ledger_ref") or ledger.get("prior_partial_ledger_ref")
     if not _nonempty_text(ref):
         raise Blocked("Stage A terminal identity ledger must reference its governed Stage A decision ledger")
     source_path=repo_json(ref.strip())
     source=load(source_path)
-    if source.get("stage")!="A" or source.get("run_id")!=run.get("run_id"):
+    raw_stage=source.get("stage")
+    if not _nonempty_text(raw_stage) or ALIASES.get(raw_stage.strip().lower())!="A" or source.get("run_id")!=run.get("run_id"):
         raise Blocked("governed Stage A decision ledger stage/run_id mismatch")
     authority=source.get("authority") if isinstance(source.get("authority"),dict) else source
     for field in ("base_main_commit_sha","base_full_blob_sha"):
         if authority.get(field)!=run.get(field):
             raise Blocked(f"governed Stage A decision ledger {field} mismatch")
-    if ledger.get("status")=="PASS":
-        checker=ROOT / "validation_scripts/stage_lineage_contract_check.py"
-        proc=subprocess.run(
-            [sys.executable,str(checker),"stage_a",str(source_path)],
-            text=True,capture_output=True,
+    if ledger.get("status")!="PASS":
+        raise Blocked("terminal decision binding requires a PASS terminal identity ledger")
+    checker=ROOT / "validation_scripts/stage_lineage_contract_check.py"
+    proc=subprocess.run(
+        [sys.executable,str(checker),"stage_a",str(source_path)],
+        text=True,capture_output=True,
+    )
+    if proc.returncode!=0:
+        detail=(proc.stderr or proc.stdout or "Stage A checker failed").strip().replace("\n"," ")
+        raise Blocked(
+            "passing terminal ledger requires governed Stage A decision ledger to pass the full Stage A checker: "
+            + detail[:600]
         )
-        if proc.returncode!=0:
-            detail=(proc.stderr or proc.stdout or "Stage A checker failed").strip().replace("\n"," ")
-            raise Blocked(
-                "passing terminal ledger requires governed Stage A decision ledger to pass the full Stage A checker: "
-                + detail[:600]
-            )
-        accounting=source.get("accounting")
-        if source.get("status")!="PASS":
-            raise Blocked("passing terminal ledger requires a PASS governed Stage A decision ledger")
-        if not isinstance(accounting,dict) or accounting.get("final_stage_a_pass_authorized") is not True or accounting.get("open_identity_count")!=0:
-            raise Blocked("passing terminal ledger requires fully authorized Stage A accounting with zero open identities")
-    entries=source.get("terminal_decisions")
-    if not isinstance(entries,list):
-        raise Blocked("governed Stage A decision ledger terminal_decisions must be an array")
-    governed={}
-    decisions=[]
-    for index,row in enumerate(entries):
-        identity=row.get("identity") if isinstance(row,dict) else None
-        decision=row.get("decision") if isinstance(row,dict) else None
-        basis=row.get("basis") if isinstance(row,dict) else None
-        if not _nonempty_text(identity): raise Blocked(f"governed Stage A terminal_decisions[{index}].identity required")
-        if decision not in ALLOWED_STAGE_A_TERMINAL_DISPOSITIONS: raise Blocked(f"governed Stage A terminal_decisions[{index}].decision is not an allowed terminal disposition")
-        if not _nonempty_text(basis): raise Blocked(f"governed Stage A terminal_decisions[{index}].basis required")
-        identity=identity.strip(); basis=basis.strip()
-        if identity in governed: raise Blocked("governed Stage A decision ledger contains duplicate identities")
-        governed[identity]=(decision,basis); decisions.append(decision)
-    source_counts=source.get("decision_counts")
-    actual_counts=dict(sorted(Counter(decisions).items()))
-    if source_counts is not None and source_counts!=actual_counts:
-        raise Blocked("governed Stage A decision_counts do not match terminal_decisions")
-    return governed
+    if source.get("status")!="PASS":
+        raise Blocked("passing terminal ledger requires a PASS governed Stage A decision ledger")
+    return checker_validated_stage_a_decisions(source)
 
 def validate_terminal_decision_binding(entries,governed):
     if not isinstance(entries,list):
@@ -149,7 +209,7 @@ def validate_terminal_decision_binding(entries,governed):
         identity=identity.strip(); basis=basis.strip()
         expected=governed.get(identity)
         if expected is None: raise Blocked(f"Stage A terminal_decisions[{index}] identity={identity} has no governed Stage A decision")
-        if expected!=(disposition,basis): raise Blocked(f"Stage A terminal_decisions[{index}] disposition/basis does not match governed Stage A decision")
+        if expected!=(disposition,basis): raise Blocked(f"Stage A terminal_decisions[{index}] disposition/basis does not match checker-validated Stage A output")
         terminal_ids.append(identity); dispositions.append(disposition)
     if len(terminal_ids)!=len(set(terminal_ids)):
         raise Blocked("Stage A terminal identity ledger contains duplicate identities")
@@ -205,7 +265,7 @@ def validate_completeness(run):
     if set(governed)!=set(coverage_ids):
         missing=sorted(set(coverage_ids)-set(governed))
         unknown=sorted(set(governed)-set(coverage_ids))
-        raise Blocked(f"governed Stage A decision ledger does not exactly reconcile 0.0C; missing={missing[:5]} unknown={unknown[:5]}")
+        raise Blocked(f"checker-validated Stage A outputs do not exactly reconcile 0.0C; missing={missing[:5]} unknown={unknown[:5]}")
 
     universe=a.get("universe_accounting")
     if not isinstance(universe,dict):
@@ -408,15 +468,18 @@ def _relation_review_matches(review,op,target_tokens,require_reason):
 def validate_source_diversity_chain(rows_by_stage,label):
     observed={}
     for s in ("B","C","0.5","0.6","0.7"):
-        values={
-            row.get("source_diversity_status").strip()
-            for row in rows_by_stage.get(s,[])
-            if isinstance(row.get("source_diversity_status"),str) and row.get("source_diversity_status").strip()
-        }
-        if len(values)>1:
+        rows=rows_by_stage.get(s,[])
+        if not rows:
+            raise Blocked(f"{label} stage {s} requires a bound row with source_diversity_status")
+        values=set()
+        for index,row in enumerate(rows):
+            value=row.get("source_diversity_status") if isinstance(row,dict) else None
+            if not _nonempty_text(value):
+                raise Blocked(f"{label} stage {s} row {index} requires non-empty source_diversity_status")
+            values.add(value.strip())
+        if len(values)!=1:
             raise Blocked(f"{label} stage {s} has contradictory source_diversity_status values {sorted(values)}")
-        if values:
-            observed[s]=next(iter(values))
+        observed[s]=next(iter(values))
     statuses=set(observed.values())
     if len(statuses)>1:
         detail=", ".join(f"{stage}={status}" for stage,status in observed.items())
@@ -456,6 +519,7 @@ def main():
         try: stage({},"x")
         except Blocked: pass
         else: raise RuntimeError("missing declared stage not blocked")
+        if stage({"stage":"stage_a"},"x")!="A": raise RuntimeError("stage_a alias not normalized to A")
         sample_run={"run_id":"r","base_main_commit_sha":"a"*40,"base_full_blob_sha":"b"*40}
         validate_stage_binding({"run_id":"r","base_main_commit_sha":"a"*40,"base_full_blob_sha":"b"*40},sample_run,"artifact")
         try: validate_stage_binding({"base_main_commit_sha":"a"*40,"base_full_blob_sha":"b"*40},sample_run,"artifact")
@@ -481,6 +545,10 @@ def main():
         try: validate_source_diversity_chain(bad_source_rows,"source-chain")
         except Blocked: pass
         else: raise RuntimeError("source-diversity stage-chain drift not blocked")
+        missing_source_rows={**source_rows,"B":[{}]}
+        try: validate_source_diversity_chain(missing_source_rows,"source-chain")
+        except Blocked: pass
+        else: raise RuntimeError("missing source-diversity status not blocked")
         known={"OLD":"SPEC_BASE"}
         validate_insert_identities([{"card":{"id":"NEW","source_spec_id":"SPEC_NEW"}}],known)
         for bad in ([{"card":{"id":"A","source_spec_id":"SPEC_NEW"}},{"card":{"id":"B","source_spec_id":"SPEC_NEW"}}],[{"card":{"id":"A","source_spec_id":"SPEC_BASE"}}]):
@@ -505,7 +573,7 @@ def main():
         try: validate_related_semantics(op,"SPEC_NEW",bad_status,known,{"NEW":"SPEC_NEW"},"related_add[0]")
         except Blocked: pass
         else: raise RuntimeError("non-canonical Stage B Related review status not blocked")
-        print("PASS: V4 binding hardening self-test; passing governed Stage A ledgers require the full Stage A checker, terminal decisions are vocabulary/basis-bound, source-diversity status is stage-chain consistent, baseline identities immutable, and Related semantics/status are bound"); return 0
+        print("PASS: V4 binding hardening self-test; terminal authority is derived from checker-validated Stage A pools/decision_ledger, stage_a aliases normalize correctly, source-diversity status is present and consistent at every governed stage, baseline identities are immutable, and Related semantics/status are bound"); return 0
     if not args.run: raise Blocked("--run PATH required")
     run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); validate_completeness(run); validate_operations(run); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","terminal_decision_binding":"PASS","source_diversity_chain":"PASS","related_semantics":"PASS"})); return 0
 

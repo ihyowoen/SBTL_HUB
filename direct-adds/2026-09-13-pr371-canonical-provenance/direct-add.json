@@ -1,0 +1,198 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "PR371_CANONICAL_PROVENANCE_REBIND_20260913_R1",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "5147e5bfbe7cadbf03782ef68805444227afaf1e",
+  "base_full_blob_sha": "79e1b89ca89b55c24bd8b2c1fa6924a3d85f13c9",
+  "expected_before": 1633,
+  "expected_after": 1633,
+  "output_updated": "2026-09-13T07:42:21Z",
+  "operations": {
+    "add": [],
+    "update": [
+      "2026-09-08_GL_03",
+      "2026-09-02_EU_05",
+      "2026-09-02_CN_01",
+      "2026-09-08_CN_01",
+      "2026-09-08_KR_04",
+      "2026-09-09_GL_01",
+      "2026-09-09_CN_01",
+      "2026-09-08_GL_04",
+      "2026-09-08_EU_02",
+      "2026-09-09_EU_01",
+      "2026-09-09_EU_02",
+      "2026-09-09_GL_02",
+      "2026-09-09_US_01",
+      "2026-09-09_GL_03",
+      "2026-09-10_EU_01",
+      "2026-09-07_CN_02"
+    ],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [],
+    "updates": [
+      {
+        "id": "2026-09-08_GL_03",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-08_GL_03 / STD26_0909_A_002 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      },
+      {
+        "id": "2026-09-02_EU_05",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-02_EU_05 / STD26_0909_A_003 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      },
+      {
+        "id": "2026-09-02_CN_01",
+        "change_type": "correction",
+        "changed_fields": [
+          "date_role",
+          "fact_sources",
+          "source_diversity_measure",
+          "stage_b_lineage"
+        ],
+        "reason": "Carry the #373 A004 source-publication correction and pv magazine group owner normalization into canonical, then bind the exact corrected Stage B artifact hash.",
+        "evidence_review_summary": "PR #373 corrected A004 Stage B/C: S2 and S3 publication dates are 2026-09-08 and both normalize to pv_magazine_group; representative event date remains 2026-09-02."
+      },
+      {
+        "id": "2026-09-08_CN_01",
+        "change_type": "correction",
+        "changed_fields": [
+          "claim_map",
+          "fact_sources",
+          "single_source_exception",
+          "source_discovery_ledger",
+          "source_diversity_measure",
+          "source_diversity_status",
+          "source_synthesis_applied",
+          "source_synthesis_audit",
+          "source_synthesis_fields",
+          "stage_b_lineage"
+        ],
+        "reason": "Carry the #373 A007 Reuters syndication correction into canonical and bind the exact corrected Stage B artifact hash.",
+        "evidence_review_summary": "PR #373 established 2 URLs / 2 domains / 1 Reuters owner; the Mining.com Reuters-syndicated article supports the visible rare-earth claim while the generic Reuters trade article is checked but excluded from visible-claim support."
+      },
+      {
+        "id": "2026-09-08_KR_04",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-08_KR_04 / STD26_0909_A_009 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      },
+      {
+        "id": "2026-09-09_GL_01",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-09_GL_01 / STD26_0909_A_010 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      },
+      {
+        "id": "2026-09-09_CN_01",
+        "change_type": "correction",
+        "changed_fields": [
+          "date_role",
+          "fact_sources",
+          "stage_b_lineage"
+        ],
+        "reason": "Carry the #373 A012 source-publication correction into canonical and bind the exact corrected Stage B artifact hash.",
+        "evidence_review_summary": "PR #373 corrected A012-S2 to publication date 2026-09-01 while preserving the 2026-09-09 representative event date."
+      },
+      {
+        "id": "2026-09-08_GL_04",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-08_GL_04 / STD26_0909_A_013 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      },
+      {
+        "id": "2026-09-08_EU_02",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-08_EU_02 / STD26_0909_A_015 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      },
+      {
+        "id": "2026-09-09_EU_01",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-09_EU_01 / STD26_0909_A_016 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      },
+      {
+        "id": "2026-09-09_EU_02",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-09_EU_02 / STD26_0909_A_017 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      },
+      {
+        "id": "2026-09-09_GL_02",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-09_GL_02 / STD26_0909_A_018 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      },
+      {
+        "id": "2026-09-09_US_01",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-09_US_01 / STD26_0909_A_019 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      },
+      {
+        "id": "2026-09-09_GL_03",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-09_GL_03 / STD26_0909_A_020 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      },
+      {
+        "id": "2026-09-10_EU_01",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-10_EU_01 / STD26_0909_A_021 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      },
+      {
+        "id": "2026-09-07_CN_02",
+        "change_type": "correction",
+        "changed_fields": [
+          "stage_b_lineage"
+        ],
+        "reason": "Rebind 2026-09-07_CN_02 / STD26_0909_P_002 canonical Stage B lineage from PENDING to the exact corrected Stage B artifact SHA-256 merged through #373.",
+        "evidence_review_summary": "The #373 remediation recertified the run-bound Stage B/C artifacts; this bounded update changes only canonical stage_b_lineage.artifact_sha256 and does not alter event identity, content, evidence claims, dates, or Related state."
+      }
+    ]
+  }
+}

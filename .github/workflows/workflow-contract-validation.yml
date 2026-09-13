@@ -37,7 +37,7 @@ on:
       - ".github/workflows/manual-direct-add-schema-validation.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
@@ -113,3 +113,70 @@ jobs:
 
       - name: Verify lean projection contract
         run: node scripts/lean_cards.mjs --check
+
+  materialize-pr374:
+    if: github.event_name == 'pull_request' && github.event.pull_request.number == 374 && github.event.pull_request.head.ref == 'direct-add/pr371-canonical-remediation'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR head branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Materialize bounded canonical remediation
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE_SHA=5147e5bfbe7cadbf03782ef68805444227afaf1e
+          MANIFEST=direct-adds/2026-09-13-pr371-canonical-provenance/direct-add.json
+          git show "$BASE_SHA:data/cards.full.json" > /tmp/base-cards.full.json
+          python scripts/tmp_materialize_pr374.py
+          node scripts/lean_cards.mjs
+          node scripts/lean_cards.mjs --check
+          node scripts/validate_manual_direct_add.mjs \
+            --manifest "$MANIFEST" \
+            --base /tmp/base-cards.full.json \
+            --full data/cards.full.json \
+            --lean public/data/cards.json
+
+      - name: Self-clean temporary machinery and prove final PR shape
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE_SHA=5147e5bfbe7cadbf03782ef68805444227afaf1e
+          git checkout "$BASE_SHA" -- .github/workflows/workflow-contract-validation.yml
+          rm -f scripts/tmp_materialize_pr374.py
+          rm -f validation_scripts/tests/test_tmp_pr374_canonical_probe.py
+          mapfile -t actual < <(git diff --name-only "$BASE_SHA" -- | sort)
+          expected=(
+            "data/cards.full.json"
+            "direct-adds/2026-09-13-pr371-canonical-provenance/direct-add.json"
+            "public/data/cards.json"
+          )
+          mapfile -t expected_sorted < <(printf '%s\n' "${expected[@]}" | sort)
+          printf 'FINAL_PR_FILES\n%s\n' "${actual[*]}"
+          if [[ "${actual[*]}" != "${expected_sorted[*]}" ]]; then
+            echo "Final cumulative PR diff is not exactly the governed three-file Direct Add V2 shape." >&2
+            exit 1
+          fi
+
+      - name: Commit final governed three-file direct add
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Materialize #371 canonical provenance remediation"
+          git push origin "HEAD:${{ github.event.pull_request.head.ref }}"

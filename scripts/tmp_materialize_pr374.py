@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import copy
 import hashlib
 import json
 import subprocess
@@ -14,7 +13,7 @@ BASE_BLOB = "79e1b89ca89b55c24bd8b2c1fa6924a3d85f13c9"
 FULL_PATH = ROOT / "data/cards.full.json"
 STAGE_B_PATH = ROOT / "runs/2026-09-10/sep9-r1-current-main-production-r1/stages/stage-b.json"
 MANIFEST_PATH = ROOT / "direct-adds/2026-09-13-pr371-canonical-provenance/direct-add.json"
-EXPECTED_COUNT = 1615
+EXPECTED_COUNT = 1633
 TARGET_IDS = [
     "2026-09-08_GL_03",
     "2026-09-02_EU_05",
@@ -115,7 +114,6 @@ def main() -> None:
     if len(stage_b_hash) != 64:
         fail("invalid Stage B SHA-256")
 
-    # Every deferred card receives the exact corrected Stage B artifact hash.
     for card_id in TARGET_IDS:
         card = cards[card_id]
         lineage = card.get("stage_b_lineage")
@@ -125,7 +123,6 @@ def main() -> None:
         assert_eq(lineage.get("artifact_sha256"), "PENDING", f"{card_id} stale artifact hash precondition")
         lineage["artifact_sha256"] = stage_b_hash
 
-    # A004: source publication dates and pv magazine group owner normalization.
     a004 = cards[A004_ID]
     assert_eq(a004.get("source_spec_id"), "STD26_0909_A_004", "A004 source_spec_id")
     s2 = source_by_id(a004, "STD26_0909_A_004-S2")
@@ -149,7 +146,6 @@ def main() -> None:
     assert_eq(a004_measure.get("independent_owner_count"), 3, "A004 stale owner count")
     a004_measure["independent_owner_count"] = 2
 
-    # A012: pv magazine tax article was published Sep 1, while event representative date remains Sep 9.
     a012 = cards[A012_ID]
     assert_eq(a012.get("source_spec_id"), "STD26_0909_A_012", "A012 source_spec_id")
     a012_s2 = source_by_id(a012, "STD26_0909_A_012-S2")
@@ -162,8 +158,6 @@ def main() -> None:
     a012_date["publication_dates"] = ["2026-09-01", "2026-09-09"]
     assert_eq(a012.get("date"), "2026-09-09", "A012 representative card date")
 
-    # A007: collapse Mining.com/Reuters and Reuters to one Reuters reporting chain;
-    # the generic Reuters trade article remains checked but cannot support visible rare-earth claims.
     a007 = cards[A007_ID]
     assert_eq(a007.get("source_spec_id"), "STD26_0909_A_007", "A007 source_spec_id")
     a007_s1 = source_by_id(a007, "STD26_0909_A_007-S1")
@@ -215,7 +209,6 @@ def main() -> None:
         ],
     }
 
-    # No card may drift outside the bounded target set, and each target must match an explicit allowlist.
     actual_by_id = {}
     expected_special = {
         A004_ID: {"date_role", "fact_sources", "source_diversity_measure", "stage_b_lineage"},

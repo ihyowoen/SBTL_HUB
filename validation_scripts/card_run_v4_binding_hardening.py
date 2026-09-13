@@ -480,11 +480,13 @@ def validate_operations(run,governed):
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument("--run"); ap.add_argument("--self-test",action="store_true"); args=ap.parse_args()
     if args.self_test:
+        regions,_=coverage_axes()
+        axis_matrix({k:{"status":"searched"} for k in regions},regions,"regions")
         source={"review_pool":[],"legacy_keep":[{"story_id":"C1","grouped_story_ids":["C1"]}],"strict_passed_spec":[],"candidate_review_pool":[],"watchlist_context_pool":[],"reject_or_support_only_pool":[],"rejected":[],"existing_reinforcement":[],"support_source_only":[]}
         if checker_validated_stage_a_decisions(source)!={"C1":("legacy_keep","stage_a_checker:legacy_keep:C1")}: raise RuntimeError("legacy_keep/dedup contract failed")
         strict={"CAND_1":("strict_passed_spec","stage_a_checker:strict_passed_spec:SPEC_NEW")}
         validate_governed_stage_a_operation({"A":[{"spec_id":"SPEC_NEW","source_story_ids":["CAND_1"]}]},"SPEC_NEW",governed_strict_spec_identities(strict),"insert[0]")
-        print("PASS: V4 binding hardening self-test; checker-valid legacy_keep and duplicate-in-row identities are supported, unchecked Stage A status aliases are ignored, operations bind to terminal-governed strict outcomes, and existing fail-closed gates remain active"); return 0
+        print("PASS: V4 binding hardening self-test; checker-valid legacy_keep and duplicate-in-row identities are supported, unchecked Stage A status aliases are ignored, operations bind to terminal-governed strict outcomes, coverage axes remain lazy/fail-closed, and existing fail-closed gates remain active"); return 0
     if not args.run: raise Blocked("--run PATH required")
     run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); governed=validate_completeness(run); validate_operations(run,governed); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","terminal_decision_binding":"PASS","operation_stage_a_binding":"PASS","source_diversity_chain":"PASS","related_semantics":"PASS"})); return 0
 

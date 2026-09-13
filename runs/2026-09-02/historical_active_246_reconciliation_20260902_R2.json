@@ -1,0 +1,74 @@
+{
+  "schema": "historical_active_246_reconciliation_v2",
+  "status": "OPEN_SOURCE_METADATA_MATERIALIZATION_REQUIRED",
+  "generated_date": "2026-09-02",
+  "current_main_sha": "d631fccee308d7334095f843208517d5f3e11ef1",
+  "canonical_card_count": 1514,
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "source_ledger_ref": "runs/2026-09-02/historical_governed_carry_forward_20260825_active246_R1.json",
+  "source_artifact_bindings": {
+    "historical_stage_a": {
+      "file": "stage_a_prompt_a_results_20260825_MULTI_INPUT_20260810_20260825_MERGED_slice7_main_revalidated.json",
+      "sha256": "4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae",
+      "recovered_location": "user_file_library",
+      "role": "historical identity/source metadata only; old V3 selection decisions are non-authoritative for current V4"
+    },
+    "historical_review_promotion": {
+      "file": "stage_a_prompt_01p_review_pool_promotion_20260825_MULTI_INPUT_20260810_20260825_batch5.json",
+      "sha256": "3ad9b135d2ac52ceee9b1c031fe3e191a20d5312831b26eb1a86167e114877ab",
+      "recovered_location": "user_file_library",
+      "role": "authoritative historical 384-item review-pool disposition and 264 needs-user-decision denominator"
+    }
+  },
+  "derivation": {
+    "historical_review_pool_needs_user_decision": 264,
+    "later_promoted_excluded": 18,
+    "remaining_historical_active_exact": 246,
+    "source_augmentation_queue": 221,
+    "earnings_deep_dive_remaining": 25
+  },
+  "current_main_exact_provenance_crosscheck": {
+    "method": "exact U#### token match only; no fuzzy/title inference",
+    "direct_canonical_match_count": 3,
+    "direct_canonical_matches": [
+      {
+        "story_id": "U1476",
+        "production_card_id": "2026-08-20_GL_02",
+        "final_class": "already_canonicalized"
+      },
+      {
+        "story_id": "U1581",
+        "production_card_id": "2026-08-21_GL_01",
+        "final_class": "already_canonicalized"
+      },
+      {
+        "story_id": "U1989",
+        "production_card_id": "2026-08-20_GL_01",
+        "final_class": "already_canonicalized"
+      }
+    ],
+    "noncanonical_repo_exact_u_id_match_count": 0,
+    "remaining_without_exact_repo_u_id_match": 243
+  },
+  "current_v4_reconciliation_policy": {
+    "prompt_0_0c": "Review pools and holds are part of the required search universe; no original/carry-forward candidate may silently disappear before Stage A.",
+    "stage_a": "Every supplied candidate receives current canonical/current-batch Related pre-pass and one canonical disposition. Clear same-event duplicates and existing-card reinforcements stay outside the strict Stage B queue.",
+    "decision": "Do not pre-reject the remaining 243 merely because old V3 promotion was incomplete. Preserve them as historical carry-forward observations for current V4 0.0C/Stage A re-evaluation once exact source metadata is materialized."
+  },
+  "accounting": {
+    "input_total": 246,
+    "already_canonicalized_exact": 3,
+    "historical_observations_requiring_current_v4_recheck": 243,
+    "accounted_total": 246,
+    "accounting_pass": true,
+    "terminal_reconciliation_complete": false
+  },
+  "remaining_blocker": {
+    "type": "SOURCE_METADATA_NOT_REPOSITORY_BOUND",
+    "count": 243,
+    "detail": "Exact source artifacts were recovered in the user File Library and their SHA-256 identities match the historical ledger, but full per-row headline/URL/event metadata is not yet materialized in the repository run branch. A repo-replayable 0.0C/Stage A handoff must not fabricate those fields from story IDs alone.",
+    "resolution": "Materialize the 243 source rows from the exact SHA-bound historical Stage A/review-promotion artifacts, then let current V4 0.0C and Stage A perform same-event/baseline reconciliation."
+  },
+  "stage_a_authorized": false,
+  "reason_stage_a_not_authorized": "Historical active-246 accounting is exact, but 243 per-row source metadata records are not yet repository-bound/replayable."
+}

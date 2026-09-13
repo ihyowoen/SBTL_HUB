@@ -37,7 +37,7 @@ on:
       - ".github/workflows/manual-direct-add-schema-validation.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
@@ -113,3 +113,152 @@ jobs:
 
       - name: Verify lean projection contract
         run: node scripts/lean_cards.mjs --check
+
+  fix-pr374-review:
+    if: github.event_name == 'pull_request' && github.event.pull_request.number == 374 && github.event.pull_request.head.ref == 'direct-add/pr371-canonical-remediation'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR head branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Apply bounded A007 review fixes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          full_path = Path('data/cards.full.json')
+          manifest_path = Path('direct-adds/2026-09-13-pr371-canonical-provenance/direct-add.json')
+          full = json.loads(full_path.read_text(encoding='utf-8-sig'))
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8-sig'))
+
+          cards = [c for c in full['cards'] if c.get('id') == '2026-09-08_CN_01']
+          assert len(cards) == 1, f'A007 card count: {len(cards)}'
+          card = cards[0]
+          assert card.get('source_spec_id') == 'STD26_0909_A_007'
+          assert full.get('total') == 1633 and len(full.get('cards', [])) == 1633
+
+          sources = {s.get('source_id'): s for s in card.get('fact_sources', [])}
+          s1 = sources['STD26_0909_A_007-S1']
+          s2 = sources['STD26_0909_A_007-S2']
+          assert s1.get('source_owner_id_normalized') == 'reuters'
+          assert s2.get('source_owner_id_normalized') == 'reuters'
+          s1['source_owner_id_normalized'] = 'reuters_syndication'
+          s2['source_owner_id_normalized'] = 'reuters_syndication'
+
+          evidence_qc = card.get('evidence_qc')
+          assert isinstance(evidence_qc, dict)
+          assert evidence_qc.get('source_diversity_status') == 'PASS_MULTI_SOURCE'
+          evidence_qc['source_diversity_status'] = 'PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION'
+
+          reuters_url = 'https://www.reuters.com/world/asia-pacific/chinas-exports-up-25-yy-august-imports-surge-282-2026-09-08/'
+          rows = [r for r in card.get('source_discovery_ledger', []) if r.get('canonical_url') == reuters_url]
+          if not rows:
+              rows = [r for r in card.get('source_discovery_ledger', []) if r.get('source_url') == reuters_url or r.get('url') == reuters_url]
+          assert len(rows) == 1, f'Reuters discovery rows: {len(rows)}'
+          row = rows[0]
+          assert row.get('visible_fields_supported') == []
+          old_contribution = row.get('unique_contribution')
+          assert isinstance(old_contribution, str) and old_contribution.strip()
+          row['unique_contribution'] = '중국 일반 수출입 동향을 확인한 참고 맥락이며, 카드의 희토류 visible claim 근거로 사용하지 않음.'
+
+          assert card.get('source_diversity_status') == 'PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION'
+          assert card.get('source_diversity_measure') == {'unique_urls': 2, 'unique_domains': 2, 'independent_owner_count': 1}
+          assert s2.get('visible_claim_support') == [] and s2.get('supports') == []
+          claim_map = card.get('claim_map')
+          assert isinstance(claim_map, list) and len(claim_map) == 1
+          assert claim_map[0].get('supported_by_source_ids') == ['STD26_0909_A_007-S1']
+
+          updates = manifest['editorial_attestation']['updates']
+          entries = [u for u in updates if u.get('id') == '2026-09-08_CN_01']
+          assert len(entries) == 1
+          entry = entries[0]
+          fields = set(entry.get('changed_fields', []))
+          required = {
+              'claim_map', 'evidence_qc', 'fact_sources', 'single_source_exception',
+              'source_discovery_ledger', 'source_diversity_measure', 'source_diversity_status',
+              'source_synthesis_applied', 'source_synthesis_audit', 'source_synthesis_fields',
+              'stage_b_lineage'
+          }
+          assert fields == required - {'evidence_qc'}, f'Unexpected pre-fix fields: {sorted(fields)}'
+          entry['changed_fields'] = sorted(required)
+          entry['evidence_review_summary'] = (
+              'PR #373 established 2 URLs / 2 domains / 1 Reuters syndication owner; '
+              'the Mining.com Reuters-syndicated article supports the visible rare-earth claim, '
+              'while the generic Reuters trade article is checked-only. PR #374 review remediation '
+              'also synchronizes nested evidence QC and discovery contribution metadata.'
+          )
+
+          assert manifest['operations']['update'].count('2026-09-08_CN_01') == 1
+          assert len(manifest['operations']['update']) == 16
+          assert manifest['operations']['add'] == [] and manifest['operations']['id_migration'] == []
+          assert manifest['expected_before'] == 1633 and manifest['expected_after'] == 1633
+
+          now = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
+          full['updated'] = now
+          manifest['output_updated'] = now
+          full_path.write_text(json.dumps(full, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps({
+              'status': 'PASS_A007_REVIEW_FIX',
+              'owners': [s1['source_owner_id_normalized'], s2['source_owner_id_normalized']],
+              'nested_qc': evidence_qc['source_diversity_status'],
+              'unique_contribution': row['unique_contribution'],
+              'changed_fields': entry['changed_fields'],
+              'cardinality': len(full['cards']),
+          }, ensure_ascii=False))
+          PY
+
+          node scripts/lean_cards.mjs
+          node scripts/lean_cards.mjs --check
+          git show 5147e5bfbe7cadbf03782ef68805444227afaf1e:data/cards.full.json > /tmp/base-cards.full.json
+          node scripts/validate_manual_direct_add.mjs \
+            --manifest direct-adds/2026-09-13-pr371-canonical-provenance/direct-add.json \
+            --base /tmp/base-cards.full.json \
+            --full data/cards.full.json \
+            --lean public/data/cards.json
+
+      - name: Restore workflow and prove exact final shape
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE_SHA=5147e5bfbe7cadbf03782ef68805444227afaf1e
+          git checkout "$BASE_SHA" -- .github/workflows/workflow-contract-validation.yml
+          git add -A
+          mapfile -t actual < <(git diff --cached --name-only "$BASE_SHA" -- | sort)
+          expected=(
+            "data/cards.full.json"
+            "direct-adds/2026-09-13-pr371-canonical-provenance/direct-add.json"
+            "public/data/cards.json"
+          )
+          mapfile -t expected_sorted < <(printf '%s\n' "${expected[@]}" | sort)
+          printf 'FINAL_PR_FILES\n%s\n' "${actual[*]}"
+          if [[ "${actual[*]}" != "${expected_sorted[*]}" ]]; then
+            echo "Final cumulative PR diff is not exactly the governed three-file Direct Add V2 shape." >&2
+            exit 1
+          fi
+
+      - name: Commit reviewed A007 remediation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Fix PR374 A007 review consistency"
+          git push origin "HEAD:${{ github.event.pull_request.head.ref }}"

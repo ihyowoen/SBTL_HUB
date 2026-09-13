@@ -1,6 +1,6 @@
 {
   "schema_version": "source_owner_registry_v2",
-  "updated": "2026-07-23",
+  "updated": "2026-09-12",
   "rules": [
     {
       "owner_id": "solar_media",
@@ -33,6 +33,17 @@
       "domains": ["theedgemalaysia.com", "businesstimes.com.sg"],
       "requires_metadata_contains_any": ["bloomberg"],
       "reason": "group only when source metadata identifies Bloomberg-origin syndication"
+    },
+    {
+      "owner_id": "reuters_syndication",
+      "domains": ["reuters.com"],
+      "reason": "Reuters source owner"
+    },
+    {
+      "owner_id": "reuters_syndication",
+      "domains": ["mining.com"],
+      "requires_metadata_contains_any": ["reuters"],
+      "reason": "group only when source metadata identifies Reuters-origin syndication"
     },
     {
       "owner_id": "cornex_new_energy",

@@ -1,0 +1,2519 @@
+{
+  "schema": "stage_a_terminal_identity_accounting_post_merge_v1",
+  "stage": "A",
+  "status": "BLOCKED_INCOMPLETE",
+  "run_id": "card-run-2026-09-09-sep9-r1-current-main-production-r1",
+  "source_input_sha256": "623de4b2dd7726b92e01ca9c329c5780ee8c963af26d3e6c5e0b4b0536cd4c92",
+  "coverage_discovery_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-0-0c-415-final.json",
+  "prior_partial_ledger_ref": "runs/2026-09-10/sep9-r1-current-main-production-r1/stage-a-cumulative-ledger-r1.json",
+  "terminal_identity_total": 415,
+  "terminal_identity_accounted": 55,
+  "open_identity_count": 360,
+  "duplicate_identity_count": 0,
+  "unknown_identity_count": 0,
+  "disposition_counts": {
+    "candidate_review_pool": 24,
+    "existing_reinforcement_or_same_event": 15,
+    "reject_or_support_only_pool": 8,
+    "split_parent_decomposed": 1,
+    "support_source_only": 1,
+    "watchlist_or_support_context": 6
+  },
+  "terminal_decisions": [
+    {
+      "identity": "US_2026-09-09_C01",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "US_2026-09-09_C03",
+      "disposition": "reject_or_support_only_pool",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-09_C02",
+      "disposition": "reject_or_support_only_pool",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C04",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C01",
+      "disposition": "reject_or_support_only_pool",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C23",
+      "disposition": "reject_or_support_only_pool",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C25",
+      "disposition": "support_source_only",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C28",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C07",
+      "disposition": "reject_or_support_only_pool",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C10",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C16",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C39",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C33",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C22",
+      "disposition": "watchlist_or_support_context",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C17",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C31",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C27",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C20",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C35",
+      "disposition": "reject_or_support_only_pool",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C21",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C13",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C09",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C08",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C06",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C03",
+      "disposition": "reject_or_support_only_pool",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C41",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-08_C05",
+      "disposition": "reject_or_support_only_pool",
+      "terminal": true,
+      "basis": "stage_a_batch_us32_partial_r1"
+    },
+    {
+      "identity": "US_2026-09-07_C03",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-07_C06",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-07_C04",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-07_C02",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "US_2026-09-07_C05",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C43",
+      "disposition": "watchlist_or_support_context",
+      "terminal": true,
+      "basis": "stage_a_source_recovery_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C22",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "stage_a_source_recovery_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C163",
+      "disposition": "watchlist_or_support_context",
+      "terminal": true,
+      "basis": "stage_a_source_recovery_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C159",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C153",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C59",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C50",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C121",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C205",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C203",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C174",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C77",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C07",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C154",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C89",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C15",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C149",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C148",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C135",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C65",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C39",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C93",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C85",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C80",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C58",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C08",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C49",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C32",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C195",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C186",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C185",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C175",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C173",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C165",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C147",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C134",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C132",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C76",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C17",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C170",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C123",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C108",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C133",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C120",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C55",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C136",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C99",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C12",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C73",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C199",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C183",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C164",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C158",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C95",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C90",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C74",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C36",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C35",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C26",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C176",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C37",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C155",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C44",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C198",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C171",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "REVIEW_7",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C84",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C24",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "REVIEW_8",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C97",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C53",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-09_C52",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C86",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C51",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C50",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C35",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C98",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C31",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C20",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C27",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C95",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C82",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C32",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C64",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C42",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C74",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C70",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C28",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C87",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C21",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C07",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C66",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C26",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C22",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C83",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C79",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C09",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C100",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C60",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C54",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C37",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C106",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C62",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C11",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C88",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C69",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C65",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C48",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C44",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C43",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C25",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C105",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C52",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C05",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C23",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C94",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C29",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C16",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-08_C15",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-07_C11",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-07_C10",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-07_C06",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-07_C16",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-07_C18",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-07_C05",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-07_C09",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-07_C02",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "REVIEW_1",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "KR_2026-09-07_C04",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-09_C04",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-09_C10",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-09_C01",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-09_C03",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-09_C05",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-09_C02",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-08_C01",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-08_C08",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "JP_2026-09-08_C14",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-08_C13",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-08_C09",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-08_C05",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-08_C04",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-07_C06",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-07_C03",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-07_C01",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "JP_2026-09-07_C02",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-09_C04",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-09_C03",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-09_C08",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-09_C06",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-09_C09",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-09_C02",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-09_C01",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-09_C12",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C12",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C16",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C03",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C02",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C07",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C24",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C06",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C20",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C13",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C19",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C04",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C25",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C23",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C22",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C15",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C08",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-08_C05",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C06",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C18",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C08",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C05",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C20",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C15",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C19",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C04",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C03",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C17",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C14",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C07",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C16",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-07_C10",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "GL_2026-09-06_C03",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C05",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C18",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C16",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C07",
+      "disposition": "split_parent_decomposed",
+      "terminal": true,
+      "basis": "stage_0_0c_combined_relock"
+    },
+    {
+      "identity": "EU_2026-09-08_C28",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C11",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C22",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C15",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C08",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C06",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C14",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C01",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C25",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C20",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C19",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C26",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C24",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C03",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C31",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C21",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C30",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-08_C02",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-07_C06",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-07_C17",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-07_C14",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-07_C15",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-07_C09",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-07_C22",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-07_C08",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "EU_2026-09-07_C21",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-07_C11",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "stage_a_source_recovery_r1"
+    },
+    {
+      "identity": "EU_2026-09-07_C04",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "EU_2026-09-07_C19",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C14",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C06",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C20",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C22",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C08",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C10",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C11",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C19",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C18",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C12",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C05",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C23",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-09_C04",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C04",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C32",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C17",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C35",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C31",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C24",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C19",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C37",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C11",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C05",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C01",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C30",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C15",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C02",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C13",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C10",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C33",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C39",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C29",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C28",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C09",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C22",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C12",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C07",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C27",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-08_C23",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-07_C04",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "CN_2026-09-07_C14",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-07_C13",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-07_C18",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-07_C11",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-07_C02",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-07_C10",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-07_C07",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-07_C03",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "CN_2026-09-07_C05",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "CN_2026-09-07_C12",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0244",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0243",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0238",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0235",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0234",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0239",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0232",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0164",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0134",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0132",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0209",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0200",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0197",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0166",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0214",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0160",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0146",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0195",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0187",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0182",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0188",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0156",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0144",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0147",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0221",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0198",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0173",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0171",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0170",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0223",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0216",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0215",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0135",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0217",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0141",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0207",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0196",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0161",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0149",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0205",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0176",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0175",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0172",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0138",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0116",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0086",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0112",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0102",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0087",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0092",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0118",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0110",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0078",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0073",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0071",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0067",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0066",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0064",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0061",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0059",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0060",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "semantic_repeat_map_audit_r1"
+    },
+    {
+      "identity": "TF_0056",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0057",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0062",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0058",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0063",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0054",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0051",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0048",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0049",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0047",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0046",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0053",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0052",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0050",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0042",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0039",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0041",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0036",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0045",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0043",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0033",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0032",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0027",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0026",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0024",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0014",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0021",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0022",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0015",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0007",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "TF_0009",
+      "disposition": "UNADJUDICATED_BLOCKING",
+      "terminal": false,
+      "basis": "post_merge_reconciliation_against_stage_a_cumulative_ledger_r1"
+    },
+    {
+      "identity": "SEP09_DISC_001",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_DISC_002",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_DISC_003",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_DISC_004",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_DISC_005",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_DISC_006",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_DISC_007",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_DISC_008",
+      "disposition": "watchlist_or_support_context",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_DISC_009",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_DISC_010",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_DISC_011",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP10_DISC_001",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP10_DISC_002",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP10_DISC_003",
+      "disposition": "watchlist_or_support_context",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP10_DISC_004",
+      "disposition": "watchlist_or_support_context",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP10_DISC_005",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP10_DISC_006",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP10_DISC_007",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_DISC_012",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_DISC_013",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "coverage_discovery_final_stage_a_routing"
+    },
+    {
+      "identity": "SEP09_SPLIT_LIXHE",
+      "disposition": "existing_reinforcement_or_same_event",
+      "terminal": true,
+      "basis": "stage_0_0c_event_split_plus_legacy_relation_salvage"
+    },
+    {
+      "identity": "SEP09_SPLIT_COO",
+      "disposition": "candidate_review_pool",
+      "terminal": true,
+      "basis": "stage_0_0c_event_split"
+    }
+  ],
+  "authorization": {
+    "full_stage_a_pass": false,
+    "prompt_0_8_authorized": false,
+    "canonical_deletion_authorized": false
+  }
+}

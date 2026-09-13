@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, json, os, subprocess, sys
+import argparse, hashlib, json, os, subprocess, sys
+from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,6 +14,30 @@ ALIASES = {"a":"A","stage_a":"A","0.1":"A","b":"B","stage_b":"B","0.2":"B","c":"
 BUCKETS = {"A":["strict_passed_spec"],"B":["draft_cards","draft_card"],"C":["accepted_fact_safe"],"0.4":["addable_merge_safe"],"0.5":["evidence_complete_and_source_claim_covered"],"0.6":["content_enriched_and_language_polished"],"0.7":["publish_ready"]}
 STAGES = tuple(BUCKETS)
 ALLOWED_RELATED_ADD_TYPES = {"distinct_follow_up", "program_lineage"}
+ALLOWED_STAGE_A_TERMINAL_DISPOSITIONS = {
+    "legacy_keep",
+    "strict_passed_spec",
+    "candidate_review_pool",
+    "watchlist_context_pool",
+    "watchlist_or_support_context",
+    "reject_or_support_only_pool",
+    "rejected",
+    "existing_reinforcement",
+    "existing_reinforcement_or_same_event",
+    "reinforcement",
+    "support_source_only",
+    "split_parent_decomposed",
+}
+STAGE_A_GOVERNED_POOLS = (
+    "legacy_keep",
+    "strict_passed_spec",
+    "candidate_review_pool",
+    "watchlist_context_pool",
+    "reject_or_support_only_pool",
+    "rejected",
+    "existing_reinforcement",
+    "support_source_only",
+)
 IDENTITY_ROOT = "source_spec_id"
 
 class Blocked(Exception): pass
@@ -50,7 +75,7 @@ def validate_preflight(run):
     expected_m=set(r.get("open_remediations",[]))|set(r.get("activation_required_migrations",[]))
     if strings(a.get("active_canonical_paths"),"0.0D.active_canonical_paths")!=expected_c: raise Blocked("0.0D active_canonical_paths != current registry active set")
     if strings(a.get("active_validator_contract_paths"),"0.0D.active_validator_contract_paths")!=expected_v: raise Blocked("0.0D active_validator_contract_paths != current registry validator set")
-    if strings(a.get("applicable_remediation_or_migration"),"0.0D.applicable_remediation_or_migration",allow_empty=True)!=expected_m: raise Blocked("0.0D applicable remediation/migration != current registry set")
+    if strings(a.get("applicable_remediation_or_migration"),"0.0D.applicable remediation/migration",allow_empty=True)!=expected_m: raise Blocked("0.0D applicable remediation/migration != current registry set")
     required=len(expected_c|expected_v|expected_m)
     if a.get("active_full_read_count")!=required: raise Blocked(f"0.0D active_full_read_count must equal exact active/dependency closure ({required})")
 
@@ -67,6 +92,98 @@ def validate_coverage(run):
     regions,topics=coverage_axes()
     a=load(repo_json(run["coverage_discovery_ref"])); axis_matrix(a.get("regional_coverage_matrix"),regions,"0.0C.regional_coverage_matrix"); axis_matrix(a.get("topic_coverage_matrix"),topics,"0.0C.topic_coverage_matrix")
 
+def _nonempty_text(value):
+    return isinstance(value,str) and bool(value.strip())
+
+def _stage_a_story_ids(item,pool):
+    if not isinstance(item,dict): return []
+    out=[]
+    if pool=="strict_passed_spec":
+        values=item.get("source_story_ids")
+        if isinstance(values,list): out.extend(x.strip() for x in values if _nonempty_text(x))
+    else:
+        if _nonempty_text(item.get("story_id")): out.append(item["story_id"].strip())
+        grouped=item.get("grouped_story_ids")
+        if isinstance(grouped,list): out.extend(x.strip() for x in grouped if _nonempty_text(x))
+        source_ids=item.get("source_story_ids")
+        if isinstance(source_ids,list): out.extend(x.strip() for x in source_ids if _nonempty_text(x))
+    return list(dict.fromkeys(out))
+
+def checker_validated_stage_a_decisions(source):
+    review_pool=source.get("review_pool")
+    if not isinstance(review_pool,list):
+        raise Blocked("checker-validated Stage A review_pool must be an array")
+    if review_pool:
+        raise Blocked("checker-validated Stage A review_pool must be empty before terminal authority; use canonical review partitions")
+
+    governed={}
+    for pool in STAGE_A_GOVERNED_POOLS:
+        values=source.get(pool)
+        if not isinstance(values,list):
+            raise Blocked(f"checker-validated Stage A output pool {pool} must be an array")
+        for index,item in enumerate(values):
+            if not isinstance(item,dict):
+                raise Blocked(f"checker-validated Stage A {pool}[{index}] must be an object")
+            spec_id=item.get("spec_id") if _nonempty_text(item.get("spec_id")) else None
+            identities=_stage_a_story_ids(item,pool)
+            if not identities:
+                raise Blocked(f"checker-validated Stage A {pool}[{index}] has no governed story identity")
+            for identity in identities:
+                if identity in governed:
+                    raise Blocked(f"checker-validated Stage A identity {identity} appears in multiple output dispositions")
+                basis=f"stage_a_checker:{pool}:{spec_id or identity}"
+                governed[identity]=(pool,basis)
+    return governed
+
+def governed_stage_a_decisions(run,ledger):
+    ref=ledger.get("governed_stage_a_ledger_ref") or ledger.get("prior_partial_ledger_ref")
+    if not _nonempty_text(ref):
+        raise Blocked("Stage A terminal identity ledger must reference its governed Stage A decision ledger")
+    source_path=repo_json(ref.strip())
+    source=load(source_path)
+    raw_stage=source.get("stage")
+    if not _nonempty_text(raw_stage) or ALIASES.get(raw_stage.strip().lower())!="A" or source.get("run_id")!=run.get("run_id"):
+        raise Blocked("governed Stage A decision ledger stage/run_id mismatch")
+    authority=source.get("authority") if isinstance(source.get("authority"),dict) else source
+    for field in ("base_main_commit_sha","base_full_blob_sha"):
+        if authority.get(field)!=run.get(field):
+            raise Blocked(f"governed Stage A decision ledger {field} mismatch")
+    if ledger.get("status")!="PASS":
+        raise Blocked("terminal decision binding requires a PASS terminal identity ledger")
+    checker=ROOT / "validation_scripts/stage_lineage_contract_check.py"
+    proc=subprocess.run(
+        [sys.executable,str(checker),"stage_a",str(source_path)],
+        text=True,capture_output=True,
+    )
+    if proc.returncode!=0:
+        detail=(proc.stderr or proc.stdout or "Stage A checker failed").strip().replace("\n"," ")
+        raise Blocked(
+            "passing terminal ledger requires governed Stage A decision ledger to pass the full Stage A checker: "
+            + detail[:600]
+        )
+    return checker_validated_stage_a_decisions(source)
+
+def validate_terminal_decision_binding(entries,governed):
+    if not isinstance(entries,list):
+        raise Blocked("Stage A terminal identity ledger terminal_decisions must be an array")
+    terminal_ids=[]; dispositions=[]
+    for index,row in enumerate(entries):
+        identity=row.get("identity") if isinstance(row,dict) else None
+        disposition=row.get("disposition") if isinstance(row,dict) else None
+        basis=row.get("basis") if isinstance(row,dict) else None
+        if not _nonempty_text(identity): raise Blocked(f"Stage A terminal_decisions[{index}].identity required")
+        if disposition not in ALLOWED_STAGE_A_TERMINAL_DISPOSITIONS: raise Blocked(f"Stage A terminal_decisions[{index}].disposition is not an allowed terminal disposition")
+        if not _nonempty_text(basis): raise Blocked(f"Stage A terminal_decisions[{index}].basis required")
+        if row.get("terminal") is not True: raise Blocked(f"Stage A terminal_decisions[{index}] must declare terminal=true")
+        identity=identity.strip(); basis=basis.strip()
+        expected=governed.get(identity)
+        if expected is None: raise Blocked(f"Stage A terminal_decisions[{index}] identity={identity} has no governed Stage A decision")
+        if expected!=(disposition,basis): raise Blocked(f"Stage A terminal_decisions[{index}] disposition/basis does not match checker-validated Stage A output")
+        terminal_ids.append(identity); dispositions.append(disposition)
+    if len(terminal_ids)!=len(set(terminal_ids)):
+        raise Blocked("Stage A terminal identity ledger contains duplicate identities")
+    return terminal_ids,dispositions
+
 def validate_completeness(run):
     a=load(repo_json(run["independent_completeness_ref"]))
     if a.get("stage")!="0.7C": raise Blocked("0.7C stage must be explicit")
@@ -77,6 +194,59 @@ def validate_completeness(run):
         if a.get(field)!=run.get(field): raise Blocked(f"0.7C {field} must match card run")
     if a.get("document_universe_manifest_ref")!=run.get("document_universe_manifest_ref"): raise Blocked("0.7C document_universe_manifest_ref must match card run")
     if a.get("coverage_discovery_ref")!=run.get("coverage_discovery_ref"): raise Blocked("0.7C coverage_discovery_ref must match card run")
+
+    ledger_ref=a.get("terminal_identity_ledger_ref")
+    if not isinstance(ledger_ref,str) or not ledger_ref.strip():
+        raise Blocked("0.7C terminal_identity_ledger_ref is required")
+    ledger_path=repo_json(ledger_ref)
+    recorded_sha=a.get("terminal_identity_ledger_sha256")
+    actual_sha=hashlib.sha256(ledger_path.read_bytes()).hexdigest()
+    if recorded_sha!=actual_sha:
+        raise Blocked("0.7C terminal_identity_ledger_sha256 does not match referenced bytes")
+    ledger=load(ledger_path)
+    if ledger.get("status")!="PASS" or ledger.get("stage")!="A":
+        raise Blocked("0.7C terminal identity ledger must be a passing Stage A ledger")
+    if ledger.get("run_id")!=run.get("run_id"):
+        raise Blocked("0.7C terminal identity ledger run_id mismatch")
+    governed=governed_stage_a_decisions(run,ledger)
+
+    coverage=load(repo_json(run["coverage_discovery_ref"]))
+    coverage_rows=coverage.get("source_universe_expansion_ledger")
+    if not isinstance(coverage_rows,list):
+        raise Blocked("0.0C source_universe_expansion_ledger must be an array")
+    coverage_ids=[]
+    for index,row in enumerate(coverage_rows):
+        candidate_id=row.get("candidate_id") if isinstance(row,dict) else None
+        if not isinstance(candidate_id,str) or not candidate_id.strip():
+            raise Blocked(f"0.0C source_universe_expansion_ledger[{index}].candidate_id required")
+        coverage_ids.append(candidate_id.strip())
+    if len(coverage_ids)!=len(set(coverage_ids)):
+        raise Blocked("0.0C source_universe_expansion_ledger contains duplicate identities")
+
+    entries=ledger.get("terminal_decisions")
+    terminal_ids,dispositions=validate_terminal_decision_binding(entries,governed)
+    if set(terminal_ids)!=set(coverage_ids):
+        missing=sorted(set(coverage_ids)-set(terminal_ids))
+        unknown=sorted(set(terminal_ids)-set(coverage_ids))
+        raise Blocked(f"Stage A terminal identity ledger does not exactly reconcile 0.0C; missing={missing[:5]} unknown={unknown[:5]}")
+    if set(governed)!=set(coverage_ids):
+        missing=sorted(set(coverage_ids)-set(governed))
+        unknown=sorted(set(governed)-set(coverage_ids))
+        raise Blocked(f"checker-validated Stage A outputs do not exactly reconcile 0.0C; missing={missing[:5]} unknown={unknown[:5]}")
+
+    universe=a.get("universe_accounting")
+    if not isinstance(universe,dict): raise Blocked("0.7C universe_accounting must be an object")
+    total=len(coverage_ids)
+    if universe.get("terminal_identity_total")!=total or universe.get("terminal_identity_accounted")!=total: raise Blocked("0.7C terminal identity totals must equal the exact identity ledger cardinality")
+    if universe.get("duplicate_identity_count")!=0 or universe.get("missing_identity_count")!=0: raise Blocked("0.7C duplicate/missing identity counts must both be zero")
+    if ledger.get("terminal_identity_total")!=total or ledger.get("terminal_identity_accounted")!=total: raise Blocked("Stage A terminal identity ledger cardinality fields are inconsistent")
+    if ledger.get("open_identity_count")!=0: raise Blocked("Stage A terminal identity ledger open_identity_count must be zero")
+
+    actual_counts=dict(sorted(Counter(dispositions).items()))
+    if ledger.get("disposition_counts")!=actual_counts: raise Blocked("Stage A terminal identity ledger disposition_counts do not match identity rows")
+    revalidation=a.get("stage_a_revalidation")
+    if not isinstance(revalidation,dict) or revalidation.get("disposition_counts")!=actual_counts: raise Blocked("0.7C stage_a_revalidation.disposition_counts must match the identity ledger")
+    return governed
 
 def stage(payload,label):
     raw=payload.get("stage")
@@ -106,6 +276,22 @@ def row_spec_id(row,s):
 def matching_rows(payload,s,expected): return [row for row in stage_rows(payload,s) if row_spec_id(row,s)==expected]
 def spec_ids(payload,s): return {x for row in stage_rows(payload,s) if (x:=row_spec_id(row,s))}
 
+def governed_strict_spec_identities(governed):
+    prefix="stage_a_checker:strict_passed_spec:"
+    result={}
+    for identity,(disposition,basis) in governed.items():
+        if disposition!="strict_passed_spec": continue
+        if not isinstance(basis,str) or not basis.startswith(prefix) or not basis[len(prefix):]: raise Blocked(f"checker-validated strict Stage A identity {identity} has malformed derived basis")
+        result.setdefault(basis[len(prefix):],set()).add(identity)
+    return result
+
+def validate_governed_stage_a_operation(rows_by_stage,expected,strict_specs,label):
+    governed_ids=strict_specs.get(expected)
+    if not governed_ids: raise Blocked(f"{label} source_spec_id={expected} is not a checker-validated strict Stage A outcome")
+    actual_ids=set()
+    for row in rows_by_stage.get("A",[]): actual_ids.update(_stage_a_story_ids(row,"strict_passed_spec"))
+    if actual_ids!=governed_ids: raise Blocked(f"{label} Stage A operation binding disagrees with terminal authority for {expected}; governed={sorted(governed_ids)} actual={sorted(actual_ids)}")
+
 def _git(args):
     proc=subprocess.run(["git","-C",str(ROOT),*args],text=True,capture_output=True)
     if proc.returncode!=0: raise Blocked(f"git {' '.join(args)} failed: {(proc.stderr or proc.stdout).strip()}")
@@ -128,8 +314,7 @@ def validate_no_identity_mutation(op,label):
     for i,change in enumerate(op.get("changes",[]) if isinstance(op,dict) else []):
         if not isinstance(change,dict): continue
         path=change.get("path")
-        if isinstance(path,str) and (path==f"/{IDENTITY_ROOT}" or path.startswith(f"/{IDENTITY_ROOT}/")):
-            raise Blocked(f"{label}.changes[{i}] cannot mutate {IDENTITY_ROOT}; operation.source_spec_id is binding metadata only")
+        if isinstance(path,str) and (path==f"/{IDENTITY_ROOT}" or path.startswith(f"/{IDENTITY_ROOT}/")): raise Blocked(f"{label}.changes[{i}] cannot mutate {IDENTITY_ROOT}; operation.source_spec_id is binding metadata only")
 
 def validate_insert_identities(insert_ops,known):
     baseline_specs=set(known.values()); seen=set()
@@ -150,8 +335,7 @@ def op_spec(kind,op,known,inserted,label):
     if kind=="update":
         validate_no_identity_mutation(op,label)
         cid=op.get("id"); old=known.get(cid); declared=op.get("source_spec_id")
-        if isinstance(declared,str): declared=declared.strip() or None
-        else: declared=None
+        declared=declared.strip() if isinstance(declared,str) and declared.strip() else None
         if old and declared and old!=declared: raise Blocked(f"{label}.source_spec_id conflicts with declared-baseline identity")
         if old: return old
         if not declared: raise Blocked(f"{label}.source_spec_id required for legacy card without baseline source_spec_id")
@@ -227,9 +411,7 @@ def require_target_and_type(review,op,target_tokens,label,require_reason=False):
 def validate_related_semantics(op,expected,rows_by_stage,known,inserted,label):
     if op.get("relation_type") not in ALLOWED_RELATED_ADD_TYPES: raise Blocked(f"{label}.relation_type must be distinct_follow_up or program_lineage for related_add")
     _,target_tokens=endpoint_context(op,known,inserted,expected,label)
-
-    arows=rows_by_stage.get("A",[])
-    a_ok=False
+    arows=rows_by_stage.get("A",[]); a_ok=False
     for row in arows:
         pre=row.get("related_prepass")
         if not isinstance(pre,dict) or pre.get("status")!="PASS": continue
@@ -239,24 +421,37 @@ def validate_related_semantics(op,expected,rows_by_stage,known,inserted,label):
             if isinstance(candidate,dict) and relation_type(candidate)==op.get("relation_type") and (identifier_tokens(candidate)&target_tokens): a_ok=True; break
         if a_ok: break
     if not a_ok: raise Blocked(f"{label} Stage A related_prepass does not review the declared counterpart/type")
-
     brows=rows_by_stage.get("B",[])
-    if not any(isinstance(row.get("related_evidence_review"),dict) and _relation_review_matches(row["related_evidence_review"],op,target_tokens,False) for row in brows):
-        raise Blocked(f"{label} Stage B related_evidence_review does not resolve the declared counterpart/type")
-
+    if not any(isinstance(row.get("related_evidence_review"),dict) and _relation_review_matches(row["related_evidence_review"],op,target_tokens,False) for row in brows): raise Blocked(f"{label} Stage B related_evidence_review does not resolve the declared counterpart/type")
     for s in ("C","0.4","0.5","0.6","0.7"):
         rows=rows_by_stage.get(s,[])
-        if not any(isinstance(row.get("related_lineage"),dict) and _relation_review_matches(row["related_lineage"],op,target_tokens,True) for row in rows):
-            raise Blocked(f"{label} stage {s} related_lineage does not preserve the declared counterpart/type/reason")
+        if not any(isinstance(row.get("related_lineage"),dict) and _relation_review_matches(row["related_lineage"],op,target_tokens,True) for row in rows): raise Blocked(f"{label} stage {s} related_lineage does not preserve the declared counterpart/type/reason")
 
 def _relation_review_matches(review,op,target_tokens,require_reason):
     try:
         require_target_and_type(review,op,target_tokens,"relation review",require_reason=require_reason)
         return True
-    except Blocked:
-        return False
+    except Blocked: return False
 
-def validate_operations(run):
+def validate_source_diversity_chain(rows_by_stage,label):
+    observed={}
+    for s in ("B","C","0.5","0.6","0.7"):
+        rows=rows_by_stage.get(s,[])
+        if not rows: raise Blocked(f"{label} stage {s} requires a bound row with source_diversity_status")
+        values=set()
+        for index,row in enumerate(rows):
+            value=row.get("source_diversity_status") if isinstance(row,dict) else None
+            if not _nonempty_text(value): raise Blocked(f"{label} stage {s} row {index} requires non-empty source_diversity_status")
+            values.add(value.strip())
+        if len(values)!=1: raise Blocked(f"{label} stage {s} has contradictory source_diversity_status values {sorted(values)}")
+        observed[s]=next(iter(values))
+    statuses=set(observed.values())
+    if len(statuses)>1:
+        detail=", ".join(f"{stage}={status}" for stage,status in observed.items())
+        raise Blocked(f"{label} source_diversity_status drifts across the bound stage chain: {detail}")
+
+def validate_operations(run,governed):
+    strict_specs=governed_strict_spec_identities(governed)
     base=baseline_canonical(run); known=canonical_map_from_data(base)
     insert_ops=run.get("operations",{}).get("insert",[])
     if not isinstance(insert_ops,list): raise Blocked("operations.insert must be array")
@@ -278,54 +473,22 @@ def validate_operations(run):
                     matched.add(s); rows_by_stage.setdefault(s,[]).extend(rows)
             missing=[s for s in STAGES if s not in matched]
             if missing: raise Blocked(f"{label} missing current-run candidate binding at stages {missing}")
+            validate_governed_stage_a_operation(rows_by_stage,expected,strict_specs,label)
+            validate_source_diversity_chain(rows_by_stage,label)
             if kind=="related_add": validate_related_semantics(op,expected,rows_by_stage,known,inserted,label)
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument("--run"); ap.add_argument("--self-test",action="store_true"); args=ap.parse_args()
     if args.self_test:
-        try: stage({"stage":"0.2R"},"x")
-        except Blocked: pass
-        else: raise RuntimeError("revise stage substitution not blocked")
-        try: stage({},"x")
-        except Blocked: pass
-        else: raise RuntimeError("missing declared stage not blocked")
-        sample_run={"run_id":"r","base_main_commit_sha":"a"*40,"base_full_blob_sha":"b"*40}
-        validate_stage_binding({"run_id":"r","base_main_commit_sha":"a"*40,"base_full_blob_sha":"b"*40},sample_run,"artifact")
-        try: validate_stage_binding({"base_main_commit_sha":"a"*40,"base_full_blob_sha":"b"*40},sample_run,"artifact")
-        except Blocked: pass
-        else: raise RuntimeError("missing stage run_id binding not blocked")
-        regions,_=coverage_axes(); axis_matrix({k:{"status":"searched"} for k in regions},regions,"regions")
-        if strings([],"empty remediation",allow_empty=True)!=set(): raise RuntimeError("empty remediation set not accepted")
-        try: strings([],"coverage axes")
-        except Blocked: pass
-        else: raise RuntimeError("coverage-axis empty list unexpectedly accepted")
-        known={"OLD":"SPEC_BASE"}
-        validate_insert_identities([{"card":{"id":"NEW","source_spec_id":"SPEC_NEW"}}],known)
-        for bad in ([{"card":{"id":"A","source_spec_id":"SPEC_NEW"}},{"card":{"id":"B","source_spec_id":"SPEC_NEW"}}],[{"card":{"id":"A","source_spec_id":"SPEC_BASE"}}]):
-            try: validate_insert_identities(bad,known)
-            except Blocked: pass
-            else: raise RuntimeError("insert source identity reuse not blocked")
-        try: validate_no_identity_mutation({"changes":[{"op":"replace","path":"/source_spec_id","value":"OTHER"}]},"update[0]")
-        except Blocked: pass
-        else: raise RuntimeError("source_spec_id mutation not blocked")
-        op={"source_id":"NEW","target_id":"OLD","source_spec_id":"SPEC_NEW","identity_card_id":"NEW","relation_type":"distinct_follow_up","lineage_reason":"verified follow-up","event_stage_relationship":"successor","direction":"directional"}
-        arow={"spec_id":"SPEC_NEW","related_prepass":{"status":"PASS","relation_candidates":[{"target_id":"OLD","proposed_relation_type":"distinct_follow_up"}]}}
-        brow={"source_spec_id":"SPEC_NEW","related_evidence_review":{"status":"PASS","target_id":"OLD","final_relation_type":"distinct_follow_up"}}
-        lineage={"status":"PASS","relation_type":"distinct_follow_up","related_ids":["OLD"],"reason":"verified follow-up","event_stage_relationship":"successor","direction":"directional"}
-        downstream={s:[{"source_spec_id":"SPEC_NEW","related_lineage":dict(lineage)}] for s in ("C","0.4","0.5","0.6","0.7")}
-        rows={"A":[arow],"B":[brow],**downstream}
-        validate_related_semantics(op,"SPEC_NEW",rows,known,{"NEW":"SPEC_NEW"},"related_add[0]")
-        bad_rows={**rows,"C":[{"source_spec_id":"SPEC_NEW","related_lineage":{**lineage,"related_ids":["OTHER"]}}]}
-        try: validate_related_semantics(op,"SPEC_NEW",bad_rows,known,{"NEW":"SPEC_NEW"},"related_add[0]")
-        except Blocked: pass
-        else: raise RuntimeError("Related target mismatch not blocked")
-        bad_status={**rows,"B":[{"source_spec_id":"SPEC_NEW","related_evidence_review":{"status":"PASS_WITH_NOTES","target_id":"OLD","final_relation_type":"distinct_follow_up"}}]}
-        try: validate_related_semantics(op,"SPEC_NEW",bad_status,known,{"NEW":"SPEC_NEW"},"related_add[0]")
-        except Blocked: pass
-        else: raise RuntimeError("non-canonical Stage B Related review status not blocked")
-        print("PASS: V4 binding hardening self-test; empty remediation allowed, baseline identities immutable, insert identities unique, Related semantics/status bound, and coverage contract override supported"); return 0
+        regions,_=coverage_axes()
+        axis_matrix({k:{"status":"searched"} for k in regions},regions,"regions")
+        source={"review_pool":[],"legacy_keep":[{"story_id":"C1","grouped_story_ids":["C1"]}],"strict_passed_spec":[],"candidate_review_pool":[],"watchlist_context_pool":[],"reject_or_support_only_pool":[],"rejected":[],"existing_reinforcement":[],"support_source_only":[]}
+        if checker_validated_stage_a_decisions(source)!={"C1":("legacy_keep","stage_a_checker:legacy_keep:C1")}: raise RuntimeError("legacy_keep/dedup contract failed")
+        strict={"CAND_1":("strict_passed_spec","stage_a_checker:strict_passed_spec:SPEC_NEW")}
+        validate_governed_stage_a_operation({"A":[{"spec_id":"SPEC_NEW","source_story_ids":["CAND_1"]}]},"SPEC_NEW",governed_strict_spec_identities(strict),"insert[0]")
+        print("PASS: V4 binding hardening self-test; checker-valid legacy_keep and duplicate-in-row identities are supported, unchecked Stage A status aliases are ignored, operations bind to terminal-governed strict outcomes, coverage axes remain lazy/fail-closed, and existing fail-closed gates remain active"); return 0
     if not args.run: raise Blocked("--run PATH required")
-    run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); validate_completeness(run); validate_operations(run); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","related_semantics":"PASS"})); return 0
+    run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); governed=validate_completeness(run); validate_operations(run,governed); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","terminal_decision_binding":"PASS","operation_stage_a_binding":"PASS","source_diversity_chain":"PASS","related_semantics":"PASS"})); return 0
 
 if __name__=="__main__":
     try: raise SystemExit(main())

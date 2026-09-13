@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-13T07:42:21Z",
+  "updated": "2026-09-13T09:42:20Z",
   "total": 1633,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
@@ -6641,7 +6641,7 @@
           "source_id": "STD26_0909_A_007-S1",
           "owner": "Mining.com/Reuters",
           "source_owner_id": "Mining.com/Reuters",
-          "source_owner_id_normalized": "reuters",
+          "source_owner_id_normalized": "reuters_syndication",
           "role": "production-card evidence source",
           "source_role": "independent_news",
           "url": "https://www.mining.com/web/china-august-rare-earths-exports-stay-below-year-to-date-monthly-average",
@@ -6671,7 +6671,7 @@
           "source_id": "STD26_0909_A_007-S2",
           "owner": "Reuters",
           "source_owner_id": "Reuters",
-          "source_owner_id_normalized": "reuters",
+          "source_owner_id_normalized": "reuters_syndication",
           "role": "checked_not_used_for_visible_claims",
           "source_role": "independent_news",
           "url": "https://www.reuters.com/world/asia-pacific/chinas-exports-up-25-yy-august-imports-surge-282-2026-09-08/",
@@ -6871,7 +6871,7 @@
           "role": "independent_news",
           "origin_type": "independent news",
           "outcome": "body_or_document_verified",
-          "unique_contribution": "중국의 8월 희토류 수출은 약 4,735t으로 7월 4,224t 대비 12.1% 증가했다. 다만 1~8월 월평균 수준에는 못 미쳤고, 미국향 일부 품목의 접근성 불확실성도 이어졌다.",
+          "unique_contribution": "중국 일반 수출입 동향을 확인한 참고 맥락이며, 카드의 희토류 visible claim 근거로 사용하지 않음.",
           "visible_fields_supported": [],
           "checked_at": "2026-09-11"
         }
@@ -6910,7 +6910,7 @@
         "status": "PASS",
         "fact_source_count": 2,
         "visible_claims_supported": true,
-        "source_diversity_status": "PASS_MULTI_SOURCE",
+        "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
         "date_role_consistent": true,
         "related_lineage_consistent": true,
         "unsupported_claim_count": 0

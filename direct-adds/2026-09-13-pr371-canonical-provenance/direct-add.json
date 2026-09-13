@@ -8,7 +8,7 @@
   "base_full_blob_sha": "79e1b89ca89b55c24bd8b2c1fa6924a3d85f13c9",
   "expected_before": 1633,
   "expected_after": 1633,
-  "output_updated": "2026-09-13T07:42:21Z",
+  "output_updated": "2026-09-13T09:42:20Z",
   "operations": {
     "add": [],
     "update": [
@@ -70,6 +70,7 @@
         "change_type": "correction",
         "changed_fields": [
           "claim_map",
+          "evidence_qc",
           "fact_sources",
           "single_source_exception",
           "source_discovery_ledger",
@@ -81,7 +82,7 @@
           "stage_b_lineage"
         ],
         "reason": "Carry the #373 A007 Reuters syndication correction into canonical and bind the exact corrected Stage B artifact hash.",
-        "evidence_review_summary": "PR #373 established 2 URLs / 2 domains / 1 Reuters owner; the Mining.com Reuters-syndicated article supports the visible rare-earth claim while the generic Reuters trade article is checked but excluded from visible-claim support."
+        "evidence_review_summary": "PR #373 established 2 URLs / 2 domains / 1 Reuters syndication owner; the Mining.com Reuters-syndicated article supports the visible rare-earth claim, while the generic Reuters trade article is checked-only. PR #374 review remediation also synchronizes nested evidence QC and discovery contribution metadata."
       },
       {
         "id": "2026-09-08_KR_04",

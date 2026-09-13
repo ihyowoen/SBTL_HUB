@@ -1,0 +1,29 @@
+name: PR374 GACC source probe
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/tmp-pr374-gacc-probe.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    if: github.event.pull_request.number == 374
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe official GACC monthly statistics
+        shell: bash
+        run: |
+          set -euo pipefail
+          for url in \
+            'https://english.customs.gov.cn/statics/report/monthly.html' \
+            'https://stats.customs.gov.cn/' \
+            'https://online.customs.gov.cn/'; do
+            echo "===== $url ====="
+            curl -L --fail --show-error --max-time 45 -A 'Mozilla/5.0' "$url" -o /tmp/gacc.html || { echo 'FETCH_FAILED'; continue; }
+            echo "bytes=$(wc -c </tmp/gacc.html)"
+            grep -Ein 'Aug 2026|August 2026|2026.?8|Major Exports|rare earth|稀土|重点商品' /tmp/gacc.html | head -80 || true
+            grep -Eo 'https?://[^"<> ]+|href="[^"]+"' /tmp/gacc.html | grep -Ei '2026|stat|report|month|export' | head -120 || true
+          done

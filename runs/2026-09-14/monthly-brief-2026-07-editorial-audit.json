@@ -31,7 +31,7 @@
     "Test the simple EV-down/ESS-replaces-EV narrative against July traction-battery growth and other counterevidence and reject it when contradicted.",
     "Apply a separate SBTL pouch lens that requires form-factor/customer-program evidence before translating ESS growth into pouch-film demand.",
     "Inspect post-month follow-up only as counterevidence; later facts do not become official July refs.",
-    "Select a compact 25-card official evidence set and bind every public ref to a governed fact source that explicitly supports the card title."
+    "Select a compact 24-card official evidence set and bind every public ref to a governed fact source that explicitly supports the card title."
   ],
   "selected_flows": [
     {
@@ -63,11 +63,10 @@
     },
     {
       "id": "03",
-      "title": "EV 성장축은 유지되고, ESS·LFP가 추가 생산축으로 편입",
+      "title": "EV 성장축은 유지되고, ESS가 별도 생산·수요축으로 확대",
       "decision": "SELECT",
-      "reason": "ESS/LFP production additions coexist with positive China traction-battery installation growth. The supported conclusion is production/customer diversification rather than simple EV-to-ESS substitution; unresolved compound-title and pouch-program bindings are excluded from the official evidence set.",
+      "reason": "ESS production and revenue expansion coexist with positive China traction-battery installation growth. The supported conclusion is production/customer diversification rather than simple EV-to-ESS substitution; compound-title bindings that cannot be proven by one public URL are excluded from the official evidence set.",
       "anchor_card_ids": [
-        "2026-07-07_US_02",
         "2026-07-02_US_01",
         "2026-07-24_CN_01",
         "2026-07-16_CN_03",
@@ -148,19 +147,10 @@
         "publication_date": "2026-08-27",
         "url": "https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html"
       }
-    },
-    {
-      "status": "LATE_STATUS_CHECK",
-      "finding": "Paducah remains framed as up to 2.6GW BESS and subject to negotiation/execution of definitive documentation; no later fact is imported into July refs.",
-      "source": {
-        "publisher": "NextEra Energy / U.S. DOE",
-        "publication_date": "2026-07-29",
-        "url": "https://newsroom.nexteraenergy.com/2026-07-29-DOE-Site-in-Western-Kentucky-Revitalized-with-Data-Center-Campus-and-Dedicated-Energy-Project%2C-Creating-Jobs-and-Protecting-Residents-and-Businesses-from-Costs"
-      }
     }
   ],
   "official_source_selection": {
-    "selected_card_count": 25,
+    "selected_card_count": 24,
     "selection_principle": "Decision-relevant canonical anchors proving the five flows after exact-head review. Public references must support the complete visible canonical title from one selected governed URL; cards that cannot satisfy that rule without canonical remediation are quarantined rather than weakened inside the publication layer.",
     "source_card_ids": [
       "2026-07-22_US_01",
@@ -174,7 +164,6 @@
       "2026-07-01_GL_03",
       "2026-07-10_KR_01",
       "2026-07-21_EU_04",
-      "2026-07-07_US_02",
       "2026-07-02_US_01",
       "2026-07-24_CN_01",
       "2026-07-16_CN_03",
@@ -329,19 +318,6 @@
         ]
       },
       {
-        "id": "2026-07-07_US_02",
-        "selected_url": "https://www.ultiumcell.com/newsroom/latest-news/2026/07/07/Ultium-Cells-Spring-Hill-Begins-Production-of-LFP-Battery-Cells-for-Energy-Storage-Systems",
-        "canonical_urls": [
-          "https://www.ultiumcell.com/newsroom/latest-news/2026/07/07/Ultium-Cells-Spring-Hill-Begins-Production-of-LFP-Battery-Cells-for-Energy-Storage-Systems",
-          "https://en.yna.co.kr/view/AEN20260708007700320",
-          "https://www.ultiumcell.com/newsroom/latest-news/2026/03/17/Ultium-Cells-Spring-Hill-Diversifies-Production-with-LFP-Batteries-for-Energy-Storage-Systems"
-        ],
-        "title_supporting_urls": [
-          "https://www.ultiumcell.com/newsroom/latest-news/2026/07/07/Ultium-Cells-Spring-Hill-Begins-Production-of-LFP-Battery-Cells-for-Energy-Storage-Systems",
-          "https://en.yna.co.kr/view/AEN20260708007700320"
-        ]
-      },
-      {
         "id": "2026-07-02_US_01",
         "selected_url": "https://en.yna.co.kr/view/AEN20260703004000320",
         "canonical_urls": [
@@ -405,7 +381,7 @@
       },
       {
         "id": "2026-07-01_KR_05",
-        "selected_url": "https://www.theguru.co.kr/news/article.html?no=103907",
+        "selected_url": "https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable",
         "canonical_urls": [
           "https://www.theguru.co.kr/news/article.html?no=103907",
           "https://www.miningweekly.com/article/almonty-reaches-first-tungsten-processing-throughput-in-south-korea-2026-07-02",
@@ -530,6 +506,11 @@
         "id": "2026-07-03_KR_01",
         "class": "CARD_SOURCE_BINDING",
         "reason": "Selected July source proves Poseung pouch-film commercialization but not the ESS application embedded in the locked visible title."
+      },
+      {
+        "id": "2026-07-07_US_02",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "Locked visible title combines a prior $70M conversion figure from the March Ultium source with the July production-start event; no single selected governed URL proves the complete compound title under the publication provenance contract."
       }
     ],
     "publication_binding_fix": {
@@ -542,6 +523,18 @@
       "EV-vs-ESS substitution rejection",
       "pouch direct-vs-indirect demand filter",
       "tax/tariff/standard product-scope precision"
+    ],
+    "publication_binding_fixes": [
+      {
+        "id": "2026-07-29_US_02",
+        "action": "REBIND_TO_GOVERNED_FULL_CLAIM_SOURCE",
+        "url": "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"
+      },
+      {
+        "id": "2026-07-01_KR_05",
+        "action": "REBIND_TO_GOVERNED_FULL_CLAIM_SOURCE",
+        "url": "https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable"
+      }
     ]
   },
   "qc": {
@@ -552,8 +545,11 @@
     "causal_language": "PASS",
     "legacy_issue_independence": "PASS",
     "official_refs_locked_to_current_july_canonical": "PASS",
-    "source_binding": "PASS_AFTER_CODEX_REMEDIATION",
+    "source_binding": "PASS_AFTER_SECOND_CODEX_REMEDIATION",
     "canonical_defect_quarantine": "PASS",
-    "codex_review_5193925152": "REMEDIATED_P1_X4"
+    "codex_review_5193925152": "REMEDIATED_P1_X4",
+    "policy_scope_precision": "PASS_AFTER_SECOND_CODEX_REMEDIATION",
+    "post_month_classification": "PASS_AFTER_SECOND_CODEX_REMEDIATION",
+    "codex_second_pass_head_3d5d31816d": "REMEDIATED_P1_X3_P2_X1"
   }
 }

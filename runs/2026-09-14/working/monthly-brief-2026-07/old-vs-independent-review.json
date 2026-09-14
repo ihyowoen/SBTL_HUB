@@ -1,0 +1,28 @@
+{
+  "schema_version": "monthly-brief-legacy-comparison.v1",
+  "month": "2026-07",
+  "comparison_order": "INDEPENDENT_THESIS_LOCKED_BEFORE_LEGACY_ISSUE_REVIEW",
+  "independent_thesis_commit": "1590f97c54c97dfbf48db7e6fabfee237320a762",
+  "legacy_issue_role": "RED_TEAM_REFERENCE_ONLY",
+  "legacy_strengths_retained": [
+    "The legacy issue correctly emphasized execution-stage discipline: award, financing, procurement, construction, energization and commercial operation should not be treated as the same signal.",
+    "It correctly identified ESS execution and localization as material July themes."
+  ],
+  "upgrades_in_official_monthly_brief": [
+    "Promote BESS platform M&A and project-finance evidence into a capital-asset framing rather than treating ESS mainly as project build-out.",
+    "Separate AI/data-center power and grid-connection bottlenecks into their own demand/infrastructure flow.",
+    "Explicitly reject EV-to-ESS one-for-one substitution using July EV traction-battery and material-demand growth as counterevidence.",
+    "Treat tariffs, tax, safety and grid-connection rules as market-entry and technology-selection variables with precise scope guards.",
+    "Apply a stricter SBTL pouch filter: ESS growth is not pouch-film demand unless form factor/customer-program evidence exists.",
+    "Use the current governed July universe of 365 canonical cards and current normalized evidence binding rather than inheriting the legacy issue source set."
+  ],
+  "legacy_signal_disposition": {
+    "ESS_execution": "RETAIN_AND_UPGRADE",
+    "non_lithium_storage": "NARROW_TO_REINFORCEMENT_AND_WATCH_NOT_STANDALONE_FLOW",
+    "regulatory_data": "ABSORB_INTO_RULES_MARKET_ENTRY_FLOW",
+    "localization": "RETAIN_AND_UPGRADE_TO_OFFTAKE_FINANCE_PROCESSING_LOGISTICS",
+    "EV_asset_to_ESS_conversion": "NARROW_TO_MULTI_USE_PRODUCTION_DIVERSIFICATION_WITH_EV_COUNTEREVIDENCE"
+  },
+  "final_architecture_decision": "FIVE_FLOWS_PLUS_SBTL_LENS",
+  "reason": "The five-flow structure explains the 365-card July universe with less overlap and stronger decision relevance. A sixth non-lithium flow would elevate a smaller technology subset to the same level as capital formation, grid demand, production mix, minerals and market-entry rules."
+}

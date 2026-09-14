@@ -1,0 +1,1157 @@
+{
+  "schema_version": "monthly-brief-source-candidate-audit.v1",
+  "month": "2026-07",
+  "locked_main_commit_sha": "5147e5bfbe7cadbf03782ef68805444227afaf1e",
+  "full_blob_sha": "79e1b89ca89b55c24bd8b2c1fa6924a3d85f13c9",
+  "selected_count": 28,
+  "selected_ids": [
+    "2026-07-22_US_01",
+    "2026-07-13_GL_02",
+    "2026-07-01_GL_01",
+    "2026-07-20_EU_03",
+    "2026-07-20_US_05",
+    "2026-07-14_GL_04",
+    "2026-07-29_US_02",
+    "2026-07-14_US_02",
+    "2026-07-01_GL_03",
+    "2026-07-10_KR_01",
+    "2026-07-21_EU_04",
+    "2026-07-07_US_02",
+    "2026-07-02_US_01",
+    "2026-07-24_CN_01",
+    "2026-07-16_CN_03",
+    "2026-07-14_GL_03",
+    "2026-07-02_GL_09",
+    "2026-07-22_GL_01",
+    "2026-07-03_GL_08",
+    "2026-07-01_KR_05",
+    "2026-07-30_KR_01",
+    "2026-07-23_US_02",
+    "2026-07-28_US_01",
+    "2026-07-13_US_02",
+    "2026-07-16_CN_01",
+    "2026-07-01_CN_01",
+    "2026-07-03_KR_01",
+    "2026-07-07_KR_01"
+  ],
+  "cards": [
+    {
+      "id": "2026-07-22_US_01",
+      "date": "2026-07-22",
+      "region": "US",
+      "signal": "top",
+      "title": "브룩필드, 약 70억달러 기업가치의 북미 BESS 플랫폼 Aypa Power 인수계약",
+      "sub": "브룩필드는 약 70억달러 기업가치로 Aypa Power를 인수해 6.5GW의 운영·계약 용량과 20GW 초과 개발 파이프라인을 확보하기로 했다.",
+      "gate": "대형 인프라 자본이 개별 BESS가 아니라 개발 플랫폼 전체를 인수하는 거래다. 운영·계약 자산과 개발 파이프라인을 함께 확보하는 구조가 관찰되며, 거래 종결과 개발사업의 실제 전환이 다음 점검 지점이다.",
+      "urls": [
+        "https://globenewswire.com/news-release/2026/07/22/3331786/0/en/Brookfield-to-Acquire-Aypa-Power-the-Leading-North-American-Battery-Storage-Platform-from-Blackstone-Energy-Transition-Partners.html",
+        "https://bloomberg.com/news/articles/2026-07-22/brookfield-agrees-to-7-billion-deal-for-battery-storage-firm-aypa",
+        "https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners",
+        "https://brookfield.com/news-insights/news-releases/brookfield-acquire-aypa-power"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners",
+          "publisher": "Blackstone",
+          "source_published_date": "2026-07-22",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "claim": "브룩필드는 약 70억달러 기업가치로 Aypa Power를 인수하기로 했다."
+        },
+        {
+          "url": "https://brookfield.com/news-insights/news-releases/brookfield-acquire-aypa-power",
+          "publisher": "Brookfield",
+          "source_published_date": "2026-07-22",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "claim": "Aypa는 6.5GW 자산과 20GW 초과 개발 파이프라인을 보유한다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-13_GL_02",
+      "date": "2026-07-13",
+      "region": "GL",
+      "signal": "top",
+      "title": "마스다르 5.2GW·19GWh 프로젝트 금융종결…51억달러 조달",
+      "sub": "13개 은행의 부채금융과 마스다르의 10억달러 지분을 합친 총 61억달러 사업이 1GW 연속 청정전력 공급을 목표로 한다.",
+      "gate": "금융종결은 프로젝트의 금융조달 가능성을 높이지만 건설완료·시운전·24시간 출력달성을 보장하지 않는다. 19GWh도 설계규모이므로 공급사별 실제 발주·납품일정과 구분해야 한다.",
+      "urls": [
+        "https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project",
+        "https://www.pv-tech.org/masdar-financial-close-5-2gw-19gwh-round-the-clock-solar-storage-project"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project",
+          "publisher": "Masdar",
+          "source_published_date": "2026-07-13",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "claim": "Masdar는 5.2GW 태양광·19GWh BESS 프로젝트에 51억달러 금융을 조달해 financial close에 도달했다."
+        },
+        {
+          "url": "https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project",
+          "publisher": "Masdar project size",
+          "source_published_date": "2026-07-13",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "claim": "프로젝트는 5.2GW 태양광과 19GWh BESS를 결합한다."
+        },
+        {
+          "url": "https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project",
+          "publisher": "Masdar financial close declaration",
+          "source_published_date": "2026-07-13",
+          "supports": [
+            "title",
+            "gate",
+            "fact"
+          ],
+          "claim": "Masdar는 61억달러 규모 24/7 프로젝트의 financial close를 달성했다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-01_GL_01",
+      "date": "2026-07-01",
+      "region": "GL",
+      "signal": "top",
+      "title": "Grenergy, 칠레 Elena 3.5GWh BESS 기반 1TWh 야간 PPA 체결",
+      "sub": "Grenergy가 칠레 Elena 3.5GWh BESS에서 야간 전력을 공급하는 총 1TWh 규모 장기 전력구매계약을 체결했다.",
+      "gate": "저장용량 자체보다 낮 시간대 재생에너지를 야간 상품으로 전환해 장기 판매계약을 확보했다는 점이 핵심이다. 계약기간, 가격, 구매자와 BESS 준공일정이 수익성 판단에 필요하다. 1TWh는 연간 계약전력량이고 7GWh는 향후 자산확장 계획이므로 현재 가동용량·증설투자·실제 야간방전 실적을 분리해 봐야 한다.",
+      "urls": [
+        "https://www.energy-storage.news/grenergy-signs-1twh-night-time-ppa-for-3-5gwh-chile-bess",
+        "https://www.ess-news.com/2026/07/01/grenergy-signs-largest-battery-backed-nighttime-ppa-in-chile"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.energy-storage.news/grenergy-signs-1twh-night-time-ppa-for-3-5gwh-chile-bess",
+          "publisher": "Energy-Storage.news RSS",
+          "source_published_date": "2026-07-01",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "Grenergy는 칠레의 3.5GWh Elena 배터리에너지저장장치를 기반으로 총 1TWh 규모의 야간 전력구매계약을 체결했다고 2026년 7월 1일 발표했다"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-20_EU_03",
+      "date": "2026-07-20",
+      "region": "EU",
+      "signal": "top",
+      "title": "Return·ENGIE, 스페인 55MW/220MWh BESS에 10년 톨링 계약",
+      "sub": "바스크 3개 프로젝트의 시장운영·수익구조를 10년 전면 톨링으로 구체화했다.",
+      "gate": "장기 톨링은 자산소유자와 시장운영자의 역할을 구체화하는 상업계약이다. 다만 프로젝트의 건설완료나 상업운전을 의미하지 않으므로 개발·건설 진척을 별도로 확인해야 한다.",
+      "urls": [
+        "https://return.energy/news/return-and-engie-sign-pioneering-ten-year-agreement-to-accelerate-battery-storage-in-spain",
+        "https://www.ess-news.com/2026/07/21/return-engie-sign-10-year-tolling-agreement-for-55-mw-220-mwh-bess-portfolio-in-spain/"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://return.energy/news/return-and-engie-sign-pioneering-ten-year-agreement-to-accelerate-battery-storage-in-spain",
+          "publisher": "Return official",
+          "source_published_date": "2026-07-20",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "3개 프로젝트 55MW/220MWh에 10년 full tolling이 체결됐다."
+        },
+        {
+          "url": "https://www.ess-news.com/2026/07/21/return-engie-sign-10-year-tolling-agreement-for-55-mw-220-mwh-bess-portfolio-in-spain/",
+          "publisher": "ESS News",
+          "source_published_date": "2026-07-21",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "Return은 자산을 개발·소유·운영하고 ENGIE는 시장 유연성을 최적화한다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-20_US_05",
+      "date": "2026-07-20",
+      "region": "US",
+      "signal": "top",
+      "title": "Avantus Aratina 1, 200MW 태양광·500MWh 저장 상업운전 개시",
+      "sub": "대형 태양광·저장 복합자산이 개발을 마치고 실제 전력공급 단계에 들어갔다.",
+      "gate": "상업운전 개시는 프로젝트 실행완료를 확인하는 이정표다. 다만 공개된 500MWh는 에너지용량이며 배터리 출력과 초기 운영성과는 별도로 확인해야 한다.",
+      "urls": [
+        "https://www.pv-tech.org/avantus-starts-commercial-operations-aratina-1-solar-plus-storage-california/",
+        "https://www.nacleanenergy.com/solar/avantus-aratina-1-project-officially-online-generating-enough-clean-reliable-energy-to-power-105-000-california-homes"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.pv-tech.org/avantus-starts-commercial-operations-aratina-1-solar-plus-storage-california/",
+          "publisher": "PV Tech",
+          "source_published_date": "2026-07-21",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "Aratina 1이 200MW 태양광과 500MWh 저장으로 상업운전을 시작했다."
+        },
+        {
+          "url": "https://www.nacleanenergy.com/solar/avantus-aratina-1-project-officially-online-generating-enough-clean-reliable-energy-to-power-105-000-california-homes",
+          "publisher": "North American Clean Energy",
+          "source_published_date": "2026-07-20",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "프로젝트가 전력망에 200MW 태양광·500MWh 저장을 공급한다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-14_GL_04",
+      "date": "2026-07-14",
+      "region": "GL",
+      "signal": "top",
+      "title": "필리핀 MTerra 1단계 통전…태양광 1.373GW·BESS 3.3GWh",
+      "sub": "1.373GW 태양광과 825MW·3.3GWh BESS의 741개 배터리 유닛이 통전됐지만, 계통수출은 관련 공사 완료 전 최대 750MW로 제한된다.",
+      "gate": "준공행사와 통전은 대규모 자산이 물리적 실행단계에 들어갔다는 의미다. 다만 계통수출은 관련 공사 완료 전 최대 750MW로 제한되고, 대통령실이 밝힌 약 91% 공정률과 8월 완전 상업가동 목표는 향후 일정이므로 전체 설비의 즉시 완전가동과 동일하지 않다.",
+      "urls": [
+        "https://www.mgen.com.ph/mgen-inaugurates-mterra-solar-phase-1/",
+        "https://pco.gov.ph/presidential-speech/speech-by-president-ferdinand-r-marcos-jr-at-the-inauguration-of-mterra-solar-phase-i/"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.mgen.com.ph/mgen-inaugurates-mterra-solar-phase-1/",
+          "publisher": "Meralco PowerGen",
+          "source_published_date": "2026-07-14",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "1,373MW 태양광·825MW/3,300MWh BESS·741개 유닛·750MW 수출제한·600MW PSA"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-29_US_02",
+      "date": "2026-07-29",
+      "region": "US",
+      "signal": "top",
+      "title": "미 DOE, Paducah 전력인프라 사업자로 NextEra 선정…최대 2.6GW BESS안",
+      "sub": "DOE가 Brookfield를 데이터센터 캠퍼스 개발·운영사로, NextEra를 전용 에너지 인프라 건설·소유사로 선정했으며 NextEra 개발안에는 최대 2.6GW BESS가 포함됐다.",
+      "gate": "현재 확정된 사항은 데이터센터 개발 파트너와 전용 전력인프라 사업자 선정, 그리고 최대 개발규모다. NextEra 전력안은 최대 2GW 가스발전과 최대 2.6GW BESS를 포함하며 전력서비스계약에는 켄터키 공공서비스위원회 승인이 남아 있다.",
+      "urls": [
+        "https://www.energy.gov/articles/energy-department-announces-partnership-expand-reliable-affordable-energy-access-and-power",
+        "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.energy.gov/articles/energy-department-announces-partnership-expand-reliable-affordable-energy-access-and-power",
+          "publisher": "U.S. Department of Energy",
+          "source_published_date": "",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "claim": "DOE selected Brookfield and NextEra for the Paducah campus and energy infrastructure roles."
+        },
+        {
+          "url": "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921",
+          "publisher": "NextEra Energy",
+          "source_published_date": "",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "claim": "NextEra's plan includes up to 1.8GW utility capacity, 2GW gas and 2.6GW BESS."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-14_US_02",
+      "date": "2026-07-14",
+      "region": "US",
+      "signal": "top",
+      "title": "Google·Cypress Creek, 아칸소 Steel River 착공…초기 저장 1.9GWh",
+      "sub": "Google이 투자자 겸 전력구매자로 참여하는 대형 태양광·저장사업이 7월 14일 건설단계에 진입했다.",
+      "gate": "1·2단계는 태양광 1.6GWdc와 BESS 1.9GWh를 지역 전력망에 추가하며, 전체 3단계는 2029년 태양광 2.5GWdc·저장 2.9GWh 완공을 목표로 한다. Google의 전력구매와 착공은 금융조달 이후 건설실행을 확인하지만 단계별 상업운전 일정은 남아 있다.",
+      "urls": [
+        "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/steel-river-arkansas/",
+        "https://www.ft.com/content/e9db6384-b295-4ab2-96bf-55025db9ee1d"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/steel-river-arkansas/",
+          "publisher": "Google Steel River 착공",
+          "source_published_date": "2026-07-14",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "claim": "Google과 Cypress Creek은 Steel River 착공을 발표했다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-01_GL_03",
+      "date": "2026-07-01",
+      "region": "GL",
+      "signal": "top",
+      "title": "Firmus·Gunvor, 호주 AI 캠퍼스 12년 전력계약…1.2GW 재생에너지·1.5GWh 저장 연계",
+      "sub": "Firmus Technologies가 남호주 AI Factory 캠퍼스용 600MW 확정전력을 위해 Gunvor와 12년 계약을 맺고 2032년까지 1.2GW 발전과 1.5GWh 저장개발을 연계했다.",
+      "gate": "전력공급 계약이 신규 발전·저장 개발을 뒷받침하지만 모든 설비가 현재 건설된 것은 아니다. 캠퍼스 수요확정, 프로젝트별 인허가·금융과 단계별 준공이 핵심이다. 캠퍼스 총 2.7GW는 장기 계획치이며 12년 계약의 600MW 공급범위, 발전·저장자산의 인허가와 단계별 금융종결을 구분해야 한다.",
+      "urls": [
+        "https://www.energy-storage.news/australian-ai-developer-locks-in-1-5gwh-of-battery-energy-storage-under-12-year-agreement",
+        "https://www.pv-tech.org/firmus-secures-1-2gw-of-new-renewables-to-power-south-australian-ai-factory-campuses"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.energy-storage.news/australian-ai-developer-locks-in-1-5gwh-of-battery-energy-storage-under-12-year-agreement",
+          "publisher": "Energy-Storage.news RSS",
+          "source_published_date": "2026-07-01",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "Firmus Technologies는 Gunvor Group과 12년 도매 전력공급계약을 체결했다고 2026년 7월 1일 발표했다"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-10_KR_01",
+      "date": "2026-07-10",
+      "region": "KR",
+      "signal": "top",
+      "title": "기후부, 5586억원 배전망 ESS 착수…1차 128MW·640MWh",
+      "sub": "9개 사업자가 32개 선로에 ESS를 구축해 태양광 182.4MW를 연결하고 20년간 VPP로 운영하며 8월 차기 공모를 준비한다.",
+      "gate": "1차는 삼원계·LFP 중심이며 8월 차기 공모부터 장주기·장수명·화재안전성 차세대 배터리의 시장진입을 유도한다. 설치완료·태양광 추가접속과 20년 AI 최적화 운영성과가 국비 5586억원 투자의 핵심 집행지표다.",
+      "urls": [
+        "https://www.mcee.go.kr/home/web/board/read.do?boardId=1876770&boardMasterId=939&menuId=10598",
+        "https://www.impacton.net/news/articleView.html?idxno=19569",
+        "https://m.mcee.go.kr/home/web/newsRead.do?boardId=1876770&boardMasterId=939&menuId=10607",
+        "https://www.lg.co.kr/media/release/30331",
+        "https://view.asiae.co.kr/article/2026071014221099338"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.mcee.go.kr/home/web/board/read.do?boardId=1876770&boardMasterId=939&menuId=10598",
+          "publisher": "기후에너지환경부",
+          "source_published_date": "2026-07-10",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "정부는 9개 사업자를 선정해 32개 선로에 128MW·640MWh ESS를 구축한다."
+        },
+        {
+          "url": "https://www.impacton.net/news/articleView.html?idxno=19569",
+          "publisher": "임팩트온",
+          "source_published_date": "2026-07-13",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "배전선로 한 곳당 4MW·20MWh ESS를 설치하는 1차 사업의 구조와 사업자 명단을 보도했다."
+        },
+        {
+          "url": "https://www.mcee.go.kr/home/web/board/read.do?boardId=1876770&boardMasterId=939&menuId=10598",
+          "publisher": "기후에너지환경부",
+          "source_published_date": "2026-07-10",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "9개 사업자가 32개 선로에 128MW·640MWh를 구축하고 20년 운영하며 8월 차기 공모를 추진한다."
+        },
+        {
+          "url": "https://m.mcee.go.kr/home/web/newsRead.do?boardId=1876770&boardMasterId=939&menuId=10607",
+          "publisher": "기후에너지환경부 모바일 자료",
+          "source_published_date": "2026-07-10",
+          "supports": [
+            "title",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "2026~2030년 국비 5586억원과 선로별 4MW·20MWh 구조를 확인한다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-21_EU_04",
+      "date": "2026-07-21",
+      "region": "EU",
+      "signal": "top",
+      "title": "Westnetz, 재생에너지 병설 계통충전형 BESS에 유연 접속계약 확대",
+      "sub": "기존 재생에너지 전용 저장장치에 이어 계통에서 충전하는 병설 BESS에도 고정 수출상한과 지역별 운전제약을 적용한다.",
+      "gate": "7월 21일 조치는 4월에 도입한 재생에너지 전용 저장장치 계약을 계통충전형 병설 BESS까지 확대한 별도 후속조치다. 접속용량을 고정 상한으로 제한하고 지역 재생에너지 발전예측에 따라 배터리 출력도 조정해, 증설 없이 접속 가능한 프로젝트 범위를 넓히는 구조다.",
+      "urls": [
+        "https://www.presseportal.de/pm/169518/6318540",
+        "https://www.ess-news.com/2026/07/22/westnetz-launches-fast-track-grid-connection-for-co-located-bess-in-germany/",
+        "https://www.energie-und-management.de/marktplatz-energie/news/detail?emid=371189"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.presseportal.de/pm/169518/6318540",
+          "publisher": "Westnetz",
+          "source_published_date": "2026-07-21",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "Westnetz가 재생에너지 설비와 병설된 계통충전형 BESS에 유연 접속계약을 확대했다."
+        },
+        {
+          "url": "https://www.ess-news.com/2026/07/22/westnetz-launches-fast-track-grid-connection-for-co-located-bess-in-germany/",
+          "publisher": "ESS News",
+          "source_published_date": "2026-07-22",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "계통충전형 BESS가 재생에너지 설비와 접속점을 공유할 때 유연 접속계약을 통해 더 빨리 접속할 수 있다."
+        },
+        {
+          "url": "https://www.energie-und-management.de/marktplatz-energie/news/detail?emid=371189",
+          "publisher": "Energie & Management",
+          "source_published_date": "2026-07-22",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "claim": "Westnetz가 풍력·태양광 병설 계통충전형 저장장치에 새로운 접속계약을 도입했다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-07_US_02",
+      "date": "2026-07-07",
+      "region": "US",
+      "signal": "top",
+      "title": "Ultium Spring Hill, 7천만달러 전환 거쳐 JF2 LFP ESS 셀 양산",
+      "sub": "EV 배터리 공정 일부를 5개월 만에 북미 ESS 생산망으로 전환",
+      "gate": "공식 발표는 JF2 LFP 생산 개시와 일부 공정 전환을 확인하지만 공장 전체의 ESS 전용화, 연간 생산능력·가동률과 개별 부품 공급사를 확정하지 않는다. Warren 인력복귀와 오하이오 생산은 별도 사건으로 관리해야 한다.",
+      "urls": [
+        "https://www.ultiumcell.com/newsroom/latest-news/2026/07/07/Ultium-Cells-Spring-Hill-Begins-Production-of-LFP-Battery-Cells-for-Energy-Storage-Systems",
+        "https://en.yna.co.kr/view/AEN20260708007700320",
+        "https://www.ultiumcell.com/newsroom/latest-news/2026/03/17/Ultium-Cells-Spring-Hill-Diversifies-Production-with-LFP-Batteries-for-Energy-Storage-Systems"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.ultiumcell.com/newsroom/latest-news/2026/07/07/Ultium-Cells-Spring-Hill-Begins-Production-of-LFP-Battery-Cells-for-Energy-Storage-Systems",
+          "publisher": "Ultium Cells",
+          "source_published_date": "2026-07-07",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "claim": "Spring Hill이 LG에너지솔루션 JF2 LFP ESS 셀 생산을 공식 시작했다."
+        },
+        {
+          "url": "https://en.yna.co.kr/view/AEN20260708007700320",
+          "publisher": "연합뉴스",
+          "source_published_date": "2026-07-08",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "claim": "테네시 합작공장의 ESS용 LFP 셀 생산개시와 Vertech 공급을 독립 확인한다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-02_US_01",
+      "date": "2026-07-02",
+      "region": "US",
+      "signal": "high",
+      "title": "LG에너지솔루션·혼다 오하이오 JV, ESS용 배터리 셀 양산 개시",
+      "sub": "당초 약 40GWh EV용으로 기획된 제퍼슨빌 자산이 ESS 셀 생산을 시작했지만 ESS 전용 전환능력은 공개되지 않았다.",
+      "gate": "양산개시는 램프업 시작점이며 공장 전체 40GWh가 ESS로 전환됐다는 의미가 아니다. ESS 셀 화학계, 전용 라인수·연간능력, 초기 고객·출하량·수율과 투자전환비는 공개되지 않았다. HEV 생산은 확정계획이 아니라 시장수요에 따른 선택지다.",
+      "urls": [
+        "https://en.yna.co.kr/view/AEN20260703004000320",
+        "https://www.etoday.co.kr/news/view/2600003",
+        "https://www.sedaily.com/article/20063442",
+        "https://global.honda/en/newsroom/news/2022/c221011aeng.html"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://en.yna.co.kr/view/AEN20260703004000320",
+          "publisher": "Yonhap News Agency",
+          "source_published_date": "2026-07-03",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "claim": "7월 2일 오하이오 제퍼슨빌 ESS 셀 양산개시"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-24_CN_01",
+      "date": "2026-07-24",
+      "region": "CN",
+      "signal": "high",
+      "title": "CATL 상반기 ESS 매출 532.6억위안·87.5% 증가",
+      "sub": "매출총이익률 23.96%로 전년 대비 1.56%p 하락",
+      "gate": "매출 증가율만으로 출하량 성장과 가격효과를 분리할 수 없다. 시스템 출하량, ASP, 제품구성과 현금흐름을 함께 봐야 성장의 질을 판단할 수 있다.",
+      "urls": [
+        "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12462543",
+        "https://www.reuters.com/world/asia-pacific/chinas-catl-sees-net-profit-rise-42-first-half-2026-07-24/"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12462543",
+          "publisher": "CATL 2026 interim report mirror",
+          "source_published_date": "2026-07-24",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "claim": "상반기 ESS 시스템 매출·증가율·매출총이익률을 공시 표에서 확인"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-16_CN_03",
+      "date": "2026-07-16",
+      "region": "CN",
+      "signal": "top",
+      "title": "중국 6월 동력배터리 탑재 76.5GWh…LFP 비중 83.3%",
+      "sub": "LFP 탑재량은 63.7GWh로 전월 대비 9.2%, 전년 대비 34.4% 늘었고 상반기 전체 탑재량은 335.6GWh를 기록했다.",
+      "gate": "6월 탑재량 증가율은 생산 206.0GWh와 판매 196.0GWh 규모보다 낮아 생산·판매·차량탑재 사이의 시차를 보여준다. LFP 비중 83.3%와 상반기 누적 81.0%가 지속되는지, 수출 36.2GWh와 재고흐름이 하반기 수급판단의 핵심이다.",
+      "urls": [
+        "https://news.mysteel.com/a/26071611/75344EEDDEA8D4D0.html",
+        "https://www.ithome.com/0/977/447.htm",
+        "https://www.jiemian.com/article/14775234.html",
+        "https://api3.cls.cn/share/article/2428131?app=&os=android&sv=841"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://news.mysteel.com/a/26071611/75344EEDDEA8D4D0.html",
+          "publisher": "Mysteel reproduction of CABIA monthly data",
+          "source_published_date": "2026-07-16",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "claim": "연맹 월간정보 전문재현은 6월 생산·판매·탑재량을 제시한다."
+        },
+        {
+          "url": "https://www.jiemian.com/article/14775234.html",
+          "publisher": "Jiemian",
+          "source_published_date": "2026-07-16",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "claim": "LFP 63.7GWh·83.3%와 삼원계 12.7GWh·16.5%를 확인한다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-14_GL_03",
+      "date": "2026-07-14",
+      "region": "GL",
+      "signal": "top",
+      "title": "1~5월 EV 전해액 +19.3%·분리막 +20.7%…중국 제외 증가율 더 높아",
+      "sub": "SNE 적재량 기준으로 전해액은 약 59만1,000톤, 분리막은 약 74억8,900만 제곱미터였고 중국 제외 증가율은 각각 32.2%, 38.7%였다.",
+      "gate": "적재량은 전 세계 등록 EV·PHEV·HEV에 탑재된 소재량으로, 소재업체의 매출·출하량과 동일하지 않다. 전해액과 분리막은 단위와 공급구조가 다르므로 증가율만으로 업체별 수혜를 단정하기 어렵다.",
+      "urls": [
+        "https://www.sneresearch.com/kr/insight/release_view/701/page/0",
+        "https://www.sneresearch.com/kr/insight/release_view/700/page/0"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.sneresearch.com/kr/insight/release_view/701/page/0",
+          "publisher": "SNE Research 전해액 데이터",
+          "source_published_date": "2026-07-14",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "claim": "2026년 1~5월 글로벌 EV용 전해액 적재량은 591K ton으로 전년동기보다 19.3% 증가했다."
+        },
+        {
+          "url": "https://www.sneresearch.com/kr/insight/release_view/700/page/0",
+          "publisher": "SNE Research 분리막 데이터",
+          "source_published_date": "2026-07-13",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "claim": "2026년 1~5월 글로벌 EV용 분리막 적재량은 7,489Mil㎡로 전년동기보다 20.7% 증가했다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-02_GL_09",
+      "date": "2026-07-02",
+      "region": "GL",
+      "signal": "top",
+      "title": "VHM, Iluka와 Goschen 희토류 100% 오프테이크·A$4000만 금융계약",
+      "sub": "현 채굴허가기간의 희토류 정광 전량을 Eneabba 정제소에 공급하고 최대 A$4000만 전환사채 금융을 연계했다.",
+      "gate": "장기 판매계약과 프로젝트 금융이 결합돼 Goschen의 판매·자금조달 경로가 동시에 구체화됐다. 두 번째 A$3000만 집행과 공급개시는 최종투자결정·건설진행 조건에 달려 있다.",
+      "urls": [
+        "https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/",
+        "https://www.miningweekly.com/article/iluka-secures-rare-earths-concentrate-feedstock-from-fellow-australian-miner-vhm-2026-07-02"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/",
+          "publisher": "VHM Limited",
+          "source_published_date": "2026-07-02",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "VHM은 Goschen 희토류 정광 전량 오프테이크와 A$4000만 전환사채 패키지를 발표했다."
+        },
+        {
+          "url": "https://www.miningweekly.com/article/iluka-secures-rare-earths-concentrate-feedstock-from-fellow-australian-miner-vhm-2026-07-02",
+          "publisher": "Mining Weekly",
+          "source_published_date": "2026-07-02",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "독립 전문매체는 18년간 정광 14만6000톤과 A$4000만 단계형 전환사채를 확인했다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-22_GL_01",
+      "date": "2026-07-22",
+      "region": "GL",
+      "signal": "top",
+      "title": "Wesfarmers·SQM, Mt Holland 리튬정광 연 76만톤 증설 FID",
+      "sub": "생산능력을 연 38만톤에서 76만톤으로 확대하고 2030년 추가 생산을 목표로 한다.",
+      "gate": "최종투자결정은 증설을 위한 자본투입을 확정한 단계지만 추가 생산은 2030년 목표다. 광산의 정광능력 확대와 정제제품 공급증가는 별도 공정·판매경로로 구분해야 한다.",
+      "urls": [
+        "https://www.theaustralian.com.au/business/mining-energy/wesfarmers-sqm-greenlight-145bn-mt-holland-lithium-expansion/news-story/",
+        "https://www.wesfarmers.com.au/investor-centre/company-performance-news/asx-announcements"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.theaustralian.com.au/business/mining-energy/wesfarmers-sqm-greenlight-145bn-mt-holland-lithium-expansion/news-story/",
+          "publisher": "The Australian",
+          "source_published_date": "2026-07-22",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "Mt Holland 증설 FID로 정광능력을 38만톤에서 76만톤으로 늘리고 2030년 추가 생산을 목표로 한다."
+        },
+        {
+          "url": "https://www.wesfarmers.com.au/investor-centre/company-performance-news/asx-announcements",
+          "publisher": "Wesfarmers ASX announcements",
+          "source_published_date": "2026-07-22",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "claim": "Wesfarmers가 7월 22일 Mt Holland lithium expansion FID 공시를 게시했다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-03_GL_08",
+      "date": "2026-07-03",
+      "region": "GL",
+      "signal": "top",
+      "title": "Lobito 철도, DRC 구간 재건에 7억5300만달러 금융종결",
+      "sub": "AFC 주도 컨소시엄이 Lobito Corridor의 DRC 구간 철도 재건을 위한 7억5300만달러 금융종결을 발표했다.",
+      "gate": "금융종결은 공사완료나 수송능력 증가를 뜻하지 않는다. 자금집행, 공정률, 광산별 장기운송계약이 공급망 효과의 실행조건이다.",
+      "urls": [
+        "https://www.africanlawbusiness.com/news/usd-753-million-drc-lobito-project-aims-to-unlock-critical-minerals-opportunities",
+        "https://www.africafc.org/news-and-insights/news/afc-achieves-financial-close-on-landmark-us-753-mm-lobito-corridor-railway-project-marking-a-major-milestone-for-regional-integration-and-economic-transformation"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.africanlawbusiness.com/news/usd-753-million-drc-lobito-project-aims-to-unlock-critical-minerals-opportunities",
+          "publisher": "G7 Critical Minerals Multilateral (via Google News)",
+          "source_published_date": "2026-07-17",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "claim": "Stage A 사건의 핵심 실행사실과 수치"
+        },
+        {
+          "url": "https://www.africafc.org/news-and-insights/news/afc-achieves-financial-close-on-landmark-us-753-mm-lobito-corridor-railway-project-marking-a-major-milestone-for-regional-integration-and-economic-transformation",
+          "publisher": "AFC",
+          "source_published_date": "2026-07-03",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "AFC는 2026년 7월 3일 US$753m Lobito Corridor Railway Project 금융종결을 공식 발표했다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-01_KR_05",
+      "date": "2026-07-01",
+      "region": "KR",
+      "signal": "top",
+      "title": "알몬티, 상동 텅스텐광산 가공개시…비축원광으로 판매가능 정광 생산 전환",
+      "sub": "약 13만9,700톤의 비축원광을 신규 플랜트에 투입하며 건설·시운전에서 초기 생산램프로 이동했다.",
+      "gate": "판매가능 정광 생산개시는 안정적 상업생산·매출인식 또는 현금회수를 의미하지 않는다. 6,800만달러는 회수율·처리비·정광가격·지급률을 차감하지 않은 회사의 예시적 함유가치로 매출·이익이 아니다. 실제 처리량, 회수율·정광품위, 고객인수와 첫 판매·대금수취를 확인해야 한다.",
+      "urls": [
+        "https://www.theguru.co.kr/news/article.html?no=103907",
+        "https://www.miningweekly.com/article/almonty-reaches-first-tungsten-processing-throughput-in-south-korea-2026-07-02",
+        "https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.theguru.co.kr/news/article.html?no=103907",
+          "publisher": "더구루",
+          "source_published_date": "2026-07-03",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "claim": "상동광산 비축원광 신규 가공시설 투입"
+        },
+        {
+          "url": "https://www.miningweekly.com/article/almonty-reaches-first-tungsten-processing-throughput-in-south-korea-2026-07-02",
+          "publisher": "Mining Weekly",
+          "source_published_date": "2026-07-02",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "claim": "비축원광 처리와 판매 가능한 정광생산"
+        },
+        {
+          "url": "https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable",
+          "publisher": "Almonty Industries",
+          "source_published_date": "2026-07-01",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "claim": "상동 가공개시와 판매가능 정광 생산"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-30_KR_01",
+      "date": "2026-07-30",
+      "region": "KR",
+      "signal": "high",
+      "title": "포스코아르헨티나, 염수리튬 1공장 안정화로 첫 분기 흑자",
+      "sub": "포스코홀딩스 2분기 실적에서 아르헨티나 염수리튬 법인이 첫 분기 흑자를 기록해 리튬 사업의 손익 전환이 확인됐다.",
+      "gate": "첫 분기 흑자는 염수리튬 1공장 조업 안정화와 설비 개선에 기반한 공식 실적이다. 하반기 2공장 준공에 따른 초기 비용이 예상돼 흑자 지속 여부와 단계적 증산이 다음 판단 지점이다.",
+      "urls": [
+        "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/",
+          "publisher": "포스코그룹 뉴스룸",
+          "source_published_date": "2026-07-30",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "포스코아르헨티나의 분기 기준 첫 흑자와 원인을 확인한다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-23_US_02",
+      "date": "2026-07-23",
+      "region": "US",
+      "signal": "top",
+      "title": "미국, 60개 경제권에 강제노동 연계 Section 301 관세 확정",
+      "sub": "미국 수입의 99.4%를 포괄하는 60개 경제권 대상 세율·면제체계 확정",
+      "gate": "국가별 명목세율만으로 특정 제품의 실효관세를 확정할 수 없다. 원산지 경제권, HTS 분류, MFN 세율, Section 232 중복 여부와 Federal Register 면제품목표를 함께 대조해야 한다.",
+      "urls": [
+        "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations",
+        "https://www.whitehouse.gov/presidential-actions/2026/07/addressing-failures-to-take-action-on-trade-in-forced-labor-goods/",
+        "https://source.benchmarkminerals.com/article/us-replaces-expiring-tariffs-with-new-forced-labour-duties-on-60-countries"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations",
+          "publisher": "USTR",
+          "source_published_date": "2026-07-23",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "claim": "60개 경제권 대상 최종조치와 세율·면제 구조를 확인"
+        },
+        {
+          "url": "https://www.whitehouse.gov/presidential-actions/2026/07/addressing-failures-to-take-action-on-trade-in-forced-labor-goods/",
+          "publisher": "The White House",
+          "source_published_date": "2026-07-23",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "claim": "대통령 지시와 정책목적을 공식 확인"
+        },
+        {
+          "url": "https://source.benchmarkminerals.com/article/us-replaces-expiring-tariffs-with-new-forced-labour-duties-on-60-countries",
+          "publisher": "Benchmark Mineral Intelligence",
+          "source_published_date": "2026-07-27",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "claim": "배터리 공급망 관점의 적용범위를 보도"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-28_US_01",
+      "date": "2026-07-28",
+      "region": "US",
+      "signal": "high",
+      "title": "미 FCC, 해외산 연결형 전력인버터 신규 장비승인 제한",
+      "sub": "FCC는 해외 생산 연결형 전력인버터를 안보위협 목록(Covered List)에 추가해 신규 모델의 미국 장비승인을 제한했으며 기존 승인 모델은 계속 유통·사용할 수 있다고 현지 보도가 확인했다.",
+      "gate": "이번 조치는 전체 기존 설치 인버터를 즉시 금지하는 조치가 아니라 신규 모델의 장비승인·시장진입을 제한하는 규제다. 기존 승인 모델과 신규 모델의 처리 차이가 커 공급사 영향은 신규 승인 파이프라인을 중심으로 봐야 한다.",
+      "urls": [
+        "https://www.reuters.com/world/trump-administration-ban-new-chinese-robots-inverters-protecting-us-ai-buildout-2026-07-28/",
+        "https://www.nextgov.com/policy/2026/07/fcc-blocks-approval-new-foreign-made-robots-power-inverters/415070/"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.reuters.com/world/trump-administration-ban-new-chinese-robots-inverters-protecting-us-ai-buildout-2026-07-28/",
+          "publisher": "Reuters",
+          "source_published_date": "2026-07-28",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "claim": "FCC restrictions cover new connected power-inverter models and took effect upon publication."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-13_US_02",
+      "date": "2026-07-13",
+      "region": "US",
+      "signal": "top",
+      "title": "라자드, 미국 4시간 BESS LCOS 상승…관세·FEOC가 저가셀 접근 제한",
+      "sub": "100MW/400MWh 비ITC 기준 LCOS가 2026년 210~292달러/MWh로 제시돼 2025년 115~254달러/MWh보다 높아졌다.",
+      "gate": "LCOS는 설비비·금융·운영·사이클 가정을 합친 모델값으로 모든 프로젝트의 실현비용과 같지 않다. 관세와 FEOC의 영향도 셀 원산지, 조달시점, 세액공제 적격성과 계약구조에 따라 달라진다.",
+      "urls": [
+        "https://www.lazard.com/news-announcements/lazard-releases-2026-levelized-cost-of-energyplus-report-pr/",
+        "https://www.energy-storage.news/lazard-us-utility-scale-energy-storage-lcos-has-increased-since-restrictions-on-chinese-cells-came-into-force"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.lazard.com/news-announcements/lazard-releases-2026-levelized-cost-of-energyplus-report-pr/",
+          "publisher": "Lazard",
+          "source_published_date": "2026-07-13",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "Lazard는 관세와 FEOC 규제가 저가 중국산 셀 접근을 제한해 standalone storage 비용을 높였다고 평가했다."
+        },
+        {
+          "url": "https://www.lazard.com/news-announcements/lazard-releases-2026-levelized-cost-of-energyplus-report-pr/",
+          "publisher": "Lazard tariffs and FEOC",
+          "source_published_date": "2026-07-13",
+          "supports": [
+            "title",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "Lazard는 관세가 저가 중국산 셀 접근을 제한했고 FEOC 규제가 중국 밖 공급망 다변화를 가속했다고 설명했다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-16_CN_01",
+      "date": "2026-07-16",
+      "region": "CN",
+      "signal": "top",
+      "title": "중국, 리튬이온 배터리 소비세 2026년 2%·2027년 4% 적용",
+      "sub": "2026년 9월 1일부터 2%, 2027년 9월 1일부터 4%를 적용하고 일부 차세대 배터리는 2028년 말까지 한시 면제한다.",
+      "gate": "실제 과세범위는 공고 첨부 품목주석과 수입단계 세목에 따라 달라진다. 가격·마진 영향은 제품코드, 계약조건, 세부담 전가구조를 함께 봐야 한다.",
+      "urls": [
+        "https://www.bloomberg.com/news/articles/2026-07-17/china-to-impose-consumption-tax-on-solar-and-lithium-batteries",
+        "https://www.ess-news.com/2026/07/17/china-targets-battery-and-solar-overcapacity-with-new-consumption-taxes",
+        "https://www.electrive.com/2026/07/17/china-introduces-consumption-tax-on-lithium-ion-batteries",
+        "https://shanxi.chinatax.gov.cn/web/detail/sx-11400-545-1822939",
+        "https://tianjin.chinatax.gov.cn/11200000000/0300/030004/03000418/20260720114651548.shtml"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://shanxi.chinatax.gov.cn/web/detail/sx-11400-545-1822939",
+          "publisher": "중국 국가세무총국",
+          "source_published_date": "2026-07-16",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "claim": "리튬이온 배터리 소비세는 2026년 9월 2%, 2027년 9월 4%로 단계 적용된다."
+        },
+        {
+          "url": "https://tianjin.chinatax.gov.cn/11200000000/0300/030004/03000418/20260720114651548.shtml",
+          "publisher": "중국 국가세무총국·재정부·해관총서",
+          "source_published_date": "2026-07-16",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "2026년 제20호 공고는 리튬이온 2%·4% 단계세율과 차세대 배터리의 2028년 말까지 면제를 규정한다."
+        }
+      ]
+    },
+    {
+      "id": "2026-07-01_CN_01",
+      "date": "2026-07-01",
+      "region": "CN",
+      "signal": "top",
+      "title": "중국 GB 38031-2025 동력배터리 안전 강제표준 시행",
+      "sub": "열폭주 후 2시간 비발화·비폭발 요건을 강화하고 하부충격과 300회 급속충전 후 외부단락 시험을 추가했다.",
+      "gate": "표준의 공식 적용대상은 EV 구동용 셀·팩·시스템으로 일반 ESS 배터리와 동일 규격이 아니다. 열폭주 시험·판정조건과 기존차종 전환은 형식승인·시행문서를 함께 확인해야 한다. 특정 분리막·열차단재나 배터리 화학계를 의무화하거나 특정 소재의 직접수혜로 확대해석해서는 안 된다.",
+      "urls": [
+        "https://english.www.gov.cn/english.www.gov.cn/news/202504/15/content_WS67fe4271c6d0868f4e8f1b70.html",
+        "http://www.cbea.com/djgc/202607/574372.html"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://english.www.gov.cn/english.www.gov.cn/news/202504/15/content_WS67fe4271c6d0868f4e8f1b70.html",
+          "publisher": "Government of China",
+          "source_published_date": "2025-04-15",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "claim": "GB 38031-2025 강제표준 2026년 7월 1일 시행"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-03_KR_01",
+      "date": "2026-07-03",
+      "region": "KR",
+      "signal": "high",
+      "title": "율촌화학, 포승공장서 LG에너지솔루션 ESS용 파우치필름 상업양산 전환",
+      "sub": "공시상 ESS용 공급 확대와 포승 증설설비 가동이 확인됐고, 2026년 4월 고객 4M 승인 후 양산개시는 두 독립 매체가 교차 확인했다.",
+      "gate": "공식 공시가 직접 확인하는 범위는 포승 증설설비 가동, 안산·포승 합산 1억1,000만㎡ 계획, LG에너지솔루션 공급과 ESS용 범위 확대다. LG 공식자료는 JF2가 ESS용 LFP 롱셀이라는 점만 확인하며 율촌화학을 공급사로 명시하지 않는다. 4M 승인, JF2 직접 적용, 183㎛와 단독공급은 취재기반이므로 공식확정 사실과 분리해야 한다. 계약물량·단가·스팟계약의 장기화 여부, 실제 가동률·수율과 ESS 매출기여는 미공개다.",
+      "urls": [
+        "https://www.thelec.kr/news/articleView.html?idxno=54047",
+        "https://www.thelec.kr/news/articleView.html?idxno=58957",
+        "https://www.finance-scope.com/article/view/scp202605080015",
+        "https://kind.krx.co.kr/external/2025/10/24/000575/20251024001355/10002.htm",
+        "https://www.fomek.or.kr/main/newsroom/mme/mme_view.php?wr_id=1544",
+        "https://www.lg.co.kr/media/release/28487"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=58957",
+          "publisher": "디일렉",
+          "source_published_date": "2026-07-03",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "claim": "2026년 4월 말 4M 승인"
+        },
+        {
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=58957",
+          "publisher": "디일렉",
+          "source_published_date": "2026-07-03",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "claim": "포승공장 양산 개시"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-07_KR_01",
+      "date": "2026-07-07",
+      "region": "KR",
+      "signal": "high",
+      "title": "LG에너지솔루션, 2분기 영업익 1133억원…AMPC 제외 1277억원 적자",
+      "sub": "2분기 확정실적에서 상반기 ESS 매출 4.6배·전사 비중 20% 후반, 유럽 파우치형 EV 출하 증가가 확인됐다.",
+      "gate": "7월 30일 공식 확정실적에서 상반기 ESS 매출이 전년 대비 4.6배 증가해 전사 매출의 20% 후반까지 확대됐고, 유럽 파우치형 EV 배터리 출하 증가도 확인됐다. 다음 판단 지점은 ESS 수주가 실제 하반기 출하·매출로 전환되는 속도와 AMPC 제외 본업 수익성 회복이다.",
+      "urls": [
+        "https://news.dealsitetv.com/articles/172933",
+        "https://www.electimes.com/news/articleView.html?idxno=370000",
+        "https://www.mt.co.kr/industry/2026/07/07/2026070713523621384",
+        "https://www.sentv.co.kr/article/view/sentv202607070090",
+        "https://www.bloomberg.com/news/articles/2026-07-06/lg-energy-profit-misses-estimates-amid-slow-ev-demand",
+        "https://www.reuters.com/business/energy/lg-energy-solution-flags-77-fall-q2-operating-profit-continued-weak-ev-demand-2026-07-07/",
+        "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
+        "https://www.newswire.co.kr/newsRead.php?no=1039662"
+      ],
+      "title_supporting_sources": [
+        {
+          "url": "https://news.dealsitetv.com/articles/172933",
+          "publisher": "딜사이트TV",
+          "source_published_date": "2026-07-07",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "claim": "LG에너지솔루션은 2026년 2분기 매출 7조5602억원과 영업이익 1133억원의 잠정실적을 공시했다."
+        },
+        {
+          "url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
+          "publisher": "OFweek Li-Battery",
+          "source_published_date": "2026-07-30",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "claim": "Core same-event evidence candidate from current-run hydrated article body."
+        },
+        {
+          "url": "https://www.newswire.co.kr/newsRead.php?no=1039662",
+          "publisher": "LG Energy Solution / Newswire",
+          "source_published_date": "2026-07-30",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "claim": "LGES reported Q2 revenue/operating profit, >30% QoQ ESS shipment growth and >KRW3tn H1 ESS new orders."
+        },
+        {
+          "url": "https://inside.lgensol.com/en/2026/07/lg-energy-solution-releases-2026-second-quarter-financial-results/",
+          "publisher": "LG Energy Solution",
+          "source_published_date": "2026-07-30",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "claim": "상반기 ESS 매출 4.6배·20% 후반 비중과 유럽 파우치형 EV 출하 증가를 확인한다."
+        }
+      ]
+    }
+  ],
+  "failures": []
+}

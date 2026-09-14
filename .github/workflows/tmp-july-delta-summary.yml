@@ -1,0 +1,42 @@
+name: tmp-july-delta-summary
+on: push
+permissions:
+  contents: write
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/monthly-brief-2026-07-backfill
+      - name: Summarize substantive field changes
+        run: |
+          python - <<'PY'
+          import json
+          from collections import Counter
+          from pathlib import Path
+          p=Path('runs/2026-09-14/working/monthly-brief-2026-07/current-main-delta.json')
+          d=json.loads(p.read_text())
+          cnt=Counter(); substantive=[]; evidence_only=[]
+          editorial={'date','region','signal','title','sub','gate','fact'}
+          for x in d['changed']:
+            fs=set(x['changed_fields']); cnt.update(fs)
+            if fs & editorial:
+              substantive.append({'id':x['id'],'changed_fields':x['changed_fields'],'before':x['before'],'after':x['after']})
+            else:
+              evidence_only.append({'id':x['id'],'changed_fields':x['changed_fields']})
+          out={'current_main':d['current_main'],'current_blob':d['current_blob'],'old_july_count':d['old_july_count'],'current_july_count':d['current_july_count'],'field_change_counts':dict(cnt),'substantive_count':len(substantive),'evidence_or_lineage_only_count':len(evidence_only),'substantive_changes':substantive}
+          op=Path('runs/2026-09-14/working/monthly-brief-2026-07/current-main-delta-summary.json')
+          op.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({k:out[k] for k in ['current_main','current_blob','old_july_count','current_july_count','field_change_counts','substantive_count','evidence_or_lineage_only_count']},ensure_ascii=False,indent=2))
+          if substantive:
+            print('SUBSTANTIVE IDS', [x['id'] for x in substantive])
+          PY
+      - name: Commit summary and remove workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/tmp-july-delta-summary.yml
+          git add runs/2026-09-14/working/monthly-brief-2026-07/current-main-delta-summary.json
+          git commit -m "audit: summarize July canonical delta"
+          git push origin HEAD:chatgpt/monthly-brief-2026-07-backfill

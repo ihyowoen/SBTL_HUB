@@ -31,7 +31,7 @@
     "Test the simple EV-down/ESS-replaces-EV narrative against July traction-battery and EV-material growth evidence and reject it when contradicted.",
     "Apply a separate SBTL pouch lens that requires form-factor/customer-program evidence before translating ESS growth into pouch-film demand.",
     "Inspect post-month follow-up only as counterevidence; later facts do not become official July refs.",
-    "Select a compact 28-card official evidence set and bind every public ref to a governed fact source that explicitly supports the card title."
+    "Select a compact 25-card official evidence set and bind every public ref to a governed fact source that explicitly supports the card title."
   ],
   "selected_flows": [
     {
@@ -65,26 +65,23 @@
       "id": "03",
       "title": "EV 성장축은 유지되고, ESS·LFP가 추가 생산축으로 편입",
       "decision": "SELECT",
-      "reason": "ESS/LFP production additions coexist with positive EV traction-battery and materials growth. The supported conclusion is production/customer diversification rather than substitution.",
+      "reason": "ESS/LFP production additions coexist with positive China traction-battery installation growth. The supported conclusion is production/customer diversification rather than simple EV-to-ESS substitution; unresolved compound-title and pouch-program bindings are excluded from the official evidence set.",
       "anchor_card_ids": [
         "2026-07-07_US_02",
         "2026-07-02_US_01",
         "2026-07-24_CN_01",
         "2026-07-16_CN_03",
-        "2026-07-14_GL_03",
-        "2026-07-03_KR_01",
         "2026-07-07_KR_01"
       ]
     },
     {
       "id": "04",
-      "title": "핵심광물 현지화, 협력선언에서 오프테이크·FID·가공·물류로 내려옴",
+      "title": "핵심광물 현지화, 협력선언에서 오프테이크·FID·가공·수익성으로 내려옴",
       "decision": "SELECT",
-      "reason": "Offtake, FID, transport financing, processing start and early profitability move localization from policy intent toward executable supply-chain assets.",
+      "reason": "Offtake, FID, processing start and early profitability move localization from policy intent toward executable supply-chain assets. The Lobito card is excluded because its locked visible geography is not supported by the governed quote.",
       "anchor_card_ids": [
         "2026-07-02_GL_09",
         "2026-07-22_GL_01",
-        "2026-07-03_GL_08",
         "2026-07-01_KR_05",
         "2026-07-30_KR_01"
       ]
@@ -119,7 +116,7 @@
     {
       "narrative": "EV 둔화가 ESS 성장으로 단순 대체됐다",
       "decision": "REJECT",
-      "reason": "July includes positive China traction-battery installation and global EV electrolyte/separator demand growth while ESS/LFP production expands."
+      "reason": "July includes positive China traction-battery installation growth while ESS/LFP production expands; the separate compound EV-material card is quarantined because no single public ref proves its full compound title."
     },
     {
       "narrative": "발표된 ESS GW/GWh는 모두 확정 발주·설치물량이다",
@@ -129,7 +126,7 @@
     {
       "narrative": "ESS 성장률을 파우치필름 수요로 직접 환산할 수 있다",
       "decision": "REJECT",
-      "reason": "Several ESS cells have unconfirmed form factor. Direct July pouch evidence is narrower: Yulchon commercialization plus LGES pouch/ESS mix evidence."
+      "reason": "Several ESS cells have unconfirmed form factor. A July pouch-program card with unresolved ESS-use source binding is quarantined rather than used as a direct demand anchor."
     },
     {
       "narrative": "핵심광물 FID·금융종결은 곧바로 생산과 현금흐름을 뜻한다",
@@ -163,8 +160,8 @@
     }
   ],
   "official_source_selection": {
-    "selected_card_count": 28,
-    "selection_principle": "Decision-relevant, title-supported canonical anchors proving the five flows plus direct SBTL pouch evidence and EV counterevidence.",
+    "selected_card_count": 25,
+    "selection_principle": "Decision-relevant canonical anchors proving the five flows after exact-head review. Public references must support the complete visible canonical title from one selected governed URL; cards that cannot satisfy that rule without canonical remediation are quarantined rather than weakened inside the publication layer.",
     "source_card_ids": [
       "2026-07-22_US_01",
       "2026-07-13_GL_02",
@@ -181,10 +178,8 @@
       "2026-07-02_US_01",
       "2026-07-24_CN_01",
       "2026-07-16_CN_03",
-      "2026-07-14_GL_03",
       "2026-07-02_GL_09",
       "2026-07-22_GL_01",
-      "2026-07-03_GL_08",
       "2026-07-01_KR_05",
       "2026-07-30_KR_01",
       "2026-07-23_US_02",
@@ -192,7 +187,6 @@
       "2026-07-13_US_02",
       "2026-07-16_CN_01",
       "2026-07-01_CN_01",
-      "2026-07-03_KR_01",
       "2026-07-07_KR_01"
     ],
     "binding": [
@@ -271,7 +265,7 @@
       },
       {
         "id": "2026-07-29_US_02",
-        "selected_url": "https://www.energy.gov/articles/energy-department-announces-partnership-expand-reliable-affordable-energy-access-and-power",
+        "selected_url": "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921",
         "canonical_urls": [
           "https://www.energy.gov/articles/energy-department-announces-partnership-expand-reliable-affordable-energy-access-and-power",
           "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"
@@ -386,18 +380,6 @@
         ]
       },
       {
-        "id": "2026-07-14_GL_03",
-        "selected_url": "https://www.sneresearch.com/kr/insight/release_view/701/page/0",
-        "canonical_urls": [
-          "https://www.sneresearch.com/kr/insight/release_view/701/page/0",
-          "https://www.sneresearch.com/kr/insight/release_view/700/page/0"
-        ],
-        "title_supporting_urls": [
-          "https://www.sneresearch.com/kr/insight/release_view/701/page/0",
-          "https://www.sneresearch.com/kr/insight/release_view/700/page/0"
-        ]
-      },
-      {
         "id": "2026-07-02_GL_09",
         "selected_url": "https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/",
         "canonical_urls": [
@@ -419,18 +401,6 @@
         "title_supporting_urls": [
           "https://www.theaustralian.com.au/business/mining-energy/wesfarmers-sqm-greenlight-145bn-mt-holland-lithium-expansion/news-story/",
           "https://www.wesfarmers.com.au/investor-centre/company-performance-news/asx-announcements"
-        ]
-      },
-      {
-        "id": "2026-07-03_GL_08",
-        "selected_url": "https://www.africanlawbusiness.com/news/usd-753-million-drc-lobito-project-aims-to-unlock-critical-minerals-opportunities",
-        "canonical_urls": [
-          "https://www.africanlawbusiness.com/news/usd-753-million-drc-lobito-project-aims-to-unlock-critical-minerals-opportunities",
-          "https://www.africafc.org/news-and-insights/news/afc-achieves-financial-close-on-landmark-us-753-mm-lobito-corridor-railway-project-marking-a-major-milestone-for-regional-integration-and-economic-transformation"
-        ],
-        "title_supporting_urls": [
-          "https://www.africanlawbusiness.com/news/usd-753-million-drc-lobito-project-aims-to-unlock-critical-minerals-opportunities",
-          "https://www.africafc.org/news-and-insights/news/afc-achieves-financial-close-on-landmark-us-753-mm-lobito-corridor-railway-project-marking-a-major-milestone-for-regional-integration-and-economic-transformation"
         ]
       },
       {
@@ -521,22 +491,6 @@
         ]
       },
       {
-        "id": "2026-07-03_KR_01",
-        "selected_url": "https://www.thelec.kr/news/articleView.html?idxno=58957",
-        "canonical_urls": [
-          "https://www.thelec.kr/news/articleView.html?idxno=54047",
-          "https://www.thelec.kr/news/articleView.html?idxno=58957",
-          "https://www.finance-scope.com/article/view/scp202605080015",
-          "https://kind.krx.co.kr/external/2025/10/24/000575/20251024001355/10002.htm",
-          "https://www.fomek.or.kr/main/newsroom/mme/mme_view.php?wr_id=1544",
-          "https://www.lg.co.kr/media/release/28487"
-        ],
-        "title_supporting_urls": [
-          "https://www.thelec.kr/news/articleView.html?idxno=58957",
-          "https://www.thelec.kr/news/articleView.html?idxno=58957"
-        ]
-      },
-      {
         "id": "2026-07-07_KR_01",
         "selected_url": "https://news.dealsitetv.com/articles/172933",
         "canonical_urls": [
@@ -560,7 +514,29 @@
     ]
   },
   "card_integrity_triage": {
-    "status": "PASS_NO_INDISPENSABLE_CANONICAL_DEFECT",
+    "status": "PASS_WITH_QUARANTINED_NON_INDISPENSABLE_CANONICAL_DEFECTS",
+    "quarantined_cards": [
+      {
+        "id": "2026-07-14_GL_03",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "Compound canonical title spans electrolyte and separator figures supported by separate SNE releases; one public ref cannot prove the full visible title under the current provenance contract."
+      },
+      {
+        "id": "2026-07-03_GL_08",
+        "class": "CARD_FACT_ERROR",
+        "reason": "Locked visible title relocates the rehabilitated Lobito rail segment into DRC, while governed evidence describes the Angola segment to the DRC border."
+      },
+      {
+        "id": "2026-07-03_KR_01",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "Selected July source proves Poseung pouch-film commercialization but not the ESS application embedded in the locked visible title."
+      }
+    ],
+    "publication_binding_fix": {
+      "id": "2026-07-29_US_02",
+      "action": "REBIND_TO_GOVERNED_FULL_CLAIM_SOURCE",
+      "url": "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"
+    },
     "brief_overreach_controls": [
       "execution-stage separation",
       "EV-vs-ESS substitution rejection",
@@ -576,6 +552,8 @@
     "causal_language": "PASS",
     "legacy_issue_independence": "PASS",
     "official_refs_locked_to_current_july_canonical": "PASS",
-    "source_binding": "PASS"
+    "source_binding": "PASS_AFTER_CODEX_REMEDIATION",
+    "canonical_defect_quarantine": "PASS",
+    "codex_review_5193925152": "REMEDIATED_P1_X4"
   }
 }

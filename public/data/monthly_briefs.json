@@ -263,8 +263,8 @@
       "publication_mode": "editorial_curated",
       "published_at": "2026-09-14",
       "title": "SBTL Monthly Brief · 2026.07",
-      "executive_diagnosis": "7월 배터리 산업의 핵심 변화는 ESS가 단순 설치 전망을 넘어 계약·프로젝트금융·플랫폼 M&A·가동을 갖춘 독립적인 인프라 자산군으로 자본화되기 시작한 점이다. 동시에 AI 데이터센터와 계통 병목은 BESS를 전력 인프라 설계요소로 끌어들였다. 공급 측에서는 EV 수요가 유지되는 가운데 ESS·LFP가 추가 생산축으로 편입됐고, 핵심광물 현지화는 오프테이크·최종투자결정·가공·물류·정책금융으로 구체화됐다. 관세·세제·안전·접속 규칙도 제품 경제성과 시장진입을 가르는 변수로 작동했다. 따라서 7월을 ‘EV 둔화→ESS 대체’로 읽기보다 수요·자본·생산·공급망이 여러 축으로 재편된 달로 보는 편이 정확하다.",
-      "what_changed": "7월에는 발표된 용량의 크기보다 어느 단계까지 실제로 내려왔는지가 더 중요해졌다. ESS에서는 장기 수익계약·금융종결·플랫폼 인수계약·통전·상업운전이 동시에 확인됐고, AI·배전망 제약이 저장장치의 새로운 수요 논리를 만들었다. 생산에서는 EV 축이 유지된 채 ESS·LFP가 추가됐으며, 핵심광물은 단순 협력선언보다 오프테이크·FID·가공·물류·수익성 확인 단계로 이동했다. SBTL 관점에서도 ESS 성장률을 파우치필름 수요로 자동 환산하기보다 실제 셀 폼팩터·고객 프로그램·공급계약을 확인해야 하며, 7월의 직접 신호는 ESS용 파우치필름 상업양산 전환과 LG에너지솔루션의 ESS 매출 확대·파우치형 EV 출하 증가였다.",
+      "executive_diagnosis": "7월 배터리 산업의 핵심 변화는 ESS가 단순 설치 전망을 넘어 계약·프로젝트금융·플랫폼 M&A·가동을 갖춘 독립적인 인프라 자산군으로 자본화되기 시작한 점이다. 동시에 AI 데이터센터와 계통 병목은 BESS를 전력 인프라 설계요소로 끌어들였다. 공급 측에서는 EV 수요가 유지되는 가운데 ESS·LFP가 추가 생산축으로 편입됐고, 핵심광물 현지화는 오프테이크·최종투자결정·가공·투자·수익성 확인으로 구체화됐다. 관세·세제·안전·접속 규칙도 제품 경제성과 시장진입을 가르는 변수로 작동했다. 따라서 7월을 ‘EV 둔화→ESS 대체’로 읽기보다 수요·자본·생산·공급망이 여러 축으로 재편된 달로 보는 편이 정확하다.",
+      "what_changed": "7월에는 발표된 용량의 크기보다 어느 단계까지 실제로 내려왔는지가 더 중요해졌다. ESS에서는 장기 수익계약·금융종결·플랫폼 인수계약·통전·상업운전이 동시에 확인됐고, AI·배전망 제약이 저장장치의 새로운 수요 논리를 만들었다. 생산에서는 EV 축이 유지된 채 ESS·LFP가 추가됐으며, 핵심광물은 단순 협력선언보다 오프테이크·FID·가공·투자·수익성 확인 단계로 이동했다. SBTL 관점에서는 ESS 성장률을 파우치필름 수요로 자동 환산하지 않고, 실제 셀 폼팩터·고객 프로그램·공급계약이 확인되는 경우에만 직접 수요 신호로 해석해야 한다.",
       "source_baseline": {
         "main_commit_sha": "5147e5bfbe7cadbf03782ef68805444227afaf1e",
         "full_blob_sha": "79e1b89ca89b55c24bd8b2c1fa6924a3d85f13c9",
@@ -286,10 +286,8 @@
         "2026-07-02_US_01",
         "2026-07-24_CN_01",
         "2026-07-16_CN_03",
-        "2026-07-14_GL_03",
         "2026-07-02_GL_09",
         "2026-07-22_GL_01",
-        "2026-07-03_GL_08",
         "2026-07-01_KR_05",
         "2026-07-30_KR_01",
         "2026-07-23_US_02",
@@ -297,7 +295,6 @@
         "2026-07-13_US_02",
         "2026-07-16_CN_01",
         "2026-07-01_CN_01",
-        "2026-07-03_KR_01",
         "2026-07-07_KR_01"
       ],
       "key_flows": [
@@ -329,25 +326,22 @@
         {
           "id": "03",
           "title": "EV 성장축은 유지되고, ESS·LFP가 추가 생산축으로 편입",
-          "summary": "미국 Spring Hill에서는 기존 생산능력 일부를 ESS용 LFP로 전환해 생산을 시작했고, LG에너지솔루션-Honda 오하이오 합작공장도 ESS 셀 양산을 개시했다. CATL의 상반기 ESS 시스템 매출은 87.54% 늘었지만 중국 6월 동력배터리 탑재량도 전년 대비 31.5% 증가했고 LFP 비중은 83.3%에 달했다. 글로벌 EV용 전해액·분리막 수요도 1~5월 각각 19.3%·20.7% 증가했다. 즉 EV가 사라지고 ESS가 대체한 것이 아니라 생산·화학계·고객 믹스가 넓어진 것이다. SBTL 관점의 직접 신호는 율촌화학 포승 증설설비의 ESS용 파우치필름 상업양산 전환과 LG에너지솔루션의 ESS 매출 확대·유럽 파우치형 EV 출하 증가이며, 폼팩터가 확인되지 않은 ESS 물량을 파우치 수요로 자동 환산해서는 안 된다.",
+          "summary": "미국 Spring Hill에서는 기존 생산능력 일부를 ESS용 LFP로 전환해 생산을 시작했고, LG에너지솔루션-Honda 오하이오 합작공장도 ESS 셀 양산을 개시했다. CATL의 상반기 ESS 시스템 매출은 87.54% 늘었지만 중국 6월 동력배터리 탑재량도 전년 대비 31.5% 증가했고 LFP 비중은 83.3%에 달했다. 즉 EV가 사라지고 ESS가 대체한 것이 아니라 생산·화학계·고객 믹스가 넓어진 것이다. SBTL 관점에서는 ESS 성장률을 파우치필름 수요로 자동 환산하지 않고, 실제 셀 폼팩터·고객 프로그램·공급계약이 확인되는 경우에만 직접 수요 신호로 해석해야 한다.",
           "card_ids": [
             "2026-07-07_US_02",
             "2026-07-02_US_01",
             "2026-07-24_CN_01",
             "2026-07-16_CN_03",
-            "2026-07-14_GL_03",
-            "2026-07-03_KR_01",
             "2026-07-07_KR_01"
           ]
         },
         {
           "id": "04",
-          "title": "핵심광물 현지화, 협력선언에서 오프테이크·FID·가공·물류로 내려옴",
-          "summary": "VHM은 Goschen 희토류 정광의 장기 오프테이크를 확보했고, Wesfarmers·SQM은 Mt Holland 리튬정광 생산능력을 연 38만톤에서 76만톤으로 확대하는 FID를 내렸다. 아프리카에서는 Lobito Corridor의 DRC 철도 재건이 7.53억달러 금융종결에 도달했고, 한국 Sangdong은 재고광석 기반 텅스텐 가공을 시작했다. POSCO의 아르헨티나 염수리튬 1단계는 안정화 이후 분기 흑자를 기록했다. 현지화가 광권 확보만이 아니라 판매계약·자본투입·가공·물류·경제성까지 연결되는 구간이다. 다만 FID와 금융종결은 즉시 생산을 뜻하지 않고 초기 흑자도 장기 현금흐름으로 확대해석하지 않는다.",
+          "title": "핵심광물 현지화, 협력선언에서 오프테이크·FID·가공·수익성으로 내려옴",
+          "summary": "VHM은 Goschen 희토류 정광의 장기 오프테이크를 확보했고, Wesfarmers·SQM은 Mt Holland 리튬정광 생산능력을 연 38만톤에서 76만톤으로 확대하는 FID를 내렸다. 한국 Sangdong은 재고광석 기반 텅스텐 가공을 시작했고, POSCO의 아르헨티나 염수리튬 1단계는 안정화 이후 분기 흑자를 기록했다. 현지화가 광권 확보만이 아니라 판매계약·자본투입·가공·경제성 확인까지 연결되는 구간이다. 다만 FID는 즉시 생산을 뜻하지 않고 초기 흑자도 장기 현금흐름으로 확대해석하지 않는다.",
           "card_ids": [
             "2026-07-02_GL_09",
             "2026-07-22_GL_01",
-            "2026-07-03_GL_08",
             "2026-07-01_KR_05",
             "2026-07-30_KR_01"
           ]
@@ -369,7 +363,7 @@
         "Aypa Power 인수계약이 실제 거래종결로 이어지는지, 운영·계약 6.5GW와 20GW 초과 개발 파이프라인이 COD 자산으로 얼마나 전환되는지 확인한다.",
         "Paducah·Steel River 등 AI·데이터센터 연계 BESS가 definitive agreement·허가·발주·착공을 거치며 공개된 최대 용량 중 얼마를 실제 주문으로 확정하는지 본다.",
         "Spring Hill·LG에너지솔루션-Honda ESS 생산의 실제 화학계·폼팩터·전용 GWh·가동률과 EV 생산계획이 병행되는지 확인한다.",
-        "율촌화학 ESS용 파우치필름이 장기 공급계약·고객 프로그램·가동률·수율·매출로 연결되는지 추적하고, 폼팩터 미확정 ESS 성장률과 구분한다.",
+        "ESS 생산 확대가 실제 파우치형 셀 프로그램·고객 공급계약·가동률·수율·매출로 연결되는지 추적하고, 폼팩터 미확정 ESS 성장률과 구분한다.",
         "중국 배터리 소비세의 실제 제품경계와 세후 원가, 미국 관세·FCC 승인 제한의 제품별 적용이 셀·PCS·인버터 조달과 비리튬 기술 상용화에 어떤 선택효과를 만드는지 확인한다."
       ],
       "refs": [
@@ -420,7 +414,7 @@
           "id": "2026-07-29_US_02",
           "title": "미 DOE, Paducah 전력인프라 사업자로 NextEra 선정…최대 2.6GW BESS안",
           "date": "2026-07-29",
-          "url": "https://www.energy.gov/articles/energy-department-announces-partnership-expand-reliable-affordable-energy-access-and-power"
+          "url": "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"
         },
         {
           "n": 8,
@@ -480,90 +474,69 @@
         },
         {
           "n": 16,
-          "id": "2026-07-14_GL_03",
-          "title": "1~5월 EV 전해액 +19.3%·분리막 +20.7%…중국 제외 증가율 더 높아",
-          "date": "2026-07-14",
-          "url": "https://www.sneresearch.com/kr/insight/release_view/701/page/0"
-        },
-        {
-          "n": 17,
           "id": "2026-07-02_GL_09",
           "title": "VHM, Iluka와 Goschen 희토류 100% 오프테이크·A$4000만 금융계약",
           "date": "2026-07-02",
           "url": "https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/"
         },
         {
-          "n": 18,
+          "n": 17,
           "id": "2026-07-22_GL_01",
           "title": "Wesfarmers·SQM, Mt Holland 리튬정광 연 76만톤 증설 FID",
           "date": "2026-07-22",
           "url": "https://www.theaustralian.com.au/business/mining-energy/wesfarmers-sqm-greenlight-145bn-mt-holland-lithium-expansion/news-story/"
         },
         {
-          "n": 19,
-          "id": "2026-07-03_GL_08",
-          "title": "Lobito 철도, DRC 구간 재건에 7억5300만달러 금융종결",
-          "date": "2026-07-03",
-          "url": "https://www.africanlawbusiness.com/news/usd-753-million-drc-lobito-project-aims-to-unlock-critical-minerals-opportunities"
-        },
-        {
-          "n": 20,
+          "n": 18,
           "id": "2026-07-01_KR_05",
           "title": "알몬티, 상동 텅스텐광산 가공개시…비축원광으로 판매가능 정광 생산 전환",
           "date": "2026-07-01",
           "url": "https://www.theguru.co.kr/news/article.html?no=103907"
         },
         {
-          "n": 21,
+          "n": 19,
           "id": "2026-07-30_KR_01",
           "title": "포스코아르헨티나, 염수리튬 1공장 안정화로 첫 분기 흑자",
           "date": "2026-07-30",
           "url": "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/"
         },
         {
-          "n": 22,
+          "n": 20,
           "id": "2026-07-23_US_02",
           "title": "미국, 60개 경제권에 강제노동 연계 Section 301 관세 확정",
           "date": "2026-07-23",
           "url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations"
         },
         {
-          "n": 23,
+          "n": 21,
           "id": "2026-07-28_US_01",
           "title": "미 FCC, 해외산 연결형 전력인버터 신규 장비승인 제한",
           "date": "2026-07-28",
           "url": "https://www.reuters.com/world/trump-administration-ban-new-chinese-robots-inverters-protecting-us-ai-buildout-2026-07-28/"
         },
         {
-          "n": 24,
+          "n": 22,
           "id": "2026-07-13_US_02",
           "title": "라자드, 미국 4시간 BESS LCOS 상승…관세·FEOC가 저가셀 접근 제한",
           "date": "2026-07-13",
           "url": "https://www.lazard.com/news-announcements/lazard-releases-2026-levelized-cost-of-energyplus-report-pr/"
         },
         {
-          "n": 25,
+          "n": 23,
           "id": "2026-07-16_CN_01",
           "title": "중국, 리튬이온 배터리 소비세 2026년 2%·2027년 4% 적용",
           "date": "2026-07-16",
           "url": "https://shanxi.chinatax.gov.cn/web/detail/sx-11400-545-1822939"
         },
         {
-          "n": 26,
+          "n": 24,
           "id": "2026-07-01_CN_01",
           "title": "중국 GB 38031-2025 동력배터리 안전 강제표준 시행",
           "date": "2026-07-01",
           "url": "https://english.www.gov.cn/english.www.gov.cn/news/202504/15/content_WS67fe4271c6d0868f4e8f1b70.html"
         },
         {
-          "n": 27,
-          "id": "2026-07-03_KR_01",
-          "title": "율촌화학, 포승공장서 LG에너지솔루션 ESS용 파우치필름 상업양산 전환",
-          "date": "2026-07-03",
-          "url": "https://www.thelec.kr/news/articleView.html?idxno=58957"
-        },
-        {
-          "n": 28,
+          "n": 25,
           "id": "2026-07-07_KR_01",
           "title": "LG에너지솔루션, 2분기 영업익 1133억원…AMPC 제외 1277억원 적자",
           "date": "2026-07-07",
@@ -577,13 +550,13 @@
         "language_terminology_status": "PASS",
         "reviewed_at": "2026-09-14",
         "reviewer_role": "editorial_red_team",
-        "notes": "Rebuilt independently from the current governed July universe of 365 cards (75 top, 239 high, 51 mid). Legacy Vol.09 was consulted only after the independent thesis was locked and was used solely for omission/overreach red-team. Twenty-eight title-supported canonical anchors were selected. Post-month follow-up did not overturn the five-flow diagnosis; later China tax guidance was used only to narrow the product-boundary watch and is not an official July ref."
+        "notes": "Rebuilt independently from the current governed July universe of 365 cards (75 top, 239 high, 51 mid). Legacy Vol.09 was consulted only after the independent thesis was locked and was used solely for omission/overreach red-team. After exact-head Codex review, three non-indispensable cards with compound-title/source-binding or geography defects were quarantined from publication; 25 official canonical anchors remain. Paducah was rebound to the governed NextEra source covering the full visible capacity claim. Post-month follow-up did not overturn the five-flow diagnosis."
       },
       "approval": {
         "status": "APPROVED",
         "approved_at": "2026-09-14",
         "reviewer_role": "editorial_owner",
-        "notes": "Authorized as a fresh official Monthly Brief reconstruction rather than a migration of legacy Vol.09. Publication is locked to the current canonical snapshot and passes source-binding, counterevidence and scope-precision review."
+        "notes": "Re-authorized after exact-head Codex remediation: Paducah was rebound to full-claim evidence and three non-indispensable defective anchors were quarantined without mutating canonical cards inside the publication PR."
       }
     }
   ]

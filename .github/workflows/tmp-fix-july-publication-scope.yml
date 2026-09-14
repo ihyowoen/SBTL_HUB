@@ -1,0 +1,31 @@
+name: tmp-fix-july-publication-scope
+on: push
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/publish-monthly-brief-2026-07
+      - name: Fix scope gate to include untracked audit file
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('.github/workflows/tmp-publish-monthly-brief-2026-07.yml')
+          s=p.read_text()
+          old='''          git status --short\n          git diff --check\n          test "$(git diff --name-only | sort | tr '\\n' ' ')" = "public/data/monthly_briefs.json runs/2026-09-14/monthly-brief-2026-07-editorial-audit.json "\n'''
+          new='''          git status --short\n          git diff --check\n          changed="$({ git diff --name-only; git ls-files --others --exclude-standard; } | sort)"\n          expected="$(printf '%s\\n%s' 'public/data/monthly_briefs.json' 'runs/2026-09-14/monthly-brief-2026-07-editorial-audit.json')"\n          test "$changed" = "$expected"\n'''
+          if old not in s:
+              raise SystemExit('expected scope block not found')
+          p.write_text(s.replace(old,new,1))
+          PY
+      - name: Commit fix and remove fixer
+        run: |
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git rm .github/workflows/tmp-fix-july-publication-scope.yml
+          git add .github/workflows/tmp-publish-monthly-brief-2026-07.yml
+          git commit -m "chore: fix July publication scope gate"
+          git push origin HEAD:chatgpt/publish-monthly-brief-2026-07

@@ -1,0 +1,2283 @@
+{
+  "month": "2026-07",
+  "locked_main_commit_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+  "full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
+  "month_count": 365,
+  "theme_counts": {
+    "ESS_BESS_GRID_STORAGE": 161,
+    "EV_CELL_MANUFACTURING": 102,
+    "CHEMISTRY_TECH": 30,
+    "CRITICAL_MINERALS_RECYCLING": 89,
+    "GRID_POWER_AI_INFRA": 98,
+    "POLICY_TRADE_REGULATION": 138,
+    "CAPITAL_FINANCE_MA": 172,
+    "LOCALIZATION_SUPPLY_CHAIN": 73,
+    "POUCH_FILM_PACKAGING": 10
+  },
+  "stage_counts": {
+    "OPERATING_COD": 99,
+    "COMMISSIONING_INSTALLATION": 46,
+    "CONSTRUCTION_FID": 108,
+    "CONTRACT_OFFTAKE_TOLLING": 147,
+    "FINANCING_CAPITAL": 164,
+    "POLICY_APPROVAL_PROCUREMENT": 150,
+    "MARKET_DATA_SIGNAL": 165
+  },
+  "cross_counts": [
+    {
+      "theme": "CAPITAL_FINANCE_MA",
+      "stage": "FINANCING_CAPITAL",
+      "count": 164
+    },
+    {
+      "theme": "POLICY_TRADE_REGULATION",
+      "stage": "POLICY_APPROVAL_PROCUREMENT",
+      "count": 97
+    },
+    {
+      "theme": "CAPITAL_FINANCE_MA",
+      "stage": "CONTRACT_OFFTAKE_TOLLING",
+      "count": 88
+    },
+    {
+      "theme": "CAPITAL_FINANCE_MA",
+      "stage": "POLICY_APPROVAL_PROCUREMENT",
+      "count": 85
+    },
+    {
+      "theme": "ESS_BESS_GRID_STORAGE",
+      "stage": "FINANCING_CAPITAL",
+      "count": 83
+    },
+    {
+      "theme": "CAPITAL_FINANCE_MA",
+      "stage": "CONSTRUCTION_FID",
+      "count": 83
+    },
+    {
+      "theme": "ESS_BESS_GRID_STORAGE",
+      "stage": "CONTRACT_OFFTAKE_TOLLING",
+      "count": 77
+    },
+    {
+      "theme": "ESS_BESS_GRID_STORAGE",
+      "stage": "CONSTRUCTION_FID",
+      "count": 72
+    },
+    {
+      "theme": "CAPITAL_FINANCE_MA",
+      "stage": "MARKET_DATA_SIGNAL",
+      "count": 68
+    },
+    {
+      "theme": "ESS_BESS_GRID_STORAGE",
+      "stage": "MARKET_DATA_SIGNAL",
+      "count": 65
+    },
+    {
+      "theme": "EV_CELL_MANUFACTURING",
+      "stage": "MARKET_DATA_SIGNAL",
+      "count": 64
+    },
+    {
+      "theme": "POLICY_TRADE_REGULATION",
+      "stage": "FINANCING_CAPITAL",
+      "count": 63
+    },
+    {
+      "theme": "POLICY_TRADE_REGULATION",
+      "stage": "MARKET_DATA_SIGNAL",
+      "count": 60
+    },
+    {
+      "theme": "ESS_BESS_GRID_STORAGE",
+      "stage": "POLICY_APPROVAL_PROCUREMENT",
+      "count": 59
+    },
+    {
+      "theme": "ESS_BESS_GRID_STORAGE",
+      "stage": "OPERATING_COD",
+      "count": 58
+    },
+    {
+      "theme": "POLICY_TRADE_REGULATION",
+      "stage": "CONTRACT_OFFTAKE_TOLLING",
+      "count": 56
+    },
+    {
+      "theme": "CRITICAL_MINERALS_RECYCLING",
+      "stage": "MARKET_DATA_SIGNAL",
+      "count": 54
+    },
+    {
+      "theme": "GRID_POWER_AI_INFRA",
+      "stage": "FINANCING_CAPITAL",
+      "count": 51
+    },
+    {
+      "theme": "CAPITAL_FINANCE_MA",
+      "stage": "OPERATING_COD",
+      "count": 48
+    },
+    {
+      "theme": "GRID_POWER_AI_INFRA",
+      "stage": "CONTRACT_OFFTAKE_TOLLING",
+      "count": 45
+    },
+    {
+      "theme": "GRID_POWER_AI_INFRA",
+      "stage": "POLICY_APPROVAL_PROCUREMENT",
+      "count": 43
+    },
+    {
+      "theme": "CRITICAL_MINERALS_RECYCLING",
+      "stage": "FINANCING_CAPITAL",
+      "count": 42
+    },
+    {
+      "theme": "GRID_POWER_AI_INFRA",
+      "stage": "CONSTRUCTION_FID",
+      "count": 40
+    },
+    {
+      "theme": "LOCALIZATION_SUPPLY_CHAIN",
+      "stage": "MARKET_DATA_SIGNAL",
+      "count": 40
+    },
+    {
+      "theme": "EV_CELL_MANUFACTURING",
+      "stage": "FINANCING_CAPITAL",
+      "count": 39
+    },
+    {
+      "theme": "CRITICAL_MINERALS_RECYCLING",
+      "stage": "POLICY_APPROVAL_PROCUREMENT",
+      "count": 38
+    },
+    {
+      "theme": "EV_CELL_MANUFACTURING",
+      "stage": "POLICY_APPROVAL_PROCUREMENT",
+      "count": 37
+    },
+    {
+      "theme": "LOCALIZATION_SUPPLY_CHAIN",
+      "stage": "POLICY_APPROVAL_PROCUREMENT",
+      "count": 36
+    },
+    {
+      "theme": "LOCALIZATION_SUPPLY_CHAIN",
+      "stage": "CONTRACT_OFFTAKE_TOLLING",
+      "count": 35
+    },
+    {
+      "theme": "GRID_POWER_AI_INFRA",
+      "stage": "MARKET_DATA_SIGNAL",
+      "count": 35
+    },
+    {
+      "theme": "CRITICAL_MINERALS_RECYCLING",
+      "stage": "CONTRACT_OFFTAKE_TOLLING",
+      "count": 34
+    },
+    {
+      "theme": "POLICY_TRADE_REGULATION",
+      "stage": "CONSTRUCTION_FID",
+      "count": 32
+    },
+    {
+      "theme": "LOCALIZATION_SUPPLY_CHAIN",
+      "stage": "FINANCING_CAPITAL",
+      "count": 31
+    },
+    {
+      "theme": "EV_CELL_MANUFACTURING",
+      "stage": "CONTRACT_OFFTAKE_TOLLING",
+      "count": 31
+    },
+    {
+      "theme": "ESS_BESS_GRID_STORAGE",
+      "stage": "COMMISSIONING_INSTALLATION",
+      "count": 30
+    },
+    {
+      "theme": "GRID_POWER_AI_INFRA",
+      "stage": "OPERATING_COD",
+      "count": 30
+    },
+    {
+      "theme": "POLICY_TRADE_REGULATION",
+      "stage": "OPERATING_COD",
+      "count": 30
+    },
+    {
+      "theme": "EV_CELL_MANUFACTURING",
+      "stage": "OPERATING_COD",
+      "count": 27
+    },
+    {
+      "theme": "CAPITAL_FINANCE_MA",
+      "stage": "COMMISSIONING_INSTALLATION",
+      "count": 26
+    },
+    {
+      "theme": "GRID_POWER_AI_INFRA",
+      "stage": "COMMISSIONING_INSTALLATION",
+      "count": 22
+    },
+    {
+      "theme": "CRITICAL_MINERALS_RECYCLING",
+      "stage": "CONSTRUCTION_FID",
+      "count": 21
+    },
+    {
+      "theme": "CRITICAL_MINERALS_RECYCLING",
+      "stage": "OPERATING_COD",
+      "count": 20
+    },
+    {
+      "theme": "EV_CELL_MANUFACTURING",
+      "stage": "CONSTRUCTION_FID",
+      "count": 18
+    },
+    {
+      "theme": "LOCALIZATION_SUPPLY_CHAIN",
+      "stage": "OPERATING_COD",
+      "count": 18
+    },
+    {
+      "theme": "CHEMISTRY_TECH",
+      "stage": "MARKET_DATA_SIGNAL",
+      "count": 16
+    },
+    {
+      "theme": "LOCALIZATION_SUPPLY_CHAIN",
+      "stage": "CONSTRUCTION_FID",
+      "count": 16
+    },
+    {
+      "theme": "CHEMISTRY_TECH",
+      "stage": "CONTRACT_OFFTAKE_TOLLING",
+      "count": 14
+    },
+    {
+      "theme": "POLICY_TRADE_REGULATION",
+      "stage": "COMMISSIONING_INSTALLATION",
+      "count": 14
+    },
+    {
+      "theme": "CHEMISTRY_TECH",
+      "stage": "FINANCING_CAPITAL",
+      "count": 13
+    },
+    {
+      "theme": "EV_CELL_MANUFACTURING",
+      "stage": "COMMISSIONING_INSTALLATION",
+      "count": 10
+    },
+    {
+      "theme": "CHEMISTRY_TECH",
+      "stage": "POLICY_APPROVAL_PROCUREMENT",
+      "count": 9
+    },
+    {
+      "theme": "CHEMISTRY_TECH",
+      "stage": "OPERATING_COD",
+      "count": 9
+    },
+    {
+      "theme": "POUCH_FILM_PACKAGING",
+      "stage": "MARKET_DATA_SIGNAL",
+      "count": 9
+    },
+    {
+      "theme": "CHEMISTRY_TECH",
+      "stage": "CONSTRUCTION_FID",
+      "count": 8
+    },
+    {
+      "theme": "LOCALIZATION_SUPPLY_CHAIN",
+      "stage": "COMMISSIONING_INSTALLATION",
+      "count": 8
+    },
+    {
+      "theme": "CRITICAL_MINERALS_RECYCLING",
+      "stage": "COMMISSIONING_INSTALLATION",
+      "count": 7
+    },
+    {
+      "theme": "POUCH_FILM_PACKAGING",
+      "stage": "POLICY_APPROVAL_PROCUREMENT",
+      "count": 5
+    },
+    {
+      "theme": "CHEMISTRY_TECH",
+      "stage": "COMMISSIONING_INSTALLATION",
+      "count": 4
+    },
+    {
+      "theme": "POUCH_FILM_PACKAGING",
+      "stage": "FINANCING_CAPITAL",
+      "count": 3
+    },
+    {
+      "theme": "POUCH_FILM_PACKAGING",
+      "stage": "CONTRACT_OFFTAKE_TOLLING",
+      "count": 3
+    },
+    {
+      "theme": "POUCH_FILM_PACKAGING",
+      "stage": "CONSTRUCTION_FID",
+      "count": 1
+    },
+    {
+      "theme": "POUCH_FILM_PACKAGING",
+      "stage": "OPERATING_COD",
+      "count": 1
+    },
+    {
+      "theme": "POUCH_FILM_PACKAGING",
+      "stage": "COMMISSIONING_INSTALLATION",
+      "count": 1
+    }
+  ],
+  "theme_representatives": {
+    "ESS_BESS_GRID_STORAGE": [
+      {
+        "id": "2026-07-31_GL_02",
+        "date": "2026-07-31",
+        "region": "GL",
+        "signal": "top",
+        "title": "인도, 5,000MW 수상태양광·최소 2시간 ESS PM-Surya Sarovar 승인",
+        "gate": "이번 사건은 제도 승인 단계이며 개별 프로젝트 선정·착공을 의미하지 않는다. 후속 판단 지점은 세부 사업 선정과 실제 집행 속도다."
+      },
+      {
+        "id": "2026-07-30_EU_03",
+        "date": "2026-07-30",
+        "region": "EU",
+        "signal": "top",
+        "title": "Greenvolt, 폴란드 200MW/800MWh BESS 개장",
+        "gate": "기존 건설·전력화 단계에서 실제 개장 단계로 이동한 후속 실행 신호다. 다만 개장 사실을 완전한 상업운전 개시로 확대 해석해서는 안 된다."
+      },
+      {
+        "id": "2026-07-29_US_02",
+        "date": "2026-07-29",
+        "region": "US",
+        "signal": "top",
+        "title": "미 DOE, Paducah 전력인프라 사업자로 NextEra 선정…최대 2.6GW BESS안",
+        "gate": "현재 확정된 사항은 데이터센터 개발 파트너와 전용 전력인프라 사업자 선정, 그리고 최대 개발규모다. NextEra 전력안은 최대 2GW 가스발전과 최대 2.6GW BESS를 포함하며 전력서비스계약에는 켄터키 공공서비스위원회 승인이 남아 있다."
+      },
+      {
+        "id": "2026-07-27_GL_01",
+        "date": "2026-07-27",
+        "region": "GL",
+        "signal": "top",
+        "title": "ADB 등, 동티모르 73.7MWac 태양광·80.2MWh BESS 금융지원",
+        "gate": "4,150만달러는 ADB와 파트너의 지원패키지로 총사업비나 sponsor equity 전체를 뜻하지 않는다. 금융종결, PPA 요금·기간, 건설계약과 계통연계 일정이 남아 있다."
+      },
+      {
+        "id": "2026-07-22_US_01",
+        "date": "2026-07-22",
+        "region": "US",
+        "signal": "top",
+        "title": "브룩필드, 약 70억달러 기업가치의 북미 BESS 플랫폼 Aypa Power 인수계약",
+        "gate": "대형 인프라 자본이 개별 BESS가 아니라 개발 플랫폼 전체를 인수하는 거래다. 운영·계약 자산과 개발 파이프라인을 함께 확보하는 구조가 관찰되며, 거래 종결과 개발사업의 실제 전환이 다음 점검 지점이다."
+      },
+      {
+        "id": "2026-07-21_GL_06",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "고려아연, 호주 2.2GWh 태양광·BESS 투자안 의결",
+        "gate": "제련·금속기업이 대규모 장주기 저장자산을 계열 재생에너지 포트폴리오에 편입하는 사례다. 이사회 의결 이후 금융종결과 착공, 장기 수익계약 확정이 실제 집행의 기준이 된다."
+      },
+      {
+        "id": "2026-07-21_GL_04",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "MASPV, 과테말라 130MWp 태양광·100MWh 저장에 15년 PPA 두 건",
+        "gate": "장기 PPA와 은행보증은 프로젝트 수익구조를 구체화한다. 다만 배터리 출력과 최종 공급개시 시점은 공개되지 않아 금융종결과 건설진척을 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_03",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "NTPC REL, 100MWh 바나듐흐름전지 EPC 사업 Bondada·Delectrik에 낙찰",
+        "gate": "100MWh급 발주는 인도 비리튬계 장주기 저장의 대형 조달사례다. 다만 아직 준공·운전실적은 없으며 낙찰통지 후 10개월 내 완공조건과 장기운전 성능을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_02",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "Wooreen BESS, Wärtsilä 배터리 유닛 1,038개 설치 완료",
+        "gate": "1,400MWh급 BESS에서 배터리 기자재 전량 설치가 끝나면서 프로젝트는 잔여 시운전과 계통연계 공정으로 넘어간다. 다만 이는 전체 프로젝트 준공이나 상업운전 개시를 뜻하지 않으며, 2027년 운영 목표까지 시험·계통접속 절차가 남아 있다."
+      },
+      {
+        "id": "2026-07-21_GL_01",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "SECI, 인도 양수발전 1,344MW 경쟁입찰 물량 3사 배정",
+        "gate": "이번 결과는 인도의 장주기 저장조달이 GW급 사업자 배정 단계로 구체화됐음을 보여준다. 다만 낙찰용량은 준공물량이 아니며 인허가·금융조달·최종계약이 실제 건설전환을 좌우한다."
+      },
+      {
+        "id": "2026-07-21_EU_04",
+        "date": "2026-07-21",
+        "region": "EU",
+        "signal": "top",
+        "title": "Westnetz, 재생에너지 병설 계통충전형 BESS에 유연 접속계약 확대",
+        "gate": "7월 21일 조치는 4월에 도입한 재생에너지 전용 저장장치 계약을 계통충전형 병설 BESS까지 확대한 별도 후속조치다. 접속용량을 고정 상한으로 제한하고 지역 재생에너지 발전예측에 따라 배터리 출력도 조정해, 증설 없이 접속 가능한 프로젝트 범위를 넓히는 구조다."
+      },
+      {
+        "id": "2026-07-21_EU_03",
+        "date": "2026-07-21",
+        "region": "EU",
+        "signal": "top",
+        "title": "CATL·Solarpro, 중동부유럽 나트륨이온 ESS 2GWh 협력계약",
+        "gate": "2GWh는 전략협력계약의 범위이지 확정 인도·설치물량이 아니다. 구체적인 프로젝트 부지, 발주와 설치일정이 공개돼야 실제 전개규모를 판단할 수 있다."
+      },
+      {
+        "id": "2026-07-20_US_06",
+        "date": "2026-07-20",
+        "region": "US",
+        "signal": "top",
+        "title": "메인주, 최대 360MW 첫 경쟁형 저장조달안 PUC 제출",
+        "gate": "최대 360MW는 확정 낙찰량이 아니라 규제기관 심사를 받는 조달안의 상한이다. PUC 승인과 최종 RFP 조건을 통과한 제안만 실제 계약으로 이어질 수 있다."
+      },
+      {
+        "id": "2026-07-20_US_05",
+        "date": "2026-07-20",
+        "region": "US",
+        "signal": "top",
+        "title": "Avantus Aratina 1, 200MW 태양광·500MWh 저장 상업운전 개시",
+        "gate": "상업운전 개시는 프로젝트 실행완료를 확인하는 이정표다. 다만 공개된 500MWh는 에너지용량이며 배터리 출력과 초기 운영성과는 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-20_KR_02",
+        "date": "2026-07-20",
+        "region": "KR",
+        "signal": "top",
+        "title": "중부발전과 탑선, 96MW/576MWh BESS 발전사업허가 확보",
+        "gate": "발전사업허가는 사업권 진전의 핵심 단계지만 착공이나 상업운전을 의미하지 않는다. 후속 인허가와 금융조달, 조달 및 건설일정의 이행이 프로젝트 실행성을 가른다."
+      },
+      {
+        "id": "2026-07-20_EU_03",
+        "date": "2026-07-20",
+        "region": "EU",
+        "signal": "top",
+        "title": "Return·ENGIE, 스페인 55MW/220MWh BESS에 10년 톨링 계약",
+        "gate": "장기 톨링은 자산소유자와 시장운영자의 역할을 구체화하는 상업계약이다. 다만 프로젝트의 건설완료나 상업운전을 의미하지 않으므로 개발·건설 진척을 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-20_EU_01",
+        "date": "2026-07-20",
+        "region": "EU",
+        "signal": "top",
+        "title": "독일 Waltrop 900MW·최소 1.8GWh BESS, 변전소·기반시설 건설결정",
+        "gate": "건설결정은 초대형 프로젝트가 발표단계에서 현장준비 단계로 이동했음을 보여준다. 다만 이번 결정의 대상은 변전소와 기반시설이며 전체 BESS 본공사 완료를 뜻하지 않는다. 2026년 가을 착공과 2028년 3분기 가동일정의 이행이 핵심이다."
+      },
+      {
+        "id": "2026-07-17_JP_01",
+        "date": "2026-07-17",
+        "region": "JP",
+        "signal": "top",
+        "title": "일본, 장기 탈탄소 경매 저장기술별 400MW 구분안 제시",
+        "gate": "저장기술을 하나의 가격경쟁군으로 묶지 않고 기술별로 분리하려는 제도설계다. 의견수렴 단계이므로 최종 모집요강과 낙찰조건을 확인해야 한다."
+      }
+    ],
+    "EV_CELL_MANUFACTURING": [
+      {
+        "id": "2026-07-21_US_01",
+        "date": "2026-07-21",
+        "region": "US",
+        "signal": "top",
+        "title": "Sila, 3억달러 조달해 Moses Lake 실리콘 음극재 2단계 증설 지원",
+        "gate": "3억달러 조달은 생산확대 재원을 확보한 별도 실행단계다. 다만 조달완료가 2단계 착공·설비발주 또는 확정 증설물량을 의미하지는 않는다."
+      },
+      {
+        "id": "2026-07-16_CN_06",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국 상반기 동력·저장 배터리 생산 1,068.9GWh, 53.3% 증가",
+        "gate": "1,068.9GWh는 동력용과 저장용을 합친 생산량이다. EV 탑재량이나 실제 수요와 비교할 때 지표의 범위와 분모를 구분해야 한다."
+      },
+      {
+        "id": "2026-07-16_CN_03",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국 6월 동력배터리 탑재 76.5GWh…LFP 비중 83.3%",
+        "gate": "6월 탑재량 증가율은 생산 206.0GWh와 판매 196.0GWh 규모보다 낮아 생산·판매·차량탑재 사이의 시차를 보여준다. LFP 비중 83.3%와 상반기 누적 81.0%가 지속되는지, 수출 36.2GWh와 재고흐름이 하반기 수급판단의 핵심이다."
+      },
+      {
+        "id": "2026-07-16_CN_02",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "홍콩 첫 대형 폐EV 배터리 처리시설, 6월 가동 후 7월 공식 개막",
+        "gate": "시설의 연 1만톤 명목 처리능력은 홍콩 정부가 추정한 2026년 폐EV 배터리 발생량 약 1,300톤과 2030년 약 6,700톤을 웃돈다. 2023~2025년 허가시설의 전처리 후 해외반출 실적은 약 130톤에 그쳐 초기 가동률은 현지 회수량 확대, 마카오 등 역외 반입과 블랙매스 판매경로에 좌우된다. 6월 운영개시와 7월 공식 개막은 구분해야 하며, 실제 처리량·회수율이 다음 검증기준이다."
+      },
+      {
+        "id": "2026-07-14_US_01",
+        "date": "2026-07-14",
+        "region": "US",
+        "signal": "top",
+        "title": "현대차–SK온 조지아 35GWh 합작공장, 초기 생산·HMGMA 납품 개시",
+        "gate": "회사 대변인 확인은 초기 생산과 공급개시를 뒷받침하지만 완전가동·수율·월별 출하를 뜻하지 않는다. 35GWh와 전기차 약 30만대분은 완전가동 시 명목능력이다."
+      },
+      {
+        "id": "2026-07-14_GL_03",
+        "date": "2026-07-14",
+        "region": "GL",
+        "signal": "top",
+        "title": "1~5월 EV 전해액 +19.3%·분리막 +20.7%…중국 제외 증가율 더 높아",
+        "gate": "적재량은 전 세계 등록 EV·PHEV·HEV에 탑재된 소재량으로, 소재업체의 매출·출하량과 동일하지 않다. 전해액과 분리막은 단위와 공급구조가 다르므로 증가율만으로 업체별 수혜를 단정하기 어렵다."
+      },
+      {
+        "id": "2026-07-14_GL_02",
+        "date": "2026-07-14",
+        "region": "GL",
+        "signal": "top",
+        "title": "알코아, 서호주 갈륨 연 100톤 프로젝트 FID…글로벌 수요 약 10% 목표",
+        "gate": "FID는 투자·건설 의사결정이지만 즉시 생산량을 늘리는 단계는 아니다. 연 100톤과 글로벌 수요 약 10%는 예상 명목능력으로, 실제 공급효과는 건설·회수율·가동시점과 구매계약에 달려 있다."
+      },
+      {
+        "id": "2026-07-13_US_02",
+        "date": "2026-07-13",
+        "region": "US",
+        "signal": "top",
+        "title": "라자드, 미국 4시간 BESS LCOS 상승…관세·FEOC가 저가셀 접근 제한",
+        "gate": "LCOS는 설비비·금융·운영·사이클 가정을 합친 모델값으로 모든 프로젝트의 실현비용과 같지 않다. 관세와 FEOC의 영향도 셀 원산지, 조달시점, 세액공제 적격성과 계약구조에 따라 달라진다."
+      },
+      {
+        "id": "2026-07-07_US_02",
+        "date": "2026-07-07",
+        "region": "US",
+        "signal": "top",
+        "title": "Ultium Spring Hill, 7천만달러 전환 거쳐 JF2 LFP ESS 셀 양산",
+        "gate": "공식 발표는 JF2 LFP 생산 개시와 일부 공정 전환을 확인하지만 공장 전체의 ESS 전용화, 연간 생산능력·가동률과 개별 부품 공급사를 확정하지 않는다. Warren 인력복귀와 오하이오 생산은 별도 사건으로 관리해야 한다."
+      },
+      {
+        "id": "2026-07-05_GL_01",
+        "date": "2026-07-05",
+        "region": "GL",
+        "signal": "top",
+        "title": "EVNHANOI, 하노이 5개 변전소 BESS 50MW·100MWh 가동",
+        "gate": "설치·통전은 확인됐지만 수익성이나 계통성과를 뜻하지 않는다. 배전망 피크저감, 고장대응, 충방전 효율과 운영비 데이터가 공개돼야 275MW 확대의 경제성을 평가할 수 있다."
+      },
+      {
+        "id": "2026-07-03_CN_04",
+        "date": "2026-07-03",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국철탑, 나트륨전지 열안전 연구·시제품 시험 조달 착수",
+        "gate": "이번 공고는 연구·시제품·시험 조달이며 상업적 대규모 배치완료를 뜻하지 않는다. 별도 티베트 1,100조 제품입찰은 기지국 백업전원 수요를 보여주지만 연구결과와 시제품 검증이 표준제품으로 전환돼야 한다."
+      },
+      {
+        "id": "2026-07-02_KR_06",
+        "date": "2026-07-02",
+        "region": "KR",
+        "signal": "top",
+        "title": "수출입은행, 대한전선 해저케이블 포설선 인수에 1,000억원 금융지원",
+        "gate": "정책금융이 공장 건설뿐 아니라 해저케이블 운송·포설을 수행하는 핵심 시공자산 확보까지 연결된 사례다. 선박 인수종결, 가동률, 수주잔고와 대출조건이 리스크 판단의 핵심이다."
+      },
+      {
+        "id": "2026-07-02_KR_02",
+        "date": "2026-07-02",
+        "region": "KR",
+        "signal": "top",
+        "title": "LS일렉트릭, 천안 100% 직류배전 DC팩토리 준공·가동",
+        "gate": "자체 공장을 직류배전 실증·레퍼런스 사이트로 활용해 데이터센터와 북미 산업시장 수주로 연결하려는 구조다. 에너지효율 개선의 측정기준과 장기간 운영 안정성, 외부 고객 적용 실적이 핵심 검증항목이다. 10% 이상 효율개선은 회사 실증값이므로 장기간 운영데이터와 외부 검증, 직류기기 표준·인증 확보가 확산의 핵심 조건이다."
+      },
+      {
+        "id": "2026-07-01_KR_02",
+        "date": "2026-07-01",
+        "region": "KR",
+        "signal": "top",
+        "title": "정부, 공공 전기차 충전요금 2단계→5단계 개편…8월 1일 시행",
+        "gate": "출력별 비용구조를 요금에 반영해 완속과 초급속 사업모델의 수익성을 차등화하는 개편이다. 공공요금 변화가 민간 충전사업자의 요금·가동률·투자계획에 확산되는지가 핵심이다. 적용대상은 정부 운영 충전기와 협약 민간충전기의 ev이음 로밍 결제이며, 향후 계시별 연동요금 도입 시 시간대별 수익구조가 다시 달라질 수 있다."
+      },
+      {
+        "id": "2026-07-01_CN_01",
+        "date": "2026-07-01",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국 GB 38031-2025 동력배터리 안전 강제표준 시행",
+        "gate": "표준의 공식 적용대상은 EV 구동용 셀·팩·시스템으로 일반 ESS 배터리와 동일 규격이 아니다. 열폭주 시험·판정조건과 기존차종 전환은 형식승인·시행문서를 함께 확인해야 한다. 특정 분리막·열차단재나 배터리 화학계를 의무화하거나 특정 소재의 직접수혜로 확대해석해서는 안 된다."
+      },
+      {
+        "id": "2026-07-31_KR_02",
+        "date": "2026-07-31",
+        "region": "KR",
+        "signal": "high",
+        "title": "LG화학 첨단소재, 2Q 영업흑자 전환…분리막 출하 확대·ESS 물량 증가 전망",
+        "gate": "ESS 분리막 확대는 배터리 소재 수요 신호이지 파우치필름 외장재 수요와 1:1로 연결되는 근거는 아니다. 셀 폼팩터와 고객별 ESS 채택 구조를 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-30_KR_02",
+        "date": "2026-07-30",
+        "region": "KR",
+        "signal": "high",
+        "title": "SK온, 2Q 흑자전환…ESS 수주 확대·기존 라인 전환 검토",
+        "gate": "2분기 흑자에는 고객 보상금과 IRA 세액공제 등 일회성·지원 요인이 포함된다. ESS 수주 확대는 회사의 공식 계획이지만 기존 EV 라인의 ESS 전환은 Q&A 기준 검토 단계로, 실행된 전환으로 표현하면 안 된다."
+      },
+      {
+        "id": "2026-07-30_KR_01",
+        "date": "2026-07-30",
+        "region": "KR",
+        "signal": "high",
+        "title": "포스코아르헨티나, 염수리튬 1공장 안정화로 첫 분기 흑자",
+        "gate": "첫 분기 흑자는 염수리튬 1공장 조업 안정화와 설비 개선에 기반한 공식 실적이다. 하반기 2공장 준공에 따른 초기 비용이 예상돼 흑자 지속 여부와 단계적 증산이 다음 판단 지점이다."
+      }
+    ],
+    "CHEMISTRY_TECH": [
+      {
+        "id": "2026-07-21_US_01",
+        "date": "2026-07-21",
+        "region": "US",
+        "signal": "top",
+        "title": "Sila, 3억달러 조달해 Moses Lake 실리콘 음극재 2단계 증설 지원",
+        "gate": "3억달러 조달은 생산확대 재원을 확보한 별도 실행단계다. 다만 조달완료가 2단계 착공·설비발주 또는 확정 증설물량을 의미하지는 않는다."
+      },
+      {
+        "id": "2026-07-21_GL_03",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "NTPC REL, 100MWh 바나듐흐름전지 EPC 사업 Bondada·Delectrik에 낙찰",
+        "gate": "100MWh급 발주는 인도 비리튬계 장주기 저장의 대형 조달사례다. 다만 아직 준공·운전실적은 없으며 낙찰통지 후 10개월 내 완공조건과 장기운전 성능을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_EU_03",
+        "date": "2026-07-21",
+        "region": "EU",
+        "signal": "top",
+        "title": "CATL·Solarpro, 중동부유럽 나트륨이온 ESS 2GWh 협력계약",
+        "gate": "2GWh는 전략협력계약의 범위이지 확정 인도·설치물량이 아니다. 구체적인 프로젝트 부지, 발주와 설치일정이 공개돼야 실제 전개규모를 판단할 수 있다."
+      },
+      {
+        "id": "2026-07-16_CN_03",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국 6월 동력배터리 탑재 76.5GWh…LFP 비중 83.3%",
+        "gate": "6월 탑재량 증가율은 생산 206.0GWh와 판매 196.0GWh 규모보다 낮아 생산·판매·차량탑재 사이의 시차를 보여준다. LFP 비중 83.3%와 상반기 누적 81.0%가 지속되는지, 수출 36.2GWh와 재고흐름이 하반기 수급판단의 핵심이다."
+      },
+      {
+        "id": "2026-07-16_CN_01",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국, 리튬이온 배터리 소비세 2026년 2%·2027년 4% 적용",
+        "gate": "실제 과세범위는 공고 첨부 품목주석과 수입단계 세목에 따라 달라진다. 가격·마진 영향은 제품코드, 계약조건, 세부담 전가구조를 함께 봐야 한다."
+      },
+      {
+        "id": "2026-07-10_KR_01",
+        "date": "2026-07-10",
+        "region": "KR",
+        "signal": "top",
+        "title": "기후부, 5586억원 배전망 ESS 착수…1차 128MW·640MWh",
+        "gate": "1차는 삼원계·LFP 중심이며 8월 차기 공모부터 장주기·장수명·화재안전성 차세대 배터리의 시장진입을 유도한다. 설치완료·태양광 추가접속과 20년 AI 최적화 운영성과가 국비 5586억원 투자의 핵심 집행지표다."
+      },
+      {
+        "id": "2026-07-07_US_02",
+        "date": "2026-07-07",
+        "region": "US",
+        "signal": "top",
+        "title": "Ultium Spring Hill, 7천만달러 전환 거쳐 JF2 LFP ESS 셀 양산",
+        "gate": "공식 발표는 JF2 LFP 생산 개시와 일부 공정 전환을 확인하지만 공장 전체의 ESS 전용화, 연간 생산능력·가동률과 개별 부품 공급사를 확정하지 않는다. Warren 인력복귀와 오하이오 생산은 별도 사건으로 관리해야 한다."
+      },
+      {
+        "id": "2026-07-03_CN_04",
+        "date": "2026-07-03",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국철탑, 나트륨전지 열안전 연구·시제품 시험 조달 착수",
+        "gate": "이번 공고는 연구·시제품·시험 조달이며 상업적 대규모 배치완료를 뜻하지 않는다. 별도 티베트 1,100조 제품입찰은 기지국 백업전원 수요를 보여주지만 연구결과와 시제품 검증이 표준제품으로 전환돼야 한다."
+      },
+      {
+        "id": "2026-07-31_KR_01",
+        "date": "2026-07-31",
+        "region": "KR",
+        "signal": "high",
+        "title": "L&F Plus, LFP 양극재 시생산품 첫 출하",
+        "gate": "시생산품 첫 출하는 고객 승인이나 본격 상업 양산 확정과 다르다. 후속 반복 출하와 양산 전환을 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-24_GL_02",
+        "date": "2026-07-24",
+        "region": "GL",
+        "signal": "high",
+        "title": "AfDB, 모로코 통합 LFP 기가팩토리에 1억유로 대출 승인",
+        "gate": "100GWh는 장기 확장계획이고 현재 승인된 사업범위는 1단계 10GWh다. 대출 승인 이후 금융약정 체결, 자기자본 투입, 착공·장비반입과 고객계약을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-23_GL_01",
+        "date": "2026-07-23",
+        "region": "GL",
+        "signal": "high",
+        "title": "엔켐, 중국 ESS 전해액 공급 70% 증가·북미 확대 준비",
+        "gate": "중국은 실제 공급증가, 북미는 준비단계로 구분된다. 두 시장의 계획이 실제 출하와 가동률 개선으로 이어지는지는 별도 확인이 필요하다."
+      },
+      {
+        "id": "2026-07-19_CN_01",
+        "date": "2026-07-19",
+        "region": "CN",
+        "signal": "high",
+        "title": "푸핑, 21억위안 규모 30만톤 전탄화재·2만톤 하드카본 투자계약",
+        "gate": "투자계약은 투자·사업추진 의향을 구체화한 단계이며 착공·금융종결·고객계약은 아니다. 후속 토지확보, 착공과 제품인증을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-17_CN_01",
+        "date": "2026-07-17",
+        "region": "CN",
+        "signal": "high",
+        "title": "Hunan Yuneng, LFP 전 제품 가격 t당 2000위안 인상 통지",
+        "gate": "업체 통지가 시장 전체의 체결가격을 뜻하지는 않는다. 원재료 가격, 제품등급, 계약별 전가조건과 경쟁사 추종 여부를 분리해 확인해야 한다."
+      },
+      {
+        "id": "2026-07-16_EU_02",
+        "date": "2026-07-16",
+        "region": "EU",
+        "signal": "high",
+        "title": "Alfen·CATL, 유럽 나트륨이온 BESS 최대 5GWh 협력",
+        "gate": "발표는 MOU와 배치계획 단계이며 확정 주문이나 프로젝트별 발주가 아니다. 실제 상용조달은 프로젝트 계약, 인도일정, 설치실적에서 확인해야 한다."
+      },
+      {
+        "id": "2026-07-16_CN_05",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "high",
+        "title": "Hunan Yuneng, 240억위안 LFP·인산철 복합단지 투자안 승인",
+        "gate": "투자안은 주주총회 등 후속 승인이 필요한 계획으로 이미 집행된 CAPEX와 구분해야 한다. 회사는 5년 건설기간과 착공 후 18개월 내 50억~80억위안 투입계획을 제시했다. 초기 승인과 실제 착공·자금집행 사이의 간극이 핵심 리스크다."
+      },
+      {
+        "id": "2026-07-15_EU_05",
+        "date": "2026-07-15",
+        "region": "EU",
+        "signal": "high",
+        "title": "Ionly, 스페인 발렌시아서 주거용 LFP 배터리 직렬생산 개시",
+        "gate": "생산라인 가동은 유럽 주거용 저장장치의 현지 생산기반이 구축됐다는 의미다. 다만 생산능력과 실제 주문량은 별도이며 제품인증, 월별 출하와 고객설치 실적을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-13_CN_01",
+        "date": "2026-07-13",
+        "region": "CN",
+        "signal": "high",
+        "title": "Gotion, 독일·베트남·인도네시아·태국 생산거점 순차 가동",
+        "gate": "베트남 거점은 LFP 셀, 독일·인도네시아·태국 거점은 팩 생산을 중심으로 운영되는 것으로 보도됐다. 회사 답변은 생산개시를 확인하지만 거점별 가동률·출하량·고객별 공급규모는 공개하지 않았다."
+      },
+      {
+        "id": "2026-07-09_CN_01",
+        "date": "2026-07-09",
+        "region": "CN",
+        "signal": "high",
+        "title": "중국 러산 100MW/400MWh 전바나듐 흐름전지, 7월 9일 시험운전 개시 보도",
+        "gate": "현지 전문매체가 시험운전 개시를 보도했고 지방정부 환경문서는 프로젝트 규모를 확인한다. 사업자나 계통기관의 별도 공식발표는 확보되지 않아 시험운전을 상업가동으로 확대해석할 수 없다."
+      }
+    ],
+    "CRITICAL_MINERALS_RECYCLING": [
+      {
+        "id": "2026-07-23_KR_01",
+        "date": "2026-07-23",
+        "region": "KR",
+        "signal": "top",
+        "title": "금융위·산업부, 핵심광물 개발·가공·재자원화 금융지원 연계",
+        "gate": "지원범위를 광산 확보에 한정하지 않고 중간가공과 재활용까지 연결한 점이 핵심이다. 구체적인 심사기준·지원한도와 개별 프로젝트 집행이 정책효과를 판단할 기준이다."
+      },
+      {
+        "id": "2026-07-22_US_02",
+        "date": "2026-07-22",
+        "region": "US",
+        "signal": "top",
+        "title": "미 상무부, 미주리 핵심광물 Tech Hub에 3,800만달러 지원",
+        "gate": "연구지원보다 지역 제조생태계와 상업화 시설을 겨냥한 연방투자다. 자금집행이 실제 파일럿·생산설비와 민간투자로 연결되는지가 공급망 효과의 기준이다."
+      },
+      {
+        "id": "2026-07-22_GL_01",
+        "date": "2026-07-22",
+        "region": "GL",
+        "signal": "top",
+        "title": "Wesfarmers·SQM, Mt Holland 리튬정광 연 76만톤 증설 FID",
+        "gate": "최종투자결정은 증설을 위한 자본투입을 확정한 단계지만 추가 생산은 2030년 목표다. 광산의 정광능력 확대와 정제제품 공급증가는 별도 공정·판매경로로 구분해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_03",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "NTPC REL, 100MWh 바나듐흐름전지 EPC 사업 Bondada·Delectrik에 낙찰",
+        "gate": "100MWh급 발주는 인도 비리튬계 장주기 저장의 대형 조달사례다. 다만 아직 준공·운전실적은 없으며 낙찰통지 후 10개월 내 완공조건과 장기운전 성능을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-17_JP_01",
+        "date": "2026-07-17",
+        "region": "JP",
+        "signal": "top",
+        "title": "일본, 장기 탈탄소 경매 저장기술별 400MW 구분안 제시",
+        "gate": "저장기술을 하나의 가격경쟁군으로 묶지 않고 기술별로 분리하려는 제도설계다. 의견수렴 단계이므로 최종 모집요강과 낙찰조건을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-17_CN_02",
+        "date": "2026-07-17",
+        "region": "CN",
+        "signal": "top",
+        "title": "Ember, 중국 BESS 시장의 과제를 증설보다 활용도로 제시",
+        "gate": "설치량, 독립형 비중, 충방전횟수, 시장참여는 서로 다른 지표다. 증설에서 활용도로의 전환이라는 평가는 Ember 보고서에 귀속한다."
+      },
+      {
+        "id": "2026-07-16_GL_02",
+        "date": "2026-07-16",
+        "region": "GL",
+        "signal": "top",
+        "title": "IEA, 중국 희토류 통제 전면화 시 연 6.5조달러 생산위험 경고",
+        "gate": "확대 희토류 조치는 2026년 11월까지 유예됐지만 IEA는 공급집중 취약성이 남아 있다고 평가했다. 6.5조달러와 3,000억달러 이상은 각각 희토류 통제 전면 시행과 배터리급 흑연 거래 완전중단을 가정한 별도 위험 추정치다."
+      },
+      {
+        "id": "2026-07-16_CN_02",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "홍콩 첫 대형 폐EV 배터리 처리시설, 6월 가동 후 7월 공식 개막",
+        "gate": "시설의 연 1만톤 명목 처리능력은 홍콩 정부가 추정한 2026년 폐EV 배터리 발생량 약 1,300톤과 2030년 약 6,700톤을 웃돈다. 2023~2025년 허가시설의 전처리 후 해외반출 실적은 약 130톤에 그쳐 초기 가동률은 현지 회수량 확대, 마카오 등 역외 반입과 블랙매스 판매경로에 좌우된다. 6월 운영개시와 7월 공식 개막은 구분해야 하며, 실제 처리량·회수율이 다음 검증기준이다."
+      },
+      {
+        "id": "2026-07-16_CN_01",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국, 리튬이온 배터리 소비세 2026년 2%·2027년 4% 적용",
+        "gate": "실제 과세범위는 공고 첨부 품목주석과 수입단계 세목에 따라 달라진다. 가격·마진 영향은 제품코드, 계약조건, 세부담 전가구조를 함께 봐야 한다."
+      },
+      {
+        "id": "2026-07-15_US_03",
+        "date": "2026-07-15",
+        "region": "US",
+        "signal": "top",
+        "title": "미국, 브라질산 25% 관세 확정…희토류 금속·화합물은 예외",
+        "gate": "예외는 ‘핵심광물 전체’가 아니라 연방관보 Annex에 열거된 HTSUS 세번에 한정된다. 희토류 예외는 광범위한 무역압박과 원료공급 안정성을 분리한 정책구조로 읽어야 한다."
+      },
+      {
+        "id": "2026-07-14_GL_02",
+        "date": "2026-07-14",
+        "region": "GL",
+        "signal": "top",
+        "title": "알코아, 서호주 갈륨 연 100톤 프로젝트 FID…글로벌 수요 약 10% 목표",
+        "gate": "FID는 투자·건설 의사결정이지만 즉시 생산량을 늘리는 단계는 아니다. 연 100톤과 글로벌 수요 약 10%는 예상 명목능력으로, 실제 공급효과는 건설·회수율·가동시점과 구매계약에 달려 있다."
+      },
+      {
+        "id": "2026-07-13_US_02",
+        "date": "2026-07-13",
+        "region": "US",
+        "signal": "top",
+        "title": "라자드, 미국 4시간 BESS LCOS 상승…관세·FEOC가 저가셀 접근 제한",
+        "gate": "LCOS는 설비비·금융·운영·사이클 가정을 합친 모델값으로 모든 프로젝트의 실현비용과 같지 않다. 관세와 FEOC의 영향도 셀 원산지, 조달시점, 세액공제 적격성과 계약구조에 따라 달라진다."
+      },
+      {
+        "id": "2026-07-02_GL_09",
+        "date": "2026-07-02",
+        "region": "GL",
+        "signal": "top",
+        "title": "VHM, Iluka와 Goschen 희토류 100% 오프테이크·A$4000만 금융계약",
+        "gate": "장기 판매계약과 프로젝트 금융이 결합돼 Goschen의 판매·자금조달 경로가 동시에 구체화됐다. 두 번째 A$3000만 집행과 공급개시는 최종투자결정·건설진행 조건에 달려 있다."
+      },
+      {
+        "id": "2026-07-01_KR_05",
+        "date": "2026-07-01",
+        "region": "KR",
+        "signal": "top",
+        "title": "알몬티, 상동 텅스텐광산 가공개시…비축원광으로 판매가능 정광 생산 전환",
+        "gate": "판매가능 정광 생산개시는 안정적 상업생산·매출인식 또는 현금회수를 의미하지 않는다. 6,800만달러는 회수율·처리비·정광가격·지급률을 차감하지 않은 회사의 예시적 함유가치로 매출·이익이 아니다. 실제 처리량, 회수율·정광품위, 고객인수와 첫 판매·대금수취를 확인해야 한다."
+      },
+      {
+        "id": "2026-07-31_GL_01",
+        "date": "2026-07-31",
+        "region": "GL",
+        "signal": "high",
+        "title": "한국-아르헨티나, 핵심광물 협력 MOU 체결",
+        "gate": "MOU는 협력 채널 구축 단계이며 구체적인 광물 확보나 투자계약을 의미하지 않는다. 후속 공동사업·투자·장기 공급계약으로 전환되는지 확인해야 한다."
+      },
+      {
+        "id": "2026-07-30_KR_01",
+        "date": "2026-07-30",
+        "region": "KR",
+        "signal": "high",
+        "title": "포스코아르헨티나, 염수리튬 1공장 안정화로 첫 분기 흑자",
+        "gate": "첫 분기 흑자는 염수리튬 1공장 조업 안정화와 설비 개선에 기반한 공식 실적이다. 하반기 2공장 준공에 따른 초기 비용이 예상돼 흑자 지속 여부와 단계적 증산이 다음 판단 지점이다."
+      },
+      {
+        "id": "2026-07-28_GL_03",
+        "date": "2026-07-28",
+        "region": "GL",
+        "signal": "high",
+        "title": "GBM, Lomiko 인수 위한 약 1,100만캐나다달러 계약 체결",
+        "gate": "거래가 종결되면 캐나다 천연흑연 자산과 음극재 가공 플랫폼의 통합 범위가 확대될 수 있다. 현재는 계약 체결 단계이며 주주·법원·규제 승인 등 종결 조건이 남아 있다."
+      },
+      {
+        "id": "2026-07-28_GL_01",
+        "date": "2026-07-28",
+        "region": "GL",
+        "signal": "high",
+        "title": "Greenbushes, 6월분기 정광 38.7만톤·실현가 2,286달러/t",
+        "gate": "수치는 Greenbushes 100% 기준이며 판매 증가는 전분기 지연선적을 포함한다. 분기 가격반등과 배당재개가 장기 회복을 보장하지 않고, CGP3 재가동·회수율과 FY27 생산 155만~175만톤·원가 380~440호주달러/t 가이던스 이행을 확인해야 한다."
+      }
+    ],
+    "GRID_POWER_AI_INFRA": [
+      {
+        "id": "2026-07-29_US_02",
+        "date": "2026-07-29",
+        "region": "US",
+        "signal": "top",
+        "title": "미 DOE, Paducah 전력인프라 사업자로 NextEra 선정…최대 2.6GW BESS안",
+        "gate": "현재 확정된 사항은 데이터센터 개발 파트너와 전용 전력인프라 사업자 선정, 그리고 최대 개발규모다. NextEra 전력안은 최대 2GW 가스발전과 최대 2.6GW BESS를 포함하며 전력서비스계약에는 켄터키 공공서비스위원회 승인이 남아 있다."
+      },
+      {
+        "id": "2026-07-27_GL_01",
+        "date": "2026-07-27",
+        "region": "GL",
+        "signal": "top",
+        "title": "ADB 등, 동티모르 73.7MWac 태양광·80.2MWh BESS 금융지원",
+        "gate": "4,150만달러는 ADB와 파트너의 지원패키지로 총사업비나 sponsor equity 전체를 뜻하지 않는다. 금융종결, PPA 요금·기간, 건설계약과 계통연계 일정이 남아 있다."
+      },
+      {
+        "id": "2026-07-21_GL_04",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "MASPV, 과테말라 130MWp 태양광·100MWh 저장에 15년 PPA 두 건",
+        "gate": "장기 PPA와 은행보증은 프로젝트 수익구조를 구체화한다. 다만 배터리 출력과 최종 공급개시 시점은 공개되지 않아 금융종결과 건설진척을 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_02",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "Wooreen BESS, Wärtsilä 배터리 유닛 1,038개 설치 완료",
+        "gate": "1,400MWh급 BESS에서 배터리 기자재 전량 설치가 끝나면서 프로젝트는 잔여 시운전과 계통연계 공정으로 넘어간다. 다만 이는 전체 프로젝트 준공이나 상업운전 개시를 뜻하지 않으며, 2027년 운영 목표까지 시험·계통접속 절차가 남아 있다."
+      },
+      {
+        "id": "2026-07-21_EU_08",
+        "date": "2026-07-21",
+        "region": "EU",
+        "signal": "top",
+        "title": "Iberdrola, 핀란드 Caruna 80% 인수계약 체결",
+        "gate": "거래는 규제승인을 거쳐 2027년 1분기 종결될 예정이다. 기업가치에는 부채가 포함되므로 지분대금과 단순 비교하면 안 되며, 인수 후 망투자·규제수익률·차입구조가 가치창출을 좌우한다."
+      },
+      {
+        "id": "2026-07-21_EU_04",
+        "date": "2026-07-21",
+        "region": "EU",
+        "signal": "top",
+        "title": "Westnetz, 재생에너지 병설 계통충전형 BESS에 유연 접속계약 확대",
+        "gate": "7월 21일 조치는 4월에 도입한 재생에너지 전용 저장장치 계약을 계통충전형 병설 BESS까지 확대한 별도 후속조치다. 접속용량을 고정 상한으로 제한하고 지역 재생에너지 발전예측에 따라 배터리 출력도 조정해, 증설 없이 접속 가능한 프로젝트 범위를 넓히는 구조다."
+      },
+      {
+        "id": "2026-07-20_KR_01",
+        "date": "2026-07-20",
+        "region": "KR",
+        "signal": "top",
+        "title": "정부, 지연 발전사업 약 30GW 진척도 9월까지 점검",
+        "gate": "규정시행과 약 30GW 점검은 계통접속 관리강화를 보여주지만 계약해지나 용량회수를 뜻하지 않는다. 점검결과와 후속조치의 범위가 실제 계통접근 개선효과를 가른다."
+      },
+      {
+        "id": "2026-07-17_CN_03",
+        "date": "2026-07-17",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국 간쑤성, 신형저장 가동설비 10GW 돌파",
+        "gate": "설비용량 증가는 저장자산 기반을 보여주지만 실제 충방전횟수와 시장수익을 의미하지 않는다. 이용률과 시장참여 수익, 계통운영 데이터가 다음 판단기준이다."
+      },
+      {
+        "id": "2026-07-15_KR_01",
+        "date": "2026-07-15",
+        "region": "KR",
+        "signal": "top",
+        "title": "한국 직접 PPA 중개플랫폼 시범가동…공급·수요 각각 약 1GW",
+        "gate": "플랫폼은 거래상대 탐색과 협상비용을 낮추는 시장 인프라지만, 게시물량이 실제 계약량을 의미하지는 않는다. 등록물량의 협상전환율, 계약기간, 가격과 정산조건이 직접 PPA 시장형성 여부를 가를 수 있다."
+      },
+      {
+        "id": "2026-07-15_GL_05",
+        "date": "2026-07-15",
+        "region": "GL",
+        "signal": "top",
+        "title": "인도, 계통저장용 ACC 제조능력 10GWh 글로벌 입찰",
+        "gate": "현재 단계는 제조능력 배정 전의 경쟁입찰이다. 수혜기업, 투자규모, 실제 생산능력은 평가와 계약 이후 확정된다."
+      },
+      {
+        "id": "2026-07-15_GL_01",
+        "date": "2026-07-15",
+        "region": "GL",
+        "signal": "top",
+        "title": "호주 GenCost 최종본, 양수저장 추정비 상향·배터리 비용 하락",
+        "gate": "GenCost는 발전·저장기술의 비교모델이지 개별 프로젝트의 확정 견적이 아니다. 양수저장과 배터리는 지속시간·부지·송전·계통가치가 달라 동일한 조건에서 비용과 실행위험을 함께 비교해야 한다."
+      },
+      {
+        "id": "2026-07-14_GL_04",
+        "date": "2026-07-14",
+        "region": "GL",
+        "signal": "top",
+        "title": "필리핀 MTerra 1단계 통전…태양광 1.373GW·BESS 3.3GWh",
+        "gate": "준공행사와 통전은 대규모 자산이 물리적 실행단계에 들어갔다는 의미다. 다만 계통수출은 관련 공사 완료 전 최대 750MW로 제한되고, 대통령실이 밝힌 약 91% 공정률과 8월 완전 상업가동 목표는 향후 일정이므로 전체 설비의 즉시 완전가동과 동일하지 않다."
+      },
+      {
+        "id": "2026-07-10_KR_01",
+        "date": "2026-07-10",
+        "region": "KR",
+        "signal": "top",
+        "title": "기후부, 5586억원 배전망 ESS 착수…1차 128MW·640MWh",
+        "gate": "1차는 삼원계·LFP 중심이며 8월 차기 공모부터 장주기·장수명·화재안전성 차세대 배터리의 시장진입을 유도한다. 설치완료·태양광 추가접속과 20년 AI 최적화 운영성과가 국비 5586억원 투자의 핵심 집행지표다."
+      },
+      {
+        "id": "2026-07-05_GL_01",
+        "date": "2026-07-05",
+        "region": "GL",
+        "signal": "top",
+        "title": "EVNHANOI, 하노이 5개 변전소 BESS 50MW·100MWh 가동",
+        "gate": "설치·통전은 확인됐지만 수익성이나 계통성과를 뜻하지 않는다. 배전망 피크저감, 고장대응, 충방전 효율과 운영비 데이터가 공개돼야 275MW 확대의 경제성을 평가할 수 있다."
+      },
+      {
+        "id": "2026-07-02_KR_02",
+        "date": "2026-07-02",
+        "region": "KR",
+        "signal": "top",
+        "title": "LS일렉트릭, 천안 100% 직류배전 DC팩토리 준공·가동",
+        "gate": "자체 공장을 직류배전 실증·레퍼런스 사이트로 활용해 데이터센터와 북미 산업시장 수주로 연결하려는 구조다. 에너지효율 개선의 측정기준과 장기간 운영 안정성, 외부 고객 적용 실적이 핵심 검증항목이다. 10% 이상 효율개선은 회사 실증값이므로 장기간 운영데이터와 외부 검증, 직류기기 표준·인증 확보가 확산의 핵심 조건이다."
+      },
+      {
+        "id": "2026-07-01_KR_03",
+        "date": "2026-07-01",
+        "region": "KR",
+        "signal": "top",
+        "title": "효성중공업, 호주 AusNet과 3,100억원·5년 초고압 전력기기 공급계약",
+        "gate": "단발성 프로젝트가 아니라 송전망 운영사와 장기 공급지위를 확보한 계약이다. 실제 발주물량, 납품일정과 원가·환율에 따른 매출·수익성 인식이 핵심이다. 총액은 장기 프레임 기준이므로 연도별 발주·납품물량과 HVDC·STATCOM 후속협력의 실제 계약 전환을 구분해야 한다."
+      },
+      {
+        "id": "2026-07-01_GL_04",
+        "date": "2026-07-01",
+        "region": "GL",
+        "signal": "top",
+        "title": "AEMO 2026 ISP: 호주 2050년 저장 64GW·전체 설비 308GW 필요",
+        "gate": "ISP 수치는 확정 투자계획이 아니라 수요·정책·기술비용 가정에 기반한 시스템계획 시나리오다. 송전망 건설과 실제 투자승인 속도가 달성가능성을 좌우한다."
+      },
+      {
+        "id": "2026-07-01_GL_03",
+        "date": "2026-07-01",
+        "region": "GL",
+        "signal": "top",
+        "title": "Firmus·Gunvor, 호주 AI 캠퍼스 12년 전력계약…1.2GW 재생에너지·1.5GWh 저장 연계",
+        "gate": "전력공급 계약이 신규 발전·저장 개발을 뒷받침하지만 모든 설비가 현재 건설된 것은 아니다. 캠퍼스 수요확정, 프로젝트별 인허가·금융과 단계별 준공이 핵심이다. 캠퍼스 총 2.7GW는 장기 계획치이며 12년 계약의 600MW 공급범위, 발전·저장자산의 인허가와 단계별 금융종결을 구분해야 한다."
+      }
+    ],
+    "POLICY_TRADE_REGULATION": [
+      {
+        "id": "2026-07-31_GL_02",
+        "date": "2026-07-31",
+        "region": "GL",
+        "signal": "top",
+        "title": "인도, 5,000MW 수상태양광·최소 2시간 ESS PM-Surya Sarovar 승인",
+        "gate": "이번 사건은 제도 승인 단계이며 개별 프로젝트 선정·착공을 의미하지 않는다. 후속 판단 지점은 세부 사업 선정과 실제 집행 속도다."
+      },
+      {
+        "id": "2026-07-29_US_02",
+        "date": "2026-07-29",
+        "region": "US",
+        "signal": "top",
+        "title": "미 DOE, Paducah 전력인프라 사업자로 NextEra 선정…최대 2.6GW BESS안",
+        "gate": "현재 확정된 사항은 데이터센터 개발 파트너와 전용 전력인프라 사업자 선정, 그리고 최대 개발규모다. NextEra 전력안은 최대 2GW 가스발전과 최대 2.6GW BESS를 포함하며 전력서비스계약에는 켄터키 공공서비스위원회 승인이 남아 있다."
+      },
+      {
+        "id": "2026-07-27_GL_01",
+        "date": "2026-07-27",
+        "region": "GL",
+        "signal": "top",
+        "title": "ADB 등, 동티모르 73.7MWac 태양광·80.2MWh BESS 금융지원",
+        "gate": "4,150만달러는 ADB와 파트너의 지원패키지로 총사업비나 sponsor equity 전체를 뜻하지 않는다. 금융종결, PPA 요금·기간, 건설계약과 계통연계 일정이 남아 있다."
+      },
+      {
+        "id": "2026-07-23_US_02",
+        "date": "2026-07-23",
+        "region": "US",
+        "signal": "top",
+        "title": "미국, 60개 경제권에 강제노동 연계 Section 301 관세 확정",
+        "gate": "국가별 명목세율만으로 특정 제품의 실효관세를 확정할 수 없다. 원산지 경제권, HTS 분류, MFN 세율, Section 232 중복 여부와 Federal Register 면제품목표를 함께 대조해야 한다."
+      },
+      {
+        "id": "2026-07-23_KR_01",
+        "date": "2026-07-23",
+        "region": "KR",
+        "signal": "top",
+        "title": "금융위·산업부, 핵심광물 개발·가공·재자원화 금융지원 연계",
+        "gate": "지원범위를 광산 확보에 한정하지 않고 중간가공과 재활용까지 연결한 점이 핵심이다. 구체적인 심사기준·지원한도와 개별 프로젝트 집행이 정책효과를 판단할 기준이다."
+      },
+      {
+        "id": "2026-07-22_US_02",
+        "date": "2026-07-22",
+        "region": "US",
+        "signal": "top",
+        "title": "미 상무부, 미주리 핵심광물 Tech Hub에 3,800만달러 지원",
+        "gate": "연구지원보다 지역 제조생태계와 상업화 시설을 겨냥한 연방투자다. 자금집행이 실제 파일럿·생산설비와 민간투자로 연결되는지가 공급망 효과의 기준이다."
+      },
+      {
+        "id": "2026-07-21_US_01",
+        "date": "2026-07-21",
+        "region": "US",
+        "signal": "top",
+        "title": "Sila, 3억달러 조달해 Moses Lake 실리콘 음극재 2단계 증설 지원",
+        "gate": "3억달러 조달은 생산확대 재원을 확보한 별도 실행단계다. 다만 조달완료가 2단계 착공·설비발주 또는 확정 증설물량을 의미하지는 않는다."
+      },
+      {
+        "id": "2026-07-21_GL_01",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "SECI, 인도 양수발전 1,344MW 경쟁입찰 물량 3사 배정",
+        "gate": "이번 결과는 인도의 장주기 저장조달이 GW급 사업자 배정 단계로 구체화됐음을 보여준다. 다만 낙찰용량은 준공물량이 아니며 인허가·금융조달·최종계약이 실제 건설전환을 좌우한다."
+      },
+      {
+        "id": "2026-07-20_US_06",
+        "date": "2026-07-20",
+        "region": "US",
+        "signal": "top",
+        "title": "메인주, 최대 360MW 첫 경쟁형 저장조달안 PUC 제출",
+        "gate": "최대 360MW는 확정 낙찰량이 아니라 규제기관 심사를 받는 조달안의 상한이다. PUC 승인과 최종 RFP 조건을 통과한 제안만 실제 계약으로 이어질 수 있다."
+      },
+      {
+        "id": "2026-07-20_KR_01",
+        "date": "2026-07-20",
+        "region": "KR",
+        "signal": "top",
+        "title": "정부, 지연 발전사업 약 30GW 진척도 9월까지 점검",
+        "gate": "규정시행과 약 30GW 점검은 계통접속 관리강화를 보여주지만 계약해지나 용량회수를 뜻하지 않는다. 점검결과와 후속조치의 범위가 실제 계통접근 개선효과를 가른다."
+      },
+      {
+        "id": "2026-07-17_JP_01",
+        "date": "2026-07-17",
+        "region": "JP",
+        "signal": "top",
+        "title": "일본, 장기 탈탄소 경매 저장기술별 400MW 구분안 제시",
+        "gate": "저장기술을 하나의 가격경쟁군으로 묶지 않고 기술별로 분리하려는 제도설계다. 의견수렴 단계이므로 최종 모집요강과 낙찰조건을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-17_EU_03",
+        "date": "2026-07-17",
+        "region": "EU",
+        "signal": "top",
+        "title": "EU, 2030년 저장장치 필요량 200GW 공식 제시",
+        "gate": "200GW는 EU 차원의 정책상 필요량이며 국가별 의무설치량이나 확정 조달물량이 아니다. 후속 법안, 재정수단, 국가별 이행계획이 실제 수요전달 경로다."
+      },
+      {
+        "id": "2026-07-16_CN_02",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "홍콩 첫 대형 폐EV 배터리 처리시설, 6월 가동 후 7월 공식 개막",
+        "gate": "시설의 연 1만톤 명목 처리능력은 홍콩 정부가 추정한 2026년 폐EV 배터리 발생량 약 1,300톤과 2030년 약 6,700톤을 웃돈다. 2023~2025년 허가시설의 전처리 후 해외반출 실적은 약 130톤에 그쳐 초기 가동률은 현지 회수량 확대, 마카오 등 역외 반입과 블랙매스 판매경로에 좌우된다. 6월 운영개시와 7월 공식 개막은 구분해야 하며, 실제 처리량·회수율이 다음 검증기준이다."
+      },
+      {
+        "id": "2026-07-16_CN_01",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국, 리튬이온 배터리 소비세 2026년 2%·2027년 4% 적용",
+        "gate": "실제 과세범위는 공고 첨부 품목주석과 수입단계 세목에 따라 달라진다. 가격·마진 영향은 제품코드, 계약조건, 세부담 전가구조를 함께 봐야 한다."
+      },
+      {
+        "id": "2026-07-15_US_03",
+        "date": "2026-07-15",
+        "region": "US",
+        "signal": "top",
+        "title": "미국, 브라질산 25% 관세 확정…희토류 금속·화합물은 예외",
+        "gate": "예외는 ‘핵심광물 전체’가 아니라 연방관보 Annex에 열거된 HTSUS 세번에 한정된다. 희토류 예외는 광범위한 무역압박과 원료공급 안정성을 분리한 정책구조로 읽어야 한다."
+      },
+      {
+        "id": "2026-07-15_KR_01",
+        "date": "2026-07-15",
+        "region": "KR",
+        "signal": "top",
+        "title": "한국 직접 PPA 중개플랫폼 시범가동…공급·수요 각각 약 1GW",
+        "gate": "플랫폼은 거래상대 탐색과 협상비용을 낮추는 시장 인프라지만, 게시물량이 실제 계약량을 의미하지는 않는다. 등록물량의 협상전환율, 계약기간, 가격과 정산조건이 직접 PPA 시장형성 여부를 가를 수 있다."
+      },
+      {
+        "id": "2026-07-15_GL_05",
+        "date": "2026-07-15",
+        "region": "GL",
+        "signal": "top",
+        "title": "인도, 계통저장용 ACC 제조능력 10GWh 글로벌 입찰",
+        "gate": "현재 단계는 제조능력 배정 전의 경쟁입찰이다. 수혜기업, 투자규모, 실제 생산능력은 평가와 계약 이후 확정된다."
+      },
+      {
+        "id": "2026-07-14_US_09",
+        "date": "2026-07-14",
+        "region": "US",
+        "signal": "top",
+        "title": "핵심소재 지역혁신 엔진, 초기 1,500만달러·최대 1.6억달러 지원",
+        "gate": "일회성 연구비보다 단계별 성과평가에 연동된 장기지원 구조가 핵심이다. 초기 사업성과가 후속자금 집행을 좌우하는 구조로 볼 수 있다."
+      }
+    ],
+    "CAPITAL_FINANCE_MA": [
+      {
+        "id": "2026-07-27_GL_01",
+        "date": "2026-07-27",
+        "region": "GL",
+        "signal": "top",
+        "title": "ADB 등, 동티모르 73.7MWac 태양광·80.2MWh BESS 금융지원",
+        "gate": "4,150만달러는 ADB와 파트너의 지원패키지로 총사업비나 sponsor equity 전체를 뜻하지 않는다. 금융종결, PPA 요금·기간, 건설계약과 계통연계 일정이 남아 있다."
+      },
+      {
+        "id": "2026-07-23_KR_01",
+        "date": "2026-07-23",
+        "region": "KR",
+        "signal": "top",
+        "title": "금융위·산업부, 핵심광물 개발·가공·재자원화 금융지원 연계",
+        "gate": "지원범위를 광산 확보에 한정하지 않고 중간가공과 재활용까지 연결한 점이 핵심이다. 구체적인 심사기준·지원한도와 개별 프로젝트 집행이 정책효과를 판단할 기준이다."
+      },
+      {
+        "id": "2026-07-22_US_02",
+        "date": "2026-07-22",
+        "region": "US",
+        "signal": "top",
+        "title": "미 상무부, 미주리 핵심광물 Tech Hub에 3,800만달러 지원",
+        "gate": "연구지원보다 지역 제조생태계와 상업화 시설을 겨냥한 연방투자다. 자금집행이 실제 파일럿·생산설비와 민간투자로 연결되는지가 공급망 효과의 기준이다."
+      },
+      {
+        "id": "2026-07-22_US_01",
+        "date": "2026-07-22",
+        "region": "US",
+        "signal": "top",
+        "title": "브룩필드, 약 70억달러 기업가치의 북미 BESS 플랫폼 Aypa Power 인수계약",
+        "gate": "대형 인프라 자본이 개별 BESS가 아니라 개발 플랫폼 전체를 인수하는 거래다. 운영·계약 자산과 개발 파이프라인을 함께 확보하는 구조가 관찰되며, 거래 종결과 개발사업의 실제 전환이 다음 점검 지점이다."
+      },
+      {
+        "id": "2026-07-22_GL_01",
+        "date": "2026-07-22",
+        "region": "GL",
+        "signal": "top",
+        "title": "Wesfarmers·SQM, Mt Holland 리튬정광 연 76만톤 증설 FID",
+        "gate": "최종투자결정은 증설을 위한 자본투입을 확정한 단계지만 추가 생산은 2030년 목표다. 광산의 정광능력 확대와 정제제품 공급증가는 별도 공정·판매경로로 구분해야 한다."
+      },
+      {
+        "id": "2026-07-21_US_01",
+        "date": "2026-07-21",
+        "region": "US",
+        "signal": "top",
+        "title": "Sila, 3억달러 조달해 Moses Lake 실리콘 음극재 2단계 증설 지원",
+        "gate": "3억달러 조달은 생산확대 재원을 확보한 별도 실행단계다. 다만 조달완료가 2단계 착공·설비발주 또는 확정 증설물량을 의미하지는 않는다."
+      },
+      {
+        "id": "2026-07-21_GL_06",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "고려아연, 호주 2.2GWh 태양광·BESS 투자안 의결",
+        "gate": "제련·금속기업이 대규모 장주기 저장자산을 계열 재생에너지 포트폴리오에 편입하는 사례다. 이사회 의결 이후 금융종결과 착공, 장기 수익계약 확정이 실제 집행의 기준이 된다."
+      },
+      {
+        "id": "2026-07-21_GL_04",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "MASPV, 과테말라 130MWp 태양광·100MWh 저장에 15년 PPA 두 건",
+        "gate": "장기 PPA와 은행보증은 프로젝트 수익구조를 구체화한다. 다만 배터리 출력과 최종 공급개시 시점은 공개되지 않아 금융종결과 건설진척을 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_03",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "NTPC REL, 100MWh 바나듐흐름전지 EPC 사업 Bondada·Delectrik에 낙찰",
+        "gate": "100MWh급 발주는 인도 비리튬계 장주기 저장의 대형 조달사례다. 다만 아직 준공·운전실적은 없으며 낙찰통지 후 10개월 내 완공조건과 장기운전 성능을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_01",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "SECI, 인도 양수발전 1,344MW 경쟁입찰 물량 3사 배정",
+        "gate": "이번 결과는 인도의 장주기 저장조달이 GW급 사업자 배정 단계로 구체화됐음을 보여준다. 다만 낙찰용량은 준공물량이 아니며 인허가·금융조달·최종계약이 실제 건설전환을 좌우한다."
+      },
+      {
+        "id": "2026-07-21_EU_08",
+        "date": "2026-07-21",
+        "region": "EU",
+        "signal": "top",
+        "title": "Iberdrola, 핀란드 Caruna 80% 인수계약 체결",
+        "gate": "거래는 규제승인을 거쳐 2027년 1분기 종결될 예정이다. 기업가치에는 부채가 포함되므로 지분대금과 단순 비교하면 안 되며, 인수 후 망투자·규제수익률·차입구조가 가치창출을 좌우한다."
+      },
+      {
+        "id": "2026-07-20_US_06",
+        "date": "2026-07-20",
+        "region": "US",
+        "signal": "top",
+        "title": "메인주, 최대 360MW 첫 경쟁형 저장조달안 PUC 제출",
+        "gate": "최대 360MW는 확정 낙찰량이 아니라 규제기관 심사를 받는 조달안의 상한이다. PUC 승인과 최종 RFP 조건을 통과한 제안만 실제 계약으로 이어질 수 있다."
+      },
+      {
+        "id": "2026-07-20_KR_02",
+        "date": "2026-07-20",
+        "region": "KR",
+        "signal": "top",
+        "title": "중부발전과 탑선, 96MW/576MWh BESS 발전사업허가 확보",
+        "gate": "발전사업허가는 사업권 진전의 핵심 단계지만 착공이나 상업운전을 의미하지 않는다. 후속 인허가와 금융조달, 조달 및 건설일정의 이행이 프로젝트 실행성을 가른다."
+      },
+      {
+        "id": "2026-07-20_EU_03",
+        "date": "2026-07-20",
+        "region": "EU",
+        "signal": "top",
+        "title": "Return·ENGIE, 스페인 55MW/220MWh BESS에 10년 톨링 계약",
+        "gate": "장기 톨링은 자산소유자와 시장운영자의 역할을 구체화하는 상업계약이다. 다만 프로젝트의 건설완료나 상업운전을 의미하지 않으므로 개발·건설 진척을 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-20_EU_01",
+        "date": "2026-07-20",
+        "region": "EU",
+        "signal": "top",
+        "title": "독일 Waltrop 900MW·최소 1.8GWh BESS, 변전소·기반시설 건설결정",
+        "gate": "건설결정은 초대형 프로젝트가 발표단계에서 현장준비 단계로 이동했음을 보여준다. 다만 이번 결정의 대상은 변전소와 기반시설이며 전체 BESS 본공사 완료를 뜻하지 않는다. 2026년 가을 착공과 2028년 3분기 가동일정의 이행이 핵심이다."
+      },
+      {
+        "id": "2026-07-17_EU_03",
+        "date": "2026-07-17",
+        "region": "EU",
+        "signal": "top",
+        "title": "EU, 2030년 저장장치 필요량 200GW 공식 제시",
+        "gate": "200GW는 EU 차원의 정책상 필요량이며 국가별 의무설치량이나 확정 조달물량이 아니다. 후속 법안, 재정수단, 국가별 이행계획이 실제 수요전달 경로다."
+      },
+      {
+        "id": "2026-07-16_GL_02",
+        "date": "2026-07-16",
+        "region": "GL",
+        "signal": "top",
+        "title": "IEA, 중국 희토류 통제 전면화 시 연 6.5조달러 생산위험 경고",
+        "gate": "확대 희토류 조치는 2026년 11월까지 유예됐지만 IEA는 공급집중 취약성이 남아 있다고 평가했다. 6.5조달러와 3,000억달러 이상은 각각 희토류 통제 전면 시행과 배터리급 흑연 거래 완전중단을 가정한 별도 위험 추정치다."
+      },
+      {
+        "id": "2026-07-16_EU_03",
+        "date": "2026-07-16",
+        "region": "EU",
+        "signal": "top",
+        "title": "EnBW·Zelestra, 이탈리아 300MW·4시간 BESS 장기 톨링 계약",
+        "gate": "계약대상은 전체 약 500MW 프로젝트 가운데 300MW이며 4시간 저장구성을 적용한다. 톨링 계약체결과 프로젝트 건설·가동은 별도 단계로 봐야 한다."
+      }
+    ],
+    "LOCALIZATION_SUPPLY_CHAIN": [
+      {
+        "id": "2026-07-31_CN_01",
+        "date": "2026-07-31",
+        "region": "CN",
+        "signal": "top",
+        "title": "CMOC, CATL 상품 매매 프레임워크 계약 갱신",
+        "gate": "이번 사건은 이사회 승인과 프레임워크 갱신 공시 단계다. 후속 판단 지점은 주주 승인과 실제 거래 집행, 품목별 물량 변화다."
+      },
+      {
+        "id": "2026-07-23_KR_01",
+        "date": "2026-07-23",
+        "region": "KR",
+        "signal": "top",
+        "title": "금융위·산업부, 핵심광물 개발·가공·재자원화 금융지원 연계",
+        "gate": "지원범위를 광산 확보에 한정하지 않고 중간가공과 재활용까지 연결한 점이 핵심이다. 구체적인 심사기준·지원한도와 개별 프로젝트 집행이 정책효과를 판단할 기준이다."
+      },
+      {
+        "id": "2026-07-22_US_02",
+        "date": "2026-07-22",
+        "region": "US",
+        "signal": "top",
+        "title": "미 상무부, 미주리 핵심광물 Tech Hub에 3,800만달러 지원",
+        "gate": "연구지원보다 지역 제조생태계와 상업화 시설을 겨냥한 연방투자다. 자금집행이 실제 파일럿·생산설비와 민간투자로 연결되는지가 공급망 효과의 기준이다."
+      },
+      {
+        "id": "2026-07-20_EU_01",
+        "date": "2026-07-20",
+        "region": "EU",
+        "signal": "top",
+        "title": "독일 Waltrop 900MW·최소 1.8GWh BESS, 변전소·기반시설 건설결정",
+        "gate": "건설결정은 초대형 프로젝트가 발표단계에서 현장준비 단계로 이동했음을 보여준다. 다만 이번 결정의 대상은 변전소와 기반시설이며 전체 BESS 본공사 완료를 뜻하지 않는다. 2026년 가을 착공과 2028년 3분기 가동일정의 이행이 핵심이다."
+      },
+      {
+        "id": "2026-07-16_CN_03",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국 6월 동력배터리 탑재 76.5GWh…LFP 비중 83.3%",
+        "gate": "6월 탑재량 증가율은 생산 206.0GWh와 판매 196.0GWh 규모보다 낮아 생산·판매·차량탑재 사이의 시차를 보여준다. LFP 비중 83.3%와 상반기 누적 81.0%가 지속되는지, 수출 36.2GWh와 재고흐름이 하반기 수급판단의 핵심이다."
+      },
+      {
+        "id": "2026-07-16_CN_02",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "홍콩 첫 대형 폐EV 배터리 처리시설, 6월 가동 후 7월 공식 개막",
+        "gate": "시설의 연 1만톤 명목 처리능력은 홍콩 정부가 추정한 2026년 폐EV 배터리 발생량 약 1,300톤과 2030년 약 6,700톤을 웃돈다. 2023~2025년 허가시설의 전처리 후 해외반출 실적은 약 130톤에 그쳐 초기 가동률은 현지 회수량 확대, 마카오 등 역외 반입과 블랙매스 판매경로에 좌우된다. 6월 운영개시와 7월 공식 개막은 구분해야 하며, 실제 처리량·회수율이 다음 검증기준이다."
+      },
+      {
+        "id": "2026-07-14_US_01",
+        "date": "2026-07-14",
+        "region": "US",
+        "signal": "top",
+        "title": "현대차–SK온 조지아 35GWh 합작공장, 초기 생산·HMGMA 납품 개시",
+        "gate": "회사 대변인 확인은 초기 생산과 공급개시를 뒷받침하지만 완전가동·수율·월별 출하를 뜻하지 않는다. 35GWh와 전기차 약 30만대분은 완전가동 시 명목능력이다."
+      },
+      {
+        "id": "2026-07-14_GL_01",
+        "date": "2026-07-14",
+        "region": "GL",
+        "signal": "top",
+        "title": "우드맥켄지 BESS 종합순위…선그로우 1위·테슬라 2위·CATL 3위",
+        "gate": "이 순위는 AC 통합형 BESS 공급사의 종합평가이며 출하량이나 시장점유율 순위와 동일하지 않다. 평가기준과 가중치의 공개범위가 제한돼 개별 기업의 절대성능을 확정하는 자료로 사용하기는 어렵다."
+      },
+      {
+        "id": "2026-07-13_US_02",
+        "date": "2026-07-13",
+        "region": "US",
+        "signal": "top",
+        "title": "라자드, 미국 4시간 BESS LCOS 상승…관세·FEOC가 저가셀 접근 제한",
+        "gate": "LCOS는 설비비·금융·운영·사이클 가정을 합친 모델값으로 모든 프로젝트의 실현비용과 같지 않다. 관세와 FEOC의 영향도 셀 원산지, 조달시점, 세액공제 적격성과 계약구조에 따라 달라진다."
+      },
+      {
+        "id": "2026-07-13_GL_02",
+        "date": "2026-07-13",
+        "region": "GL",
+        "signal": "top",
+        "title": "마스다르 5.2GW·19GWh 프로젝트 금융종결…51억달러 조달",
+        "gate": "금융종결은 프로젝트의 금융조달 가능성을 높이지만 건설완료·시운전·24시간 출력달성을 보장하지 않는다. 19GWh도 설계규모이므로 공급사별 실제 발주·납품일정과 구분해야 한다."
+      },
+      {
+        "id": "2026-07-03_GL_08",
+        "date": "2026-07-03",
+        "region": "GL",
+        "signal": "top",
+        "title": "Lobito 철도, DRC 구간 재건에 7억5300만달러 금융종결",
+        "gate": "금융종결은 공사완료나 수송능력 증가를 뜻하지 않는다. 자금집행, 공정률, 광산별 장기운송계약이 공급망 효과의 실행조건이다."
+      },
+      {
+        "id": "2026-07-02_GL_09",
+        "date": "2026-07-02",
+        "region": "GL",
+        "signal": "top",
+        "title": "VHM, Iluka와 Goschen 희토류 100% 오프테이크·A$4000만 금융계약",
+        "gate": "장기 판매계약과 프로젝트 금융이 결합돼 Goschen의 판매·자금조달 경로가 동시에 구체화됐다. 두 번째 A$3000만 집행과 공급개시는 최종투자결정·건설진행 조건에 달려 있다."
+      },
+      {
+        "id": "2026-07-01_US_02",
+        "date": "2026-07-01",
+        "region": "US",
+        "signal": "top",
+        "title": "KKR, EDF 북미 재생에너지 사업·자산 42억달러 인수 합의",
+        "gate": "인수합의는 규제승인과 거래종결 전 단계다. 포함자산의 운영용량·개발파이프라인, 부채와 장기계약 구조가 실제 인수가치와 수익성을 좌우한다. 42억달러는 기본 지분가치이고 추가지급은 조건부이므로 종결조건·조정대가·실제 이전자산과 개발파이프라인의 범위를 구분해야 한다."
+      },
+      {
+        "id": "2026-07-01_KR_03",
+        "date": "2026-07-01",
+        "region": "KR",
+        "signal": "top",
+        "title": "효성중공업, 호주 AusNet과 3,100억원·5년 초고압 전력기기 공급계약",
+        "gate": "단발성 프로젝트가 아니라 송전망 운영사와 장기 공급지위를 확보한 계약이다. 실제 발주물량, 납품일정과 원가·환율에 따른 매출·수익성 인식이 핵심이다. 총액은 장기 프레임 기준이므로 연도별 발주·납품물량과 HVDC·STATCOM 후속협력의 실제 계약 전환을 구분해야 한다."
+      },
+      {
+        "id": "2026-07-01_KR_01",
+        "date": "2026-07-01",
+        "region": "KR",
+        "signal": "top",
+        "title": "정부, 2026년 상반기 공급망 안정화 선도사업자 29곳 신규 지정",
+        "gate": "선도사업자 지정은 정책지원의 진입자격을 부여하는 단계이지 개별 금융지원의 자동 승인을 의미하지 않는다. 지정기업별 안정화계획과 공급망기금·보증·세제 등 후속 지원의 실제 집행 여부가 핵심이다. 지정 자체와 실제 기금승인은 별개이며, 신규 사업자의 승인금액·우대금리 적용·집행시점이 정책효과를 판단할 핵심 지표다."
+      },
+      {
+        "id": "2026-07-30_US_02",
+        "date": "2026-07-30",
+        "region": "US",
+        "signal": "high",
+        "title": "Perpetua-INL, 안티몬 파일럿 플랜트 가동",
+        "gate": "파일럿 플랜트 가동은 상업생산과 다르다. 처리능력·품질과 규모확대 여부가 미국 내 정제역량의 다음 검증 포인트다."
+      },
+      {
+        "id": "2026-07-28_US_01",
+        "date": "2026-07-28",
+        "region": "US",
+        "signal": "high",
+        "title": "미 FCC, 해외산 연결형 전력인버터 신규 장비승인 제한",
+        "gate": "이번 조치는 전체 기존 설치 인버터를 즉시 금지하는 조치가 아니라 신규 모델의 장비승인·시장진입을 제한하는 규제다. 기존 승인 모델과 신규 모델의 처리 차이가 커 공급사 영향은 신규 승인 파이프라인을 중심으로 봐야 한다."
+      },
+      {
+        "id": "2026-07-28_JP_01",
+        "date": "2026-07-28",
+        "region": "JP",
+        "signal": "high",
+        "title": "Hexa–Tokyo Gas, Fukushima 49.7MW/202.1MWh BESS 20년 오프테이크",
+        "gate": "프로젝트가 단순 개발계획을 넘어 장기 오프테이크 계약으로 운용·수익 구조를 구체화한 실행 이벤트다. 49.7MW/202.1MWh 규모와 20년 계약기간, FY2029 상업운전 일정이 함께 제시됐다."
+      }
+    ],
+    "POUCH_FILM_PACKAGING": [
+      {
+        "id": "2026-07-31_KR_02",
+        "date": "2026-07-31",
+        "region": "KR",
+        "signal": "high",
+        "title": "LG화학 첨단소재, 2Q 영업흑자 전환…분리막 출하 확대·ESS 물량 증가 전망",
+        "gate": "ESS 분리막 확대는 배터리 소재 수요 신호이지 파우치필름 외장재 수요와 1:1로 연결되는 근거는 아니다. 셀 폼팩터와 고객별 ESS 채택 구조를 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-27_KR_03",
+        "date": "2026-07-27",
+        "region": "KR",
+        "signal": "high",
+        "title": "SKC, 2Q 동박 분기 최대 매출…ESS 판매 확대가 회복축으로",
+        "gate": "동박은 음극 집전체로 파우치필름과 다른 BOM이다. ESS 동박 판매 확대는 셀 생산 강도의 선행지표이지 SBTL 파우치 수요를 그대로 의미하지 않는다."
+      },
+      {
+        "id": "2026-07-20_US_03",
+        "date": "2026-07-20",
+        "region": "US",
+        "signal": "high",
+        "title": "미국, 1차 알루미늄 투자기업에 232조 관세율 절반 적용",
+        "gate": "수입관세 감면을 미국 내 제련투자의 이행조건과 직접 연결한 산업정책 구조다. 승인계획은 2029년 1월 20일까지 착공해야 하며 요건 미충족 시 혜택 중단·철회 또는 소급취소가 가능하다. 실제 혜택규모는 승인 생산량과 투자진척에 연동된다."
+      },
+      {
+        "id": "2026-07-07_KR_01",
+        "date": "2026-07-07",
+        "region": "KR",
+        "signal": "high",
+        "title": "LG에너지솔루션, 2분기 영업익 1133억원…AMPC 제외 1277억원 적자",
+        "gate": "7월 30일 공식 확정실적에서 상반기 ESS 매출이 전년 대비 4.6배 증가해 전사 매출의 20% 후반까지 확대됐고, 유럽 파우치형 EV 배터리 출하 증가도 확인됐다. 다음 판단 지점은 ESS 수주가 실제 하반기 출하·매출로 전환되는 속도와 AMPC 제외 본업 수익성 회복이다."
+      },
+      {
+        "id": "2026-07-06_KR_05",
+        "date": "2026-07-06",
+        "region": "KR",
+        "signal": "high",
+        "title": "헝가리, EV 배터리 오염 전담 감시기구 9월 출범 추진",
+        "gate": "확인된 것은 감시기구 신설 추진과 벌금체계 개편 방향이다. 법안 통과, 기관 권한, 실제 출범일, 적용 대상 기업과 벌금 산식은 아직 확정으로 단정하지 않는다."
+      },
+      {
+        "id": "2026-07-03_KR_01",
+        "date": "2026-07-03",
+        "region": "KR",
+        "signal": "high",
+        "title": "율촌화학, 포승공장서 LG에너지솔루션 ESS용 파우치필름 상업양산 전환",
+        "gate": "공식 공시가 직접 확인하는 범위는 포승 증설설비 가동, 안산·포승 합산 1억1,000만㎡ 계획, LG에너지솔루션 공급과 ESS용 범위 확대다. LG 공식자료는 JF2가 ESS용 LFP 롱셀이라는 점만 확인하며 율촌화학을 공급사로 명시하지 않는다. 4M 승인, JF2 직접 적용, 183㎛와 단독공급은 취재기반이므로 공식확정 사실과 분리해야 한다. 계약물량·단가·스팟계약의 장기화 여부, 실제 가동률·수율과 ESS 매출기여는 미공개다."
+      },
+      {
+        "id": "2026-07-03_CN_03",
+        "date": "2026-07-03",
+        "region": "CN",
+        "signal": "high",
+        "title": "Envision AESC 46120 양산 보도…BMW Neue Klasse향 대원통 폼팩터 경쟁 신호",
+        "gate": "확인된 것은 중국 산업매체가 전한 규모화 양산·BMW 플랫폼 공급 보도다. BMW 또는 Envision AESC 공식 원문, 공급계약 물량, 수율, 차량별 탑재 일정, 실제 출하량, 양산 품질 지표는 아직 공개자료로 잠기지 않았다."
+      },
+      {
+        "id": "2026-07-02_US_01",
+        "date": "2026-07-02",
+        "region": "US",
+        "signal": "high",
+        "title": "LG에너지솔루션·혼다 오하이오 JV, ESS용 배터리 셀 양산 개시",
+        "gate": "양산개시는 램프업 시작점이며 공장 전체 40GWh가 ESS로 전환됐다는 의미가 아니다. ESS 셀 화학계, 전용 라인수·연간능력, 초기 고객·출하량·수율과 투자전환비는 공개되지 않았다. HEV 생산은 확정계획이 아니라 시장수요에 따른 선택지다."
+      },
+      {
+        "id": "2026-07-31_KR_04",
+        "date": "2026-07-31",
+        "region": "KR",
+        "signal": "mid",
+        "title": "효성화학, 2Q 영업익 1,708억원…필름 판가 인상으로 수익성 개선",
+        "gate": "현재 확인된 공식 자료는 효성화학의 필름 수익성 개선을 보여주지만, 해당 필름·PP가 배터리 파우치용 내층재로 인증·공급된다는 근거는 없다. 배터리 파우치 원재료로 단정하지 않는다."
+      },
+      {
+        "id": "2026-07-31_KR_03",
+        "date": "2026-07-31",
+        "region": "KR",
+        "signal": "mid",
+        "title": "동원시스템즈, 2Q 영업익 314억원…셀파우치는 공식 문구상 진입 계획 단계",
+        "gate": "공식 사이트 내 공주공장 제품 표기 등 셀파우치 관련 흔적이 있으나, 현재 사업 소개는 여전히 셀파우치 제조 진입을 미래형으로 표현한다. 고객 승인·양산 규모·파우치 매출이 확인되기 전에는 현재 대규모 상업생산으로 간주하지 않는다."
+      }
+    ]
+  },
+  "stage_representatives": {
+    "OPERATING_COD": [
+      {
+        "id": "2026-07-30_EU_03",
+        "date": "2026-07-30",
+        "region": "EU",
+        "signal": "top",
+        "title": "Greenvolt, 폴란드 200MW/800MWh BESS 개장",
+        "gate": "기존 건설·전력화 단계에서 실제 개장 단계로 이동한 후속 실행 신호다. 다만 개장 사실을 완전한 상업운전 개시로 확대 해석해서는 안 된다."
+      },
+      {
+        "id": "2026-07-21_GL_02",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "Wooreen BESS, Wärtsilä 배터리 유닛 1,038개 설치 완료",
+        "gate": "1,400MWh급 BESS에서 배터리 기자재 전량 설치가 끝나면서 프로젝트는 잔여 시운전과 계통연계 공정으로 넘어간다. 다만 이는 전체 프로젝트 준공이나 상업운전 개시를 뜻하지 않으며, 2027년 운영 목표까지 시험·계통접속 절차가 남아 있다."
+      },
+      {
+        "id": "2026-07-20_US_05",
+        "date": "2026-07-20",
+        "region": "US",
+        "signal": "top",
+        "title": "Avantus Aratina 1, 200MW 태양광·500MWh 저장 상업운전 개시",
+        "gate": "상업운전 개시는 프로젝트 실행완료를 확인하는 이정표다. 다만 공개된 500MWh는 에너지용량이며 배터리 출력과 초기 운영성과는 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-20_KR_02",
+        "date": "2026-07-20",
+        "region": "KR",
+        "signal": "top",
+        "title": "중부발전과 탑선, 96MW/576MWh BESS 발전사업허가 확보",
+        "gate": "발전사업허가는 사업권 진전의 핵심 단계지만 착공이나 상업운전을 의미하지 않는다. 후속 인허가와 금융조달, 조달 및 건설일정의 이행이 프로젝트 실행성을 가른다."
+      },
+      {
+        "id": "2026-07-20_EU_03",
+        "date": "2026-07-20",
+        "region": "EU",
+        "signal": "top",
+        "title": "Return·ENGIE, 스페인 55MW/220MWh BESS에 10년 톨링 계약",
+        "gate": "장기 톨링은 자산소유자와 시장운영자의 역할을 구체화하는 상업계약이다. 다만 프로젝트의 건설완료나 상업운전을 의미하지 않으므로 개발·건설 진척을 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-20_EU_01",
+        "date": "2026-07-20",
+        "region": "EU",
+        "signal": "top",
+        "title": "독일 Waltrop 900MW·최소 1.8GWh BESS, 변전소·기반시설 건설결정",
+        "gate": "건설결정은 초대형 프로젝트가 발표단계에서 현장준비 단계로 이동했음을 보여준다. 다만 이번 결정의 대상은 변전소와 기반시설이며 전체 BESS 본공사 완료를 뜻하지 않는다. 2026년 가을 착공과 2028년 3분기 가동일정의 이행이 핵심이다."
+      },
+      {
+        "id": "2026-07-17_CN_03",
+        "date": "2026-07-17",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국 간쑤성, 신형저장 가동설비 10GW 돌파",
+        "gate": "설비용량 증가는 저장자산 기반을 보여주지만 실제 충방전횟수와 시장수익을 의미하지 않는다. 이용률과 시장참여 수익, 계통운영 데이터가 다음 판단기준이다."
+      },
+      {
+        "id": "2026-07-16_EU_03",
+        "date": "2026-07-16",
+        "region": "EU",
+        "signal": "top",
+        "title": "EnBW·Zelestra, 이탈리아 300MW·4시간 BESS 장기 톨링 계약",
+        "gate": "계약대상은 전체 약 500MW 프로젝트 가운데 300MW이며 4시간 저장구성을 적용한다. 톨링 계약체결과 프로젝트 건설·가동은 별도 단계로 봐야 한다."
+      },
+      {
+        "id": "2026-07-16_CN_02",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "홍콩 첫 대형 폐EV 배터리 처리시설, 6월 가동 후 7월 공식 개막",
+        "gate": "시설의 연 1만톤 명목 처리능력은 홍콩 정부가 추정한 2026년 폐EV 배터리 발생량 약 1,300톤과 2030년 약 6,700톤을 웃돈다. 2023~2025년 허가시설의 전처리 후 해외반출 실적은 약 130톤에 그쳐 초기 가동률은 현지 회수량 확대, 마카오 등 역외 반입과 블랙매스 판매경로에 좌우된다. 6월 운영개시와 7월 공식 개막은 구분해야 하며, 실제 처리량·회수율이 다음 검증기준이다."
+      },
+      {
+        "id": "2026-07-15_KR_01",
+        "date": "2026-07-15",
+        "region": "KR",
+        "signal": "top",
+        "title": "한국 직접 PPA 중개플랫폼 시범가동…공급·수요 각각 약 1GW",
+        "gate": "플랫폼은 거래상대 탐색과 협상비용을 낮추는 시장 인프라지만, 게시물량이 실제 계약량을 의미하지는 않는다. 등록물량의 협상전환율, 계약기간, 가격과 정산조건이 직접 PPA 시장형성 여부를 가를 수 있다."
+      },
+      {
+        "id": "2026-07-14_US_02",
+        "date": "2026-07-14",
+        "region": "US",
+        "signal": "top",
+        "title": "Google·Cypress Creek, 아칸소 Steel River 착공…초기 저장 1.9GWh",
+        "gate": "1·2단계는 태양광 1.6GWdc와 BESS 1.9GWh를 지역 전력망에 추가하며, 전체 3단계는 2029년 태양광 2.5GWdc·저장 2.9GWh 완공을 목표로 한다. Google의 전력구매와 착공은 금융조달 이후 건설실행을 확인하지만 단계별 상업운전 일정은 남아 있다."
+      },
+      {
+        "id": "2026-07-14_US_01",
+        "date": "2026-07-14",
+        "region": "US",
+        "signal": "top",
+        "title": "현대차–SK온 조지아 35GWh 합작공장, 초기 생산·HMGMA 납품 개시",
+        "gate": "회사 대변인 확인은 초기 생산과 공급개시를 뒷받침하지만 완전가동·수율·월별 출하를 뜻하지 않는다. 35GWh와 전기차 약 30만대분은 완전가동 시 명목능력이다."
+      }
+    ],
+    "COMMISSIONING_INSTALLATION": [
+      {
+        "id": "2026-07-30_EU_03",
+        "date": "2026-07-30",
+        "region": "EU",
+        "signal": "top",
+        "title": "Greenvolt, 폴란드 200MW/800MWh BESS 개장",
+        "gate": "기존 건설·전력화 단계에서 실제 개장 단계로 이동한 후속 실행 신호다. 다만 개장 사실을 완전한 상업운전 개시로 확대 해석해서는 안 된다."
+      },
+      {
+        "id": "2026-07-21_GL_03",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "NTPC REL, 100MWh 바나듐흐름전지 EPC 사업 Bondada·Delectrik에 낙찰",
+        "gate": "100MWh급 발주는 인도 비리튬계 장주기 저장의 대형 조달사례다. 다만 아직 준공·운전실적은 없으며 낙찰통지 후 10개월 내 완공조건과 장기운전 성능을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_02",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "Wooreen BESS, Wärtsilä 배터리 유닛 1,038개 설치 완료",
+        "gate": "1,400MWh급 BESS에서 배터리 기자재 전량 설치가 끝나면서 프로젝트는 잔여 시운전과 계통연계 공정으로 넘어간다. 다만 이는 전체 프로젝트 준공이나 상업운전 개시를 뜻하지 않으며, 2027년 운영 목표까지 시험·계통접속 절차가 남아 있다."
+      },
+      {
+        "id": "2026-07-21_GL_01",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "SECI, 인도 양수발전 1,344MW 경쟁입찰 물량 3사 배정",
+        "gate": "이번 결과는 인도의 장주기 저장조달이 GW급 사업자 배정 단계로 구체화됐음을 보여준다. 다만 낙찰용량은 준공물량이 아니며 인허가·금융조달·최종계약이 실제 건설전환을 좌우한다."
+      },
+      {
+        "id": "2026-07-20_GL_06",
+        "date": "2026-07-20",
+        "region": "GL",
+        "signal": "top",
+        "title": "Frontier, Waroona 1단계 132MWdc 태양광 EPC에 Monford 선정",
+        "gate": "고정가격 EPC 사업자 선정은 프로젝트의 실행조건을 구체화한다. 다만 실제 공사착수와 준공을 의미하지 않으므로 계약이행과 현장진척을 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-14_GL_04",
+        "date": "2026-07-14",
+        "region": "GL",
+        "signal": "top",
+        "title": "필리핀 MTerra 1단계 통전…태양광 1.373GW·BESS 3.3GWh",
+        "gate": "준공행사와 통전은 대규모 자산이 물리적 실행단계에 들어갔다는 의미다. 다만 계통수출은 관련 공사 완료 전 최대 750MW로 제한되고, 대통령실이 밝힌 약 91% 공정률과 8월 완전 상업가동 목표는 향후 일정이므로 전체 설비의 즉시 완전가동과 동일하지 않다."
+      },
+      {
+        "id": "2026-07-13_GL_02",
+        "date": "2026-07-13",
+        "region": "GL",
+        "signal": "top",
+        "title": "마스다르 5.2GW·19GWh 프로젝트 금융종결…51억달러 조달",
+        "gate": "금융종결은 프로젝트의 금융조달 가능성을 높이지만 건설완료·시운전·24시간 출력달성을 보장하지 않는다. 19GWh도 설계규모이므로 공급사별 실제 발주·납품일정과 구분해야 한다."
+      },
+      {
+        "id": "2026-07-05_GL_01",
+        "date": "2026-07-05",
+        "region": "GL",
+        "signal": "top",
+        "title": "EVNHANOI, 하노이 5개 변전소 BESS 50MW·100MWh 가동",
+        "gate": "설치·통전은 확인됐지만 수익성이나 계통성과를 뜻하지 않는다. 배전망 피크저감, 고장대응, 충방전 효율과 운영비 데이터가 공개돼야 275MW 확대의 경제성을 평가할 수 있다."
+      },
+      {
+        "id": "2026-07-02_KR_02",
+        "date": "2026-07-02",
+        "region": "KR",
+        "signal": "top",
+        "title": "LS일렉트릭, 천안 100% 직류배전 DC팩토리 준공·가동",
+        "gate": "자체 공장을 직류배전 실증·레퍼런스 사이트로 활용해 데이터센터와 북미 산업시장 수주로 연결하려는 구조다. 에너지효율 개선의 측정기준과 장기간 운영 안정성, 외부 고객 적용 실적이 핵심 검증항목이다. 10% 이상 효율개선은 회사 실증값이므로 장기간 운영데이터와 외부 검증, 직류기기 표준·인증 확보가 확산의 핵심 조건이다."
+      },
+      {
+        "id": "2026-07-01_KR_05",
+        "date": "2026-07-01",
+        "region": "KR",
+        "signal": "top",
+        "title": "알몬티, 상동 텅스텐광산 가공개시…비축원광으로 판매가능 정광 생산 전환",
+        "gate": "판매가능 정광 생산개시는 안정적 상업생산·매출인식 또는 현금회수를 의미하지 않는다. 6,800만달러는 회수율·처리비·정광가격·지급률을 차감하지 않은 회사의 예시적 함유가치로 매출·이익이 아니다. 실제 처리량, 회수율·정광품위, 고객인수와 첫 판매·대금수취를 확인해야 한다."
+      },
+      {
+        "id": "2026-07-01_GL_03",
+        "date": "2026-07-01",
+        "region": "GL",
+        "signal": "top",
+        "title": "Firmus·Gunvor, 호주 AI 캠퍼스 12년 전력계약…1.2GW 재생에너지·1.5GWh 저장 연계",
+        "gate": "전력공급 계약이 신규 발전·저장 개발을 뒷받침하지만 모든 설비가 현재 건설된 것은 아니다. 캠퍼스 수요확정, 프로젝트별 인허가·금융과 단계별 준공이 핵심이다. 캠퍼스 총 2.7GW는 장기 계획치이며 12년 계약의 600MW 공급범위, 발전·저장자산의 인허가와 단계별 금융종결을 구분해야 한다."
+      },
+      {
+        "id": "2026-07-01_GL_02",
+        "date": "2026-07-01",
+        "region": "GL",
+        "signal": "top",
+        "title": "Vena Energy, 호주 태양광·BESS 포트폴리오 A$14억 그린파이낸싱",
+        "gate": "신규 프로젝트금융과 기존시설 리파이낸싱이 결합된 포트폴리오 거래다. 총액을 전부 신규 건설자금으로 해석하면 안 되며 자산별 대출구조와 준공조건을 구분해야 한다. A$14억 전액이 신규 BESS 건설비는 아니므로 프로젝트별 신규대출·리파이낸싱·운영자산 담보 범위를 분리해 봐야 한다."
+      }
+    ],
+    "CONSTRUCTION_FID": [
+      {
+        "id": "2026-07-31_GL_02",
+        "date": "2026-07-31",
+        "region": "GL",
+        "signal": "top",
+        "title": "인도, 5,000MW 수상태양광·최소 2시간 ESS PM-Surya Sarovar 승인",
+        "gate": "이번 사건은 제도 승인 단계이며 개별 프로젝트 선정·착공을 의미하지 않는다. 후속 판단 지점은 세부 사업 선정과 실제 집행 속도다."
+      },
+      {
+        "id": "2026-07-30_EU_03",
+        "date": "2026-07-30",
+        "region": "EU",
+        "signal": "top",
+        "title": "Greenvolt, 폴란드 200MW/800MWh BESS 개장",
+        "gate": "기존 건설·전력화 단계에서 실제 개장 단계로 이동한 후속 실행 신호다. 다만 개장 사실을 완전한 상업운전 개시로 확대 해석해서는 안 된다."
+      },
+      {
+        "id": "2026-07-29_US_02",
+        "date": "2026-07-29",
+        "region": "US",
+        "signal": "top",
+        "title": "미 DOE, Paducah 전력인프라 사업자로 NextEra 선정…최대 2.6GW BESS안",
+        "gate": "현재 확정된 사항은 데이터센터 개발 파트너와 전용 전력인프라 사업자 선정, 그리고 최대 개발규모다. NextEra 전력안은 최대 2GW 가스발전과 최대 2.6GW BESS를 포함하며 전력서비스계약에는 켄터키 공공서비스위원회 승인이 남아 있다."
+      },
+      {
+        "id": "2026-07-27_GL_01",
+        "date": "2026-07-27",
+        "region": "GL",
+        "signal": "top",
+        "title": "ADB 등, 동티모르 73.7MWac 태양광·80.2MWh BESS 금융지원",
+        "gate": "4,150만달러는 ADB와 파트너의 지원패키지로 총사업비나 sponsor equity 전체를 뜻하지 않는다. 금융종결, PPA 요금·기간, 건설계약과 계통연계 일정이 남아 있다."
+      },
+      {
+        "id": "2026-07-22_GL_01",
+        "date": "2026-07-22",
+        "region": "GL",
+        "signal": "top",
+        "title": "Wesfarmers·SQM, Mt Holland 리튬정광 연 76만톤 증설 FID",
+        "gate": "최종투자결정은 증설을 위한 자본투입을 확정한 단계지만 추가 생산은 2030년 목표다. 광산의 정광능력 확대와 정제제품 공급증가는 별도 공정·판매경로로 구분해야 한다."
+      },
+      {
+        "id": "2026-07-21_US_01",
+        "date": "2026-07-21",
+        "region": "US",
+        "signal": "top",
+        "title": "Sila, 3억달러 조달해 Moses Lake 실리콘 음극재 2단계 증설 지원",
+        "gate": "3억달러 조달은 생산확대 재원을 확보한 별도 실행단계다. 다만 조달완료가 2단계 착공·설비발주 또는 확정 증설물량을 의미하지는 않는다."
+      },
+      {
+        "id": "2026-07-21_GL_06",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "고려아연, 호주 2.2GWh 태양광·BESS 투자안 의결",
+        "gate": "제련·금속기업이 대규모 장주기 저장자산을 계열 재생에너지 포트폴리오에 편입하는 사례다. 이사회 의결 이후 금융종결과 착공, 장기 수익계약 확정이 실제 집행의 기준이 된다."
+      },
+      {
+        "id": "2026-07-21_GL_04",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "MASPV, 과테말라 130MWp 태양광·100MWh 저장에 15년 PPA 두 건",
+        "gate": "장기 PPA와 은행보증은 프로젝트 수익구조를 구체화한다. 다만 배터리 출력과 최종 공급개시 시점은 공개되지 않아 금융종결과 건설진척을 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_03",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "NTPC REL, 100MWh 바나듐흐름전지 EPC 사업 Bondada·Delectrik에 낙찰",
+        "gate": "100MWh급 발주는 인도 비리튬계 장주기 저장의 대형 조달사례다. 다만 아직 준공·운전실적은 없으며 낙찰통지 후 10개월 내 완공조건과 장기운전 성능을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_01",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "SECI, 인도 양수발전 1,344MW 경쟁입찰 물량 3사 배정",
+        "gate": "이번 결과는 인도의 장주기 저장조달이 GW급 사업자 배정 단계로 구체화됐음을 보여준다. 다만 낙찰용량은 준공물량이 아니며 인허가·금융조달·최종계약이 실제 건설전환을 좌우한다."
+      },
+      {
+        "id": "2026-07-20_KR_02",
+        "date": "2026-07-20",
+        "region": "KR",
+        "signal": "top",
+        "title": "중부발전과 탑선, 96MW/576MWh BESS 발전사업허가 확보",
+        "gate": "발전사업허가는 사업권 진전의 핵심 단계지만 착공이나 상업운전을 의미하지 않는다. 후속 인허가와 금융조달, 조달 및 건설일정의 이행이 프로젝트 실행성을 가른다."
+      },
+      {
+        "id": "2026-07-20_GL_06",
+        "date": "2026-07-20",
+        "region": "GL",
+        "signal": "top",
+        "title": "Frontier, Waroona 1단계 132MWdc 태양광 EPC에 Monford 선정",
+        "gate": "고정가격 EPC 사업자 선정은 프로젝트의 실행조건을 구체화한다. 다만 실제 공사착수와 준공을 의미하지 않으므로 계약이행과 현장진척을 별도로 확인해야 한다."
+      }
+    ],
+    "CONTRACT_OFFTAKE_TOLLING": [
+      {
+        "id": "2026-07-31_CN_01",
+        "date": "2026-07-31",
+        "region": "CN",
+        "signal": "top",
+        "title": "CMOC, CATL 상품 매매 프레임워크 계약 갱신",
+        "gate": "이번 사건은 이사회 승인과 프레임워크 갱신 공시 단계다. 후속 판단 지점은 주주 승인과 실제 거래 집행, 품목별 물량 변화다."
+      },
+      {
+        "id": "2026-07-29_US_02",
+        "date": "2026-07-29",
+        "region": "US",
+        "signal": "top",
+        "title": "미 DOE, Paducah 전력인프라 사업자로 NextEra 선정…최대 2.6GW BESS안",
+        "gate": "현재 확정된 사항은 데이터센터 개발 파트너와 전용 전력인프라 사업자 선정, 그리고 최대 개발규모다. NextEra 전력안은 최대 2GW 가스발전과 최대 2.6GW BESS를 포함하며 전력서비스계약에는 켄터키 공공서비스위원회 승인이 남아 있다."
+      },
+      {
+        "id": "2026-07-27_GL_01",
+        "date": "2026-07-27",
+        "region": "GL",
+        "signal": "top",
+        "title": "ADB 등, 동티모르 73.7MWac 태양광·80.2MWh BESS 금융지원",
+        "gate": "4,150만달러는 ADB와 파트너의 지원패키지로 총사업비나 sponsor equity 전체를 뜻하지 않는다. 금융종결, PPA 요금·기간, 건설계약과 계통연계 일정이 남아 있다."
+      },
+      {
+        "id": "2026-07-22_US_01",
+        "date": "2026-07-22",
+        "region": "US",
+        "signal": "top",
+        "title": "브룩필드, 약 70억달러 기업가치의 북미 BESS 플랫폼 Aypa Power 인수계약",
+        "gate": "대형 인프라 자본이 개별 BESS가 아니라 개발 플랫폼 전체를 인수하는 거래다. 운영·계약 자산과 개발 파이프라인을 함께 확보하는 구조가 관찰되며, 거래 종결과 개발사업의 실제 전환이 다음 점검 지점이다."
+      },
+      {
+        "id": "2026-07-21_GL_06",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "고려아연, 호주 2.2GWh 태양광·BESS 투자안 의결",
+        "gate": "제련·금속기업이 대규모 장주기 저장자산을 계열 재생에너지 포트폴리오에 편입하는 사례다. 이사회 의결 이후 금융종결과 착공, 장기 수익계약 확정이 실제 집행의 기준이 된다."
+      },
+      {
+        "id": "2026-07-21_GL_04",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "MASPV, 과테말라 130MWp 태양광·100MWh 저장에 15년 PPA 두 건",
+        "gate": "장기 PPA와 은행보증은 프로젝트 수익구조를 구체화한다. 다만 배터리 출력과 최종 공급개시 시점은 공개되지 않아 금융종결과 건설진척을 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_03",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "NTPC REL, 100MWh 바나듐흐름전지 EPC 사업 Bondada·Delectrik에 낙찰",
+        "gate": "100MWh급 발주는 인도 비리튬계 장주기 저장의 대형 조달사례다. 다만 아직 준공·운전실적은 없으며 낙찰통지 후 10개월 내 완공조건과 장기운전 성능을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_01",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "SECI, 인도 양수발전 1,344MW 경쟁입찰 물량 3사 배정",
+        "gate": "이번 결과는 인도의 장주기 저장조달이 GW급 사업자 배정 단계로 구체화됐음을 보여준다. 다만 낙찰용량은 준공물량이 아니며 인허가·금융조달·최종계약이 실제 건설전환을 좌우한다."
+      },
+      {
+        "id": "2026-07-21_EU_08",
+        "date": "2026-07-21",
+        "region": "EU",
+        "signal": "top",
+        "title": "Iberdrola, 핀란드 Caruna 80% 인수계약 체결",
+        "gate": "거래는 규제승인을 거쳐 2027년 1분기 종결될 예정이다. 기업가치에는 부채가 포함되므로 지분대금과 단순 비교하면 안 되며, 인수 후 망투자·규제수익률·차입구조가 가치창출을 좌우한다."
+      },
+      {
+        "id": "2026-07-21_EU_04",
+        "date": "2026-07-21",
+        "region": "EU",
+        "signal": "top",
+        "title": "Westnetz, 재생에너지 병설 계통충전형 BESS에 유연 접속계약 확대",
+        "gate": "7월 21일 조치는 4월에 도입한 재생에너지 전용 저장장치 계약을 계통충전형 병설 BESS까지 확대한 별도 후속조치다. 접속용량을 고정 상한으로 제한하고 지역 재생에너지 발전예측에 따라 배터리 출력도 조정해, 증설 없이 접속 가능한 프로젝트 범위를 넓히는 구조다."
+      },
+      {
+        "id": "2026-07-21_EU_03",
+        "date": "2026-07-21",
+        "region": "EU",
+        "signal": "top",
+        "title": "CATL·Solarpro, 중동부유럽 나트륨이온 ESS 2GWh 협력계약",
+        "gate": "2GWh는 전략협력계약의 범위이지 확정 인도·설치물량이 아니다. 구체적인 프로젝트 부지, 발주와 설치일정이 공개돼야 실제 전개규모를 판단할 수 있다."
+      },
+      {
+        "id": "2026-07-20_US_06",
+        "date": "2026-07-20",
+        "region": "US",
+        "signal": "top",
+        "title": "메인주, 최대 360MW 첫 경쟁형 저장조달안 PUC 제출",
+        "gate": "최대 360MW는 확정 낙찰량이 아니라 규제기관 심사를 받는 조달안의 상한이다. PUC 승인과 최종 RFP 조건을 통과한 제안만 실제 계약으로 이어질 수 있다."
+      }
+    ],
+    "FINANCING_CAPITAL": [
+      {
+        "id": "2026-07-27_GL_01",
+        "date": "2026-07-27",
+        "region": "GL",
+        "signal": "top",
+        "title": "ADB 등, 동티모르 73.7MWac 태양광·80.2MWh BESS 금융지원",
+        "gate": "4,150만달러는 ADB와 파트너의 지원패키지로 총사업비나 sponsor equity 전체를 뜻하지 않는다. 금융종결, PPA 요금·기간, 건설계약과 계통연계 일정이 남아 있다."
+      },
+      {
+        "id": "2026-07-23_KR_01",
+        "date": "2026-07-23",
+        "region": "KR",
+        "signal": "top",
+        "title": "금융위·산업부, 핵심광물 개발·가공·재자원화 금융지원 연계",
+        "gate": "지원범위를 광산 확보에 한정하지 않고 중간가공과 재활용까지 연결한 점이 핵심이다. 구체적인 심사기준·지원한도와 개별 프로젝트 집행이 정책효과를 판단할 기준이다."
+      },
+      {
+        "id": "2026-07-22_US_02",
+        "date": "2026-07-22",
+        "region": "US",
+        "signal": "top",
+        "title": "미 상무부, 미주리 핵심광물 Tech Hub에 3,800만달러 지원",
+        "gate": "연구지원보다 지역 제조생태계와 상업화 시설을 겨냥한 연방투자다. 자금집행이 실제 파일럿·생산설비와 민간투자로 연결되는지가 공급망 효과의 기준이다."
+      },
+      {
+        "id": "2026-07-22_US_01",
+        "date": "2026-07-22",
+        "region": "US",
+        "signal": "top",
+        "title": "브룩필드, 약 70억달러 기업가치의 북미 BESS 플랫폼 Aypa Power 인수계약",
+        "gate": "대형 인프라 자본이 개별 BESS가 아니라 개발 플랫폼 전체를 인수하는 거래다. 운영·계약 자산과 개발 파이프라인을 함께 확보하는 구조가 관찰되며, 거래 종결과 개발사업의 실제 전환이 다음 점검 지점이다."
+      },
+      {
+        "id": "2026-07-22_GL_01",
+        "date": "2026-07-22",
+        "region": "GL",
+        "signal": "top",
+        "title": "Wesfarmers·SQM, Mt Holland 리튬정광 연 76만톤 증설 FID",
+        "gate": "최종투자결정은 증설을 위한 자본투입을 확정한 단계지만 추가 생산은 2030년 목표다. 광산의 정광능력 확대와 정제제품 공급증가는 별도 공정·판매경로로 구분해야 한다."
+      },
+      {
+        "id": "2026-07-21_US_01",
+        "date": "2026-07-21",
+        "region": "US",
+        "signal": "top",
+        "title": "Sila, 3억달러 조달해 Moses Lake 실리콘 음극재 2단계 증설 지원",
+        "gate": "3억달러 조달은 생산확대 재원을 확보한 별도 실행단계다. 다만 조달완료가 2단계 착공·설비발주 또는 확정 증설물량을 의미하지는 않는다."
+      },
+      {
+        "id": "2026-07-21_GL_06",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "고려아연, 호주 2.2GWh 태양광·BESS 투자안 의결",
+        "gate": "제련·금속기업이 대규모 장주기 저장자산을 계열 재생에너지 포트폴리오에 편입하는 사례다. 이사회 의결 이후 금융종결과 착공, 장기 수익계약 확정이 실제 집행의 기준이 된다."
+      },
+      {
+        "id": "2026-07-21_GL_04",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "MASPV, 과테말라 130MWp 태양광·100MWh 저장에 15년 PPA 두 건",
+        "gate": "장기 PPA와 은행보증은 프로젝트 수익구조를 구체화한다. 다만 배터리 출력과 최종 공급개시 시점은 공개되지 않아 금융종결과 건설진척을 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_03",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "NTPC REL, 100MWh 바나듐흐름전지 EPC 사업 Bondada·Delectrik에 낙찰",
+        "gate": "100MWh급 발주는 인도 비리튬계 장주기 저장의 대형 조달사례다. 다만 아직 준공·운전실적은 없으며 낙찰통지 후 10개월 내 완공조건과 장기운전 성능을 확인해야 한다."
+      },
+      {
+        "id": "2026-07-21_GL_01",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "SECI, 인도 양수발전 1,344MW 경쟁입찰 물량 3사 배정",
+        "gate": "이번 결과는 인도의 장주기 저장조달이 GW급 사업자 배정 단계로 구체화됐음을 보여준다. 다만 낙찰용량은 준공물량이 아니며 인허가·금융조달·최종계약이 실제 건설전환을 좌우한다."
+      },
+      {
+        "id": "2026-07-21_EU_08",
+        "date": "2026-07-21",
+        "region": "EU",
+        "signal": "top",
+        "title": "Iberdrola, 핀란드 Caruna 80% 인수계약 체결",
+        "gate": "거래는 규제승인을 거쳐 2027년 1분기 종결될 예정이다. 기업가치에는 부채가 포함되므로 지분대금과 단순 비교하면 안 되며, 인수 후 망투자·규제수익률·차입구조가 가치창출을 좌우한다."
+      },
+      {
+        "id": "2026-07-20_US_06",
+        "date": "2026-07-20",
+        "region": "US",
+        "signal": "top",
+        "title": "메인주, 최대 360MW 첫 경쟁형 저장조달안 PUC 제출",
+        "gate": "최대 360MW는 확정 낙찰량이 아니라 규제기관 심사를 받는 조달안의 상한이다. PUC 승인과 최종 RFP 조건을 통과한 제안만 실제 계약으로 이어질 수 있다."
+      }
+    ],
+    "POLICY_APPROVAL_PROCUREMENT": [
+      {
+        "id": "2026-07-31_GL_02",
+        "date": "2026-07-31",
+        "region": "GL",
+        "signal": "top",
+        "title": "인도, 5,000MW 수상태양광·최소 2시간 ESS PM-Surya Sarovar 승인",
+        "gate": "이번 사건은 제도 승인 단계이며 개별 프로젝트 선정·착공을 의미하지 않는다. 후속 판단 지점은 세부 사업 선정과 실제 집행 속도다."
+      },
+      {
+        "id": "2026-07-31_CN_01",
+        "date": "2026-07-31",
+        "region": "CN",
+        "signal": "top",
+        "title": "CMOC, CATL 상품 매매 프레임워크 계약 갱신",
+        "gate": "이번 사건은 이사회 승인과 프레임워크 갱신 공시 단계다. 후속 판단 지점은 주주 승인과 실제 거래 집행, 품목별 물량 변화다."
+      },
+      {
+        "id": "2026-07-29_US_02",
+        "date": "2026-07-29",
+        "region": "US",
+        "signal": "top",
+        "title": "미 DOE, Paducah 전력인프라 사업자로 NextEra 선정…최대 2.6GW BESS안",
+        "gate": "현재 확정된 사항은 데이터센터 개발 파트너와 전용 전력인프라 사업자 선정, 그리고 최대 개발규모다. NextEra 전력안은 최대 2GW 가스발전과 최대 2.6GW BESS를 포함하며 전력서비스계약에는 켄터키 공공서비스위원회 승인이 남아 있다."
+      },
+      {
+        "id": "2026-07-27_GL_01",
+        "date": "2026-07-27",
+        "region": "GL",
+        "signal": "top",
+        "title": "ADB 등, 동티모르 73.7MWac 태양광·80.2MWh BESS 금융지원",
+        "gate": "4,150만달러는 ADB와 파트너의 지원패키지로 총사업비나 sponsor equity 전체를 뜻하지 않는다. 금융종결, PPA 요금·기간, 건설계약과 계통연계 일정이 남아 있다."
+      },
+      {
+        "id": "2026-07-23_US_02",
+        "date": "2026-07-23",
+        "region": "US",
+        "signal": "top",
+        "title": "미국, 60개 경제권에 강제노동 연계 Section 301 관세 확정",
+        "gate": "국가별 명목세율만으로 특정 제품의 실효관세를 확정할 수 없다. 원산지 경제권, HTS 분류, MFN 세율, Section 232 중복 여부와 Federal Register 면제품목표를 함께 대조해야 한다."
+      },
+      {
+        "id": "2026-07-23_KR_01",
+        "date": "2026-07-23",
+        "region": "KR",
+        "signal": "top",
+        "title": "금융위·산업부, 핵심광물 개발·가공·재자원화 금융지원 연계",
+        "gate": "지원범위를 광산 확보에 한정하지 않고 중간가공과 재활용까지 연결한 점이 핵심이다. 구체적인 심사기준·지원한도와 개별 프로젝트 집행이 정책효과를 판단할 기준이다."
+      },
+      {
+        "id": "2026-07-22_US_02",
+        "date": "2026-07-22",
+        "region": "US",
+        "signal": "top",
+        "title": "미 상무부, 미주리 핵심광물 Tech Hub에 3,800만달러 지원",
+        "gate": "연구지원보다 지역 제조생태계와 상업화 시설을 겨냥한 연방투자다. 자금집행이 실제 파일럿·생산설비와 민간투자로 연결되는지가 공급망 효과의 기준이다."
+      },
+      {
+        "id": "2026-07-21_US_01",
+        "date": "2026-07-21",
+        "region": "US",
+        "signal": "top",
+        "title": "Sila, 3억달러 조달해 Moses Lake 실리콘 음극재 2단계 증설 지원",
+        "gate": "3억달러 조달은 생산확대 재원을 확보한 별도 실행단계다. 다만 조달완료가 2단계 착공·설비발주 또는 확정 증설물량을 의미하지는 않는다."
+      },
+      {
+        "id": "2026-07-21_GL_06",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "고려아연, 호주 2.2GWh 태양광·BESS 투자안 의결",
+        "gate": "제련·금속기업이 대규모 장주기 저장자산을 계열 재생에너지 포트폴리오에 편입하는 사례다. 이사회 의결 이후 금융종결과 착공, 장기 수익계약 확정이 실제 집행의 기준이 된다."
+      },
+      {
+        "id": "2026-07-21_GL_01",
+        "date": "2026-07-21",
+        "region": "GL",
+        "signal": "top",
+        "title": "SECI, 인도 양수발전 1,344MW 경쟁입찰 물량 3사 배정",
+        "gate": "이번 결과는 인도의 장주기 저장조달이 GW급 사업자 배정 단계로 구체화됐음을 보여준다. 다만 낙찰용량은 준공물량이 아니며 인허가·금융조달·최종계약이 실제 건설전환을 좌우한다."
+      },
+      {
+        "id": "2026-07-21_EU_08",
+        "date": "2026-07-21",
+        "region": "EU",
+        "signal": "top",
+        "title": "Iberdrola, 핀란드 Caruna 80% 인수계약 체결",
+        "gate": "거래는 규제승인을 거쳐 2027년 1분기 종결될 예정이다. 기업가치에는 부채가 포함되므로 지분대금과 단순 비교하면 안 되며, 인수 후 망투자·규제수익률·차입구조가 가치창출을 좌우한다."
+      },
+      {
+        "id": "2026-07-20_US_06",
+        "date": "2026-07-20",
+        "region": "US",
+        "signal": "top",
+        "title": "메인주, 최대 360MW 첫 경쟁형 저장조달안 PUC 제출",
+        "gate": "최대 360MW는 확정 낙찰량이 아니라 규제기관 심사를 받는 조달안의 상한이다. PUC 승인과 최종 RFP 조건을 통과한 제안만 실제 계약으로 이어질 수 있다."
+      }
+    ],
+    "MARKET_DATA_SIGNAL": [
+      {
+        "id": "2026-07-23_US_02",
+        "date": "2026-07-23",
+        "region": "US",
+        "signal": "top",
+        "title": "미국, 60개 경제권에 강제노동 연계 Section 301 관세 확정",
+        "gate": "국가별 명목세율만으로 특정 제품의 실효관세를 확정할 수 없다. 원산지 경제권, HTS 분류, MFN 세율, Section 232 중복 여부와 Federal Register 면제품목표를 함께 대조해야 한다."
+      },
+      {
+        "id": "2026-07-22_US_02",
+        "date": "2026-07-22",
+        "region": "US",
+        "signal": "top",
+        "title": "미 상무부, 미주리 핵심광물 Tech Hub에 3,800만달러 지원",
+        "gate": "연구지원보다 지역 제조생태계와 상업화 시설을 겨냥한 연방투자다. 자금집행이 실제 파일럿·생산설비와 민간투자로 연결되는지가 공급망 효과의 기준이다."
+      },
+      {
+        "id": "2026-07-22_GL_01",
+        "date": "2026-07-22",
+        "region": "GL",
+        "signal": "top",
+        "title": "Wesfarmers·SQM, Mt Holland 리튬정광 연 76만톤 증설 FID",
+        "gate": "최종투자결정은 증설을 위한 자본투입을 확정한 단계지만 추가 생산은 2030년 목표다. 광산의 정광능력 확대와 정제제품 공급증가는 별도 공정·판매경로로 구분해야 한다."
+      },
+      {
+        "id": "2026-07-21_US_01",
+        "date": "2026-07-21",
+        "region": "US",
+        "signal": "top",
+        "title": "Sila, 3억달러 조달해 Moses Lake 실리콘 음극재 2단계 증설 지원",
+        "gate": "3억달러 조달은 생산확대 재원을 확보한 별도 실행단계다. 다만 조달완료가 2단계 착공·설비발주 또는 확정 증설물량을 의미하지는 않는다."
+      },
+      {
+        "id": "2026-07-20_EU_03",
+        "date": "2026-07-20",
+        "region": "EU",
+        "signal": "top",
+        "title": "Return·ENGIE, 스페인 55MW/220MWh BESS에 10년 톨링 계약",
+        "gate": "장기 톨링은 자산소유자와 시장운영자의 역할을 구체화하는 상업계약이다. 다만 프로젝트의 건설완료나 상업운전을 의미하지 않으므로 개발·건설 진척을 별도로 확인해야 한다."
+      },
+      {
+        "id": "2026-07-17_CN_03",
+        "date": "2026-07-17",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국 간쑤성, 신형저장 가동설비 10GW 돌파",
+        "gate": "설비용량 증가는 저장자산 기반을 보여주지만 실제 충방전횟수와 시장수익을 의미하지 않는다. 이용률과 시장참여 수익, 계통운영 데이터가 다음 판단기준이다."
+      },
+      {
+        "id": "2026-07-17_CN_02",
+        "date": "2026-07-17",
+        "region": "CN",
+        "signal": "top",
+        "title": "Ember, 중국 BESS 시장의 과제를 증설보다 활용도로 제시",
+        "gate": "설치량, 독립형 비중, 충방전횟수, 시장참여는 서로 다른 지표다. 증설에서 활용도로의 전환이라는 평가는 Ember 보고서에 귀속한다."
+      },
+      {
+        "id": "2026-07-16_GL_02",
+        "date": "2026-07-16",
+        "region": "GL",
+        "signal": "top",
+        "title": "IEA, 중국 희토류 통제 전면화 시 연 6.5조달러 생산위험 경고",
+        "gate": "확대 희토류 조치는 2026년 11월까지 유예됐지만 IEA는 공급집중 취약성이 남아 있다고 평가했다. 6.5조달러와 3,000억달러 이상은 각각 희토류 통제 전면 시행과 배터리급 흑연 거래 완전중단을 가정한 별도 위험 추정치다."
+      },
+      {
+        "id": "2026-07-16_EU_03",
+        "date": "2026-07-16",
+        "region": "EU",
+        "signal": "top",
+        "title": "EnBW·Zelestra, 이탈리아 300MW·4시간 BESS 장기 톨링 계약",
+        "gate": "계약대상은 전체 약 500MW 프로젝트 가운데 300MW이며 4시간 저장구성을 적용한다. 톨링 계약체결과 프로젝트 건설·가동은 별도 단계로 봐야 한다."
+      },
+      {
+        "id": "2026-07-16_CN_06",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국 상반기 동력·저장 배터리 생산 1,068.9GWh, 53.3% 증가",
+        "gate": "1,068.9GWh는 동력용과 저장용을 합친 생산량이다. EV 탑재량이나 실제 수요와 비교할 때 지표의 범위와 분모를 구분해야 한다."
+      },
+      {
+        "id": "2026-07-16_CN_03",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "중국 6월 동력배터리 탑재 76.5GWh…LFP 비중 83.3%",
+        "gate": "6월 탑재량 증가율은 생산 206.0GWh와 판매 196.0GWh 규모보다 낮아 생산·판매·차량탑재 사이의 시차를 보여준다. LFP 비중 83.3%와 상반기 누적 81.0%가 지속되는지, 수출 36.2GWh와 재고흐름이 하반기 수급판단의 핵심이다."
+      },
+      {
+        "id": "2026-07-16_CN_02",
+        "date": "2026-07-16",
+        "region": "CN",
+        "signal": "top",
+        "title": "홍콩 첫 대형 폐EV 배터리 처리시설, 6월 가동 후 7월 공식 개막",
+        "gate": "시설의 연 1만톤 명목 처리능력은 홍콩 정부가 추정한 2026년 폐EV 배터리 발생량 약 1,300톤과 2030년 약 6,700톤을 웃돈다. 2023~2025년 허가시설의 전처리 후 해외반출 실적은 약 130톤에 그쳐 초기 가동률은 현지 회수량 확대, 마카오 등 역외 반입과 블랙매스 판매경로에 좌우된다. 6월 운영개시와 7월 공식 개막은 구분해야 하며, 실제 처리량·회수율이 다음 검증기준이다."
+      }
+    ]
+  }
+}

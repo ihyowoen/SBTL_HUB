@@ -1,0 +1,76 @@
+name: tmp-july-official-source-audit
+on: push
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/monthly-brief-2026-07-backfill
+          fetch-depth: 0
+      - name: Audit current-main source binding
+        run: |
+          git fetch origin main
+          python - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          LOCK='5147e5bfbe7cadbf03782ef68805444227afaf1e'
+          BLOB='79e1b89ca89b55c24bd8b2c1fa6924a3d85f13c9'
+          actual_main=subprocess.check_output(['git','rev-parse','origin/main'],text=True).strip()
+          if actual_main != LOCK: raise SystemExit(f'main moved: {actual_main}')
+          actual_blob=subprocess.check_output(['git','rev-parse',f'{LOCK}:data/cards.full.json'],text=True).strip()
+          if actual_blob != BLOB: raise SystemExit(f'blob moved: {actual_blob}')
+          raw=json.loads(subprocess.check_output(['git','show',f'{LOCK}:data/cards.full.json'],text=True))
+          cards=raw if isinstance(raw,list) else raw.get('cards',[])
+          ids=[
+            '2026-07-22_US_01','2026-07-13_GL_02','2026-07-01_GL_01','2026-07-20_EU_03','2026-07-20_US_05','2026-07-14_GL_04',
+            '2026-07-29_US_02','2026-07-14_US_02','2026-07-01_GL_03','2026-07-10_KR_01','2026-07-21_EU_04',
+            '2026-07-07_US_02','2026-07-02_US_01','2026-07-24_CN_01','2026-07-16_CN_03','2026-07-14_GL_03',
+            '2026-07-02_GL_09','2026-07-22_GL_01','2026-07-03_GL_08','2026-07-01_KR_05','2026-07-30_KR_01',
+            '2026-07-23_US_02','2026-07-28_US_01','2026-07-13_US_02','2026-07-16_CN_01','2026-07-01_CN_01',
+            '2026-07-03_KR_01','2026-07-07_KR_01'
+          ]
+          by={str(c.get('id') or c.get('news_id')):c for c in cards}
+          missing=[i for i in ids if i not in by]
+          if missing: raise SystemExit(f'missing ids {missing}')
+          out=[]; failures=[]
+          for i in ids:
+            c=by[i]; fs=c.get('fact_sources') or []; urls=c.get('urls') or ([c.get('url')] if c.get('url') else [])
+            title_sources=[]
+            for s in fs:
+              if not isinstance(s,dict): continue
+              supports=s.get('supports') or []
+              if isinstance(supports,str): supports=[supports]
+              u=s.get('source_url') or s.get('source_url_canonical') or s.get('url')
+              if u and 'title' in supports:
+                title_sources.append({
+                  'url':u,
+                  'publisher':s.get('publisher') or s.get('source_name') or '',
+                  'source_published_date':s.get('source_published_date') or s.get('visible_quote_date') or '',
+                  'supports':supports,
+                  'claim':s.get('claim') or ''
+                })
+            if not title_sources:
+              failures.append({'id':i,'reason':'NO_EXPLICIT_TITLE_SUPPORT','urls':urls[:5]})
+            out.append({
+              'id':i,'date':c.get('date') or c.get('d'),'region':c.get('region') or c.get('r'),'signal':c.get('signal') or c.get('s'),
+              'title':c.get('title') or c.get('T'),'sub':c.get('sub') or c.get('subtitle') or c.get('S'),'gate':c.get('gate') or c.get('g'),
+              'urls':urls[:8],'title_supporting_sources':title_sources
+            })
+          audit={'schema_version':'monthly-brief-source-candidate-audit.v1','month':'2026-07','locked_main_commit_sha':LOCK,'full_blob_sha':BLOB,'selected_count':len(ids),'selected_ids':ids,'cards':out,'failures':failures}
+          p=Path('runs/2026-09-14/working/monthly-brief-2026-07/official-source-candidate-audit.json')
+          p.write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({'selected_count':len(ids),'failure_count':len(failures),'failures':failures},ensure_ascii=False,indent=2))
+          if failures: raise SystemExit('source-binding failures present')
+          PY
+      - name: Commit audit and remove workflow
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/tmp-july-official-source-audit.yml
+          git add runs/2026-09-14/working/monthly-brief-2026-07/official-source-candidate-audit.json
+          git commit -m "audit: bind July official source candidates"
+          git push origin HEAD:chatgpt/monthly-brief-2026-07-backfill

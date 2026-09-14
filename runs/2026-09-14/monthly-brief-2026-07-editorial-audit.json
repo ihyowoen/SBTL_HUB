@@ -31,7 +31,7 @@
     "Test the simple EV-down/ESS-replaces-EV narrative against July traction-battery growth and other counterevidence and reject it when contradicted.",
     "Apply a separate SBTL pouch lens that requires form-factor/customer-program evidence before translating ESS growth into pouch-film demand.",
     "Inspect post-month follow-up only as counterevidence; later facts do not become official July refs.",
-    "Select a compact 24-card official evidence set and bind every public ref to a governed fact source that explicitly supports the card title."
+    "Select a compact 21-card official evidence set and bind every public ref to a governed fact source that explicitly supports the complete locked canonical card title."
   ],
   "selected_flows": [
     {
@@ -65,37 +65,34 @@
       "id": "03",
       "title": "EV 성장축은 유지되고, ESS가 별도 생산·수요축으로 확대",
       "decision": "SELECT",
-      "reason": "ESS production and revenue expansion coexist with positive China traction-battery installation growth. The supported conclusion is production/customer diversification rather than simple EV-to-ESS substitution; compound-title bindings that cannot be proven by one public URL are excluded from the official evidence set.",
+      "reason": "ESS production and revenue expansion coexist with independently governed July EV evidence outside the final publication anchors. The supported conclusion is production/customer diversification rather than simple EV-to-ESS substitution; the compound China traction-battery card is quarantined because no single governed URL supports its complete locked title.",
       "anchor_card_ids": [
         "2026-07-02_US_01",
         "2026-07-24_CN_01",
-        "2026-07-16_CN_03",
         "2026-07-07_KR_01"
       ]
     },
     {
       "id": "04",
-      "title": "핵심광물 현지화, 협력선언에서 오프테이크·FID·가공·수익성으로 내려옴",
+      "title": "핵심광물 현지화, 협력선언에서 오프테이크·가공·수익성으로 내려옴",
       "decision": "SELECT",
-      "reason": "Offtake, FID, processing start and early profitability move localization from policy intent toward executable supply-chain assets. The Lobito card is excluded because its locked visible geography is not supported by the governed quote.",
+      "reason": "Offtake, processing start and early profitability move localization from policy intent toward executable supply-chain assets without treating investment approval as production.",
       "anchor_card_ids": [
         "2026-07-02_GL_09",
-        "2026-07-22_GL_01",
         "2026-07-01_KR_05",
         "2026-07-30_KR_01"
       ]
     },
     {
       "id": "05",
-      "title": "관세·세제·안전·접속 규칙, 원가를 넘어 시장진입과 기술선택을 분기",
+      "title": "관세·세제·접속 규칙, 원가를 넘어 시장진입과 기술선택을 분기",
       "decision": "SELECT",
-      "reason": "Tariff, tax, equipment-approval, safety and connection rules change eligibility, landed cost and technology choice; scope precision is essential.",
+      "reason": "Tariff, tax, equipment-approval and connection rules change eligibility, landed cost and technology choice; scope precision is essential.",
       "anchor_card_ids": [
         "2026-07-23_US_02",
         "2026-07-28_US_01",
         "2026-07-13_US_02",
-        "2026-07-16_CN_01",
-        "2026-07-01_CN_01"
+        "2026-07-16_CN_01"
       ]
     }
   ],
@@ -128,9 +125,9 @@
       "reason": "Several ESS cells have unconfirmed form factor. A July pouch-program card with unresolved ESS-use source binding is quarantined rather than used as a direct demand anchor."
     },
     {
-      "narrative": "핵심광물 FID·가공개시는 곧바로 안정 생산과 현금흐름을 뜻한다",
+      "narrative": "핵심광물 가공개시·초기 흑자는 곧바로 안정 생산과 장기 현금흐름을 뜻한다",
       "decision": "REJECT",
-      "reason": "Mt Holland additional production is targeted later; processing start and early quarterly profit represent different maturity stages."
+      "reason": "Processing start and early quarterly profit represent different maturity stages and do not by themselves establish stable long-run output or cash flow."
     },
     {
       "narrative": "중국의 2% 소비세는 완성 ESS 시스템 전체에 동일하게 부과된다",
@@ -140,18 +137,19 @@
   ],
   "post_month_counterevidence": [
     {
-      "status": "LATE_NON_CANONICAL_RESEARCH_SIGNAL",
+      "status": "LATE_CANONICAL_COUNTEREVIDENCE",
       "finding": "China tax authority clarified on 2026-08-27 that battery clusters assembled from cells are taxable battery packs while a complete ESS integrated with electrical, thermal, fire and control systems is not itself a taxable battery product. This narrows the watch wording without changing the July rule event.",
       "source": {
         "publisher": "State Taxation Administration of China",
         "publication_date": "2026-08-27",
         "url": "https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html"
-      }
+      },
+      "card_id": "2026-08-27_CN_02"
     }
   ],
   "official_source_selection": {
-    "selected_card_count": 24,
-    "selection_principle": "Decision-relevant canonical anchors proving the five flows after exact-head review. Public references must support the complete visible canonical title from one selected governed URL; cards that cannot satisfy that rule without canonical remediation are quarantined rather than weakened inside the publication layer.",
+    "selected_card_count": 21,
+    "selection_principle": "Decision-relevant canonical anchors proving the five flows under the locked-title, complete-title source-binding rule; non-indispensable cards are quarantined when no governed selected URL supports the complete locked title or the locked URL cannot identify its article.",
     "source_card_ids": [
       "2026-07-22_US_01",
       "2026-07-13_GL_02",
@@ -166,16 +164,13 @@
       "2026-07-21_EU_04",
       "2026-07-02_US_01",
       "2026-07-24_CN_01",
-      "2026-07-16_CN_03",
       "2026-07-02_GL_09",
-      "2026-07-22_GL_01",
       "2026-07-01_KR_05",
       "2026-07-30_KR_01",
       "2026-07-23_US_02",
       "2026-07-28_US_01",
       "2026-07-13_US_02",
       "2026-07-16_CN_01",
-      "2026-07-01_CN_01",
       "2026-07-07_KR_01"
     ],
     "binding": [
@@ -189,8 +184,7 @@
           "https://brookfield.com/news-insights/news-releases/brookfield-acquire-aypa-power"
         ],
         "title_supporting_urls": [
-          "https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners",
-          "https://brookfield.com/news-insights/news-releases/brookfield-acquire-aypa-power"
+          "https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners"
         ]
       },
       {
@@ -201,8 +195,6 @@
           "https://www.pv-tech.org/masdar-financial-close-5-2gw-19gwh-round-the-clock-solar-storage-project"
         ],
         "title_supporting_urls": [
-          "https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project",
-          "https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project",
           "https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project"
         ]
       },
@@ -225,8 +217,7 @@
           "https://www.ess-news.com/2026/07/21/return-engie-sign-10-year-tolling-agreement-for-55-mw-220-mwh-bess-portfolio-in-spain/"
         ],
         "title_supporting_urls": [
-          "https://return.energy/news/return-and-engie-sign-pioneering-ten-year-agreement-to-accelerate-battery-storage-in-spain",
-          "https://www.ess-news.com/2026/07/21/return-engie-sign-10-year-tolling-agreement-for-55-mw-220-mwh-bess-portfolio-in-spain/"
+          "https://return.energy/news/return-and-engie-sign-pioneering-ten-year-agreement-to-accelerate-battery-storage-in-spain"
         ]
       },
       {
@@ -237,8 +228,7 @@
           "https://www.nacleanenergy.com/solar/avantus-aratina-1-project-officially-online-generating-enough-clean-reliable-energy-to-power-105-000-california-homes"
         ],
         "title_supporting_urls": [
-          "https://www.pv-tech.org/avantus-starts-commercial-operations-aratina-1-solar-plus-storage-california/",
-          "https://www.nacleanenergy.com/solar/avantus-aratina-1-project-officially-online-generating-enough-clean-reliable-energy-to-power-105-000-california-homes"
+          "https://www.pv-tech.org/avantus-starts-commercial-operations-aratina-1-solar-plus-storage-california/"
         ]
       },
       {
@@ -260,7 +250,6 @@
           "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"
         ],
         "title_supporting_urls": [
-          "https://www.energy.gov/articles/energy-department-announces-partnership-expand-reliable-affordable-energy-access-and-power",
           "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"
         ]
       },
@@ -297,10 +286,7 @@
           "https://view.asiae.co.kr/article/2026071014221099338"
         ],
         "title_supporting_urls": [
-          "https://www.mcee.go.kr/home/web/board/read.do?boardId=1876770&boardMasterId=939&menuId=10598",
-          "https://www.impacton.net/news/articleView.html?idxno=19569",
-          "https://www.mcee.go.kr/home/web/board/read.do?boardId=1876770&boardMasterId=939&menuId=10598",
-          "https://m.mcee.go.kr/home/web/newsRead.do?boardId=1876770&boardMasterId=939&menuId=10607"
+          "https://www.mcee.go.kr/home/web/board/read.do?boardId=1876770&boardMasterId=939&menuId=10598"
         ]
       },
       {
@@ -312,9 +298,7 @@
           "https://www.energie-und-management.de/marktplatz-energie/news/detail?emid=371189"
         ],
         "title_supporting_urls": [
-          "https://www.presseportal.de/pm/169518/6318540",
-          "https://www.ess-news.com/2026/07/22/westnetz-launches-fast-track-grid-connection-for-co-located-bess-in-germany/",
-          "https://www.energie-und-management.de/marktplatz-energie/news/detail?emid=371189"
+          "https://www.presseportal.de/pm/169518/6318540"
         ]
       },
       {
@@ -342,20 +326,6 @@
         ]
       },
       {
-        "id": "2026-07-16_CN_03",
-        "selected_url": "https://news.mysteel.com/a/26071611/75344EEDDEA8D4D0.html",
-        "canonical_urls": [
-          "https://news.mysteel.com/a/26071611/75344EEDDEA8D4D0.html",
-          "https://www.ithome.com/0/977/447.htm",
-          "https://www.jiemian.com/article/14775234.html",
-          "https://api3.cls.cn/share/article/2428131?app=&os=android&sv=841"
-        ],
-        "title_supporting_urls": [
-          "https://news.mysteel.com/a/26071611/75344EEDDEA8D4D0.html",
-          "https://www.jiemian.com/article/14775234.html"
-        ]
-      },
-      {
         "id": "2026-07-02_GL_09",
         "selected_url": "https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/",
         "canonical_urls": [
@@ -363,20 +333,7 @@
           "https://www.miningweekly.com/article/iluka-secures-rare-earths-concentrate-feedstock-from-fellow-australian-miner-vhm-2026-07-02"
         ],
         "title_supporting_urls": [
-          "https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/",
-          "https://www.miningweekly.com/article/iluka-secures-rare-earths-concentrate-feedstock-from-fellow-australian-miner-vhm-2026-07-02"
-        ]
-      },
-      {
-        "id": "2026-07-22_GL_01",
-        "selected_url": "https://www.theaustralian.com.au/business/mining-energy/wesfarmers-sqm-greenlight-145bn-mt-holland-lithium-expansion/news-story/",
-        "canonical_urls": [
-          "https://www.theaustralian.com.au/business/mining-energy/wesfarmers-sqm-greenlight-145bn-mt-holland-lithium-expansion/news-story/",
-          "https://www.wesfarmers.com.au/investor-centre/company-performance-news/asx-announcements"
-        ],
-        "title_supporting_urls": [
-          "https://www.theaustralian.com.au/business/mining-energy/wesfarmers-sqm-greenlight-145bn-mt-holland-lithium-expansion/news-story/",
-          "https://www.wesfarmers.com.au/investor-centre/company-performance-news/asx-announcements"
+          "https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/"
         ]
       },
       {
@@ -388,8 +345,6 @@
           "https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable"
         ],
         "title_supporting_urls": [
-          "https://www.theguru.co.kr/news/article.html?no=103907",
-          "https://www.miningweekly.com/article/almonty-reaches-first-tungsten-processing-throughput-in-south-korea-2026-07-02",
           "https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable"
         ]
       },
@@ -412,9 +367,7 @@
           "https://source.benchmarkminerals.com/article/us-replaces-expiring-tariffs-with-new-forced-labour-duties-on-60-countries"
         ],
         "title_supporting_urls": [
-          "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations",
-          "https://www.whitehouse.gov/presidential-actions/2026/07/addressing-failures-to-take-action-on-trade-in-forced-labor-goods/",
-          "https://source.benchmarkminerals.com/article/us-replaces-expiring-tariffs-with-new-forced-labour-duties-on-60-countries"
+          "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations"
         ]
       },
       {
@@ -436,7 +389,6 @@
           "https://www.energy-storage.news/lazard-us-utility-scale-energy-storage-lcos-has-increased-since-restrictions-on-chinese-cells-came-into-force"
         ],
         "title_supporting_urls": [
-          "https://www.lazard.com/news-announcements/lazard-releases-2026-levelized-cost-of-energyplus-report-pr/",
           "https://www.lazard.com/news-announcements/lazard-releases-2026-levelized-cost-of-energyplus-report-pr/"
         ]
       },
@@ -451,19 +403,7 @@
           "https://tianjin.chinatax.gov.cn/11200000000/0300/030004/03000418/20260720114651548.shtml"
         ],
         "title_supporting_urls": [
-          "https://shanxi.chinatax.gov.cn/web/detail/sx-11400-545-1822939",
-          "https://tianjin.chinatax.gov.cn/11200000000/0300/030004/03000418/20260720114651548.shtml"
-        ]
-      },
-      {
-        "id": "2026-07-01_CN_01",
-        "selected_url": "https://english.www.gov.cn/english.www.gov.cn/news/202504/15/content_WS67fe4271c6d0868f4e8f1b70.html",
-        "canonical_urls": [
-          "https://english.www.gov.cn/english.www.gov.cn/news/202504/15/content_WS67fe4271c6d0868f4e8f1b70.html",
-          "http://www.cbea.com/djgc/202607/574372.html"
-        ],
-        "title_supporting_urls": [
-          "https://english.www.gov.cn/english.www.gov.cn/news/202504/15/content_WS67fe4271c6d0868f4e8f1b70.html"
+          "https://shanxi.chinatax.gov.cn/web/detail/sx-11400-545-1822939"
         ]
       },
       {
@@ -481,10 +421,7 @@
           "https://inside.lgensol.com/en/2026/07/lg-energy-solution-releases-2026-second-quarter-financial-results/"
         ],
         "title_supporting_urls": [
-          "https://news.dealsitetv.com/articles/172933",
-          "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-          "https://www.newswire.co.kr/newsRead.php?no=1039662",
-          "https://inside.lgensol.com/en/2026/07/lg-energy-solution-releases-2026-second-quarter-financial-results/"
+          "https://news.dealsitetv.com/articles/172933"
         ]
       }
     ]
@@ -511,6 +448,21 @@
         "id": "2026-07-07_US_02",
         "class": "CARD_SOURCE_BINDING",
         "reason": "Locked visible title combines a prior $70M conversion figure from the March Ultium source with the July production-start event; no single selected governed URL proves the complete compound title under the publication provenance contract."
+      },
+      {
+        "id": "2026-07-16_CN_03",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "Locked canonical title combines the 76.5GWh installation figure with an 83.3% LFP-share claim supported by separate sources; it is quarantined rather than published with a title override."
+      },
+      {
+        "id": "2026-07-22_GL_01",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "Locked The Australian URL is truncated at /news-story/ and cannot identify the cited article supporting the Mt Holland FID and 760kt claim."
+      },
+      {
+        "id": "2026-07-01_CN_01",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "Locked English.gov.cn URL duplicates the hostname in its path and is malformed; the publication does not silently substitute a tracker-only URL."
       }
     ],
     "publication_binding_fix": {
@@ -545,11 +497,12 @@
     "causal_language": "PASS",
     "legacy_issue_independence": "PASS",
     "official_refs_locked_to_current_july_canonical": "PASS",
-    "source_binding": "PASS_AFTER_SECOND_CODEX_REMEDIATION",
-    "canonical_defect_quarantine": "PASS",
+    "source_binding": "PASS_LOCKED_CANONICAL_TITLES_WITH_COMPLETE_TITLE_URLS",
+    "canonical_defect_quarantine": "PASS_WITH_SEVEN_NON_INDISPENSABLE_CARDS_QUARANTINED",
     "codex_review_5193925152": "REMEDIATED_P1_X4",
     "policy_scope_precision": "PASS_AFTER_SECOND_CODEX_REMEDIATION",
-    "post_month_classification": "PASS_AFTER_SECOND_CODEX_REMEDIATION",
-    "codex_second_pass_head_3d5d31816d": "REMEDIATED_P1_X3_P2_X1"
+    "post_month_classification": "PASS_LATE_CANONICAL_COUNTEREVIDENCE",
+    "codex_second_pass_head_3d5d31816d": "REMEDIATED_P1_X3_P2_X1",
+    "codex_review_5196371944": "REMEDIATED_ALL_P1_P2_FINDINGS"
   }
 }

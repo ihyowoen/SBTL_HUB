@@ -124,6 +124,7 @@ class Prompt08RuntimeGateTest(unittest.TestCase):
             marker = f'"source_spec_id": "{spec}"'
             pos = text.index(marker)
             start = text.rfind("{", 0, pos)
+            start = text.rfind("\n", 0, start) + 1
             depth = 0
             in_string = False
             escaped = False
@@ -153,8 +154,14 @@ class Prompt08RuntimeGateTest(unittest.TestCase):
 
         def add_multi_source(row):
             sources = row["fact_sources"]
-            self.assertFalse(any("mysteel.com" in source.get("url", "") for source in sources))
-            sources.append({
+            mysteel = next(
+                (source for source in sources if source.get("url") == mysteel_url),
+                None,
+            )
+            if mysteel is None:
+                mysteel = {}
+                sources.append(mysteel)
+            mysteel.update({
                 "url": mysteel_url,
                 "role": "production-card evidence source",
                 "source_owner_id_normalized": "mysteel",
@@ -192,7 +199,15 @@ class Prompt08RuntimeGateTest(unittest.TestCase):
         stage_05 = run_root / "stages/stage-0-5.json"
         def mutate_05(row):
             row["source_diversity_status"] = "PASS_MULTI_SOURCE"
-            row["source_discovery_ledger"].append({
+            ledger = row["source_discovery_ledger"]
+            mysteel = next(
+                (source for source in ledger if source.get("url") == mysteel_url),
+                None,
+            )
+            if mysteel is None:
+                mysteel = {}
+                ledger.append(mysteel)
+            mysteel.update({
                 "url": mysteel_url,
                 "role": "production-card evidence source",
                 "source_owner_id_normalized": "mysteel",
@@ -247,13 +262,17 @@ class Prompt08RuntimeGateTest(unittest.TestCase):
             'self.assertEqual(row["source_diversity_measure"], {"unique_urls":2,"unique_domains":2,"independent_owner_count":1})',
             'self.assertEqual(row["source_diversity_measure"], {"unique_urls":3,"unique_domains":3,"independent_owner_count":2})',
         )
-        regression = regression.replace(
-            '            self.assertEqual(reuters["source_owner_id_normalized"], "reuters_syndication")\n',
-            '            self.assertEqual(reuters["source_owner_id_normalized"], "reuters_syndication")\n'
+        mysteel_assertion = (
             '            mysteel = next(source for source in row["fact_sources"] if "mysteel.com" in source["url"])\n'
-            '            self.assertEqual(mysteel["role"], "production-card evidence source")\n'
-            '            self.assertEqual(mysteel["source_owner_id_normalized"], "mysteel")\n',
         )
+        if mysteel_assertion not in regression:
+            regression = regression.replace(
+                '            self.assertEqual(reuters["source_owner_id_normalized"], "reuters_syndication")\n',
+                '            self.assertEqual(reuters["source_owner_id_normalized"], "reuters_syndication")\n'
+                + mysteel_assertion
+                + '            self.assertEqual(mysteel["role"], "production-card evidence source")\n'
+                + '            self.assertEqual(mysteel["source_owner_id_normalized"], "mysteel")\n',
+            )
         regression = regression.replace(
             'self.assertTrue(all(row["source_diversity_status"] == "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION" for row in rows))',
             'self.assertTrue(all(row["source_diversity_status"] == "PASS_MULTI_SOURCE" for row in rows))',

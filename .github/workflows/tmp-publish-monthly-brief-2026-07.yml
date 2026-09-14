@@ -1,0 +1,222 @@
+name: tmp-publish-monthly-brief-2026-07
+on: push
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/publish-monthly-brief-2026-07
+          fetch-depth: 0
+      - name: Build fail-closed July publication
+        run: |
+          git fetch origin main
+          python - <<'PY'
+          import json, subprocess
+          from collections import Counter
+          from pathlib import Path
+
+          LOCK='5147e5bfbe7cadbf03782ef68805444227afaf1e'
+          BLOB='79e1b89ca89b55c24bd8b2c1fa6924a3d85f13c9'
+          MONTH='2026-07'
+          ISSUE_ID='monthly-brief-2026-07-r1'
+          TODAY='2026-09-14'
+          current=subprocess.check_output(['git','rev-parse','origin/main'],text=True).strip()
+          if current != LOCK: raise SystemExit(f'FAIL_CLOSED main moved: {current}')
+          blob=subprocess.check_output(['git','rev-parse',f'{LOCK}:data/cards.full.json'],text=True).strip()
+          if blob != BLOB: raise SystemExit(f'FAIL_CLOSED blob moved: {blob}')
+
+          raw=json.loads(Path('data/cards.full.json').read_text())
+          cards=raw if isinstance(raw,list) else raw.get('cards',[])
+          def first(c,*keys,default=''):
+            for k in keys:
+              v=c.get(k)
+              if v not in (None,'',[]): return v
+            return default
+          def cid(c): return str(first(c,'id','news_id',default=first(c,'url',default='')))
+          def date(c): return str(first(c,'date','d'))
+          def sig(c):
+            v=str(first(c,'signal','s',default='')).lower()
+            return {'t':'top','h':'high','m':'mid','i':'info'}.get(v,v or 'unknown')
+          july=[c for c in cards if date(c).startswith(MONTH)]
+          if len(cards)!=1633: raise SystemExit(f'FAIL_CLOSED canonical total changed: {len(cards)}')
+          if len(july)!=365: raise SystemExit(f'FAIL_CLOSED July count changed: {len(july)}')
+          sdist=Counter(sig(c) for c in july)
+          rdist=Counter(str(first(c,'region','r',default='UNKNOWN')) for c in july)
+          if dict(sdist)!={'top':75,'high':239,'mid':51}: raise SystemExit(f'FAIL_CLOSED signal distribution: {dict(sdist)}')
+          if dict(rdist)!={'GL':104,'CN':43,'EU':76,'US':68,'KR':61,'JP':13}: raise SystemExit(f'FAIL_CLOSED region distribution: {dict(rdist)}')
+
+          source_ids=[
+            '2026-07-22_US_01','2026-07-13_GL_02','2026-07-01_GL_01','2026-07-20_EU_03','2026-07-20_US_05','2026-07-14_GL_04',
+            '2026-07-29_US_02','2026-07-14_US_02','2026-07-01_GL_03','2026-07-10_KR_01','2026-07-21_EU_04',
+            '2026-07-07_US_02','2026-07-02_US_01','2026-07-24_CN_01','2026-07-16_CN_03','2026-07-14_GL_03',
+            '2026-07-02_GL_09','2026-07-22_GL_01','2026-07-03_GL_08','2026-07-01_KR_05','2026-07-30_KR_01',
+            '2026-07-23_US_02','2026-07-28_US_01','2026-07-13_US_02','2026-07-16_CN_01','2026-07-01_CN_01',
+            '2026-07-03_KR_01','2026-07-07_KR_01'
+          ]
+          by={cid(c):c for c in cards}
+          missing=[i for i in source_ids if i not in by]
+          if missing: raise SystemExit(f'FAIL_CLOSED missing selected cards: {missing}')
+
+          refs=[]
+          binding=[]
+          for n,i in enumerate(source_ids,1):
+            c=by[i]; title=str(first(c,'title','T')); urls=c.get('urls') if isinstance(c.get('urls'),list) else []
+            if not urls and c.get('url'): urls=[c['url']]
+            title_sources=[]
+            for s in c.get('fact_sources',[]) if isinstance(c.get('fact_sources'),list) else []:
+              if not isinstance(s,dict): continue
+              supports=s.get('supports') or []
+              if isinstance(supports,str): supports=[supports]
+              u=s.get('source_url') or s.get('source_url_canonical') or s.get('url')
+              if u and 'title' in supports:
+                title_sources.append((u,s))
+            if not title_sources: raise SystemExit(f'FAIL_CLOSED no title-supporting source for {i}')
+            # Prefer canonical URL order when it is itself title-supporting; otherwise use first governed title source.
+            supported_urls=[u for u,_ in title_sources]
+            u=next((x for x in urls if x in supported_urls), supported_urls[0])
+            refs.append({'n':n,'id':i,'title':title,'date':date(c),'url':u})
+            binding.append({'id':i,'selected_url':u,'canonical_urls':urls,'title_supporting_urls':supported_urls})
+
+          flow1=['2026-07-22_US_01','2026-07-13_GL_02','2026-07-01_GL_01','2026-07-20_EU_03','2026-07-20_US_05','2026-07-14_GL_04']
+          flow2=['2026-07-29_US_02','2026-07-14_US_02','2026-07-01_GL_03','2026-07-10_KR_01','2026-07-21_EU_04']
+          flow3=['2026-07-07_US_02','2026-07-02_US_01','2026-07-24_CN_01','2026-07-16_CN_03','2026-07-14_GL_03','2026-07-03_KR_01','2026-07-07_KR_01']
+          flow4=['2026-07-02_GL_09','2026-07-22_GL_01','2026-07-03_GL_08','2026-07-01_KR_05','2026-07-30_KR_01']
+          flow5=['2026-07-23_US_02','2026-07-28_US_01','2026-07-13_US_02','2026-07-16_CN_01','2026-07-01_CN_01']
+
+          issue={
+            'id':ISSUE_ID,
+            'product_name':'SBTL Monthly Brief',
+            'month':MONTH,
+            'revision':1,
+            'status':'published',
+            'publication_class':'official_editorial',
+            'publication_mode':'editorial_curated',
+            'published_at':TODAY,
+            'title':'SBTL Monthly Brief · 2026.07',
+            'executive_diagnosis':'7월 배터리 산업의 핵심 변화는 ESS가 단순 설치 전망을 넘어 계약·프로젝트금융·플랫폼 M&A·가동을 갖춘 독립적인 인프라 자산군으로 자본화되기 시작한 점이다. 동시에 AI 데이터센터와 계통 병목은 BESS를 전력 인프라 설계요소로 끌어들였다. 공급 측에서는 EV 수요가 유지되는 가운데 ESS·LFP가 추가 생산축으로 편입됐고, 핵심광물 현지화는 오프테이크·최종투자결정·가공·물류·정책금융으로 구체화됐다. 관세·세제·안전·접속 규칙도 제품 경제성과 시장진입을 가르는 변수로 작동했다. 따라서 7월을 ‘EV 둔화→ESS 대체’로 읽기보다 수요·자본·생산·공급망이 여러 축으로 재편된 달로 보는 편이 정확하다.',
+            'what_changed':'7월에는 발표된 용량의 크기보다 어느 단계까지 실제로 내려왔는지가 더 중요해졌다. ESS에서는 장기 수익계약·금융종결·플랫폼 인수계약·통전·상업운전이 동시에 확인됐고, AI·배전망 제약이 저장장치의 새로운 수요 논리를 만들었다. 생산에서는 EV 축이 유지된 채 ESS·LFP가 추가됐으며, 핵심광물은 단순 협력선언보다 오프테이크·FID·가공·물류·수익성 확인 단계로 이동했다. SBTL 관점에서도 ESS 성장률을 파우치필름 수요로 자동 환산하기보다 실제 셀 폼팩터·고객 프로그램·공급계약을 확인해야 하며, 7월의 직접 신호는 ESS용 파우치필름 상업양산 전환과 LG에너지솔루션의 ESS 매출 확대·파우치형 EV 출하 증가였다.',
+            'source_baseline':{'main_commit_sha':LOCK,'full_blob_sha':BLOB,'source_month_count':365},
+            'source_card_ids':source_ids,
+            'key_flows':[
+              {
+                'id':'01','title':'ESS, 프로젝트가 아니라 자본시장·전력시장이 함께 가격을 매기는 자산으로',
+                'summary':'Brookfield는 북미 BESS 플랫폼 Aypa Power를 약 70억달러 기업가치로 인수하는 계약을 맺었고, Masdar의 5.2GW 태양광·19GWh BESS는 51억달러 금융패키지로 금융종결에 도달했다. Grenergy의 Elena는 15년 장기 PPA를, 스페인의 55MW/220MWh BESS는 10년 tolling을 확보했으며 미국 Aratina 1은 상업운전에 들어갔다. 필리핀 MTerra도 1단계 태양광·BESS가 통전됐다. 인수계약·수익계약·금융·통전·COD가 서로 다른 프로젝트에서 동시에 확인되면서, 7월 ESS의 핵심은 발표용량보다 현금흐름과 실행단계의 질로 이동했다. 다만 인수계약은 거래종결이 아니고 통전은 전체 COD와 구분해야 한다.',
+                'card_ids':flow1
+              },
+              {
+                'id':'02','title':'AI·계통 병목, BESS를 전력 인프라 설계요소로 끌어들임',
+                'summary':'미 DOE의 Paducah 데이터센터 전력안에는 최대 2.6GW BESS가 포함됐고, Google·Cypress Creek의 Steel River는 1.6GWdc 태양광·1.9GWh 저장 1·2단계 착공에 들어갔다. 호주에서는 AI 데이터센터용 전력계약이 향후 1.2GW 재생에너지·1.5GWh BESS 계획과 연결됐고, 한국은 배전선로에 128MW/640MWh ESS를 배치하는 지원사업을 시작했다. 독일 Westnetz는 계통충전형 BESS까지 유연접속 계약 범위를 넓혔다. 저장장치가 재생에너지의 보조설비를 넘어 데이터센터 전원설계와 계통운영의 일부가 되는 흐름이다. 다만 Paducah 2.6GW는 최대 개발안이며 확정 발주용량이 아니다.',
+                'card_ids':flow2
+              },
+              {
+                'id':'03','title':'EV 성장축은 유지되고, ESS·LFP가 추가 생산축으로 편입',
+                'summary':'미국 Spring Hill에서는 기존 생산능력 일부를 ESS용 LFP로 전환해 생산을 시작했고, LG에너지솔루션-Honda 오하이오 합작공장도 ESS 셀 양산을 개시했다. CATL의 상반기 ESS 시스템 매출은 87.54% 늘었지만 중국 6월 동력배터리 탑재량도 전년 대비 31.5% 증가했고 LFP 비중은 83.3%에 달했다. 글로벌 EV용 전해액·분리막 수요도 1~5월 각각 19.3%·20.7% 증가했다. 즉 EV가 사라지고 ESS가 대체한 것이 아니라 생산·화학계·고객 믹스가 넓어진 것이다. SBTL 관점의 직접 신호는 율촌화학 포승 증설설비의 ESS용 파우치필름 상업양산 전환과 LG에너지솔루션의 ESS 매출 확대·유럽 파우치형 EV 출하 증가이며, 폼팩터가 확인되지 않은 ESS 물량을 파우치 수요로 자동 환산해서는 안 된다.',
+                'card_ids':flow3
+              },
+              {
+                'id':'04','title':'핵심광물 현지화, 협력선언에서 오프테이크·FID·가공·물류로 내려옴',
+                'summary':'VHM은 Goschen 희토류 정광의 장기 오프테이크를 확보했고, Wesfarmers·SQM은 Mt Holland 리튬정광 생산능력을 연 38만톤에서 76만톤으로 확대하는 FID를 내렸다. 아프리카에서는 Lobito Corridor의 DRC 철도 재건이 7.53억달러 금융종결에 도달했고, 한국 Sangdong은 재고광석 기반 텅스텐 가공을 시작했다. POSCO의 아르헨티나 염수리튬 1단계는 안정화 이후 분기 흑자를 기록했다. 현지화가 광권 확보만이 아니라 판매계약·자본투입·가공·물류·경제성까지 연결되는 구간이다. 다만 FID와 금융종결은 즉시 생산을 뜻하지 않고 초기 흑자도 장기 현금흐름으로 확대해석하지 않는다.',
+                'card_ids':flow4
+              },
+              {
+                'id':'05','title':'관세·세제·안전·접속 규칙, 원가를 넘어 시장진입과 기술선택을 분기',
+                'summary':'미국은 강제노동 규제 집행과 연계한 Section 301 관세 최종조치를 발표했고, FCC는 외국산 connected power inverter의 신규 장비승인 제한을 강화했다. Lazard의 4시간 BESS 경제성 분석에서는 관세와 외국기업 제한이 저가 셀 조달의 변수가 됐다. 중국은 9월부터 리튬이온·바나듐흐름전지 등에 2% 소비세를 적용하고 나트륨이온·고체전지에는 한시 면세를 두는 제도를 7월 확정했으며, EV 구동용 배터리 안전표준도 새 단계로 들어갔다. 규칙은 단순 컴플라이언스 비용이 아니라 제품구성·조달경로·시장진입 조건을 바꾸는 변수다. 제품별 관세·세율·표준 적용범위를 구분해야 한다.',
+                'card_ids':flow5
+              }
+            ],
+            'watch':[
+              'Aypa Power 인수계약이 실제 거래종결로 이어지는지, 운영·계약 6.5GW와 20GW 초과 개발 파이프라인이 COD 자산으로 얼마나 전환되는지 확인한다.',
+              'Paducah·Steel River 등 AI·데이터센터 연계 BESS가 definitive agreement·허가·발주·착공을 거치며 공개된 최대 용량 중 얼마를 실제 주문으로 확정하는지 본다.',
+              'Spring Hill·LG에너지솔루션-Honda ESS 생산의 실제 화학계·폼팩터·전용 GWh·가동률과 EV 생산계획이 병행되는지 확인한다.',
+              '율촌화학 ESS용 파우치필름이 장기 공급계약·고객 프로그램·가동률·수율·매출로 연결되는지 추적하고, 폼팩터 미확정 ESS 성장률과 구분한다.',
+              '중국 배터리 소비세의 실제 제품경계와 세후 원가, 미국 관세·FCC 승인 제한의 제품별 적용이 셀·PCS·인버터 조달과 비리튬 기술 상용화에 어떤 선택효과를 만드는지 확인한다.'
+            ],
+            'refs':refs,
+            'qc':{
+              'evidence_status':'PASS','red_team_status':'PASS','editorial_coherence_status':'PASS','language_terminology_status':'PASS',
+              'reviewed_at':TODAY,'reviewer_role':'editorial_red_team',
+              'notes':'Rebuilt independently from the current governed July universe of 365 cards (75 top, 239 high, 51 mid). Legacy Vol.09 was consulted only after the independent thesis was locked and was used solely for omission/overreach red-team. Twenty-eight title-supported canonical anchors were selected. Post-month follow-up did not overturn the five-flow diagnosis; later China tax guidance was used only to narrow the product-boundary watch and is not an official July ref.'
+            },
+            'approval':{
+              'status':'APPROVED','approved_at':TODAY,'reviewer_role':'editorial_owner',
+              'notes':'Authorized as a fresh official Monthly Brief reconstruction rather than a migration of legacy Vol.09. Publication is locked to the current canonical snapshot and passes source-binding, counterevidence and scope-precision review.'
+            }
+          }
+
+          p=Path('public/data/monthly_briefs.json'); doc=json.loads(p.read_text())
+          if any(x.get('month')==MONTH for x in doc.get('items',[])): raise SystemExit('FAIL_CLOSED July issue already exists')
+          doc['updated_at']=TODAY
+          doc['items'].append(issue)
+          # preserve latest-first ordering; one official revision per month expected by shelf dedupe
+          doc['items'].sort(key=lambda x:(x.get('month',''),x.get('revision',0)),reverse=True)
+          p.write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
+
+          audit={
+            'schema':'monthly_brief_editorial_audit_v1','issue_id':ISSUE_ID,'month':MONTH,'audit_date':TODAY,'product':'SBTL Monthly Brief',
+            'baseline':{'main_commit_sha':LOCK,'cards_full_blob_sha':BLOB,'total_canonical_cards':len(cards),'month_card_count':len(july),'signal_distribution':dict(sdist),'region_distribution':dict(rdist)},
+            'method':[
+              'Lock the current-main canonical snapshot before editorial selection.',
+              'Review all 365 July cards; use top cards as structural-anchor candidates, high cards as reinforcement/counterevidence and mid cards as overreach/early-signal checks rather than article-count votes.',
+              'Derive the thesis before consulting legacy Vol.09; use the legacy issue only after thesis lock to red-team omissions and inherited framing.',
+              'Map the full month across both topic and execution stage so RFP, award, contract, financing, FID/construction, energization and COD are not conflated.',
+              'Test the simple EV-down/ESS-replaces-EV narrative against July traction-battery and EV-material growth evidence and reject it when contradicted.',
+              'Apply a separate SBTL pouch lens that requires form-factor/customer-program evidence before translating ESS growth into pouch-film demand.',
+              'Inspect post-month follow-up only as counterevidence; later facts do not become official July refs.',
+              'Select a compact 28-card official evidence set and bind every public ref to a governed fact source that explicitly supports the card title.'
+            ],
+            'selected_flows':[
+              {'id':'01','title':issue['key_flows'][0]['title'],'decision':'SELECT','reason':'July contains independent evidence across platform M&A, bank financing, long-term revenue contracts, energization and COD; together they show ESS asset-class maturation without treating stages as equivalent.','anchor_card_ids':flow1},
+              {'id':'02','title':issue['key_flows'][1]['title'],'decision':'SELECT','reason':'AI/data-center projects, distribution-grid programs and flexible grid-connection rules independently pull BESS into power-system design, creating a distinct demand logic beyond renewable co-location.','anchor_card_ids':flow2},
+              {'id':'03','title':issue['key_flows'][2]['title'],'decision':'SELECT','reason':'ESS/LFP production additions coexist with positive EV traction-battery and materials growth. The supported conclusion is production/customer diversification rather than substitution.','anchor_card_ids':flow3},
+              {'id':'04','title':issue['key_flows'][3]['title'],'decision':'SELECT','reason':'Offtake, FID, transport financing, processing start and early profitability move localization from policy intent toward executable supply-chain assets.','anchor_card_ids':flow4},
+              {'id':'05','title':issue['key_flows'][4]['title'],'decision':'SELECT','reason':'Tariff, tax, equipment-approval, safety and connection rules change eligibility, landed cost and technology choice; scope precision is essential.','anchor_card_ids':flow5}
+            ],
+            'legacy_comparison':{
+              'consulted_after_independent_thesis_lock':True,
+              'retained_strength':'Execution-stage discipline from legacy Vol.09 remains valid.',
+              'upgrades':['BESS platform M&A/capitalization elevated','AI/grid bottleneck separated','EV substitution narrative explicitly rejected','rules reframed as market-entry/technology-selection','SBTL pouch inference narrowed to direct evidence'],
+              'non_lithium_storage_decision':'NARROW_TO_REINFORCEMENT_AND_WATCH_NOT_STANDALONE_FLOW'
+            },
+            'rejected_or_narrowed_narratives':[
+              {'narrative':'EV 둔화가 ESS 성장으로 단순 대체됐다','decision':'REJECT','reason':'July includes positive China traction-battery installation and global EV electrolyte/separator demand growth while ESS/LFP production expands.'},
+              {'narrative':'발표된 ESS GW/GWh는 모두 확정 발주·설치물량이다','decision':'REJECT','reason':'Paducah is an up-to plan subject to definitive documents, while other cards span distinct RFP, contract, financing, energization and COD stages.'},
+              {'narrative':'ESS 성장률을 파우치필름 수요로 직접 환산할 수 있다','decision':'REJECT','reason':'Several ESS cells have unconfirmed form factor. Direct July pouch evidence is narrower: Yulchon commercialization plus LGES pouch/ESS mix evidence.'},
+              {'narrative':'핵심광물 FID·금융종결은 곧바로 생산과 현금흐름을 뜻한다','decision':'REJECT','reason':'Mt Holland additional production is targeted later; transport financing, processing start and early quarterly profit represent different maturity stages.'},
+              {'narrative':'중국의 2% 소비세는 완성 ESS 시스템 전체에 동일하게 부과된다','decision':'NARROW','reason':'The July rule targets defined battery products; later tax-authority guidance further distinguishes battery clusters from complete ESS equipment. Later guidance is counterevidence only, not a July official ref.'}
+            ],
+            'post_month_counterevidence':[
+              {'status':'LATE_NON_CANONICAL_RESEARCH_SIGNAL','finding':'China tax authority clarified on 2026-08-27 that battery clusters assembled from cells are taxable battery packs while a complete ESS integrated with electrical, thermal, fire and control systems is not itself a taxable battery product. This narrows the watch wording without changing the July rule event.','source':{'publisher':'State Taxation Administration of China','publication_date':'2026-08-27','url':'https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html'}},
+              {'status':'LATE_STATUS_CHECK','finding':'Paducah remains framed as up to 2.6GW BESS and subject to negotiation/execution of definitive documentation; no later fact is imported into July refs.','source':{'publisher':'NextEra Energy / U.S. DOE','publication_date':'2026-07-29','url':'https://newsroom.nexteraenergy.com/2026-07-29-DOE-Site-in-Western-Kentucky-Revitalized-with-Data-Center-Campus-and-Dedicated-Energy-Project%2C-Creating-Jobs-and-Protecting-Residents-and-Businesses-from-Costs'}}
+            ],
+            'official_source_selection':{'selected_card_count':len(source_ids),'selection_principle':'Decision-relevant, title-supported canonical anchors proving the five flows plus direct SBTL pouch evidence and EV counterevidence.','source_card_ids':source_ids,'binding':binding},
+            'card_integrity_triage':{'status':'PASS_NO_INDISPENSABLE_CANONICAL_DEFECT','brief_overreach_controls':['execution-stage separation','EV-vs-ESS substitution rejection','pouch direct-vs-indirect demand filter','tax/tariff/standard product-scope precision']},
+            'qc':{'evidence':'PASS','counterevidence':'PASS','policy_stage_precision':'PASS','number_and_unit_separation':'PASS','causal_language':'PASS','legacy_issue_independence':'PASS','official_refs_locked_to_current_july_canonical':'PASS','source_binding':'PASS'}
+          }
+          ap=Path('runs/2026-09-14/monthly-brief-2026-07-editorial-audit.json')
+          ap.parent.mkdir(parents=True,exist_ok=True); ap.write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({'issue_id':ISSUE_ID,'month_count':len(july),'refs':len(refs),'flows':len(issue['key_flows']),'watch':len(issue['watch'])},ensure_ascii=False,indent=2))
+          PY
+      - name: Install dependencies
+        run: npm ci
+      - name: Validate Monthly Brief
+        run: npm run validate:monthly-briefs
+      - name: Run unit tests
+        run: npm test
+      - name: Build app
+        run: npm run build
+      - name: Check final scope
+        run: |
+          git status --short
+          git diff --check
+          test "$(git diff --name-only | sort | tr '\n' ' ')" = "public/data/monthly_briefs.json runs/2026-09-14/monthly-brief-2026-07-editorial-audit.json "
+      - name: Commit publication and remove temporary workflow
+        run: |
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git rm .github/workflows/tmp-publish-monthly-brief-2026-07.yml
+          git add public/data/monthly_briefs.json runs/2026-09-14/monthly-brief-2026-07-editorial-audit.json
+          git commit -m "feat: publish SBTL Monthly Brief 2026.07"
+          git push origin HEAD:chatgpt/publish-monthly-brief-2026-07

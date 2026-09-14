@@ -126,15 +126,18 @@
     },
     {
       "source_spec_id": "STD26_0909_A_007",
-      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_discovery_ledger": [
         {
           "url": "https://www.mining.com/web/china-august-rare-earths-exports-stay-below-year-to-date-monthly-average",
-          "role": "production-card evidence source"
+          "role": "production-card evidence source",
+          "source_owner_id_normalized": "reuters_syndication"
         },
         {
           "url": "https://www.reuters.com/world/asia-pacific/chinas-exports-up-25-yy-august-imports-surge-282-2026-09-08/",
-          "role": "production-card evidence source"
+          "role": "checked_not_used_for_visible_claims",
+          "source_owner_id_normalized": "reuters_syndication",
+          "visible_claim_support": []
         }
       ],
       "related_lineage": {
@@ -159,6 +162,19 @@
         "earliest_same_event_date_checked": true,
         "event_date_source_url": "https://www.mining.com/web/china-august-rare-earths-exports-stay-below-year-to-date-monthly-average",
         "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+      },
+      "source_diversity_measure": {
+        "unique_urls": 2,
+        "unique_domains": 2,
+        "independent_owner_count": 1
+      },
+      "single_source_exception": {
+        "allowed": true,
+        "reason": "The Mining.com page and Reuters URL resolve to the same registered Reuters syndication owner; the general trade article does not support the visible rare-earth claims.",
+        "scope_limits": [
+          "No independent-owner corroboration is claimed.",
+          "Visible claims remain bounded to the Reuters-syndicated Mining.com body."
+        ]
       }
     },
     {

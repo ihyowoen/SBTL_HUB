@@ -197,9 +197,9 @@ class Pr371PostMergeRemediationTests(unittest.TestCase):
             reuters = next(source for source in row["fact_sources"] if "reuters.com" in source["url"])
             self.assertEqual(reuters["role"], "checked_not_used_for_visible_claims")
             self.assertEqual(reuters["visible_claim_support"], [])
-            self.assertEqual(reuters["source_owner_id_normalized"], "reuters")
+            self.assertEqual(reuters["source_owner_id_normalized"], "reuters_syndication")
 
-    def test_stale_a007_downstream_source_diversity_chain_is_fail_closed(self):
+    def test_regenerated_a007_downstream_source_diversity_chain_is_consistent(self):
         artifacts = [json.loads(path.read_text(encoding="utf-8")) for path in (SEP9_STAGE_B,SEP9_STAGE_C,SEP9_STAGE_05,SEP9_STAGE_06,SEP9_STAGE_07)]
         rows_by_stage = {}
         for artifact in artifacts:
@@ -207,8 +207,9 @@ class Pr371PostMergeRemediationTests(unittest.TestCase):
             rows = hardening.matching_rows(artifact, stage, "STD26_0909_A_007")
             self.assertTrue(rows)
             rows_by_stage[stage] = rows
-        with self.assertRaisesRegex(hardening.Blocked, "source_diversity_status drifts"):
-            hardening.validate_source_diversity_chain(rows_by_stage, "STD26_0909_A_007")
+        hardening.validate_source_diversity_chain(rows_by_stage, "STD26_0909_A_007")
+        for rows in rows_by_stage.values():
+            self.assertTrue(all(row["source_diversity_status"] == "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION" for row in rows))
 
     def test_source_diversity_status_is_required_at_every_stage(self):
         rows_by_stage = {stage:[{"source_diversity_status":"PASS_MULTI_SOURCE"}] for stage in ("B","C","0.5","0.6","0.7")}

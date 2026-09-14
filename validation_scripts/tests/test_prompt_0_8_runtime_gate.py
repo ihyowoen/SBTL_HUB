@@ -115,6 +115,39 @@ class Prompt08RuntimeGateTest(unittest.TestCase):
         spec = "STD26_0909_A_007"
         run_root = ROOT / "runs/2026-09-10/sep9-r1-current-main-production-r1"
         mysteel_url = "https://news.mysteel.com/a/26090810/0998A0BDDD667636.html"
+        mysteel_evidence_ref = (
+            "runs/2026-09-10/sep9-r1-current-main-production-r1/"
+            "evidence/a007-mysteel-body-verification.json"
+        )
+        mysteel_verified_claim = (
+            "GACC data show August 2026 China rare-earth exports of 4,735.1 tonnes; "
+            "January-August exports were 39,441.4 tonnes, down 11.1% year on year."
+        )
+
+        def add_mysteel_verification(record):
+            record.update({
+                "source_spec_id": spec,
+                "canonical_url": mysteel_url,
+                "query_or_target": mysteel_url,
+                "name": "Mysteel",
+                "domain": "news.mysteel.com",
+                "owner": "mysteel",
+                "origin_type": "independent_news",
+                "outcome": "body_or_document_verified",
+                "fetch_status": "fetched_body_or_authoritative_page",
+                "fetched": True,
+                "headline_only": False,
+                "rss_or_snippet_only": False,
+                "checked_at": "2026-09-14",
+                "source_quote": mysteel_verified_claim,
+                "source_quote_status": "body_quote_verified",
+                "source_quote_language": "en",
+                "source_quote_translation_status": "reviewer_supplied_translation",
+                "unique_contribution": mysteel_verified_claim,
+                "visible_claim_support": ["fact"],
+                "visible_fields_supported": ["fact"],
+                "evidence_record_ref": mysteel_evidence_ref,
+            })
 
         def replace_spec_object(path: Path, bucket: str, mutate):
             text = path.read_text(encoding="utf-8")
@@ -166,6 +199,7 @@ class Prompt08RuntimeGateTest(unittest.TestCase):
                 "role": "production-card evidence source",
                 "source_owner_id_normalized": "mysteel",
             })
+            add_mysteel_verification(mysteel)
             row["source_diversity_status"] = "PASS_MULTI_SOURCE"
             row["source_diversity_measure"] = {
                 "unique_urls": 3,
@@ -211,8 +245,8 @@ class Prompt08RuntimeGateTest(unittest.TestCase):
                 "url": mysteel_url,
                 "role": "production-card evidence source",
                 "source_owner_id_normalized": "mysteel",
-                "visible_claim_support": ["fact"],
             })
+            add_mysteel_verification(mysteel)
             row["source_diversity_measure"] = {
                 "unique_urls": 3,
                 "unique_domains": 3,
@@ -228,6 +262,41 @@ class Prompt08RuntimeGateTest(unittest.TestCase):
                 ],
             }
         outputs[stage_05] = replace_spec_object(stage_05, "evidence_complete_and_source_claim_covered", mutate_05)
+
+        evidence_path = run_root / "evidence/a007-mysteel-body-verification.json"
+        evidence_record = {
+            "schema_version": "SOURCE_BODY_VERIFICATION_V1",
+            "source_spec_id": spec,
+            "source_url": mysteel_url,
+            "canonical_url": mysteel_url,
+            "name": "Mysteel",
+            "domain": "news.mysteel.com",
+            "source_owner_id_normalized": "mysteel",
+            "origin_type": "independent_news",
+            "verification_outcome": "body_or_document_verified",
+            "fetch_status": "fetched_body_or_authoritative_page",
+            "fetched": True,
+            "checked_at": "2026-09-14",
+            "verification_provenance": "PR review body-verification attestation",
+            "source_quote": mysteel_verified_claim,
+            "source_quote_language": "en",
+            "source_quote_translation_status": "reviewer_supplied_translation",
+            "unique_contribution": mysteel_verified_claim,
+            "visible_fields_supported": ["fact"],
+            "claim_scope": {
+                "supports": [
+                    "August 2026 China rare-earth exports were 4,735.1 tonnes",
+                    "January-August 2026 exports were 39,441.4 tonnes",
+                    "January-August exports were down 11.1% year on year",
+                ],
+                "does_not_support": [
+                    "July comparison",
+                    "12.1% month-on-month increase",
+                    "below-year-to-date-monthly-average context",
+                ],
+            },
+        }
+        outputs[evidence_path] = json.dumps(evidence_record, ensure_ascii=False, indent=2) + "\n"
 
         for filename, bucket in (("stage-0-6.json", "content_enriched_and_language_polished"), ("stage-0-7.json", "publish_ready")):
             path = run_root / "stages" / filename
@@ -271,7 +340,14 @@ class Prompt08RuntimeGateTest(unittest.TestCase):
                 '            self.assertEqual(reuters["source_owner_id_normalized"], "reuters_syndication")\n'
                 + mysteel_assertion
                 + '            self.assertEqual(mysteel["role"], "production-card evidence source")\n'
-                + '            self.assertEqual(mysteel["source_owner_id_normalized"], "mysteel")\n',
+                + '            self.assertEqual(mysteel["source_owner_id_normalized"], "mysteel")\n'
+                + '            self.assertEqual(mysteel["fetch_status"], "fetched_body_or_authoritative_page")\n'
+                + '            self.assertTrue(mysteel["fetched"])\n'
+                + '            self.assertEqual(mysteel["source_quote_status"], "body_quote_verified")\n'
+                + '            self.assertEqual(mysteel["checked_at"], "2026-09-14")\n'
+                + '            self.assertTrue(mysteel["unique_contribution"])\n'
+                + '            self.assertEqual(mysteel["visible_fields_supported"], ["fact"])\n'
+                + '            self.assertTrue(mysteel["evidence_record_ref"].endswith("a007-mysteel-body-verification.json"))\n',
             )
         regression = regression.replace(
             'self.assertTrue(all(row["source_diversity_status"] == "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION" for row in rows))',

@@ -89,8 +89,8 @@ jobs:
           result={
               'schema':'monthly_brief_universe_snapshot_v1',
               'month':'2026-06',
-              'baseline_commit': '${{ github.sha }}',
-              'cards_full_blob_sha': '${{ hashFiles(''data/cards.full.json'') }}',
+              'baseline_commit':'a24e784a0e2e5788eedfa1de4c5634e6cce908cb',
+              'cards_full_blob_sha':'f95176a9e469f8325e9bfbb55fdbc6957fe8b101',
               'total_canonical_cards': len(cards),
               'month_card_count': len(june),
               'region_distribution': dict(sorted(region.items())),

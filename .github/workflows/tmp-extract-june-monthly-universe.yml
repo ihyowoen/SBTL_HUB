@@ -1,0 +1,113 @@
+name: tmp-extract-june-monthly-universe
+
+on:
+  push:
+    branches:
+      - chatgpt/publish-monthly-brief-2026-06
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/publish-monthly-brief-2026-06
+          fetch-depth: 0
+      - name: Extract current canonical June universe
+        run: |
+          python - <<'PY'
+          import json, collections, pathlib
+          src = pathlib.Path('data/cards.full.json')
+          raw = json.loads(src.read_text())
+          if isinstance(raw, list):
+              cards = raw
+          elif isinstance(raw, dict):
+              cards = raw.get('cards') or raw.get('items') or raw.get('data')
+              if not isinstance(cards, list):
+                  raise SystemExit(f'Unsupported cards.full root keys: {list(raw)[:20]}')
+          else:
+              raise SystemExit(f'Unsupported cards.full root type: {type(raw)}')
+
+          def first(c, *keys):
+              for k in keys:
+                  v=c.get(k)
+                  if v not in (None, '', [], {}): return v
+              return None
+          def date_of(c):
+              v=first(c,'date','dte','published_at','publication_date')
+              if isinstance(v,str): return v[:10]
+              cid=str(c.get('id') or '')
+              return cid[:10] if cid.startswith('2026-') else ''
+          june=[c for c in cards if date_of(c).startswith('2026-06') or str(c.get('id') or '').startswith('2026-06-')]
+
+          def compact_source_obj(x):
+              if isinstance(x,str): return x
+              if not isinstance(x,dict): return None
+              keep={}
+              for k in ('publisher','publication_date','date','url','title','claim','supports','type','kind'):
+                  if k in x:
+                      v=x[k]
+                      if isinstance(v,str) and len(v)>700: v=v[:700]+'…'
+                      keep[k]=v
+              return keep or None
+          def compact(c):
+              out={
+                  'id': c.get('id'),
+                  'date': date_of(c),
+                  'region': first(c,'region','r','geo'),
+                  'signal': first(c,'signal','signal_level','tier','importance','priority'),
+                  'score': first(c,'score','signal_score','priority_score'),
+                  'title': first(c,'title','t','headline'),
+                  'summary': first(c,'summary','d','description','detail'),
+                  'topic': first(c,'topic','theme','category','axis'),
+                  'status': first(c,'status','s'),
+                  'gate': first(c,'gate','gate_status','evidence_gate'),
+              }
+              if isinstance(out['summary'],str) and len(out['summary'])>900:
+                  out['summary']=out['summary'][:900]+'…'
+              for key in ('sources','source','source_claims','evidence','refs'):
+                  if key not in c: continue
+                  v=c[key]
+                  if isinstance(v,list):
+                      vals=[compact_source_obj(x) for x in v]
+                      vals=[x for x in vals if x is not None]
+                      if vals: out[key]=vals[:8]
+                  else:
+                      cv=compact_source_obj(v)
+                      if cv is not None: out[key]=cv
+              rel=c.get('related') or c.get('related_ids')
+              if isinstance(rel,list): out['related']=[str(x) for x in rel[:12]]
+              return {k:v for k,v in out.items() if v not in (None,'',[],{})}
+
+          region=collections.Counter(str(first(c,'region','r','geo') or 'UNKNOWN') for c in june)
+          signal=collections.Counter(str(first(c,'signal','signal_level','tier','importance','priority') or 'UNKNOWN') for c in june)
+          dates=collections.Counter(date_of(c) for c in june)
+          result={
+              'schema':'monthly_brief_universe_snapshot_v1',
+              'month':'2026-06',
+              'baseline_commit': '${{ github.sha }}',
+              'cards_full_blob_sha': '${{ hashFiles(''data/cards.full.json'') }}',
+              'total_canonical_cards': len(cards),
+              'month_card_count': len(june),
+              'region_distribution': dict(sorted(region.items())),
+              'signal_distribution': dict(sorted(signal.items())),
+              'date_distribution': dict(sorted(dates.items())),
+              'cards': [compact(c) for c in june],
+          }
+          out=pathlib.Path('runs/2026-09-15/monthly-brief-2026-06-universe-snapshot.json')
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({k:result[k] for k in ('total_canonical_cards','month_card_count','region_distribution','signal_distribution')},ensure_ascii=False,indent=2))
+          PY
+      - name: Remove one-shot workflow and commit snapshot
+        run: |
+          rm .github/workflows/tmp-extract-june-monthly-universe.yml
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git add runs/2026-09-15/monthly-brief-2026-06-universe-snapshot.json .github/workflows/tmp-extract-june-monthly-universe.yml
+          git commit -m "chore: snapshot June canonical universe"
+          git push origin HEAD:chatgpt/publish-monthly-brief-2026-06

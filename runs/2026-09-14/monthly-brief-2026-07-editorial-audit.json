@@ -28,7 +28,7 @@
     "Review all 365 July cards; use top cards as structural-anchor candidates, high cards as reinforcement/counterevidence and mid cards as overreach/early-signal checks rather than article-count votes.",
     "Derive the thesis before consulting legacy Vol.09; use the legacy issue only after thesis lock to red-team omissions and inherited framing.",
     "Map the full month across both topic and execution stage so RFP, award, contract, financing, FID/construction, energization and COD are not conflated.",
-    "Test the simple EV-down/ESS-replaces-EV narrative against July traction-battery growth and other counterevidence and reject it when contradicted.",
+    "Reject simple EV-down/ESS-replaces-EV framing unless independently governed evidence establishes that causal substitution; ESS production growth alone is not sufficient.",
     "Apply a separate SBTL pouch lens that requires form-factor/customer-program evidence before translating ESS growth into pouch-film demand.",
     "Inspect post-month follow-up only as counterevidence; later facts do not become official July refs.",
     "Select a compact 21-card official evidence set and bind every public ref to a governed fact source that explicitly supports the complete locked canonical card title."
@@ -63,9 +63,9 @@
     },
     {
       "id": "03",
-      "title": "EV 성장축은 유지되고, ESS가 별도 생산·수요축으로 확대",
+      "title": "ESS, 별도 생산·수요축으로 확대",
       "decision": "SELECT",
-      "reason": "ESS production and revenue expansion coexist with independently governed July EV evidence outside the final publication anchors. The supported conclusion is production/customer diversification rather than simple EV-to-ESS substitution; the compound China traction-battery card is quarantined because no single governed URL supports its complete locked title.",
+      "reason": "ESS cell production and ESS-system revenue expansion are independently evidenced. The publication conclusion is limited to a distinct ESS production/customer axis; it does not infer continued EV growth, EV-demand disappearance, or simple EV-to-ESS substitution from those facts. The China traction-battery compound card remains quarantined because no single governed URL supports its complete locked title.",
       "anchor_card_ids": [
         "2026-07-02_US_01",
         "2026-07-24_CN_01",
@@ -102,7 +102,7 @@
     "upgrades": [
       "BESS platform M&A/capitalization elevated",
       "AI/grid bottleneck separated",
-      "EV substitution narrative explicitly rejected",
+      "EV substitution is not inferred from ESS growth alone",
       "rules reframed as market-entry/technology-selection",
       "SBTL pouch inference narrowed to verified program evidence"
     ],
@@ -112,7 +112,7 @@
     {
       "narrative": "EV 둔화가 ESS 성장으로 단순 대체됐다",
       "decision": "REJECT",
-      "reason": "July includes positive China traction-battery installation growth while ESS/LFP production expands; the separate compound EV-material card is quarantined because no single public ref proves its full compound title."
+      "reason": "The published evidence establishes ESS production and revenue expansion but does not establish a one-for-one EV-to-ESS substitution mechanism. The brief therefore does not infer EV contraction, disappearance or replacement from ESS growth alone."
     },
     {
       "narrative": "발표된 ESS GW/GWh는 모두 확정 발주·설치물량이다",
@@ -372,24 +372,24 @@
       },
       {
         "id": "2026-07-28_US_01",
-        "selected_url": "https://www.reuters.com/world/trump-administration-ban-new-chinese-robots-inverters-protecting-us-ai-buildout-2026-07-28/",
+        "selected_url": "https://www.nextgov.com/policy/2026/07/fcc-blocks-approval-new-foreign-made-robots-power-inverters/415070/",
         "canonical_urls": [
           "https://www.reuters.com/world/trump-administration-ban-new-chinese-robots-inverters-protecting-us-ai-buildout-2026-07-28/",
           "https://www.nextgov.com/policy/2026/07/fcc-blocks-approval-new-foreign-made-robots-power-inverters/415070/"
         ],
         "title_supporting_urls": [
-          "https://www.reuters.com/world/trump-administration-ban-new-chinese-robots-inverters-protecting-us-ai-buildout-2026-07-28/"
+          "https://www.nextgov.com/policy/2026/07/fcc-blocks-approval-new-foreign-made-robots-power-inverters/415070/"
         ]
       },
       {
         "id": "2026-07-13_US_02",
-        "selected_url": "https://www.lazard.com/news-announcements/lazard-releases-2026-levelized-cost-of-energyplus-report-pr/",
+        "selected_url": "https://www.energy-storage.news/lazard-us-utility-scale-energy-storage-lcos-has-increased-since-restrictions-on-chinese-cells-came-into-force",
         "canonical_urls": [
           "https://www.lazard.com/news-announcements/lazard-releases-2026-levelized-cost-of-energyplus-report-pr/",
           "https://www.energy-storage.news/lazard-us-utility-scale-energy-storage-lcos-has-increased-since-restrictions-on-chinese-cells-came-into-force"
         ],
         "title_supporting_urls": [
-          "https://www.lazard.com/news-announcements/lazard-releases-2026-levelized-cost-of-energyplus-report-pr/"
+          "https://www.energy-storage.news/lazard-us-utility-scale-energy-storage-lcos-has-increased-since-restrictions-on-chinese-cells-came-into-force"
         ]
       },
       {
@@ -472,7 +472,7 @@
     },
     "brief_overreach_controls": [
       "execution-stage separation",
-      "EV-vs-ESS substitution rejection",
+      "EV-vs-ESS substitution non-inference",
       "pouch direct-vs-indirect demand filter",
       "tax/tariff/standard product-scope precision"
     ],
@@ -486,6 +486,16 @@
         "id": "2026-07-01_KR_05",
         "action": "REBIND_TO_GOVERNED_FULL_CLAIM_SOURCE",
         "url": "https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable"
+      },
+      {
+        "id": "2026-07-28_US_01",
+        "action": "REBIND_TO_GOVERNED_FULL_CLAIM_SOURCE",
+        "url": "https://www.nextgov.com/policy/2026/07/fcc-blocks-approval-new-foreign-made-robots-power-inverters/415070/"
+      },
+      {
+        "id": "2026-07-13_US_02",
+        "action": "REBIND_TO_GOVERNED_FULL_CLAIM_SOURCE",
+        "url": "https://www.energy-storage.news/lazard-us-utility-scale-energy-storage-lcos-has-increased-since-restrictions-on-chinese-cells-came-into-force"
       }
     ]
   },
@@ -503,6 +513,7 @@
     "policy_scope_precision": "PASS_AFTER_SECOND_CODEX_REMEDIATION",
     "post_month_classification": "PASS_LATE_CANONICAL_COUNTEREVIDENCE",
     "codex_second_pass_head_3d5d31816d": "REMEDIATED_P1_X3_P2_X1",
-    "codex_review_5196371944": "REMEDIATED_ALL_P1_P2_FINDINGS"
+    "codex_review_5196371944": "REMEDIATED_ALL_P1_P2_FINDINGS",
+    "codex_review_5196602060": "REMEDIATED_P1_X3"
   }
 }

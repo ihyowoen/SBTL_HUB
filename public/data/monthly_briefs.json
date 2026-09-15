@@ -774,6 +774,267 @@
         "reviewer_role": "editorial_owner",
         "notes": "Re-authorized after exact-head review remediation. Partial-source claims, malformed or truncated canonical URLs, and quarantined-card publication residue were removed without changing the locked cards or monthly provenance validator contract."
       }
+    },
+    {
+      "id": "monthly-brief-2026-06-r1",
+      "product_name": "SBTL Monthly Brief",
+      "month": "2026-06",
+      "revision": 1,
+      "status": "published",
+      "publication_class": "official_editorial",
+      "publication_mode": "editorial_curated",
+      "published_at": "2026-09-15",
+      "title": "SBTL Monthly Brief · 2026.06",
+      "executive_diagnosis": "6월 배터리 산업의 핵심 변화는 ESS의 성장률 자체보다 돈이 어떻게 잠기고 실제 자산으로 내려오는지가 더 선명해진 점이다. tolling·20년 용량계약·세액공제 지분금융·대형 금융종결·상업운전이 한 달 안에 이어지며 저장장치는 merchant 기대만으로 개발하는 설비에서 계약·금융·운영 실적을 갖춘 전력자산으로 이동했다. 동시에 수요는 지역과 저장시간으로 넓어지고 나트륨·CO₂ 저장은 상업계약 단계로 내려왔지만, 전고체는 실차시험과 TRL4 평가가 공존했다. 공급망에서는 미·중의 기업단위 조달·수출 통제가 강화되고 유럽·G7의 생산·광물 지원수단이 구체화됐다. 따라서 6월은 단순한 ESS 성장의 달이라기보다 수익모델·저장시간·기술성숙도·조달적격성이 함께 분화된 달로 보는 편이 정확하다.",
+      "what_changed": "이전에는 GW·GWh와 공장 증설이 변화의 중심이었다면 6월에는 tolling, 장기 capacity contract, tax equity, 대형 금융종결과 COD가 동시에 나타났다. 기술도 나트륨·CO₂는 고객 인도 일정과 상업계약으로 내려온 반면 전고체는 도로시험과 기술성숙도 논쟁이 병존했다. 공급망 규칙은 국가별 관세에서 특정 기업의 조달자격·수출통제·생산금융으로 더 세분화됐다. SBTL 관점에서는 ESS·LFP 성장률을 파우치필름 수요로 자동 환산하지 않는다. 6월 공식 근거세트에는 직접 파우치필름 고객프로그램이 없으므로 실제 셀 폼팩터·고객 프로그램·공급계약이 확인되는 경우에만 직접 수요 신호로 해석해야 한다.",
+      "source_baseline": {
+        "main_commit_sha": "a24e784a0e2e5788eedfa1de4c5634e6cce908cb",
+        "full_blob_sha": "f95176a9e469f8325e9bfbb55fdbc6957fe8b101",
+        "source_month_count": 190
+      },
+      "source_card_ids": [
+        "2026-06-02_EU_01",
+        "2026-06-11_US_01",
+        "2026-06-22_US_01",
+        "2026-06-23_US_01",
+        "2026-06-30_GL_01",
+        "2026-06-08_GL_02",
+        "2026-06-11_GL_01",
+        "2026-06-17_GL_05",
+        "2026-06-23_EU_02",
+        "2026-06-22_CN_05",
+        "2026-06-23_EU_01",
+        "2026-06-17_US_02",
+        "2026-06-17_CN_05",
+        "2026-06-09_US_02",
+        "2026-06-22_CN_01",
+        "2026-06-17_GL_07",
+        "2026-06-10_EU_01",
+        "2026-06-30_US_02",
+        "2026-06-22_US_03",
+        "2026-06-11_KR_01"
+      ],
+      "key_flows": [
+        {
+          "id": "01",
+          "title": "ESS, 용량보다 계약·금융·COD가 자산가치를 결정",
+          "summary": "독일 Förderstedt BESS는 출력의 80%를 5년 tolling으로 묶었고, Cypress Creek은 아칸소 태양광·저장 프로젝트에 35억달러 금융을 확보했다. 텍사스 120MW·480MWh BESS에는 1억3000만달러 세액공제 지분금융이 종결됐고, 캐나다 8시간 BESS는 20년 용량계약을 확보했다. 호주 Orana 415MW·1,660MWh는 상업운전에 들어갔다. 서로 다른 시장에서 수익계약·금융·운영이 동시에 채워지면서 ESS의 판단기준이 발표용량에서 현금흐름과 실행단계의 질로 이동했다. 다만 금융종결·계약은 COD와 구분하고, 장기계약도 실제 건설·가동으로 이어지는지 확인해야 한다.",
+          "card_ids": [
+            "2026-06-02_EU_01",
+            "2026-06-11_US_01",
+            "2026-06-22_US_01",
+            "2026-06-23_US_01",
+            "2026-06-30_GL_01"
+          ]
+        },
+        {
+          "id": "02",
+          "title": "ESS 수요, 지역·저장시간·조달규모가 함께 넓어짐",
+          "summary": "1분기 글로벌 ESS 출하는 195.5GWh로 전년 대비 78% 늘었고 중국 비중은 낮아지는 방향이 확인됐다. 호주에서는 첫 8시간급 50MW·400MWh BESS가 가동됐고, 유럽에서는 테슬라·NatPower가 25GWh 이상 다년 실행계약을 체결했다. 동시에 Benchmark는 중국 OEM의 글로벌 ESS 오프테이크가 상반기 659GWh로 전년의 4배에 달했다고 집계했다. 수요 지역과 저장시간은 넓어지지만 대형 공급계약 경쟁은 더 커지는 모습이다. 오프테이크·프레임 계약량을 실제 출하·설치량으로 보지는 않는다.",
+          "card_ids": [
+            "2026-06-08_GL_02",
+            "2026-06-11_GL_01",
+            "2026-06-17_GL_05",
+            "2026-06-23_EU_02"
+          ]
+        },
+        {
+          "id": "03",
+          "title": "나트륨·CO₂는 상업계약으로, 전고체는 검증단계가 갈림",
+          "summary": "CATL은 나트륨이온 ESS의 9월 중국 인도 일정과 연내 1GWh 목표를 제시했고, Google과 Energy Dome은 아일랜드 23MW·200MWh CO₂ 배터리에 상업계약을 체결했다. 반면 전고체는 Factorial이 Stellantis 차량 통합 후 도로시험에 들어간 수준과 CATL이 성숙도를 TRL4로 평가하며 2030년 전 100만대급 탑재 가능성을 낮게 본 시각이 동시에 존재한다. 차세대 기술을 하나의 상용화 단계로 묶기보다 고객계약·실차시험·실제 인도 여부를 구분해야 한다.",
+          "card_ids": [
+            "2026-06-22_CN_05",
+            "2026-06-23_EU_01",
+            "2026-06-17_US_02",
+            "2026-06-17_CN_05"
+          ]
+        },
+        {
+          "id": "04",
+          "title": "공급망 규칙, 국가·품목에서 기업·조달 적격성까지 세분화",
+          "summary": "미 국방부 1260H 목록에는 CATL·BYD·Trina 등이 추가됐지만 이는 일반 제재나 투자금지가 아니라 국방조달 제한이다. 중국은 미국 방산·희토류 기업 10곳에 이중용도 수출통제를, 46곳에는 정부조달 금지를 즉시 적용했다. G7은 핵심광물의 가격격차 보조·공동조달·가격하한을 검토수단으로 제시했고, EU는 역내 셀 생산에 15억유로 무이자대출 시설을 출범시켰다. 통제와 지원 모두 국적만이 아니라 기업명단·조달자격·금융조건 단위로 세분화되는 흐름이지만, 비구속 선언과 실제 시행규칙은 구분해야 한다.",
+          "card_ids": [
+            "2026-06-09_US_02",
+            "2026-06-22_CN_01",
+            "2026-06-17_GL_07",
+            "2026-06-10_EU_01"
+          ]
+        },
+        {
+          "id": "05",
+          "title": "현지화, 공장 위치에서 기술·원료·IP 구조로 확장",
+          "summary": "Ford 미시간 LFP 공장은 CATL 기술라이선스를 적용한 생산의도 시험셀 단계에 들어갔지만 상업 양산으로 확대해석할 단계는 아니다. 롯데알미늄 미국 합작사는 영국 BAL과 양극박 원재료 5년 공급계약을 맺었고, LG에너지솔루션은 중국 신왕다와 특허 라이선스 계약으로 독일·중국·한국의 분쟁을 종결했다. 현지생산 경쟁의 핵심이 공장 주소만이 아니라 기술사용권·원재료 장기계약·IP 권리구조까지 넓어지고 있다.",
+          "card_ids": [
+            "2026-06-30_US_02",
+            "2026-06-22_US_03",
+            "2026-06-11_KR_01"
+          ]
+        }
+      ],
+      "watch": [
+        "tolling·20년 용량계약·세액공제 지분금융이 실제 착공·COD·가동률·현금흐름으로 이어지는지 확인한다.",
+        "NatPower-테슬라 25GWh와 중국 OEM 659GWh 오프테이크가 개별 프로젝트의 금융종결·발주·인도·설치로 전환되는 속도를 추적한다.",
+        "CATL 나트륨이온 ESS의 9월 실제 고객 인도와 Energy Dome 아일랜드 프로젝트의 인허가·착공을 확인하고, 전고체 실차시험·고객검증과 양산 주장을 구분한다.",
+        "미국 1260H와 중국 기업단위 수출·조달 제한이 실제 고객조달·금융·공급계약 조건으로 어떻게 전이되는지, G7·EU 지원수단이 구속적 기준과 자금집행으로 이어지는지 본다.",
+        "Ford LFP 생산의도 시험셀이 고객승인·상업출하로 전환되는지, 양극박 원료계약과 배터리 IP 라이선스가 실제 현지 생산·원가·고객 믹스에 미치는 영향을 확인한다."
+      ],
+      "refs": [
+        {
+          "n": 1,
+          "id": "2026-06-02_EU_01",
+          "title": "독일 BESS, 300MW·5년 tolling 계약…merchant 단독수익 의존 낮춘다",
+          "date": "2026-06-02",
+          "url": "https://www.next-kraftwerke.de/neues/batteriespeicher-bess-ecostor"
+        },
+        {
+          "n": 2,
+          "id": "2026-06-11_US_01",
+          "title": "Cypress Creek, 아칸소 'Steel River' 태양광·저장에 35억달러 금융 클로징",
+          "date": "2026-06-11",
+          "url": "https://www.prnewswire.com/news-releases/cypress-creek-energy-secures-3-5-billion-to-advance-one-of-americas-largest-solar-and-storage-projects-302798148.html"
+        },
+        {
+          "n": 3,
+          "id": "2026-06-22_US_01",
+          "title": "OCI에너지, 텍사스 120MW·480MWh BESS에 1억3000만달러 세액공제 지분금융 종결",
+          "date": "2026-06-22",
+          "url": "https://www.prnewswire.com/news-releases/oci-energy-closes-130-million-tax-equity-financing-with-greenprint-capital-for-san-antonio-area-battery-project-302806665.html"
+        },
+        {
+          "n": 4,
+          "id": "2026-06-23_US_01",
+          "title": "네오엔, 온타리오 190MW·8시간 20년 용량계약…200MW·1,600MWh BESS 개발",
+          "date": "2026-06-23",
+          "url": "https://neoen.com/en/news/2026/neoen-awarded-long-term-contract-for-new-200-mw-8-hour-battery-in-ontario-canada/"
+        },
+        {
+          "n": 5,
+          "id": "2026-06-30_GL_01",
+          "title": "Akaysha Energy, 호주 Orana 415MW·1,660MWh BESS 상업운전",
+          "date": "2026-06-30",
+          "url": "https://www.energy-storage.news/akaysha-energys-1660mwh-orana-bess-reaches-commercial-operations-in-australia"
+        },
+        {
+          "n": 6,
+          "id": "2026-06-08_GL_02",
+          "title": "글로벌 ESS 1분기 출하 195.5GWh…전년 대비 78% 급증",
+          "date": "2026-06-08",
+          "url": "https://www.sneresearch.com/kr/insight/release_view/671/page/0"
+        },
+        {
+          "n": 7,
+          "id": "2026-06-11_GL_01",
+          "title": "RWE, 호주 첫 8시간 장주기 50MW/400MWh 배터리저장 'Limondale' 가동",
+          "date": "2026-06-11",
+          "url": "https://www.energy-storage.news/rwe-officially-opens-australias-first-8-hour-battery-storage-system"
+        },
+        {
+          "n": 8,
+          "id": "2026-06-17_GL_05",
+          "title": "중국 OEM 글로벌 ESS 오프테이크 상반기 659GWh…전년 대비 4배 급증",
+          "date": "2026-06-17",
+          "url": "https://source.benchmarkminerals.com/article/chinese-oem-energy-storage-offtakes-in-h1-2026-quadruple-compared-to-h1-2025"
+        },
+        {
+          "n": 9,
+          "id": "2026-06-23_EU_02",
+          "title": "테슬라·냇파워, 유럽 BESS 25GWh 이상 다년 실행계약",
+          "date": "2026-06-23",
+          "url": "https://natpower.com/2026/06/23/natpower-and-tesla-sign-a-strategic-agreement-for-more-than-25-gwh-of-battery-energy-storage-systems-in-europe-2/"
+        },
+        {
+          "n": 10,
+          "id": "2026-06-22_CN_05",
+          "title": "CATL, 톈헝 나트륨이온 ESS 공개…9월 중국 인도·2026년 1GWh 목표",
+          "date": "2026-06-22",
+          "url": "https://www.prnewswire.com/news-releases/catl-debuts-worlds-first-field-validated-sodium-ion-bess-bringing-sodium-storage-to-commercial-reality-302807380.html"
+        },
+        {
+          "n": 11,
+          "id": "2026-06-23_EU_01",
+          "title": "에너지돔·구글, 아일랜드 23MW·200MWh CO₂ 배터리 상업계약",
+          "date": "2026-06-23",
+          "url": "https://energydome.com/google-and-energy-dome-advance-multi-continent-energy-storage-buildout-with-first-bilateral-project-in-ireland/"
+        },
+        {
+          "n": 12,
+          "id": "2026-06-17_US_02",
+          "title": "팩토리얼, 스텔란티스 전기차에 전고체배터리 첫 통합…도로 주행 테스트 착수",
+          "date": "2026-06-17",
+          "url": "https://www.theguru.co.kr/news/article.html?no=103212"
+        },
+        {
+          "n": 13,
+          "id": "2026-06-17_CN_05",
+          "title": "CATL 회장, 전고체 2030년 전 100만대급 탑재 가능성 '매우 작다'…성숙도 TRL4 평가",
+          "date": "2026-06-17",
+          "url": "https://autonews.gasgoo.com/articles/news/robin-zeng-on-all-solid-state-batteries-very-small-possibility-of-million-vehicle-level-installations-before-2030-2067224148357808129"
+        },
+        {
+          "n": 14,
+          "id": "2026-06-09_US_02",
+          "title": "미국 국방부, '중국 군사기업' 1260H 목록 갱신…CATL·BYD·Trina 등 추가, 제재는 아냐",
+          "date": "2026-06-09",
+          "url": "https://www.pv-magazine.com/2026/06/10/us-government-restricts-trade-with-prominent-chinese-storage-companies/"
+        },
+        {
+          "n": 15,
+          "id": "2026-06-22_CN_01",
+          "title": "중국, 미 방산·희토류 기업 10곳 이중용도 수출통제…46곳 정부조달 금지 당일 즉시 시행",
+          "date": "2026-06-22",
+          "url": "https://www.newsis.com/view/NISX20260622_0003678123"
+        },
+        {
+          "n": 16,
+          "id": "2026-06-17_GL_07",
+          "title": "G7, 핵심광물 동맹 확대…가격격차 보조·공동조달·가격하한 검토",
+          "date": "2026-06-17",
+          "url": "https://www.pm.gc.ca/en/news/statements/2026/06/17/g7-leaders-declaration-securing-supply-chains-critical-minerals"
+        },
+        {
+          "n": 17,
+          "id": "2026-06-10_EU_01",
+          "title": "EU집행위, 배터리 셀 생산 지원 '배터리 부스터' 15억유로 무이자대출 시설 공식 출범",
+          "date": "2026-06-10",
+          "url": "https://climate.ec.europa.eu/news-other-reads/news/new-battery-booster-set-inject-eu15-billion-european-battery-industry-2026-06-09_en"
+        },
+        {
+          "n": 18,
+          "id": "2026-06-30_US_02",
+          "title": "Ford 미시간 LFP 공장, 생산의도 시험셀 생산…CATL 기술라이선스 적용",
+          "date": "2026-06-30",
+          "url": "https://carnewschina.com/2026/06/30/catl-ford-tech-licensing-battery-plant-commences-production-in-the-u-s"
+        },
+        {
+          "n": 19,
+          "id": "2026-06-22_US_03",
+          "title": "롯데알미늄 미국 합작사, 영국 BAL과 양극박 원재료 5년 공급계약",
+          "date": "2026-06-22",
+          "url": "https://www.pesmedia.com/bridgnorth-aluminium-secures-landmark-us-agreement-for-battery-foil"
+        },
+        {
+          "n": 20,
+          "id": "2026-06-11_KR_01",
+          "title": "LG에너지솔루션, 중국 신왕다와 특허 라이선스 계약…독·중·한 분쟁 종결",
+          "date": "2026-06-11",
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=58001"
+        }
+      ],
+      "qc": {
+        "evidence_status": "PASS",
+        "red_team_status": "PASS",
+        "editorial_coherence_status": "PASS",
+        "language_terminology_status": "PASS",
+        "reviewed_at": "2026-09-15",
+        "reviewer_role": "editorial_owner",
+        "notes": "Canonical-first reconstruction of all 190 June cards. Claims are narrowed to execution stage; no direct pouch-film demand is inferred from ESS/LFP growth."
+      },
+      "approval": {
+        "status": "APPROVED",
+        "approved_at": "2026-09-15",
+        "reviewer_role": "editorial_owner",
+        "notes": "Approved after canonical re-derivation, legacy red-team comparison, governed title-source binding, and explicit execution-stage caveats."
+      }
     }
   ]
 }

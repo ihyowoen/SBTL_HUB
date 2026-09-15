@@ -1,6 +1,6 @@
 {
   "schema": "monthly_brief_editorial_audit_v1",
-  "issue_id": "monthly-brief-2026-07-r1",
+  "issue_id": "monthly-brief-2026-07-r2",
   "month": "2026-07",
   "audit_date": "2026-09-15",
   "product": "SBTL Monthly Brief",
@@ -9,8 +9,19 @@
     "cards_full_blob_sha": "79e1b89ca89b55c24bd8b2c1fa6924a3d85f13c9",
     "total_canonical_cards": 1633,
     "month_card_count": 365,
-    "signal_distribution": {"high":239,"top":75,"mid":51},
-    "region_distribution": {"KR":61,"GL":104,"CN":43,"US":68,"EU":76,"JP":13}
+    "signal_distribution": {
+      "high": 239,
+      "top": 75,
+      "mid": 51
+    },
+    "region_distribution": {
+      "KR": 61,
+      "GL": 104,
+      "CN": 43,
+      "US": 68,
+      "EU": 76,
+      "JP": 13
+    }
   },
   "method": [
     "Lock the current-main canonical snapshot before editorial selection.",
@@ -20,89 +31,363 @@
     "Reject simple EV-down/ESS-replaces-EV framing unless independently governed evidence establishes that causal substitution; ESS production growth alone is not sufficient.",
     "Apply a separate SBTL pouch lens that requires form-factor/customer-program evidence before translating ESS growth into pouch-film demand.",
     "Inspect post-month follow-up only as counterevidence; later facts do not become official July refs.",
-    "Select a compact 19-card official evidence set and require every public ref to preserve the locked canonical title and use a validator-accepted governed URL that supports the complete title; quarantine non-indispensable cards when that contract cannot be met."
+    "Select a compact 19-card official evidence set and require every public ref to preserve the locked canonical title and use a validator-accepted governed URL that supports the complete title; quarantine non-indispensable cards when that contract cannot be met.",
+    "Preserve the September 14 publication as immutable R1 history and publish the September 15 post-publication remediation as R2; do not backdate QC or approval for content that did not exist on R1."
   ],
   "selected_flows": [
-    {"id":"01","title":"ESS, 프로젝트가 아니라 자본시장·전력시장이 함께 가격을 매기는 자산으로","decision":"SELECT","reason":"July contains independent evidence across platform M&A, bank financing, long-term revenue contracts, energization and COD; together they show ESS asset-class maturation without treating stages as equivalent.","anchor_card_ids":["2026-07-22_US_01","2026-07-13_GL_02","2026-07-01_GL_01","2026-07-20_EU_03","2026-07-20_US_05","2026-07-14_GL_04"]},
-    {"id":"02","title":"AI·계통 병목, BESS를 전력 인프라 설계요소로 끌어들임","decision":"SELECT","reason":"AI/data-center projects, distribution-grid programs and flexible grid-connection rules independently pull BESS into power-system design, creating a distinct demand logic beyond renewable co-location.","anchor_card_ids":["2026-07-29_US_02","2026-07-14_US_02","2026-07-01_GL_03","2026-07-10_KR_01","2026-07-21_EU_04"]},
-    {"id":"03","title":"ESS, 별도 생산·수요축으로 확대","decision":"SELECT","reason":"ESS cell production and ESS-system revenue expansion are independently evidenced. The publication conclusion is limited to a distinct ESS production/customer axis; it does not infer continued EV growth, EV-demand disappearance, or simple EV-to-ESS substitution from those facts.","anchor_card_ids":["2026-07-02_US_01","2026-07-24_CN_01","2026-07-07_KR_01"]},
-    {"id":"04","title":"핵심광물 현지화, 협력선언에서 오프테이크·가공·수익성으로 내려옴","decision":"SELECT","reason":"Offtake, processing start and early profitability move localization from policy intent toward executable supply-chain assets without treating investment approval as production.","anchor_card_ids":["2026-07-02_GL_09","2026-07-01_KR_05","2026-07-30_KR_01"]},
-    {"id":"05","title":"관세·세제 규칙, 원가를 넘어 시장진입과 기술선택을 분기","decision":"SELECT","reason":"Section 301 tariff action and China battery consumption-tax rules change landed cost, product economics and market-entry conditions without relying on the quarantined FCC or Lazard compound-title cards.","anchor_card_ids":["2026-07-23_US_02","2026-07-16_CN_01"]}
+    {
+      "id": "01",
+      "title": "ESS, 프로젝트가 아니라 자본시장·전력시장이 함께 가격을 매기는 자산으로",
+      "decision": "SELECT",
+      "reason": "July contains independent evidence across platform M&A, bank financing, long-term revenue contracts, energization and COD; together they show ESS asset-class maturation without treating stages as equivalent.",
+      "anchor_card_ids": [
+        "2026-07-22_US_01",
+        "2026-07-13_GL_02",
+        "2026-07-01_GL_01",
+        "2026-07-20_EU_03",
+        "2026-07-20_US_05",
+        "2026-07-14_GL_04"
+      ]
+    },
+    {
+      "id": "02",
+      "title": "AI·계통 병목, BESS를 전력 인프라 설계요소로 끌어들임",
+      "decision": "SELECT",
+      "reason": "AI/data-center projects, distribution-grid programs and flexible grid-connection rules independently pull BESS into power-system design, creating a distinct demand logic beyond renewable co-location.",
+      "anchor_card_ids": [
+        "2026-07-29_US_02",
+        "2026-07-14_US_02",
+        "2026-07-01_GL_03",
+        "2026-07-10_KR_01",
+        "2026-07-21_EU_04"
+      ]
+    },
+    {
+      "id": "03",
+      "title": "ESS, 별도 생산·수요축으로 확대",
+      "decision": "SELECT",
+      "reason": "ESS cell production and ESS-system revenue expansion are independently evidenced. The publication conclusion is limited to a distinct ESS production/customer axis; it does not infer continued EV growth, EV-demand disappearance, or simple EV-to-ESS substitution from those facts.",
+      "anchor_card_ids": [
+        "2026-07-02_US_01",
+        "2026-07-24_CN_01",
+        "2026-07-07_KR_01"
+      ]
+    },
+    {
+      "id": "04",
+      "title": "핵심광물 현지화, 협력선언에서 오프테이크·가공·수익성으로 내려옴",
+      "decision": "SELECT",
+      "reason": "Offtake, processing start and early profitability move localization from policy intent toward executable supply-chain assets without treating investment approval as production.",
+      "anchor_card_ids": [
+        "2026-07-02_GL_09",
+        "2026-07-01_KR_05",
+        "2026-07-30_KR_01"
+      ]
+    },
+    {
+      "id": "05",
+      "title": "관세·세제 규칙, 원가를 넘어 시장진입과 기술선택을 분기",
+      "decision": "SELECT",
+      "reason": "Section 301 tariff action and China battery consumption-tax rules change landed cost, product economics and market-entry conditions without relying on the quarantined FCC or Lazard compound-title cards.",
+      "anchor_card_ids": [
+        "2026-07-23_US_02",
+        "2026-07-16_CN_01"
+      ]
+    }
   ],
   "legacy_comparison": {
     "consulted_after_independent_thesis_lock": true,
     "retained_strength": "Execution-stage discipline from legacy Vol.09 remains valid.",
-    "upgrades": ["BESS platform M&A/capitalization elevated","AI/grid bottleneck separated","EV substitution is not inferred from ESS growth alone","rules reframed as market-entry/technology-selection","SBTL pouch inference narrowed to verified program evidence"],
+    "upgrades": [
+      "BESS platform M&A/capitalization elevated",
+      "AI/grid bottleneck separated",
+      "EV substitution is not inferred from ESS growth alone",
+      "rules reframed as market-entry/technology-selection",
+      "SBTL pouch inference narrowed to verified program evidence"
+    ],
     "non_lithium_storage_decision": "NARROW_TO_REINFORCEMENT_AND_WATCH_NOT_STANDALONE_FLOW"
   },
   "rejected_or_narrowed_narratives": [
-    {"narrative":"EV 둔화가 ESS 성장으로 단순 대체됐다","decision":"REJECT","reason":"The published evidence establishes ESS production and revenue expansion but does not establish a one-for-one EV-to-ESS substitution mechanism. The brief therefore does not infer EV contraction, disappearance or replacement from ESS growth alone."},
-    {"narrative":"발표된 ESS GW/GWh는 모두 확정 발주·설치물량이다","decision":"REJECT","reason":"Paducah is an up-to plan subject to definitive documents, while other cards span distinct RFP, contract, financing, energization and COD stages."},
-    {"narrative":"ESS 성장률을 파우치필름 수요로 직접 환산할 수 있다","decision":"REJECT","reason":"Several ESS cells have unconfirmed form factor. A July pouch-program card with unresolved ESS-use source binding is quarantined rather than used as a direct demand anchor."},
-    {"narrative":"핵심광물 가공개시·초기 흑자는 곧바로 안정 생산과 장기 현금흐름을 뜻한다","decision":"REJECT","reason":"Processing start and early quarterly profit represent different maturity stages and do not by themselves establish stable long-run output or cash flow."},
-    {"narrative":"중국의 2% 소비세는 완성 ESS 시스템 전체에 동일하게 부과된다","decision":"NARROW","reason":"The July rule targets defined battery products; later tax-authority guidance further distinguishes battery clusters from complete ESS equipment. Later guidance is counterevidence only, not a July official ref."}
+    {
+      "narrative": "EV 둔화가 ESS 성장으로 단순 대체됐다",
+      "decision": "REJECT",
+      "reason": "The published evidence establishes ESS production and revenue expansion but does not establish a one-for-one EV-to-ESS substitution mechanism. The brief therefore does not infer EV contraction, disappearance or replacement from ESS growth alone."
+    },
+    {
+      "narrative": "발표된 ESS GW/GWh는 모두 확정 발주·설치물량이다",
+      "decision": "REJECT",
+      "reason": "Paducah is an up-to plan subject to definitive documents, while other cards span distinct RFP, contract, financing, energization and COD stages."
+    },
+    {
+      "narrative": "ESS 성장률을 파우치필름 수요로 직접 환산할 수 있다",
+      "decision": "REJECT",
+      "reason": "Several ESS cells have unconfirmed form factor. A July pouch-program card with unresolved ESS-use source binding is quarantined rather than used as a direct demand anchor."
+    },
+    {
+      "narrative": "핵심광물 가공개시·초기 흑자는 곧바로 안정 생산과 장기 현금흐름을 뜻한다",
+      "decision": "REJECT",
+      "reason": "Processing start and early quarterly profit represent different maturity stages and do not by themselves establish stable long-run output or cash flow."
+    },
+    {
+      "narrative": "중국의 2% 소비세는 완성 ESS 시스템 전체에 동일하게 부과된다",
+      "decision": "NARROW",
+      "reason": "The July rule targets defined battery products; later tax-authority guidance further distinguishes battery clusters from complete ESS equipment. Later guidance is counterevidence only, not a July official ref."
+    }
   ],
   "post_month_counterevidence": [
-    {"status":"LATE_CANONICAL_COUNTEREVIDENCE","card_id":"2026-08-27_CN_02","finding":"China tax authority clarified on 2026-08-27 that battery clusters assembled from cells are taxable battery packs while a complete ESS integrated with electrical, thermal, fire and control systems is not itself a taxable battery product. This narrows the watch wording without changing the July rule event.","source":{"publisher":"State Taxation Administration of China","publication_date":"2026-08-27","url":"https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html"}}
+    {
+      "status": "LATE_CANONICAL_COUNTEREVIDENCE",
+      "card_id": "2026-08-27_CN_02",
+      "finding": "China tax authority clarified on 2026-08-27 that battery clusters assembled from cells are taxable battery packs while a complete ESS integrated with electrical, thermal, fire and control systems is not itself a taxable battery product. This narrows the watch wording without changing the July rule event.",
+      "source": {
+        "publisher": "State Taxation Administration of China",
+        "publication_date": "2026-08-27",
+        "url": "https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html"
+      }
+    }
   ],
   "official_source_selection": {
     "selected_card_count": 19,
     "selection_principle": "Decision-relevant canonical anchors proving the five flows under the locked-title/validator-accepted-URL provenance contract; cards are quarantined rather than rebound to URLs that the locked canonical metadata does not certify.",
-    "source_card_ids": ["2026-07-22_US_01","2026-07-13_GL_02","2026-07-01_GL_01","2026-07-20_EU_03","2026-07-20_US_05","2026-07-14_GL_04","2026-07-29_US_02","2026-07-14_US_02","2026-07-01_GL_03","2026-07-10_KR_01","2026-07-21_EU_04","2026-07-02_US_01","2026-07-24_CN_01","2026-07-02_GL_09","2026-07-01_KR_05","2026-07-30_KR_01","2026-07-23_US_02","2026-07-16_CN_01","2026-07-07_KR_01"],
+    "source_card_ids": [
+      "2026-07-22_US_01",
+      "2026-07-13_GL_02",
+      "2026-07-01_GL_01",
+      "2026-07-20_EU_03",
+      "2026-07-20_US_05",
+      "2026-07-14_GL_04",
+      "2026-07-29_US_02",
+      "2026-07-14_US_02",
+      "2026-07-01_GL_03",
+      "2026-07-10_KR_01",
+      "2026-07-21_EU_04",
+      "2026-07-02_US_01",
+      "2026-07-24_CN_01",
+      "2026-07-02_GL_09",
+      "2026-07-01_KR_05",
+      "2026-07-30_KR_01",
+      "2026-07-23_US_02",
+      "2026-07-16_CN_01",
+      "2026-07-07_KR_01"
+    ],
     "binding": [
-      {"id":"2026-07-22_US_01","selected_url":"https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners","title_supporting_urls":["https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners"]},
-      {"id":"2026-07-13_GL_02","selected_url":"https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project","title_supporting_urls":["https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project"]},
-      {"id":"2026-07-01_GL_01","selected_url":"https://www.energy-storage.news/grenergy-signs-1twh-night-time-ppa-for-3-5gwh-chile-bess","title_supporting_urls":["https://www.energy-storage.news/grenergy-signs-1twh-night-time-ppa-for-3-5gwh-chile-bess"]},
-      {"id":"2026-07-20_EU_03","selected_url":"https://return.energy/news/return-and-engie-sign-pioneering-ten-year-agreement-to-accelerate-battery-storage-in-spain","title_supporting_urls":["https://return.energy/news/return-and-engie-sign-pioneering-ten-year-agreement-to-accelerate-battery-storage-in-spain"]},
-      {"id":"2026-07-20_US_05","selected_url":"https://www.pv-tech.org/avantus-starts-commercial-operations-aratina-1-solar-plus-storage-california/","title_supporting_urls":["https://www.pv-tech.org/avantus-starts-commercial-operations-aratina-1-solar-plus-storage-california/"]},
-      {"id":"2026-07-14_GL_04","selected_url":"https://www.mgen.com.ph/mgen-inaugurates-mterra-solar-phase-1/","title_supporting_urls":["https://www.mgen.com.ph/mgen-inaugurates-mterra-solar-phase-1/"]},
-      {"id":"2026-07-29_US_02","selected_url":"https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921","title_supporting_urls":["https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"]},
-      {"id":"2026-07-14_US_02","selected_url":"https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/steel-river-arkansas/","title_supporting_urls":["https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/steel-river-arkansas/"]},
-      {"id":"2026-07-01_GL_03","selected_url":"https://www.energy-storage.news/australian-ai-developer-locks-in-1-5gwh-of-battery-energy-storage-under-12-year-agreement","title_supporting_urls":["https://www.energy-storage.news/australian-ai-developer-locks-in-1-5gwh-of-battery-energy-storage-under-12-year-agreement"]},
-      {"id":"2026-07-10_KR_01","selected_url":"https://www.mcee.go.kr/home/web/board/read.do?boardId=1876770&boardMasterId=939&menuId=10598","title_supporting_urls":["https://www.mcee.go.kr/home/web/board/read.do?boardId=1876770&boardMasterId=939&menuId=10598"]},
-      {"id":"2026-07-21_EU_04","selected_url":"https://www.presseportal.de/pm/169518/6318540","title_supporting_urls":["https://www.presseportal.de/pm/169518/6318540"]},
-      {"id":"2026-07-02_US_01","selected_url":"https://en.yna.co.kr/view/AEN20260703004000320","title_supporting_urls":["https://en.yna.co.kr/view/AEN20260703004000320"]},
-      {"id":"2026-07-24_CN_01","selected_url":"https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12462543","title_supporting_urls":["https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12462543"]},
-      {"id":"2026-07-02_GL_09","selected_url":"https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/","title_supporting_urls":["https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/"]},
-      {"id":"2026-07-01_KR_05","selected_url":"https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable","title_supporting_urls":["https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable"]},
-      {"id":"2026-07-30_KR_01","selected_url":"https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/","title_supporting_urls":["https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/"]},
-      {"id":"2026-07-23_US_02","selected_url":"https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations","title_supporting_urls":["https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations"]},
-      {"id":"2026-07-16_CN_01","selected_url":"https://shanxi.chinatax.gov.cn/web/detail/sx-11400-545-1822939","title_supporting_urls":["https://shanxi.chinatax.gov.cn/web/detail/sx-11400-545-1822939"]},
-      {"id":"2026-07-07_KR_01","selected_url":"https://news.dealsitetv.com/articles/172933","title_supporting_urls":["https://news.dealsitetv.com/articles/172933"]}
+      {
+        "id": "2026-07-22_US_01",
+        "selected_url": "https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners",
+        "title_supporting_urls": [
+          "https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners"
+        ]
+      },
+      {
+        "id": "2026-07-13_GL_02",
+        "selected_url": "https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project",
+        "title_supporting_urls": [
+          "https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project"
+        ]
+      },
+      {
+        "id": "2026-07-01_GL_01",
+        "selected_url": "https://www.energy-storage.news/grenergy-signs-1twh-night-time-ppa-for-3-5gwh-chile-bess",
+        "title_supporting_urls": [
+          "https://www.energy-storage.news/grenergy-signs-1twh-night-time-ppa-for-3-5gwh-chile-bess"
+        ]
+      },
+      {
+        "id": "2026-07-20_EU_03",
+        "selected_url": "https://return.energy/news/return-and-engie-sign-pioneering-ten-year-agreement-to-accelerate-battery-storage-in-spain",
+        "title_supporting_urls": [
+          "https://return.energy/news/return-and-engie-sign-pioneering-ten-year-agreement-to-accelerate-battery-storage-in-spain"
+        ]
+      },
+      {
+        "id": "2026-07-20_US_05",
+        "selected_url": "https://www.pv-tech.org/avantus-starts-commercial-operations-aratina-1-solar-plus-storage-california/",
+        "title_supporting_urls": [
+          "https://www.pv-tech.org/avantus-starts-commercial-operations-aratina-1-solar-plus-storage-california/"
+        ]
+      },
+      {
+        "id": "2026-07-14_GL_04",
+        "selected_url": "https://www.mgen.com.ph/mgen-inaugurates-mterra-solar-phase-1/",
+        "title_supporting_urls": [
+          "https://www.mgen.com.ph/mgen-inaugurates-mterra-solar-phase-1/"
+        ]
+      },
+      {
+        "id": "2026-07-29_US_02",
+        "selected_url": "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921",
+        "title_supporting_urls": [
+          "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"
+        ]
+      },
+      {
+        "id": "2026-07-14_US_02",
+        "selected_url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/steel-river-arkansas/",
+        "title_supporting_urls": [
+          "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/steel-river-arkansas/"
+        ]
+      },
+      {
+        "id": "2026-07-01_GL_03",
+        "selected_url": "https://www.energy-storage.news/australian-ai-developer-locks-in-1-5gwh-of-battery-energy-storage-under-12-year-agreement",
+        "title_supporting_urls": [
+          "https://www.energy-storage.news/australian-ai-developer-locks-in-1-5gwh-of-battery-energy-storage-under-12-year-agreement"
+        ]
+      },
+      {
+        "id": "2026-07-10_KR_01",
+        "selected_url": "https://www.mcee.go.kr/home/web/board/read.do?boardId=1876770&boardMasterId=939&menuId=10598",
+        "title_supporting_urls": [
+          "https://www.mcee.go.kr/home/web/board/read.do?boardId=1876770&boardMasterId=939&menuId=10598"
+        ]
+      },
+      {
+        "id": "2026-07-21_EU_04",
+        "selected_url": "https://www.presseportal.de/pm/169518/6318540",
+        "title_supporting_urls": [
+          "https://www.presseportal.de/pm/169518/6318540"
+        ]
+      },
+      {
+        "id": "2026-07-02_US_01",
+        "selected_url": "https://en.yna.co.kr/view/AEN20260703004000320",
+        "title_supporting_urls": [
+          "https://en.yna.co.kr/view/AEN20260703004000320"
+        ]
+      },
+      {
+        "id": "2026-07-24_CN_01",
+        "selected_url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12462543",
+        "title_supporting_urls": [
+          "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12462543"
+        ]
+      },
+      {
+        "id": "2026-07-02_GL_09",
+        "selected_url": "https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/",
+        "title_supporting_urls": [
+          "https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/"
+        ]
+      },
+      {
+        "id": "2026-07-01_KR_05",
+        "selected_url": "https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable",
+        "title_supporting_urls": [
+          "https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable"
+        ]
+      },
+      {
+        "id": "2026-07-30_KR_01",
+        "selected_url": "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/",
+        "title_supporting_urls": [
+          "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/"
+        ]
+      },
+      {
+        "id": "2026-07-23_US_02",
+        "selected_url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations",
+        "title_supporting_urls": [
+          "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations"
+        ]
+      },
+      {
+        "id": "2026-07-16_CN_01",
+        "selected_url": "https://shanxi.chinatax.gov.cn/web/detail/sx-11400-545-1822939",
+        "title_supporting_urls": [
+          "https://shanxi.chinatax.gov.cn/web/detail/sx-11400-545-1822939"
+        ]
+      },
+      {
+        "id": "2026-07-07_KR_01",
+        "selected_url": "https://news.dealsitetv.com/articles/172933",
+        "title_supporting_urls": [
+          "https://news.dealsitetv.com/articles/172933"
+        ]
+      }
     ]
   },
   "card_integrity_triage": {
     "status": "PASS_WITH_QUARANTINED_NON_INDISPENSABLE_CANONICAL_DEFECTS",
     "quarantined_cards": [
-      {"id":"2026-07-14_GL_03","class":"CARD_SOURCE_BINDING","reason":"Compound canonical title spans electrolyte and separator figures supported by separate SNE releases; one public ref cannot prove the full locked title under the current provenance contract."},
-      {"id":"2026-07-03_GL_08","class":"CARD_FACT_ERROR","reason":"Locked visible title relocates the rehabilitated Lobito rail segment into DRC, while governed evidence describes the Angola segment to the DRC border."},
-      {"id":"2026-07-03_KR_01","class":"CARD_SOURCE_BINDING","reason":"Selected July source proves Poseung pouch-film commercialization but not the ESS application embedded in the locked visible title."},
-      {"id":"2026-07-07_US_02","class":"CARD_SOURCE_BINDING","reason":"Locked visible title combines a prior $70M conversion figure from the March Ultium source with the July production-start event; no single selected governed URL proves the complete compound title."},
-      {"id":"2026-07-16_CN_03","class":"CARD_SOURCE_BINDING","reason":"Locked title combines 76.5GWh installation with an 83.3% LFP-share component supported by a separate source. Publication quarantines the card rather than introducing a title override."},
-      {"id":"2026-07-22_GL_01","class":"CARD_SOURCE_BINDING","reason":"Locked The Australian URL is truncated at /news-story/ and cannot identify the cited article supporting the Mt Holland claim."},
-      {"id":"2026-07-01_CN_01","class":"CARD_SOURCE_BINDING","reason":"Locked English.gov.cn URL is malformed; publication does not silently substitute tracker-only provenance."},
-      {"id":"2026-07-28_US_01","class":"CARD_SOURCE_BINDING","reason":"The locked validator accepts the Reuters URL for this card, but that URL does not establish the complete foreign-produced inverter scope in the locked title; the fuller Nextgov source is not validator-certified for this locked card, so the card is quarantined rather than rebound outside the contract."},
-      {"id":"2026-07-13_US_02","class":"CARD_SOURCE_BINDING","reason":"The locked validator accepts the Lazard press-release URL, but that URL does not establish the complete four-hour LCOS comparison in the locked title; the fuller Energy-Storage.news source is not validator-certified for this locked card, so the card is quarantined rather than rebound outside the contract."}
+      {
+        "id": "2026-07-14_GL_03",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "Compound canonical title spans electrolyte and separator figures supported by separate SNE releases; one public ref cannot prove the full locked title under the current provenance contract."
+      },
+      {
+        "id": "2026-07-03_GL_08",
+        "class": "CARD_FACT_ERROR",
+        "reason": "Locked visible title relocates the rehabilitated Lobito rail segment into DRC, while governed evidence describes the Angola segment to the DRC border."
+      },
+      {
+        "id": "2026-07-03_KR_01",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "Selected July source proves Poseung pouch-film commercialization but not the ESS application embedded in the locked visible title."
+      },
+      {
+        "id": "2026-07-07_US_02",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "Locked visible title combines a prior $70M conversion figure from the March Ultium source with the July production-start event; no single selected governed URL proves the complete compound title."
+      },
+      {
+        "id": "2026-07-16_CN_03",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "Locked title combines 76.5GWh installation with an 83.3% LFP-share component supported by a separate source. Publication quarantines the card rather than introducing a title override."
+      },
+      {
+        "id": "2026-07-22_GL_01",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "Locked The Australian URL is truncated at /news-story/ and cannot identify the cited article supporting the Mt Holland claim."
+      },
+      {
+        "id": "2026-07-01_CN_01",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "Locked English.gov.cn URL is malformed; publication does not silently substitute tracker-only provenance."
+      },
+      {
+        "id": "2026-07-28_US_01",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "The locked validator accepts the Reuters URL for this card, but that URL does not establish the complete foreign-produced inverter scope in the locked title; the fuller Nextgov source is not validator-certified for this locked card, so the card is quarantined rather than rebound outside the contract."
+      },
+      {
+        "id": "2026-07-13_US_02",
+        "class": "CARD_SOURCE_BINDING",
+        "reason": "The locked validator accepts the Lazard press-release URL, but that URL does not establish the complete four-hour LCOS comparison in the locked title; the fuller Energy-Storage.news source is not validator-certified for this locked card, so the card is quarantined rather than rebound outside the contract."
+      }
     ],
     "publication_binding_fixes": [
-      {"id":"2026-07-29_US_02","action":"REBIND_TO_GOVERNED_FULL_CLAIM_SOURCE","url":"https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"},
-      {"id":"2026-07-01_KR_05","action":"REBIND_TO_GOVERNED_FULL_CLAIM_SOURCE","url":"https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable"}
+      {
+        "id": "2026-07-29_US_02",
+        "action": "REBIND_TO_GOVERNED_FULL_CLAIM_SOURCE",
+        "url": "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"
+      },
+      {
+        "id": "2026-07-01_KR_05",
+        "action": "REBIND_TO_GOVERNED_FULL_CLAIM_SOURCE",
+        "url": "https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable"
+      }
     ],
-    "brief_overreach_controls": ["execution-stage separation","EV-vs-ESS substitution non-inference","pouch direct-vs-indirect demand filter","tax/tariff product-scope precision"]
+    "brief_overreach_controls": [
+      "execution-stage separation",
+      "EV-vs-ESS substitution non-inference",
+      "pouch direct-vs-indirect demand filter",
+      "tax/tariff product-scope precision"
+    ]
   },
   "qc": {
-    "evidence":"PASS",
-    "counterevidence":"PASS",
-    "policy_stage_precision":"PASS",
-    "number_and_unit_separation":"PASS",
-    "causal_language":"PASS",
-    "legacy_issue_independence":"PASS",
-    "official_refs_locked_to_current_july_canonical":"PASS",
-    "source_binding":"PASS_LOCKED_CANONICAL_TITLES_WITH_VALIDATOR_ACCEPTED_COMPLETE_TITLE_URLS",
-    "canonical_defect_quarantine":"PASS_WITH_NINE_NON_INDISPENSABLE_CARDS_QUARANTINED",
-    "policy_scope_precision":"PASS_AFTER_REMEDIATION",
-    "post_month_classification":"PASS_LATE_CANONICAL_COUNTEREVIDENCE",
-    "codex_review_5196371944":"REMEDIATED_P1_LOCKED_TITLE_CONTRACT_PRESERVED",
-    "codex_review_5196602060":"REMEDIATED_P1_X3_FLOW_NARROWED_AND_TWO_CARDS_QUARANTINED"
+    "evidence": "PASS",
+    "counterevidence": "PASS",
+    "policy_stage_precision": "PASS",
+    "number_and_unit_separation": "PASS",
+    "causal_language": "PASS",
+    "legacy_issue_independence": "PASS",
+    "official_refs_locked_to_current_july_canonical": "PASS",
+    "source_binding": "PASS_LOCKED_CANONICAL_TITLES_WITH_VALIDATOR_ACCEPTED_COMPLETE_TITLE_URLS",
+    "canonical_defect_quarantine": "PASS_WITH_NINE_NON_INDISPENSABLE_CARDS_QUARANTINED",
+    "policy_scope_precision": "PASS_AFTER_REMEDIATION",
+    "post_month_classification": "PASS_LATE_CANONICAL_COUNTEREVIDENCE",
+    "codex_review_5196371944": "REMEDIATED_P1_LOCKED_TITLE_CONTRACT_PRESERVED",
+    "codex_review_5196602060": "REMEDIATED_P1_X3_FLOW_NARROWED_AND_TWO_CARDS_QUARANTINED",
+    "codex_review_5205423260": "REMEDIATED_R1_PRESERVED_R2_PUBLISHED_2026_09_15"
   }
 }

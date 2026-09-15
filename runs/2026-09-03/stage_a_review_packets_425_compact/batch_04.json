@@ -1,0 +1,1440 @@
+{
+  "schema": "stage_a_compact_review_packet_v1",
+  "batch": 4,
+  "event_count": 25,
+  "events": [
+    {
+      "ordinal": 76,
+      "event_id": "XRUN_REPLAY_20260903_E0122",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C07",
+        "story_id": "GL_2026-08-28_C07",
+        "date": "2026-08-28",
+        "title": "Elevra Lithium's underlying earnings take positive turn on record NAL tonnages - Mining Weekly",
+        "site": "Mining Weekly (via Google News)",
+        "url": "https://www.miningweekly.com/article/elevra-lithiums-underlying-earnings-take-positive-turn-on-record-nal-tonnages-2026-08-28",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "17ddd060706b1581dab7a76666d47649af4a535768d9cbdbf4a99e67f19700b3"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-28_C07"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-28_C07",
+          "date": "2026-08-28",
+          "site": "Mining Weekly (via Google News)",
+          "title": "Elevra Lithium's underlying earnings take positive turn on record NAL tonnages - Mining Weekly",
+          "url": "https://www.miningweekly.com/article/elevra-lithiums-underlying-earnings-take-positive-turn-on-record-nal-tonnages-2026-08-28"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "lithium"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "earnings",
+          "record "
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 77,
+      "event_id": "XRUN_REPLAY_20260903_E0135",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C14",
+        "story_id": "EU_2026-08-28_C14",
+        "date": "2026-08-28",
+        "title": "Italy plans 320 MW BESS next to Terna substation",
+        "site": "ESS News RSS",
+        "url": "https://www.ess-news.com/2026/08/28/italy-plans-320-mw-bess-next-to-terna-substation",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "9c78e8d5984d5969824783212af7d9999a1aeca08804825d30abd9105e8334af"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "EU_2026-08-28_C14"
+      ],
+      "source_titles": [
+        {
+          "story_id": "EU_2026-08-28_C14",
+          "date": "2026-08-28",
+          "site": "ESS News RSS",
+          "title": "Italy plans 320 MW BESS next to Terna substation",
+          "url": "https://www.ess-news.com/2026/08/28/italy-plans-320-mw-bess-next-to-terna-substation"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "bess",
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "mw "
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 78,
+      "event_id": "XRUN_REPLAY_20260903_E0145",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C02",
+        "story_id": "EU_2026-08-28_C02",
+        "date": "2026-08-28",
+        "title": "BYD reports 10,000 Flash Chargers installed in China",
+        "site": "Electrive RSS",
+        "url": "https://www.electrive.com/2026/08/28/byd-reports-10000-flash-chargers-installed-in-china",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "725b78b6162c33142df62c3656db8fa468632706ce8ed7ce07e031a55b8f7183"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "EU_2026-08-28_C02"
+      ],
+      "source_titles": [
+        {
+          "story_id": "EU_2026-08-28_C02",
+          "date": "2026-08-28",
+          "site": "Electrive RSS",
+          "title": "BYD reports 10,000 Flash Chargers installed in China",
+          "url": "https://www.electrive.com/2026/08/28/byd-reports-10000-flash-chargers-installed-in-china"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "charger"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "installed"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 79,
+      "event_id": "XRUN_REPLAY_20260903_E0166",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-29_C01",
+        "story_id": "CN_2026-08-29_C01",
+        "date": "2026-08-29",
+        "title": "BYD sees export surge, yet H1 2026 sales hit by second-gen Blade Battery shortages",
+        "site": "CarNewsChina RSS",
+        "url": "https://carnewschina.com/2026/08/29/byd-sees-export-surge-yet-h1-2026-sales-hit-by-second-gen-blade-battery-shortages",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "68e6d1a7bb5b08bd84bdae548dfe99a851bd551271ecf6469ebc7451424658df"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "CN_2026-08-29_C01"
+      ],
+      "source_titles": [
+        {
+          "story_id": "CN_2026-08-29_C01",
+          "date": "2026-08-29",
+          "site": "CarNewsChina RSS",
+          "title": "BYD sees export surge, yet H1 2026 sales hit by second-gen Blade Battery shortages",
+          "url": "https://carnewschina.com/2026/08/29/byd-sees-export-surge-yet-h1-2026-sales-hit-by-second-gen-blade-battery-shortages"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "sales"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 80,
+      "event_id": "XRUN_REPLAY_20260903_E0193",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0068",
+        "story_id": "TF_0068",
+        "date": "2026-08-31",
+        "title": "K-AIDC 속도전 막는 ‘인허가 지연·시공 병목’ 경고",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371869",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "3956096aa20cd5c96aa30e3278f9e37f70e73a3fdb042cc3e02ab8551b21e59f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "TF_0068"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0068",
+          "date": "2026-08-31",
+          "site": "전기신문",
+          "title": "K-AIDC 속도전 막는 ‘인허가 지연·시공 병목’ 경고",
+          "url": "https://www.electimes.com/news/articleView.html?idxno=371869"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "허가"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 81,
+      "event_id": "XRUN_REPLAY_20260903_E0239",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C10",
+        "story_id": "US_2026-08-31_C10",
+        "date": "2026-08-31",
+        "title": "Kempower data indicates that more charging plugs drive higher public EV charging site utilization",
+        "site": "Charged EVs RSS",
+        "url": "https://chargedevs.com/newswire/kempower-data-indicates-that-more-charging-plugs-drive-higher-public-ev-charging-site-utilization",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "55cc6e1d54c5f233a55cef4818b78d6b1812a65c8b694305ecf40c89824086ae"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "US_2026-08-31_C10"
+      ],
+      "source_titles": [
+        {
+          "story_id": "US_2026-08-31_C10",
+          "date": "2026-08-31",
+          "site": "Charged EVs RSS",
+          "title": "Kempower data indicates that more charging plugs drive higher public EV charging site utilization",
+          "url": "https://chargedevs.com/newswire/kempower-data-indicates-that-more-charging-plugs-drive-higher-public-ev-charging-site-utilization"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "charging",
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "utilization"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 82,
+      "event_id": "XRUN_REPLAY_20260903_E0247",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C110",
+        "story_id": "KR_2026-09-01_C110",
+        "date": "2026-09-01",
+        "title": "고성능 AI칩·첨단 반도체 장비 수출허가 대상 포함…기업 서약서는 폐지",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831221101729",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "fc2be07792144938cbf0e3f700d8424bb3086613f7bf152e633909e1eb4c4b1b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C110"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C110",
+          "date": "2026-09-01",
+          "site": "아주경제",
+          "title": "고성능 AI칩·첨단 반도체 장비 수출허가 대상 포함…기업 서약서는 폐지",
+          "url": "https://www.ajunews.com/view/20260831221101729"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "허가"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 83,
+      "event_id": "XRUN_REPLAY_20260903_E0319",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C10",
+        "story_id": "GL_2026-09-01_C10",
+        "date": "2026-09-01",
+        "title": "US Battery Installs to Hit Record in 2026, Industry Report Says",
+        "site": "Bloomberg Top News RSS",
+        "url": "https://www.bloomberg.com/news/articles/2026-09-01/us-battery-installs-to-hit-record-in-2026-industry-report-says",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "80818f5cabae3235118255b80596e0c53c39d9f67ab8099b0d789f7bfa6b4463"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-09-01_C10"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-09-01_C10",
+          "date": "2026-09-01",
+          "site": "Bloomberg Top News RSS",
+          "title": "US Battery Installs to Hit Record in 2026, Industry Report Says",
+          "url": "https://www.bloomberg.com/news/articles/2026-09-01/us-battery-installs-to-hit-record-in-2026-industry-report-says"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "record "
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "report says"
+        ]
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 84,
+      "event_id": "XRUN_REPLAY_20260903_E0334",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C26",
+        "story_id": "GL_2026-08-31_C26",
+        "date": "2026-08-31",
+        "title": "Resolving spatial mismatches unlocks six billion tons of China's climate gains from retired EV batteries by 2050",
+        "site": "Newswise SciNews",
+        "url": "https://www.newswise.com/articles/resolving-spatial-mismatches-unlocks-six-billion-tons-of-china-s-climate-gains-from-retired-ev-batteries-by-2050?sc=rssn",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "2cbdb701f9ba065d60208fdb3aaba0b4eb86edc70a18c9a3b604e51b8007b610"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-31_C26"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-31_C26",
+          "date": "2026-08-31",
+          "site": "Newswise SciNews",
+          "title": "Resolving spatial mismatches unlocks six billion tons of China's climate gains from retired EV batteries by 2050",
+          "url": "https://www.newswise.com/articles/resolving-spatial-mismatches-unlocks-six-billion-tons-of-china-s-climate-gains-from-retired-ev-batteries-by-2050?sc=rssn"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "batteries",
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "billion",
+          "tons"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 85,
+      "event_id": "XRUN_REPLAY_20260903_E0359",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C26",
+        "story_id": "CN_2026-09-01_C26",
+        "date": "2026-09-01",
+        "title": "爆赚超52亿，储能营收占比第一！千亿光储龙头中报出炉",
+        "site": "OFweek储能网",
+        "url": "https://chuneng.ofweek.com/news/2026-09/ART-180226-12000-30700934.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "ff60daba8a8557c7e18f80d38d0c6ac8405153c51396cc1160c4dc1ad2431f5a"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "CN_2026-09-01_C26"
+      ],
+      "source_titles": [
+        {
+          "story_id": "CN_2026-09-01_C26",
+          "date": "2026-09-01",
+          "site": "OFweek储能网",
+          "title": "爆赚超52亿，储能营收占比第一！千亿光储龙头中报出炉",
+          "url": "https://chuneng.ofweek.com/news/2026-09/ART-180226-12000-30700934.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "营收"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 86,
+      "event_id": "XRUN_REPLAY_20260903_E0363",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C15",
+        "story_id": "CN_2026-09-01_C15",
+        "date": "2026-09-01",
+        "title": "国综绿能大石桥虎官200MW/800MWh电网侧独立储能电站项目开工",
+        "site": "中国能源网",
+        "url": "https://www.china5e.com/news/news-1208558-1.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "135d5e2a505a8457a96895e76c42f88398405e168daf4ec23687943d4aa055f2"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "CN_2026-09-01_C15"
+      ],
+      "source_titles": [
+        {
+          "story_id": "CN_2026-09-01_C15",
+          "date": "2026-09-01",
+          "site": "中国能源网",
+          "title": "国综绿能大石桥虎官200MW/800MWh电网侧独立储能电站项目开工",
+          "url": "https://www.china5e.com/news/news-1208558-1.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "mwh"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 87,
+      "event_id": "XRUN_REPLAY_20260903_E0364",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C13",
+        "story_id": "CN_2026-09-01_C13",
+        "date": "2026-09-01",
+        "title": "免税红利没了, 电车要涨价了吗？",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-09/ART-36001-8420-30700990.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "0de1366a4223d0f392dad5f119446cac1bfd3837b431d5373bda17c55eb6e43b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "CN_2026-09-01_C13"
+      ],
+      "source_titles": [
+        {
+          "story_id": "CN_2026-09-01_C13",
+          "date": "2026-09-01",
+          "site": "OFweek Li-Battery",
+          "title": "免税红利没了, 电车要涨价了吗？",
+          "url": "https://libattery.ofweek.com/2026-09/ART-36001-8420-30700990.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "税"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 88,
+      "event_id": "XRUN_REPLAY_20260903_E0366",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C22",
+        "story_id": "CN_2026-09-01_C22",
+        "date": "2026-09-01",
+        "title": "松原长岭100MW/200MWh构网型储能电站顺利并网",
+        "site": "中国能源网",
+        "url": "https://www.china5e.com/news/news-1208557-1.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "baadeb02cf9212b1fb7f69bf006f5f836e1dec81035eea2f273ca2287f697fea"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "CN_2026-09-01_C22"
+      ],
+      "source_titles": [
+        {
+          "story_id": "CN_2026-09-01_C22",
+          "date": "2026-09-01",
+          "site": "中国能源网",
+          "title": "松原长岭100MW/200MWh构网型储能电站顺利并网",
+          "url": "https://www.china5e.com/news/news-1208557-1.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "mwh"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 89,
+      "event_id": "XRUN_REPLAY_20260903_E0402",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0151",
+        "story_id": "TF_0151",
+        "date": "2026-09-01",
+        "title": "산업부, '전략물자 수출입고시' 개정안 시행…80여건 반영",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371943",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "15c178973e77d824000fe6c58870b3d5125fe20857671c30580fcd3ba5ee33ec"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0151"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0151",
+          "date": "2026-09-01",
+          "site": "전기신문",
+          "title": "산업부, '전략물자 수출입고시' 개정안 시행…80여건 반영",
+          "url": "https://www.electimes.com/news/articleView.html?idxno=371943"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "시행"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 90,
+      "event_id": "XRUN_REPLAY_20260903_E0258",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C190",
+        "story_id": "KR_2026-09-01_C190",
+        "date": "2026-09-01",
+        "title": "제네시스, EV 구매 고객 대상 'E-pit 충전 감사 프로모션' 실시 뉴스 2026.09.01",
+        "site": "Hyundai Motor Group Newsroom",
+        "url": "https://www.hyundaimotorgroup.com/ko/news/genesis-ev-e-pit-charging-thank-you-promotion",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "6a36195b91e8d098ad2b2d7b2a34110aa9243de1c2a04a3ccf461f0ae4ba302b"
+        }
+      },
+      "observation_count": 4,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C191",
+        "KR_2026-09-01_C189",
+        "KR_2026-09-01_C190",
+        "KR_2026-09-01_C100"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C191",
+          "date": "2026-09-01",
+          "site": "서울경제TV",
+          "title": "제네시스, EV 구매 고객 대상 ‘E-pit 충전 감사 프로모션’ 실시",
+          "url": "https://www.sentv.co.kr/article/view/sentv202609010025"
+        },
+        {
+          "story_id": "KR_2026-09-01_C189",
+          "date": "2026-09-01",
+          "site": "프레스나인",
+          "title": "제네시스 EV 출고 고객, 3개월간 E-pit 충전 무료",
+          "url": "http://www.press9.kr/news/articleView.html?idxno=81922"
+        },
+        {
+          "story_id": "KR_2026-09-01_C190",
+          "date": "2026-09-01",
+          "site": "Hyundai Motor Group Newsroom",
+          "title": "제네시스, EV 구매 고객 대상 'E-pit 충전 감사 프로모션' 실시 뉴스 2026.09.01",
+          "url": "https://www.hyundaimotorgroup.com/ko/news/genesis-ev-e-pit-charging-thank-you-promotion"
+        },
+        {
+          "story_id": "KR_2026-09-01_C100",
+          "date": "2026-09-01",
+          "site": "전자신문",
+          "title": "“최대 3개월 충전비 무료”…제네시스, 전기차 구매자 대상 프로모션",
+          "url": "https://www.etnews.com/20260901000094"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "ev ",
+          "전기차",
+          "충전"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 91,
+      "event_id": "XRUN_REPLAY_20260903_E0267",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C27",
+        "story_id": "KR_2026-09-01_C27",
+        "date": "2026-09-01",
+        "title": "E1, LPG 신차 구매 고객 대상 충전지원금 지급…기아와 함께",
+        "site": "에너지신문",
+        "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227801",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "ea3e877c3065f7044f8488ba90330d280991f29415bd812ee946b1c82c3d525c"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C27",
+        "KR_2026-09-01_C26",
+        "KR_2026-09-01_C28"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C27",
+          "date": "2026-09-01",
+          "site": "에너지신문",
+          "title": "E1, LPG 신차 구매 고객 대상 충전지원금 지급…기아와 함께",
+          "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227801"
+        },
+        {
+          "story_id": "KR_2026-09-01_C26",
+          "date": "2026-09-01",
+          "site": "파이낸셜뉴스 RSS",
+          "title": "E1, \"기아 LPG 차량 충전비 절감\" 5만포인트 프로모션",
+          "url": "https://www.fnnews.com/news/202609011120376148"
+        },
+        {
+          "story_id": "KR_2026-09-01_C28",
+          "date": "2026-09-01",
+          "site": "아시아경제",
+          "title": "E1, 기아와 LPG 신차 고객 충전지원금 프로모션 진행",
+          "url": "https://view.asiae.co.kr/article/2026090111020579944"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전지",
+          "충전"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 92,
+      "event_id": "XRUN_REPLAY_20260903_E0018",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C189",
+        "story_id": "KR_2026-08-31_C189",
+        "date": "2026-08-31",
+        "title": "전북테크노파크, 나트륨배터리 활용기술 개발 추진…국책과제 발굴 등 연구회 킥-오프",
+        "site": "전자신문",
+        "url": "https://www.etnews.com/20260831000034",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "58f2807df3f72b3041af5760f031cc3ca6a498d98d427a7bf2489c8bd8af7d61"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C189",
+        "KR_2026-08-31_C77"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C189",
+          "date": "2026-08-31",
+          "site": "전자신문",
+          "title": "전북테크노파크, 나트륨배터리 활용기술 개발 추진…국책과제 발굴 등 연구회 킥-오프",
+          "url": "https://www.etnews.com/20260831000034"
+        },
+        {
+          "story_id": "KR_2026-08-31_C77",
+          "date": "2026-08-31",
+          "site": "전자신문",
+          "title": "전북테크노파크, 나트륨배터리 활용기술 개발 추진…국책과제 발굴 등 연구회 킥-오프",
+          "url": "https://www.etnews.com/20260831000034"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "나트륨",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [
+          "나트륨"
+        ],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "연구"
+        ]
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 93,
+      "event_id": "XRUN_REPLAY_20260903_E0028",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C90",
+        "story_id": "KR_2026-08-31_C90",
+        "date": "2026-08-31",
+        "title": "美 트럼프 전력망 비상사태 선포…韓 에너지 보안은 어디까지 왔나",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260831_0003769699",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "0a9bf0d7185c15026aa911fe1a176b4c3f12883c417400e283bbc7f0fab8ca5d"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C90",
+        "KR_2026-08-31_C44"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C90",
+          "date": "2026-08-31",
+          "site": "뉴시스 RSS",
+          "title": "美 트럼프 전력망 비상사태 선포…韓 에너지 보안은 어디까지 왔나",
+          "url": "https://www.newsis.com/view/NISX20260831_0003769699"
+        },
+        {
+          "story_id": "KR_2026-08-31_C44",
+          "date": "2026-08-31",
+          "site": "뉴시스 RSS",
+          "title": "美 트럼프 전력망 비상사태 선포…韓 에너지 보안은 어디까지 왔나",
+          "url": "https://www.newsis.com/view/NISX20260831_0003769699"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전력망"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 94,
+      "event_id": "XRUN_REPLAY_20260903_E0043",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C218",
+        "story_id": "KR_2026-08-31_C218",
+        "date": "2026-08-31",
+        "title": "헝가리 노조 \"SK온 벌금은 솜방망이\"…배터리 업계 전체로 이슈 확산 조짐",
+        "site": "더구루",
+        "url": "https://www.theguru.co.kr/news/article.html?no=106449",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "959183dde906b002f2d3e5bf221f9ec15c0dd95931549090d4da260037021b4d"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C218",
+        "KR_2026-08-31_C96"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C218",
+          "date": "2026-08-31",
+          "site": "더구루",
+          "title": "헝가리 노조 \"SK온 벌금은 솜방망이\"…배터리 업계 전체로 이슈 확산 조짐",
+          "url": "https://www.theguru.co.kr/news/article.html?no=106449"
+        },
+        {
+          "story_id": "KR_2026-08-31_C96",
+          "date": "2026-08-31",
+          "site": "더구루",
+          "title": "헝가리 노조 \"SK온 벌금은 솜방망이\"…배터리 업계 전체로 이슈 확산 조짐",
+          "url": "https://www.theguru.co.kr/news/article.html?no=106449"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 95,
+      "event_id": "XRUN_REPLAY_20260903_E0064",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C59",
+        "story_id": "KR_2026-08-31_C59",
+        "date": "2026-08-31",
+        "title": "[ENTECH 2026 참가기업] 화동뉴텍 - 33년 정밀가공 노하우로 전기차 부품 국산화 선도",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302209",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "a542dc982e6a7268f11e7f4447d38c4dfbd515719549cf7c57e5099ce001d289"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C59",
+        "KR_2026-08-31_C32"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C59",
+          "date": "2026-08-31",
+          "site": "투데이에너지",
+          "title": "[ENTECH 2026 참가기업] 화동뉴텍 - 33년 정밀가공 노하우로 전기차 부품 국산화 선도",
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302209"
+        },
+        {
+          "story_id": "KR_2026-08-31_C32",
+          "date": "2026-08-31",
+          "site": "투데이에너지",
+          "title": "[ENTECH 2026 참가기업] 화동뉴텍 - 33년 정밀가공 노하우로 전기차 부품 국산화 선도",
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302209"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전기차"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 96,
+      "event_id": "XRUN_REPLAY_20260903_E0093",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C02",
+        "story_id": "JP_2026-08-31_C02",
+        "date": "2026-08-31",
+        "title": "JALのいちご農園、消費電力6割が太陽光 パワーエックスと蓄電池活用",
+        "site": "Nikkei (日本経済新聞)",
+        "url": "https://www.nikkei.com/article/DGXZQOUC3130Z0R30C26A8000000",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "8f38cfa11a85db1d8ce5d8862ce9518da84c93ac6d91a7f0e2a098c2e5ee9ba7"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "JP_2026-08-31_C02",
+        "JP_2026-08-31_C02"
+      ],
+      "source_titles": [
+        {
+          "story_id": "JP_2026-08-31_C02",
+          "date": "2026-08-31",
+          "site": "Nikkei (日本経済新聞)",
+          "title": "JALのいちご農園、消費電力6割が太陽光 パワーエックスと蓄電池活用",
+          "url": "https://www.nikkei.com/article/DGXZQOUC3130Z0R30C26A8000000"
+        },
+        {
+          "story_id": "JP_2026-08-31_C02",
+          "date": "2026-08-31",
+          "site": "Nikkei (日本経済新聞)",
+          "title": "JALのいちご農園、消費電力6割が太陽光 パワーエックスと蓄電池活用",
+          "url": "https://www.nikkei.com/article/DGXZQOUC3130Z0R30C26A8000000"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 97,
+      "event_id": "XRUN_REPLAY_20260903_E0094",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-28_C01",
+        "story_id": "JP_2026-08-28_C01",
+        "date": "2026-08-28",
+        "title": "【工場実習/現地開催】「電池工場を活用しての電池技術者養成講座：第3回 リチウムイオン電池の製造技術－応用編」2026年10月5日（月）～10月9日（金）主催：(株)シーエムシー・リサーチ",
+        "site": "PR TIMES 蓄電池",
+        "url": "https://prtimes.jp/main/html/rd/p/000003069.000012580.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "793fdcc44e0ca39a2865fc54b17f0ec23eaa6d6c2c3fa5206a00b4c106257bec"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "JP_2026-08-28_C01",
+        "TF_0049"
+      ],
+      "source_titles": [
+        {
+          "story_id": "JP_2026-08-28_C01",
+          "date": "2026-08-28",
+          "site": "PR TIMES 蓄電池",
+          "title": "【工場実習/現地開催】「電池工場を活用しての電池技術者養成講座：第3回 リチウムイオン電池の製造技術－応用編」2026年10月5日（月）～10月9日（金）主催：(株)シーエムシー・リサーチ",
+          "url": "https://prtimes.jp/main/html/rd/p/000003069.000012580.html"
+        },
+        {
+          "story_id": "TF_0049",
+          "date": "2026-08-28",
+          "site": "PR TIMES 二次電池",
+          "title": "【工場実習/現地開催】「電池工場を活用しての電池技術者養成講座：第3回 リチウムイオン電池の製造技術－応用編」2026年10月5日（月）～10月9日（金）主催：(株)シーエムシー・リサーチ",
+          "url": "https://prtimes.jp/main/html/rd/p/000003069.000012580.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "リチウム"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 98,
+      "event_id": "XRUN_REPLAY_20260903_E0097",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-31_C07",
+        "story_id": "GL_2026-08-31_C07",
+        "date": "2026-08-31",
+        "title": "‘Australia is a market made for batteries’: Wärtsilä strategy lead on volatility and the business case for energy storage",
+        "site": "Energy-Storage.news RSS",
+        "url": "https://www.energy-storage.news/australia-is-a-market-made-for-batteries-wartsila-strategy-lead-on-volatility-and-the-business-case-for-energy-storage",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "9b717dc80c4c389c83ff3cb7f320c21eced0453bed2f35fcefe473572be97983"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-31_C07",
+        "GL_2026-08-31_C35"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-31_C07",
+          "date": "2026-08-31",
+          "site": "Energy-Storage.news RSS",
+          "title": "‘Australia is a market made for batteries’: Wärtsilä strategy lead on volatility and the business case for energy storage",
+          "url": "https://www.energy-storage.news/australia-is-a-market-made-for-batteries-wartsila-strategy-lead-on-volatility-and-the-business-case-for-energy-storage"
+        },
+        {
+          "story_id": "GL_2026-08-31_C35",
+          "date": "2026-08-31",
+          "site": "Energy-Storage.news RSS",
+          "title": "‘Australia is a market made for batteries’: Wärtsilä strategy lead on volatility and the business case for energy storage",
+          "url": "https://www.energy-storage.news/australia-is-a-market-made-for-batteries-wartsila-strategy-lead-on-volatility-and-the-business-case-for-energy-storage"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "batteries",
+          "energy storage",
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 99,
+      "event_id": "XRUN_REPLAY_20260903_E0100",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-31_C08",
+        "story_id": "GL_2026-08-31_C08",
+        "date": "2026-08-31",
+        "title": "‘You’re buying a liability’: panel warns developers on buying ageing battery storage assets in Australia",
+        "site": "Energy-Storage.news RSS",
+        "url": "https://www.energy-storage.news/youre-buying-a-liability-panel-warns-developers-on-buying-ageing-battery-storage-assets-in-australia",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "4433c1cf5c3f6939755fd77bbb5746e508893c61fdb4fb8615153123c00b0eef"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-31_C08",
+        "GL_2026-08-31_C36"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-31_C08",
+          "date": "2026-08-31",
+          "site": "Energy-Storage.news RSS",
+          "title": "‘You’re buying a liability’: panel warns developers on buying ageing battery storage assets in Australia",
+          "url": "https://www.energy-storage.news/youre-buying-a-liability-panel-warns-developers-on-buying-ageing-battery-storage-assets-in-australia"
+        },
+        {
+          "story_id": "GL_2026-08-31_C36",
+          "date": "2026-08-31",
+          "site": "Energy-Storage.news RSS",
+          "title": "‘You’re buying a liability’: panel warns developers on buying ageing battery storage assets in Australia",
+          "url": "https://www.energy-storage.news/youre-buying-a-liability-panel-warns-developers-on-buying-ageing-battery-storage-assets-in-australia"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 100,
+      "event_id": "XRUN_REPLAY_20260903_E0101",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-31_C02",
+        "story_id": "GL_2026-08-31_C02",
+        "date": "2026-08-31",
+        "title": "EU must work with South Korea battery makers to cut China risk, experts say",
+        "site": "Nikkei Asia NAR RSS",
+        "url": "https://asia.nikkei.com/business/automobiles/electric-vehicles/eu-must-work-with-south-korea-battery-makers-to-cut-china-risk-experts-say",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "9baba6aaef7c7b929b673e7b4adf3c7333805162443e8b90339c55c7d03b6d5e"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-31_C02",
+        "GL_2026-08-31_C16"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-31_C02",
+          "date": "2026-08-31",
+          "site": "Nikkei Asia NAR RSS",
+          "title": "EU must work with South Korea battery makers to cut China risk, experts say",
+          "url": "https://asia.nikkei.com/business/automobiles/electric-vehicles/eu-must-work-with-south-korea-battery-makers-to-cut-china-risk-experts-say"
+        },
+        {
+          "story_id": "GL_2026-08-31_C16",
+          "date": "2026-08-31",
+          "site": "Nikkei Asia NAR RSS",
+          "title": "EU must work with South Korea battery makers to cut China risk, experts say",
+          "url": "https://asia.nikkei.com/business/automobiles/electric-vehicles/eu-must-work-with-south-korea-battery-makers-to-cut-china-risk-experts-say"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

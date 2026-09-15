@@ -1,0 +1,1291 @@
+{
+  "schema": "stage_a_compact_review_packet_v1",
+  "batch": 8,
+  "event_count": 25,
+  "events": [
+    {
+      "ordinal": 176,
+      "event_id": "XRUN_REPLAY_20260903_E0228",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C31",
+        "story_id": "US_2026-08-31_C31",
+        "date": "2026-08-31",
+        "title": "hofer powertrain builds a battery module with programmable cell pressure control",
+        "site": "Charged EVs RSS",
+        "url": "https://chargedevs.com/newswire/hofer-powertrain-builds-a-battery-module-with-programmable-cell-pressure-control",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b6933666d95d462230d841054180d3fe2f465001e7e26bf60ac46c0ca8818c40"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "US_2026-08-31_C31"
+      ],
+      "source_titles": [
+        {
+          "story_id": "US_2026-08-31_C31",
+          "date": "2026-08-31",
+          "site": "Charged EVs RSS",
+          "title": "hofer powertrain builds a battery module with programmable cell pressure control",
+          "url": "https://chargedevs.com/newswire/hofer-powertrain-builds-a-battery-module-with-programmable-cell-pressure-control"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery",
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 177,
+      "event_id": "XRUN_REPLAY_20260903_E0232",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C30",
+        "story_id": "US_2026-08-31_C30",
+        "date": "2026-08-31",
+        "title": "Wevo’s WEVOPUR 60210 FL T polyurethane potting protects battery management PCBs",
+        "site": "Charged EVs RSS",
+        "url": "https://chargedevs.com/newswire/wevos-wevopur-60210-fl-t-polyurethane-potting-protects-battery-management-pcbs",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "5debb03d4a883d5e87f6be94277649aad02458b24f5515ca7d1197a406f22343"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "US_2026-08-31_C30"
+      ],
+      "source_titles": [
+        {
+          "story_id": "US_2026-08-31_C30",
+          "date": "2026-08-31",
+          "site": "Charged EVs RSS",
+          "title": "Wevo’s WEVOPUR 60210 FL T polyurethane potting protects battery management PCBs",
+          "url": "https://chargedevs.com/newswire/wevos-wevopur-60210-fl-t-polyurethane-potting-protects-battery-management-pcbs"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 178,
+      "event_id": "XRUN_REPLAY_20260903_E0237",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C18",
+        "story_id": "US_2026-08-31_C18",
+        "date": "2026-08-31",
+        "title": "San Francisco residents can now choose where EV curbside chargers go",
+        "site": "Electrek RSS",
+        "url": "https://electrek.co/2026/08/31/san-francisco-residents-can-now-choose-where-ev-curbside-chargers-go",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "6b17d4a4910a656dffacf257b44344c53ff35f632048639492c884189d6355f4"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "US_2026-08-31_C18"
+      ],
+      "source_titles": [
+        {
+          "story_id": "US_2026-08-31_C18",
+          "date": "2026-08-31",
+          "site": "Electrek RSS",
+          "title": "San Francisco residents can now choose where EV curbside chargers go",
+          "url": "https://electrek.co/2026/08/31/san-francisco-residents-can-now-choose-where-ev-curbside-chargers-go"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "charger",
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 179,
+      "event_id": "XRUN_REPLAY_20260903_E0238",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C14",
+        "story_id": "US_2026-08-31_C14",
+        "date": "2026-08-31",
+        "title": "Power Off, Jackery On: Jackery Marks National Preparedness Month with Home Backup Built for the Fall Storm Season",
+        "site": "GlobeNewswire Energy Industry",
+        "url": "https://www.globenewswire.com/news-release/2026/08/31/3353337/0/en/power-off-jackery-on-jackery-marks-national-preparedness-month-with-home-backup-built-for-the-fall-storm-season.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "746bcae2aba67d0edbd914abe7d2afd222a79cfddb9f0615344d98662fd73392"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "US_2026-08-31_C14"
+      ],
+      "source_titles": [
+        {
+          "story_id": "US_2026-08-31_C14",
+          "date": "2026-08-31",
+          "site": "GlobeNewswire Energy Industry",
+          "title": "Power Off, Jackery On: Jackery Marks National Preparedness Month with Home Backup Built for the Fall Storm Season",
+          "url": "https://www.globenewswire.com/news-release/2026/08/31/3353337/0/en/power-off-jackery-on-jackery-marks-national-preparedness-month-with-home-backup-built-for-the-fall-storm-season.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 180,
+      "event_id": "XRUN_REPLAY_20260903_E0240",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C08",
+        "story_id": "US_2026-08-31_C08",
+        "date": "2026-08-31",
+        "title": "Jackery Adds Capability & Expandability To New HomePower 1000 Plus v2 Portable Battery",
+        "site": "CleanTechnica Reviews RSS",
+        "url": "https://cleantechnica.com/2026/08/31/jackery-adds-capability-expandability-to-new-homepower-1000-plus-v2",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "5fe4d3693271789b19ce3227f070e407df4a4f31faa6fc8455c976f6d764e2b3"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "US_2026-08-31_C08"
+      ],
+      "source_titles": [
+        {
+          "story_id": "US_2026-08-31_C08",
+          "date": "2026-08-31",
+          "site": "CleanTechnica Reviews RSS",
+          "title": "Jackery Adds Capability & Expandability To New HomePower 1000 Plus v2 Portable Battery",
+          "url": "https://cleantechnica.com/2026/08/31/jackery-adds-capability-expandability-to-new-homepower-1000-plus-v2"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 181,
+      "event_id": "XRUN_REPLAY_20260903_E0259",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C02",
+        "story_id": "KR_2026-09-01_C02",
+        "date": "2026-09-01",
+        "title": "\"EU, LG엔솔·삼성SDI·SK온 등 한국 배터리 3사와 손잡고 中 비중 낮춰야\"",
+        "site": "더구루",
+        "url": "https://www.theguru.co.kr/news/article.html?no=106501",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "2ac20ea1d8018853dd34282215162f4ab0db10dc1bdb4365fd2ba21374e758cd"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C02"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C02",
+          "date": "2026-09-01",
+          "site": "더구루",
+          "title": "\"EU, LG엔솔·삼성SDI·SK온 등 한국 배터리 3사와 손잡고 中 비중 낮춰야\"",
+          "url": "https://www.theguru.co.kr/news/article.html?no=106501"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 182,
+      "event_id": "XRUN_REPLAY_20260903_E0260",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C75",
+        "story_id": "KR_2026-09-01_C75",
+        "date": "2026-09-01",
+        "title": "[2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자",
+        "site": "아시아경제",
+        "url": "https://view.asiae.co.kr/article/2026083117352114101",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b7139d820b4f8328f0da05ecd46b194ff9176173593779afa7d17bbce6c4c2e1"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C75"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C75",
+          "date": "2026-09-01",
+          "site": "아시아경제",
+          "title": "[2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자",
+          "url": "https://view.asiae.co.kr/article/2026083117352114101"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "투자"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 183,
+      "event_id": "XRUN_REPLAY_20260903_E0265",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C74",
+        "story_id": "KR_2026-09-01_C74",
+        "date": "2026-09-01",
+        "title": "[2027 예산안] 정부, 한전에 8500억원 재정 지원…누적 적자 부담 던다",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260901084732044",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "e0bcb29354b03e7b335c18b440847194aaa8209982f8a8f44c7be796c06f9e15"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C74"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C74",
+          "date": "2026-09-01",
+          "site": "아주경제",
+          "title": "[2027 예산안] 정부, 한전에 8500억원 재정 지원…누적 적자 부담 던다",
+          "url": "https://www.ajunews.com/view/20260901084732044"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "적자"
+        ],
+        "scale": [
+          "억원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 184,
+      "event_id": "XRUN_REPLAY_20260903_E0268",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C209",
+        "story_id": "KR_2026-09-01_C209",
+        "date": "2026-09-01",
+        "title": "한빛이노텍, 태양광에 ESS 입힌다...통합에너지 시장 공략",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371821",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "03ceb618d54c21a5f7de14836b6fb192bad905336dd88ef9088de04331f2062a"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C209"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C209",
+          "date": "2026-09-01",
+          "site": "전기신문",
+          "title": "한빛이노텍, 태양광에 ESS 입힌다...통합에너지 시장 공략",
+          "url": "https://www.electimes.com/news/articleView.html?idxno=371821"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 185,
+      "event_id": "XRUN_REPLAY_20260903_E0272",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C97",
+        "story_id": "KR_2026-09-01_C97",
+        "date": "2026-09-01",
+        "title": "“3년 물린 개미 드디어...” 美 ESS 시장 기대에 반등 노리는 2차전지株 - 와우넷 오늘장전략",
+        "site": "한국경제TV",
+        "url": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609010356",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "4fe2be72661296d78d106130007f273b331fbc95f4c20b21d4d61333a0ebf015"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C97"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C97",
+          "date": "2026-09-01",
+          "site": "한국경제TV",
+          "title": "“3년 물린 개미 드디어...” 美 ESS 시장 기대에 반등 노리는 2차전지株 - 와우넷 오늘장전략",
+          "url": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609010356"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "전지"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 186,
+      "event_id": "XRUN_REPLAY_20260903_E0275",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C13",
+        "story_id": "KR_2026-09-01_C13",
+        "date": "2026-09-01",
+        "title": "'K자형 양극화' 해소에 117조…지역·농어촌·취약계층 지원 늘린다 [2027년 예산안]",
+        "site": "한국경제",
+        "url": "https://www.hankyung.com/article/202609016030i",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "44596a8f000cdc7e82bf69a4c1a13a49f6b237be4821abb3448ef42075a5e491"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C13"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C13",
+          "date": "2026-09-01",
+          "site": "한국경제",
+          "title": "'K자형 양극화' 해소에 117조…지역·농어촌·취약계층 지원 늘린다 [2027년 예산안]",
+          "url": "https://www.hankyung.com/article/202609016030i"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "양극"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 187,
+      "event_id": "XRUN_REPLAY_20260903_E0311",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C06",
+        "story_id": "JP_2026-09-01_C06",
+        "date": "2026-09-01",
+        "title": "イーレックス、系統用蓄電池のアグリゲーションサービス開始",
+        "site": "PR TIMES 蓄電池",
+        "url": "https://prtimes.jp/main/html/rd/p/000000175.000029914.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "5407659d43d70949c09aa7fd2e44b49ba43a6aa41b6d3961ecb1781cd40b0959"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "JP_2026-09-01_C06"
+      ],
+      "source_titles": [
+        {
+          "story_id": "JP_2026-09-01_C06",
+          "date": "2026-09-01",
+          "site": "PR TIMES 蓄電池",
+          "title": "イーレックス、系統用蓄電池のアグリゲーションサービス開始",
+          "url": "https://prtimes.jp/main/html/rd/p/000000175.000029914.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 188,
+      "event_id": "XRUN_REPLAY_20260903_E0313",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C02",
+        "story_id": "JP_2026-09-01_C02",
+        "date": "2026-09-01",
+        "title": "DMM EV ON、全国2万8000箇所以上の他社充電器情報をアプリ内で一元表示",
+        "site": "Response.jp Battery Special",
+        "url": "https://response.jp/article/2026/09/01/415972.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "70994383e0fc9f558ffb05a5c67d3e800bdddf2dffe4bf451da966c9f2049d79"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "JP_2026-09-01_C02"
+      ],
+      "source_titles": [
+        {
+          "story_id": "JP_2026-09-01_C02",
+          "date": "2026-09-01",
+          "site": "Response.jp Battery Special",
+          "title": "DMM EV ON、全国2万8000箇所以上の他社充電器情報をアプリ内で一元表示",
+          "url": "https://response.jp/article/2026/09/01/415972.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 189,
+      "event_id": "XRUN_REPLAY_20260903_E0316",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C12",
+        "story_id": "GL_2026-09-01_C12",
+        "date": "2026-09-01",
+        "title": "[SMM Nickel Intermediate Product Daily Review] On August 31, MHP and high-grade nickel matte prices declined. - Shanghai Metals Market",
+        "site": "Indonesia Nickel Supply (via Google News)",
+        "url": "https://news.metal.com/en/newscontent/104088369-smm-nickel-intermediate-product-daily-review-on-august-31-mhp-and-high-grade-nickel-matte-prices-declined",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "225778f42e9cc5d06b37a25cffdbcdf2b1b396cf4e49b723c28f5748261267ba"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-09-01_C12"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-09-01_C12",
+          "date": "2026-09-01",
+          "site": "Indonesia Nickel Supply (via Google News)",
+          "title": "[SMM Nickel Intermediate Product Daily Review] On August 31, MHP and high-grade nickel matte prices declined. - Shanghai Metals Market",
+          "url": "https://news.metal.com/en/newscontent/104088369-smm-nickel-intermediate-product-daily-review-on-august-31-mhp-and-high-grade-nickel-matte-prices-declined"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "nickel"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 190,
+      "event_id": "XRUN_REPLAY_20260903_E0318",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C09",
+        "story_id": "GL_2026-09-01_C09",
+        "date": "2026-09-01",
+        "title": "Shipping gigawatt-hours of battery storage",
+        "site": "PV Magazine RSS (Global)",
+        "url": "https://www.pv-magazine.com/2026/09/01/shipping-gigawatt-hours-of-battery-storage",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "d066d6679ec3dc1633cba8dd18deece50c3a3ce2ad77c39e50f6e89773892170"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-09-01_C09"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-09-01_C09",
+          "date": "2026-09-01",
+          "site": "PV Magazine RSS (Global)",
+          "title": "Shipping gigawatt-hours of battery storage",
+          "url": "https://www.pv-magazine.com/2026/09/01/shipping-gigawatt-hours-of-battery-storage"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 191,
+      "event_id": "XRUN_REPLAY_20260903_E0324",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C05",
+        "story_id": "GL_2026-08-31_C05",
+        "date": "2026-08-31",
+        "title": "Brazil rare earth mine shows hurdles of breaking free from China - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/web/brazil-rare-earth-mine-shows-hurdles-of-breaking-free-from-china",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "4d886b3652793afc3edbbf211e886b9b9d37d114a689f89c29f648ba6efd5624"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-31_C05"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-31_C05",
+          "date": "2026-08-31",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "title": "Brazil rare earth mine shows hurdles of breaking free from China - Mining.com",
+          "url": "https://www.mining.com/web/brazil-rare-earth-mine-shows-hurdles-of-breaking-free-from-china"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 192,
+      "event_id": "XRUN_REPLAY_20260903_E0325",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C28",
+        "story_id": "GL_2026-08-31_C28",
+        "date": "2026-08-31",
+        "title": "South Korea seeks incentives to deepen nickel partnership with Indonesia - The Jakarta Post",
+        "site": "Indonesia Nickel Supply (via Google News)",
+        "url": "https://www.thejakartapost.com/world/2026/08/31/south-korea-seeks-incentives-to-deepen-nickel-partnership-with-indonesia",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "582c2d1ecc6e0be97005523a4b814d2f5e02cb339b71291f08e303069889e8c9"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-31_C28"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-31_C28",
+          "date": "2026-08-31",
+          "site": "Indonesia Nickel Supply (via Google News)",
+          "title": "South Korea seeks incentives to deepen nickel partnership with Indonesia - The Jakarta Post",
+          "url": "https://www.thejakartapost.com/world/2026/08/31/south-korea-seeks-incentives-to-deepen-nickel-partnership-with-indonesia"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "nickel"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 193,
+      "event_id": "XRUN_REPLAY_20260903_E0332",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C37",
+        "story_id": "GL_2026-08-31_C37",
+        "date": "2026-08-31",
+        "title": "“Doing what we built it to do:” Rinehart-backed lithium mine runs on 80 pct renewables for second year ... - Renew Economy",
+        "site": "Australia Critical Minerals (via Google News)",
+        "url": "https://reneweconomy.com.au/doing-what-we-built-it-to-do-rinehart-backed-lithium-mine-runs-on-80-pct-renewables-for-second-year-in-row",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "5656adaffdee09fe691f772ffada12ddd9218e43b690d1032f274eff1908b3c8"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-31_C37"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-31_C37",
+          "date": "2026-08-31",
+          "site": "Australia Critical Minerals (via Google News)",
+          "title": "“Doing what we built it to do:” Rinehart-backed lithium mine runs on 80 pct renewables for second year ... - Renew Economy",
+          "url": "https://reneweconomy.com.au/doing-what-we-built-it-to-do-rinehart-backed-lithium-mine-runs-on-80-pct-renewables-for-second-year-in-row"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "lithium"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 194,
+      "event_id": "XRUN_REPLAY_20260903_E0340",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C02",
+        "story_id": "GL_2026-08-31_C02",
+        "date": "2026-08-31",
+        "title": "Albemarle's Chile workers vote to strike at lithium operations (ALB:NYSE) - Seeking Alpha",
+        "site": "Chile/Argentina Lithium (via Google News)",
+        "url": "https://seekingalpha.com/news/4638334-albemarles-chile-workers-vote-to-strike-at-lithium-operations",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "f1f5940cf0175c992a318e2592fcc2f2b6b06214c77eec750c2eff9b317b33f7"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-31_C02"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-31_C02",
+          "date": "2026-08-31",
+          "site": "Chile/Argentina Lithium (via Google News)",
+          "title": "Albemarle's Chile workers vote to strike at lithium operations (ALB:NYSE) - Seeking Alpha",
+          "url": "https://seekingalpha.com/news/4638334-albemarles-chile-workers-vote-to-strike-at-lithium-operations"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "lithium"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 195,
+      "event_id": "XRUN_REPLAY_20260903_E0345",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C03",
+        "story_id": "EU_2026-08-31_C03",
+        "date": "2026-08-31",
+        "title": "CATL announces Moura partnership for Brazil battery auction",
+        "site": "ESS News RSS",
+        "url": "https://www.ess-news.com/2026/08/31/catl-announces-moura-partnership-for-brazil-battery-auction",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b73207d25542c23b85c7fbaa79690978c9f58df186dd59543484a2df9a7b5ed1"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "EU_2026-08-31_C03"
+      ],
+      "source_titles": [
+        {
+          "story_id": "EU_2026-08-31_C03",
+          "date": "2026-08-31",
+          "site": "ESS News RSS",
+          "title": "CATL announces Moura partnership for Brazil battery auction",
+          "url": "https://www.ess-news.com/2026/08/31/catl-announces-moura-partnership-for-brazil-battery-auction"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 196,
+      "event_id": "XRUN_REPLAY_20260903_E0346",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C19",
+        "story_id": "EU_2026-08-31_C19",
+        "date": "2026-08-31",
+        "title": "Storing renewables with firebrick thermal batteries",
+        "site": "ESS News RSS",
+        "url": "https://www.ess-news.com/2026/08/31/storing-renewables-with-firebrick-thermal-batteries",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "000945f7d9c0e4737473056e6f006d5540ffa56eebd515d5616e58c882859611"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "EU_2026-08-31_C19"
+      ],
+      "source_titles": [
+        {
+          "story_id": "EU_2026-08-31_C19",
+          "date": "2026-08-31",
+          "site": "ESS News RSS",
+          "title": "Storing renewables with firebrick thermal batteries",
+          "url": "https://www.ess-news.com/2026/08/31/storing-renewables-with-firebrick-thermal-batteries"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "batteries"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 197,
+      "event_id": "XRUN_REPLAY_20260903_E0348",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C11",
+        "story_id": "EU_2026-08-31_C11",
+        "date": "2026-08-31",
+        "title": "Jinko ESS partners with UCB Power to localize BESS production in Brazil",
+        "site": "ESS News RSS",
+        "url": "https://www.ess-news.com/2026/08/31/jinko-ess-partners-with-ucb-power-to-localize-bess-production-in-brazil",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "169b37d5242c4e279a0e34827648de23e5e01122a72aabf68d4c99d8db73b850"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "EU_2026-08-31_C11"
+      ],
+      "source_titles": [
+        {
+          "story_id": "EU_2026-08-31_C11",
+          "date": "2026-08-31",
+          "site": "ESS News RSS",
+          "title": "Jinko ESS partners with UCB Power to localize BESS production in Brazil",
+          "url": "https://www.ess-news.com/2026/08/31/jinko-ess-partners-with-ucb-power-to-localize-bess-production-in-brazil"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "bess",
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 198,
+      "event_id": "XRUN_REPLAY_20260903_E0353",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C13",
+        "story_id": "EU_2026-08-31_C13",
+        "date": "2026-08-31",
+        "title": "New aluminium housing for commercial EV batteries",
+        "site": "Electrive RSS",
+        "url": "https://www.electrive.com/2026/08/31/new-aluminium-housing-for-commercial-ev-batteries",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "0dcada508763b51370da8ff964c87f9b0a7b8fd1c43336a076ef642b7b996a7b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "EU_2026-08-31_C13"
+      ],
+      "source_titles": [
+        {
+          "story_id": "EU_2026-08-31_C13",
+          "date": "2026-08-31",
+          "site": "Electrive RSS",
+          "title": "New aluminium housing for commercial EV batteries",
+          "url": "https://www.electrive.com/2026/08/31/new-aluminium-housing-for-commercial-ev-batteries"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "batteries",
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 199,
+      "event_id": "XRUN_REPLAY_20260903_E0354",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C04",
+        "story_id": "EU_2026-08-31_C04",
+        "date": "2026-08-31",
+        "title": "Chaevi to expand fast-charging network on South Korean motorways",
+        "site": "Electrive RSS",
+        "url": "https://www.electrive.com/2026/08/31/chaevi-to-expand-fast-charging-network-on-south-korean-motorways",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "3b872b1b822eb0088e400190f50314cf3200dc57c3af3acdb80c942229de2d14"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "EU_2026-08-31_C04"
+      ],
+      "source_titles": [
+        {
+          "story_id": "EU_2026-08-31_C04",
+          "date": "2026-08-31",
+          "site": "Electrive RSS",
+          "title": "Chaevi to expand fast-charging network on South Korean motorways",
+          "url": "https://www.electrive.com/2026/08/31/chaevi-to-expand-fast-charging-network-on-south-korean-motorways"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "charging"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 200,
+      "event_id": "XRUN_REPLAY_20260903_E0356",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C14",
+        "story_id": "CN_2026-09-01_C14",
+        "date": "2026-09-01",
+        "title": "四大推力！储能按下“快进键”",
+        "site": "OFweek储能网",
+        "url": "https://chuneng.ofweek.com/news/2026-09/ART-180226-8420-30700968.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "fe4dfa0e3e3ee22deed83f6dbf7755265b567c8c3d62ec532b74ddc23524a3b7"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "CN_2026-09-01_C14"
+      ],
+      "source_titles": [
+        {
+          "story_id": "CN_2026-09-01_C14",
+          "date": "2026-09-01",
+          "site": "OFweek储能网",
+          "title": "四大推力！储能按下“快进键”",
+          "url": "https://chuneng.ofweek.com/news/2026-09/ART-180226-8420-30700968.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

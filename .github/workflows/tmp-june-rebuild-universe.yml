@@ -1,0 +1,62 @@
+name: tmp-june-rebuild-universe
+on:
+  push:
+    branches: [chatgpt/rebuild-monthly-brief-2026-06]
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Extract locked June 2026 canonical universe
+        shell: bash
+        env:
+          BASELINE_COMMIT: 1305dea1892b5b19ce5bad84e67407743e5b1c26
+        run: |
+          set -euo pipefail
+          mkdir -p runs/2026-09-15
+          node <<'NODE'
+          const fs = require('fs');
+          const cp = require('child_process');
+          const baseline = process.env.BASELINE_COMMIT;
+          const blob = cp.execSync(`git rev-parse ${baseline}:data/cards.full.json`, {encoding:'utf8'}).trim();
+          const full = JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
+          const june = full.cards.filter(c => String(c.date||'').startsWith('2026-06'));
+          const countBy = (key) => Object.fromEntries([...june.reduce((m,c)=>m.set(String(c[key]??'UNKNOWN'),(m.get(String(c[key]??'UNKNOWN'))||0)+1),new Map())].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])));
+          const snapshot = {
+            schema: 'monthly_brief_universe_snapshot_v2',
+            month: '2026-06',
+            generated_at: new Date().toISOString(),
+            source_baseline: {
+              main_commit_sha: baseline,
+              full_blob_sha: blob,
+              total_canonical_cards: full.cards.length,
+              source_month_count: june.length
+            },
+            distributions: {
+              region: countBy('region'),
+              signal: countBy('signal')
+            },
+            cards: june
+          };
+          fs.writeFileSync('runs/2026-09-15/monthly-brief-2026-06-universe-snapshot-v2.json', JSON.stringify(snapshot,null,2)+'\n');
+          console.log(JSON.stringify(snapshot.source_baseline,null,2));
+          console.log('region', snapshot.distributions.region);
+          console.log('signal', snapshot.distributions.signal);
+          NODE
+      - name: Commit snapshot and remove helper workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'ihyowoen'
+          git config user.email 'hyowoen@hotmail.com'
+          git add runs/2026-09-15/monthly-brief-2026-06-universe-snapshot-v2.json
+          git rm .github/workflows/tmp-june-rebuild-universe.yml
+          git commit -m 'chore: lock June 2026 rebuild universe snapshot'
+          git push origin HEAD:chatgpt/rebuild-monthly-brief-2026-06

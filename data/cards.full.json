@@ -1,6 +1,6 @@
 {
-  "updated": "2026-09-15T07:41:31.636Z",
-  "total": 1642,
+  "updated": "2026-09-15T08:06:46.831Z",
+  "total": 1640,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
   "cards": [
@@ -285715,70 +285715,6 @@
       }
     },
     {
-      "id": "2026-06-26_EU_06",
-      "region": "EU",
-      "date": "2026-06-26",
-      "cat": "ESS",
-      "sub_cat": "ldes_cap_floor_project_selection",
-      "signal": "top",
-      "title": "Ofgem, 영국 LDES 16개 프로젝트 cap-and-floor 지원 후보 잠정선정",
-      "sub": "양수·압축공기·리튬이온·바나듐플로우 포함…Window 1 최종 결정 전 단계",
-      "gate": "Minded-to-Decision은 최종 cap-and-floor 지원 결정이 아니다. Ofgem은 의견수렴 뒤 최종 결정을 내리는 절차를 남겨두고 있다.",
-      "fact": "Ofgem은 6월 26일 영국 LDES cap-and-floor Window 1에서 16개 프로젝트를 Minded-to-Decision 목록에 올렸다. 잠정 포트폴리오에는 양수발전, 압축공기, 리튬이온, 바나듐 레독스 플로우 저장이 포함됐다.",
-      "implication": [
-        "장주기 저장 지원이 기술군 전체를 대상으로 실제 프로젝트 선별 단계까지 내려왔다.",
-        "최종 선정과 개별 licence 조건이 투자·착공 속도를 가를 다음 검증점이다."
-      ],
-      "urls": [
-        "https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers"
-      ],
-      "related": [],
-      "fact_sources": [
-        {
-          "owner": "Ofgem",
-          "source_owner_id": "Ofgem",
-          "role": "official_regulator",
-          "source_role": "official_regulator",
-          "url": "https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers",
-          "source_url": "https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers",
-          "domain": "ofgem.gov.uk",
-          "published": "2026-06-26",
-          "summary": "Ofgem은 Window 1을 eligibility assessment에서 project-selection 단계로 옮기며 16개 프로젝트를 잠정 지원 후보로 제시했다.",
-          "fetch_status": "fetched_body_or_authoritative_page",
-          "fetched": true,
-          "headline_only": false,
-          "rss_or_snippet_only": false,
-          "claim_use": "paraphrase_only_no_visible_quote",
-          "source_type": "official_regulator",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "checked_at": "2026-09-15",
-          "source_quote_status": "not_emitted_paraphrase_only",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": false,
-          "id": "2026-06-26_EU_06-S1",
-          "source_id": "2026-06-26_EU_06-S1"
-        }
-      ],
-      "date_role": {
-        "status": "PASS",
-        "representative_event_date": "2026-06-26",
-        "representative_date": "2026-06-26",
-        "event_date": "2026-06-26",
-        "source_publication_dates": [
-          "2026-06-26"
-        ],
-        "role": "operative event or announcement date verified from body-level/official evidence"
-      },
-      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
-    },
-    {
       "id": "2026-06-26_EU_07",
       "region": "EU",
       "date": "2026-06-26",
@@ -290417,7 +290353,7 @@
       "gate": "인수는 특정 조건 충족을 전제로 하며 Wallace는 개발 중인 프로젝트다. 거래합의·개발단계를 FID·착공·상업운전으로 확대해석하지 않는다.",
       "fact": "ContourGlobal은 6월 24일 스코틀랜드 Ayr의 500MW·2,000MWh Wallace BESS를 인수하기로 합의했다고 발표했다. Wallace는 4시간 저장 프로젝트이며 이번 거래는 회사의 영국 시장 진입이다.",
       "implication": [
-        "대형 BESS 개발자산이 유럽 전력기업의 시장진입 M&A 대상으로 거래되는 흐름이 확인됐다.",
+        "ContourGlobal이 500MW·2,000MWh BESS 개발자산 인수를 통해 영국 시장에 진입하는 단일 M&A 사례가 확인됐다.",
         "조건부 인수 이후 FID·투자집행·착공과 계통제약 수익모델이 실제 자산가치를 결정할 다음 단계다."
       ],
       "urls": [
@@ -302118,102 +302054,6 @@
           "2026-05-13_CN_03"
         ]
       }
-    },
-    {
-      "id": "2026-06-18_US_04",
-      "region": "US",
-      "date": "2026-06-18",
-      "cat": "PowerGrid",
-      "sub_cat": "large_load_interconnection_rulemaking",
-      "signal": "top",
-      "title": "FERC, 6개 RTO·ISO 대형부하 계통접속 규칙 Section 206 절차 개시",
-      "sub": "데이터센터·제조시설 연결규칙 정당성 입증 또는 개정 요구",
-      "gate": "Section 206 show-cause는 최종 tariff 개정이 아니다. 이번 조치는 데이터센터 등 대형부하의 계통접속 규칙을 대상으로 하며 BESS 설치를 의무화하지 않는다.",
-      "fact": "FERC는 6월 18일 관할 6개 지역계통운영자에 각각 Section 206 show-cause 명령을 내리고 데이터센터·제조시설 등 대형부하의 계통접속 규칙을 정당화하거나 개정하도록 요구했다.",
-      "implication": [
-        "AI·데이터센터 전력수요에서 speed-to-power와 송전비용 배분이 직접적인 규제 변수로 올라왔다.",
-        "저장장치는 대형부하 통합의 선택지가 될 수 있지만 이번 명령 자체를 BESS 수요 의무화로 해석하면 안 된다."
-      ],
-      "urls": [
-        "https://www.ferc.gov/news-events/news/ferc-launches-aggressive-targeted-action-speed-large-load-integration",
-        "https://ferc.gov/news-events/news/fact-sheet-ferc-takes-action-supercharge-americas-grid-efficiency-reliability-and"
-      ],
-      "related": [],
-      "fact_sources": [
-        {
-          "owner": "Federal Energy Regulatory Commission",
-          "source_owner_id": "Federal Energy Regulatory Commission",
-          "role": "official_regulator",
-          "source_role": "official_regulator",
-          "url": "https://www.ferc.gov/news-events/news/ferc-launches-aggressive-targeted-action-speed-large-load-integration",
-          "source_url": "https://www.ferc.gov/news-events/news/ferc-launches-aggressive-targeted-action-speed-large-load-integration",
-          "domain": "ferc.gov",
-          "published": "2026-06-18",
-          "summary": "FERC는 6개 RTO/ISO에 Section 206 show-cause orders를 발행해 large-load 연결 tariff를 정당화하거나 개정하도록 요구했다.",
-          "fetch_status": "fetched_body_or_authoritative_page",
-          "fetched": true,
-          "headline_only": false,
-          "rss_or_snippet_only": false,
-          "claim_use": "paraphrase_only_no_visible_quote",
-          "source_type": "official_regulator",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "checked_at": "2026-09-15",
-          "source_quote_status": "not_emitted_paraphrase_only",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": false,
-          "id": "2026-06-18_US_04-S1",
-          "source_id": "2026-06-18_US_04-S1"
-        },
-        {
-          "owner": "Federal Energy Regulatory Commission",
-          "source_owner_id": "Federal Energy Regulatory Commission",
-          "role": "official_regulator",
-          "source_role": "official_regulator",
-          "url": "https://ferc.gov/news-events/news/fact-sheet-ferc-takes-action-supercharge-americas-grid-efficiency-reliability-and",
-          "source_url": "https://ferc.gov/news-events/news/fact-sheet-ferc-takes-action-supercharge-americas-grid-efficiency-reliability-and",
-          "domain": "ferc.gov",
-          "published": "2026-06-18",
-          "summary": "FERC fact sheet는 data centers와 manufacturing 등 large load 통합을 대상으로 하는 조치임을 설명한다.",
-          "fetch_status": "fetched_body_or_authoritative_page",
-          "fetched": true,
-          "headline_only": false,
-          "rss_or_snippet_only": false,
-          "claim_use": "paraphrase_only_no_visible_quote",
-          "source_type": "official_regulator",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "checked_at": "2026-09-15",
-          "source_quote_status": "not_emitted_paraphrase_only",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": false,
-          "id": "2026-06-18_US_04-S2",
-          "source_id": "2026-06-18_US_04-S2"
-        }
-      ],
-      "date_role": {
-        "status": "PASS",
-        "representative_event_date": "2026-06-18",
-        "representative_date": "2026-06-18",
-        "event_date": "2026-06-18",
-        "source_publication_dates": [
-          "2026-06-18"
-        ],
-        "role": "operative event or announcement date verified from body-level/official evidence"
-      },
-      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
     },
     {
       "draft_id": "DRAFT_20260629_123733_001",
@@ -314138,12 +313978,12 @@
       "sub_cat": "bess_platform_ma",
       "signal": "high",
       "title": "T1 Energy, KORE Power 약 3,200만달러 인수 본계약…BESS·AI 인프라 진입",
-      "sub": "KORE NRI 기반 저장 솔루션 역량 확보 추진…6월은 계약, 거래종결은 7월",
-      "gate": "6월 사건은 definitive agreement 체결이며 인수 종결은 아니다. SEC 공시에 따르면 거래는 7월 1일 종결됐다.",
+      "sub": "KORE NRI 기반 저장 솔루션 역량 확보 추진…6월은 인수 본계약 단계",
+      "gate": "6월 사건은 definitive agreement 체결이며 인수 종결은 아니다. 거래종결 여부와 후속 통합은 별도 사건으로 확인해야 한다.",
       "fact": "T1 Energy는 6월 2일 KORE Power를 약 3,200만달러 기업가치로 인수하는 본계약을 체결했다. 회사는 KORE의 BESS·소프트웨어 역량을 바탕으로 에너지저장과 AI 데이터센터 인프라 시장 진입을 추진한다고 밝혔다.",
       "implication": [
         "태양광 제조사가 BESS 엔지니어링·소프트웨어 플랫폼을 M&A로 확보하는 수직확장 사례다.",
-        "6월 판단에서는 계약단계만 인정하고 7월 종결은 후속 사건으로 분리해야 한다."
+        "6월 판단에서는 계약단계만 인정하고 거래종결·통합은 후속 사건으로 분리해야 한다."
       ],
       "urls": [
         "https://ir.t1energy.com/news-releases/T1_Energy_Enters_Battery_and_Data_Center_Infrastructure_Markets",

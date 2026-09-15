@@ -7,15 +7,13 @@
   "base_main_commit_sha": "dac1add44544798722f6dc3bb6d73fec2be7ff4d",
   "base_full_blob_sha": "f95176a9e469f8325e9bfbb55fdbc6957fe8b101",
   "expected_before": 1633,
-  "expected_after": 1642,
-  "output_updated": "2026-09-15T07:41:31.636Z",
+  "expected_after": 1640,
+  "output_updated": "2026-09-15T08:06:46.831Z",
   "operations": {
     "add": [
-      "2026-06-26_EU_06",
       "2026-06-26_EU_07",
       "2026-06-25_KR_02",
       "2026-06-24_EU_03",
-      "2026-06-18_US_04",
       "2026-06-16_JP_01",
       "2026-06-15_US_01",
       "2026-06-03_JP_02",
@@ -27,44 +25,6 @@
   "editorial_attestation": {
     "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
     "additions": [
-      {
-        "id": "2026-06-26_EU_06",
-        "execution_credibility_gate": "PASS",
-        "independent_cardability_gate": "PASS",
-        "anchor_classes": [
-          "policy_regulatory_anchor"
-        ],
-        "selection_route": "structural_non_execution_route",
-        "decision_news_value_score": 65,
-        "decision_value_breakdown": {
-          "market_structure_competition": 20,
-          "supply_demand_price_utilisation": 20,
-          "technology_performance_safety": 0,
-          "cashflow_asset_value": 8,
-          "law_policy_market_access": 10,
-          "systemic_scale": 2,
-          "persistence_irreversibility": 3,
-          "decision_urgency_actionability": 2
-        },
-        "decision_value_classification": "material_industry_signal",
-        "publication_urgency": "near_term",
-        "technology_evidence_level": "not_applicable",
-        "policy_stage": 4,
-        "novelty_cap_basis": "none",
-        "systemic_scale_denominator": null,
-        "denominator_gap": "No defensible market-wide denominator is asserted for this bounded event; systemic-scale score is conservatively capped at 2/5.",
-        "prior_state": "영국 LDES cap-and-floor 제도는 존재했지만 June canonical에는 Window 1의 잠정 프로젝트 선별 단계가 별도 사건으로 포착되지 않았다.",
-        "new_verified_fact": "Ofgem은 6월 26일 영국 LDES cap-and-floor Window 1에서 16개 프로젝트를 Minded-to-Decision 목록에 올렸다. 잠정 포트폴리오에는 양수발전, 압축공기, 리튬이온, 바나듐 레독스 플로우 저장이 포함됐다.",
-        "changed_judgment": "LDES 지원이 제도 설계에서 16개 프로젝트의 잠정선정 단계로 내려와 금융·투자 판단의 구체성이 높아졌다.",
-        "evidence_review_summary": "Body-level review completed on 2026-09-15. Retained title/fact-supporting source set: https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers. Claims are bounded to the verified June event stage.",
-        "next_confirmation_points": [
-          "Ofgem의 Window 1 최종 결정과 프로젝트별 licence 조건·FID를 확인한다."
-        ],
-        "inclusion_decision": "standard_include",
-        "owner_override_reason": null,
-        "structural_non_execution_reason": "기존 LDES 제도의 실행단계가 프로젝트 단위 잠정선정으로 진전된 정책·금융 사건이다.",
-        "why_execution_event_not_required": "규제기관의 제도 집행과 프로젝트 선별 자체가 시장접근·금융조건을 바꾸므로 일반 기업 실행이 없어도 독립 카드 가치가 있다."
-      },
       {
         "id": "2026-06-15_US_01",
         "execution_credibility_gate": "PASS",
@@ -136,50 +96,12 @@
         "changed_judgment": "T1이 KORE Power 인수 본계약을 통해 BESS 엔지니어링·소프트웨어 역량을 내부화하는 전략적 거래에 착수했다.",
         "evidence_review_summary": "Body-level review completed on 2026-09-15. Retained title/fact-supporting source set: https://ir.t1energy.com/news-releases/T1_Energy_Enters_Battery_and_Data_Center_Infrastructure_Markets ; https://www.sec.gov/Archives/edgar/data/1992243/000121390026065997/ea0293886-8k_t1energy.htm. Claims are bounded to the verified June event stage.",
         "next_confirmation_points": [
-          "7월 1일 거래종결 이후 KORE 통합, 수주·매출·데이터센터 고객 전환을 추적한다."
+          "거래종결 여부와 이후 KORE 통합, 수주·매출·데이터센터 고객 전환을 추적한다."
         ],
         "inclusion_decision": "standard_include",
         "owner_override_reason": null,
         "structural_non_execution_reason": null,
         "why_execution_event_not_required": null
-      },
-      {
-        "id": "2026-06-18_US_04",
-        "execution_credibility_gate": "PASS",
-        "independent_cardability_gate": "PASS",
-        "anchor_classes": [
-          "policy_regulatory_anchor"
-        ],
-        "selection_route": "structural_non_execution_route",
-        "decision_news_value_score": 68,
-        "decision_value_breakdown": {
-          "market_structure_competition": 22,
-          "supply_demand_price_utilisation": 22,
-          "technology_performance_safety": 0,
-          "cashflow_asset_value": 7,
-          "law_policy_market_access": 10,
-          "systemic_scale": 2,
-          "persistence_irreversibility": 3,
-          "decision_urgency_actionability": 2
-        },
-        "decision_value_classification": "material_industry_signal",
-        "publication_urgency": "near_term",
-        "technology_evidence_level": "not_applicable",
-        "policy_stage": 2,
-        "novelty_cap_basis": "none",
-        "systemic_scale_denominator": null,
-        "denominator_gap": "No defensible market-wide denominator is asserted for this bounded event; systemic-scale score is conservatively capped at 2/5.",
-        "prior_state": "대형부하 연결 병목은 알려져 있었지만 June canonical에는 전 RTO/ISO를 대상으로 한 FERC Section 206 절차 개시가 없었다.",
-        "new_verified_fact": "FERC는 6월 18일 관할 6개 지역계통운영자에 각각 Section 206 show-cause 명령을 내리고 데이터센터·제조시설 등 대형부하의 계통접속 규칙을 정당화하거나 개정하도록 요구했다.",
-        "changed_judgment": "대형부하 계통접속 문제가 개별 프로젝트 이슈에서 6개 지역시장 tariff의 정당성·개정 절차로 올라갔다.",
-        "evidence_review_summary": "Body-level review completed on 2026-09-15. Retained title/fact-supporting source set: https://www.ferc.gov/news-events/news/ferc-launches-aggressive-targeted-action-speed-large-load-integration ; https://ferc.gov/news-events/news/fact-sheet-ferc-takes-action-supercharge-americas-grid-efficiency-reliability-and. Claims are bounded to the verified June event stage.",
-        "next_confirmation_points": [
-          "각 RTO/ISO의 답변과 FERC의 최종 tariff 판단, 저장·발전 co-location 규칙 변화를 확인한다."
-        ],
-        "inclusion_decision": "standard_include",
-        "owner_override_reason": null,
-        "structural_non_execution_reason": "FERC가 6개 지역계통시장에 동시에 Section 206 절차를 열어 AI·대형부하의 시장접근 규칙을 재검토하는 시스템 사건이다.",
-        "why_execution_event_not_required": "최종 규칙 전 단계라도 전국 지역시장 tariff의 법적 정당성을 직접 심사하는 절차 개시는 독립적인 정책·시장구조 가치가 있다."
       },
       {
         "id": "2026-06-25_KR_02",

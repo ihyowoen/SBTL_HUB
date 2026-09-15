@@ -1,0 +1,39 @@
+name: tmp-june-rebuild-compact
+on:
+  push:
+    branches: [chatgpt/rebuild-monthly-brief-2026-06]
+permissions:
+  contents: write
+jobs:
+  compact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build compact top/high review index
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const fs=require('fs');
+          const full=JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
+          const cards=full.cards.filter(c=>String(c.date||'').startsWith('2026-06') && ['top','high'].includes(c.signal));
+          const rows=cards.map(c=>({
+            id:c.id,date:c.date,region:c.region,signal:c.signal,title:c.title,
+            fact:c.fact,sub:c.sub||'',gate:c.gate||'',implication:c.implication||[],
+            topics:c.topics||c.tags||[],
+            sources:(c.fact_sources||[]).map(s=>({url:s.url,summary:s.summary||'',supports:s.supports||[]}))
+          }));
+          fs.writeFileSync('runs/2026-09-15/monthly-brief-2026-06-top-high-compact.json',JSON.stringify({count:rows.length,cards:rows},null,2)+'\n');
+          console.log('top/high', rows.length);
+          for(const r of rows) console.log(`${r.id}\t${r.signal}\t${r.region}\t${r.title}`);
+          NODE
+      - name: Commit compact index and remove helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'ihyowoen'
+          git config user.email 'hyowoen@hotmail.com'
+          git add runs/2026-09-15/monthly-brief-2026-06-top-high-compact.json
+          git rm .github/workflows/tmp-june-rebuild-compact.yml
+          git commit -m 'chore: add June rebuild top-high compact index'
+          git push origin HEAD:chatgpt/rebuild-monthly-brief-2026-06

@@ -1,0 +1,127 @@
+name: tmp-pr379-codex-remediation
+on:
+  push:
+    branches: [chatgpt/june-2026-gap-direct-add]
+permissions:
+  contents: write
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Apply reviewed Codex findings
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const fs = require('fs');
+          const fullPath = 'data/cards.full.json';
+          const manifestPath = 'direct-adds/2026-09-15-june-gap-deep-dive/direct-add.json';
+          const full = JSON.parse(fs.readFileSync(fullPath,'utf8'));
+          const manifest = JSON.parse(fs.readFileSync(manifestPath,'utf8'));
+          const removeIds = new Set(['2026-06-26_EU_06','2026-06-18_US_04']);
+          let changed = false;
+
+          const before = full.cards.length;
+          full.cards = full.cards.filter(c => !removeIds.has(c.id));
+          if (full.cards.length !== before) changed = true;
+          if (![0,2].includes(before - full.cards.length)) throw new Error(`unexpected duplicate removal count ${before-full.cards.length}`);
+
+          const byId = new Map(full.cards.map(c => [c.id,c]));
+          const t1 = byId.get('2026-06-02_US_01');
+          if (!t1) throw new Error('missing T1 card');
+          const t1Sub = 'KORE NRI 기반 저장 솔루션 역량 확보 추진…6월은 인수 본계약 단계';
+          const t1Gate = '6월 사건은 definitive agreement 체결이며 인수 종결은 아니다. 거래종결 여부와 후속 통합은 별도 사건으로 확인해야 한다.';
+          const t1Imp = [
+            '태양광 제조사가 BESS 엔지니어링·소프트웨어 플랫폼을 M&A로 확보하는 수직확장 사례다.',
+            '6월 판단에서는 계약단계만 인정하고 거래종결·통합은 후속 사건으로 분리해야 한다.'
+          ];
+          if (t1.sub !== t1Sub || t1.gate !== t1Gate || JSON.stringify(t1.implication)!==JSON.stringify(t1Imp)) changed = true;
+          t1.sub = t1Sub;
+          t1.gate = t1Gate;
+          t1.implication = t1Imp;
+
+          const contour = byId.get('2026-06-24_EU_03');
+          if (!contour) throw new Error('missing ContourGlobal card');
+          const contourImp = [
+            'ContourGlobal이 500MW·2,000MWh BESS 개발자산 인수를 통해 영국 시장에 진입하는 단일 M&A 사례가 확인됐다.',
+            '조건부 인수 이후 FID·투자집행·착공과 계통제약 수익모델이 실제 자산가치를 결정할 다음 단계다.'
+          ];
+          if (JSON.stringify(contour.implication)!==JSON.stringify(contourImp)) changed = true;
+          contour.implication = contourImp;
+
+          const targetAdds = (manifest.operations?.add || []).filter(id => !removeIds.has(id));
+          if (targetAdds.length !== 7) throw new Error(`expected 7 retained additions, got ${targetAdds.length}`);
+          if (JSON.stringify(manifest.operations.add)!==JSON.stringify(targetAdds)) changed = true;
+          manifest.operations.add = targetAdds;
+          const targetAtt = (manifest.editorial_attestation?.additions || []).filter(a => !removeIds.has(a.id));
+          if (targetAtt.length !== 7) throw new Error(`expected 7 retained attestations, got ${targetAtt.length}`);
+          if (manifest.editorial_attestation.additions.length !== targetAtt.length) changed = true;
+          manifest.editorial_attestation.additions = targetAtt;
+          if (manifest.expected_after !== 1640) changed = true;
+          manifest.expected_after = 1640;
+
+          const t1Att = manifest.editorial_attestation.additions.find(a => a.id === '2026-06-02_US_01');
+          if (!t1Att) throw new Error('missing T1 attestation');
+          const t1Next = ['거래종결 여부와 이후 KORE 통합, 수주·매출·데이터센터 고객 전환을 추적한다.'];
+          if (JSON.stringify(t1Att.next_confirmation_points)!==JSON.stringify(t1Next)) changed = true;
+          t1Att.next_confirmation_points = t1Next;
+
+          if (full.cards.length !== 1640) throw new Error(`expected canonical 1640, got ${full.cards.length}`);
+          const ids = new Set(full.cards.map(c=>c.id));
+          for (const id of removeIds) if (ids.has(id)) throw new Error(`duplicate id still present ${id}`);
+          if (!ids.has('2026-06-26_EU_01')) throw new Error('pre-existing Ofgem canonical missing');
+          if (!ids.has('2026-07-03_US_01')) throw new Error('pre-existing FERC canonical missing');
+          const addSet = new Set(manifest.operations.add);
+          const attSet = new Set(manifest.editorial_attestation.additions.map(a=>a.id));
+          if (addSet.size!==7 || attSet.size!==7 || [...addSet].some(x=>!attSet.has(x))) throw new Error('manifest add/attestation set mismatch');
+          for (const a of manifest.editorial_attestation.additions) {
+            const sum = Object.values(a.decision_value_breakdown || {}).reduce((x,y)=>x+Number(y),0);
+            if (sum !== a.decision_news_value_score) throw new Error(`score mismatch ${a.id}: ${sum} != ${a.decision_news_value_score}`);
+          }
+
+          if (changed) {
+            const now = new Date().toISOString();
+            full.total = full.cards.length;
+            full.updated = now;
+            manifest.output_updated = now;
+            fs.writeFileSync(fullPath, JSON.stringify(full,null,2)+'\n');
+            fs.writeFileSync(manifestPath, JSON.stringify(manifest,null,2)+'\n');
+          }
+          NODE
+          node scripts/lean_cards.mjs
+      - name: Validate remediated repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/lean_cards.mjs --check
+          node -e 'const fs=require("fs");const m=JSON.parse(fs.readFileSync("direct-adds/2026-09-15-june-gap-deep-dive/direct-add.json","utf8"));if(m.schema!=="manual_direct_add_v2"||m.status!=="PASS"||m.expected_before!==1633||m.expected_after!==1640||m.operations.add.length!==7||m.operations.update.length!==0||m.operations.id_migration.length!==0)process.exit(1)'
+          npm test
+          npm run build
+          git diff --check
+      - name: Commit governed remediation only
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t changed < <(git diff --name-only)
+          allowed='^(data/cards\.full\.json|public/data/cards\.json|direct-adds/2026-09-15-june-gap-deep-dive/direct-add\.json)$'
+          for f in "${changed[@]}"; do
+            [[ "$f" =~ $allowed ]] || { echo "unexpected changed file: $f" >&2; exit 1; }
+          done
+          if [[ ${#changed[@]} -eq 0 ]]; then
+            echo 'No governed data changes remain.'
+            exit 0
+          fi
+          git config user.name 'ihyowoen'
+          git config user.email 'hyowoen@hotmail.com'
+          git add data/cards.full.json public/data/cards.json direct-adds/2026-09-15-june-gap-deep-dive/direct-add.json
+          git commit -m 'fix: address PR379 canonical review findings'
+          git push origin HEAD:chatgpt/june-2026-gap-direct-add

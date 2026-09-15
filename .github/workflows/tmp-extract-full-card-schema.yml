@@ -1,0 +1,29 @@
+name: tmp-extract-full-card-schema
+on:
+  push:
+    branches: [chatgpt/rebuild-monthly-brief-2026-06-deep-dive]
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract representative full-schema cards
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const j=JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
+          const cards=Array.isArray(j)?j:(j.cards||j.items||[]);
+          const sorted=cards.slice().sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))||String(b.id||'').localeCompare(String(a.id||'')));
+          const rich=sorted.filter(c=>Array.isArray(c.fact_sources)&&c.fact_sources.length && c.source_url_resolution && c.date_role).slice(0,3);
+          fs.writeFileSync('runs/2026-09-15/june-2026-rebuild-r1/full-card-schema-examples.json',JSON.stringify(rich,null,2)+'\n');
+          NODE
+      - name: Self-delete and commit
+        run: |
+          rm .github/workflows/tmp-extract-full-card-schema.yml
+          git config user.name ihyowoen
+          git config user.email hyowoen@hotmail.com
+          git add runs/2026-09-15/june-2026-rebuild-r1/full-card-schema-examples.json .github/workflows/tmp-extract-full-card-schema.yml
+          git commit -m "chore: inspect current full-card schema"
+          git push origin HEAD:chatgpt/rebuild-monthly-brief-2026-06-deep-dive

@@ -1,0 +1,66 @@
+name: tmp-june-gap-direct-add-r2
+on:
+  push:
+    branches: [chatgpt/june-2026-gap-direct-add]
+permissions:
+  contents: write
+jobs:
+  direct-add-r2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Fetch locked main
+        run: git fetch origin main:refs/remotes/origin/main --force
+      - name: Generate corrected direct-add from staged logic
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import textwrap
+          p = Path('.github/workflows/tmp-june-gap-direct-add.yml')
+          s = p.read_text(encoding='utf-8')
+          old = "score:62,breakdown:{market_structure_competition:22,supply_demand_price_utilisation:18"
+          new = "score:60,breakdown:{market_structure_competition:22,supply_demand_price_utilisation:18"
+          if old not in s:
+              raise SystemExit('Kansai score pattern not found in staged workflow')
+          s = s.replace(old, new, 1)
+          lines = s.splitlines()
+          start = next(i for i,l in enumerate(lines) if l.strip() == "node <<'NODE'") + 1
+          end = next(i for i in range(start, len(lines)) if lines[i].strip() == 'NODE')
+          js = textwrap.dedent('\n'.join(lines[start:end])) + '\n'
+          Path('/tmp/june-gap-add.js').write_text(js, encoding='utf-8')
+          PY
+          node /tmp/june-gap-add.js
+          node scripts/lean_cards.mjs
+      - name: Validate corrected direct-add
+        shell: bash
+        run: |
+          set -euo pipefail
+          git show origin/main:data/cards.full.json > /tmp/cards.full.base.json
+          MANIFEST=direct-adds/2026-09-15-june-gap-deep-dive/direct-add.json
+          node scripts/validate_json_schema_subset.mjs --schema schemas/manual-direct-add.v2.schema.json --instance "$MANIFEST"
+          node scripts/validate_manual_direct_add.mjs --manifest "$MANIFEST" --base /tmp/cards.full.base.json --full data/cards.full.json
+          node scripts/validate_manual_direct_add_v4_hardening.mjs --manifest "$MANIFEST" --base /tmp/cards.full.base.json --full data/cards.full.json
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          npm ci
+          npm test
+          npm run build
+          git diff --check
+      - name: Commit only governed data files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git add data/cards.full.json public/data/cards.json direct-adds/2026-09-15-june-gap-deep-dive/direct-add.json
+          git commit -m "data: add reviewed June 2026 gap cards"
+          git push origin HEAD:chatgpt/june-2026-gap-direct-add

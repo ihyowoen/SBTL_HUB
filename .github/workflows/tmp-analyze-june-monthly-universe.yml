@@ -1,0 +1,106 @@
+name: tmp-analyze-june-monthly-universe
+
+on:
+  push:
+    branches:
+      - chatgpt/publish-monthly-brief-2026-06
+
+permissions:
+  contents: write
+
+jobs:
+  analyze:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/publish-monthly-brief-2026-06
+          fetch-depth: 0
+      - name: Build June candidate matrix with provenance
+        run: |
+          python - <<'PY'
+          import json, re, pathlib, collections
+          cards=json.loads(pathlib.Path('data/cards.full.json').read_text())
+          if isinstance(cards,dict): cards=cards.get('cards') or cards.get('items') or cards.get('data') or []
+          june=[c for c in cards if str(c.get('date') or c.get('d') or '')[:7]=='2026-06']
+
+          themes={
+            'ESS_ASSET_CONTRACT_FINANCE':['bess','ess','tolling','용량계약','금융','세액공제','상업운전','준공','착공','오프테이크','offtake','ppa','저장서비스','capacity','financial','cod','commercial operation'],
+            'ESS_MARKET_DEMAND':['출하','판매','낙찰','입찰','신고','gwh','시장','수요','ship','sales','tender','award'],
+            'TECH_CHEMISTRY':['나트륨','전고체','반고체','고체전해질','황화리튬','아연','co₂','co2','장주기','ldes','sodium','solid-state','zinc'],
+            'LOCALIZATION_SUPPLYCHAIN':['현지','공장','생산','흑연','니켈','리튬','희토류','재활용','라이선스','license','feoc','1260h','수출통제','조달','광물','제련','정제','local'],
+            'POWER_AI_GRID':['데이터센터','ai','계통','전력망','유연접속','배전','grid','power'],
+            'KOREA_EXECUTION':['삼성sdi','lg에너지솔루션','lg엔솔','sk온','에코프로','엘앤에프','롯데','이수스페셜티','한화','ls일렉트릭','효성','현대차']
+          }
+          def title_urls(c):
+            vals=[]
+            fs=c.get('fact_sources') if isinstance(c.get('fact_sources'),list) else []
+            for s in fs:
+              if not isinstance(s,dict): continue
+              supports=s.get('supports') if isinstance(s.get('supports'),list) else []
+              if 'title' not in supports: continue
+              for k in ('source_url','source_url_canonical'):
+                u=s.get(k)
+                if isinstance(u,str) and u.strip() and u.strip() not in vals: vals.append(u.strip())
+            if not vals:
+              urls=c.get('urls') if isinstance(c.get('urls'),list) else []
+              vals=[u.strip() for u in urls if isinstance(u,str) and u.strip()]
+              if not vals and isinstance(c.get('url'),str) and c['url'].strip(): vals=[c['url'].strip()]
+            return vals
+          def publishers(c):
+            vals=[]
+            for s in c.get('fact_sources') if isinstance(c.get('fact_sources'),list) else []:
+              if isinstance(s,dict) and 'title' in (s.get('supports') or []):
+                p=s.get('publisher') or s.get('source_name')
+                if isinstance(p,str) and p.strip() and p.strip() not in vals: vals.append(p.strip())
+            return vals
+          def bad_url(u):
+            x=u.lower()
+            return (not x.startswith('http')) or x.endswith('/news-story/') or ('english.www.gov.cnenglish' in x) or x.count('http')>1
+          rows=[]
+          for c in june:
+            sig=str(c.get('signal') or c.get('signal_level') or c.get('tier') or '').lower()
+            title=str(c.get('title') or c.get('T') or '')
+            gate=str(c.get('gate') or c.get('gate_status') or '')
+            detail=' '.join(str(c.get(k) or '') for k in ('summary','d','description','detail'))
+            hay=(title+' '+gate+' '+detail).lower()
+            hits=[]
+            for th,kws in themes.items():
+              if any(k.lower() in hay for k in kws): hits.append(th)
+            urls=title_urls(c)
+            row={
+              'id':c.get('id'),'date':str(c.get('date') or c.get('d') or '')[:10],
+              'region':c.get('region') or c.get('r'),'signal':sig,'title':title,'gate':gate,
+              'themes':hits,'title_supporting_urls':urls,'title_publishers':publishers(c),
+              'provenance_status':'NO_TITLE_SOURCE' if not urls else ('URL_SUSPECT' if any(bad_url(u) for u in urls) else 'OK')
+            }
+            rows.append(row)
+          rank={'top':0,'high':1,'mid':2}
+          rows.sort(key=lambda r:(rank.get(r['signal'],9),r['date'],r['id'] or ''))
+          high=[r for r in rows if r['signal'] in ('top','high')]
+          mid=[r for r in rows if r['signal']=='mid']
+          theme_index={}
+          for th in themes:
+            theme_index[th]=[r['id'] for r in rows if th in r['themes']]
+          result={
+            'schema':'monthly_brief_candidate_matrix_v1','month':'2026-06',
+            'baseline_commit':'a24e784a0e2e5788eedfa1de4c5634e6cce908cb',
+            'cards_full_blob_sha':'f95176a9e469f8325e9bfbb55fdbc6957fe8b101',
+            'counts':{'all':len(rows),'top_high':len(high),'mid':len(mid)},
+            'provenance_counts':dict(collections.Counter(r['provenance_status'] for r in rows)),
+            'theme_index':theme_index,
+            'top_high_cards':high,'mid_cards':mid
+          }
+          out=pathlib.Path('runs/2026-09-15/monthly-brief-2026-06-candidate-matrix.json')
+          out.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({'counts':result['counts'],'provenance_counts':result['provenance_counts'],'theme_counts':{k:len(v) for k,v in theme_index.items()}},ensure_ascii=False,indent=2))
+          PY
+      - name: Remove one-shot workflow and commit matrix
+        run: |
+          rm .github/workflows/tmp-analyze-june-monthly-universe.yml
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git add runs/2026-09-15/monthly-brief-2026-06-candidate-matrix.json .github/workflows/tmp-analyze-june-monthly-universe.yml
+          git commit -m "chore: analyze June monthly candidate universe"
+          git push origin HEAD:chatgpt/publish-monthly-brief-2026-06

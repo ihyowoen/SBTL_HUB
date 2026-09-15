@@ -1,0 +1,69 @@
+name: tmp-extract-june-anchor-provenance
+
+on:
+  push:
+    branches:
+      - chatgpt/publish-monthly-brief-2026-06
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/publish-monthly-brief-2026-06
+          fetch-depth: 0
+      - name: Extract selected canonical anchors
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          ids=[
+            '2026-06-02_EU_01','2026-06-11_US_01','2026-06-21_GL_01','2026-06-22_US_01','2026-06-23_US_01','2026-06-30_GL_01',
+            '2026-06-08_GL_02','2026-06-11_GL_01','2026-06-17_GL_05','2026-06-23_EU_02','2026-06-30_CN_01',
+            '2026-06-22_CN_05','2026-06-23_EU_01','2026-06-17_US_02','2026-06-17_CN_05',
+            '2026-06-09_US_02','2026-06-22_CN_01','2026-06-17_GL_07','2026-06-10_EU_01',
+            '2026-06-30_US_02','2026-06-30_US_01','2026-06-30_GL_04','2026-06-11_KR_01','2026-06-29_KR_05'
+          ]
+          raw=json.loads(pathlib.Path('data/cards.full.json').read_text())
+          cards=raw if isinstance(raw,list) else (raw.get('cards') or raw.get('items') or raw.get('data') or [])
+          by={c.get('id'):c for c in cards if isinstance(c,dict)}
+          out=[]
+          for cid in ids:
+            c=by.get(cid)
+            if not c: raise SystemExit('missing '+cid)
+            fs=[]
+            for s in c.get('fact_sources') if isinstance(c.get('fact_sources'),list) else []:
+              if not isinstance(s,dict): continue
+              if 'title' not in (s.get('supports') or []): continue
+              fs.append({k:s.get(k) for k in ('publisher','publication_date','source_url','source_url_canonical','supports') if s.get(k) is not None})
+            urls=[]
+            for s in fs:
+              for k in ('source_url','source_url_canonical'):
+                u=s.get(k)
+                if isinstance(u,str) and u not in urls: urls.append(u)
+            if not urls:
+              for u in c.get('urls') if isinstance(c.get('urls'),list) else []:
+                if isinstance(u,str) and u not in urls: urls.append(u)
+              if not urls and isinstance(c.get('url'),str): urls.append(c['url'])
+            out.append({
+              'id':cid,'date':c.get('date') or c.get('d'),'region':c.get('region') or c.get('r'),'signal':c.get('signal'),
+              'title':c.get('title') or c.get('T'),'gate':c.get('gate'),'summary':c.get('summary') or c.get('d') or c.get('detail'),
+              'title_supporting_urls':urls,'title_fact_sources':fs,'related':c.get('related')
+            })
+          result={'schema':'monthly_brief_anchor_provenance_v1','month':'2026-06','baseline_commit':'a24e784a0e2e5788eedfa1de4c5634e6cce908cb','cards_full_blob_sha':'f95176a9e469f8325e9bfbb55fdbc6957fe8b101','anchors':out}
+          p=pathlib.Path('runs/2026-09-15/monthly-brief-2026-06-anchor-provenance.json')
+          p.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          print('anchors',len(out))
+          PY
+      - name: Remove one-shot workflow and commit anchors
+        run: |
+          rm .github/workflows/tmp-extract-june-anchor-provenance.yml
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git add runs/2026-09-15/monthly-brief-2026-06-anchor-provenance.json .github/workflows/tmp-extract-june-anchor-provenance.yml
+          git commit -m "chore: extract June anchor provenance"
+          git push origin HEAD:chatgpt/publish-monthly-brief-2026-06

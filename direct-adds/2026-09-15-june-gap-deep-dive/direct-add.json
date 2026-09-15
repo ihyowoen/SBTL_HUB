@@ -1,0 +1,380 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "JUNE_2026_EXTERNAL_GAP_DEEP_DIVE_20260915",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "dac1add44544798722f6dc3bb6d73fec2be7ff4d",
+  "base_full_blob_sha": "f95176a9e469f8325e9bfbb55fdbc6957fe8b101",
+  "expected_before": 1633,
+  "expected_after": 1642,
+  "output_updated": "2026-09-15T07:41:31.636Z",
+  "operations": {
+    "add": [
+      "2026-06-26_EU_06",
+      "2026-06-26_EU_07",
+      "2026-06-25_KR_02",
+      "2026-06-24_EU_03",
+      "2026-06-18_US_04",
+      "2026-06-16_JP_01",
+      "2026-06-15_US_01",
+      "2026-06-03_JP_02",
+      "2026-06-02_US_01"
+    ],
+    "update": [],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [
+      {
+        "id": "2026-06-26_EU_06",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "policy_regulatory_anchor"
+        ],
+        "selection_route": "structural_non_execution_route",
+        "decision_news_value_score": 65,
+        "decision_value_breakdown": {
+          "market_structure_competition": 20,
+          "supply_demand_price_utilisation": 20,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 8,
+          "law_policy_market_access": 10,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": 4,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "No defensible market-wide denominator is asserted for this bounded event; systemic-scale score is conservatively capped at 2/5.",
+        "prior_state": "영국 LDES cap-and-floor 제도는 존재했지만 June canonical에는 Window 1의 잠정 프로젝트 선별 단계가 별도 사건으로 포착되지 않았다.",
+        "new_verified_fact": "Ofgem은 6월 26일 영국 LDES cap-and-floor Window 1에서 16개 프로젝트를 Minded-to-Decision 목록에 올렸다. 잠정 포트폴리오에는 양수발전, 압축공기, 리튬이온, 바나듐 레독스 플로우 저장이 포함됐다.",
+        "changed_judgment": "LDES 지원이 제도 설계에서 16개 프로젝트의 잠정선정 단계로 내려와 금융·투자 판단의 구체성이 높아졌다.",
+        "evidence_review_summary": "Body-level review completed on 2026-09-15. Retained title/fact-supporting source set: https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers. Claims are bounded to the verified June event stage.",
+        "next_confirmation_points": [
+          "Ofgem의 Window 1 최종 결정과 프로젝트별 licence 조건·FID를 확인한다."
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": "기존 LDES 제도의 실행단계가 프로젝트 단위 잠정선정으로 진전된 정책·금융 사건이다.",
+        "why_execution_event_not_required": "규제기관의 제도 집행과 프로젝트 선별 자체가 시장접근·금융조건을 바꾸므로 일반 기업 실행이 없어도 독립 카드 가치가 있다."
+      },
+      {
+        "id": "2026-06-15_US_01",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "execution_event_anchor",
+          "technology_commercialization_anchor"
+        ],
+        "selection_route": "execution_anchor_route",
+        "decision_news_value_score": 70,
+        "decision_value_breakdown": {
+          "market_structure_competition": 20,
+          "supply_demand_price_utilisation": 20,
+          "technology_performance_safety": 11,
+          "cashflow_asset_value": 10,
+          "law_policy_market_access": 2,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "high_decision_value",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "pilot_precommercial",
+        "policy_stage": null,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "No defensible market-wide denominator is asserted for this bounded event; systemic-scale score is conservatively capped at 2/5.",
+        "prior_state": "June canonical에는 Energy Dome의 아일랜드 프로젝트는 있었지만 미국 SRP와의 20년 tolling 계약 사건은 없었다.",
+        "new_verified_fact": "Energy Dome과 SRP는 6월 15일 애리조나 St. Johns의 Coronado Generating Station 부지에 19MW·10시간 CO₂ 배터리를 개발하는 20년 tolling 계약을 발표했다. Energy Dome이 설비를 소유·운영하고 SRP가 출력을 dispatch한다.",
+        "changed_judgment": "CO2 LDES가 미국 공공전력 고객과 20년 수익계약을 확보해 기술 검증을 넘어 상업구조가 구체화됐다.",
+        "evidence_review_summary": "Body-level review completed on 2026-09-15. Retained title/fact-supporting source set: https://energydome.com/energy-dome-and-srp-to-add-long-duration-energy-storage-project-to-the-grid-expand-google-collaboration/ ; https://www.publicpower.org/periodical/article/srp-unveils-agreement-add-19-mw-long-duration-battery-storage-system-grid. Claims are bounded to the verified June event stage.",
+        "next_confirmation_points": [
+          "2029년 목표까지 인허가·착공·조달·실제 COD와 운영성능을 확인한다."
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": null,
+        "why_execution_event_not_required": null
+      },
+      {
+        "id": "2026-06-02_US_01",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "execution_event_anchor",
+          "strategic_behavior_anchor"
+        ],
+        "selection_route": "execution_anchor_route",
+        "decision_news_value_score": 60,
+        "decision_value_breakdown": {
+          "market_structure_competition": 24,
+          "supply_demand_price_utilisation": 17,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 10,
+          "law_policy_market_access": 2,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": null,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "No defensible market-wide denominator is asserted for this bounded event; systemic-scale score is conservatively capped at 2/5.",
+        "prior_state": "T1의 BESS·AI 인프라 사업 진입은 June canonical에 별도 거래사건으로 없었다.",
+        "new_verified_fact": "T1 Energy는 6월 2일 KORE Power를 약 3,200만달러 기업가치로 인수하는 본계약을 체결했다. 회사는 KORE의 BESS·소프트웨어 역량을 바탕으로 에너지저장과 AI 데이터센터 인프라 시장 진입을 추진한다고 밝혔다.",
+        "changed_judgment": "T1이 KORE Power 인수 본계약을 통해 BESS 엔지니어링·소프트웨어 역량을 내부화하는 전략적 거래에 착수했다.",
+        "evidence_review_summary": "Body-level review completed on 2026-09-15. Retained title/fact-supporting source set: https://ir.t1energy.com/news-releases/T1_Energy_Enters_Battery_and_Data_Center_Infrastructure_Markets ; https://www.sec.gov/Archives/edgar/data/1992243/000121390026065997/ea0293886-8k_t1energy.htm. Claims are bounded to the verified June event stage.",
+        "next_confirmation_points": [
+          "7월 1일 거래종결 이후 KORE 통합, 수주·매출·데이터센터 고객 전환을 추적한다."
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": null,
+        "why_execution_event_not_required": null
+      },
+      {
+        "id": "2026-06-18_US_04",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "policy_regulatory_anchor"
+        ],
+        "selection_route": "structural_non_execution_route",
+        "decision_news_value_score": 68,
+        "decision_value_breakdown": {
+          "market_structure_competition": 22,
+          "supply_demand_price_utilisation": 22,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 7,
+          "law_policy_market_access": 10,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": 2,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "No defensible market-wide denominator is asserted for this bounded event; systemic-scale score is conservatively capped at 2/5.",
+        "prior_state": "대형부하 연결 병목은 알려져 있었지만 June canonical에는 전 RTO/ISO를 대상으로 한 FERC Section 206 절차 개시가 없었다.",
+        "new_verified_fact": "FERC는 6월 18일 관할 6개 지역계통운영자에 각각 Section 206 show-cause 명령을 내리고 데이터센터·제조시설 등 대형부하의 계통접속 규칙을 정당화하거나 개정하도록 요구했다.",
+        "changed_judgment": "대형부하 계통접속 문제가 개별 프로젝트 이슈에서 6개 지역시장 tariff의 정당성·개정 절차로 올라갔다.",
+        "evidence_review_summary": "Body-level review completed on 2026-09-15. Retained title/fact-supporting source set: https://www.ferc.gov/news-events/news/ferc-launches-aggressive-targeted-action-speed-large-load-integration ; https://ferc.gov/news-events/news/fact-sheet-ferc-takes-action-supercharge-americas-grid-efficiency-reliability-and. Claims are bounded to the verified June event stage.",
+        "next_confirmation_points": [
+          "각 RTO/ISO의 답변과 FERC의 최종 tariff 판단, 저장·발전 co-location 규칙 변화를 확인한다."
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": "FERC가 6개 지역계통시장에 동시에 Section 206 절차를 열어 AI·대형부하의 시장접근 규칙을 재검토하는 시스템 사건이다.",
+        "why_execution_event_not_required": "최종 규칙 전 단계라도 전국 지역시장 tariff의 법적 정당성을 직접 심사하는 절차 개시는 독립적인 정책·시장구조 가치가 있다."
+      },
+      {
+        "id": "2026-06-25_KR_02",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "policy_regulatory_anchor"
+        ],
+        "selection_route": "structural_non_execution_route",
+        "decision_news_value_score": 58,
+        "decision_value_breakdown": {
+          "market_structure_competition": 18,
+          "supply_demand_price_utilisation": 18,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 5,
+          "law_policy_market_access": 10,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": 4,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "No defensible market-wide denominator is asserted for this bounded event; systemic-scale score is conservatively capped at 2/5.",
+        "prior_state": "사용후배터리법의 향후 인증제 도입 일정은 존재했지만 실제 기업 공정을 이용한 인증방법론 검증은 June canonical에 없었다.",
+        "new_verified_fact": "기후에너지환경부는 6월 25일 폐배터리 재활용 기업 6개사 및 한국환경공단과 배터리 재생원료 생산 인증제 시범사업 업무협약을 체결했다. 정부는 2027년 5월 제도 도입 전에 실제 생산공정에서 물질흐름과 생산량 산정 방법을 검증한다.",
+        "changed_judgment": "재생원료 인증이 법·제도 설계에서 실제 재활용 공정 데이터를 검증하는 시행 준비단계로 진입했다.",
+        "evidence_review_summary": "Body-level review completed on 2026-09-15. Retained title/fact-supporting source set: https://niwdc.me.go.kr/home/web/newsRead.do?boardId=1873220&condition.boardId=1873150&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=92&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=80&searchKey=&searchValue=. Claims are bounded to the verified June event stage.",
+        "next_confirmation_points": [
+          "2026년 말 시범사업 결과와 2027년 초 세부 운영지침 확정 고시를 확인한다."
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": "정식 시행 전 정부·기업 공동 시범사업이 시작돼 인증제의 실제 공정 적용성과 시장 증빙체계가 구체화되는 사건이다.",
+        "why_execution_event_not_required": "인증방법론과 추적체계는 배터리 원료의 규제 적격성과 고객 증빙에 직접 영향을 주므로 일반 기업 생산 이벤트 없이도 독립 카드 가치가 있다."
+      },
+      {
+        "id": "2026-06-26_EU_07",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "policy_regulatory_anchor"
+        ],
+        "selection_route": "structural_non_execution_route",
+        "decision_news_value_score": 60,
+        "decision_value_breakdown": {
+          "market_structure_competition": 20,
+          "supply_demand_price_utilisation": 18,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 5,
+          "law_policy_market_access": 10,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": 3,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "No defensible market-wide denominator is asserted for this bounded event; systemic-scale score is conservatively capped at 2/5.",
+        "prior_state": "EU 저장 확대 필요성은 존재했지만 June canonical에는 첫 tripartite agreement와 회원국 단기 배치공약 묶음이 없었다.",
+        "new_verified_fact": "EU 집행위는 6월 26일 룩셈부르크에서 첫 에너지저장 Tripartite Agreement가 체결됐다고 밝혔다. 17개 EU 회원국이 2026~2028 저장 배치 공약을 제출했으며, 집행위는 2030년 약 200GW가 필요하고 2026년 초 설치량은 약 55GW라고 설명한다.",
+        "changed_judgment": "EU 저장정책이 회원국·금융기관·개발사·수요산업의 공동 프레임과 단기 배치공약으로 구체화됐다.",
+        "evidence_review_summary": "Body-level review completed on 2026-09-15. Retained title/fact-supporting source set: https://energy.ec.europa.eu/strategy/affordable-energy/eu-level-tripartite-agreements_en ; https://energy.ec.europa.eu/publications/tripartite-agreement-energy-storage_en. Claims are bounded to the verified June event stage.",
+        "next_confirmation_points": [
+          "17개국 공약이 실제 국가별 입찰·인허가·금융·설치로 전환되는지 추적한다."
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": "EU 차원에서 최초로 저장 전용 tripartite agreement를 체결하고 다수 회원국의 단기 배치공약을 한 프레임에 묶은 정책조정 사건이다.",
+        "why_execution_event_not_required": "비구속이더라도 회원국 단기 배치계획과 금융·산업 주체를 동시에 묶는 제도적 조정은 시장 기대와 투자계획에 독립적인 구조 신호를 준다."
+      },
+      {
+        "id": "2026-06-16_JP_01",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "execution_event_anchor",
+          "data_financial_anchor"
+        ],
+        "selection_route": "execution_anchor_route",
+        "decision_news_value_score": 60,
+        "decision_value_breakdown": {
+          "market_structure_competition": 22,
+          "supply_demand_price_utilisation": 18,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 10,
+          "law_policy_market_access": 3,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": null,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "No defensible market-wide denominator is asserted for this bounded event; systemic-scale score is conservatively capped at 2/5.",
+        "prior_state": "일본 BESS 프로젝트 개별 조달은 있었지만 기관자금·PF·고정 오프테이크를 결합한 Kan-denchi Fund 운영 개시는 June canonical에 없었다.",
+        "new_verified_fact": "간사이전력은 6월 16일 기덴·MUFG Sustainable Energy와 함께 계통용 BESS를 투자대상으로 하는 65억엔 규모 Kan-denchi Fund의 운영을 시작했다. 회사는 약 250MW 규모의 계통용 BESS 사업을 추진하며 MUFG 프로젝트금융과 고정요금 오프테이크 계약을 활용한다고 밝혔다.",
+        "changed_judgment": "계통용 BESS를 개발사가 단독 보유하는 구조에서 펀드·프로젝트금융·고정요금 계약을 묶는 금융플랫폼으로 확장하는 실행이 확인됐다.",
+        "evidence_review_summary": "Body-level review completed on 2026-09-15. Retained title/fact-supporting source set: https://www.kepco.co.jp/corporate/pr/2026/pdf/20260616_1j.pdf. Claims are bounded to the verified June event stage.",
+        "next_confirmation_points": [
+          "펀드의 첫 투자대상, 개별 프로젝트 FID·착공·COD와 실제 오프테이크 조건을 확인한다."
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": null,
+        "why_execution_event_not_required": null
+      },
+      {
+        "id": "2026-06-03_JP_02",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "execution_event_anchor",
+          "technology_commercialization_anchor"
+        ],
+        "selection_route": "execution_anchor_route",
+        "decision_news_value_score": 58,
+        "decision_value_breakdown": {
+          "market_structure_competition": 15,
+          "supply_demand_price_utilisation": 16,
+          "technology_performance_safety": 12,
+          "cashflow_asset_value": 5,
+          "law_policy_market_access": 3,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "independent_test_or_customer_qualification",
+        "policy_stage": null,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "No defensible market-wide denominator is asserted for this bounded event; systemic-scale score is conservatively capped at 2/5.",
+        "prior_state": "일본 BESS 시장 진입 신호는 있었지만 규슈 160MWh 공급계약과 Elementa 2의 구체적 납품계획은 June canonical에 없었다.",
+        "new_verified_fact": "Trina Storage는 6월 3일 일본 규슈의 160MWh 초고압 계통용 BESS 공급계약을 발표했다. 프로젝트에는 Elementa 2와 자체 LFP 셀(314Ah 포함)이 적용되며 회사는 2026년 납품, 2027년 COD를 계획하고 있다.",
+        "changed_judgment": "일본의 대형 계통용 프로젝트에서 Trina Storage가 구체적 공급계약과 제품·납품 일정을 확보했다.",
+        "evidence_review_summary": "Body-level review completed on 2026-09-15. Retained title/fact-supporting source set: https://www.trinasolar.com/en-apac/newsroom202606031550/. Claims are bounded to the verified June event stage.",
+        "next_confirmation_points": [
+          "2026년 실제 납품과 2027년 COD, 현지 계통연계·안전성 이슈를 확인한다."
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": null,
+        "why_execution_event_not_required": null
+      },
+      {
+        "id": "2026-06-24_EU_03",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "execution_event_anchor",
+          "data_financial_anchor"
+        ],
+        "selection_route": "execution_anchor_route",
+        "decision_news_value_score": 58,
+        "decision_value_breakdown": {
+          "market_structure_competition": 22,
+          "supply_demand_price_utilisation": 20,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 8,
+          "law_policy_market_access": 2,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 2,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": null,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "No defensible market-wide denominator is asserted for this bounded event; systemic-scale score is conservatively capped at 2/5.",
+        "prior_state": "영국 BESS 개발 확대는 알려져 있었지만 ContourGlobal의 Wallace 조건부 인수를 통한 영국시장 진입은 June canonical에 없었다.",
+        "new_verified_fact": "ContourGlobal은 6월 24일 스코틀랜드 Ayr의 500MW·2,000MWh Wallace BESS를 인수하기로 합의했다고 발표했다. Wallace는 4시간 저장 프로젝트이며 이번 거래는 회사의 영국 시장 진입이다.",
+        "changed_judgment": "500MW·2,000MWh 개발자산이 기업의 신규시장 진입을 위한 M&A 대상으로 거래되며 BESS 플랫폼 가치가 구체화됐다.",
+        "evidence_review_summary": "Body-level review completed on 2026-09-15. Retained title/fact-supporting source set: https://www.contourglobal.com/news/contourglobal-enters-the-united-kingdom-through-the-acquisition-of-a-500-mw-2000-mwh-battery-storage-project-in-scotland/. Claims are bounded to the verified June event stage.",
+        "next_confirmation_points": [
+          "인수 조건 충족, FID·투자집행·착공과 목표 COD를 확인한다."
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": null,
+        "why_execution_event_not_required": null
+      }
+    ],
+    "updates": []
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "updated": "2026-09-13T09:42:20Z",
-  "total": 1633,
+  "updated": "2026-09-15T07:41:31.636Z",
+  "total": 1642,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
   "cards": [
@@ -285715,6 +285715,166 @@
       }
     },
     {
+      "id": "2026-06-26_EU_06",
+      "region": "EU",
+      "date": "2026-06-26",
+      "cat": "ESS",
+      "sub_cat": "ldes_cap_floor_project_selection",
+      "signal": "top",
+      "title": "Ofgem, 영국 LDES 16개 프로젝트 cap-and-floor 지원 후보 잠정선정",
+      "sub": "양수·압축공기·리튬이온·바나듐플로우 포함…Window 1 최종 결정 전 단계",
+      "gate": "Minded-to-Decision은 최종 cap-and-floor 지원 결정이 아니다. Ofgem은 의견수렴 뒤 최종 결정을 내리는 절차를 남겨두고 있다.",
+      "fact": "Ofgem은 6월 26일 영국 LDES cap-and-floor Window 1에서 16개 프로젝트를 Minded-to-Decision 목록에 올렸다. 잠정 포트폴리오에는 양수발전, 압축공기, 리튬이온, 바나듐 레독스 플로우 저장이 포함됐다.",
+      "implication": [
+        "장주기 저장 지원이 기술군 전체를 대상으로 실제 프로젝트 선별 단계까지 내려왔다.",
+        "최종 선정과 개별 licence 조건이 투자·착공 속도를 가를 다음 검증점이다."
+      ],
+      "urls": [
+        "https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "owner": "Ofgem",
+          "source_owner_id": "Ofgem",
+          "role": "official_regulator",
+          "source_role": "official_regulator",
+          "url": "https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers",
+          "source_url": "https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers",
+          "domain": "ofgem.gov.uk",
+          "published": "2026-06-26",
+          "summary": "Ofgem은 Window 1을 eligibility assessment에서 project-selection 단계로 옮기며 16개 프로젝트를 잠정 지원 후보로 제시했다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "official_regulator",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-26_EU_06-S1",
+          "source_id": "2026-06-26_EU_06-S1"
+        }
+      ],
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-06-26",
+        "representative_date": "2026-06-26",
+        "event_date": "2026-06-26",
+        "source_publication_dates": [
+          "2026-06-26"
+        ],
+        "role": "operative event or announcement date verified from body-level/official evidence"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
+    },
+    {
+      "id": "2026-06-26_EU_07",
+      "region": "EU",
+      "date": "2026-06-26",
+      "cat": "Policy",
+      "sub_cat": "eu_storage_tripartite_agreement",
+      "signal": "high",
+      "title": "EU, 첫 에너지저장 Tripartite Agreement 체결…17개국 2026~2028 배치 공약",
+      "sub": "EU 2030 저장수요 약 200GW vs 2026년 초 설치 약 55GW…국가 공약은 비구속",
+      "gate": "17개국의 저장 배치 공약은 법적 의무를 만들지 않는다. 공약 용량을 계약·착공·설치량으로 간주해서는 안 된다.",
+      "fact": "EU 집행위는 6월 26일 룩셈부르크에서 첫 에너지저장 Tripartite Agreement가 체결됐다고 밝혔다. 17개 EU 회원국이 2026~2028 저장 배치 공약을 제출했으며, 집행위는 2030년 약 200GW가 필요하고 2026년 초 설치량은 약 55GW라고 설명한다.",
+      "implication": [
+        "유럽 저장정책이 공급자·금융기관·수요산업과 회원국 배치계획을 한 틀에 묶는 조정 단계로 진전됐다.",
+        "비구속 공약이 실제 인허가·조달·금융·계통접속으로 전환되는 속도를 별도로 확인해야 한다."
+      ],
+      "urls": [
+        "https://energy.ec.europa.eu/strategy/affordable-energy/eu-level-tripartite-agreements_en",
+        "https://energy.ec.europa.eu/publications/tripartite-agreement-energy-storage_en"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "owner": "European Commission DG Energy",
+          "source_owner_id": "European Commission DG Energy",
+          "role": "official_government",
+          "source_role": "official_government",
+          "url": "https://energy.ec.europa.eu/strategy/affordable-energy/eu-level-tripartite-agreements_en",
+          "source_url": "https://energy.ec.europa.eu/strategy/affordable-energy/eu-level-tripartite-agreements_en",
+          "domain": "energy.ec.europa.eu",
+          "published": "2026-06-26",
+          "summary": "EU 집행위는 첫 에너지저장 tripartite agreement와 17개국의 2026~2028 storage pledges, 2030 수요와 2026 초 설치 기준을 설명한다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "official_government",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-26_EU_07-S1",
+          "source_id": "2026-06-26_EU_07-S1"
+        },
+        {
+          "owner": "European Commission DG Energy",
+          "source_owner_id": "European Commission DG Energy",
+          "role": "official_document",
+          "source_role": "official_document",
+          "url": "https://energy.ec.europa.eu/publications/tripartite-agreement-energy-storage_en",
+          "source_url": "https://energy.ec.europa.eu/publications/tripartite-agreement-energy-storage_en",
+          "domain": "energy.ec.europa.eu",
+          "published": "2026-06-26",
+          "summary": "집행위 publication page는 6월 26일 체결된 에너지저장 Tripartite Agreement 원문을 제공한다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "official_document",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-26_EU_07-S2",
+          "source_id": "2026-06-26_EU_07-S2"
+        }
+      ],
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-06-26",
+        "representative_date": "2026-06-26",
+        "event_date": "2026-06-26",
+        "source_publication_dates": [
+          "2026-06-26"
+        ],
+        "role": "operative event or announcement date verified from body-level/official evidence"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
+    },
+    {
       "state": "github_merge_ready",
       "draft_id": "DRAFT_BATCHB_10_PROMO_DD_RV26_012_GRIDMATIC_REOPEN_R1",
       "source_spec_id": "PROMO_DD_RV26_012_GRIDMATIC_REOPEN",
@@ -287889,6 +288049,70 @@
       "related_lineage": {
         "related_ids": []
       }
+    },
+    {
+      "id": "2026-06-25_KR_02",
+      "region": "KR",
+      "date": "2026-06-25",
+      "cat": "SupplyChain",
+      "sub_cat": "battery_recycled_material_certification",
+      "signal": "high",
+      "title": "기후에너지환경부, 배터리 재생원료 생산 인증제 시범사업 착수",
+      "sub": "재활용 6개사·한국환경공단 참여…2027년 5월 제도 도입 전 실제 공정 검증",
+      "gate": "이번 단계는 인증 방법론을 실제 생산공정에 적용·검증하는 시범사업이며 정식 인증제 전면 시행은 아니다.",
+      "fact": "기후에너지환경부는 6월 25일 폐배터리 재활용 기업 6개사 및 한국환경공단과 배터리 재생원료 생산 인증제 시범사업 업무협약을 체결했다. 정부는 2027년 5월 제도 도입 전에 실제 생산공정에서 물질흐름과 생산량 산정 방법을 검증한다.",
+      "implication": [
+        "재생원료 규율이 법 제정 이후 실제 공정 데이터와 인증방법을 맞추는 실행단계로 내려왔다.",
+        "향후 국내 재활용 원료의 해외 규제 대응과 고객 증빙 요구에 연결될 수 있어 세부 운영지침이 핵심이다."
+      ],
+      "urls": [
+        "https://niwdc.me.go.kr/home/web/newsRead.do?boardId=1873220&condition.boardId=1873150&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=92&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=80&searchKey=&searchValue="
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "owner": "기후에너지환경부",
+          "source_owner_id": "기후에너지환경부",
+          "role": "official_government",
+          "source_role": "official_government",
+          "url": "https://niwdc.me.go.kr/home/web/newsRead.do?boardId=1873220&condition.boardId=1873150&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=92&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=80&searchKey=&searchValue=",
+          "source_url": "https://niwdc.me.go.kr/home/web/newsRead.do?boardId=1873220&condition.boardId=1873150&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=92&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=80&searchKey=&searchValue=",
+          "domain": "niwdc.me.go.kr",
+          "published": "2026-06-25",
+          "summary": "정부는 재활용 6개사와 환경공단이 참여하는 배터리 재생원료 생산 인증제 시범사업을 시작하고 2027년 5월 정식 도입 전 실제 공정 검증을 실시한다고 밝혔다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "official_government",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-25_KR_02-S1",
+          "source_id": "2026-06-25_KR_02-S1"
+        }
+      ],
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-06-25",
+        "representative_date": "2026-06-25",
+        "event_date": "2026-06-25",
+        "source_publication_dates": [
+          "2026-06-25"
+        ],
+        "role": "operative event or announcement date verified from body-level/official evidence"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
     },
     {
       "draft_id": "DRAFT_20260629_123733_029",
@@ -290180,6 +290404,70 @@
       "related_lineage": {
         "related_ids": []
       }
+    },
+    {
+      "id": "2026-06-24_EU_03",
+      "region": "EU",
+      "date": "2026-06-24",
+      "cat": "ESS",
+      "sub_cat": "bess_project_acquisition",
+      "signal": "high",
+      "title": "ContourGlobal, 스코틀랜드 500MW·2,000MWh Wallace BESS 인수 합의",
+      "sub": "4시간 저장 프로젝트로 영국 시장 진입…거래종결 조건 남아",
+      "gate": "인수는 특정 조건 충족을 전제로 하며 Wallace는 개발 중인 프로젝트다. 거래합의·개발단계를 FID·착공·상업운전으로 확대해석하지 않는다.",
+      "fact": "ContourGlobal은 6월 24일 스코틀랜드 Ayr의 500MW·2,000MWh Wallace BESS를 인수하기로 합의했다고 발표했다. Wallace는 4시간 저장 프로젝트이며 이번 거래는 회사의 영국 시장 진입이다.",
+      "implication": [
+        "대형 BESS 개발자산이 유럽 전력기업의 시장진입 M&A 대상으로 거래되는 흐름이 확인됐다.",
+        "조건부 인수 이후 FID·투자집행·착공과 계통제약 수익모델이 실제 자산가치를 결정할 다음 단계다."
+      ],
+      "urls": [
+        "https://www.contourglobal.com/news/contourglobal-enters-the-united-kingdom-through-the-acquisition-of-a-500-mw-2000-mwh-battery-storage-project-in-scotland/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "owner": "ContourGlobal",
+          "source_owner_id": "ContourGlobal",
+          "role": "source_owner_release",
+          "source_role": "source_owner_release",
+          "url": "https://www.contourglobal.com/news/contourglobal-enters-the-united-kingdom-through-the-acquisition-of-a-500-mw-2000-mwh-battery-storage-project-in-scotland/",
+          "source_url": "https://www.contourglobal.com/news/contourglobal-enters-the-united-kingdom-through-the-acquisition-of-a-500-mw-2000-mwh-battery-storage-project-in-scotland/",
+          "domain": "contourglobal.com",
+          "published": "2026-06-24",
+          "summary": "ContourGlobal은 조건부로 Wallace 500MW·2,000MWh BESS를 인수하고 영국 시장에 진입한다고 발표했다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "source_owner_release",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-24_EU_03-S1",
+          "source_id": "2026-06-24_EU_03-S1"
+        }
+      ],
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-06-24",
+        "representative_date": "2026-06-24",
+        "event_date": "2026-06-24",
+        "source_publication_dates": [
+          "2026-06-24"
+        ],
+        "role": "operative event or announcement date verified from body-level/official evidence"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
     },
     {
       "id": "2026-06-23_US_03",
@@ -301832,6 +302120,102 @@
       }
     },
     {
+      "id": "2026-06-18_US_04",
+      "region": "US",
+      "date": "2026-06-18",
+      "cat": "PowerGrid",
+      "sub_cat": "large_load_interconnection_rulemaking",
+      "signal": "top",
+      "title": "FERC, 6개 RTO·ISO 대형부하 계통접속 규칙 Section 206 절차 개시",
+      "sub": "데이터센터·제조시설 연결규칙 정당성 입증 또는 개정 요구",
+      "gate": "Section 206 show-cause는 최종 tariff 개정이 아니다. 이번 조치는 데이터센터 등 대형부하의 계통접속 규칙을 대상으로 하며 BESS 설치를 의무화하지 않는다.",
+      "fact": "FERC는 6월 18일 관할 6개 지역계통운영자에 각각 Section 206 show-cause 명령을 내리고 데이터센터·제조시설 등 대형부하의 계통접속 규칙을 정당화하거나 개정하도록 요구했다.",
+      "implication": [
+        "AI·데이터센터 전력수요에서 speed-to-power와 송전비용 배분이 직접적인 규제 변수로 올라왔다.",
+        "저장장치는 대형부하 통합의 선택지가 될 수 있지만 이번 명령 자체를 BESS 수요 의무화로 해석하면 안 된다."
+      ],
+      "urls": [
+        "https://www.ferc.gov/news-events/news/ferc-launches-aggressive-targeted-action-speed-large-load-integration",
+        "https://ferc.gov/news-events/news/fact-sheet-ferc-takes-action-supercharge-americas-grid-efficiency-reliability-and"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "owner": "Federal Energy Regulatory Commission",
+          "source_owner_id": "Federal Energy Regulatory Commission",
+          "role": "official_regulator",
+          "source_role": "official_regulator",
+          "url": "https://www.ferc.gov/news-events/news/ferc-launches-aggressive-targeted-action-speed-large-load-integration",
+          "source_url": "https://www.ferc.gov/news-events/news/ferc-launches-aggressive-targeted-action-speed-large-load-integration",
+          "domain": "ferc.gov",
+          "published": "2026-06-18",
+          "summary": "FERC는 6개 RTO/ISO에 Section 206 show-cause orders를 발행해 large-load 연결 tariff를 정당화하거나 개정하도록 요구했다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "official_regulator",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-18_US_04-S1",
+          "source_id": "2026-06-18_US_04-S1"
+        },
+        {
+          "owner": "Federal Energy Regulatory Commission",
+          "source_owner_id": "Federal Energy Regulatory Commission",
+          "role": "official_regulator",
+          "source_role": "official_regulator",
+          "url": "https://ferc.gov/news-events/news/fact-sheet-ferc-takes-action-supercharge-americas-grid-efficiency-reliability-and",
+          "source_url": "https://ferc.gov/news-events/news/fact-sheet-ferc-takes-action-supercharge-americas-grid-efficiency-reliability-and",
+          "domain": "ferc.gov",
+          "published": "2026-06-18",
+          "summary": "FERC fact sheet는 data centers와 manufacturing 등 large load 통합을 대상으로 하는 조치임을 설명한다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "official_regulator",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-18_US_04-S2",
+          "source_id": "2026-06-18_US_04-S2"
+        }
+      ],
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-06-18",
+        "representative_date": "2026-06-18",
+        "event_date": "2026-06-18",
+        "source_publication_dates": [
+          "2026-06-18"
+        ],
+        "role": "operative event or announcement date verified from body-level/official evidence"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
+    },
+    {
       "draft_id": "DRAFT_20260629_123733_001",
       "source_spec_id": "SPEC_20260629_123733_001",
       "source_story_ids": [
@@ -306679,6 +307063,70 @@
       }
     },
     {
+      "id": "2026-06-16_JP_01",
+      "region": "JP",
+      "date": "2026-06-16",
+      "cat": "ESS",
+      "sub_cat": "bess_infrastructure_fund",
+      "signal": "high",
+      "title": "간사이전력, 65억엔 계통용 BESS 펀드 운영 개시…약 250MW 추진",
+      "sub": "MUFG 프로젝트금융·고정 오프테이크로 자금조달·수익 안정화 구조",
+      "gate": "약 250MW는 펀드를 통해 추진하는 사업규모이며 현재 설치·상업운전 용량이 아니다. 개별 프로젝트의 투자·착공·COD를 별도로 확인해야 한다.",
+      "fact": "간사이전력은 6월 16일 기덴·MUFG Sustainable Energy와 함께 계통용 BESS를 투자대상으로 하는 65억엔 규모 Kan-denchi Fund의 운영을 시작했다. 회사는 약 250MW 규모의 계통용 BESS 사업을 추진하며 MUFG 프로젝트금융과 고정요금 오프테이크 계약을 활용한다고 밝혔다.",
+      "implication": [
+        "일본 계통용 BESS에서 펀드 지분·프로젝트금융·고정 오프테이크를 결합한 자산금융 구조가 등장했다.",
+        "발표 포트폴리오가 실제 투자집행·COD로 전환되는지가 일본 저장자산의 기관투자 확장성을 가를 기준이다."
+      ],
+      "urls": [
+        "https://www.kepco.co.jp/corporate/pr/2026/pdf/20260616_1j.pdf"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "owner": "Kansai Electric Power",
+          "source_owner_id": "Kansai Electric Power",
+          "role": "official_company_pdf",
+          "source_role": "official_company_pdf",
+          "url": "https://www.kepco.co.jp/corporate/pr/2026/pdf/20260616_1j.pdf",
+          "source_url": "https://www.kepco.co.jp/corporate/pr/2026/pdf/20260616_1j.pdf",
+          "domain": "kepco.co.jp",
+          "published": "2026-06-16",
+          "summary": "간사이전력 공식자료는 65억엔 펀드, 약 250MW 추진, MUFG 프로젝트금융과 고정요금 오프테이크 구조를 제시한다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "official_company_pdf",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-16_JP_01-S1",
+          "source_id": "2026-06-16_JP_01-S1"
+        }
+      ],
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-06-16",
+        "representative_date": "2026-06-16",
+        "event_date": "2026-06-16",
+        "source_publication_dates": [
+          "2026-06-16"
+        ],
+        "role": "operative event or announcement date verified from body-level/official evidence"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
+    },
+    {
       "id": "2026-06-15_CN_01",
       "region": "CN",
       "date": "2026-06-15",
@@ -306793,6 +307241,102 @@
       "related_lineage": {
         "related_ids": []
       }
+    },
+    {
+      "id": "2026-06-15_US_01",
+      "region": "US",
+      "date": "2026-06-15",
+      "cat": "ESS",
+      "sub_cat": "ldes_co2_tolling",
+      "signal": "top",
+      "title": "Energy Dome·SRP, 애리조나 19MW·10시간 CO₂ 저장에 20년 tolling 계약",
+      "sub": "Google 협력 LDES 파일럿…Energy Dome 소유·운영, SRP가 출력 dispatch",
+      "gate": "이번 사건은 장기수익계약이 체결된 개발 프로젝트이며 상업운전은 아니다. 프로젝트는 2029년 가동을 목표로 한다.",
+      "fact": "Energy Dome과 SRP는 6월 15일 애리조나 St. Johns의 Coronado Generating Station 부지에 19MW·10시간 CO₂ 배터리를 개발하는 20년 tolling 계약을 발표했다. Energy Dome이 설비를 소유·운영하고 SRP가 출력을 dispatch한다.",
+      "implication": [
+        "비리튬 장주기 저장이 장기 tolling 계약을 확보하며 기술 실증과 수익모델이 동시에 구체화됐다.",
+        "Google 협력은 AI·대형부하 전력수요와 LDES 검증이 만나는 사례지만 Google 소유 프로젝트로 해석해서는 안 된다."
+      ],
+      "urls": [
+        "https://energydome.com/energy-dome-and-srp-to-add-long-duration-energy-storage-project-to-the-grid-expand-google-collaboration/",
+        "https://www.publicpower.org/periodical/article/srp-unveils-agreement-add-19-mw-long-duration-battery-storage-system-grid"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "owner": "Energy Dome",
+          "source_owner_id": "Energy Dome",
+          "role": "source_owner_release",
+          "source_role": "source_owner_release",
+          "url": "https://energydome.com/energy-dome-and-srp-to-add-long-duration-energy-storage-project-to-the-grid-expand-google-collaboration/",
+          "source_url": "https://energydome.com/energy-dome-and-srp-to-add-long-duration-energy-storage-project-to-the-grid-expand-google-collaboration/",
+          "domain": "energydome.com",
+          "published": "2026-06-15",
+          "summary": "Energy Dome와 SRP가 19MW·10시간 CO2 Battery와 20년 tolling 계약을 발표했다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "source_owner_release",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-15_US_01-S1",
+          "source_id": "2026-06-15_US_01-S1"
+        },
+        {
+          "owner": "American Public Power Association",
+          "source_owner_id": "American Public Power Association",
+          "role": "independent_news",
+          "source_role": "independent_news",
+          "url": "https://www.publicpower.org/periodical/article/srp-unveils-agreement-add-19-mw-long-duration-battery-storage-system-grid",
+          "source_url": "https://www.publicpower.org/periodical/article/srp-unveils-agreement-add-19-mw-long-duration-battery-storage-system-grid",
+          "domain": "publicpower.org",
+          "published": "2026-06-15",
+          "summary": "APPA는 같은 프로젝트의 계약 구조와 Google-SRP 협력 맥락을 독립적으로 보강했다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "independent_news",
+          "evidence_role": "independent_event_confirmation",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-15_US_01-S2",
+          "source_id": "2026-06-15_US_01-S2"
+        }
+      ],
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-06-15",
+        "representative_date": "2026-06-15",
+        "event_date": "2026-06-15",
+        "source_publication_dates": [
+          "2026-06-15"
+        ],
+        "role": "operative event or announcement date verified from body-level/official evidence"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE"
     },
     {
       "id": "2026-06-12_KR_04",
@@ -312760,6 +313304,70 @@
       }
     },
     {
+      "id": "2026-06-03_JP_02",
+      "region": "JP",
+      "date": "2026-06-03",
+      "cat": "ESS",
+      "sub_cat": "utility_bess_supply_contract",
+      "signal": "high",
+      "title": "Trina Storage, 일본 규슈 160MWh 계통용 BESS 공급계약",
+      "sub": "Elementa 2·314Ah LFP 적용…2026년 납품, 2027년 COD 예정",
+      "gate": "현재 확인된 단계는 공급계약 체결이다. 2026년 납품과 2027년 COD는 예정 일정으로 실제 인도·가동과 구분해야 한다.",
+      "fact": "Trina Storage는 6월 3일 일본 규슈의 160MWh 초고압 계통용 BESS 공급계약을 발표했다. 프로젝트에는 Elementa 2와 자체 LFP 셀(314Ah 포함)이 적용되며 회사는 2026년 납품, 2027년 COD를 계획하고 있다.",
+      "implication": [
+        "일본 계통용 저장 시장에서 글로벌 시스템업체의 대형 상업계약과 현지 안전규격 대응이 함께 확인됐다.",
+        "계약 규모보다 실제 납품·계통연계·COD와 안전성 검증 결과가 후속 판단의 핵심이다."
+      ],
+      "urls": [
+        "https://www.trinasolar.com/en-apac/newsroom202606031550/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "owner": "Trinasolar",
+          "source_owner_id": "Trinasolar",
+          "role": "source_owner_release",
+          "source_role": "source_owner_release",
+          "url": "https://www.trinasolar.com/en-apac/newsroom202606031550/",
+          "source_url": "https://www.trinasolar.com/en-apac/newsroom202606031550/",
+          "domain": "trinasolar.com",
+          "published": "2026-06-03",
+          "summary": "Trina Storage는 규슈 160MWh BESS 공급계약, Elementa 2·314Ah LFP 적용과 2026 납품/2027 COD 계획을 발표했다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "source_owner_release",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-03_JP_02-S1",
+          "source_id": "2026-06-03_JP_02-S1"
+        }
+      ],
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-06-03",
+        "representative_date": "2026-06-03",
+        "event_date": "2026-06-03",
+        "source_publication_dates": [
+          "2026-06-03"
+        ],
+        "role": "operative event or announcement date verified from body-level/official evidence"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
+    },
+    {
       "cat": "Policy",
       "date": "2026-06-02",
       "draft_id": "DRAFT23",
@@ -313521,6 +314129,102 @@
       "related_lineage": {
         "related_ids": []
       }
+    },
+    {
+      "id": "2026-06-02_US_01",
+      "region": "US",
+      "date": "2026-06-02",
+      "cat": "ESS",
+      "sub_cat": "bess_platform_ma",
+      "signal": "high",
+      "title": "T1 Energy, KORE Power 약 3,200만달러 인수 본계약…BESS·AI 인프라 진입",
+      "sub": "KORE NRI 기반 저장 솔루션 역량 확보 추진…6월은 계약, 거래종결은 7월",
+      "gate": "6월 사건은 definitive agreement 체결이며 인수 종결은 아니다. SEC 공시에 따르면 거래는 7월 1일 종결됐다.",
+      "fact": "T1 Energy는 6월 2일 KORE Power를 약 3,200만달러 기업가치로 인수하는 본계약을 체결했다. 회사는 KORE의 BESS·소프트웨어 역량을 바탕으로 에너지저장과 AI 데이터센터 인프라 시장 진입을 추진한다고 밝혔다.",
+      "implication": [
+        "태양광 제조사가 BESS 엔지니어링·소프트웨어 플랫폼을 M&A로 확보하는 수직확장 사례다.",
+        "6월 판단에서는 계약단계만 인정하고 7월 종결은 후속 사건으로 분리해야 한다."
+      ],
+      "urls": [
+        "https://ir.t1energy.com/news-releases/T1_Energy_Enters_Battery_and_Data_Center_Infrastructure_Markets",
+        "https://www.sec.gov/Archives/edgar/data/1992243/000121390026065997/ea0293886-8k_t1energy.htm"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "owner": "T1 Energy",
+          "source_owner_id": "T1 Energy",
+          "role": "source_owner_release",
+          "source_role": "source_owner_release",
+          "url": "https://ir.t1energy.com/news-releases/T1_Energy_Enters_Battery_and_Data_Center_Infrastructure_Markets",
+          "source_url": "https://ir.t1energy.com/news-releases/T1_Energy_Enters_Battery_and_Data_Center_Infrastructure_Markets",
+          "domain": "ir.t1energy.com",
+          "published": "2026-06-03",
+          "summary": "T1은 KORE 인수 본계약, 약 3,200만달러 기업가치와 BESS·AI 데이터센터 인프라 시장 진입 전략을 발표했다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "source_owner_release",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-02_US_01-S1",
+          "source_id": "2026-06-02_US_01-S1"
+        },
+        {
+          "owner": "T1 Energy / U.S. SEC filing",
+          "source_owner_id": "T1 Energy / U.S. SEC filing",
+          "role": "official_filing",
+          "source_role": "official_filing",
+          "url": "https://www.sec.gov/Archives/edgar/data/1992243/000121390026065997/ea0293886-8k_t1energy.htm",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1992243/000121390026065997/ea0293886-8k_t1energy.htm",
+          "domain": "sec.gov",
+          "published": "2026-06-03",
+          "summary": "SEC 8-K는 6월 2일 definitive agreement와 약 3,200만달러 purchase enterprise value를 확인한다.",
+          "fetch_status": "fetched_body_or_authoritative_page",
+          "fetched": true,
+          "headline_only": false,
+          "rss_or_snippet_only": false,
+          "claim_use": "paraphrase_only_no_visible_quote",
+          "source_type": "official_filing",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-09-15",
+          "source_quote_status": "not_emitted_paraphrase_only",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "id": "2026-06-02_US_01-S2",
+          "source_id": "2026-06-02_US_01-S2"
+        }
+      ],
+      "date_role": {
+        "status": "PASS",
+        "representative_event_date": "2026-06-02",
+        "representative_date": "2026-06-02",
+        "event_date": "2026-06-02",
+        "source_publication_dates": [
+          "2026-06-03"
+        ],
+        "role": "operative event or announcement date verified from body-level/official evidence"
+      },
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
     },
     {
       "id": "2026-05-31_KR_01",

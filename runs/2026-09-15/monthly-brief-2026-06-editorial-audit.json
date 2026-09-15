@@ -1,0 +1,370 @@
+{
+  "schema": "monthly_brief_editorial_audit_v1",
+  "issue_id": "monthly-brief-2026-06-r1",
+  "month": "2026-06",
+  "audit_date": "2026-09-15",
+  "product": "SBTL Monthly Brief",
+  "baseline": {
+    "main_commit_sha": "a24e784a0e2e5788eedfa1de4c5634e6cce908cb",
+    "cards_full_blob_sha": "f95176a9e469f8325e9bfbb55fdbc6957fe8b101",
+    "total_canonical_cards": 1633,
+    "month_card_count": 190,
+    "signal_distribution": {
+      "top": 14,
+      "high": 78,
+      "mid": 98
+    },
+    "region_distribution": {
+      "CN": 39,
+      "EU": 46,
+      "GL": 35,
+      "JP": 5,
+      "KR": 31,
+      "US": 34
+    }
+  },
+  "method": [
+    "Lock the post-merge main canonical snapshot before publication and review all 190 June cards across top, high and mid signal tiers.",
+    "Re-derive the June thesis from the canonical universe rather than copying the legacy monthly narrative; legacy material existed in the repository and prior context, so this is canonical-first procedural independence rather than an information-blind exercise.",
+    "Use legacy June briefs only as a red-team comparison for omissions, inherited framing and overreach after the canonical-first flow draft was formed in this run.",
+    "Separate contract, financing, construction, commissioning and commercial operation stages; announced GW/GWh is never treated as installed capacity.",
+    "Reject EV-down-to-ESS substitution unless separately proven; ESS growth is treated as an independent demand axis.",
+    "Apply a strict SBTL pouch lens: no pouch-film demand inference without form-factor, customer-program or supply-contract evidence.",
+    "Require every public reference to preserve the locked canonical title/date and bind to a title-supporting governed URL accepted by the provenance validator."
+  ],
+  "selected_flows": [
+    {
+      "id": "01",
+      "title": "ESS, 수익계약·금융·COD로 자산화",
+      "decision": "SELECT",
+      "reason": "Independent June evidence spans tolling, project finance, tax-equity finance, 20-year capacity revenue and COD, showing asset monetization and execution without conflating stages.",
+      "anchor_card_ids": [
+        "2026-06-02_EU_01",
+        "2026-06-11_US_01",
+        "2026-06-22_US_01",
+        "2026-06-23_US_01",
+        "2026-06-30_GL_01"
+      ]
+    },
+    {
+      "id": "02",
+      "title": "ESS 수요, 지역·저장시간·조달규모가 함께 넓어짐",
+      "decision": "SELECT",
+      "reason": "Global shipment growth, an operating 8-hour asset, large Chinese OEM offtakes and a 25GWh European framework show simultaneous geographic, duration and procurement-scale expansion.",
+      "anchor_card_ids": [
+        "2026-06-08_GL_02",
+        "2026-06-11_GL_01",
+        "2026-06-17_GL_05",
+        "2026-06-23_EU_02"
+      ]
+    },
+    {
+      "id": "03",
+      "title": "나트륨·CO₂는 상업계약으로, 전고체는 검증단계가 갈림",
+      "decision": "SELECT",
+      "reason": "Sodium-ion and CO2 storage have delivery/commercial-contract milestones while all-solid-state evidence ranges from road testing to explicit TRL4 caution, making maturity-stage separation decision-relevant.",
+      "anchor_card_ids": [
+        "2026-06-22_CN_05",
+        "2026-06-23_EU_01",
+        "2026-06-17_US_02",
+        "2026-06-17_CN_05"
+      ]
+    },
+    {
+      "id": "04",
+      "title": "공급망 규칙, 국가·품목에서 기업·조달 적격성까지 세분화",
+      "decision": "SELECT",
+      "reason": "US and China actions operate at named-company procurement/export-control level while G7 and EU measures add nonbinding coordination and production finance; the regulatory unit is becoming more granular.",
+      "anchor_card_ids": [
+        "2026-06-09_US_02",
+        "2026-06-22_CN_01",
+        "2026-06-17_GL_07",
+        "2026-06-10_EU_01"
+      ]
+    },
+    {
+      "id": "05",
+      "title": "현지화, 공장 위치에서 기술·원료·IP 구조로 확장",
+      "decision": "SELECT",
+      "reason": "Ford LFP licensing/test cells, a five-year foil-input contract and LGES patent licensing show localization depends on technology rights, input contracts and IP as well as plant location.",
+      "anchor_card_ids": [
+        "2026-06-30_US_02",
+        "2026-06-22_US_03",
+        "2026-06-11_KR_01"
+      ]
+    }
+  ],
+  "legacy_comparison": {
+    "legacy_available_before_run": true,
+    "copied_as_publication_source": false,
+    "retained_strengths": [
+      "ESS contract/finance evidence",
+      "critical-mineral and trade-control attention",
+      "next-generation technology maturity checks",
+      "K-supply-chain execution lens"
+    ],
+    "upgrades": [
+      "AI/data-center framing demoted from a standalone June flow because the stronger cross-market evidence is ESS revenue-contract/finance execution",
+      "ESS growth split from ESS monetization so shipment growth is not treated as project execution",
+      "technology section reorganized by commercial maturity rather than chemistry list",
+      "trade/localization reframed around company-level procurement eligibility and finance conditions",
+      "SBTL pouch-film inference explicitly narrowed to verified form-factor/customer evidence"
+    ],
+    "not_carried_forward": [
+      "Samsung SDI-VW unified-cell report is not used as a public anchor because the card itself flags lack of VW official confirmation",
+      "China 52.522GWh distribution-area ESS filing volume is not treated as installed or commissioned capacity",
+      "sensational or company-schedule solid-state claims are not used as structural anchors when more stage-disciplined road-test and TRL evidence exists"
+    ]
+  },
+  "rejected_or_narrowed_narratives": [
+    {
+      "narrative": "AI data centers are the main causal driver of June ESS growth",
+      "decision": "NARROW",
+      "reason": "AI-linked evidence exists, but the canonical cross-market pattern is broader: tolling, capacity contracts, financing and grid operation. AI is not required to explain the selected June thesis."
+    },
+    {
+      "narrative": "ESS growth means EV demand has been replaced",
+      "decision": "REJECT",
+      "reason": "The official evidence establishes storage growth and contracting, not a one-for-one causal substitution from EV demand."
+    },
+    {
+      "narrative": "China H1 distribution-area ESS filings equal installed capacity",
+      "decision": "REJECT",
+      "reason": "The canonical gate explicitly distinguishes filings from construction, commissioning and commercial operation."
+    },
+    {
+      "narrative": "NatPower-Tesla 25GWh and Chinese OEM 659GWh offtakes are delivered installations",
+      "decision": "NARROW",
+      "reason": "Both are procurement/offtake indicators; delivery, project finance and installation remain separate execution stages."
+    },
+    {
+      "narrative": "US 1260H listing is a general sanction or investment ban",
+      "decision": "REJECT",
+      "reason": "The card explicitly limits the June action to Defense Department procurement restrictions."
+    },
+    {
+      "narrative": "G7 has adopted a binding critical-mineral price floor",
+      "decision": "REJECT",
+      "reason": "The June declaration lists price-gap support, joint procurement and price floors as options, not a finalized binding regime."
+    },
+    {
+      "narrative": "Ford Michigan LFP is already in commercial mass production",
+      "decision": "NARROW",
+      "reason": "The governed card limits the event to production-intent test cells; customer approval and commercial shipment remain to be verified."
+    },
+    {
+      "narrative": "June ESS/LFP growth directly implies pouch-film demand",
+      "decision": "REJECT",
+      "reason": "The selected June evidence contains no direct pouch-form-factor customer program or pouch-film supply contract."
+    }
+  ],
+  "editorial_exclusions": [
+    {
+      "id": "2026-06-05_KR_01",
+      "reason": "Samsung SDI-VW supply report remains unconfirmed by VW in the card gate; non-indispensable for the thesis."
+    },
+    {
+      "id": "2026-06-30_CN_02",
+      "reason": "52.522GWh is filing volume, not construction/COD; retained as context/watch rather than an official anchor."
+    },
+    {
+      "id": "2026-06-12_CN_02",
+      "reason": "Dongfeng solid-state mass-production timing is a company schedule; more stage-disciplined evidence is available."
+    },
+    {
+      "id": "2026-06-11_CN_03",
+      "reason": "DonutLab claim failure is useful cautionary context but not necessary to prove the structural technology-maturity flow."
+    },
+    {
+      "id": "2026-06-30_GL_04",
+      "reason": "Not needed for the final structure; its governed title source is published in July, so it is omitted from the compact June publication set."
+    },
+    {
+      "id": "2026-06-29_KR_05",
+      "reason": "Not needed for the final structure; title-supporting sources are later follow-up publications, so it is omitted from the compact June publication set."
+    }
+  ],
+  "official_source_selection": {
+    "selected_card_count": 20,
+    "selection_principle": "Compact decision-relevant anchors across the five flows, with stage caveats and validator-governed title-source bindings.",
+    "source_card_ids": [
+      "2026-06-02_EU_01",
+      "2026-06-11_US_01",
+      "2026-06-22_US_01",
+      "2026-06-23_US_01",
+      "2026-06-30_GL_01",
+      "2026-06-08_GL_02",
+      "2026-06-11_GL_01",
+      "2026-06-17_GL_05",
+      "2026-06-23_EU_02",
+      "2026-06-22_CN_05",
+      "2026-06-23_EU_01",
+      "2026-06-17_US_02",
+      "2026-06-17_CN_05",
+      "2026-06-09_US_02",
+      "2026-06-22_CN_01",
+      "2026-06-17_GL_07",
+      "2026-06-10_EU_01",
+      "2026-06-30_US_02",
+      "2026-06-22_US_03",
+      "2026-06-11_KR_01"
+    ],
+    "binding": [
+      {
+        "id": "2026-06-02_EU_01",
+        "selected_url": "https://www.next-kraftwerke.de/neues/batteriespeicher-bess-ecostor",
+        "title_supporting_urls": [
+          "https://www.next-kraftwerke.de/neues/batteriespeicher-bess-ecostor"
+        ]
+      },
+      {
+        "id": "2026-06-11_US_01",
+        "selected_url": "https://www.prnewswire.com/news-releases/cypress-creek-energy-secures-3-5-billion-to-advance-one-of-americas-largest-solar-and-storage-projects-302798148.html",
+        "title_supporting_urls": [
+          "https://www.prnewswire.com/news-releases/cypress-creek-energy-secures-3-5-billion-to-advance-one-of-americas-largest-solar-and-storage-projects-302798148.html"
+        ]
+      },
+      {
+        "id": "2026-06-22_US_01",
+        "selected_url": "https://www.prnewswire.com/news-releases/oci-energy-closes-130-million-tax-equity-financing-with-greenprint-capital-for-san-antonio-area-battery-project-302806665.html",
+        "title_supporting_urls": [
+          "http://www.press9.kr/news/articleView.html?idxno=78280",
+          "https://www.theguru.co.kr/news/article.html?no=103416",
+          "https://www.prnewswire.com/news-releases/oci-energy-closes-130-million-tax-equity-financing-with-greenprint-capital-for-san-antonio-area-battery-project-302806665.html"
+        ]
+      },
+      {
+        "id": "2026-06-23_US_01",
+        "selected_url": "https://neoen.com/en/news/2026/neoen-awarded-long-term-contract-for-new-200-mw-8-hour-battery-in-ontario-canada/",
+        "title_supporting_urls": [
+          "https://neoen.com/en/news/2026/neoen-awarded-long-term-contract-for-new-200-mw-8-hour-battery-in-ontario-canada/"
+        ]
+      },
+      {
+        "id": "2026-06-30_GL_01",
+        "selected_url": "https://www.energy-storage.news/akaysha-energys-1660mwh-orana-bess-reaches-commercial-operations-in-australia",
+        "title_supporting_urls": [
+          "https://www.energy-storage.news/akaysha-energys-1660mwh-orana-bess-reaches-commercial-operations-in-australia"
+        ]
+      },
+      {
+        "id": "2026-06-08_GL_02",
+        "selected_url": "https://www.sneresearch.com/kr/insight/release_view/671/page/0",
+        "title_supporting_urls": [
+          "https://www.sneresearch.com/kr/insight/release_view/671/page/0"
+        ]
+      },
+      {
+        "id": "2026-06-11_GL_01",
+        "selected_url": "https://www.energy-storage.news/rwe-officially-opens-australias-first-8-hour-battery-storage-system",
+        "title_supporting_urls": [
+          "https://www.energy-storage.news/rwe-officially-opens-australias-first-8-hour-battery-storage-system"
+        ]
+      },
+      {
+        "id": "2026-06-17_GL_05",
+        "selected_url": "https://source.benchmarkminerals.com/article/chinese-oem-energy-storage-offtakes-in-h1-2026-quadruple-compared-to-h1-2025",
+        "title_supporting_urls": [
+          "https://source.benchmarkminerals.com/article/chinese-oem-energy-storage-offtakes-in-h1-2026-quadruple-compared-to-h1-2025"
+        ]
+      },
+      {
+        "id": "2026-06-23_EU_02",
+        "selected_url": "https://natpower.com/2026/06/23/natpower-and-tesla-sign-a-strategic-agreement-for-more-than-25-gwh-of-battery-energy-storage-systems-in-europe-2/",
+        "title_supporting_urls": [
+          "https://natpower.com/2026/06/23/natpower-and-tesla-sign-a-strategic-agreement-for-more-than-25-gwh-of-battery-energy-storage-systems-in-europe-2/"
+        ]
+      },
+      {
+        "id": "2026-06-22_CN_05",
+        "selected_url": "https://www.prnewswire.com/news-releases/catl-debuts-worlds-first-field-validated-sodium-ion-bess-bringing-sodium-storage-to-commercial-reality-302807380.html",
+        "title_supporting_urls": [
+          "https://www.china5e.com/news/news-1205419-1.html",
+          "https://www.prnewswire.com/news-releases/catl-debuts-worlds-first-field-validated-sodium-ion-bess-bringing-sodium-storage-to-commercial-reality-302807380.html"
+        ]
+      },
+      {
+        "id": "2026-06-23_EU_01",
+        "selected_url": "https://energydome.com/google-and-energy-dome-advance-multi-continent-energy-storage-buildout-with-first-bilateral-project-in-ireland/",
+        "title_supporting_urls": [
+          "https://energydome.com/google-and-energy-dome-advance-multi-continent-energy-storage-buildout-with-first-bilateral-project-in-ireland/"
+        ]
+      },
+      {
+        "id": "2026-06-17_US_02",
+        "selected_url": "https://www.theguru.co.kr/news/article.html?no=103212",
+        "title_supporting_urls": [
+          "https://www.theguru.co.kr/news/article.html?no=103212"
+        ]
+      },
+      {
+        "id": "2026-06-17_CN_05",
+        "selected_url": "https://autonews.gasgoo.com/articles/news/robin-zeng-on-all-solid-state-batteries-very-small-possibility-of-million-vehicle-level-installations-before-2030-2067224148357808129",
+        "title_supporting_urls": [
+          "https://autonews.gasgoo.com/articles/news/robin-zeng-on-all-solid-state-batteries-very-small-possibility-of-million-vehicle-level-installations-before-2030-2067224148357808129",
+          "https://carnewschina.com/2026/06/15/catl-boss-drops-solid-state-battery-reality-check-years-away-from-mass-market/"
+        ]
+      },
+      {
+        "id": "2026-06-09_US_02",
+        "selected_url": "https://www.pv-magazine.com/2026/06/10/us-government-restricts-trade-with-prominent-chinese-storage-companies/",
+        "title_supporting_urls": [
+          "https://www.pv-magazine.com/2026/06/10/us-government-restricts-trade-with-prominent-chinese-storage-companies/"
+        ]
+      },
+      {
+        "id": "2026-06-22_CN_01",
+        "selected_url": "https://www.newsis.com/view/NISX20260622_0003678123",
+        "title_supporting_urls": [
+          "https://www.newsis.com/view/NISX20260622_0003678123"
+        ]
+      },
+      {
+        "id": "2026-06-17_GL_07",
+        "selected_url": "https://www.pm.gc.ca/en/news/statements/2026/06/17/g7-leaders-declaration-securing-supply-chains-critical-minerals",
+        "title_supporting_urls": [
+          "https://www.pm.gc.ca/en/news/statements/2026/06/17/g7-leaders-declaration-securing-supply-chains-critical-minerals"
+        ]
+      },
+      {
+        "id": "2026-06-10_EU_01",
+        "selected_url": "https://climate.ec.europa.eu/news-other-reads/news/new-battery-booster-set-inject-eu15-billion-european-battery-industry-2026-06-09_en",
+        "title_supporting_urls": [
+          "https://climate.ec.europa.eu/news-other-reads/news/new-battery-booster-set-inject-eu15-billion-european-battery-industry-2026-06-09_en"
+        ]
+      },
+      {
+        "id": "2026-06-30_US_02",
+        "selected_url": "https://carnewschina.com/2026/06/30/catl-ford-tech-licensing-battery-plant-commences-production-in-the-u-s",
+        "title_supporting_urls": [
+          "https://battery-news.de/en/2026/07/01/ford-catl-battery-project-in-michigan-begins-production",
+          "https://battery-tech.net/battery-markets-news/ford-launches-u-s-lfp-ev-battery-cell-production/",
+          "https://carnewschina.com/2026/06/30/catl-ford-tech-licensing-battery-plant-commences-production-in-the-u-s"
+        ]
+      },
+      {
+        "id": "2026-06-22_US_03",
+        "selected_url": "https://www.pesmedia.com/bridgnorth-aluminium-secures-landmark-us-agreement-for-battery-foil",
+        "title_supporting_urls": [
+          "https://www.theguru.co.kr/news/article.html?no=103384",
+          "https://www.pesmedia.com/bridgnorth-aluminium-secures-landmark-us-agreement-for-battery-foil"
+        ]
+      },
+      {
+        "id": "2026-06-11_KR_01",
+        "selected_url": "https://www.thelec.kr/news/articleView.html?idxno=58001",
+        "title_supporting_urls": [
+          "https://www.thelec.kr/news/articleView.html?idxno=58001"
+        ]
+      }
+    ]
+  },
+  "qc": {
+    "evidence": "PASS",
+    "red_team": "PASS",
+    "editorial_coherence": "PASS",
+    "language_terminology": "PASS",
+    "provenance": "PASS_BY_PRECOMMIT_BINDING_CHECK",
+    "pouch_inference": "PASS_NO_DIRECT_DEMAND_INFERENCE"
+  }
+}

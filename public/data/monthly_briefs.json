@@ -14,244 +14,39 @@
       "title": "SBTL Monthly Brief · 2026.08",
       "executive_diagnosis": "8월 배터리 산업의 핵심 변화는 성장률 자체보다 어디에서 실제로 돈이 투입되고, 어떤 자산이 가동되며, 어떤 조건으로 공급망이 잠기는가로 판단 기준이 이동한 것이다. ESS는 장기 수익계약·금융종결·착공·상업운전뿐 아니라 일본 조정력시장 실제 진입까지 이어지며 전력 인프라 자산으로 자리잡는 흐름이 뚜렷해졌다. 공급 측에서는 셀의 EV·ESS 복수 용도와 화학계 전략이 구체화되는 동시에 파우치필름에서도 ESS·3C·고체전지로 고객·용도 믹스가 넓어지고 신규 라인이 가동되면서 다변화 방향이 확인됐다. 동시에 정책과 전략자본은 원료·재활용·전력망 장비와 디지털 보안까지 공급망 통제 범위를 넓혔다.",
       "what_changed": "8월에는 ‘EV 둔화와 ESS 성장’만으로는 산업 변화를 설명하기 어려워졌다. EV 배터리 수요도 성장하는 가운데 ESS는 장기계약·은행금융·착공·상업운전과 전력시장 참여로 실행 단계가 넓어졌고, 셀 생산에서는 복수 용도·화학계 전략이, 파우치필름에서는 신규 생산라인 가동과 매출 급증·고체전지용 배치 출하가 확인됐다. 따라서 앞으로는 단순 출하량보다 COD·가동률·장기계약 집행·고객·제품 믹스·현지조달 적격성·세후 원가와 수익성을 함께 봐야 한다.",
-      "source_baseline": {
-        "main_commit_sha": "8f3b6c3277d7cd13ccfc48f3c72a5d1ecb5d7c58",
-        "full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684",
-        "source_month_count": 171
-      },
-      "source_card_ids": [
-        "2026-08-03_GL_01",
-        "2026-08-05_GL_01",
-        "2026-08-05_US_03",
-        "2026-08-21_GL_04",
-        "2026-08-31_EU_02",
-        "2026-08-31_EU_01",
-        "2026-08-18_US_01",
-        "2026-08-31_US_01",
-        "2026-08-26_KR_01",
-        "2026-08-30_CN_01",
-        "2026-08-28_CN_01",
-        "2026-08-06_US_01",
-        "2026-08-26_US_01",
-        "2026-08-07_US_01",
-        "2026-08-31_US_02",
-        "2026-08-27_CN_01",
-        "2026-08-27_CN_02",
-        "2026-08-31_JP_02",
-        "2026-08-31_CN_02",
-        "2026-08-26_CN_04"
-      ],
+      "source_baseline": {"main_commit_sha":"8f3b6c3277d7cd13ccfc48f3c72a5d1ecb5d7c58","full_blob_sha":"beb2aa7615b583b4c9c0c269974601a0b26c2684","source_month_count":171},
+      "source_card_ids": ["2026-08-03_GL_01","2026-08-05_GL_01","2026-08-05_US_03","2026-08-21_GL_04","2026-08-31_EU_02","2026-08-31_EU_01","2026-08-18_US_01","2026-08-31_US_01","2026-08-26_KR_01","2026-08-30_CN_01","2026-08-28_CN_01","2026-08-06_US_01","2026-08-26_US_01","2026-08-07_US_01","2026-08-31_US_02","2026-08-27_CN_01","2026-08-27_CN_02","2026-08-31_JP_02","2026-08-31_CN_02","2026-08-26_CN_04"],
       "key_flows": [
-        {
-          "id": "01",
-          "title": "ESS, 계약·금융·COD가 이어지는 전력 인프라로",
-          "summary": "텍사스 Old 300의 250MW/500MWh 상업운전, 사우디 Red Sea의 1.2GWh BESS 상업운전, 네덜란드 Sirius 200MW/800MWh의 금융종결·Vattenfall 장기 tolling, 독일 Boxberg 400MW/1.6GWh 착공이 한 달 안에 이어졌다. 일본에서는 FIP 태양광 연계 BESS가 8월부터 수급조정시장에 실제 조정력을 제공하기 시작했다. 단순 프로젝트 발표가 아니라 수익계약·금융·건설·운영·전력시장 참여까지 여러 실행 단계가 동시에 채워졌다는 점이 핵심이다.",
-          "card_ids": [
-            "2026-08-05_US_03",
-            "2026-08-21_GL_04",
-            "2026-08-31_EU_02",
-            "2026-08-31_EU_01",
-            "2026-08-31_JP_02"
-          ]
-        },
-        {
-          "id": "02",
-          "title": "생산·소재 공급전략, EV 단일축에서 복수 용도·화학계로 다변화 방향 구체화",
-          "summary": "Lansing 공장은 생산을 시작했고, LG에너지솔루션은 이 공장에서 EV용 NCM과 ESS용 LFP를 함께 생산하는 제품 믹스를 계획하고 있다. SK온은 미국산 LFP 9GWh 장기 공급계약으로 ESS 수요를 계약화했고, 현대차는 EREV용 자체 셀과 EV용 미드니켈 NCM을 병행하는 로드맵을 제시했다. 중국에서는 ESS·EV용 70GWh 공장과 3GWh 나트륨이온 셀 공장이 생산 단계에 들어갔다. 소재 측에서는 新纶新材의 월 300만㎡ 파우치필름 신규 라인이 EV·ESS·3C용으로 가동됐고, 明冠新材의 상반기 파우치필름 매출은 266.01% 증가했으며 고체전지용 제품의 배치 출하도 확인됐다. EV 수요가 사라진 것이 아니라 셀과 포장소재 공급전략이 복수 용도·화학계·고객군을 함께 흡수하는 방향으로 넓어지는 변화다.",
-          "card_ids": [
-            "2026-08-18_US_01",
-            "2026-08-31_US_01",
-            "2026-08-26_KR_01",
-            "2026-08-30_CN_01",
-            "2026-08-28_CN_01",
-            "2026-08-05_GL_01",
-            "2026-08-31_CN_02",
-            "2026-08-26_CN_04"
-          ]
-        },
-        {
-          "id": "03",
-          "title": "현지화, 공장 위치에서 원료·재활용·자본·전력망 보안으로 확대",
-          "summary": "미국은 블랙매스·텅스텐 스크랩에 1년 수출제한을 시행했고, 벌크전력 안보 명령은 BESS·인버터와 관련 소프트웨어·원격접속까지 심사 범위에 포함했다. 동시에 Sila에는 14억달러 조건부 정부대출이 제시됐고, Smackover Lithium과 LG에너지솔루션은 미국산 배터리급 탄산리튬의 10년 take-or-pay 오프테이크를 체결했다. 현지화의 경쟁 단위가 셀 공장 하나에서 원료·재활용·전력전자·디지털 통제와 자본조달까지 넓어졌다.",
-          "card_ids": [
-            "2026-08-06_US_01",
-            "2026-08-26_US_01",
-            "2026-08-07_US_01",
-            "2026-08-31_US_02"
-          ]
-        },
-        {
-          "id": "04",
-          "title": "중국, 규모 확대와 이용률·수익성 압력이 동시에 커짐",
-          "summary": "CNESA 기준 2026년 상반기 중국 신형 ESS 신규 가동은 21.81GW/58.60GWh로 전년 대비 각각 18%·16% 감소했지만 누적은 168.3GW/448.7GWh에 도달했다. 같은 달 70GWh급 ESS·EV 셀 공장이 생산을 시작했고 ESS 소비세 적용 경계도 구체화됐다. 중국의 다음 경쟁은 단순 CAPA 증설보다 가동률·수익성·세후 원가에 더 민감해지는 구간으로 보인다.",
-          "card_ids": [
-            "2026-08-27_CN_01",
-            "2026-08-30_CN_01",
-            "2026-08-27_CN_02"
-          ]
-        }
+        {"id":"01","title":"ESS, 계약·금융·COD가 이어지는 전력 인프라로","summary":"텍사스 Old 300의 250MW/500MWh 상업운전, 사우디 Red Sea의 1.2GWh BESS 상업운전, 네덜란드 Sirius 200MW/800MWh의 금융종결·Vattenfall 장기 tolling, 독일 Boxberg 400MW/1.6GWh 착공이 한 달 안에 이어졌다. 일본에서는 FIP 태양광 연계 BESS가 8월부터 수급조정시장에 실제 조정력을 제공하기 시작했다. 단순 프로젝트 발표가 아니라 수익계약·금융·건설·운영·전력시장 참여까지 여러 실행 단계가 동시에 채워졌다는 점이 핵심이다.","card_ids":["2026-08-05_US_03","2026-08-21_GL_04","2026-08-31_EU_02","2026-08-31_EU_01","2026-08-31_JP_02"]},
+        {"id":"02","title":"생산·소재 공급전략, EV 단일축에서 복수 용도·화학계로 다변화 방향 구체화","summary":"Lansing 공장은 생산을 시작했고, LG에너지솔루션은 이 공장에서 EV용 NCM과 ESS용 LFP를 함께 생산하는 제품 믹스를 계획하고 있다. SK온은 미국산 LFP 9GWh 장기 공급계약으로 ESS 수요를 계약화했고, 현대차는 EREV용 자체 셀과 EV용 미드니켈 NCM을 병행하는 로드맵을 제시했다. 중국에서는 ESS·EV용 70GWh 공장과 3GWh 나트륨이온 셀 공장이 생산 단계에 들어갔다. 소재 측에서는 新纶新材의 월 300만㎡ 파우치필름 신규 라인이 EV·ESS·3C용으로 가동됐고, 明冠新材의 상반기 파우치필름 매출은 266.01% 증가했으며 고체전지용 제품의 배치 출하도 확인됐다. EV 수요가 사라진 것이 아니라 셀과 포장소재 공급전략이 복수 용도·화학계·고객군을 함께 흡수하는 방향으로 넓어지는 변화다.","card_ids":["2026-08-18_US_01","2026-08-31_US_01","2026-08-26_KR_01","2026-08-30_CN_01","2026-08-28_CN_01","2026-08-05_GL_01","2026-08-31_CN_02","2026-08-26_CN_04"]},
+        {"id":"03","title":"현지화, 공장 위치에서 원료·재활용·자본·전력망 보안으로 확대","summary":"미국은 블랙매스·텅스텐 스크랩에 1년 수출제한을 시행했고, 벌크전력 안보 명령은 BESS·인버터와 관련 소프트웨어·원격접속까지 심사 범위에 포함했다. 동시에 Sila에는 14억달러 조건부 정부대출이 제시됐고, Smackover Lithium과 LG에너지솔루션은 미국산 배터리급 탄산리튬의 10년 take-or-pay 오프테이크를 체결했다. 현지화의 경쟁 단위가 셀 공장 하나에서 원료·재활용·전력전자·디지털 통제와 자본조달까지 넓어졌다.","card_ids":["2026-08-06_US_01","2026-08-26_US_01","2026-08-07_US_01","2026-08-31_US_02"]},
+        {"id":"04","title":"중국, 규모 확대와 이용률·수익성 압력이 동시에 커짐","summary":"CNESA 기준 2026년 상반기 중국 신형 ESS 신규 가동은 21.81GW/58.60GWh로 전년 대비 각각 18%·16% 감소했지만 누적은 168.3GW/448.7GWh에 도달했다. 같은 달 70GWh급 ESS·EV 셀 공장이 생산을 시작했고 ESS 소비세 적용 경계도 구체화됐다. 중국의 다음 경쟁은 단순 CAPA 증설보다 가동률·수익성·세후 원가에 더 민감해지는 구간으로 보인다.","card_ids":["2026-08-27_CN_01","2026-08-30_CN_01","2026-08-27_CN_02"]}
       ],
-      "watch": [
-        "미국 벌크전력 안보 명령의 후속 규칙에서 Covered Foreign Entity, 사전승인·완화조치, 소프트웨어·원격접속 기준이 어떻게 구체화되는지 확인한다.",
-        "Lansing·미국 LFP 공급계약과 중국 파우치필름 신규 라인이 실제 출하·가동률·제품·고객 믹스로 연결되는지 확인한다.",
-        "유럽·중동의 장기 tolling·저장서비스 계약이 실제 금융 인출, 착공과 COD를 거쳐 반복 가능한 수익모델로 정착하는지 본다.",
-        "중국 ESS 신규 가동 둔화가 이어지는지, 신규 셀 공장의 이용률·가격·마진과 소비세 이후 원가 구조가 어떻게 변하는지 확인한다.",
-        "Sila 조건부 대출과 Smackover-LGES 오프테이크가 실제 자금집행·생산개시·공급으로 이어지는지 추적한다."
-      ],
+      "watch": ["미국 벌크전력 안보 명령의 후속 규칙에서 Covered Foreign Entity, 사전승인·완화조치, 소프트웨어·원격접속 기준이 어떻게 구체화되는지 확인한다.","Lansing·미국 LFP 공급계약과 중국 파우치필름 신규 라인이 실제 출하·가동률·제품·고객 믹스로 연결되는지 확인한다.","유럽·중동의 장기 tolling·저장서비스 계약이 실제 금융 인출, 착공과 COD를 거쳐 반복 가능한 수익모델로 정착하는지 본다.","중국 ESS 신규 가동 둔화가 이어지는지, 신규 셀 공장의 이용률·가격·마진과 소비세 이후 원가 구조가 어떻게 변하는지 확인한다.","Sila 조건부 대출과 Smackover-LGES 오프테이크가 실제 자금집행·생산개시·공급으로 이어지는지 추적한다."],
       "refs": [
-        {
-          "n": 1,
-          "id": "2026-08-03_GL_01",
-          "title": "글로벌 ESS 배터리 H1 461.3GWh, 71% 증가",
-          "date": "2026-08-03"
-        },
-        {
-          "n": 2,
-          "id": "2026-08-05_GL_01",
-          "title": "글로벌 EV 배터리 H1 608.5GWh, 20% 성장",
-          "date": "2026-08-05"
-        },
-        {
-          "n": 3,
-          "id": "2026-08-05_US_03",
-          "title": "외르스테드 Old 300 Storage, 텍사스 250MW/500MWh 상업운전",
-          "date": "2026-08-05",
-          "url": "https://www.pv-magazine.com/2026/08/06/orsted-turns-on-500-mwh-battery-project-with-co-located-solar-in-texas/"
-        },
-        {
-          "n": 4,
-          "id": "2026-08-21_GL_04",
-          "title": "사우디 Red Sea 358MW 태양광+1.2GWh BESS 상업운전",
-          "date": "2026-08-21",
-          "url": "https://en-sepco3.powerchina.cn/News/ProjectNews/art/2026/art_8fe090c968c54997a31b631ba1a97c30.html"
-        },
-        {
-          "n": 5,
-          "id": "2026-08-31_EU_02",
-          "title": "Return, Sirius 200MW/800MWh 금융종결…Vattenfall 장기 tolling 확보",
-          "date": "2026-08-31",
-          "url": "https://return.energy/news/return-and-vattenfall-sign-long-term-agreement-for-sirius-as-project-reaches-financial-close"
-        },
-        {
-          "n": 6,
-          "id": "2026-08-31_EU_01",
-          "title": "LEAG, 독일 Boxberg 400MW/1.6GWh BESS 착공",
-          "date": "2026-08-31",
-          "url": "https://www.leag.de/de/news/details/spatenstich-fuer-gigabattery-boxberg-400-leag-clean-power-startet-grossbatterieprojekt-in-sachsen/"
-        },
-        {
-          "n": 7,
-          "id": "2026-08-18_US_01",
-          "title": "LG에너지솔루션, 미국 Lansing 공장 생산 개시",
-          "date": "2026-08-18",
-          "url": "https://www.lgensol.com/mobile/en/company/newsroom-detail?seq=8779"
-        },
-        {
-          "n": 8,
-          "id": "2026-08-31_US_01",
-          "title": "SK온, 네오볼타에 미국산 LFP 9GWh 공급…ESS 현지생산 전환 계약화",
-          "date": "2026-08-31",
-          "url": "https://neovolta.com/blog/neovolta-announces-strategic-u-s-battery-cell-supply-and-bess-manufacturing-coll"
-        },
-        {
-          "n": 9,
-          "id": "2026-08-26_KR_01",
-          "title": "현대차, 자체 배터리셀·미드니켈 NCM 로드맵 구체화",
-          "date": "2026-08-26",
-          "url": "https://www.hyundaimotorgroup.com/en/news/hyundai-motor-company-charts-profit-driven-growth-roadmap-at-2026-ceo-investor-day"
-        },
-        {
-          "n": 10,
-          "id": "2026-08-30_CN_01",
-          "title": "CORNEX, 중국 샹양 70GWh 배터리 공장 생산 개시",
-          "date": "2026-08-30",
-          "url": "https://cornexbattery.com/en/Index/news_detail/id/1647.html"
-        },
-        {
-          "n": 11,
-          "id": "2026-08-28_CN_01",
-          "title": "윈난 푸얼 나트륨이온 공장 가동…3GWh 셀+1GWh PACK",
-          "date": "2026-08-28",
-          "url": "https://www.itdcw.com/news/focus/0R915KN2026.html"
-        },
-        {
-          "n": 12,
-          "id": "2026-08-06_US_01",
-          "title": "미국, 블랙매스/텅스텐 스크랩 1년 수출제한",
-          "date": "2026-08-06"
-        },
-        {
-          "n": 13,
-          "id": "2026-08-26_US_01",
-          "title": "미국, 벌크전력계통 외국산 장비 안보심사 강화",
-          "date": "2026-08-26",
-          "url": "https://www.whitehouse.gov/presidential-actions/2026/08/declaring-a-national-emergency-to-secure-the-united-states-bulk-power-system/"
-        },
-        {
-          "n": 14,
-          "id": "2026-08-07_US_01",
-          "title": "미국 OSC, Sila에 14억달러 조건부 대출 약정",
-          "date": "2026-08-07",
-          "url": "https://www.reuters.com/business/aerospace-defense/trump-host-mining-ceos-administration-seeks-minerals-defense-supply-chains-2026-08-07/"
-        },
-        {
-          "n": 15,
-          "id": "2026-08-31_US_02",
-          "title": "LG에너지솔루션, 스맥오버 리튬과 10년 8만t 탄산리튬 오프테이크",
-          "date": "2026-08-31",
-          "url": "https://smackoverlithium.com/newsroom/news-details/2026/Smackover-Lithium-Signs-Binding-Customer-Offtake-with-LG-Energy-Solution-for-the-South-West-Arkansas-Project-2026-XymsQvwydU/default.aspx"
-        },
-        {
-          "n": 16,
-          "id": "2026-08-27_CN_01",
-          "title": "CNESA, 중국 신형 ESS 누적 168.3GW/448.7GWh…상반기 신규 가동 21.81GW로 둔화",
-          "date": "2026-08-27",
-          "url": "https://en.cnesa.org/china-market-update/2026/8/27/cnesa-releases-2026-h1-energy-storage-data-new-installations-down-18-sending-new-signals-for-the-industry"
-        },
-        {
-          "n": 17,
-          "id": "2026-08-27_CN_02",
-          "title": "중국, ESS 소비세 경계 구체화…배터리 클러스터 과세·완성 ESS 비과세",
-          "date": "2026-08-27",
-          "url": "https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html"
-        },
-        {
-          "n": 18,
-          "id": "2026-08-31_JP_02",
-          "title": "丸紅新電力, FIP 태양광 연계 BESS로 조정력시장 진입",
-          "date": "2026-08-31",
-          "url": "https://www.denkishimbun.com/archives/416003"
-        },
-        {
-          "n": 19,
-          "id": "2026-08-31_CN_02",
-          "title": "新纶新材, 알루미늄 파우치필름 열법 2호선 양산 개시",
-          "date": "2026-08-31",
-          "url": "https://news.10jqka.com.cn/20260908/c679711424.shtml"
-        },
-        {
-          "n": 20,
-          "id": "2026-08-26_CN_04",
-          "title": "明冠新材, H1 알루미늄 파우치필름 매출 +266%",
-          "date": "2026-08-26",
-          "url": "https://4g.stockstar.com/detail/SN2026082600049498"
-        }
+        {"n":1,"id":"2026-08-03_GL_01","title":"글로벌 ESS 배터리 H1 461.3GWh, 71% 증가","date":"2026-08-03"},
+        {"n":2,"id":"2026-08-05_GL_01","title":"글로벌 EV 배터리 H1 608.5GWh, 20% 성장","date":"2026-08-05"},
+        {"n":3,"id":"2026-08-05_US_03","title":"외르스테드 Old 300 Storage, 텍사스 250MW/500MWh 상업운전","date":"2026-08-05","url":"https://www.pv-magazine.com/2026/08/06/orsted-turns-on-500-mwh-battery-project-with-co-located-solar-in-texas/"},
+        {"n":4,"id":"2026-08-21_GL_04","title":"사우디 Red Sea 358MW 태양광+1.2GWh BESS 상업운전","date":"2026-08-21","url":"https://en-sepco3.powerchina.cn/News/ProjectNews/art/2026/art_8fe090c968c54997a31b631ba1a97c30.html"},
+        {"n":5,"id":"2026-08-31_EU_02","title":"Return, Sirius 200MW/800MWh 금융종결…Vattenfall 장기 tolling 확보","date":"2026-08-31","url":"https://return.energy/news/return-and-vattenfall-sign-long-term-agreement-for-sirius-as-project-reaches-financial-close"},
+        {"n":6,"id":"2026-08-31_EU_01","title":"LEAG, 독일 Boxberg 400MW/1.6GWh BESS 착공","date":"2026-08-31","url":"https://www.leag.de/de/news/details/spatenstich-fuer-gigabattery-boxberg-400-leag-clean-power-startet-grossbatterieprojekt-in-sachsen/"},
+        {"n":7,"id":"2026-08-18_US_01","title":"LG에너지솔루션, 미국 Lansing 공장 생산 개시","date":"2026-08-18","url":"https://www.lgensol.com/mobile/en/company/newsroom-detail?seq=8779"},
+        {"n":8,"id":"2026-08-31_US_01","title":"SK온, 네오볼타에 미국산 LFP 9GWh 공급…ESS 현지생산 전환 계약화","date":"2026-08-31","url":"https://neovolta.com/blog/neovolta-announces-strategic-u-s-battery-cell-supply-and-bess-manufacturing-coll"},
+        {"n":9,"id":"2026-08-26_KR_01","title":"현대차, 자체 배터리셀·미드니켈 NCM 로드맵 구체화","date":"2026-08-26","url":"https://www.hyundaimotorgroup.com/en/news/hyundai-motor-company-charts-profit-driven-growth-roadmap-at-2026-ceo-investor-day"},
+        {"n":10,"id":"2026-08-30_CN_01","title":"CORNEX, 중국 샹양 70GWh 배터리 공장 생산 개시","date":"2026-08-30","url":"https://cornexbattery.com/en/Index/news_detail/id/1647.html"},
+        {"n":11,"id":"2026-08-28_CN_01","title":"윈난 푸얼 나트륨이온 공장 가동…3GWh 셀+1GWh PACK","date":"2026-08-28","url":"https://www.itdcw.com/news/focus/0R915KN2026.html"},
+        {"n":12,"id":"2026-08-06_US_01","title":"미국, 블랙매스/텅스텐 스크랩 1년 수출제한","date":"2026-08-06"},
+        {"n":13,"id":"2026-08-26_US_01","title":"미국, 벌크전력계통 외국산 장비 안보심사 강화","date":"2026-08-26","url":"https://www.whitehouse.gov/presidential-actions/2026/08/declaring-a-national-emergency-to-secure-the-united-states-bulk-power-system/"},
+        {"n":14,"id":"2026-08-07_US_01","title":"미국 OSC, Sila에 14억달러 조건부 대출 약정","date":"2026-08-07","url":"https://www.reuters.com/business/aerospace-defense/trump-host-mining-ceos-administration-seeks-minerals-defense-supply-chains-2026-08-07/"},
+        {"n":15,"id":"2026-08-31_US_02","title":"LG에너지솔루션, 스맥오버 리튬과 10년 8만t 탄산리튬 오프테이크","date":"2026-08-31","url":"https://smackoverlithium.com/newsroom/news-details/2026/Smackover-Lithium-Signs-Binding-Customer-Offtake-with-LG-Energy-Solution-for-the-South-West-Arkansas-Project-2026-XymsQvwydU/default.aspx"},
+        {"n":16,"id":"2026-08-27_CN_01","title":"CNESA, 중국 신형 ESS 누적 168.3GW/448.7GWh…상반기 신규 가동 21.81GW로 둔화","date":"2026-08-27","url":"https://en.cnesa.org/china-market-update/2026/8/27/cnesa-releases-2026-h1-energy-storage-data-new-installations-down-18-sending-new-signals-for-the-industry"},
+        {"n":17,"id":"2026-08-27_CN_02","title":"중국, ESS 소비세 경계 구체화…배터리 클러스터 과세·완성 ESS 비과세","date":"2026-08-27","url":"https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html"},
+        {"n":18,"id":"2026-08-31_JP_02","title":"丸紅新電力, FIP 태양광 연계 BESS로 조정력시장 진입","date":"2026-08-31","url":"https://www.denkishimbun.com/archives/416003"},
+        {"n":19,"id":"2026-08-31_CN_02","title":"新纶新材, 알루미늄 파우치필름 열법 2호선 양산 개시","date":"2026-08-31","url":"https://news.10jqka.com.cn/20260908/c679711424.shtml"},
+        {"n":20,"id":"2026-08-26_CN_04","title":"明冠新材, H1 알루미늄 파우치필름 매출 +266%","date":"2026-08-26","url":"https://4g.stockstar.com/detail/SN2026082600049498"}
       ],
-      "qc": {
-        "evidence_status": "PASS",
-        "red_team_status": "PASS",
-        "editorial_coherence_status": "PASS",
-        "language_terminology_status": "PASS",
-        "reviewed_at": "2026-09-10",
-        "reviewer_role": "editorial_red_team",
-        "notes": "Full August canonical universe re-reviewed at the locked 1,617-card baseline: 171 August cards (33 top, 122 high, 16 mid). Three late-admitted August cards were explicitly assessed. The Japan balancing-market operation strengthens Flow 01; two China pouch-film cards materially strengthen Flow 02 without requiring a fifth flow. Xinlun is treated as an August representative event because its Sep-8 disclosure locks an Aug-31 production-start fact rather than importing a September event; Jianxiawo remains excluded because its former enrichment imported later September facts into the August headline. September lineage and counterevidence did not overturn the four-flow diagnosis."
-      },
-      "approval": {
-        "status": "APPROVED",
-        "approved_at": "2026-09-10",
-        "reviewer_role": "editorial_owner",
-        "notes": "Publication re-authorized after exact canonical relock and explicit re-review of the three late-admitted August representative events."
-      }
+      "qc": {"evidence_status":"PASS","red_team_status":"PASS","editorial_coherence_status":"PASS","language_terminology_status":"PASS","reviewed_at":"2026-09-10","reviewer_role":"editorial_red_team","notes":"Full August canonical universe re-reviewed at the locked 1,617-card baseline: 171 August cards (33 top, 122 high, 16 mid). Three late-admitted August cards were explicitly assessed. The Japan balancing-market operation strengthens Flow 01; two China pouch-film cards materially strengthen Flow 02 without requiring a fifth flow. Xinlun is treated as an August representative event because its Sep-8 disclosure locks an Aug-31 production-start fact rather than importing a September event; Jianxiawo remains excluded because its former enrichment imported later September facts into the August headline. September lineage and counterevidence did not overturn the four-flow diagnosis."},
+      "approval": {"status":"APPROVED","approved_at":"2026-09-10","reviewer_role":"editorial_owner","notes":"Publication re-authorized after exact canonical relock and explicit re-review of the three late-admitted August representative events."}
     },
     {
       "id": "monthly-brief-2026-07-r1",
@@ -263,265 +58,41 @@
       "publication_mode": "editorial_curated",
       "published_at": "2026-09-14",
       "title": "SBTL Monthly Brief · 2026.07",
-      "executive_diagnosis": "7월 배터리 산업의 핵심 변화는 ESS가 단순 설치 전망을 넘어 계약·프로젝트금융·플랫폼 M&A·가동을 갖춘 독립적인 인프라 자산군으로 자본화되기 시작한 점이다. 동시에 AI 데이터센터와 계통 병목은 BESS를 전력 인프라 설계요소로 끌어들였다. 공급 측에서는 ESS가 별도 생산축으로 확대됐다. 핵심광물 현지화는 오프테이크·가공·투자·수익성 확인으로 구체화됐다. 관세·세제·접속 규칙도 제품 경제성과 시장진입을 가르는 변수로 작동했다. 따라서 7월을 ‘EV 둔화→ESS 대체’로 읽기보다 수요·자본·생산·공급망이 여러 축으로 재편된 달로 보는 편이 정확하다.",
+      "executive_diagnosis": "7월 배터리 산업의 핵심 변화는 ESS가 단순 설치 전망을 넘어 계약·프로젝트금융·플랫폼 M&A·가동을 갖춘 독립적인 인프라 자산군으로 자본화되기 시작한 점이다. 동시에 AI 데이터센터와 계통 병목은 BESS를 전력 인프라 설계요소로 끌어들였다. 공급 측에서는 ESS가 별도 생산축으로 확대됐다. 핵심광물 현지화는 오프테이크·가공·투자·수익성 확인으로 구체화됐다. 관세·세제 규칙도 제품 경제성과 시장진입을 가르는 변수로 작동했다. 따라서 7월을 ‘EV 둔화→ESS 대체’로 읽기보다 수요·자본·생산·공급망이 여러 축으로 재편된 달로 보는 편이 정확하다.",
       "what_changed": "7월에는 발표된 용량의 크기보다 어느 단계까지 실제로 내려왔는지가 더 중요해졌다. ESS에서는 장기 수익계약·금융종결·플랫폼 인수계약·통전·상업운전이 동시에 확인됐고, AI·배전망 제약이 저장장치의 새로운 수요 논리를 만들었다. 생산에서는 ESS 생산이 별도 축으로 확대됐으며, 핵심광물은 단순 협력선언보다 오프테이크·가공·투자·수익성 확인 단계로 이동했다. SBTL 관점에서는 ESS 성장률을 파우치필름 수요로 자동 환산하지 않고, 실제 셀 폼팩터·고객 프로그램·공급계약이 확인되는 경우에만 직접 수요 신호로 해석해야 한다.",
-      "source_baseline": {
-        "main_commit_sha": "5147e5bfbe7cadbf03782ef68805444227afaf1e",
-        "full_blob_sha": "79e1b89ca89b55c24bd8b2c1fa6924a3d85f13c9",
-        "source_month_count": 365
-      },
-      "source_card_ids": [
-        "2026-07-22_US_01",
-        "2026-07-13_GL_02",
-        "2026-07-01_GL_01",
-        "2026-07-20_EU_03",
-        "2026-07-20_US_05",
-        "2026-07-14_GL_04",
-        "2026-07-29_US_02",
-        "2026-07-14_US_02",
-        "2026-07-01_GL_03",
-        "2026-07-10_KR_01",
-        "2026-07-21_EU_04",
-        "2026-07-02_US_01",
-        "2026-07-24_CN_01",
-        "2026-07-02_GL_09",
-        "2026-07-01_KR_05",
-        "2026-07-30_KR_01",
-        "2026-07-23_US_02",
-        "2026-07-28_US_01",
-        "2026-07-13_US_02",
-        "2026-07-16_CN_01",
-        "2026-07-07_KR_01"
-      ],
+      "source_baseline": {"main_commit_sha":"5147e5bfbe7cadbf03782ef68805444227afaf1e","full_blob_sha":"79e1b89ca89b55c24bd8b2c1fa6924a3d85f13c9","source_month_count":365},
+      "source_card_ids": ["2026-07-22_US_01","2026-07-13_GL_02","2026-07-01_GL_01","2026-07-20_EU_03","2026-07-20_US_05","2026-07-14_GL_04","2026-07-29_US_02","2026-07-14_US_02","2026-07-01_GL_03","2026-07-10_KR_01","2026-07-21_EU_04","2026-07-02_US_01","2026-07-24_CN_01","2026-07-02_GL_09","2026-07-01_KR_05","2026-07-30_KR_01","2026-07-23_US_02","2026-07-16_CN_01","2026-07-07_KR_01"],
       "key_flows": [
-        {
-          "id": "01",
-          "title": "ESS, 프로젝트가 아니라 자본시장·전력시장이 함께 가격을 매기는 자산으로",
-          "summary": "Brookfield는 북미 BESS 플랫폼 Aypa Power를 약 70억달러 기업가치로 인수하는 계약을 맺었고, Masdar의 5.2GW 태양광·19GWh BESS는 51억달러 금융패키지로 금융종결에 도달했다. Grenergy의 Elena는 1TWh 야간 PPA를, 스페인의 55MW/220MWh BESS는 10년 tolling을 확보했으며 미국 Aratina 1은 상업운전에 들어갔다. 필리핀 MTerra도 1단계 태양광·BESS가 통전됐다. 인수계약·수익계약·금융·통전·COD가 서로 다른 프로젝트에서 동시에 확인되면서, 7월 ESS의 핵심은 발표용량보다 현금흐름과 실행단계의 질로 이동했다. 다만 인수계약은 거래종결이 아니고 통전은 전체 COD와 구분해야 한다.",
-          "card_ids": [
-            "2026-07-22_US_01",
-            "2026-07-13_GL_02",
-            "2026-07-01_GL_01",
-            "2026-07-20_EU_03",
-            "2026-07-20_US_05",
-            "2026-07-14_GL_04"
-          ]
-        },
-        {
-          "id": "02",
-          "title": "AI·계통 병목, BESS를 전력 인프라 설계요소로 끌어들임",
-          "summary": "미 DOE의 Paducah 데이터센터 전력안에는 최대 2.6GW BESS가 포함됐고, Google·Cypress Creek의 Steel River는 1.6GWdc 태양광·1.9GWh 저장 1·2단계 착공에 들어갔다. 호주에서는 AI 데이터센터용 전력계약이 향후 1.2GW 재생에너지·1.5GWh BESS 계획과 연결됐고, 한국은 배전선로에 128MW/640MWh ESS를 배치하는 지원사업을 시작했다. 독일 Westnetz는 계통충전형 BESS까지 유연접속 계약 범위를 넓혔다. 저장장치가 재생에너지의 보조설비를 넘어 데이터센터 전원설계와 계통운영의 일부가 되는 흐름이다. 다만 Paducah 2.6GW는 최대 개발안이며 확정 발주용량이 아니다.",
-          "card_ids": [
-            "2026-07-29_US_02",
-            "2026-07-14_US_02",
-            "2026-07-01_GL_03",
-            "2026-07-10_KR_01",
-            "2026-07-21_EU_04"
-          ]
-        },
-        {
-          "id": "03",
-          "title": "ESS, 별도 생산·수요축으로 확대",
-          "summary": "LG에너지솔루션-Honda 오하이오 합작공장은 ESS 셀 양산을 개시했고, CATL의 상반기 ESS 시스템 매출은 87.54% 늘었다. 이는 ESS가 별도 생산·고객 축으로 커지고 있음을 보여주지만, 이를 곧바로 EV 수요의 소멸이나 단순 대체로 해석할 근거는 아니다. SBTL 관점에서는 ESS 성장률을 파우치필름 수요로 자동 환산하지 않고, 실제 셀 폼팩터·고객 프로그램·공급계약이 확인되는 경우에만 직접 수요 신호로 해석해야 한다.",
-          "card_ids": [
-            "2026-07-02_US_01",
-            "2026-07-24_CN_01",
-            "2026-07-07_KR_01"
-          ]
-        },
-        {
-          "id": "04",
-          "title": "핵심광물 현지화, 협력선언에서 오프테이크·가공·수익성으로 내려옴",
-          "summary": "VHM은 Goschen 희토류 정광의 장기 오프테이크를 확보했으며, 한국 Sangdong은 재고광석 기반 텅스텐 가공을 시작했고, POSCO의 아르헨티나 염수리튬 1단계는 안정화 이후 분기 흑자를 기록했다. 현지화가 광권 확보만이 아니라 판매계약·자본투입·가공·경제성 확인까지 연결되는 구간이다. 다만 초기 흑자도 장기 현금흐름으로 확대해석하지 않는다.",
-          "card_ids": [
-            "2026-07-02_GL_09",
-            "2026-07-01_KR_05",
-            "2026-07-30_KR_01"
-          ]
-        },
-        {
-          "id": "05",
-          "title": "관세·세제·접속 규칙, 원가를 넘어 시장진입과 기술선택을 분기",
-          "summary": "미국은 강제노동 규제 집행과 연계한 Section 301 관세 최종조치를 발표했고, FCC는 외국산 connected power inverter의 신규 장비승인 제한을 강화했다. Lazard의 4시간 BESS 경제성 분석에서는 관세와 외국기업 제한이 저가 셀 조달의 변수가 됐다. 중국은 9월부터 리튬이온 배터리에 2% 소비세를 적용하고 나트륨이온·고체전지에는 한시 면세를 두는 제도를 7월 확정했다. 규칙은 단순 컴플라이언스 비용이 아니라 제품구성·조달경로·시장진입 조건을 바꾸는 변수다. 제품별 관세·세율 적용범위를 구분해야 한다.",
-          "card_ids": [
-            "2026-07-23_US_02",
-            "2026-07-28_US_01",
-            "2026-07-13_US_02",
-            "2026-07-16_CN_01"
-          ]
-        }
+        {"id":"01","title":"ESS, 프로젝트가 아니라 자본시장·전력시장이 함께 가격을 매기는 자산으로","summary":"Brookfield는 북미 BESS 플랫폼 Aypa Power를 약 70억달러 기업가치로 인수하는 계약을 맺었고, Masdar의 5.2GW 태양광·19GWh BESS는 51억달러 금융패키지로 금융종결에 도달했다. Grenergy의 Elena는 1TWh 야간 PPA를, 스페인의 55MW/220MWh BESS는 10년 tolling을 확보했으며 미국 Aratina 1은 상업운전에 들어갔다. 필리핀 MTerra도 1단계 태양광·BESS가 통전됐다. 인수계약·수익계약·금융·통전·COD가 서로 다른 프로젝트에서 동시에 확인되면서, 7월 ESS의 핵심은 발표용량보다 현금흐름과 실행단계의 질로 이동했다. 다만 인수계약은 거래종결이 아니고 통전은 전체 COD와 구분해야 한다.","card_ids":["2026-07-22_US_01","2026-07-13_GL_02","2026-07-01_GL_01","2026-07-20_EU_03","2026-07-20_US_05","2026-07-14_GL_04"]},
+        {"id":"02","title":"AI·계통 병목, BESS를 전력 인프라 설계요소로 끌어들임","summary":"미 DOE의 Paducah 데이터센터 전력안에는 최대 2.6GW BESS가 포함됐고, Google·Cypress Creek의 Steel River는 1.6GWdc 태양광·1.9GWh 저장 1·2단계 착공에 들어갔다. 호주에서는 AI 데이터센터용 전력계약이 향후 1.2GW 재생에너지·1.5GWh BESS 계획과 연결됐고, 한국은 배전선로에 128MW/640MWh ESS를 배치하는 지원사업을 시작했다. 독일 Westnetz는 계통충전형 BESS까지 유연접속 계약 범위를 넓혔다. 저장장치가 재생에너지의 보조설비를 넘어 데이터센터 전원설계와 계통운영의 일부가 되는 흐름이다. 다만 Paducah 2.6GW는 최대 개발안이며 확정 발주용량이 아니다.","card_ids":["2026-07-29_US_02","2026-07-14_US_02","2026-07-01_GL_03","2026-07-10_KR_01","2026-07-21_EU_04"]},
+        {"id":"03","title":"ESS, 별도 생산·수요축으로 확대","summary":"LG에너지솔루션-Honda 오하이오 합작공장은 ESS 셀 양산을 개시했고, CATL의 상반기 ESS 시스템 매출은 87.54% 늘었다. 이는 ESS가 별도 생산·고객 축으로 커지고 있음을 보여주지만, 이를 곧바로 EV 수요의 소멸이나 단순 대체로 해석할 근거는 아니다. SBTL 관점에서는 ESS 성장률을 파우치필름 수요로 자동 환산하지 않고, 실제 셀 폼팩터·고객 프로그램·공급계약이 확인되는 경우에만 직접 수요 신호로 해석해야 한다.","card_ids":["2026-07-02_US_01","2026-07-24_CN_01","2026-07-07_KR_01"]},
+        {"id":"04","title":"핵심광물 현지화, 협력선언에서 오프테이크·가공·수익성으로 내려옴","summary":"VHM은 Goschen 희토류 정광의 장기 오프테이크를 확보했으며, 한국 Sangdong은 재고광석 기반 텅스텐 가공을 시작했고, POSCO의 아르헨티나 염수리튬 1단계는 안정화 이후 분기 흑자를 기록했다. 현지화가 광권 확보만이 아니라 판매계약·자본투입·가공·경제성 확인까지 연결되는 구간이다. 다만 초기 흑자도 장기 현금흐름으로 확대해석하지 않는다.","card_ids":["2026-07-02_GL_09","2026-07-01_KR_05","2026-07-30_KR_01"]},
+        {"id":"05","title":"관세·세제 규칙, 원가를 넘어 시장진입과 기술선택을 분기","summary":"미국은 강제노동 규제 집행과 연계한 Section 301 관세 최종조치를 발표했다. 중국은 9월부터 리튬이온 배터리에 2% 소비세를 적용하고 나트륨이온·고체전지에는 한시 면세를 두는 제도를 7월 확정했다. 관세·세제 규칙은 단순 컴플라이언스 비용이 아니라 제품구성·조달경로·시장진입 조건을 바꾸는 변수다. 제품별 관세·세율 적용범위를 구분해야 한다.","card_ids":["2026-07-23_US_02","2026-07-16_CN_01"]}
       ],
-      "watch": [
-        "Aypa Power 인수계약이 실제 거래종결로 이어지는지, 인수 이후 포트폴리오 실행이 COD 자산 확대로 이어지는지 확인한다.",
-        "Paducah·Steel River 등 AI·데이터센터 연계 BESS가 definitive agreement·허가·발주·착공을 거치며 공개된 최대 용량 중 얼마를 실제 주문으로 확정하는지 본다.",
-        "LG에너지솔루션-Honda ESS 생산의 실제 화학계·폼팩터·전용 GWh·가동률과 EV 생산계획이 병행되는지 확인한다.",
-        "ESS 생산 확대가 실제 파우치형 셀 프로그램·고객 공급계약·가동률·수율·매출로 연결되는지 추적하고, 폼팩터 미확정 ESS 성장률과 구분한다.",
-        "중국 리튬이온 배터리 소비세와 면세 화학계의 실제 제품경계·세후 원가, 미국 관세·FCC 승인 제한의 제품별 적용이 셀·PCS·인버터 조달과 기술선택에 어떤 영향을 만드는지 확인한다."
-      ],
+      "watch": ["Aypa Power 인수계약이 실제 거래종결로 이어지는지, 인수 이후 포트폴리오 실행이 COD 자산 확대로 이어지는지 확인한다.","Paducah·Steel River 등 AI·데이터센터 연계 BESS가 definitive agreement·허가·발주·착공을 거치며 공개된 최대 용량 중 얼마를 실제 주문으로 확정하는지 본다.","LG에너지솔루션-Honda ESS 생산의 실제 화학계·폼팩터·전용 GWh·가동률과 EV 생산계획이 병행되는지 확인한다.","ESS 생산 확대가 실제 파우치형 셀 프로그램·고객 공급계약·가동률·수율·매출로 연결되는지 추적하고, 폼팩터 미확정 ESS 성장률과 구분한다.","중국 리튬이온 배터리 소비세와 면세 화학계의 실제 제품경계·세후 원가, 미국 Section 301 관세의 제품별 적용이 셀 조달과 기술선택에 어떤 영향을 만드는지 확인한다."],
       "refs": [
-        {
-          "n": 1,
-          "id": "2026-07-22_US_01",
-          "title": "브룩필드, 약 70억달러 기업가치의 북미 BESS 플랫폼 Aypa Power 인수계약",
-          "date": "2026-07-22",
-          "url": "https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners"
-        },
-        {
-          "n": 2,
-          "id": "2026-07-13_GL_02",
-          "title": "마스다르 5.2GW·19GWh 프로젝트 금융종결…51억달러 조달",
-          "date": "2026-07-13",
-          "url": "https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project"
-        },
-        {
-          "n": 3,
-          "id": "2026-07-01_GL_01",
-          "title": "Grenergy, 칠레 Elena 3.5GWh BESS 기반 1TWh 야간 PPA 체결",
-          "date": "2026-07-01",
-          "url": "https://www.energy-storage.news/grenergy-signs-1twh-night-time-ppa-for-3-5gwh-chile-bess"
-        },
-        {
-          "n": 4,
-          "id": "2026-07-20_EU_03",
-          "title": "Return·ENGIE, 스페인 55MW/220MWh BESS에 10년 톨링 계약",
-          "date": "2026-07-20",
-          "url": "https://return.energy/news/return-and-engie-sign-pioneering-ten-year-agreement-to-accelerate-battery-storage-in-spain"
-        },
-        {
-          "n": 5,
-          "id": "2026-07-20_US_05",
-          "title": "Avantus Aratina 1, 200MW 태양광·500MWh 저장 상업운전 개시",
-          "date": "2026-07-20",
-          "url": "https://www.pv-tech.org/avantus-starts-commercial-operations-aratina-1-solar-plus-storage-california/"
-        },
-        {
-          "n": 6,
-          "id": "2026-07-14_GL_04",
-          "title": "필리핀 MTerra 1단계 통전…태양광 1.373GW·BESS 3.3GWh",
-          "date": "2026-07-14",
-          "url": "https://www.mgen.com.ph/mgen-inaugurates-mterra-solar-phase-1/"
-        },
-        {
-          "n": 7,
-          "id": "2026-07-29_US_02",
-          "title": "미 DOE, Paducah 전력인프라 사업자로 NextEra 선정…최대 2.6GW BESS안",
-          "date": "2026-07-29",
-          "url": "https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"
-        },
-        {
-          "n": 8,
-          "id": "2026-07-14_US_02",
-          "title": "Google·Cypress Creek, 아칸소 Steel River 착공…초기 저장 1.9GWh",
-          "date": "2026-07-14",
-          "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/steel-river-arkansas/"
-        },
-        {
-          "n": 9,
-          "id": "2026-07-01_GL_03",
-          "title": "Firmus·Gunvor, 호주 AI 캠퍼스 12년 전력계약…1.2GW 재생에너지·1.5GWh 저장 연계",
-          "date": "2026-07-01",
-          "url": "https://www.energy-storage.news/australian-ai-developer-locks-in-1-5gwh-of-battery-energy-storage-under-12-year-agreement"
-        },
-        {
-          "n": 10,
-          "id": "2026-07-10_KR_01",
-          "title": "기후부, 5586억원 배전망 ESS 착수…1차 128MW·640MWh",
-          "date": "2026-07-10",
-          "url": "https://www.mcee.go.kr/home/web/board/read.do?boardId=1876770&boardMasterId=939&menuId=10598"
-        },
-        {
-          "n": 11,
-          "id": "2026-07-21_EU_04",
-          "title": "Westnetz, 재생에너지 병설 계통충전형 BESS에 유연 접속계약 확대",
-          "date": "2026-07-21",
-          "url": "https://www.presseportal.de/pm/169518/6318540"
-        },
-        {
-          "n": 12,
-          "id": "2026-07-02_US_01",
-          "title": "LG에너지솔루션·혼다 오하이오 JV, ESS용 배터리 셀 양산 개시",
-          "date": "2026-07-02",
-          "url": "https://en.yna.co.kr/view/AEN20260703004000320"
-        },
-        {
-          "n": 13,
-          "id": "2026-07-24_CN_01",
-          "title": "CATL 상반기 ESS 매출 532.6억위안·87.5% 증가",
-          "date": "2026-07-24",
-          "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12462543"
-        },
-        {
-          "n": 14,
-          "id": "2026-07-02_GL_09",
-          "title": "VHM, Iluka와 Goschen 희토류 100% 오프테이크·A$4000만 금융계약",
-          "date": "2026-07-02",
-          "url": "https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/"
-        },
-        {
-          "n": 15,
-          "id": "2026-07-01_KR_05",
-          "title": "알몬티, 상동 텅스텐광산 가공개시…비축원광으로 판매가능 정광 생산 전환",
-          "date": "2026-07-01",
-          "url": "https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable"
-        },
-        {
-          "n": 16,
-          "id": "2026-07-30_KR_01",
-          "title": "포스코아르헨티나, 염수리튬 1공장 안정화로 첫 분기 흑자",
-          "date": "2026-07-30",
-          "url": "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/"
-        },
-        {
-          "n": 17,
-          "id": "2026-07-23_US_02",
-          "title": "미국, 60개 경제권에 강제노동 연계 Section 301 관세 확정",
-          "date": "2026-07-23",
-          "url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations"
-        },
-        {
-          "n": 18,
-          "id": "2026-07-28_US_01",
-          "title": "미 FCC, 해외산 연결형 전력인버터 신규 장비승인 제한",
-          "date": "2026-07-28",
-          "url": "https://www.nextgov.com/policy/2026/07/fcc-blocks-approval-new-foreign-made-robots-power-inverters/415070/"
-        },
-        {
-          "n": 19,
-          "id": "2026-07-13_US_02",
-          "title": "라자드, 미국 4시간 BESS LCOS 상승…관세·FEOC가 저가셀 접근 제한",
-          "date": "2026-07-13",
-          "url": "https://www.energy-storage.news/lazard-us-utility-scale-energy-storage-lcos-has-increased-since-restrictions-on-chinese-cells-came-into-force"
-        },
-        {
-          "n": 20,
-          "id": "2026-07-16_CN_01",
-          "title": "중국, 리튬이온 배터리 소비세 2026년 2%·2027년 4% 적용",
-          "date": "2026-07-16",
-          "url": "https://shanxi.chinatax.gov.cn/web/detail/sx-11400-545-1822939"
-        },
-        {
-          "n": 21,
-          "id": "2026-07-07_KR_01",
-          "title": "LG에너지솔루션, 2분기 영업익 1133억원…AMPC 제외 1277억원 적자",
-          "date": "2026-07-07",
-          "url": "https://news.dealsitetv.com/articles/172933"
-        }
+        {"n":1,"id":"2026-07-22_US_01","title":"브룩필드, 약 70억달러 기업가치의 북미 BESS 플랫폼 Aypa Power 인수계약","date":"2026-07-22","url":"https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners"},
+        {"n":2,"id":"2026-07-13_GL_02","title":"마스다르 5.2GW·19GWh 프로젝트 금융종결…51억달러 조달","date":"2026-07-13","url":"https://masdar.ae/en/news/newsroom/masdar-reaches-financial-close-world-first-gigascale-clean-energy-project"},
+        {"n":3,"id":"2026-07-01_GL_01","title":"Grenergy, 칠레 Elena 3.5GWh BESS 기반 1TWh 야간 PPA 체결","date":"2026-07-01","url":"https://www.energy-storage.news/grenergy-signs-1twh-night-time-ppa-for-3-5gwh-chile-bess"},
+        {"n":4,"id":"2026-07-20_EU_03","title":"Return·ENGIE, 스페인 55MW/220MWh BESS에 10년 톨링 계약","date":"2026-07-20","url":"https://return.energy/news/return-and-engie-sign-pioneering-ten-year-agreement-to-accelerate-battery-storage-in-spain"},
+        {"n":5,"id":"2026-07-20_US_05","title":"Avantus Aratina 1, 200MW 태양광·500MWh 저장 상업운전 개시","date":"2026-07-20","url":"https://www.pv-tech.org/avantus-starts-commercial-operations-aratina-1-solar-plus-storage-california/"},
+        {"n":6,"id":"2026-07-14_GL_04","title":"필리핀 MTerra 1단계 통전…태양광 1.373GW·BESS 3.3GWh","date":"2026-07-14","url":"https://www.mgen.com.ph/mgen-inaugurates-mterra-solar-phase-1/"},
+        {"n":7,"id":"2026-07-29_US_02","title":"미 DOE, Paducah 전력인프라 사업자로 NextEra 선정…최대 2.6GW BESS안","date":"2026-07-29","url":"https://www.investor.nexteraenergy.com/news-and-events/news-releases/2026/07-29-2026-133109921"},
+        {"n":8,"id":"2026-07-14_US_02","title":"Google·Cypress Creek, 아칸소 Steel River 착공…초기 저장 1.9GWh","date":"2026-07-14","url":"https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/steel-river-arkansas/"},
+        {"n":9,"id":"2026-07-01_GL_03","title":"Firmus·Gunvor, 호주 AI 캠퍼스 12년 전력계약…1.2GW 재생에너지·1.5GWh 저장 연계","date":"2026-07-01","url":"https://www.energy-storage.news/australian-ai-developer-locks-in-1-5gwh-of-battery-energy-storage-under-12-year-agreement"},
+        {"n":10,"id":"2026-07-10_KR_01","title":"기후부, 5586억원 배전망 ESS 착수…1차 128MW·640MWh","date":"2026-07-10","url":"https://www.mcee.go.kr/home/web/board/read.do?boardId=1876770&boardMasterId=939&menuId=10598"},
+        {"n":11,"id":"2026-07-21_EU_04","title":"Westnetz, 재생에너지 병설 계통충전형 BESS에 유연 접속계약 확대","date":"2026-07-21","url":"https://www.presseportal.de/pm/169518/6318540"},
+        {"n":12,"id":"2026-07-02_US_01","title":"LG에너지솔루션·혼다 오하이오 JV, ESS용 배터리 셀 양산 개시","date":"2026-07-02","url":"https://en.yna.co.kr/view/AEN20260703004000320"},
+        {"n":13,"id":"2026-07-24_CN_01","title":"CATL 상반기 ESS 매출 532.6억위안·87.5% 증가","date":"2026-07-24","url":"https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12462543"},
+        {"n":14,"id":"2026-07-02_GL_09","title":"VHM, Iluka와 Goschen 희토류 100% 오프테이크·A$4000만 금융계약","date":"2026-07-02","url":"https://www.vhmltd.com.au/in-the-media/vhm-enters-strategic-partnership-with-iluka-resources/"},
+        {"n":15,"id":"2026-07-01_KR_05","title":"알몬티, 상동 텅스텐광산 가공개시…비축원광으로 판매가능 정광 생산 전환","date":"2026-07-01","url":"https://www.nasdaq.com/press-release/almonty-commences-processing-operations-sangdong-mine-marking-transition-saleable"},
+        {"n":16,"id":"2026-07-30_KR_01","title":"포스코아르헨티나, 염수리튬 1공장 안정화로 첫 분기 흑자","date":"2026-07-30","url":"https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/"},
+        {"n":17,"id":"2026-07-23_US_02","title":"미국, 60개 경제권에 강제노동 연계 Section 301 관세 확정","date":"2026-07-23","url":"https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations"},
+        {"n":18,"id":"2026-07-16_CN_01","title":"중국, 리튬이온 배터리 소비세 2026년 2%·2027년 4% 적용","date":"2026-07-16","url":"https://shanxi.chinatax.gov.cn/web/detail/sx-11400-545-1822939"},
+        {"n":19,"id":"2026-07-07_KR_01","title":"LG에너지솔루션, 2분기 영업익 1133억원…AMPC 제외 1277억원 적자","date":"2026-07-07","url":"https://news.dealsitetv.com/articles/172933"}
       ],
-      "qc": {
-        "evidence_status": "PASS",
-        "red_team_status": "PASS",
-        "editorial_coherence_status": "PASS",
-        "language_terminology_status": "PASS",
-        "reviewed_at": "2026-09-14",
-        "reviewer_role": "editorial_red_team",
-        "notes": "Rebuilt independently from the governed July universe of 365 cards (75 top, 239 high, 51 mid). Legacy Vol.09 was consulted only after the independent thesis was locked. Exact-head review quarantined seven non-indispensable cards with compound-title, fact, or canonical-URL defects; 21 official canonical anchors remain. Every published reference retains its locked canonical title and is bound to a governed URL supporting that complete title; Flow 03 is limited to directly published ESS evidence rather than an unexposed EV-growth premise."
-      },
-      "approval": {
-        "status": "APPROVED",
-        "approved_at": "2026-09-14",
-        "reviewer_role": "editorial_owner",
-        "notes": "Re-authorized after exact-head review remediation. Partial-source claims, malformed or truncated canonical URLs, and quarantined-card publication residue were removed without changing the locked cards or monthly provenance validator contract."
-      }
+      "qc": {"evidence_status":"PASS","red_team_status":"PASS","editorial_coherence_status":"PASS","language_terminology_status":"PASS","reviewed_at":"2026-09-15","reviewer_role":"editorial_red_team","notes":"Rebuilt independently from the governed July universe of 365 cards (75 top, 239 high, 51 mid). Legacy Vol.09 was consulted only after the independent thesis was locked. Exact-head review quarantined nine non-indispensable cards with compound-title, fact, canonical-URL, or locked-source-binding defects; 19 official canonical anchors remain. Every published reference retains its locked canonical title and uses a validator-accepted governed URL; Flow 03 is limited to directly published ESS evidence rather than an unexposed EV-growth premise."},
+      "approval": {"status":"APPROVED","approved_at":"2026-09-15","reviewer_role":"editorial_owner","notes":"Re-authorized after exact-head review remediation. FCC and Lazard cards were quarantined rather than rebound outside the locked validator contract; the public brief and audit now preserve the locked provenance boundary without weakening the validator."}
     }
   ]
 }

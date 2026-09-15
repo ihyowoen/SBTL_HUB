@@ -1,0 +1,1283 @@
+[
+  {
+    "id": "2026-09-09_US_01",
+    "spec_id": "STD26_0909_A_019",
+    "source_spec_id": "STD26_0909_A_019",
+    "source_event_id": "SEP9_EVT_A_019",
+    "source_story_ids": [
+      "SEP09_DISC_009"
+    ],
+    "region": "US",
+    "date": "2026-09-09",
+    "cat": "ESS",
+    "sub_cat": "second_life_commercial_operation",
+    "signal": "high",
+    "title": "B2U, 텍사스 28MWh 재사용 EV배터리 BESS 상업운전",
+    "sub": "두 번째 repurposed-battery 프로젝트…second-life 저장자산 운영 확대",
+    "gate": "사용후 EV 배터리의 재사용 모델이 유틸리티급 BESS 상업운전으로 반복 실행되고 있다.",
+    "fact": "B2U는 9월 9일 텍사스의 28MWh Bexar Martinez 재사용 EV배터리 BESS가 상업운전을 시작했다고 발표했다. 회사의 두 번째 repurposed-battery storage 프로젝트다.",
+    "implication": [
+      "second-life 배터리의 경제성이 실험이 아니라 반복 가능한 상업운전 모델로 검증되는 과정이다.",
+      "실제 수익·배터리 열화·교체주기 데이터가 사업모델의 확장성을 가를 핵심이다."
+    ],
+    "urls": [
+      "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
+      "https://www.energy-storage.news/second-life-bess-firms-b2u-moment-and-rebaba-advance-project-operations-us-compliance-and-new-financing/"
+    ],
+    "fact_sources": [
+      {
+        "id": "STD26_0909_A_019-S1",
+        "source_id": "STD26_0909_A_019-S1",
+        "owner": "North American Clean Energy",
+        "source_owner_id": "North American Clean Energy",
+        "source_owner_id_normalized": "North American Clean Energy",
+        "role": "independent_news",
+        "source_role": "independent_news",
+        "url": "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
+        "source_url": "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
+        "domain": "nacleanenergy.com",
+        "published": "2026-09-09",
+        "summary": "B2U는 9월 9일 텍사스의 28MWh Bexar Martinez 재사용 EV배터리 BESS가 상업운전을 시작했다고 발표했다. 회사의 두 번째 repurposed-battery storage 프로젝트다.",
+        "fetch_status": "fetched_body_or_authoritative_page",
+        "fetched": true,
+        "headline_only": false,
+        "rss_or_snippet_only": false,
+        "claim_use": "paraphrase_only_no_visible_quote",
+        "source_type": "independent news",
+        "evidence_role": "primary_event_evidence",
+        "supports": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "checked_at": "2026-09-11",
+        "source_quote_status": "not_emitted_paraphrase_only",
+        "source_url_canonical_complete": true,
+        "resolved_article_matches_quote": false
+      },
+      {
+        "id": "STD26_0909_A_019-S2",
+        "source_id": "STD26_0909_A_019-S2",
+        "owner": "Energy-Storage.News",
+        "source_owner_id": "Energy-Storage.News",
+        "source_owner_id_normalized": "solar_media",
+        "role": "independent_news",
+        "source_role": "independent_news",
+        "url": "https://www.energy-storage.news/second-life-bess-firms-b2u-moment-and-rebaba-advance-project-operations-us-compliance-and-new-financing/",
+        "source_url": "https://www.energy-storage.news/second-life-bess-firms-b2u-moment-and-rebaba-advance-project-operations-us-compliance-and-new-financing/",
+        "domain": "energy-storage.news",
+        "published": "2026-09-09",
+        "summary": "B2U는 9월 9일 텍사스의 28MWh Bexar Martinez 재사용 EV배터리 BESS가 상업운전을 시작했다고 발표했다. 회사의 두 번째 repurposed-battery storage 프로젝트다.",
+        "fetch_status": "fetched_body_or_authoritative_page",
+        "fetched": true,
+        "headline_only": false,
+        "rss_or_snippet_only": false,
+        "claim_use": "paraphrase_only_no_visible_quote",
+        "source_type": "independent news",
+        "evidence_role": "corroboration",
+        "supports": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "checked_at": "2026-09-11",
+        "source_quote_status": "not_emitted_paraphrase_only",
+        "source_url_canonical_complete": true,
+        "resolved_article_matches_quote": false
+      }
+    ],
+    "date_role": {
+      "status": "PASS",
+      "representative_event_date": "2026-09-09",
+      "stage_a_representative_date": "2026-09-09",
+      "role": "operative event/stage date verified from body-level evidence",
+      "source_publication_dates": [
+        "2026-09-09"
+      ],
+      "corrected_in_stage_b": false,
+      "representative_date": "2026-09-09",
+      "event_date": "2026-09-09",
+      "publication_dates": [
+        "2026-09-09"
+      ],
+      "earliest_same_event_date_checked": true,
+      "event_date_source_url": "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
+      "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+    },
+    "stage_b_lineage": {
+      "status": "PASS",
+      "artifact": "stage-b.json",
+      "artifact_sha256": "ff25f5eabfe5f6533e7c0f62ad60fde773e77e9a0de3a5bb9febc6e1545c1360",
+      "spec_id": "STD26_0909_A_019",
+      "draft_status": "verified_draft",
+      "draft_blocked": false
+    },
+    "strict_gate_acceptance_guard_applied": true,
+    "accepted_pool_lineage_status": "PASS",
+    "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "selection_route": "execution_anchor_route",
+    "anchor_classes": [
+      "execution_event_anchor",
+      "technology_commercialization_anchor"
+    ],
+    "prior_state": "Before the Sep 9 governed intake, the exact event 'B2U starts commercial operation of 28MWh second-life EV-battery BESS in Texas' was not admitted as a same-event canonical card after reconciliation against the 1,617-card baseline.",
+    "new_verified_fact": "B2U는 9월 9일 텍사스의 28MWh Bexar Martinez 재사용 EV배터리 BESS가 상업운전을 시작했다고 발표했다. 회사의 두 번째 repurposed-battery storage 프로젝트다.",
+    "changed_judgment": "사용후 EV 배터리의 재사용 모델이 유틸리티급 BESS 상업운전으로 반복 실행되고 있다.",
+    "uncertainty_resolved": "Event identity, operative date, stage, evidence path and current-main duplicate status were checked in Stage B.",
+    "remaining_uncertainty": "Exact body-level wording, source-owner independence, quantified scope, date and execution/legal stage for B2U starts commercial operation of 28MWh second-life EV-battery BESS in Texas remain for Stage B verification.",
+    "execution_anchor_type": "current_execution_event",
+    "route_validation": {
+      "status": "PASS",
+      "active_route": "execution_anchor_route",
+      "exactly_one_active_route": true,
+      "anchor_evidence_source_ids": [
+        "STD26_0909_A_019-S1"
+      ],
+      "stage_a_before_after_chain_preserved": true
+    },
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "source_diversity_measure": {
+      "source_evidence_entry_count": 2,
+      "source_unique_url_count": 2,
+      "source_unique_domain_count": 2,
+      "source_independent_owner_count": 2,
+      "visible_source_url_count": 2,
+      "missing_source_url_count": 0,
+      "missing_visible_source_url_count": 0,
+      "canonical_urls": [
+        "https://energy-storage.news/second-life-bess-firms-b2u-moment-and-rebaba-advance-project-operations-us-compliance-and-new-financing",
+        "https://nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas"
+      ],
+      "canonical_domains": [
+        "energy-storage.news",
+        "nacleanenergy.com"
+      ],
+      "independent_owners": [
+        "North American Clean Energy",
+        "solar_media"
+      ],
+      "status": "PASS_MULTI_SOURCE"
+    },
+    "source_diversity_roles": {
+      "independent_news": 2
+    },
+    "source_synthesis_applied": true,
+    "source_synthesis_fields": [
+      "title",
+      "sub",
+      "gate",
+      "fact",
+      "implication"
+    ],
+    "source_synthesis_audit": {
+      "status": "PASS",
+      "primary_or_official_controls_operative_facts": true,
+      "independent_confirmation_used": true,
+      "conflicts_explicitly_resolved": true
+    },
+    "single_source_exception": {
+      "allowed": false,
+      "reason": "not applicable: multi-owner evidence"
+    },
+    "source_published_date": "2026-09-09",
+    "visible_quote_date": "not_applicable_no_visible_quotes",
+    "stage_c_only": false,
+    "addable_merge_safe": true,
+    "evidence_complete": true,
+    "source_claim_covered": true,
+    "content_enriched": true,
+    "language_terminology_polished": true,
+    "publish_ready": true,
+    "github_merge_ready": false,
+    "unresolved_downstream_issues": [],
+    "state": "publish_ready",
+    "fact_safe_at_stage_c": true,
+    "related_lineage": {
+      "status": "PASS",
+      "same_event_checked": true,
+      "earliest_same_event_date_checked": true,
+      "relation_type": "new_unrelated_event",
+      "matched_baseline_current_candidates": [],
+      "fresh_follow_up_anchor_class": null,
+      "fresh_follow_up_anchor": null,
+      "incremental_fact": "No same-event canonical card or mandatory predecessor relation found at the locked 1,617-card baseline.",
+      "changed_judgment": "Current evidence supports a distinct publishable event/stage progression.",
+      "rejected_relation_candidates": [],
+      "reinforcement_transfer_ledger": [],
+      "related_target_required": false,
+      "related_target_id": null,
+      "reason": "No same-event canonical card or mandatory predecessor relation found at the locked 1,617-card baseline.",
+      "related_ids": []
+    },
+    "related": [],
+    "related_candidate_spec_ids": [],
+    "related_evidence_review": {
+      "status": "PASS",
+      "same_event_checked": true,
+      "earliest_same_event_date_checked": true,
+      "relation_type": "new_unrelated_event",
+      "matched_baseline_current_candidates": [],
+      "fresh_follow_up_anchor_class": null,
+      "fresh_follow_up_anchor": null,
+      "incremental_fact": "No same-event canonical card or mandatory predecessor relation found at the locked 1,617-card baseline.",
+      "changed_judgment": "Current evidence supports a distinct publishable event/stage progression.",
+      "rejected_relation_candidates": [],
+      "reinforcement_transfer_ledger": [],
+      "related_target_required": false,
+      "related_target_id": null,
+      "reason": "No same-event canonical card or mandatory predecessor relation found at the locked 1,617-card baseline.",
+      "related_ids": []
+    },
+    "visible_field_fact_safe": {
+      "status": "PASS",
+      "title": "PASS",
+      "sub": "PASS",
+      "gate": "PASS",
+      "fact": "PASS",
+      "implication": "PASS",
+      "unsupported_visible_claim_count": 0,
+      "unsupported_causality_count": 0,
+      "unsupported_quote_count": 0
+    },
+    "claim_map": [
+      {
+        "claim_id": "STD26_0909_A_019-C1",
+        "claim": "B2U는 9월 9일 텍사스의 28MWh Bexar Martinez 재사용 EV배터리 BESS가 상업운전을 시작했다고 발표했다. 회사의 두 번째 repurposed-battery storage 프로젝트다.",
+        "supported_by_source_ids": [
+          "STD26_0909_A_019-S1",
+          "STD26_0909_A_019-S2"
+        ],
+        "visible": true,
+        "status": "SUPPORTED_STAGE_B"
+      }
+    ],
+    "source_discovery_ledger": [
+      {
+        "source_url": "https://www.energy-storage.news/second-life-bess-firms-b2u-moment-and-rebaba-advance-project-operations-us-compliance-and-new-financing/",
+        "canonical_url": "https://energy-storage.news/second-life-bess-firms-b2u-moment-and-rebaba-advance-project-operations-us-compliance-and-new-financing",
+        "source_name": "",
+        "source_owner": "solar_media",
+        "source_domain": "energy-storage.news",
+        "outcome": "used_in_fact_sources",
+        "unique_contribution": "",
+        "visible_supports": [
+          "fact",
+          "gate",
+          "implication",
+          "sub",
+          "title"
+        ]
+      },
+      {
+        "source_url": "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
+        "canonical_url": "https://nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
+        "source_name": "",
+        "source_owner": "North American Clean Energy",
+        "source_domain": "nacleanenergy.com",
+        "outcome": "used_in_fact_sources",
+        "unique_contribution": "",
+        "visible_supports": [
+          "fact",
+          "gate",
+          "implication",
+          "sub",
+          "title"
+        ]
+      },
+      {
+        "source_spec_id": "STD26_0909_A_019",
+        "source_event_id": "SEP9_EVT_A_019",
+        "query_or_target": "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
+        "canonical_url": "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
+        "name": "North American Clean Energy",
+        "domain": "nacleanenergy.com",
+        "owner": "North American Clean Energy",
+        "role": "independent_news",
+        "origin_type": "independent news",
+        "outcome": "body_or_document_verified",
+        "unique_contribution": "B2U는 9월 9일 텍사스의 28MWh Bexar Martinez 재사용 EV배터리 BESS가 상업운전을 시작했다고 발표했다. 회사의 두 번째 repurposed-battery storage 프로젝트다.",
+        "visible_fields_supported": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "checked_at": "2026-09-11"
+      },
+      {
+        "source_spec_id": "STD26_0909_A_019",
+        "source_event_id": "SEP9_EVT_A_019",
+        "query_or_target": "https://www.energy-storage.news/second-life-bess-firms-b2u-moment-and-rebaba-advance-project-operations-us-compliance-and-new-financing/",
+        "canonical_url": "https://www.energy-storage.news/second-life-bess-firms-b2u-moment-and-rebaba-advance-project-operations-us-compliance-and-new-financing/",
+        "name": "Energy-Storage.News",
+        "domain": "energy-storage.news",
+        "owner": "Energy-Storage.News",
+        "role": "independent_news",
+        "origin_type": "independent news",
+        "outcome": "body_or_document_verified",
+        "unique_contribution": "B2U는 9월 9일 텍사스의 28MWh Bexar Martinez 재사용 EV배터리 BESS가 상업운전을 시작했다고 발표했다. 회사의 두 번째 repurposed-battery storage 프로젝트다.",
+        "visible_fields_supported": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "checked_at": "2026-09-11"
+      }
+    ],
+    "alternative_source_search_audit": {
+      "status": "PASS",
+      "search_performed": true,
+      "independent_or_primary_support_found": true
+    },
+    "stage_c_red_team": {
+      "status": "PASS",
+      "unsupported_visible_claim_count": 0,
+      "unsupported_inference_count": 0,
+      "quote_mismatch_count": 0,
+      "date_role_contradiction_count": 0,
+      "same_event_collision_count": 0,
+      "note": "Visible fields were narrowed to body-level evidence and no unsupported causality or forecast was added."
+    },
+    "event_fingerprint": {
+      "version": "v1",
+      "fingerprint_sha256": "56f460cea87448a2414ec42085514a0a52a40a50c6d7ff38051c67afba14c886",
+      "normalized_event_key": "2026-09-09|US|b2u, 텍사스 28mwh 재사용 ev배터리 bess 상업운전",
+      "same_event_collision_count": 0
+    },
+    "baseline_revalidation": {
+      "status": "PASS",
+      "baseline_main": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+      "baseline_card_count": 1617,
+      "same_event_collision_count": 0,
+      "canonical_url_collision_count": 0,
+      "relation_type": "new_unrelated_event",
+      "related_ids": []
+    },
+    "addability_outcome": "addable_merge_safe_new_unrelated",
+    "evidence_qc": {
+      "status": "PASS",
+      "fact_source_count": 2,
+      "visible_claims_supported": true,
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "date_role_consistent": true,
+      "related_lineage_consistent": true,
+      "unsupported_claim_count": 0
+    },
+    "content_polish_audit": {
+      "status": "PASS",
+      "meaning_preserved": true,
+      "fact_density_preserved": true,
+      "terminology_consistent": true,
+      "internal_jargon_removed_from_visible_fields": true,
+      "visible_quote_count": 0,
+      "unsupported_superlative_count": 0
+    },
+    "final_qc_gates": {
+      "status": "PASS",
+      "visible_claims": "PASS",
+      "source_claim_coverage": "PASS",
+      "date_role": "PASS",
+      "related_lineage": "PASS",
+      "event_identity": "PASS",
+      "language": "PASS",
+      "schema": "PASS"
+    },
+    "final_qc": {
+      "status": "PASS",
+      "hold_reason": null,
+      "return_reason": null
+    },
+    "source_evidence_entry_count": 2,
+    "source_unique_url_count": 2,
+    "source_unique_domain_count": 2,
+    "source_independent_owner_count": 2,
+    "source_url_resolution": {
+      "supporting_fact_source_count": 2,
+      "canonical_complete": true,
+      "resolved_article_matches_quote": false,
+      "source_url_propagation_performed": false,
+      "resolution_entries": [
+        {
+          "source_url": "https://www.energy-storage.news/second-life-bess-firms-b2u-moment-and-rebaba-advance-project-operations-us-compliance-and-new-financing/",
+          "canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "resolution_basis": "recomputed from current fact_sources; indices=1; owners=solar_media",
+          "source_url_propagation_performed": false
+        },
+        {
+          "source_url": "https://www.nacleanenergy.com/energy-storage/b2u-begins-commercial-operations-of-its-second-repurposed-battery-storage-project-in-texas",
+          "canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "resolution_basis": "recomputed from current fact_sources; indices=0; owners=North American Clean Energy",
+          "source_url_propagation_performed": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "2026-09-08_EU_02",
+    "spec_id": "STD26_0909_A_015",
+    "source_spec_id": "STD26_0909_A_015",
+    "source_event_id": "SEP9_EVT_A_015",
+    "source_story_ids": [
+      "SEP09_SPLIT_COO"
+    ],
+    "region": "EU",
+    "date": "2026-09-08",
+    "cat": "ESS",
+    "sub_cat": "construction_start",
+    "signal": "medium",
+    "title": "ENGIE, 벨기에 Coo 74MW/296MWh BESS 착공",
+    "sub": "Coo 양수발전 인근에 4시간 저장자산 건설…2028년 초 가동 목표",
+    "gate": "기존 수력 유연성 거점에 대형 BESS가 실제 건설 단계로 추가되고 있다.",
+    "fact": "ENGIE는 벨기에 Coo에서 74MW/296MWh BESS 건설을 시작했다. 프로젝트는 4시간 저장용량으로 설계됐고 2028년 초 가동을 목표로 한다.",
+    "implication": [
+      "양수발전과 BESS를 같은 유연성 거점에 배치하는 하이브리드 운영모델이 확대될 수 있다.",
+      "공정 진척과 상업운전 시점, 수익모델을 후속 확인해야 한다."
+    ],
+    "urls": [
+      "https://corporate.engie.be/en/press/engie-has-started-construction-of-a-new-large-scale-battery-park-in-coo-belgium",
+      "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/"
+    ],
+    "fact_sources": [
+      {
+        "id": "STD26_0909_A_015-S1",
+        "source_id": "STD26_0909_A_015-S1",
+        "owner": "ENGIE",
+        "source_owner_id": "ENGIE",
+        "source_owner_id_normalized": "ENGIE",
+        "role": "official_company",
+        "source_role": "official_company",
+        "url": "https://corporate.engie.be/en/press/engie-has-started-construction-of-a-new-large-scale-battery-park-in-coo-belgium",
+        "source_url": "https://corporate.engie.be/en/press/engie-has-started-construction-of-a-new-large-scale-battery-park-in-coo-belgium",
+        "domain": "engie.com",
+        "published": "2026-09-08",
+        "summary": "ENGIE는 벨기에 Coo에서 74MW/296MWh BESS 건설을 시작했다. 프로젝트는 4시간 저장용량으로 설계됐고 2028년 초 가동을 목표로 한다.",
+        "fetch_status": "fetched_body_or_authoritative_page",
+        "fetched": true,
+        "headline_only": false,
+        "rss_or_snippet_only": false,
+        "claim_use": "paraphrase_only_no_visible_quote",
+        "source_type": "official company",
+        "evidence_role": "primary_event_evidence",
+        "supports": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "checked_at": "2026-09-11",
+        "source_quote_status": "not_emitted_paraphrase_only",
+        "source_url_canonical_complete": true,
+        "resolved_article_matches_quote": false
+      },
+      {
+        "id": "STD26_0909_A_015-S2",
+        "source_id": "STD26_0909_A_015-S2",
+        "owner": "Energy-Storage.News",
+        "source_owner_id": "Energy-Storage.News",
+        "source_owner_id_normalized": "solar_media",
+        "role": "independent_news",
+        "source_role": "independent_news",
+        "url": "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/",
+        "source_url": "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/",
+        "domain": "energy-storage.news",
+        "published": "2026-09-08",
+        "summary": "ENGIE는 벨기에 Coo에서 74MW/296MWh BESS 건설을 시작했다. 프로젝트는 4시간 저장용량으로 설계됐고 2028년 초 가동을 목표로 한다.",
+        "fetch_status": "fetched_body_or_authoritative_page",
+        "fetched": true,
+        "headline_only": false,
+        "rss_or_snippet_only": false,
+        "claim_use": "paraphrase_only_no_visible_quote",
+        "source_type": "independent news",
+        "evidence_role": "corroboration",
+        "supports": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "checked_at": "2026-09-11",
+        "source_quote_status": "not_emitted_paraphrase_only",
+        "source_url_canonical_complete": true,
+        "resolved_article_matches_quote": false
+      }
+    ],
+    "date_role": {
+      "status": "PASS",
+      "representative_event_date": "2026-09-08",
+      "stage_a_representative_date": "2026-09-08",
+      "role": "operative event/stage date verified from body-level evidence",
+      "source_publication_dates": [
+        "2026-09-08"
+      ],
+      "corrected_in_stage_b": false,
+      "representative_date": "2026-09-08",
+      "event_date": "2026-09-08",
+      "publication_dates": [
+        "2026-09-08"
+      ],
+      "earliest_same_event_date_checked": true,
+      "event_date_source_url": "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/",
+      "event_date_source_quote": "not emitted; body-level date evidence paraphrased"
+    },
+    "stage_b_lineage": {
+      "status": "PASS",
+      "artifact": "stage-b.json",
+      "artifact_sha256": "ff25f5eabfe5f6533e7c0f62ad60fde773e77e9a0de3a5bb9febc6e1545c1360",
+      "spec_id": "STD26_0909_A_015",
+      "draft_status": "verified_draft",
+      "draft_blocked": false
+    },
+    "strict_gate_acceptance_guard_applied": true,
+    "accepted_pool_lineage_status": "PASS",
+    "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "selection_route": "execution_anchor_route",
+    "anchor_classes": [
+      "execution_event_anchor"
+    ],
+    "prior_state": "Before the Sep 9 governed intake, the exact event 'Engie starts construction of 74MW/296MWh Coo BESS in Belgium' was not admitted as a same-event canonical card after reconciliation against the 1,617-card baseline.",
+    "new_verified_fact": "ENGIE는 벨기에 Coo에서 74MW/296MWh BESS 건설을 시작했다. 프로젝트는 4시간 저장용량으로 설계됐고 2028년 초 가동을 목표로 한다.",
+    "changed_judgment": "기존 수력 유연성 거점에 대형 BESS가 실제 건설 단계로 추가되고 있다.",
+    "uncertainty_resolved": "Event identity, operative date, stage, evidence path and current-main duplicate status were checked in Stage B.",
+    "remaining_uncertainty": "Exact body-level wording, source-owner independence, quantified scope, date and execution/legal stage for Engie starts construction of 74MW/296MWh Coo BESS in Belgium remain for Stage B verification.",
+    "execution_anchor_type": "current_execution_event",
+    "route_validation": {
+      "status": "PASS",
+      "active_route": "execution_anchor_route",
+      "exactly_one_active_route": true,
+      "anchor_evidence_source_ids": [
+        "STD26_0909_A_015-S1"
+      ],
+      "stage_a_before_after_chain_preserved": true
+    },
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "source_diversity_measure": {
+      "source_evidence_entry_count": 2,
+      "source_unique_url_count": 2,
+      "source_unique_domain_count": 2,
+      "source_independent_owner_count": 2,
+      "visible_source_url_count": 2,
+      "missing_source_url_count": 0,
+      "missing_visible_source_url_count": 0,
+      "canonical_urls": [
+        "https://corporate.engie.be/en/press/engie-has-started-construction-of-a-new-large-scale-battery-park-in-coo-belgium",
+        "https://energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project"
+      ],
+      "canonical_domains": [
+        "corporate.engie.be",
+        "energy-storage.news"
+      ],
+      "independent_owners": [
+        "ENGIE",
+        "solar_media"
+      ],
+      "status": "PASS_MULTI_SOURCE"
+    },
+    "source_diversity_roles": {
+      "official_company": 1,
+      "independent_news": 1
+    },
+    "source_synthesis_applied": true,
+    "source_synthesis_fields": [
+      "title",
+      "sub",
+      "gate",
+      "fact",
+      "implication"
+    ],
+    "source_synthesis_audit": {
+      "status": "PASS",
+      "primary_or_official_controls_operative_facts": true,
+      "independent_confirmation_used": true,
+      "conflicts_explicitly_resolved": true
+    },
+    "single_source_exception": {
+      "allowed": false,
+      "reason": "not applicable: multi-owner evidence"
+    },
+    "source_published_date": "2026-09-08",
+    "visible_quote_date": "not_applicable_no_visible_quotes",
+    "stage_c_only": false,
+    "addable_merge_safe": true,
+    "evidence_complete": true,
+    "source_claim_covered": true,
+    "content_enriched": true,
+    "language_terminology_polished": true,
+    "publish_ready": true,
+    "github_merge_ready": false,
+    "unresolved_downstream_issues": [],
+    "state": "publish_ready",
+    "fact_safe_at_stage_c": true,
+    "related_lineage": {
+      "status": "PASS",
+      "same_event_checked": true,
+      "earliest_same_event_date_checked": true,
+      "relation_type": "new_unrelated_event",
+      "matched_baseline_current_candidates": [],
+      "fresh_follow_up_anchor_class": null,
+      "fresh_follow_up_anchor": null,
+      "incremental_fact": "No same-event canonical card or mandatory predecessor relation found at the locked 1,617-card baseline.",
+      "changed_judgment": "Current evidence supports a distinct publishable event/stage progression.",
+      "rejected_relation_candidates": [],
+      "reinforcement_transfer_ledger": [],
+      "related_target_required": false,
+      "related_target_id": null,
+      "reason": "No same-event canonical card or mandatory predecessor relation found at the locked 1,617-card baseline.",
+      "related_ids": []
+    },
+    "related": [],
+    "related_candidate_spec_ids": [],
+    "related_evidence_review": {
+      "status": "PASS",
+      "same_event_checked": true,
+      "earliest_same_event_date_checked": true,
+      "relation_type": "new_unrelated_event",
+      "matched_baseline_current_candidates": [],
+      "fresh_follow_up_anchor_class": null,
+      "fresh_follow_up_anchor": null,
+      "incremental_fact": "No same-event canonical card or mandatory predecessor relation found at the locked 1,617-card baseline.",
+      "changed_judgment": "Current evidence supports a distinct publishable event/stage progression.",
+      "rejected_relation_candidates": [],
+      "reinforcement_transfer_ledger": [],
+      "related_target_required": false,
+      "related_target_id": null,
+      "reason": "No same-event canonical card or mandatory predecessor relation found at the locked 1,617-card baseline.",
+      "related_ids": []
+    },
+    "visible_field_fact_safe": {
+      "status": "PASS",
+      "title": "PASS",
+      "sub": "PASS",
+      "gate": "PASS",
+      "fact": "PASS",
+      "implication": "PASS",
+      "unsupported_visible_claim_count": 0,
+      "unsupported_causality_count": 0,
+      "unsupported_quote_count": 0
+    },
+    "claim_map": [
+      {
+        "claim_id": "STD26_0909_A_015-C1",
+        "claim": "ENGIE는 벨기에 Coo에서 74MW/296MWh BESS 건설을 시작했다. 프로젝트는 4시간 저장용량으로 설계됐고 2028년 초 가동을 목표로 한다.",
+        "supported_by_source_ids": [
+          "STD26_0909_A_015-S1",
+          "STD26_0909_A_015-S2"
+        ],
+        "visible": true,
+        "status": "SUPPORTED_STAGE_B"
+      }
+    ],
+    "source_discovery_ledger": [
+      {
+        "source_url": "https://corporate.engie.be/en/press/engie-has-started-construction-of-a-new-large-scale-battery-park-in-coo-belgium",
+        "canonical_url": "https://corporate.engie.be/en/press/engie-has-started-construction-of-a-new-large-scale-battery-park-in-coo-belgium",
+        "source_name": "",
+        "source_owner": "ENGIE",
+        "source_domain": "corporate.engie.be",
+        "outcome": "used_in_fact_sources",
+        "unique_contribution": "",
+        "visible_supports": [
+          "fact",
+          "gate",
+          "implication",
+          "sub",
+          "title"
+        ]
+      },
+      {
+        "source_url": "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/",
+        "canonical_url": "https://energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project",
+        "source_name": "",
+        "source_owner": "solar_media",
+        "source_domain": "energy-storage.news",
+        "outcome": "used_in_fact_sources",
+        "unique_contribution": "",
+        "visible_supports": [
+          "fact",
+          "gate",
+          "implication",
+          "sub",
+          "title"
+        ]
+      },
+      {
+        "source_spec_id": "STD26_0909_A_015",
+        "source_event_id": "SEP9_EVT_A_015",
+        "query_or_target": "https://corporate.engie.be/en/press/engie-has-started-construction-of-a-new-large-scale-battery-park-in-coo-belgium",
+        "canonical_url": "https://corporate.engie.be/en/press/engie-has-started-construction-of-a-new-large-scale-battery-park-in-coo-belgium",
+        "name": "ENGIE",
+        "domain": "engie.com",
+        "owner": "ENGIE",
+        "role": "official_company",
+        "origin_type": "official company",
+        "outcome": "body_or_document_verified",
+        "unique_contribution": "ENGIE는 벨기에 Coo에서 74MW/296MWh BESS 건설을 시작했다. 프로젝트는 4시간 저장용량으로 설계됐고 2028년 초 가동을 목표로 한다.",
+        "visible_fields_supported": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "checked_at": "2026-09-11"
+      },
+      {
+        "source_spec_id": "STD26_0909_A_015",
+        "source_event_id": "SEP9_EVT_A_015",
+        "query_or_target": "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/",
+        "canonical_url": "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/",
+        "name": "Energy-Storage.News",
+        "domain": "energy-storage.news",
+        "owner": "Energy-Storage.News",
+        "role": "independent_news",
+        "origin_type": "independent news",
+        "outcome": "body_or_document_verified",
+        "unique_contribution": "ENGIE는 벨기에 Coo에서 74MW/296MWh BESS 건설을 시작했다. 프로젝트는 4시간 저장용량으로 설계됐고 2028년 초 가동을 목표로 한다.",
+        "visible_fields_supported": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "checked_at": "2026-09-11"
+      }
+    ],
+    "alternative_source_search_audit": {
+      "status": "PASS",
+      "search_performed": true,
+      "independent_or_primary_support_found": true
+    },
+    "stage_c_red_team": {
+      "status": "PASS",
+      "unsupported_visible_claim_count": 0,
+      "unsupported_inference_count": 0,
+      "quote_mismatch_count": 0,
+      "date_role_contradiction_count": 0,
+      "same_event_collision_count": 0,
+      "note": "Visible fields were narrowed to body-level evidence and no unsupported causality or forecast was added."
+    },
+    "event_fingerprint": {
+      "version": "v1",
+      "fingerprint_sha256": "b3d015360cbb08fa9edc25e089849b6de79daeefb9afd57249247c7aebeb20d0",
+      "normalized_event_key": "2026-09-08|EU|engie, 벨기에 coo 74mw/296mwh bess 착공",
+      "same_event_collision_count": 0
+    },
+    "baseline_revalidation": {
+      "status": "PASS",
+      "baseline_main": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+      "baseline_card_count": 1617,
+      "same_event_collision_count": 0,
+      "canonical_url_collision_count": 0,
+      "relation_type": "new_unrelated_event",
+      "related_ids": []
+    },
+    "addability_outcome": "addable_merge_safe_new_unrelated",
+    "evidence_qc": {
+      "status": "PASS",
+      "fact_source_count": 2,
+      "visible_claims_supported": true,
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "date_role_consistent": true,
+      "related_lineage_consistent": true,
+      "unsupported_claim_count": 0
+    },
+    "content_polish_audit": {
+      "status": "PASS",
+      "meaning_preserved": true,
+      "fact_density_preserved": true,
+      "terminology_consistent": true,
+      "internal_jargon_removed_from_visible_fields": true,
+      "visible_quote_count": 0,
+      "unsupported_superlative_count": 0
+    },
+    "final_qc_gates": {
+      "status": "PASS",
+      "visible_claims": "PASS",
+      "source_claim_coverage": "PASS",
+      "date_role": "PASS",
+      "related_lineage": "PASS",
+      "event_identity": "PASS",
+      "language": "PASS",
+      "schema": "PASS"
+    },
+    "final_qc": {
+      "status": "PASS",
+      "hold_reason": null,
+      "return_reason": null
+    },
+    "source_evidence_entry_count": 2,
+    "source_unique_url_count": 2,
+    "source_unique_domain_count": 2,
+    "source_independent_owner_count": 2,
+    "source_url_resolution": {
+      "supporting_fact_source_count": 2,
+      "canonical_complete": true,
+      "resolved_article_matches_quote": false,
+      "source_url_propagation_performed": false,
+      "resolution_entries": [
+        {
+          "source_url": "https://corporate.engie.be/en/press/engie-has-started-construction-of-a-new-large-scale-battery-park-in-coo-belgium",
+          "canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "resolution_basis": "recomputed from current fact_sources; indices=0; owners=ENGIE",
+          "source_url_propagation_performed": false
+        },
+        {
+          "source_url": "https://www.energy-storage.news/belgium-edf-inaugurates-600mwh-bess-engie-starts-building-296mwh-project/",
+          "canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "resolution_basis": "recomputed from current fact_sources; indices=1; owners=solar_media",
+          "source_url_propagation_performed": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "2026-09-02_US_01",
+    "region": "US",
+    "date": "2026-09-02",
+    "cat": "AI",
+    "sub_cat": "data center power / fuel cell contract",
+    "signal": "top",
+    "title": "두산퓨얼셀, 미국 AI 데이터센터용 PAFC 5,014억원 공급계약",
+    "sub": "HyAxiom 대상…2026년 하반기~2028년 상반기 순차 납품",
+    "gate": "AI 데이터센터 전력병목 대응이 5천억원대 분산전원 공급계약으로 구체화됐다.",
+    "fact": "두산퓨얼셀은 HyAxiom과 5,014억원 규모 PAFC 공급계약을 체결했다고 9월 2일 공시했다. 납품은 2026년 하반기부터 2028년 상반기까지이며 HyAxiom은 미국 AI 데이터센터에 공급할 예정이다.",
+    "implication": [
+      "AI 데이터센터 전력수요가 배터리뿐 아니라 온사이트 연료전지형 전원조달로 확장되고 있다.",
+      "실제 납품량·설치 사이트와 데이터센터 고객 확정 여부를 후속 확인해야 한다."
+    ],
+    "urls": [
+      "https://www.doosannewsroom.com/?cat=8&p=51738",
+      "https://en.sedaily.com/finance/2026/09/02/doosan-fuel-cell-wins-5014-billion-won-us-ai-data-center"
+    ],
+    "related": [],
+    "fact_sources": [
+      {
+        "id": "P1",
+        "owner": "Doosan Fuel Cell",
+        "role": "company_primary_release_and_filing",
+        "url": "https://www.doosannewsroom.com/?cat=8&p=51738",
+        "published": "2026-09-02",
+        "summary": "Official release confirms KRW501.4bn contract, PAFC, HyAxiom, delivery window and AI data-center use.",
+        "independent_editorial_owner": false,
+        "fetch_status": "fetched_body_or_authoritative_page",
+        "headline_only": false,
+        "rss_or_snippet_only": false,
+        "claim_use": "paraphrase_only_no_source_quote",
+        "domain": "doosannewsroom.com",
+        "source_url": "https://www.doosannewsroom.com/?cat=8&p=51738",
+        "source_name": "Doosan Fuel Cell",
+        "source_owner_id_normalized": "Doosan Fuel Cell",
+        "source_role": "company_primary_release_and_filing",
+        "evidence_role": "primary_event_evidence",
+        "source_origin_type": "company_primary_or_official",
+        "source_contribution": "Official release confirms KRW501.4bn contract, PAFC, HyAxiom, delivery window and AI data-center use.",
+        "supports": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "source_quote": "",
+        "source_quote_status": "not_applicable_paraphrase_only",
+        "source_url_canonical_complete": true,
+        "resolved_article_matches_quote": false
+      },
+      {
+        "id": "I1",
+        "owner": "Seoul Economic Daily",
+        "role": "independent_confirmation",
+        "url": "https://en.sedaily.com/finance/2026/09/02/doosan-fuel-cell-wins-5014-billion-won-us-ai-data-center",
+        "published": "2026-09-02",
+        "summary": "Independent report confirms filing amount, 110.25% of prior annual revenue, delivery window and use.",
+        "independent_editorial_owner": true,
+        "fetch_status": "fetched_body_or_authoritative_page",
+        "headline_only": false,
+        "rss_or_snippet_only": false,
+        "claim_use": "paraphrase_only_no_source_quote",
+        "domain": "en.sedaily.com",
+        "source_url": "https://en.sedaily.com/finance/2026/09/02/doosan-fuel-cell-wins-5014-billion-won-us-ai-data-center",
+        "source_name": "Seoul Economic Daily",
+        "source_owner_id_normalized": "Seoul Economic Daily",
+        "source_role": "independent_confirmation",
+        "evidence_role": "secondary_event_evidence",
+        "source_origin_type": "independent_body_level_article",
+        "source_contribution": "Independent report confirms filing amount, 110.25% of prior annual revenue, delivery window and use.",
+        "supports": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "source_quote": "",
+        "source_quote_status": "not_applicable_paraphrase_only",
+        "source_url_canonical_complete": true,
+        "resolved_article_matches_quote": false
+      }
+    ],
+    "spec_id": "STD26_N2_P01P_037",
+    "source_spec_id": "STD26_N2_P01P_037",
+    "source_story_ids": [
+      "KR_2026-09-02_C100",
+      "KR_2026-09-02_C99",
+      "KR_2026-09-02_C101",
+      "KR_2026-09-02_C96"
+    ],
+    "state": "content_enriched_and_language_polished",
+    "stage_c_only": true,
+    "strict_gate_acceptance_guard_applied": true,
+    "accepted_pool_lineage_status": "PASS",
+    "stage_b_lineage": {
+      "status": "PASS",
+      "artifact": "/mnt/data/stage_b_20260904_current_main_dff7349_r1/stage_b_current14_20260904_R1.json",
+      "artifact_sha256": "1600bddc21ce1ba704d87a18c1f0166de7f51c3a9ae57974199db7c6f66a8754",
+      "spec_id": "STD26_N2_P01P_037",
+      "draft_status": "draft",
+      "draft_blocked": false
+    },
+    "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "selection_route": "execution_anchor_route",
+    "anchor_classes": [
+      "execution_event_anchor",
+      "data_financial_anchor",
+      "strategic_behavior_anchor"
+    ],
+    "prior_state": "Before this 2026-09-02 bounded intake, 두산퓨얼셀, 美 AI 데이터센터 시장 첫 진출…5014억원 연료전지 공급 had not received a final disposition in this new run against current main.",
+    "new_verified_fact": "Doosan Fuel Cell disclosed a KRW 501.4 billion PAFC supply contract with HyAxiom for U.S. AI data centers, with deliveries from H2 2026 through H1 2028.",
+    "changed_judgment": "Bounded Prompt 0.1P research resolves the prior review gap and promotes N2_B02_REVIEW_037 to the ordinary strict_passed_spec queue without bypassing the Stage A contract.",
+    "uncertainty_resolved": "large binding contract and explicit delivery schedule resolve the execution question.",
+    "remaining_uncertainty": "Claim-level source ownership, exact contract/financing/commissioning terms, and any date/scale nuances must be independently rechecked in Stage B.",
+    "execution_anchor_type": "binding_supply_or_offtake_agreement",
+    "execution_anchor_strength": "strong",
+    "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+    "stage_b_evidence_package_required": true,
+    "route_validation": {
+      "status": "PASS",
+      "active_route": "execution_anchor_route",
+      "exactly_one_active_route": true,
+      "anchor_evidence_source_ids": [
+        "P1",
+        "I1"
+      ],
+      "stage_a_before_after_chain_preserved": true
+    },
+    "visible_field_fact_safe": {
+      "status": "PASS",
+      "title": "PASS",
+      "sub": "PASS",
+      "gate": "PASS",
+      "fact": "PASS",
+      "implication": "PASS_BOUNDED_STRATEGIC_INFERENCE",
+      "claim_map_count": 2,
+      "unsupported_visible_claim_count": 0,
+      "unsupported_causality_count": 0,
+      "unsupported_quote_count": 0
+    },
+    "claim_map": [
+      {
+        "claim_id": "C1",
+        "claim": "두산퓨얼셀은 HyAxiom과 5,014억원 규모 PAFC 공급계약을 체결했다.",
+        "supported_by_source_ids": [
+          "P1",
+          "I1"
+        ],
+        "visible": true,
+        "status": "SUPPORTED"
+      },
+      {
+        "claim_id": "C2",
+        "claim": "납품기간은 2026년 하반기~2028년 상반기이며 미국 AI 데이터센터향이다.",
+        "supported_by_source_ids": [
+          "P1",
+          "I1"
+        ],
+        "visible": true,
+        "status": "SUPPORTED"
+      }
+    ],
+    "source_conflicts": [],
+    "date_role": {
+      "representative_event_date": "2026-09-02",
+      "role": "contract disclosure",
+      "stage_a_representative_date": "2026-09-02",
+      "source_publication_dates": [
+        "2026-09-02"
+      ],
+      "status": "PASS",
+      "note": "Event date controls card identity; publication dates remain separate. Where the Stage A date was publication date, Stage B corrects it to the underlying execution/policy event date.",
+      "representative_date": "2026-09-02",
+      "event_date": "2026-09-02",
+      "publication_dates": [
+        "2026-09-02"
+      ],
+      "earliest_same_event_date_checked": true,
+      "event_date_source_url": "https://www.doosannewsroom.com/?cat=8&p=51738",
+      "event_date_source_quote": "Official release confirms KRW501.4bn contract, PAFC, HyAxiom, delivery window and AI data-center use.",
+      "event_date_source_id": "P1",
+      "event_date_source_publication_date": "2026-09-02",
+      "event_date_source_provenance": "validated_stage_b_stage_c_fact_sources",
+      "event_date_source_evidence_semantics": "validated_source_summary_used_as_date-evidence paraphrase; not presented as verbatim quotation",
+      "date_role_contract_projection": {
+        "status": "PASS",
+        "source_stage": "Stage C / 0.6 preserved",
+        "source_spec_id": "STD26_N2_P01P_037",
+        "projection_only_no_date_readjudication": true,
+        "representative_date_preserved": true,
+        "source_publication_dates_preserved": true,
+        "earliest_date_pass_preserved": true
+      }
+    },
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "source_diversity_measure": {
+      "source_evidence_entry_count": 2,
+      "source_unique_url_count": 2,
+      "source_unique_domain_count": 2,
+      "source_independent_owner_count": 2,
+      "visible_source_url_count": 2,
+      "missing_source_url_count": 0,
+      "missing_visible_source_url_count": 0,
+      "canonical_urls": [
+        "https://doosannewsroom.com?cat=8&p=51738",
+        "https://en.sedaily.com/finance/2026/09/02/doosan-fuel-cell-wins-5014-billion-won-us-ai-data-center"
+      ],
+      "canonical_domains": [
+        "doosannewsroom.com",
+        "en.sedaily.com"
+      ],
+      "independent_owners": [
+        "Doosan Fuel Cell",
+        "Seoul Economic Daily"
+      ],
+      "status": "PASS_MULTI_SOURCE"
+    },
+    "source_diversity_roles": {
+      "company_primary_release_and_filing": 1,
+      "independent_confirmation": 1
+    },
+    "source_synthesis_applied": true,
+    "source_synthesis_fields": [
+      "title",
+      "sub",
+      "gate",
+      "fact",
+      "implication"
+    ],
+    "source_synthesis_audit": {
+      "status": "PASS",
+      "primary_or_official_controls_operative_facts": true,
+      "independent_confirmation_used": true,
+      "conflicts_explicitly_resolved": true
+    },
+    "single_source_exception": {
+      "allowed": false,
+      "reason": "not applicable: multi-owner evidence"
+    },
+    "source_published_date": "2026-09-02",
+    "visible_quote_date": "not_applicable_no_visible_quotes",
+    "stage_c_red_team": {
+      "source_direction_and_independence": "PASS",
+      "numbers_dates_entities_counterparties": "PASS",
+      "event_stage_and_date_role": "PASS",
+      "same_event_duplicate_check": "PASS",
+      "stale_republication_check": "PASS",
+      "selected_anchor_evidence": "PASS",
+      "policy_earnings_technology_caveats": "PASS",
+      "causality_and_strategic_overreach": "PASS",
+      "visible_field_consistency": "PASS",
+      "full_schema_viability": "PASS",
+      "related_evidence": "PASS"
+    },
+    "unresolved_downstream_issues": [
+      "First contracted PAFC deliveries in H2 2026 at the stated customer and schedule would strengthen the execution judgment; cancellation, material scope reduction, or delayed deliveries would weaken it."
+    ],
+    "fact_safe_at_stage_c": true,
+    "addable_merge_safe": true,
+    "evidence_complete": true,
+    "source_claim_covered": true,
+    "content_enriched": true,
+    "language_terminology_polished": true,
+    "publish_ready": true,
+    "github_merge_ready": true,
+    "related_lineage": {
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "related_ids": [],
+      "provisional_current_batch_candidate_ids": [],
+      "reason": "No direct auditable predecessor or same-event canonical representative found.",
+      "fresh_follow_up_anchor_class": null,
+      "fresh_follow_up_anchor": null,
+      "incremental_fact": null,
+      "changed_judgment": null,
+      "same_event_check": "PASS",
+      "earliest_date_check": "PASS",
+      "rejected_relation_candidates": [],
+      "chronology_exception": null,
+      "same_event_checked": true,
+      "earliest_same_event_date_checked": true
+    },
+    "event_fingerprint": {
+      "actor": "두산퓨얼셀",
+      "asset_or_policy": "data center power / fuel cell contract",
+      "location": "US",
+      "event_type": "binding_supply_or_offtake_agreement",
+      "event_date": "2026-09-02",
+      "source_url_cluster": [
+        "https://doosannewsroom.com?cat=8&p=51738",
+        "https://en.sedaily.com/finance/2026/09/02/doosan-fuel-cell-wins-5014-billion-won-us-ai-data-center"
+      ],
+      "factual_anchor": "두산퓨얼셀은 HyAxiom과 5,014억원 규모 PAFC 공급계약을 체결했다고 9월 2일 공시했다. 납품은 2026년 하반기부터 2028년 상반기까지이며 HyAxiom은 미국 AI 데이터센터에 공급할 예정이다."
+    },
+    "baseline_revalidation": {
+      "status": "PASS",
+      "base_main_commit_sha": "dff7349272013757e08c87b37754ec996156059a",
+      "base_full_blob_sha": "81243ad6ca7e88b703d2eeb31c08ed60f8d6853d",
+      "canonical_card_count": 1523,
+      "exact_canonical_url_collision_count": 0,
+      "exact_canonical_url_hits": [],
+      "normalized_title_collision_count": 0,
+      "normalized_title_hits": [],
+      "card_id_collision": false,
+      "current_batch_url_collision_count": 0,
+      "current_batch_title_collision_count": 0,
+      "related_target_existence": "PASS",
+      "stale_republication_check": "PASS",
+      "broader_representative_coverage_check": "PASS",
+      "update_or_reinforcement_opportunity": "none_found"
+    },
+    "addability_outcome": "addable_merge_safe_new_unrelated",
+    "evidence_qc_status": "PASS",
+    "claim_source_coverage_status": "PASS",
+    "claim_source_coverage": {
+      "visible_claim_count": 2,
+      "supported_visible_claim_count": 2,
+      "unsupported_visible_claim_count": 0,
+      "all_claim_source_ids_resolve": true
+    },
+    "prompt_0_5_provenance": {
+      "prompt_file": "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
+      "prompt_version": "PROMPT_0_5_V4_20260901",
+      "input_0_4_sha256": "530d64e5eaf6bfa3559c4a5a07f81f61496c280eba465d6b96acf7db74b29a11"
+    },
+    "source_evidence_entry_count": 2,
+    "source_unique_url_count": 2,
+    "source_unique_domain_count": 2,
+    "source_independent_owner_count": 2,
+    "source_url_resolution": {
+      "supporting_fact_source_count": 2,
+      "canonical_complete": true,
+      "resolved_article_matches_quote": false,
+      "source_url_propagation_performed": false,
+      "resolution_entries": [
+        {
+          "source_url": "https://www.doosannewsroom.com/?cat=8&p=51738",
+          "canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "resolution_basis": "recomputed from current fact_sources; indices=0; owners=Doosan Fuel Cell",
+          "source_url_propagation_performed": false
+        },
+        {
+          "source_url": "https://en.sedaily.com/finance/2026/09/02/doosan-fuel-cell-wins-5014-billion-won-us-ai-data-center",
+          "canonical_complete": true,
+          "resolved_article_matches_quote": false,
+          "resolution_basis": "recomputed from current fact_sources; indices=1; owners=Seoul Economic Daily",
+          "source_url_propagation_performed": false
+        }
+      ]
+    },
+    "source_discovery_ledger": [
+      {
+        "source_url": "https://www.doosannewsroom.com/?cat=8&p=51738",
+        "canonical_url": "https://doosannewsroom.com?cat=8&p=51738",
+        "source_name": "Doosan Fuel Cell",
+        "source_owner": "Doosan Fuel Cell",
+        "source_domain": "doosannewsroom.com",
+        "outcome": "used_in_fact_sources",
+        "unique_contribution": "Official release confirms KRW501.4bn contract, PAFC, HyAxiom, delivery window and AI data-center use.",
+        "visible_supports": [
+          "fact",
+          "gate",
+          "implication",
+          "sub",
+          "title"
+        ]
+      },
+      {
+        "source_url": "https://en.sedaily.com/finance/2026/09/02/doosan-fuel-cell-wins-5014-billion-won-us-ai-data-center",
+        "canonical_url": "https://en.sedaily.com/finance/2026/09/02/doosan-fuel-cell-wins-5014-billion-won-us-ai-data-center",
+        "source_name": "Seoul Economic Daily",
+        "source_owner": "Seoul Economic Daily",
+        "source_domain": "en.sedaily.com",
+        "outcome": "used_in_fact_sources",
+        "unique_contribution": "Independent report confirms filing amount, 110.25% of prior annual revenue, delivery window and use.",
+        "visible_supports": [
+          "fact",
+          "gate",
+          "implication",
+          "sub",
+          "title"
+        ]
+      }
+    ],
+    "sbtl_relevance": {
+      "level": "background_no_direct",
+      "basis": "AI 데이터센터 전원 대안의 확장은 전력인프라 맥락이지만 이 사건 자체는 배터리·파우치필름 수요를 직접 증명하지 않는다.",
+      "direct_pouch_film_claim_made": false
+    },
+    "content_polish_audit": {
+      "status": "PASS",
+      "numbers_preserved": true,
+      "event_stage_preserved": true,
+      "date_role_preserved": true,
+      "related_lineage_preserved": true,
+      "new_facts_added": false,
+      "unsupported_causality_added": false,
+      "terminology_consistency": "PASS",
+      "strategic_read_through_bounded": "PASS"
+    },
+    "final_qc_gates": {
+      "status": "PASS",
+      "full_schema_visible_fields": "PASS",
+      "evidence_source_claim_coverage": "PASS",
+      "source_synthesis_and_diversity": "PASS",
+      "date_role_and_id_compatibility": "PASS",
+      "event_identity_duplicate_risk": "PASS_0_4_REVALIDATED",
+      "selection_route_anchor_before_after_chain": "PASS",
+      "related_lineage_targets_chronology_self_duplicate": "PASS_PENDING_SCOPED_MACHINE_RECHECK",
+      "terminology_title_body_consistency": "PASS",
+      "unsupported_inference": "PASS",
+      "latest_candidate_version": "PASS",
+      "canonical_regression_guard": "PASS_BASELINE_HASH_LOCKED"
+    },
+    "final_qc_scope": {
+      "current_run_id": "2026-09-02_US_01",
+      "scope_method": "exact_id",
+      "fuzzy_matching_used": false
+    },
+    "prompt_0_7_provenance": {
+      "prompt_file": "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+      "prompt_version": "PROMPT_0_7_V4_20260829",
+      "prompt_sha256": "f38c5ca948ef273aecaecc8c49973b739c9d7f49f34282454d67a0367f1413aa",
+      "input_0_6_artifact": "/mnt/data/stage_0_6_20260904_current_main_dff7349_r1/stage_0_6_current13_20260904_R1.json",
+      "input_0_6_sha256": "e0800a40935658330c2bc530145aeab319ff53b742c6ae07d4955233bbe4d83e",
+      "current_run_id_file": "/mnt/data/stage_0_7_20260904_current_main_dff7349_r1/prompt_0_7_current13_ids_20260904_R1.json"
+    },
+    "merge_prep": {
+      "status": "PASS",
+      "run_id": "card-run-2026-09-04-input-20260902-current13-r1"
+    }
+  }
+]

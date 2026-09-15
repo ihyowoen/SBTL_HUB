@@ -1,0 +1,55 @@
+name: tmp-pr380-nonbinding-fix
+
+on:
+  push:
+    branches:
+      - chatgpt/rebuild-monthly-brief-2026-06
+    paths:
+      - .github/workflows/tmp-pr380-nonbinding-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Apply bounded wording fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const fs = require('fs');
+          const p = 'public/data/monthly_briefs.json';
+          const text = fs.readFileSync(p, 'utf8');
+          const oldText = '영국은 LDES 16개 프로젝트를 잠정선정했고 EU는 17개국의 2026~2028 저장 배치 공약을 묶은 첫 Tripartite Agreement를 체결했다.';
+          const newText = '영국은 LDES 16개 프로젝트를 잠정선정했고 EU는 법적 의무를 수반하지 않는 17개국의 2026~2028 저장 배치 공약을 묶은 첫 Tripartite Agreement를 체결했다.';
+          if (!text.includes(oldText)) throw new Error('target public sentence not found');
+          if ((text.match(new RegExp(oldText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')) || []).length !== 1) throw new Error('target sentence not unique');
+          fs.writeFileSync(p, text.replace(oldText, newText));
+          NODE
+      - name: Validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci
+          npm run validate:monthly-briefs
+          npm test
+          npm run build
+          git diff --check
+      - name: Commit fix and remove helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'ihyowoen'
+          git config user.email 'hyowoen@hotmail.com'
+          git add public/data/monthly_briefs.json
+          git rm -f .github/workflows/tmp-pr380-nonbinding-fix.yml
+          git commit -m 'fix: mark EU storage pledges non-binding in June brief'
+          git push origin HEAD:chatgpt/rebuild-monthly-brief-2026-06

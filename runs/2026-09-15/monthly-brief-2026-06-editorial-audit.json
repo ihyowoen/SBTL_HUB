@@ -1,0 +1,389 @@
+{
+  "schema": "monthly_brief_editorial_audit_v1",
+  "issue_id": "monthly-brief-2026-06-r1",
+  "month": "2026-06",
+  "audit_date": "2026-09-15",
+  "product": "SBTL Monthly Brief",
+  "baseline": {
+    "main_commit_sha": "1305dea1892b5b19ce5bad84e67407743e5b1c26",
+    "cards_full_blob_sha": "a9887cb2576cb4db195d0dddbc4db9b28c17847e",
+    "total_canonical_cards": 1640,
+    "month_card_count": 197,
+    "signal_distribution": {
+      "top": 15,
+      "high": 84,
+      "mid": 98
+    },
+    "region_distribution": {
+      "EU": 48,
+      "CN": 39,
+      "US": 36,
+      "GL": 35,
+      "KR": 32,
+      "JP": 7
+    }
+  },
+  "method": [
+    "Lock the post-#379 main canonical snapshot and review all 197 June cards across top, high and mid tiers.",
+    "Re-review all 99 top/high June cards after the independent external gap closure rather than restoring the reverted #377 publication.",
+    "Treat the reverted June brief only as red-team context; derive the public thesis and anchor set from the updated canonical universe.",
+    "Separate contract, financing, construction, commissioning and COD; announced GW/GWh is never treated as installed capacity.",
+    "Treat AI/data-center demand as a selective power-infrastructure pull, not the master causal explanation for June ESS growth.",
+    "Apply a strict SBTL pouch lens: no pouch-film demand inference without form-factor, customer-program or supply-contract evidence.",
+    "Require every public reference to preserve the locked canonical title/date and use a governed title-supporting URL."
+  ],
+  "independent_external_deep_dive": {
+    "performed_after_initial_canonical_first_draft": true,
+    "candidate_count": 14,
+    "canonicalized_net_new": 7,
+    "same_event_duplicates_removed": 2,
+    "watch_only_count": 5,
+    "promoted_events": [
+      "Energy Dome–SRP 20-year CO2-storage tolling",
+      "T1 Energy–KORE Power definitive acquisition agreement",
+      "Korea recycled-material certification pilot",
+      "EU Energy Storage Tripartite Agreement",
+      "Kansai Electric BESS infrastructure fund",
+      "Trina Storage Kyushu 160MWh supply contract",
+      "ContourGlobal Wallace BESS conditional acquisition"
+    ],
+    "duplicate_findings": [
+      "Ofgem LDES Window 1 already canonical as 2026-06-26_EU_01",
+      "FERC June 18 show-cause event already canonical as 2026-07-03_US_01"
+    ],
+    "watch_only": [
+      "GM compound ESS/sodium-ion chemistry story",
+      "ESS Tech forward pipeline/target",
+      "Yulchon Chemical pouch-film patent family pending patent-family normalization",
+      "Moss Landing cleanup requiring lineage treatment",
+      "Japan sustainability demo with insufficient independent monthly decision value"
+    ],
+    "editorial_effect": "The external sweep strengthened the contracted/financeable ESS thesis, added LDES policy and a selective AI-power-infrastructure pull, and expanded the localization lens to recycled-material certification. It did not justify restoring AI as the single master June narrative."
+  },
+  "selected_flows": [
+    {
+      "id": "01",
+      "title": "ESS, 장기계약·자본·COD를 갖춘 전력자산으로",
+      "decision": "SELECT",
+      "anchor_card_ids": [
+        "2026-06-02_EU_01",
+        "2026-06-15_US_01",
+        "2026-06-22_US_01",
+        "2026-06-23_US_01",
+        "2026-06-30_GL_01"
+      ]
+    },
+    {
+      "id": "02",
+      "title": "ESS 수요, 저장시간·정책조달·전력인프라 수요로 분화",
+      "decision": "SELECT",
+      "anchor_card_ids": [
+        "2026-06-08_GL_02",
+        "2026-06-26_EU_01",
+        "2026-06-26_EU_07",
+        "2026-06-02_JP_01",
+        "2026-06-02_US_01"
+      ]
+    },
+    {
+      "id": "03",
+      "title": "차세대 저장, 상업계약과 검증단계가 갈리기 시작",
+      "decision": "SELECT",
+      "anchor_card_ids": [
+        "2026-06-22_CN_05",
+        "2026-06-23_EU_01",
+        "2026-06-22_EU_02",
+        "2026-06-17_US_02"
+      ]
+    },
+    {
+      "id": "04",
+      "title": "공급망 규칙, 국가에서 기업별 조달적격성·생산금융으로 세분화",
+      "decision": "SELECT",
+      "anchor_card_ids": [
+        "2026-06-09_US_02",
+        "2026-06-22_CN_01",
+        "2026-06-17_GL_07",
+        "2026-06-10_EU_01"
+      ]
+    },
+    {
+      "id": "05",
+      "title": "현지화, 공장 위치에서 기술권리·재생원료·추적성까지 확대",
+      "decision": "SELECT",
+      "anchor_card_ids": [
+        "2026-06-30_US_02",
+        "2026-06-25_KR_02",
+        "2026-06-29_JP_01",
+        "2026-06-11_KR_01"
+      ]
+    }
+  ],
+  "rejected_or_narrowed_narratives": [
+    {
+      "narrative": "AI data centers are the main causal driver of June ESS growth",
+      "decision": "NARROW",
+      "reason": "AI-linked cases are material but the broader cross-market pattern is long-duration storage, contracted revenues, financing and grid execution."
+    },
+    {
+      "narrative": "ESS growth means EV demand has been replaced",
+      "decision": "REJECT",
+      "reason": "The evidence establishes storage growth and contracting, not one-for-one substitution from EV demand."
+    },
+    {
+      "narrative": "Long-term contracts or announced GWh equal delivered operating capacity",
+      "decision": "REJECT",
+      "reason": "Contract, financing, construction, commissioning and COD are distinct execution stages."
+    },
+    {
+      "narrative": "US 1260H listing is a general sanction or investment ban",
+      "decision": "REJECT",
+      "reason": "The canonical card limits the June action to Defense Department procurement restrictions."
+    },
+    {
+      "narrative": "G7 adopted a binding critical-mineral price floor",
+      "decision": "REJECT",
+      "reason": "Price-gap support, joint procurement and price floors remain considered tools, not a finalized binding regime."
+    },
+    {
+      "narrative": "Ford Michigan LFP is already in commercial mass production",
+      "decision": "NARROW",
+      "reason": "The governed card limits the June event to production-intent test cells."
+    },
+    {
+      "narrative": "June ESS/LFP growth directly implies pouch-film demand",
+      "decision": "REJECT",
+      "reason": "No selected June anchor proves a pouch-form-factor customer program or pouch-film supply contract."
+    }
+  ],
+  "editorial_exclusions": [
+    {
+      "id": "2026-06-16_JP_01",
+      "reason": "Canonicalized and decision-relevant, but omitted from the compact public anchor set because stronger contracted-revenue and financing cases already prove Flow 01."
+    },
+    {
+      "id": "2026-06-03_JP_02",
+      "reason": "Canonicalized supply contract retained in the universe; omitted to avoid duplicating Japan storage procurement evidence."
+    },
+    {
+      "id": "2026-06-24_EU_03",
+      "reason": "Canonicalized single-company acquisition case retained as supporting evidence, but not needed to establish a market-wide M&A trend."
+    },
+    {
+      "id": "2026-06-05_KR_01",
+      "reason": "Samsung SDI–VW supply report remains unconfirmed by VW in the card gate."
+    },
+    {
+      "id": "2026-06-30_CN_02",
+      "reason": "52.522GWh is filing volume, not construction or COD."
+    },
+    {
+      "id": "2026-06-17_CN_05",
+      "reason": "Useful solid-state caution, but the compact public set uses a stage-disciplined road-test anchor and keeps commercialization skepticism in red-team context."
+    }
+  ],
+  "official_source_selection": {
+    "selected_card_count": 22,
+    "selection_principle": "Compact decision-relevant anchors across bankability, storage-duration/policy demand, technology maturity, procurement eligibility and localization/traceability.",
+    "source_card_ids": [
+      "2026-06-02_EU_01",
+      "2026-06-15_US_01",
+      "2026-06-22_US_01",
+      "2026-06-23_US_01",
+      "2026-06-30_GL_01",
+      "2026-06-08_GL_02",
+      "2026-06-26_EU_01",
+      "2026-06-26_EU_07",
+      "2026-06-02_JP_01",
+      "2026-06-02_US_01",
+      "2026-06-22_CN_05",
+      "2026-06-23_EU_01",
+      "2026-06-22_EU_02",
+      "2026-06-17_US_02",
+      "2026-06-09_US_02",
+      "2026-06-22_CN_01",
+      "2026-06-17_GL_07",
+      "2026-06-10_EU_01",
+      "2026-06-30_US_02",
+      "2026-06-25_KR_02",
+      "2026-06-29_JP_01",
+      "2026-06-11_KR_01"
+    ],
+    "binding": [
+      {
+        "id": "2026-06-02_EU_01",
+        "selected_url": "https://www.next-kraftwerke.de/neues/batteriespeicher-bess-ecostor",
+        "title_supporting_urls": [
+          "https://www.next-kraftwerke.de/neues/batteriespeicher-bess-ecostor"
+        ]
+      },
+      {
+        "id": "2026-06-15_US_01",
+        "selected_url": "https://energydome.com/energy-dome-and-srp-to-add-long-duration-energy-storage-project-to-the-grid-expand-google-collaboration/",
+        "title_supporting_urls": [
+          "https://energydome.com/energy-dome-and-srp-to-add-long-duration-energy-storage-project-to-the-grid-expand-google-collaboration/",
+          "https://www.publicpower.org/periodical/article/srp-unveils-agreement-add-19-mw-long-duration-battery-storage-system-grid"
+        ]
+      },
+      {
+        "id": "2026-06-22_US_01",
+        "selected_url": "http://www.press9.kr/news/articleView.html?idxno=78280",
+        "title_supporting_urls": [
+          "http://www.press9.kr/news/articleView.html?idxno=78280",
+          "https://www.theguru.co.kr/news/article.html?no=103416",
+          "https://www.prnewswire.com/news-releases/oci-energy-closes-130-million-tax-equity-financing-with-greenprint-capital-for-san-antonio-area-battery-project-302806665.html"
+        ]
+      },
+      {
+        "id": "2026-06-23_US_01",
+        "selected_url": "https://neoen.com/en/news/2026/neoen-awarded-long-term-contract-for-new-200-mw-8-hour-battery-in-ontario-canada/",
+        "title_supporting_urls": [
+          "https://neoen.com/en/news/2026/neoen-awarded-long-term-contract-for-new-200-mw-8-hour-battery-in-ontario-canada/"
+        ]
+      },
+      {
+        "id": "2026-06-30_GL_01",
+        "selected_url": "https://www.energy-storage.news/akaysha-energys-1660mwh-orana-bess-reaches-commercial-operations-in-australia",
+        "title_supporting_urls": [
+          "https://www.energy-storage.news/akaysha-energys-1660mwh-orana-bess-reaches-commercial-operations-in-australia"
+        ]
+      },
+      {
+        "id": "2026-06-08_GL_02",
+        "selected_url": "https://www.sneresearch.com/kr/insight/release_view/671/page/0",
+        "title_supporting_urls": [
+          "https://www.sneresearch.com/kr/insight/release_view/671/page/0"
+        ]
+      },
+      {
+        "id": "2026-06-26_EU_01",
+        "selected_url": "https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers",
+        "title_supporting_urls": [
+          "https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers",
+          "https://www.ess-news.com/2026/06/26/pumped-hydro-and-lithium-bess-top-uk-ldes-cap-and-floor"
+        ]
+      },
+      {
+        "id": "2026-06-26_EU_07",
+        "selected_url": "https://energy.ec.europa.eu/strategy/affordable-energy/eu-level-tripartite-agreements_en",
+        "title_supporting_urls": [
+          "https://energy.ec.europa.eu/strategy/affordable-energy/eu-level-tripartite-agreements_en",
+          "https://energy.ec.europa.eu/publications/tripartite-agreement-energy-storage_en"
+        ]
+      },
+      {
+        "id": "2026-06-02_JP_01",
+        "selected_url": "https://www.itmedia.co.jp/smartjapan/articles/2606/12/news019.html",
+        "title_supporting_urls": [
+          "https://www.itmedia.co.jp/smartjapan/articles/2606/12/news019.html",
+          "https://www.meti.go.jp/press/2026/06/20260602001/20260602001.html"
+        ]
+      },
+      {
+        "id": "2026-06-02_US_01",
+        "selected_url": "https://ir.t1energy.com/news-releases/T1_Energy_Enters_Battery_and_Data_Center_Infrastructure_Markets",
+        "title_supporting_urls": [
+          "https://ir.t1energy.com/news-releases/T1_Energy_Enters_Battery_and_Data_Center_Infrastructure_Markets",
+          "https://www.sec.gov/Archives/edgar/data/1992243/000121390026065997/ea0293886-8k_t1energy.htm"
+        ]
+      },
+      {
+        "id": "2026-06-22_CN_05",
+        "selected_url": "https://www.china5e.com/news/news-1205419-1.html",
+        "title_supporting_urls": [
+          "https://www.china5e.com/news/news-1205419-1.html",
+          "https://www.prnewswire.com/news-releases/catl-debuts-worlds-first-field-validated-sodium-ion-bess-bringing-sodium-storage-to-commercial-reality-302807380.html"
+        ]
+      },
+      {
+        "id": "2026-06-23_EU_01",
+        "selected_url": "https://energydome.com/google-and-energy-dome-advance-multi-continent-energy-storage-buildout-with-first-bilateral-project-in-ireland/",
+        "title_supporting_urls": [
+          "https://energydome.com/google-and-energy-dome-advance-multi-continent-energy-storage-buildout-with-first-bilateral-project-in-ireland/"
+        ]
+      },
+      {
+        "id": "2026-06-22_EU_02",
+        "selected_url": "https://www.energy-storage.news/multi-day-energy-storage-startup-ore-energy-signs-1gwh-iron-air-battery-deal-with-dutch-utility",
+        "title_supporting_urls": [
+          "https://www.energy-storage.news/multi-day-energy-storage-startup-ore-energy-signs-1gwh-iron-air-battery-deal-with-dutch-utility",
+          "https://via.ritzau.dk/pressemeddelelse/15004151/ore-energy-and-budget-thuis-to-deploy-1-gwh-of-multi-day-iron-air-energy-storage-in-a-first-for-european-energy-suppliers?publisherId=13560585"
+        ]
+      },
+      {
+        "id": "2026-06-17_US_02",
+        "selected_url": "https://www.theguru.co.kr/news/article.html?no=103212",
+        "title_supporting_urls": [
+          "https://www.theguru.co.kr/news/article.html?no=103212"
+        ]
+      },
+      {
+        "id": "2026-06-09_US_02",
+        "selected_url": "https://www.pv-magazine.com/2026/06/10/us-government-restricts-trade-with-prominent-chinese-storage-companies/",
+        "title_supporting_urls": [
+          "https://www.pv-magazine.com/2026/06/10/us-government-restricts-trade-with-prominent-chinese-storage-companies/"
+        ]
+      },
+      {
+        "id": "2026-06-22_CN_01",
+        "selected_url": "https://www.newsis.com/view/NISX20260622_0003678123",
+        "title_supporting_urls": [
+          "https://www.newsis.com/view/NISX20260622_0003678123"
+        ]
+      },
+      {
+        "id": "2026-06-17_GL_07",
+        "selected_url": "https://www.pm.gc.ca/en/news/statements/2026/06/17/g7-leaders-declaration-securing-supply-chains-critical-minerals",
+        "title_supporting_urls": [
+          "https://www.pm.gc.ca/en/news/statements/2026/06/17/g7-leaders-declaration-securing-supply-chains-critical-minerals"
+        ]
+      },
+      {
+        "id": "2026-06-10_EU_01",
+        "selected_url": "https://climate.ec.europa.eu/news-other-reads/news/new-battery-booster-set-inject-eu15-billion-european-battery-industry-2026-06-09_en",
+        "title_supporting_urls": [
+          "https://climate.ec.europa.eu/news-other-reads/news/new-battery-booster-set-inject-eu15-billion-european-battery-industry-2026-06-09_en"
+        ]
+      },
+      {
+        "id": "2026-06-30_US_02",
+        "selected_url": "https://battery-news.de/en/2026/07/01/ford-catl-battery-project-in-michigan-begins-production",
+        "title_supporting_urls": [
+          "https://battery-news.de/en/2026/07/01/ford-catl-battery-project-in-michigan-begins-production",
+          "https://battery-tech.net/battery-markets-news/ford-launches-u-s-lfp-ev-battery-cell-production/",
+          "https://carnewschina.com/2026/06/30/catl-ford-tech-licensing-battery-plant-commences-production-in-the-u-s"
+        ]
+      },
+      {
+        "id": "2026-06-25_KR_02",
+        "selected_url": "https://niwdc.me.go.kr/home/web/newsRead.do?boardId=1873220&condition.boardId=1873150&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=92&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=80&searchKey=&searchValue=",
+        "title_supporting_urls": [
+          "https://niwdc.me.go.kr/home/web/newsRead.do?boardId=1873220&condition.boardId=1873150&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=92&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=80&searchKey=&searchValue="
+        ]
+      },
+      {
+        "id": "2026-06-29_JP_01",
+        "selected_url": "https://www.denso.com/jp/ja/news/newsroom/2026/20260629-01/",
+        "title_supporting_urls": [
+          "https://www.denso.com/jp/ja/news/newsroom/2026/20260629-01/",
+          "https://www.japanindustrynews.com/2026/07/denso-and-tuv-rheinland-japan-validate-battery-passport-for-eu-compliance/amp/"
+        ]
+      },
+      {
+        "id": "2026-06-11_KR_01",
+        "selected_url": "https://www.thelec.kr/news/articleView.html?idxno=58001",
+        "title_supporting_urls": [
+          "https://www.thelec.kr/news/articleView.html?idxno=58001"
+        ]
+      }
+    ]
+  },
+  "qc": {
+    "evidence": "PASS",
+    "red_team": "PASS",
+    "editorial_coherence": "PASS",
+    "language_terminology": "PASS",
+    "provenance": "PASS_BY_GENERATED_LOCKED_BINDING",
+    "pouch_inference": "PASS_NO_DIRECT_DEMAND_INFERENCE"
+  }
+}

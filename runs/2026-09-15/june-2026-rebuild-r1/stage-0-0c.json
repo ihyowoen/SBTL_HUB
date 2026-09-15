@@ -1,0 +1,334 @@
+{
+  "stage": "0.0C",
+  "status": "PASS",
+  "document_universe_manifest_ref": "runs/2026-09-15/june-2026-rebuild-r1/stage-0-0d.json",
+  "base_full_blob_sha": "f95176a9e469f8325e9bfbb55fdbc6957fe8b101",
+  "repository_main_sha": "dac1add44544798722f6dc3bb6d73fec2be7ff4d",
+  "scope": {
+    "month": "2026-06",
+    "purpose": "external treasure-hunt completeness challenge before rebuilding the June Monthly Brief",
+    "canonical_june_baseline_count": 190
+  },
+  "original_input_accounted": true,
+  "original_input_ledger": [],
+  "discovered_missing_candidates": [
+    {
+      "candidate_id": "JUNEGAP_001_OF_GB_LDES",
+      "region": "europe",
+      "topics": ["ess_bess", "financing", "policy_trade_sanctions_subsidies_localisation"],
+      "event_date": "2026-06-26",
+      "headline": "Ofgem provisionally selects 16 projects under Window 1 of Great Britain's LDES cap-and-floor scheme",
+      "source_candidates": [
+        "https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers",
+        "https://www.ofgem.gov.uk/energy-regulation/low-carbon/long-duration-electricity-storage"
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "material policy-finance gap; June action is a minded-to/provisional selection, not a final cap-and-floor award"
+    },
+    {
+      "candidate_id": "JUNEGAP_002_US_ENERGY_DOME_SRP",
+      "region": "north_america",
+      "topics": ["ess_bess", "grid_ai_data_centre_power", "financing", "cells_chemistries"],
+      "event_date": "2026-06-15",
+      "headline": "Energy Dome and SRP announce Arizona 19MW 10-hour CO2 Battery under a 20-year tolling agreement in expanded Google collaboration",
+      "source_candidates": [
+        "https://energydome.com/energy-dome-and-srp-to-add-long-duration-energy-storage-project-to-the-grid-expand-google-collaboration/"
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "high-potential technology-commercialisation plus long-term revenue-contract gap; must distinguish agreement/project development from COD"
+    },
+    {
+      "candidate_id": "JUNEGAP_003_US_T1_KORE",
+      "region": "north_america",
+      "topics": ["ess_bess", "grid_ai_data_centre_power", "competitors_customers", "financing"],
+      "event_date": "2026-06-02",
+      "headline": "T1 Energy enters definitive agreement to acquire KORE Power for about $32m enterprise value",
+      "source_candidates": [
+        "https://www.sec.gov/Archives/edgar/data/1992243/000121390026065997/ea0293886-8k_t1energy.htm",
+        "https://ir.t1energy.com/news-releases/T1_Energy_Enters_Battery_and_Data_Center_Infrastructure_Markets"
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "strategic BESS/data-center market-entry transaction; June stage is definitive agreement, with closing occurring July 1"
+    },
+    {
+      "candidate_id": "JUNEGAP_004_US_GM_LFP_LMR",
+      "region": "north_america",
+      "topics": ["cells_chemistries", "ess_bess", "ev_charging", "manufacturing_capacity_utilisation", "competitors_customers"],
+      "event_date": "2026-06-10",
+      "headline": "GM reconsiders LFP for future EVs, prioritises LMR for EVs and plans Tennessee LFP output for energy storage",
+      "source_candidates": [
+        "https://www.reuters.com/business/autos-transportation/gm-may-ditch-lfp-batteries-future-evs-2026-06-10/"
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "material customer/application chemistry reallocation; planned production and 2028 LMR target must remain forward-looking"
+    },
+    {
+      "candidate_id": "JUNEGAP_005_US_FERC_LARGE_LOAD",
+      "region": "north_america",
+      "topics": ["grid_ai_data_centre_power", "policy_trade_sanctions_subsidies_localisation", "ess_bess"],
+      "event_date": "2026-06-18",
+      "headline": "FERC issues Section 206 show-cause orders to all six regional grid operators on large-load interconnection rules",
+      "source_candidates": [
+        "https://www.ferc.gov/news-events/news/ferc-launches-aggressive-targeted-action-speed-large-load-integration",
+        "https://ferc.gov/news-events/news/fact-sheet-ferc-takes-action-supercharge-americas-grid-efficiency-reliability-and"
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "material AI/data-center grid-rule event; storage relevance is indirect/conditional and must not be presented as a BESS mandate"
+    },
+    {
+      "candidate_id": "JUNEGAP_006_KR_RECYCLED_MATERIAL_CERT",
+      "region": "korea",
+      "topics": ["recycling", "critical_minerals_refining", "policy_trade_sanctions_subsidies_localisation", "materials_components"],
+      "event_date": "2026-06-25",
+      "headline": "Korean climate ministry launches battery recycled-material production certification pilot with six recyclers",
+      "source_candidates": [
+        "https://niwdc.me.go.kr/home/web/newsRead.do?boardId=1873220&condition.boardId=1873150&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=92&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=80&searchKey=&searchValue="
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "implementation-stage recycling/localisation gap ahead of May 2027 regime introduction"
+    },
+    {
+      "candidate_id": "JUNEGAP_007_EU_TRIPARTITE_STORAGE",
+      "region": "europe",
+      "topics": ["ess_bess", "financing", "policy_trade_sanctions_subsidies_localisation"],
+      "event_date": "2026-06-26",
+      "headline": "EU signs first tripartite agreement dedicated to accelerating energy storage deployment",
+      "source_candidates": [
+        "https://energy.ec.europa.eu/publications/tripartite-agreement-energy-storage_en",
+        "https://energy.ec.europa.eu/strategy/affordable-energy/eu-level-tripartite-agreements_en"
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "EU-wide storage coordination gap; 17-country 2026-2028 pledges are non-binding and must not be treated as contracted capacity"
+    },
+    {
+      "candidate_id": "JUNEGAP_008_JP_KANSAI_FUND",
+      "region": "japan",
+      "topics": ["ess_bess", "financing", "competitors_customers"],
+      "event_date": "2026-06-16",
+      "headline": "Kansai Electric announces 6.5bn-yen grid-scale battery fund targeting roughly 250MW",
+      "source_candidates": [
+        "https://japanenergyhub.com/news/kansai-epco-extra-high-voltage-bess-fund/"
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "material Japan storage-finance structure; Stage B should rescue the underlying Kansai Electric primary statement"
+    },
+    {
+      "candidate_id": "JUNEGAP_009_JP_TRINA_KYUSHU",
+      "region": "japan",
+      "topics": ["ess_bess", "safety_recall_commissioning_operation", "competitors_customers", "cells_chemistries"],
+      "event_date": "2026-06-03",
+      "headline": "Trina Storage signs 160MWh utility-scale BESS supply contract in Kyushu using Elementa 2",
+      "source_candidates": [
+        "https://www.energytrend.com/news/20260612-51595.html",
+        "https://www.energy-storage.news/trina-signs-1gwh-mou-to-help-developer-meet-unique-technical-and-delivery-requirements-of-japans-battery-storage-market/"
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "material Japan commercial-order gap with 2026 delivery/2027 COD and JIS8715-2R safety certification; exact announcement date should be reverified"
+    },
+    {
+      "candidate_id": "JUNEGAP_010_EU_CONTOUR_WALLACE",
+      "region": "europe",
+      "topics": ["ess_bess", "financing", "grid_ai_data_centre_power", "competitors_customers"],
+      "event_date": "2026-06-24",
+      "headline": "ContourGlobal agrees to acquire 500MW/2,000MWh Wallace BESS project in Scotland",
+      "source_candidates": [
+        "https://www.contourglobal.com/news/contourglobal-enters-the-united-kingdom-through-the-acquisition-of-a-500-mw-2000-mwh-battery-storage-project-in-scotland/"
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "large project M&A/market-entry gap; acquisition is subject to conditions and must not be framed as unconditional close"
+    },
+    {
+      "candidate_id": "JUNEGAP_011_US_ESS_TECH_SODIUM",
+      "region": "north_america",
+      "topics": ["cells_chemistries", "ess_bess", "grid_ai_data_centre_power", "manufacturing_capacity_utilisation"],
+      "event_date": "2026-06-23",
+      "headline": "ESS Tech accelerates planned U.S.-made sodium-ion BESS development after early data-center and infrastructure interest",
+      "source_candidates": [
+        "https://www.sec.gov/Archives/edgar/data/1819438/000181943826000053/esspressrelease2026sodium-.htm",
+        "https://www.sec.gov/Archives/edgar/data/1819438/000181943826000053/wk-20260623.htm"
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "technology-strategy candidate only; approaching-$1bn pipeline is early-stage opportunity, not booked orders, and company-target novelty cap applies"
+    },
+    {
+      "candidate_id": "JUNEGAP_012_KR_YULCHON_POUCH_IP",
+      "region": "korea",
+      "topics": ["pouch_pouch_film_demand", "materials_components", "competitors_customers", "cells_chemistries"],
+      "event_date": "2026-06-25",
+      "headline": "Youlchon Chemical publishes multiple pouch-film patent families focused on weight, sealant/electrolyte interface and aluminium-barrier properties",
+      "source_candidates": [
+        "https://www.ipqwery.com/ipowner/en/owner/ip/1481652-youl-chon-chemical-co-ltd.html",
+        "https://eureka.patsnap.com/patent/US20260180083A1",
+        "https://www.patents-review.com/a/20260180080-secondary-battery-pouch-film-pouch-type-secondary-battery.html"
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "direct SBTL competitor-technology signal; patent publication is IP disclosure, not commercialization/customer adoption; Stage B must rescue primary patent-office documents and cluster same-family publications"
+    },
+    {
+      "candidate_id": "JUNEGAP_013_US_MOSS_LANDING_JUNE_CLEANUP",
+      "region": "north_america",
+      "topics": ["safety_recall_commissioning_operation", "ess_bess", "recycling"],
+      "event_date": "2026-06-24",
+      "headline": "EPA reports Phase 1 removal at Moss Landing nearly complete with 33,943 intact batteries de-energized",
+      "source_candidates": [
+        "https://www.epa.gov/ca/moss-landing-vistra-battery-fire-updates"
+      ],
+      "canonical_match_check": "NO_EXACT_JUNE_MATCH; later September cleanup event exists in governed run lineage",
+      "discovery_judgment": "historical safety/cleanup milestone requiring lineage review against later September canonical cleanup event"
+    },
+    {
+      "candidate_id": "JUNEGAP_014_JP_BATTERY_SUSTAINABILITY_DEMO",
+      "region": "japan",
+      "topics": ["recycling", "policy_trade_sanctions_subsidies_localisation", "materials_components"],
+      "event_date": "2026-06-15",
+      "headline": "METI selects contractor for FY2026 battery-product sustainability infrastructure and demonstration program",
+      "source_candidates": [
+        "https://www.meti.go.jp/information/publicoffer/saitaku/2026/s260615001.html"
+      ],
+      "canonical_match_check": "NO_MATCH_FOUND",
+      "discovery_judgment": "policy implementation candidate; exact program scope/material decision relevance should be tested at Stage A"
+    }
+  ],
+  "baseline_follow_up_candidates": [
+    {
+      "candidate_id": "JUNEGAP_013_US_MOSS_LANDING_JUNE_CLEANUP",
+      "related_later_signal": "September 2026 EPA final-phase cleanup event is present in governed run artifacts",
+      "discovery_judgment": "test whether June Phase 1 milestone is independently cardable historical predecessor or reinforcement only"
+    }
+  ],
+  "existing_card_reinforcements": [
+    {
+      "candidate_id": "JUNEREINF_001_JP_METI_STRATEGY",
+      "existing_id": "2026-06-02_JP_01",
+      "source_candidates": ["https://www.meti.go.jp/english/press/2026/0602_003.html"],
+      "disposition_hint": "existing canonical; external deep dive reinforces AI-data-center/power-system framing"
+    },
+    {
+      "candidate_id": "JUNEREINF_002_EU_BATTERY_BOOSTER",
+      "existing_id": "2026-06-10_EU_01",
+      "source_candidates": ["https://climate.ec.europa.eu/news-other-reads/news/new-battery-booster-set-inject-eu15-billion-european-battery-industry-2026-06-09_en"],
+      "disposition_hint": "existing canonical; no new June card"
+    },
+    {
+      "candidate_id": "JUNEREINF_003_CN_CATL_SODIUM",
+      "existing_id": "2026-06-22_CN_05",
+      "source_candidates": ["https://www.catl.com/en/news/6861.html"],
+      "disposition_hint": "existing canonical; primary source confirms commercial-readiness claims and global-delivery timing"
+    },
+    {
+      "candidate_id": "JUNEREINF_004_CN_CATL_2030_ESS_MIX",
+      "existing_id": null,
+      "source_candidates": ["https://www.reuters.com/business/energy/chinese-battery-maker-catl-expects-energy-storage-make-up-half-global-sales-by-2026-06-04/"],
+      "disposition_hint": "context/reinforcement only at discovery because 2030 50% sales share is a company forward target; independent card value is novelty-capped"
+    }
+  ],
+  "existing_card_update_candidates": [],
+  "correction_or_reversal_candidates": [],
+  "treasure_rescue_candidates": [
+    {
+      "candidate_id": "JUNEGAP_008_JP_KANSAI_FUND",
+      "need": "locate Kansai Electric primary announcement before Stage B conclusion"
+    },
+    {
+      "candidate_id": "JUNEGAP_012_KR_YULCHON_POUCH_IP",
+      "need": "replace aggregator patent pages with patent-office/primary publication documents and deduplicate patent families"
+    }
+  ],
+  "regional_coverage_matrix": {
+    "korea": {"status": "searched", "notes": "battery/recycling/pouch-film/competitor and government-policy sources challenged"},
+    "north_america": {"status": "searched", "notes": "BESS finance, AI/data-center grid, chemistry/customer strategy, safety and M&A challenged"},
+    "china": {"status": "searched", "notes": "ESS policy, storage market mechanisms, sodium-ion, battery industry and supply-chain controls challenged; several official June-dated NEA replies were publicly posted in July and are held on date-role grounds"},
+    "japan": {"status": "searched", "notes": "METI battery/power strategy, grid connection, storage finance, project awards and sustainability programs challenged"},
+    "europe": {"status": "searched", "notes": "LDES policy, EU storage coordination, battery manufacturing support and large BESS transactions challenged"},
+    "material_global_markets": {"status": "searched", "notes": "critical minerals, global ESS demand, technology commercialization and cross-border procurement challenged"}
+  },
+  "topic_coverage_matrix": {
+    "cells_chemistries": {"status": "searched"},
+    "materials_components": {"status": "searched"},
+    "pouch_pouch_film_demand": {"status": "searched"},
+    "ess_bess": {"status": "searched"},
+    "ev_charging": {"status": "searched"},
+    "manufacturing_capacity_utilisation": {"status": "searched"},
+    "grid_ai_data_centre_power": {"status": "searched"},
+    "critical_minerals_refining": {"status": "searched"},
+    "recycling": {"status": "searched"},
+    "policy_trade_sanctions_subsidies_localisation": {"status": "searched"},
+    "competitors_customers": {"status": "searched"},
+    "prices_costs_margins": {"status": "searched"},
+    "financing": {"status": "searched"},
+    "safety_recall_commissioning_operation": {"status": "searched"}
+  },
+  "searched_but_no_material_event_ledger": [
+    {
+      "axis": "pouch_pouch_film_demand",
+      "note": "No June external source proved a new customer award, production shipment or direct pouch-film demand event for SBTL; Youlchon patent publications are retained only as competitor technology/IP candidates."
+    },
+    {
+      "axis": "china_publication_date_role",
+      "note": "Several National Energy Administration replies carry June issuance dates but were publicly posted July 20; they are not admitted as June publication events without date-role resolution."
+    }
+  ],
+  "source_universe_expansion_ledger": [
+    {"candidate_id": "JUNEGAP_001_OF_GB_LDES", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_002_US_ENERGY_DOME_SRP", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_003_US_T1_KORE", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_004_US_GM_LFP_LMR", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_005_US_FERC_LARGE_LOAD", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_006_KR_RECYCLED_MATERIAL_CERT", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_007_EU_TRIPARTITE_STORAGE", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_008_JP_KANSAI_FUND", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_009_JP_TRINA_KYUSHU", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_010_EU_CONTOUR_WALLACE", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_011_US_ESS_TECH_SODIUM", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_012_KR_YULCHON_POUCH_IP", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_013_US_MOSS_LANDING_JUNE_CLEANUP", "origin": "discovered"},
+    {"candidate_id": "JUNEGAP_014_JP_BATTERY_SUSTAINABILITY_DEMO", "origin": "discovered"},
+    {"candidate_id": "JUNEREINF_001_JP_METI_STRATEGY", "origin": "discovered_reinforcement"},
+    {"candidate_id": "JUNEREINF_002_EU_BATTERY_BOOSTER", "origin": "discovered_reinforcement"},
+    {"candidate_id": "JUNEREINF_003_CN_CATL_SODIUM", "origin": "discovered_reinforcement"},
+    {"candidate_id": "JUNEREINF_004_CN_CATL_2030_ESS_MIX", "origin": "discovered_reinforcement"}
+  ],
+  "must_report_candidate_ledger": [
+    {"candidate_id": "JUNEGAP_001_OF_GB_LDES", "reason": "material market-design/finance event"},
+    {"candidate_id": "JUNEGAP_002_US_ENERGY_DOME_SRP", "reason": "LDES commercial contract intersects grid and AI-load demand"},
+    {"candidate_id": "JUNEGAP_003_US_T1_KORE", "reason": "BESS/data-center strategic transaction"},
+    {"candidate_id": "JUNEGAP_004_US_GM_LFP_LMR", "reason": "major customer chemistry/application reallocation"},
+    {"candidate_id": "JUNEGAP_005_US_FERC_LARGE_LOAD", "reason": "systemic grid-rule action affecting AI/data-center speed-to-power"},
+    {"candidate_id": "JUNEGAP_006_KR_RECYCLED_MATERIAL_CERT", "reason": "Korean recycling certification implementation"},
+    {"candidate_id": "JUNEGAP_007_EU_TRIPARTITE_STORAGE", "reason": "first EU-wide storage tripartite agreement"},
+    {"candidate_id": "JUNEGAP_012_KR_YULCHON_POUCH_IP", "reason": "direct SBTL competitor pouch-film technology/IP signal"}
+  ],
+  "known_unknowns": [
+    "Kansai Electric primary announcement must be recovered before evidence-stage acceptance.",
+    "Youlchon June patent cluster needs primary patent-office documents and family-level deduplication.",
+    "Trina Kyushu exact first announcement date varies across secondary sources and must be date-role checked.",
+    "FERC large-load orders have only indirect/conditional BESS relevance unless storage-specific transmission effects are evidenced.",
+    "China NEA replies with June issuance dates but July public posting require separate date-role treatment and are not June candidates in this artifact."
+  ],
+  "residual_coverage_risks": [
+    "Historical June web indexing is uneven across Chinese and Japanese primary sources.",
+    "Patent-family databases can duplicate the same underlying invention across jurisdictions.",
+    "Private/paywalled transaction databases may contain additional June storage financings not discoverable from public sources."
+  ],
+  "terminal_discovery_disposition_ledger": [
+    {"candidate_id": "JUNEGAP_001_OF_GB_LDES", "disposition": "ADVANCE_STAGE_A_WITH_POLICY_STAGE_PRECISION"},
+    {"candidate_id": "JUNEGAP_002_US_ENERGY_DOME_SRP", "disposition": "ADVANCE_STAGE_A"},
+    {"candidate_id": "JUNEGAP_003_US_T1_KORE", "disposition": "ADVANCE_STAGE_A_WITH_TRANSACTION_STAGE_PRECISION"},
+    {"candidate_id": "JUNEGAP_004_US_GM_LFP_LMR", "disposition": "ADVANCE_STAGE_A"},
+    {"candidate_id": "JUNEGAP_005_US_FERC_LARGE_LOAD", "disposition": "ADVANCE_STAGE_A_CONDITIONAL_SBTL_LINK"},
+    {"candidate_id": "JUNEGAP_006_KR_RECYCLED_MATERIAL_CERT", "disposition": "ADVANCE_STAGE_A"},
+    {"candidate_id": "JUNEGAP_007_EU_TRIPARTITE_STORAGE", "disposition": "ADVANCE_STAGE_A_NON_BINDING_PLEDGE_PRECISION"},
+    {"candidate_id": "JUNEGAP_008_JP_KANSAI_FUND", "disposition": "ADVANCE_STAGE_A_SOURCE_RESCUE_REQUIRED"},
+    {"candidate_id": "JUNEGAP_009_JP_TRINA_KYUSHU", "disposition": "ADVANCE_STAGE_A_DATE_RECHECK_REQUIRED"},
+    {"candidate_id": "JUNEGAP_010_EU_CONTOUR_WALLACE", "disposition": "ADVANCE_STAGE_A_WITH_TRANSACTION_STAGE_PRECISION"},
+    {"candidate_id": "JUNEGAP_011_US_ESS_TECH_SODIUM", "disposition": "ADVANCE_STAGE_A_COMPANY_TARGET_NOVELTY_CAP"},
+    {"candidate_id": "JUNEGAP_012_KR_YULCHON_POUCH_IP", "disposition": "ADVANCE_STAGE_A_PRIMARY_SOURCE_RESCUE_AND_FAMILY_CLUSTER_REQUIRED"},
+    {"candidate_id": "JUNEGAP_013_US_MOSS_LANDING_JUNE_CLEANUP", "disposition": "ADVANCE_STAGE_A_LINEAGE_REVIEW_REQUIRED"},
+    {"candidate_id": "JUNEGAP_014_JP_BATTERY_SUSTAINABILITY_DEMO", "disposition": "ADVANCE_STAGE_A_VALUE_TEST"},
+    {"candidate_id": "JUNEREINF_001_JP_METI_STRATEGY", "disposition": "EXISTING_CANONICAL_REINFORCEMENT_ONLY"},
+    {"candidate_id": "JUNEREINF_002_EU_BATTERY_BOOSTER", "disposition": "EXISTING_CANONICAL_REINFORCEMENT_ONLY"},
+    {"candidate_id": "JUNEREINF_003_CN_CATL_SODIUM", "disposition": "EXISTING_CANONICAL_REINFORCEMENT_ONLY"},
+    {"candidate_id": "JUNEREINF_004_CN_CATL_2030_ESS_MIX", "disposition": "CONTEXT_ONLY_FORWARD_TARGET_NOVELTY_CAP"}
+  ],
+  "stage_a_authorized": true
+}

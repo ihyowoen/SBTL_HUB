@@ -65,8 +65,10 @@ jobs:
 
           old_watch = '5월 전망 단계에서 6월 고객계약·인도 일정·실차시험으로 전진한 나트륨이온·CO₂·철공기·전고체가 실제 납품·착공·COD·양산으로 넘어가는지 확인한다.'
           new_watch = '5월 전망에서 6월 인도 일정·실차시험으로 전진한 나트륨이온·전고체와, 6월에 별도 상업계약 신호가 확인된 CO₂·철공기가 실제 납품·착공·COD·양산으로 넘어가는지 구분해 확인한다.'
-          assert old_watch in june['watch'], 'expected watch item not found'
-          june['watch'][june['watch'].index(old_watch)] = new_watch
+          if old_watch in june['watch']:
+              june['watch'][june['watch'].index(old_watch)] = new_watch
+          else:
+              assert new_watch in june['watch'], 'expected watch item not found'
 
           cards = cards_doc.get('cards', cards_doc if isinstance(cards_doc, list) else [])
           card1260 = next(c for c in cards if c.get('id') == '2026-06-09_US_02')
@@ -87,7 +89,7 @@ jobs:
           print('1260H public supporting URL:', support)
 
           baseline = audit['previous_month_baseline']
-          circ = next(x for x in baseline['findings'] if x.get('theme') == 'Circularity regulation entering the agenda')
+          circ = next(x for x in baseline['baseline_state'] if x.get('theme') == 'Circularity regulation entering the agenda')
           circ['finding'] = 'Korea had already established recycled-material production/use certification and full-lifecycle tracking as policy directions in May; June advances these areas into pilot implementation and real-data validation.'
 
           delta = {x['flow_id']: x for x in audit['delta_classification']}
@@ -103,7 +105,19 @@ jobs:
           delta['05']['may_state'] = 'Localization already included production-footprint/supply-chain themes plus recycled-material production/use certification and lifecycle tracking.'
           delta['05']['june_change'] = 'Korea certification piloting and Japan passport real-data validation operationalize existing circularity/traceability directions; Ford-CATL technology licensing adds a distinct rights-based localization dimension.'
 
-          # Preserve a machine-readable record of the four re-review remediations.
+          selected = {x['id']: x for x in audit['selected_flows']}
+          selected['01']['delta_classification'] = delta['01']['classification']
+          selected['03']['title'] = flows['03']['title']
+          selected['03']['delta_classification'] = delta['03']['classification']
+          selected['05']['title'] = flows['05']['title']
+          selected['05']['delta_classification'] = delta['05']['classification']
+
+          effect = audit['independent_external_deep_dive'].get('editorial_effect', '')
+          audit['independent_external_deep_dive']['editorial_effect'] = effect.replace(
+              'while recycled-material certification expands the localization delta.',
+              'while recycled-material certification operationalizes a May circularity direction and technology licensing adds a distinct localization-rights dimension.'
+          )
+
           audit['codex_current_head_rereview_remediation'] = {
               'review_id': 5218750696,
               'reviewed_head': 'd9d810f60cd438bf99204c17634b39b7de336c75',
@@ -118,12 +132,13 @@ jobs:
           brief_path.write_text(json.dumps(briefs_doc, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
           audit_path.write_text(json.dumps(audit, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
-          # Exact assertions for the review findings.
           assert '계약기간과 수익구조가 더 장기화·구체화' in flows['01']['summary']
           assert '계속 실행된 사례' in flows['01']['summary']
           assert '별도 상업계약 신호' in flows['03']['summary']
           assert '운영화' in flows['05']['title'] and '기술라이선스' in flows['05']['title']
-          assert ref1260['url'] == support
+          assert ref1260['url'] == 'https://www.automotiveworld.com/news/us-dod-adds-byd-nio-and-catl-to-chinese-army-blacklist/'
+          assert delta['01']['classification'] == 'DEEPENED_WITH_CONTINUING_EXECUTION'
+          assert delta['03']['classification'] == 'STAGE_ADVANCED_PLUS_JUNE_NEW_SIGNAL'
           assert delta['05']['classification'] == 'OPERATIONALIZED_PLUS_EXPANDED'
           PY
       - name: Validate publication

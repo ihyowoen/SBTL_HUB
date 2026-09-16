@@ -4,47 +4,35 @@ on:
     paths:
       - '.github/workflows/tmp-pr380-may-june-delta.yml'
 permissions:
-  contents: write
+  contents: read
 jobs:
-  extract:
+  audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: chatgpt/rebuild-monthly-brief-2026-06
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: Build focused chronology proof set
+      - name: Recalculate chronology metrics
         run: |
-          mkdir -p runs/2026-09-16
           node <<'NODE'
           const fs=require('fs');
           const data=JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
           const cards=data.cards||[];
-          const ids=[
-            '2026-05-04_EU_01','2026-05-05_GL_01','2026-05-14_US_01','2026-05-27_KR_02',
-            '2026-05-29_GL_07','2026-05-27_EU_01','2026-05-13_US_01',
-            '2026-05-29_GL_06','2026-05-11_GL_06',
-            '2026-05-20_GL_04','2026-05-27_GL_01',
-            '2026-05-20_GL_02','2026-05-20_GL_08','2026-05-29_GL_02','2026-05-29_EU_01',
-            '2026-05-20_KR_01',
-            '2026-06-30_US_02','2026-06-10_EU_01','2026-06-11_KR_01'
-          ];
-          const compact=c=>({
-            id:c.id,date:c.date,region:c.region,cat:c.cat,sub_cat:c.sub_cat,signal:c.signal,
-            title:c.title,gate:c.gate,fact:c.fact,implication:c.implication,watchpoint:c.watchpoint,
-            fact_sources:c.fact_sources,related:c.related
-          });
-          const selected=ids.map(id=>cards.find(c=>c.id===id)).filter(Boolean).map(compact);
-          const missing=ids.filter(id=>!cards.some(c=>c.id===id));
-          fs.writeFileSync('runs/2026-09-16/pr380-chronology-proof-temp.json',JSON.stringify({count:selected.length,missing,cards:selected},null,2)+'\n');
-          console.log('selected',selected.length,'missing',missing);
+          const may=cards.filter(c=>String(c.date||'').startsWith('2026-05-'));
+          const june=cards.filter(c=>String(c.date||'').startsWith('2026-06-'));
+          const closing=may.filter(c=>c.date>='2026-05-15'&&c.date<='2026-05-31');
+          const closingTH=closing.filter(c=>['top','high'].includes(c.signal));
+          const last7=may.filter(c=>c.date>='2026-05-25'&&c.date<='2026-05-31');
+          const byId=new Map(cards.map(c=>[c.id,c]));
+          const edgeSet=new Set();
+          for(const c of cards){
+            for(const r of (c.related||[])){
+              const t=byId.get(r); if(!t) continue;
+              const a=String(c.date||'').slice(0,7), b=String(t.date||'').slice(0,7);
+              if(new Set([a,b]).has('2026-05')&&new Set([a,b]).has('2026-06')){
+                edgeSet.add([c.id,r].sort().join('::'));
+              }
+            }
+          }
+          console.log(JSON.stringify({may:may.length,june:june.length,may_15_31_all:closing.length,may_15_31_top_high:closingTH.length,may_25_31_all:last7.length,may_june_unique_related_edges:edgeSet.size,edges:[...edgeSet]},null,2));
           NODE
-      - name: Commit report
-        run: |
-          git config user.name 'ihyowoen'
-          git config user.email 'hyowoen@hotmail.com'
-          git add runs/2026-09-16/pr380-chronology-proof-temp.json
-          git commit -m 'chore: extract chronology proof set'
-          git push origin HEAD:chatgpt/rebuild-monthly-brief-2026-06

@@ -90,7 +90,7 @@
     },
     {
       "id": "03",
-      "title": "차세대 저장, 5월부터 엇갈린 실행단계가 6월 제품후속·실차검증·신규 계약으로 더 분화",
+      "title": "차세대 저장, 5월부터 엇갈린 실행단계가 6월 제품후속·계약진전·실차검증으로 더 분화",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-22_CN_05",
@@ -98,18 +98,18 @@
         "2026-06-22_EU_02",
         "2026-06-17_US_02"
       ],
-      "delta_classification": "MIXED_CONTINUATION_STAGE_ADVANCE_PLUS_JUNE_NEW_SIGNAL"
+      "delta_classification": "MIXED_CONTINUATION_STAGE_ADVANCES_PLUS_JUNE_NEW_SIGNAL"
     },
     {
       "id": "04",
-      "title": "공급망, 5월부터 기업·거래 단위 규칙이 존재…6월 명단형 통제·지원수단으로 추가 분화",
+      "title": "공급망, 5월부터 기업·거래 단위 조건·대응 존재…6월 명단형 통제·지원수단으로 추가 분화",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-22_CN_01",
         "2026-06-17_GL_07",
         "2026-06-10_EU_01"
       ],
-      "delta_classification": "TRANSACTION_LEVEL_RULES_DIVERSIFIED"
+      "delta_classification": "TRANSACTION_LEVEL_INSTRUMENTS_DIVERSIFIED"
     },
     {
       "id": "05",
@@ -432,16 +432,17 @@
       },
       {
         "theme": "Next-generation technology already showed uneven maturity by technology",
-        "finding": "May sodium-ion already included a three-year 60GWh supply contract, a Q4 mass-production plan and a commissioned 100MW/200MWh sodium BESS, while solid-state remained short of full demonstration. June sodium-ion is therefore a product-specific follow-up, not a sector-wide stage upgrade; solid-state road testing is the clearer May→June stage advance.",
+        "finding": "May sodium-ion already included a three-year 60GWh supply contract, a Q4 mass-production plan and a commissioned 100MW/200MWh sodium BESS; Energy Dome CO₂ storage already had a commercialization-path discussion; solid-state remained short of full demonstration. June sodium-ion is therefore a product-specific follow-up, CO₂ moves from commercialization discussion to signed tolling/commercial agreements, solid-state road testing is a clearer stage advance, and iron-air remains a June-only new-contract signal.",
         "evidence_card_ids": [
+          "2026-05-01_GL_04",
           "2026-05-13_CN_01",
           "2026-05-20_GL_04",
           "2026-05-27_GL_01"
         ]
       },
       {
-        "theme": "Supply-chain policy already included company- and transaction-level rules",
-        "finding": "May combined macro concentration/mineral risk with company- and transaction-level rules, including EU public-procurement / financial-support eligibility and foreign-investment conditions, FEOC-linked ownership restructuring and named U.S. policy financing. June adds different named-company lists, considered support tools and EV-cell production finance rather than introducing transaction-level rules for the first time.",
+        "theme": "Supply-chain policy already included company- and transaction-level proposals, responses and financing",
+        "finding": "May combined macro concentration/mineral risk with company- and transaction-level signals, but their legal/execution stages differed: EU public-procurement / financial-support eligibility and foreign-investment conditions were Commission proposals under Parliament/Council review, while FEOC-linked ownership restructuring and named U.S. policy financing were concrete company-level responses/financing. June adds different named-company lists, considered support tools and EV-cell production finance rather than introducing transaction-level instruments for the first time.",
         "evidence_card_ids": [
           "2026-05-20_GL_02",
           "2026-05-20_GL_08",
@@ -490,15 +491,15 @@
     },
     {
       "flow_id": "03",
-      "classification": "MIXED_CONTINUATION_STAGE_ADVANCE_PLUS_JUNE_NEW_SIGNAL",
-      "may_state": "Sodium-ion already had a 60GWh supply contract, Q4 mass-production plan and a commissioned 100MW/200MWh BESS; solid-state remained pre-full-demonstration. The May baseline does not establish CO₂ or iron-air progression anchors.",
-      "june_change": "CATL sodium-ion delivery scheduling is a product-specific follow-up within an already executing technology; solid-state road testing is the clearer stage advance; CO₂ and iron-air contracts are separate June commercial-contract signals."
+      "classification": "MIXED_CONTINUATION_STAGE_ADVANCES_PLUS_JUNE_NEW_SIGNAL",
+      "may_state": "Sodium-ion already had a 60GWh supply contract, Q4 mass-production plan and a commissioned 100MW/200MWh BESS; Energy Dome CO₂ storage already had a commercialization-path discussion; solid-state remained pre-full-demonstration. The May baseline does not establish an iron-air progression anchor.",
+      "june_change": "CATL sodium-ion delivery scheduling is a product-specific follow-up; Energy Dome CO₂ storage advances from commercialization discussion to signed tolling/commercial agreements; solid-state road testing is a clearer stage advance; iron-air remains a separate June-only new-contract signal."
     },
     {
       "flow_id": "04",
-      "classification": "TRANSACTION_LEVEL_RULES_DIVERSIFIED",
-      "may_state": "Macro concentration/mineral risk coexisted with transaction-level rules: EU public-procurement / financial-support eligibility, foreign-investment conditions, FEOC-linked ownership restructuring and named policy financing were already present.",
-      "june_change": "June adds a different mix of named-company export/procurement lists, considered G7 support tools and EU EV-cell production finance. The delta is diversification of transaction-level instruments, not first-time operationalization."
+      "classification": "TRANSACTION_LEVEL_INSTRUMENTS_DIVERSIFIED",
+      "may_state": "Macro concentration/mineral risk coexisted with company/transaction-level signals at different stages: EU public-procurement / financial-support eligibility and foreign-investment conditions were Commission proposals under Parliament/Council review, while FEOC-linked ownership restructuring and named policy financing were concrete responses/financing.",
+      "june_change": "June adds a different mix of named-company export/procurement lists, considered G7 support tools and EU EV-cell production finance. The delta is diversification of transaction-level instruments and execution forms, not first-time appearance of binding EU rules."
     },
     {
       "flow_id": "05",
@@ -570,5 +571,13 @@
     "review_id": 5222887743,
     "reviewed_head": "e7e1c73503e5729b86594dc9275a8e215a1497be",
     "finding_addressed": "deep-dive editorial_effect now treats Ford-CATL as execution/validation of an existing May technology-transfer/localization axis rather than a June-new rights dimension"
+  },
+  "codex_review_5223840123_remediation": {
+    "reviewed_head": "c9338f0aefd23dd050dbca1766f0d9f902c88f69",
+    "findings_addressed": [
+      "co2_reclassified_from_june_only_to_may_commercialization_path_to_june_signed_contract_stage_advance_with_2026_05_01_GL_04_added_to_baseline",
+      "may_eu_iaa_conditions_labeled_as_commission_proposals_under_parliament_council_review_not_binding_rules",
+      "flow03_flow04_public_and_audit_classifications_synchronized"
+    ]
   }
 }

@@ -431,21 +431,26 @@
         ]
       },
       {
-        "theme": "Next-generation technology still mostly outlook/pre-commercial",
-        "finding": "May evidence framed sodium-ion as a complement and solid-state as not yet at full demonstration, creating the baseline for June stage progression.",
+        "theme": "Next-generation technology already showed uneven maturity by technology",
+        "finding": "May sodium-ion already included a three-year 60GWh supply contract, a Q4 mass-production plan and a commissioned 100MW/200MWh sodium BESS, while solid-state remained short of full demonstration. June sodium-ion is therefore a product-specific follow-up, not a sector-wide stage upgrade; solid-state road testing is the clearer May→June stage advance.",
         "evidence_card_ids": [
+          "2026-05-13_CN_01",
           "2026-05-20_GL_04",
           "2026-05-27_GL_01"
         ]
       },
       {
-        "theme": "Localization and supply-chain risk still macro-structural",
-        "finding": "May emphasized China concentration, localization responses, critical-mineral risk and production-footprint shifts more than company-level eligibility, rights and traceability rules.",
+        "theme": "Supply-chain policy already included company- and transaction-level rules",
+        "finding": "May combined macro concentration/mineral risk with company- and transaction-level rules, including EU public-procurement / financial-support eligibility and foreign-investment conditions, FEOC-linked ownership restructuring and named U.S. policy financing. June adds different named-company lists, considered support tools and EV-cell production finance rather than introducing transaction-level rules for the first time.",
         "evidence_card_ids": [
           "2026-05-20_GL_02",
           "2026-05-20_GL_08",
           "2026-05-29_GL_02",
-          "2026-05-29_EU_01"
+          "2026-05-29_EU_01",
+          "2026-05-13_EU_01",
+          "2026-05-08_US_01",
+          "2026-05-11_US_03",
+          "2026-05-15_US_01"
         ]
       },
       {
@@ -485,15 +490,15 @@
     },
     {
       "flow_id": "03",
-      "classification": "STAGE_ADVANCED_PLUS_JUNE_NEW_SIGNAL",
-      "may_state": "Sodium-ion was mainly an outlook/complement story and solid-state remained pre-full-demonstration; the May baseline does not establish an iron-air progression anchor.",
-      "june_change": "Sodium-ion delivery scheduling and solid-state road testing advance from the May baseline, while CO₂ and iron-air contracts are treated as separate June commercial-contract signals."
+      "classification": "MIXED_CONTINUATION_STAGE_ADVANCE_PLUS_JUNE_NEW_SIGNAL",
+      "may_state": "Sodium-ion already had a 60GWh supply contract, Q4 mass-production plan and a commissioned 100MW/200MWh BESS; solid-state remained pre-full-demonstration. The May baseline does not establish CO₂ or iron-air progression anchors.",
+      "june_change": "CATL sodium-ion delivery scheduling is a product-specific follow-up within an already executing technology; solid-state road testing is the clearer stage advance; CO₂ and iron-air contracts are separate June commercial-contract signals."
     },
     {
       "flow_id": "04",
-      "classification": "OPERATIONALIZED",
-      "may_state": "China concentration, localization and critical-mineral risk were macro-structural themes.",
-      "june_change": "Named-company procurement restrictions, export controls, considered price-support tools and EV-cell production finance turn the risk into transaction-level rules."
+      "classification": "TRANSACTION_LEVEL_RULES_DIVERSIFIED",
+      "may_state": "Macro concentration/mineral risk coexisted with transaction-level rules: EU public-procurement / financial-support eligibility, foreign-investment conditions, FEOC-linked ownership restructuring and named policy financing were already present.",
+      "june_change": "June adds a different mix of named-company export/procurement lists, considered G7 support tools and EU EV-cell production finance. The delta is diversification of transaction-level instruments, not first-time operationalization."
     },
     {
       "flow_id": "05",
@@ -526,6 +531,31 @@
     "findings_addressed": [
       "removed residual 1260H watch-list entry because the card remains audit-only/quarantined",
       "separated May-to-June sodium-ion/solid-state progression from June-only CO2/iron-air commercial-contract signals in executive diagnosis"
+    ]
+  },
+  "codex_review_5219397073_remediation": {
+    "review_id": 5219397073,
+    "reviewed_head": "7d8fedd86578f2b4974cfaa63596f35f3b171af6",
+    "may_baseline_additions": {
+      "sodium_execution": [
+        "2026-05-13_CN_01"
+      ],
+      "eu_procurement_investment": [
+        "2026-05-13_EU_01"
+      ],
+      "feoc_restructuring": [
+        "2026-05-08_US_01",
+        "2026-05-11_US_03"
+      ],
+      "named_policy_financing": [
+        "2026-05-15_US_01"
+      ]
+    },
+    "findings_addressed": [
+      "technology_specific_progression_split",
+      "eu_general_storage_pledge_separated_from_ldes",
+      "may_sodium_execution_added_june_product_followup",
+      "may_transaction_level_rules_added_june_instrument_diversification"
     ]
   }
 }

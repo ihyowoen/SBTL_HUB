@@ -1,0 +1,142 @@
+name: tmp-pr380-codex-rereview-remediation
+on:
+  push:
+    branches:
+      - chatgpt/rebuild-monthly-brief-2026-06
+permissions:
+  contents: write
+jobs:
+  remediate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/rebuild-monthly-brief-2026-06
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Patch four current-head Codex findings
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          brief_path = Path('public/data/monthly_briefs.json')
+          audit_path = Path('runs/2026-09-15/monthly-brief-2026-06-editorial-audit.json')
+          cards_path = Path('data/cards.full.json')
+
+          briefs_doc = json.loads(brief_path.read_text(encoding='utf-8'))
+          audit = json.loads(audit_path.read_text(encoding='utf-8'))
+          cards_doc = json.loads(cards_path.read_text(encoding='utf-8'))
+
+          issues = briefs_doc.get('briefs') if isinstance(briefs_doc, dict) else briefs_doc
+          if issues is None:
+              issues = briefs_doc.get('items', [])
+          june = next((x for x in issues if x.get('id') == 'monthly-brief-2026-06-r1' or x.get('month') == '2026-06'), None)
+          assert june, 'June monthly brief not found'
+          flows = {x['id']: x for x in june['key_flows']}
+
+          flows['01']['summary'] = (
+              '5월에도 프로젝트금융, 최저수익 구조와 상업운전이 확인됐지만 6월에는 장기 수익계약의 깊이가 달라졌다. '
+              '독일 300MW BESS의 5년 tolling, 애리조나 19MW·10시간 CO₂ 저장의 20년 tolling, 온타리오 8시간 BESS의 20년 용량계약이 이어졌다. '
+              '텍사스 120MW·480MWh의 1억3,000만달러 세액공제 지분금융 종결과 호주 Orana 415MW·1,660MWh의 상업운전은 5월에도 이미 보였던 금융·COD 단계가 계속 실행된 사례다. '
+              '따라서 6월의 실질적 심화는 금융화나 운영의 시작이 아니라 계약기간과 수익구조가 더 장기화·구체화된 데 있다.'
+          )
+
+          flows['03']['title'] = '차세대 저장, 5월의 나트륨·전고체 전망에서 6월의 단계전진과 신규 계약신호로 이동'
+          flows['03']['summary'] = (
+              '5월에는 나트륨이온이 보완재로 평가되고 전고체는 본격 실증 전이라는 전망이 중심이었다. '
+              '6월에는 CATL이 나트륨이온 ESS의 9월 중국 인도 일정과 연내 1GWh 목표를 제시했고, 전고체는 Factorial이 Stellantis 차량 통합 후 도로시험에 들어가 5월 대비 단계 전진이 확인됐다. '
+              '한편 Energy Dome·Google의 아일랜드 23MW·200MWh CO₂ 배터리 상업계약과 Ore Energy·Budget Thuis의 철공기 ESS 1GWh 계약은 5월 연속선으로 과장하지 않고 6월에 추가된 별도 상업계약 신호로 본다. '
+              '기술별로 고객계약·인도·실차시험·COD를 구분해 후속 단계를 확인해야 한다.'
+          )
+
+          flows['05']['title'] = '현지화, 5월의 순환·추적성 의제가 6월 운영화되고 기술라이선스가 추가'
+          flows['05']['summary'] = (
+              '5월에는 생산기지·공급망 현지화뿐 아니라 재생원료 생산·사용 인증과 전주기 추적체계도 이미 정책 의제로 올라와 있었다. '
+              '6월 한국의 재생원료 생산 인증제 시범사업과 일본 AESC ESS 배터리패스포트 실데이터 검증은 이 기존 순환성·추적성 의제를 실행 단계로 옮긴 사례다. '
+              '여기에 Ford 미시간 LFP 공장이 CATL 기술라이선스를 적용한 생산의도 시험셀 단계에 들어가면서 기술사용권이라는 추가 현지화 차원이 더해졌다. '
+              '즉 6월은 순환원료·추적성이 새로 등장한 달이 아니라 기존 의제가 운영화되고 기술권리 축이 별도로 확장된 달이다.'
+          )
+
+          old_watch = '5월 전망 단계에서 6월 고객계약·인도 일정·실차시험으로 전진한 나트륨이온·CO₂·철공기·전고체가 실제 납품·착공·COD·양산으로 넘어가는지 확인한다.'
+          new_watch = '5월 전망에서 6월 인도 일정·실차시험으로 전진한 나트륨이온·전고체와, 6월에 별도 상업계약 신호가 확인된 CO₂·철공기가 실제 납품·착공·COD·양산으로 넘어가는지 구분해 확인한다.'
+          assert old_watch in june['watch'], 'expected watch item not found'
+          june['watch'][june['watch'].index(old_watch)] = new_watch
+
+          cards = cards_doc.get('cards', cards_doc if isinstance(cards_doc, list) else [])
+          card1260 = next(c for c in cards if c.get('id') == '2026-06-09_US_02')
+          sources = card1260.get('fact_sources', [])
+          support = None
+          for s in sources:
+              blob = ' '.join(str(s.get(k,'')) for k in ('source_name','claim','source_quote','source_locator')).lower()
+              if 'automotive world' in blob and s.get('source_url'):
+                  support = s['source_url']; break
+          if not support:
+              for s in sources:
+                  blob = ' '.join(str(s.get(k,'')) for k in ('claim','source_quote')).lower()
+                  if ('sanction' in blob or '제재' in blob) and s.get('source_url'):
+                      support = s['source_url']; break
+          assert support, 'No 1260H caveat-supporting source URL found'
+          ref1260 = next(r for r in june['refs'] if r.get('id') == '2026-06-09_US_02')
+          ref1260['url'] = support
+          print('1260H public supporting URL:', support)
+
+          baseline = audit['previous_month_baseline']
+          circ = next(x for x in baseline['findings'] if x.get('theme') == 'Circularity regulation entering the agenda')
+          circ['finding'] = 'Korea had already established recycled-material production/use certification and full-lifecycle tracking as policy directions in May; June advances these areas into pilot implementation and real-data validation.'
+
+          delta = {x['flow_id']: x for x in audit['delta_classification']}
+          delta['01']['classification'] = 'DEEPENED_WITH_CONTINUING_EXECUTION'
+          delta['01']['may_state'] = 'Financing, revenue-floor structures and COD already existed.'
+          delta['01']['june_change'] = 'Longer 5-year/20-year tolling and 20-year capacity contracts deepen revenue visibility; June tax-equity and COD are continuing execution evidence rather than newly deeper stages.'
+
+          delta['03']['classification'] = 'STAGE_ADVANCED_PLUS_JUNE_NEW_SIGNAL'
+          delta['03']['may_state'] = 'Sodium-ion was mainly an outlook/complement story and solid-state remained pre-full-demonstration; the May baseline does not establish an iron-air progression anchor.'
+          delta['03']['june_change'] = 'Sodium-ion delivery scheduling and solid-state road testing advance from the May baseline, while CO₂ and iron-air contracts are treated as separate June commercial-contract signals.'
+
+          delta['05']['classification'] = 'OPERATIONALIZED_PLUS_EXPANDED'
+          delta['05']['may_state'] = 'Localization already included production-footprint/supply-chain themes plus recycled-material production/use certification and lifecycle tracking.'
+          delta['05']['june_change'] = 'Korea certification piloting and Japan passport real-data validation operationalize existing circularity/traceability directions; Ford-CATL technology licensing adds a distinct rights-based localization dimension.'
+
+          # Preserve a machine-readable record of the four re-review remediations.
+          audit['codex_current_head_rereview_remediation'] = {
+              'review_id': 5218750696,
+              'reviewed_head': 'd9d810f60cd438bf99204c17634b39b7de336c75',
+              'findings_addressed': [
+                  'flow05_circularity_reclassified_as_operationalization_with_technology_licensing_as_expansion',
+                  'iron_air_removed_from_may_to_june_progression_and_treated_as_june_only_contract_signal',
+                  'flow01_financing_and_cod_reclassified_as_continuing_execution_while_long_contracts_remain_deepening',
+                  '1260h_public_reference_bound_to_source_supporting_no_sanctions_caveat'
+              ]
+          }
+
+          brief_path.write_text(json.dumps(briefs_doc, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          audit_path.write_text(json.dumps(audit, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          # Exact assertions for the review findings.
+          assert '계약기간과 수익구조가 더 장기화·구체화' in flows['01']['summary']
+          assert '계속 실행된 사례' in flows['01']['summary']
+          assert '별도 상업계약 신호' in flows['03']['summary']
+          assert '운영화' in flows['05']['title'] and '기술라이선스' in flows['05']['title']
+          assert ref1260['url'] == support
+          assert delta['05']['classification'] == 'OPERATIONALIZED_PLUS_EXPANDED'
+          PY
+      - name: Validate publication
+        run: |
+          npm run validate:monthly-briefs
+          npm test
+          npm run build
+          git diff --check
+      - name: Commit remediation and remove helper
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/tmp-pr380-codex-rereview-remediation.yml
+          git add public/data/monthly_briefs.json runs/2026-09-15/monthly-brief-2026-06-editorial-audit.json
+          git commit -m 'editorial: refine May-to-June delta after Codex rereview'
+          git push origin HEAD:chatgpt/rebuild-monthly-brief-2026-06

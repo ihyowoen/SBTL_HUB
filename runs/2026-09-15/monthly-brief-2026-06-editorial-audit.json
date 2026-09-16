@@ -2,7 +2,7 @@
   "schema": "monthly_brief_editorial_audit_v1",
   "issue_id": "monthly-brief-2026-06-r1",
   "month": "2026-06",
-  "audit_date": "2026-09-15",
+  "audit_date": "2026-09-16",
   "product": "SBTL Monthly Brief",
   "baseline": {
     "main_commit_sha": "1305dea1892b5b19ce5bad84e67407743e5b1c26",
@@ -24,13 +24,14 @@
     }
   },
   "method": [
-    "Lock the post-#379 main canonical snapshot and review all 197 June cards across top, high and mid tiers.",
-    "Re-review all 99 top/high June cards after the independent external gap closure rather than restoring the reverted #377 publication.",
-    "Treat the reverted June brief only as red-team context; derive the public thesis and anchor set from the updated canonical universe.",
+    "Lock the post-#379 main canonical snapshot and reconstruct the May closing state from all 214 May-dated canonical cards because no official May Monthly Brief exists.",
+    "Use May as the sole previous-month baseline for June delta formation; classify June flows as deepened, advanced, operationalized or expanded rather than treating already-present May signals as new.",
+    "Review all 197 June cards and all 99 June top/high cards after the independent external gap closure, while preserving the June-only public reference contract.",
+    "Apply a hindsight firewall: July, August and September events or later Monthly Brief conclusions are not evidence for the June thesis and may only be used as red-team context.",
     "Separate contract, financing, construction, commissioning and COD; announced GW/GWh is never treated as installed capacity.",
-    "Treat AI/data-center demand as a selective power-infrastructure pull, not the master causal explanation for June ESS growth.",
+    "Treat AI/data-center demand as a selective power-infrastructure pull already visible in May, not a new June master cause.",
     "Apply a strict SBTL pouch lens: no pouch-film demand inference without form-factor, customer-program or supply-contract evidence.",
-    "Require every public reference to preserve the locked canonical title/date and use a governed title-supporting URL."
+    "Require every public June reference to preserve the locked canonical title/date and use a governed title-supporting URL."
   ],
   "independent_external_deep_dive": {
     "performed_after_initial_canonical_first_draft": true,
@@ -58,12 +59,12 @@
       "Moss Landing cleanup requiring lineage treatment",
       "Japan sustainability demo with insufficient independent monthly decision value"
     ],
-    "editorial_effect": "The external sweep strengthened the contracted/financeable ESS thesis, added LDES policy and a selective AI-power-infrastructure pull, and expanded the localization lens to recycled-material certification. It did not justify restoring AI as the single master June narrative."
+    "editorial_effect": "The external June sweep remains additive to the chronological May→June comparison. It strengthens the evidence that May bankability/LDES/AI signals deepened in June through longer revenue contracts and more explicit policy architecture, while recycled-material certification expands the localization delta. It does not make AI a new or singular June master narrative."
   },
   "selected_flows": [
     {
       "id": "01",
-      "title": "ESS, 장기계약·자본·COD를 갖춘 전력자산으로",
+      "title": "ESS 자산화, 5월의 금융·조달에서 6월의 장기수익계약으로 심화",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-02_EU_01",
@@ -71,11 +72,12 @@
         "2026-06-22_US_01",
         "2026-06-23_US_01",
         "2026-06-30_GL_01"
-      ]
+      ],
+      "delta_classification": "DEEPENED"
     },
     {
       "id": "02",
-      "title": "ESS 수요, 저장시간·정책조달·전력인프라 수요로 분화",
+      "title": "저장 수요, 5월의 프로젝트 확대에서 6월의 저장시간·제도설계로 분화",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-08_GL_02",
@@ -83,40 +85,44 @@
         "2026-06-26_EU_07",
         "2026-06-02_JP_01",
         "2026-06-02_US_01"
-      ]
+      ],
+      "delta_classification": "DEEPENED_AND_DIFFERENTIATED"
     },
     {
       "id": "03",
-      "title": "차세대 저장, 상업계약과 검증단계가 갈리기 시작",
+      "title": "차세대 저장, 5월의 전망에서 6월의 고객계약·인도·실차검증으로 전진",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-22_CN_05",
         "2026-06-23_EU_01",
         "2026-06-22_EU_02",
         "2026-06-17_US_02"
-      ]
+      ],
+      "delta_classification": "STAGE_ADVANCED"
     },
     {
       "id": "04",
-      "title": "공급망 규칙, 국가에서 기업별 조달적격성·생산금융으로 세분화",
+      "title": "공급망, 5월의 현지화·광물 리스크에서 6월의 기업별 적격성·금융규칙으로 구체화",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-09_US_02",
         "2026-06-22_CN_01",
         "2026-06-17_GL_07",
         "2026-06-10_EU_01"
-      ]
+      ],
+      "delta_classification": "OPERATIONALIZED"
     },
     {
       "id": "05",
-      "title": "현지화, 공장 위치에서 기술권리·재생원료·추적성까지 확대",
+      "title": "현지화, 5월의 공장·공급망에서 6월의 기술권리·순환원료·추적성으로 확장",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-30_US_02",
         "2026-06-25_KR_02",
         "2026-06-29_JP_01",
         "2026-06-11_KR_01"
-      ]
+      ],
+      "delta_classification": "EXPANDED"
     }
   ],
   "rejected_or_narrowed_narratives": [
@@ -184,7 +190,7 @@
   ],
   "official_source_selection": {
     "selected_card_count": 22,
-    "selection_principle": "Compact decision-relevant anchors across bankability, storage-duration/policy demand, technology maturity, procurement eligibility and localization/traceability.",
+    "selection_principle": "Compact June-only anchors selected for decision relevance and for their ability to prove what deepened, advanced, operationalized or expanded relative to the reconstructed May closing state.",
     "source_card_ids": [
       "2026-06-02_EU_01",
       "2026-06-15_US_01",
@@ -385,5 +391,118 @@
     "language_terminology": "PASS",
     "provenance": "PASS_BY_GENERATED_LOCKED_BINDING",
     "pouch_inference": "PASS_NO_DIRECT_DEMAND_INFERENCE"
-  }
+  },
+  "previous_month_baseline": {
+    "month": "2026-05",
+    "official_monthly_brief_exists": false,
+    "reconstruction_basis": "article-date May canonical universe in the same locked post-#379 snapshot",
+    "canonical_card_count": 214,
+    "signal_distribution": {
+      "top": 9,
+      "high": 135,
+      "mid": 70
+    },
+    "region_distribution": {
+      "GL": 69,
+      "KR": 56,
+      "US": 31,
+      "CN": 28,
+      "EU": 23,
+      "JP": 7
+    },
+    "closing_window_card_count": 41,
+    "baseline_state": [
+      {
+        "theme": "ESS bankability and execution already present",
+        "finding": "May already contained project-financing closes, minimum-revenue/optimization structures, utility-scale COD and large ESS supply contracts.",
+        "evidence_card_ids": [
+          "2026-05-04_EU_01",
+          "2026-05-05_GL_01",
+          "2026-05-14_US_01",
+          "2026-05-27_KR_02"
+        ]
+      },
+      {
+        "theme": "Long-duration procurement and storage policy already present",
+        "finding": "May already showed multi-GWh long-duration procurement and preliminary storage-market rule design, so June LDES evidence is a deepening of an existing direction.",
+        "evidence_card_ids": [
+          "2026-05-29_GL_07",
+          "2026-05-27_EU_01",
+          "2026-05-13_US_01"
+        ]
+      },
+      {
+        "theme": "AI/data-center pull already visible",
+        "finding": "AI-linked storage/infrastructure cases appeared in May; June evidence reinforces and broadens this pull but does not originate it.",
+        "evidence_card_ids": [
+          "2026-05-27_KR_02",
+          "2026-05-29_GL_06",
+          "2026-05-11_GL_06"
+        ]
+      },
+      {
+        "theme": "Next-generation technology still mostly outlook/pre-commercial",
+        "finding": "May evidence framed sodium-ion as a complement and solid-state as not yet at full demonstration, creating the baseline for June stage progression.",
+        "evidence_card_ids": [
+          "2026-05-20_GL_04",
+          "2026-05-27_GL_01"
+        ]
+      },
+      {
+        "theme": "Localization and supply-chain risk still macro-structural",
+        "finding": "May emphasized China concentration, localization responses, critical-mineral risk and production-footprint shifts more than company-level eligibility, rights and traceability rules.",
+        "evidence_card_ids": [
+          "2026-05-20_GL_02",
+          "2026-05-20_GL_08",
+          "2026-05-29_GL_02",
+          "2026-05-29_EU_01"
+        ]
+      },
+      {
+        "theme": "Circularity regulation entering the agenda",
+        "finding": "Korea had already advanced used-battery legislation in May; June moves further into production-certification implementation.",
+        "evidence_card_ids": [
+          "2026-05-20_KR_01"
+        ]
+      }
+    ]
+  },
+  "hindsight_firewall": {
+    "thesis_evidence_cutoff": "2026-06-30",
+    "later_month_events_used_for_june_thesis": false,
+    "later_month_briefs_used_as_publication_authority": false,
+    "permitted_later_use": "red-team only; no July-August-September event may establish or upgrade a June claim"
+  },
+  "delta_classification": [
+    {
+      "flow_id": "01",
+      "classification": "DEEPENED",
+      "may_state": "Financing, revenue-floor structures and COD already existed.",
+      "june_change": "Longer 5-year/20-year tolling and 20-year capacity contracts deepen revenue visibility while tax-equity and COD continue execution evidence."
+    },
+    {
+      "flow_id": "02",
+      "classification": "DEEPENED_AND_DIFFERENTIATED",
+      "may_state": "LDES procurement and AI-linked ESS demand were already visible.",
+      "june_change": "Duration, provisional LDES selection, non-binding EU deployment pledges and power-system strategy make the demand architecture more differentiated."
+    },
+    {
+      "flow_id": "03",
+      "classification": "STAGE_ADVANCED",
+      "may_state": "Sodium-ion was mainly an outlook/complement story and solid-state remained pre-full-demonstration.",
+      "june_change": "Delivery schedules, commercial contracts and vehicle road testing create observable stage progression."
+    },
+    {
+      "flow_id": "04",
+      "classification": "OPERATIONALIZED",
+      "may_state": "China concentration, localization and critical-mineral risk were macro-structural themes.",
+      "june_change": "Named-company procurement restrictions, export controls, considered price-support tools and EV-cell production finance turn the risk into transaction-level rules."
+    },
+    {
+      "flow_id": "05",
+      "classification": "EXPANDED",
+      "may_state": "Localization centered on production footprint and integrated supply chains.",
+      "june_change": "Technology licensing, recycled-material certification, battery-passport verification and patent-right structures expand the localization boundary."
+    }
+  ]
 }

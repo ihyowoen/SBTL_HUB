@@ -119,8 +119,7 @@
       "anchor_card_ids": [
         "2026-06-30_US_02",
         "2026-06-25_KR_02",
-        "2026-06-29_JP_01",
-        "2026-06-11_KR_01"
+        "2026-06-29_JP_01"
       ],
       "delta_classification": "EXPANDED"
     }
@@ -186,11 +185,15 @@
     {
       "id": "2026-06-17_CN_05",
       "reason": "Useful solid-state caution, but the compact public set uses a stage-disciplined road-test anchor and keeps commercialization skepticism in red-team context."
+    },
+    {
+      "id": "2026-06-11_KR_01",
+      "reason": "Excluded from the public anchor set because the locked canonical title presents the licence as a direct LG Energy Solution–Sunwoda contract, while the underlying fact identifies Tulip Innovation–Sunwoda as the contracting pair. Keep out of publication until canonical title provenance is remediated."
     }
   ],
   "official_source_selection": {
-    "selected_card_count": 22,
-    "selection_principle": "Compact June-only anchors selected for decision relevance and for their ability to prove what deepened, advanced, operationalized or expanded relative to the reconstructed May closing state.",
+    "selected_card_count": 21,
+    "selection_principle": "Compact June-only anchors selected for decision relevance and for their ability to prove what deepened, advanced, operationalized or expanded relative to the reconstructed May closing state. Cards with a public-title provenance defect are excluded pending canonical remediation.",
     "source_card_ids": [
       "2026-06-02_EU_01",
       "2026-06-15_US_01",
@@ -212,8 +215,7 @@
       "2026-06-10_EU_01",
       "2026-06-30_US_02",
       "2026-06-25_KR_02",
-      "2026-06-29_JP_01",
-      "2026-06-11_KR_01"
+      "2026-06-29_JP_01"
     ],
     "binding": [
       {
@@ -374,13 +376,6 @@
           "https://www.denso.com/jp/ja/news/newsroom/2026/20260629-01/",
           "https://www.japanindustrynews.com/2026/07/denso-and-tuv-rheinland-japan-validate-battery-passport-for-eu-compliance/amp/"
         ]
-      },
-      {
-        "id": "2026-06-11_KR_01",
-        "selected_url": "https://www.thelec.kr/news/articleView.html?idxno=58001",
-        "title_supporting_urls": [
-          "https://www.thelec.kr/news/articleView.html?idxno=58001"
-        ]
       }
     ]
   },
@@ -502,7 +497,7 @@
       "flow_id": "05",
       "classification": "EXPANDED",
       "may_state": "Localization centered on production footprint and integrated supply chains.",
-      "june_change": "Technology licensing, recycled-material certification, battery-passport verification and patent-right structures expand the localization boundary."
+      "june_change": "Technology licensing, recycled-material certification and battery-passport verification expand the localization boundary beyond production footprint."
     }
   ]
 }

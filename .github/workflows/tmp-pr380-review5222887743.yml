@@ -1,0 +1,58 @@
+name: tmp-pr380-review5222887743
+on:
+  push:
+    paths:
+      - '.github/workflows/tmp-pr380-review5222887743.yml'
+permissions:
+  contents: write
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/rebuild-monthly-brief-2026-06
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Patch Codex review 5222887743 residual chronology
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const p = 'runs/2026-09-15/monthly-brief-2026-06-editorial-audit.json';
+          const audit = JSON.parse(fs.readFileSync(p,'utf8'));
+          const oldText = 'The external June sweep remains additive to the chronological May→June comparison. It strengthens the evidence that May bankability/LDES/AI signals deepened in June through more differentiated revenue-contract structures and more explicit policy architecture, while recycled-material certification operationalizes a May circularity direction and technology licensing adds a distinct localization-rights dimension. It does not make AI a new or singular June master narrative.';
+          const newText = 'The external June sweep remains additive to the chronological May→June comparison. It strengthens the evidence that May bankability/LDES/AI signals deepened in June through more differentiated revenue-contract structures and more explicit policy architecture, while recycled-material certification operationalizes a May circularity direction and Ford-CATL production-intent test cells provide an execution/validation example of the technology-transfer/localization axis already present in May. It does not make AI a new or singular June master narrative.';
+          if (audit.independent_external_deep_dive?.editorial_effect !== oldText) {
+            throw new Error('Expected stale editorial_effect text not found');
+          }
+          audit.independent_external_deep_dive.editorial_effect = newText;
+          audit.codex_review_5222887743_remediation = {
+            review_id: 5222887743,
+            reviewed_head: 'e7e1c73503e5729b86594dc9275a8e215a1497be',
+            finding_addressed: 'deep-dive editorial_effect now treats Ford-CATL as execution/validation of an existing May technology-transfer/localization axis rather than a June-new rights dimension'
+          };
+          const serialized = JSON.stringify(audit,null,2)+'\n';
+          if (serialized.includes('technology licensing adds a distinct localization-rights dimension')) throw new Error('stale chronology remains');
+          fs.writeFileSync(p, serialized);
+          NODE
+      - name: Validate all
+        shell: bash
+        run: |
+          npm run validate:monthly-briefs
+          npm test
+          npm run build
+          git diff --check
+      - name: Commit remediation and remove helper
+        shell: bash
+        run: |
+          rm -f .github/workflows/tmp-pr380-review5222887743.yml
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git add runs/2026-09-15/monthly-brief-2026-06-editorial-audit.json .github/workflows/tmp-pr380-review5222887743.yml
+          git commit -m "fix: align June deep-dive chronology with Flow 05"
+          git push origin HEAD:chatgpt/rebuild-monthly-brief-2026-06

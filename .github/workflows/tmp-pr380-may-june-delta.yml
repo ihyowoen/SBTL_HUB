@@ -17,6 +17,7 @@ jobs:
           node-version: '20'
       - name: Build May to June delta audit
         run: |
+          mkdir -p runs/2026-09-16
           node <<'NODE'
           const fs = require('fs');
           const data = JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));

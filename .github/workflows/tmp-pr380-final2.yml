@@ -1,0 +1,72 @@
+name: tmp-pr380-final2
+on:
+  push:
+    branches:
+      - chatgpt/rebuild-monthly-brief-2026-06
+    paths:
+      - .github/workflows/tmp-pr380-final2.yml
+permissions:
+  contents: write
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/rebuild-monthly-brief-2026-06
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Patch final two Codex findings
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const p = 'public/data/monthly_briefs.json';
+          const j = JSON.parse(fs.readFileSync(p,'utf8'));
+          const issue = j.items.find(x => x.id === 'monthly-brief-2026-06-r1');
+          if (!issue) throw new Error('June issue missing');
+          const oldDiag = issue.executive_diagnosis;
+          const oldSentence = '차세대 저장은 5월의 전망·실증 전 단계에서 나트륨이온 인도 일정, CO₂·철공기 상업계약, 전고체 실차시험으로 전진했다.';
+          const newSentence = '차세대 저장에서는 5월 대비 나트륨이온이 인도 일정으로, 전고체가 실차시험으로 단계 전진했고, CO₂·철공기 상업계약은 6월에 추가된 별도 상업계약 신호로 나타났다.';
+          if (!oldDiag.includes(oldSentence)) throw new Error('executive sentence not found');
+          issue.executive_diagnosis = oldDiag.replace(oldSentence, newSentence);
+          const before = issue.watch.length;
+          issue.watch = issue.watch.filter(x => !x.includes('1260H'));
+          if (issue.watch.length !== before - 1) throw new Error('expected exactly one 1260H watch removal');
+          fs.writeFileSync(p, JSON.stringify(j,null,2)+'\n');
+
+          const ap = 'runs/2026-09-15/monthly-brief-2026-06-editorial-audit.json';
+          const a = JSON.parse(fs.readFileSync(ap,'utf8'));
+          a.codex_review_5219257706_remediation = {
+            reviewed_head: 'af36a4e1fd50c0013b79e0466c1b92706c7e4ed8',
+            findings_addressed: [
+              'removed residual 1260H watch-list entry because the card remains audit-only/quarantined',
+              'separated May-to-June sodium-ion/solid-state progression from June-only CO2/iron-air commercial-contract signals in executive diagnosis'
+            ]
+          };
+          fs.writeFileSync(ap, JSON.stringify(a,null,2)+'\n');
+          NODE
+      - name: Validate publication
+        run: |
+          npm run validate:monthly-briefs
+          npm test
+          npm run build
+          git diff --check
+          node <<'NODE'
+          const j=require('./public/data/monthly_briefs.json');
+          const i=j.items.find(x=>x.id==='monthly-brief-2026-06-r1');
+          if(i.watch.some(x=>x.includes('1260H'))) throw new Error('1260H remains in watch');
+          if(i.executive_diagnosis.includes('나트륨이온 인도 일정, CO₂·철공기 상업계약, 전고체 실차시험으로 전진')) throw new Error('old iron-air progression wording remains');
+          if(!i.executive_diagnosis.includes('CO₂·철공기 상업계약은 6월에 추가된 별도 상업계약 신호')) throw new Error('new separation wording missing');
+          NODE
+      - name: Commit remediation and remove helper
+        run: |
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git rm .github/workflows/tmp-pr380-final2.yml
+          git add public/data/monthly_briefs.json runs/2026-09-15/monthly-brief-2026-06-editorial-audit.json
+          git commit -m "fix: address final PR380 Codex review"
+          git push origin HEAD:chatgpt/rebuild-monthly-brief-2026-06

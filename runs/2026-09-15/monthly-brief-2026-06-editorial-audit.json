@@ -90,7 +90,7 @@
     },
     {
       "id": "03",
-      "title": "차세대 저장, 5월의 나트륨·전고체 전망에서 6월의 단계전진과 신규 계약신호로 이동",
+      "title": "차세대 저장, 5월부터 엇갈린 실행단계가 6월 제품후속·실차검증·신규 계약으로 더 분화",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-22_CN_05",
@@ -98,29 +98,29 @@
         "2026-06-22_EU_02",
         "2026-06-17_US_02"
       ],
-      "delta_classification": "STAGE_ADVANCED_PLUS_JUNE_NEW_SIGNAL"
+      "delta_classification": "MIXED_CONTINUATION_STAGE_ADVANCE_PLUS_JUNE_NEW_SIGNAL"
     },
     {
       "id": "04",
-      "title": "공급망, 5월의 현지화·광물 리스크에서 6월의 기업별 적격성·금융규칙으로 구체화",
+      "title": "공급망, 5월부터 기업·거래 단위 규칙이 존재…6월 명단형 통제·지원수단으로 추가 분화",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-22_CN_01",
         "2026-06-17_GL_07",
         "2026-06-10_EU_01"
       ],
-      "delta_classification": "OPERATIONALIZED"
+      "delta_classification": "TRANSACTION_LEVEL_RULES_DIVERSIFIED"
     },
     {
       "id": "05",
-      "title": "현지화, 5월의 순환·추적성 의제가 6월 운영화되고 기술라이선스가 추가",
+      "title": "현지화, 5월부터 있던 순환·추적성·기술이전 축이 6월 실행 사례로 구체화",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-30_US_02",
         "2026-06-25_KR_02",
         "2026-06-29_JP_01"
       ],
-      "delta_classification": "OPERATIONALIZED_PLUS_EXPANDED"
+      "delta_classification": "OPERATIONALIZED_EXISTING_LOCALIZATION_AXES"
     }
   ],
   "rejected_or_narrowed_narratives": [
@@ -502,9 +502,9 @@
     },
     {
       "flow_id": "05",
-      "classification": "OPERATIONALIZED_PLUS_EXPANDED",
-      "may_state": "Localization already included production-footprint/supply-chain themes plus recycled-material production/use certification and lifecycle tracking.",
-      "june_change": "Korea certification piloting and Japan passport real-data validation operationalize existing circularity/traceability directions; Ford-CATL technology licensing adds a distinct rights-based localization dimension."
+      "classification": "OPERATIONALIZED_EXISTING_LOCALIZATION_AXES",
+      "may_state": "Localization already included production-footprint/supply-chain themes, recycled-material production/use certification, lifecycle tracking, and foreign-investment conditions that explicitly included joint ventures and technology transfer.",
+      "june_change": "Korea certification piloting and Japan passport real-data validation operationalize existing circularity/traceability directions; Ford production-intent test cells show an existing CATL technology-licensing structure being applied in manufacturing validation. June is operationalization of existing localization axes, not evidence that a new rights axis first appeared."
     }
   ],
   "codex_current_head_rereview_remediation": {
@@ -556,6 +556,14 @@
       "eu_general_storage_pledge_separated_from_ldes",
       "may_sodium_execution_added_june_product_followup",
       "may_transaction_level_rules_added_june_instrument_diversification"
+    ]
+  },
+  "codex_review_5220166060_remediation": {
+    "review_id": 5220166060,
+    "reviewed_head": "a56a57a123d6799284b74e80a32e04cbc6aaa9db",
+    "findings_addressed": [
+      "selected_flows_03_04_05_synchronized_with_final_delta_classifications",
+      "ford_technology_license_reclassified_as_operationalization_of_existing_may_technology_transfer_axis"
     ]
   }
 }

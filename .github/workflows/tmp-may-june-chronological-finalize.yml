@@ -1,0 +1,75 @@
+name: tmp-may-june-chronological-finalize
+on:
+  push:
+    branches:
+      - chatgpt/rebuild-monthly-brief-2026-06
+permissions:
+  contents: write
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Reuse reviewed chronological rewrite script
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          p=Path('.github/workflows/tmp-may-june-chronological-rewrite.yml')
+          text=p.read_text()
+          marker="          node <<'NODE'\n"
+          start=text.index(marker)+len(marker)
+          end=text.index("\n          NODE", start)
+          block=text[start:end]
+          lines=[]
+          for line in block.splitlines():
+              lines.append(line[10:] if line.startswith('          ') else line)
+          Path('/tmp/may_june_rewrite.js').write_text('\n'.join(lines)+'\n')
+          PY
+          node /tmp/may_june_rewrite.js
+      - name: Validate rewritten issue
+        run: |
+          npm run validate:monthly-briefs
+          npm test
+          npm run build
+          git diff --check
+          node <<'NODE'
+          const fs=require('fs');
+          const lib=JSON.parse(fs.readFileSync('public/data/monthly_briefs.json','utf8'));
+          const briefs=Array.isArray(lib)?lib:lib.items;
+          const b=briefs.find(x=>x.id==='monthly-brief-2026-06-r1');
+          if(!b) throw new Error('missing June brief');
+          if(!b.what_changed.includes('5월 canonical 214건')) throw new Error('missing May baseline');
+          if(!b.key_flows.find(x=>x.id==='01').title.includes('5월')) throw new Error('flow 01 not chronological');
+          if(!b.key_flows.find(x=>x.id==='02').summary.includes('법적 의무를 수반하지 않는')) throw new Error('EU non-binding caveat lost');
+          if(!b.key_flows.find(x=>x.id==='04').summary.includes('EV 배터리 셀')) throw new Error('Battery Booster EV scope lost');
+          if(!b.key_flows.find(x=>x.id==='05').summary.includes('Tulip Innovation')) throw new Error('Tulip party fix lost');
+          const ford=b.refs.find(r=>r.id==='2026-06-30_US_02');
+          if(!ford || !ford.url.includes('battery-tech.net')) throw new Error('Ford test-cell source fix lost');
+          const a=JSON.parse(fs.readFileSync('runs/2026-09-15/monthly-brief-2026-06-editorial-audit.json','utf8'));
+          if(a.previous_month_baseline?.canonical_card_count!==214) throw new Error('May baseline audit missing');
+          if(a.hindsight_firewall?.later_month_events_used_for_june_thesis!==false) throw new Error('hindsight firewall missing');
+          const expected={"01":"DEEPENED","02":"DEEPENED_AND_DIFFERENTIATED","03":"STAGE_ADVANCED","04":"OPERATIONALIZED","05":"EXPANDED"};
+          for(const d of a.delta_classification||[]) if(expected[d.flow_id]!==d.classification) throw new Error('delta classification mismatch '+d.flow_id);
+          if(Object.keys(expected).some(id=>!(a.delta_classification||[]).some(d=>d.flow_id===id))) throw new Error('missing delta classification');
+          NODE
+      - name: Commit only final publication files
+        run: |
+          rm -rf runs/2026-09-16/may-june-delta-rebuild-r1
+          git rm .github/workflows/tmp-may-june-chronological-rewrite.yml
+          git rm .github/workflows/tmp-may-june-chronological-finalize.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/monthly_briefs.json runs/2026-09-15/monthly-brief-2026-06-editorial-audit.json
+          git add -A runs/2026-09-16/may-june-delta-rebuild-r1
+          git diff --cached --check
+          git commit -m "refactor: rebuild June brief as May-to-June delta"
+          git push

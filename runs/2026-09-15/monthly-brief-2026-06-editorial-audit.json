@@ -59,12 +59,12 @@
       "Moss Landing cleanup requiring lineage treatment",
       "Japan sustainability demo with insufficient independent monthly decision value"
     ],
-    "editorial_effect": "The external June sweep remains additive to the chronological May→June comparison. It strengthens the evidence that May bankability/LDES/AI signals deepened in June through longer revenue contracts and more explicit policy architecture, while recycled-material certification operationalizes a May circularity direction and technology licensing adds a distinct localization-rights dimension. It does not make AI a new or singular June master narrative."
+    "editorial_effect": "The external June sweep remains additive to the chronological May→June comparison. It strengthens the evidence that May bankability/LDES/AI signals deepened in June through more differentiated revenue-contract structures and more explicit policy architecture, while recycled-material certification operationalizes a May circularity direction and technology licensing adds a distinct localization-rights dimension. It does not make AI a new or singular June master narrative."
   },
   "selected_flows": [
     {
       "id": "01",
-      "title": "ESS 자산화, 5월의 금융·조달에서 6월의 장기수익계약으로 심화",
+      "title": "ESS 자산화, 5월의 금융·장기계약에서 6월의 수익구조 다변화로 심화",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-02_EU_01",
@@ -73,7 +73,7 @@
         "2026-06-23_US_01",
         "2026-06-30_GL_01"
       ],
-      "delta_classification": "DEEPENED_WITH_CONTINUING_EXECUTION"
+      "delta_classification": "STRUCTURE_DIFFERENTIATED_WITH_CONTINUING_EXECUTION"
     },
     {
       "id": "02",
@@ -403,12 +403,13 @@
     "baseline_state": [
       {
         "theme": "ESS bankability and execution already present",
-        "finding": "May already contained project-financing closes, minimum-revenue/optimization structures, utility-scale COD and large ESS supply contracts.",
+        "finding": "May already contained project-financing closes, minimum-revenue/optimization structures, utility-scale COD, large ESS supply contracts, and 20-year fixed-revenue storage contracts in Japan.",
         "evidence_card_ids": [
           "2026-05-04_EU_01",
           "2026-05-05_GL_01",
           "2026-05-14_US_01",
-          "2026-05-27_KR_02"
+          "2026-05-27_KR_02",
+          "2026-05-13_JP_01"
         ]
       },
       {
@@ -472,9 +473,9 @@
   "delta_classification": [
     {
       "flow_id": "01",
-      "classification": "DEEPENED_WITH_CONTINUING_EXECUTION",
-      "may_state": "Financing, revenue-floor structures and COD already existed.",
-      "june_change": "Longer 5-year/20-year tolling and 20-year capacity contracts deepen revenue visibility; June tax-equity and COD are continuing execution evidence rather than newly deeper stages."
+      "classification": "STRUCTURE_DIFFERENTIATED_WITH_CONTINUING_EXECUTION",
+      "may_state": "Financing, revenue-floor structures, COD and 20-year fixed-revenue storage contracts already existed.",
+      "june_change": "June adds different revenue-contract forms—5-year/20-year tolling and a 20-year capacity contract—while tax-equity financing and COD remain continuing execution evidence. The delta is structural differentiation, not longer contract duration."
     },
     {
       "flow_id": "02",
@@ -509,6 +510,15 @@
       "iron_air_removed_from_may_to_june_progression_and_treated_as_june_only_contract_signal",
       "flow01_financing_and_cod_reclassified_as_continuing_execution_while_long_contracts_remain_deepening",
       "1260h_removed_from_public_anchor_set_due_locked_title_vs_title_authorized_source_mismatch"
+    ]
+  },
+  "codex_final_head_rereview_remediation": {
+    "review_id": 5218883058,
+    "reviewed_head": "badbcd5c9e87060f88d30059841c051a1181884f",
+    "findings_addressed": [
+      "removed_residual_1260h_public_claim_after_anchor_quarantine",
+      "advanced_monthly_library_updated_at_to_2026_09_16",
+      "reframed_flow01_from_longer_duration_to_revenue_structure_differentiation_and_added_may_20y_anchor"
     ]
   }
 }

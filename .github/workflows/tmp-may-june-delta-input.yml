@@ -1,0 +1,112 @@
+name: tmp-may-june-delta-input
+on:
+  push:
+    branches:
+      - chatgpt/rebuild-monthly-brief-2026-06
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Extract May closing state and June delta inputs
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const full = JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
+          const lib = JSON.parse(fs.readFileSync('public/data/monthly_briefs.json','utf8'));
+          const cards = Array.isArray(full) ? full : (full.cards || full.items || []);
+          const briefs = Array.isArray(lib) ? lib : (lib.items || []);
+          const monthOf = c => String(c.date || c.published_at || c.id || '').slice(0,7);
+          const regionOf = c => c.region || (String(c.id||'').match(/^\d{4}-\d{2}-\d{2}_([^_]+)_/)||[])[1] || null;
+          const signalOf = c => c.signal || c.signal_level || c.signal_label || c.news_value?.tier || c.news_value?.signal || c.importance || c.tier || c.priority || null;
+          const scoreOf = c => c.score ?? c.news_value?.score ?? c.news_value_score ?? c.editorial_score ?? c.total_score ?? null;
+          const summaryOf = c => c.summary || c.fact_summary || c.what_happened || c.description || c.decision_summary || '';
+          const compact = c => ({
+            id:c.id, date:c.date, region:regionOf(c), signal:signalOf(c), score:scoreOf(c),
+            title:c.title, category:c.category || c.topic || c.segment || null,
+            summary:String(summaryOf(c)).slice(0,500), related:Array.isArray(c.related)?c.related:[],
+            sources:(c.fact_sources||c.sources||[]).slice?.(0,4) || []
+          });
+          const may = cards.filter(c=>monthOf(c)==='2026-05');
+          const jun = cards.filter(c=>monthOf(c)==='2026-06');
+          const countBy = (arr, fn) => arr.reduce((o,x)=>{const k=String(fn(x)||'unknown').toLowerCase();o[k]=(o[k]||0)+1;return o;},{});
+          const scoreSort = (a,b) => (Number(scoreOf(b))||0)-(Number(scoreOf(a))||0) || String(b.date||'').localeCompare(String(a.date||''));
+          const sig = c => String(signalOf(c)||'').toLowerCase();
+          const topHigh = may.filter(c=>['top','high'].includes(sig(c))).sort(scoreSort);
+          const mayClosing = may.filter(c=>String(c.date||c.id||'').slice(0,10)>='2026-05-15').sort(scoreSort);
+          const juneBrief = briefs.find(b=>b.month==='2026-06');
+          const juneIds = new Set(juneBrief?.source_card_ids || []);
+          const juneAnchors = jun.filter(c=>juneIds.has(c.id));
+          const mayIds = new Set(may.map(c=>c.id));
+          const junIds = new Set(jun.map(c=>c.id));
+          const cross = [];
+          for (const c of cards) {
+            const rel = Array.isArray(c.related)?c.related:[];
+            if (monthOf(c)==='2026-05') for(const r of rel) if(junIds.has(r)) cross.push({from:c.id,to:r,direction:'may_to_june'});
+            if (monthOf(c)==='2026-06') for(const r of rel) if(mayIds.has(r)) cross.push({from:c.id,to:r,direction:'june_to_may'});
+          }
+          const buckets = {
+            ess:/\bESS\b|\bBESS\b|energy storage|storage|저장|축전/i,
+            bankability:/tolling|capacity contract|capacity agreement|offtake|PPA|financ|tax equity|금융|계약|상업운전|COD|착공/i,
+            policy:/policy|regulat|procurement|tariff|sanction|export control|subsid|tax credit|조달|규제|정책|관세|수출|지원|보조/i,
+            technology:/sodium|나트륨|solid.?state|전고체|LFP|LMFP|iron.?air|철공기|CO2|flow battery|redox/i,
+            localization:/locali|domestic|공장|현지|생산|recycl|재활용|passport|특허|license|라이선스|원료|mineral|광물/i,
+            ai_grid:/AI|data.?center|데이터.?센터|grid|전력망/i,
+            pouch:/pouch|파우치|필름|aluminum.?laminate|알루미늄/i
+          };
+          const topicBuckets = {};
+          for(const [k,re] of Object.entries(buckets)) {
+            topicBuckets[k] = may.filter(c=>re.test([c.title,summaryOf(c),c.category,c.topic].filter(Boolean).join(' '))).sort(scoreSort).slice(0,20).map(compact);
+          }
+          const officialBriefs = briefs.map(b=>({
+            id:b.id,month:b.month,title:b.title,revision:b.revision,status:b.status,
+            executive_diagnosis:b.executive_diagnosis,what_changed:b.what_changed,
+            key_flows:(b.key_flows||[]).map(f=>({id:f.id,title:f.title,summary:f.summary,card_ids:f.card_ids})),
+            watch:b.watch,source_baseline:b.source_baseline
+          }));
+          const output = {
+            generated_at:new Date().toISOString(),
+            extraction_head:process.env.GITHUB_SHA,
+            official_monthly_brief_months:briefs.map(b=>b.month),
+            may_official_brief:briefs.find(b=>b.month==='2026-05') || null,
+            official_briefs:officialBriefs,
+            may:{
+              card_count:may.length,
+              region_distribution:countBy(may,regionOf),
+              signal_distribution:countBy(may,signalOf),
+              sample_card_keys:may[0]?Object.keys(may[0]).sort():[],
+              top_high_count:topHigh.length,
+              top_high:topHigh.map(compact),
+              closing_window_count:mayClosing.length,
+              closing_window:mayClosing.map(compact),
+              topic_buckets:topicBuckets
+            },
+            june:{
+              card_count:jun.length,
+              current_anchor_count:juneAnchors.length,
+              current_anchors:juneAnchors.sort((a,b)=>String(a.date).localeCompare(String(b.date))).map(compact)
+            },
+            cross_month_related:cross
+          };
+          fs.mkdirSync('runs/2026-09-16/may-june-delta-rebuild-r1',{recursive:true});
+          fs.writeFileSync('runs/2026-09-16/may-june-delta-rebuild-r1/delta-input.json', JSON.stringify(output,null,2)+'\n');
+          console.log(JSON.stringify({months:output.official_monthly_brief_months, may_cards:may.length, may_top_high:topHigh.length, june_anchors:juneAnchors.length, cross_links:cross.length},null,2));
+          NODE
+      - name: Commit extraction and remove helper
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add runs/2026-09-16/may-june-delta-rebuild-r1/delta-input.json
+          git rm .github/workflows/tmp-may-june-delta-input.yml
+          git commit -m "chore: extract May to June delta input"
+          git push

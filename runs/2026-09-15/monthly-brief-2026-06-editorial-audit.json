@@ -59,7 +59,7 @@
       "Moss Landing cleanup requiring lineage treatment",
       "Japan sustainability demo with insufficient independent monthly decision value"
     ],
-    "editorial_effect": "The external June sweep remains additive to the chronological May→June comparison. It strengthens the evidence that May bankability/LDES/AI signals deepened in June through more differentiated revenue-contract structures and more explicit policy architecture, while recycled-material certification operationalizes a May circularity direction and Ford-CATL production-intent test cells provide an execution/validation example of the technology-transfer/localization axis already present in May. It does not make AI a new or singular June master narrative."
+    "editorial_effect": "The external June sweep remains additive to the chronological May→June comparison. It strengthens the evidence that May bankability signals developed into more differentiated revenue-contract structures in June, while LDES policy architecture diversified across jurisdictions and the AI/data-center axis continued or broadened rather than moving to a demonstrably deeper execution stage. Recycled-material certification operationalizes a May circularity direction, and Ford-CATL production-intent test cells provide an execution/validation example of the technology-transfer/localization axis already present in May. It does not make AI a new or singular June master narrative."
   },
   "selected_flows": [
     {
@@ -77,7 +77,7 @@
     },
     {
       "id": "02",
-      "title": "저장 수요, 5월의 프로젝트 확대에서 6월의 저장시간·제도설계로 분화",
+      "title": "저장 수요, 5월부터 있던 장주기 조달이 6월 정책설계·저장시간 축으로 더 분화",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-08_GL_02",
@@ -86,7 +86,7 @@
         "2026-06-02_JP_01",
         "2026-06-02_US_01"
       ],
-      "delta_classification": "DEEPENED_AND_DIFFERENTIATED"
+      "delta_classification": "POLICY_DESIGN_DIFFERENTIATED_WITH_CONTINUING_DEMAND"
     },
     {
       "id": "03",
@@ -423,11 +423,12 @@
       },
       {
         "theme": "AI/data-center pull already visible",
-        "finding": "AI-linked storage/infrastructure cases appeared in May; June evidence reinforces and broadens this pull but does not originate it.",
+        "finding": "May already contained concrete long-duration procurement and AI-linked ESS demand: six FERMA projects totaling 5.336GWh were awarded with an eight-hour requirement, while DTE/Oracle and Prevalon provided large AI/hyperscale-linked storage demand signals. June should therefore be read as policy-design diversification and continuation/broadening, not a simple execution-stage deepening.",
         "evidence_card_ids": [
           "2026-05-27_KR_02",
           "2026-05-29_GL_06",
-          "2026-05-11_GL_06"
+          "2026-05-11_GL_06",
+          "2026-05-29_GL_07"
         ]
       },
       {
@@ -485,9 +486,9 @@
     },
     {
       "flow_id": "02",
-      "classification": "DEEPENED_AND_DIFFERENTIATED",
-      "may_state": "LDES procurement and AI-linked ESS demand were already visible.",
-      "june_change": "Duration, provisional LDES selection, non-binding EU deployment pledges and power-system strategy make the demand architecture more differentiated."
+      "classification": "POLICY_DESIGN_DIFFERENTIATED_WITH_CONTINUING_DEMAND",
+      "may_state": "Long-duration procurement and AI-linked ESS demand were already concrete in May, including six FERMA awards totaling 5.336GWh with an eight-hour requirement and large AI/hyperscale-linked storage supply contracts.",
+      "june_change": "June does not represent a later execution stage merely because Ofgem provisionally selected 16 LDES projects. Instead, UK cap-and-floor design, a different technology mix, non-binding EU deployment pledges and Japan power-system strategy diversify the policy architecture, while AI/data-center demand remains a continuing/broadening selective axis."
     },
     {
       "flow_id": "03",
@@ -504,8 +505,8 @@
     {
       "flow_id": "05",
       "classification": "OPERATIONALIZED_EXISTING_LOCALIZATION_AXES",
-      "may_state": "Localization already included production-footprint/supply-chain themes, recycled-material production/use certification, lifecycle tracking, and foreign-investment conditions that explicitly included joint ventures and technology transfer.",
-      "june_change": "Korea certification piloting and Japan passport real-data validation operationalize existing circularity/traceability directions; Ford production-intent test cells show an existing CATL technology-licensing structure being applied in manufacturing validation. June is operationalization of existing localization axes, not evidence that a new rights axis first appeared."
+      "may_state": "Localization already included production-footprint/supply-chain themes, recycled-material production/use certification and lifecycle tracking. EU foreign-investment conditions mentioning joint ventures and technology transfer were Commission proposals under Parliament/Council review rather than operative rules.",
+      "june_change": "Korea certification piloting and Japan passport real-data validation operationalize existing circularity/traceability directions; Ford production-intent test cells show an existing CATL technology-licensing structure being applied in manufacturing validation. June is operationalization of existing localization axes, while the May EU technology-transfer condition remains proposal-stage context rather than an operative framework."
     }
   ],
   "codex_current_head_rereview_remediation": {
@@ -578,6 +579,15 @@
       "co2_reclassified_from_june_only_to_may_commercialization_path_to_june_signed_contract_stage_advance_with_2026_05_01_GL_04_added_to_baseline",
       "may_eu_iaa_conditions_labeled_as_commission_proposals_under_parliament_council_review_not_binding_rules",
       "flow03_flow04_public_and_audit_classifications_synchronized"
+    ]
+  },
+  "codex_review_5224027876_remediation": {
+    "reviewed_head": "b71cdd4e113c94db1d940ad78130263e47ca7b67",
+    "findings_addressed": [
+      "watch_preserves_co2_may_to_june_contract_stage_advance_vs_iron_air_june_only_split",
+      "flow05_audit_preserves_may_eu_iaa_proposal_under_parliament_council_review_stage",
+      "flow02_reclassified_from_deepening_to_policy_design_differentiation_given_may_ferma_awards",
+      "ai_axis_reclassified_from_deepening_to_continuation_broadening"
     ]
   }
 }

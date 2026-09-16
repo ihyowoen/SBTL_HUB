@@ -15,51 +15,36 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Build May to June delta audit
+      - name: Build focused chronology proof set
         run: |
           mkdir -p runs/2026-09-16
           node <<'NODE'
-          const fs = require('fs');
-          const data = JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
-          const briefs = JSON.parse(fs.readFileSync('public/data/monthly_briefs.json','utf8'));
-          const cards = data.cards || [];
-          const may = cards.filter(c => String(c.date||'').startsWith('2026-05-'));
-          const june = cards.filter(c => String(c.date||'').startsWith('2026-06-'));
-          const countBy = (arr, key) => arr.reduce((m,c)=>{const v=c[key]??'unknown';m[v]=(m[v]||0)+1;return m;},{});
-          const compact = c => ({id:c.id,date:c.date,region:c.region,cat:c.cat,sub_cat:c.sub_cat,signal:c.signal,title:c.title,gate:c.gate,fact:c.fact,related:c.related||[]});
-          const rank = {top:3,high:2,mid:1,low:0};
-          const mayTopHigh = may.filter(c=>['top','high'].includes(c.signal)).sort((a,b)=>(rank[b.signal]-rank[a.signal])||String(b.date).localeCompare(String(a.date))).map(compact);
-          const juneBrief = (briefs.items||[]).find(x=>x.month==='2026-06');
-          const juneAnchorIds = juneBrief?.source_card_ids || [];
-          const juneAnchors = juneAnchorIds.map(id=>cards.find(c=>c.id===id)).filter(Boolean).map(compact);
-          const terms = {
-            ess_contract_finance:['tolling','capacity','finance','financial','financing','COD','commercial operation','상업운전','계약','금융','용량계약','세액공제'],
-            ldes_duration:['LDES','long duration','long-duration','8시간','10시간','iron-air','CO₂','sodium','나트륨','철공기'],
-            localization_policy:['local','현지','1260H','FEOC','Battery Booster','critical mineral','핵심광물','수출통제','조달','대출'],
-            recycling_traceability:['recycled','recycling','재생원료','재활용','passport','패스포트','traceability','추적'],
-            ai_datacenter:['AI','data center','데이터센터','hyperscaler','하이퍼스케일러'],
-            pouch_film:['pouch','파우치','aluminum film','알루미늄 필름']
-          };
-          function hits(arr, words){return arr.filter(c=>{const s=[c.title,c.gate,c.fact,c.sub_cat,c.cat].join(' ').toLowerCase();return words.some(w=>s.includes(w.toLowerCase()));}).map(compact)}
-          const thematic = {};
-          for (const [k,v] of Object.entries(terms)) thematic[k]={may:hits(may,v),june:hits(june,v)};
-          const out={
-            generated_at:new Date().toISOString(),
-            baseline:{total_cards:data.total||cards.length,may_count:may.length,june_count:june.length,may_signal:countBy(may,'signal'),june_signal:countBy(june,'signal'),may_region:countBy(may,'region'),june_region:countBy(june,'region'),may_cat:countBy(may,'cat'),june_cat:countBy(june,'cat')},
-            may_top_high_count:mayTopHigh.length,
-            may_top_high:mayTopHigh,
-            june_anchor_count:juneAnchors.length,
-            june_anchors:juneAnchors,
-            thematic
-          };
-          fs.writeFileSync('runs/2026-09-16/pr380-may-june-delta-temp.json',JSON.stringify(out,null,2)+'\n');
-          console.log(JSON.stringify(out.baseline,null,2));
-          console.log('may_top_high_count', mayTopHigh.length, 'june_anchor_count', juneAnchors.length);
+          const fs=require('fs');
+          const data=JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
+          const cards=data.cards||[];
+          const ids=[
+            '2026-05-04_EU_01','2026-05-05_GL_01','2026-05-14_US_01','2026-05-27_KR_02',
+            '2026-05-29_GL_07','2026-05-27_EU_01','2026-05-13_US_01',
+            '2026-05-29_GL_06','2026-05-11_GL_06',
+            '2026-05-20_GL_04','2026-05-27_GL_01',
+            '2026-05-20_GL_02','2026-05-20_GL_08','2026-05-29_GL_02','2026-05-29_EU_01',
+            '2026-05-20_KR_01',
+            '2026-06-30_US_02','2026-06-10_EU_01','2026-06-11_KR_01'
+          ];
+          const compact=c=>({
+            id:c.id,date:c.date,region:c.region,cat:c.cat,sub_cat:c.sub_cat,signal:c.signal,
+            title:c.title,gate:c.gate,fact:c.fact,implication:c.implication,watchpoint:c.watchpoint,
+            fact_sources:c.fact_sources,related:c.related
+          });
+          const selected=ids.map(id=>cards.find(c=>c.id===id)).filter(Boolean).map(compact);
+          const missing=ids.filter(id=>!cards.some(c=>c.id===id));
+          fs.writeFileSync('runs/2026-09-16/pr380-chronology-proof-temp.json',JSON.stringify({count:selected.length,missing,cards:selected},null,2)+'\n');
+          console.log('selected',selected.length,'missing',missing);
           NODE
       - name: Commit report
         run: |
           git config user.name 'ihyowoen'
           git config user.email 'hyowoen@hotmail.com'
-          git add runs/2026-09-16/pr380-may-june-delta-temp.json
-          git commit -m 'chore: extract May to June delta audit'
+          git add runs/2026-09-16/pr380-chronology-proof-temp.json
+          git commit -m 'chore: extract chronology proof set'
           git push origin HEAD:chatgpt/rebuild-monthly-brief-2026-06

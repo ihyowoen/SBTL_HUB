@@ -1,0 +1,2095 @@
+{
+  "count": 19,
+  "missing": [],
+  "cards": [
+    {
+      "id": "2026-05-04_EU_01",
+      "date": "2026-05-04",
+      "region": "EU",
+      "cat": "ESS",
+      "sub_cat": "폴란드BESS최적화",
+      "signal": "high",
+      "title": "Axpo–R.Power 1.2GWh Poland BESS 최적화 계약 — minimum revenue floor 포함",
+      "gate": "이 사안은 유럽 BESS가 단순 EPC 개발을 넘어 수익 최적화와 minimum revenue floor 구조를 붙여 bankability를 보완하는 방향을 보여준다. Storage merchant revenue 변동성이 큰 시장에서는 floor·profit sharing 조건이 프로젝트 금융의 핵심 변수가 될 수 있다.",
+      "fact": "Axpo 공식 발표에 따르면 Axpo와 R.Power는 Poland의 300MW/1,200MWh BESS facility 1건을 최적화하는 장기계약을 체결했다. 발표는 계약이 상업운전 개시 시점부터 2038년 말까지 적용된다고 설명했다. 또한 계약 구조는 Axpo와 R.Power 간 profit-sharing mechanism에 minimum revenue guarantee floor를 결합한다고 밝혔다.",
+      "implication": [
+        "BESS 수익모델은 용량 확보보다 최적화 계약과 floor 구조를 통해 금융 가능성을 높이는 방향으로 진화하고 있다.",
+        "Poland BESS는 재생에너지 증가와 balancing market 참여를 연결하는 유럽 저장장치 투자 사례로 볼 수 있다.",
+        "다음 체크포인트는 COD 일정, floor 수준 공개 여부, ancillary service 수익 성과다."
+      ],
+      "fact_sources": [
+        {
+          "source_name": "Axpo official release",
+          "source_url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-r-power-sign-the-largest-optimisation-bess-deal-in-cent.html",
+          "claim": "Axpo and R.Power signed a long-term optimisation agreement for a single 300MW/1,200MWh BESS in Poland.",
+          "source_quote": "Axpo and R.Power have signed a long-term agreement to optimise a single 300 MW/1,200 MWh BESS facility in Poland",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material",
+          "source_published_date": "2026-05-04",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-04",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-07T14:20:00+09:00"
+        },
+        {
+          "source_name": "Axpo official release",
+          "source_url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-r-power-sign-the-largest-optimisation-bess-deal-in-cent.html",
+          "claim": "The agreement runs from commercial operation until end-2038.",
+          "source_quote": "This agreement will begin at the start of commercial operation and run until the end of 2038.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material",
+          "source_published_date": "2026-05-04",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-04",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-07T14:20:00+09:00"
+        },
+        {
+          "source_name": "Axpo official release",
+          "source_url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-r-power-sign-the-largest-optimisation-bess-deal-in-cent.html",
+          "claim": "The agreement uses profit sharing plus a minimum revenue guarantee floor.",
+          "source_quote": "It is based on a profit-sharing mechanism between Axpo and R.Power, combined with a minimum revenue guarantee (floor)",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material",
+          "source_published_date": "2026-05-04",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-04",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-07T14:20:00+09:00"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-05-05_GL_01",
+      "date": "2026-05-05",
+      "region": "GL",
+      "cat": "PowerGrid",
+      "sub_cat": "태양광연계BESS",
+      "signal": "high",
+      "title": "Longroad Sun Pond 상업운전 — Arizona 111MWdc 태양광·85MW/340MWh BESS",
+      "gate": "이 사안은 BESS가 단독 저장장치가 아니라 태양광 PPA와 묶여 공급계약을 수행하는 구조라는 점이 중요하다. California CCA 수요와 Arizona 발전·저장 자산이 연결되면서 지역 간 재생에너지 조달 모델을 보여준다.",
+      "fact": "Longroad Energy 발표에 따르면 Sun Pond 프로젝트는 111MWdc 태양광과 85MWac/340MWh 배터리 저장장치로 구성되며 상업운전을 달성했다. 발표는 Ava Community Energy와 San José Clean Energy가 장기 PPA를 통해 이 프로젝트의 출력을 계약했다고 설명했다. 또한 프로젝트가 연간 약 3만5,000가구에 전력을 공급할 수 있다고 밝혔다.",
+      "implication": [
+        "태양광+저장 프로젝트는 전력 판매 계약과 함께 상업운전이 확인될 때 실제 공급 자산으로 의미가 커진다.",
+        "CCA 수요와 BESS 결합은 피크 시간대 공급 신뢰성을 보완하는 구조로 관찰된다.",
+        "다음 체크포인트는 실제 방전 프로파일, PPA 공급 성과, Sun Streams complex 후속 프로젝트다."
+      ],
+      "fact_sources": [
+        {
+          "source_name": "Longroad Energy PRNewswire release",
+          "source_url": "https://www.prnewswire.com/news-releases/longroad-energys-sun-pond-solar--storage-project-achieves-commercial-operations-302762010.html",
+          "claim": "Longroad announced Sun Pond achieved commercial operations.",
+          "source_quote": "Sun Pond, its 111 MWdc solar and 85 MWac / 340 MWh storage project, has achieved commercial operations",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_body_excerpt",
+          "source_published_date": "2026-05-05",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-05",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-07T14:20:00+09:00"
+        },
+        {
+          "source_name": "Longroad Energy PRNewswire release",
+          "source_url": "https://www.prnewswire.com/news-releases/longroad-energys-sun-pond-solar--storage-project-achieves-commercial-operations-302762010.html",
+          "claim": "The project has PPAs with Ava Community Energy and San José Clean Energy.",
+          "source_quote": "Ava Community Energy (Ava) and San José Clean Energy (SJCE) have contracted for the output of Sun Pond via long-term Power Purchase Agreements",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt",
+          "source_published_date": "2026-05-05",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-05",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-07T14:20:00+09:00"
+        },
+        {
+          "source_name": "Longroad Energy PRNewswire release",
+          "source_url": "https://www.prnewswire.com/news-releases/longroad-energys-sun-pond-solar--storage-project-achieves-commercial-operations-302762010.html",
+          "claim": "The project will power approximately 35,000 average American homes annually.",
+          "source_quote": "The project will generate enough electricity annually to power approximately 35,000 average American homes",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt",
+          "source_published_date": "2026-05-05",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-05",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-07T14:20:00+09:00"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-05-14_US_01",
+      "date": "2026-05-14",
+      "region": "US",
+      "cat": "ESS",
+      "sub_cat": "ESS프로젝트금융",
+      "signal": "top",
+      "title": "Sunraycer, 텍사스 태양광+저장 3개 프로젝트에 9억100만 달러 금융 종결",
+      "gate": "텍사스 전력수요 증가와 코퍼레이트 PPA 수요가 태양광+저장 프로젝트 파이낸싱으로 연결된 사례다. 9억100만 달러 금융 패키지는 건설대출·텀론·세액공제 브리지·신용장으로 구성돼, IRA 이후 미국 재생+저장 포트폴리오 금융의 전형을 보여준다.",
+      "fact": "Sunraycer Renewables는 텍사스의 3개 태양광+저장 프로젝트에 대해 9억100만 달러 프로젝트 파이낸싱을 종결했다. 포트폴리오는 태양광 479.5MWac와 2시간 지속 BESS 236.5MW/473MWh로 구성되며, MUFG·Ally·Nomura·Nord/LB·Societe Generale가 금융기관으로 참여했다. Lupinus 1과 Lupinus 2는 2026년 3월 구글과 장기 PPA를 체결했고, Eagle Springs는 2026년 말 가동 예정이다.",
+      "implication": [
+        "구글 PPA가 붙은 태양광+저장 포트폴리오는 데이터센터 전력수요가 프로젝트 금융 조달력으로 전환되는 구조를 보여준다.",
+        "2시간 BESS는 텍사스 피크 대응과 태양광 출력 보정에 초점을 둔 설계로, 장주기 저장과 다른 수익모델 비교 기준이 된다.",
+        "Eagle Springs의 2026년 말 COD와 Lupinus 1·2의 2027년 말 일정, 세액공제 브리지 회수 구조가 다음 체크포인트다."
+      ],
+      "fact_sources": [
+        {
+          "source_name": "pv magazine USA",
+          "source_url": "https://pv-magazine-usa.com/2026/05/15/sunraycer-renewables-closes-901-million-financing-for-473-mwh-bess-portfolio-in-texas/",
+          "claim": "Sunraycer Renewables가 텍사스 3개 태양광+저장 프로젝트(태양광 479.5MWac, BESS 236.5MW·2시간·473MWh)를 위한 9억100만 달러 프로젝트 파이낸싱을 종결했다.",
+          "source_quote": "closed a $901 million project financing package",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-15",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-05-15",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-29"
+        },
+        {
+          "source_name": "Renewable Watch",
+          "source_url": "https://renewablewatch.in/2026/05/18/sunraycer-renewables-secures-901-million-for-solar-and-bess-projects-in-texas/",
+          "claim": "Sunraycer는 2026년 3월 Lupinus 1·2 태양광 프로젝트에 대해 구글과 장기 전력구매계약(PPA) 2건을 체결했다.",
+          "source_quote": "executed two long-term power purchase agreements with Google for the Lupinus 1 and Lupinus 2",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-18",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-05-18",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-29"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-05-27_KR_02",
+      "date": "2026-05-27",
+      "region": "KR",
+      "cat": "ESS",
+      "sub_cat": "데이터센터ESS",
+      "signal": "high",
+      "title": "LG에너지솔루션, 미국 DTE에너지와 약 2.4조원 ESS 공급계약…오라클 AI 데이터센터 지원",
+      "gate": "EV 둔화 국면에서 AI 데이터센터 전력수요가 ESS 대형 수주로 직결되는 대표 사례로 평가된다. 미시간 현지생산 체계가 미국의 탈중국 조달 요구에 부합한다는 점이 수주 경쟁력의 근거다. 단 공급은 2년에 걸쳐 분할 인도된다.",
+      "fact": "LG에너지솔루션은 5월 27일(현지시간) DTE에너지와 총 6GWh·16억달러(약 2.4조원)·약 2년 ESS 배터리 공급계약을 체결했다고 밝혔다. 물량은 미시간주 8개 전력망 프로젝트에 투입되며 살린 타운십 오라클 AI 데이터센터 관련 사업을 포함하고, 지난해 6월 양산을 시작한 미시간 홀랜드 공장에서 생산된다.",
+      "implication": [
+        "AI 데이터센터 전력수요가 ESS의 구조적 수요축으로 부상하는 흐름이 관찰된다",
+        "미국 현지생산·탈중국 조달 요건이 셀 업체 수주 경쟁력의 핵심 변수가 될 수 있다",
+        "2년 분할 인도와 추가 전력망 프로젝트로의 확장 여부가 점검 대상이다"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "머니투데이",
+          "source_url": "https://www.mt.co.kr/stock/2026/05/28/2026052809261593281",
+          "claim": "LG에너지솔루션이 미국 DTE에너지와 2년간 총 6GWh·16억달러(약 2.4조원) ESS 배터리 공급계약을 체결했다",
+          "source_quote": "LG에너지솔루션은 미국 DTE에너지와 2년간 총 6GWh, 16억달러 규모 ESS 배터리 공급 계약을 체결했다고 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-06-13",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-28",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-05-28",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13"
+        },
+        {
+          "source_name": "인사이트코리아",
+          "source_url": "https://www.insightkorea.co.kr/news/articleView.html?idxno=247158",
+          "claim": "계약 물량은 미시간주 8개 전력망 프로젝트(살린 타운십 오라클 AI 데이터센터 포함)에 투입되며 미시간 홀랜드 공장에서 생산된다",
+          "source_quote": "이번 계약 물량은 미시간주에서 추진되는 8개 전력망 구축 프로젝트에 투입된다. 이 가운데는 살린 타운십에 들어서는 오라클의 AI 데이터센터 관련 프로젝트도 포함됐다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-13",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-27",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-27",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-05-29_GL_07",
+      "date": "2026-05-29",
+      "region": "GL",
+      "cat": "ESS",
+      "sub_cat": "장주기입찰",
+      "signal": "high",
+      "title": "호주 남호주 FERM 1차 입찰, 장주기 BESS 5.3GWh 낙찰…6개 프로젝트 선정",
+      "gate": "장주기·급전가능 용량을 장기계약으로 보장해 민간 투자를 끌어들이는 조달 사례로, 호주 LDES 본격화를 보여준다. 8시간 연속 방전 요건이 장주기 저장 수요의 근거다. 다만 프로젝트별 상업운전은 2028~2033년에 분산돼 있다.",
+      "fact": "AusServices(ASL)는 5월 29일 남호주 FERM 1차 입찰에서 6개 장주기 BESS(총 1,334MW/5,336MWh)가 FERMA를 낙찰했다고 발표했으며 Neoen·Iberdrola·Ampyr·Akaysha·ZEBRE가 포함됐다. 남호주 정부 성명에 따르면 이 조치로 주 배터리 저장능력이 1.1GW에서 2.5GW로 늘고, 낙찰 사업은 희소 상황에서 8시간 연속 방전을 보장해야 한다.",
+      "implication": [
+        "장기계약 기반 장주기 저장 조달이 민간 투자 유인의 모델로 확산될 가능성이 열린다",
+        "8시간 연속 방전 요건이 단주기 대비 장주기 기술 수요의 변수가 될 수 있다",
+        "프로젝트별 2028~2033 인도 일정의 이행이 점검 대상이다"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "Energy Storage (ess-news)",
+          "source_url": "https://www.ess-news.com/2026/05/29/5-3-gwh-of-long-duration-capacity-bess-awarded-in-australias-ferm-tender-1/",
+          "claim": "호주 남호주 FERM 1차 입찰에서 장주기 BESS 6개(총 1,334MW/5,336MWh)가 FERMA를 낙찰했으며 Neoen·Iberdrola·Ampyr·Akaysha·ZEBRE가 포함됐다",
+          "source_quote": "AusServices Ltd has announced six long duration BESS projects totalling 1,334 MW / 5,336 MWh have been awarded Firm Energy Reliability Mechanism Agreements in South Australia's FERM Tender Round 1.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-06-13",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13"
+        },
+        {
+          "source_name": "Enerdata",
+          "source_url": "https://www.enerdata.net/publications/daily-energy-news/south-australia-supports-13-gw53-gwh-bess-capacity-first-ferm-tender.html",
+          "claim": "남호주 정부 성명(5/29)에 따르면 이 조치로 주 배터리 저장능력이 1.1GW에서 2.5GW로 늘며 낙찰 사업은 8시간 연속 방전을 보장해야 한다",
+          "source_quote": "According to the government statement of 29/05/2026, the initiative will increase South Australia's battery storage capacity from 1.1GW to 2.5GW; successful developers must ensure capacity can be dispatched continuously for eight hours.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-13",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-05-27_EU_01",
+      "date": "2026-05-27",
+      "region": "EU",
+      "cat": "Policy",
+      "sub_cat": "계통요금",
+      "signal": "high",
+      "title": "독일 규제기관, 저장 계통요금 체계 예비안 공개…2029년 면제 유지·소급 배제",
+      "gate": "면제 조기 종료·소급 적용 우려가 해소되며 저장 투자 불확실성이 걷힌 결정으로 평가된다. 에너지 기반 요금 부재·낮은 용량요금이 사업성 방어의 근거다. 다만 예비안 단계로 최종안은 연말로 예정돼 있다.",
+      "fact": "BNetzA는 5월 27일 계통요금 전면개편(AgNes) 예비안을 공개해, 2029년 8월 4일 이전 가동 BESS의 면제를 확정하고 소급 적용을 배제했으며 위원장 Klaus Müller가 이를 확인했다. 향후 저장은 에너지 기반 요금 없이 MW당 연 4~7천유로 용량요금을 부담하며(규정 발효 후 FID 적용), 업계는 이를 사실상 최선의 결과로 평가했다.",
+      "implication": [
+        "면제 유지·소급 배제로 독일 BESS 투자 신뢰가 회복되는 흐름이 관찰된다",
+        "용량요금 4~7천유로/MW 수준이 프로젝트 IRR에 미치는 영향이 변수가 될 수 있다",
+        "예비안에서 연말 최종안으로의 확정 여부가 점검 대상이다"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "Energy-Storage.News",
+          "source_url": "https://www.energy-storage.news/german-government-confirms-august-2029-grid-fee-exemption-date-for-storage-but-sets-2027-fid-deadline/",
+          "claim": "독일 BNetzA가 2029년 8월 4일 이전 가동 BESS의 계통요금 면제를 확정하고 소급 적용은 배제했으며, BNetzA 위원장 Klaus Müller가 이를 확인했다",
+          "source_quote": "Germany's energy system regulator has confirmed that BESS projects coming online by 4 August 2029 will be exempt from charging and discharging grid fees; Bundesnetzagentur president Klaus Muller confirmed the news.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-06-13",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-27",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-27",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13"
+        },
+        {
+          "source_name": "Modo Energy",
+          "source_url": "https://modoenergy.com/research/germany-grid-fees-agnes-netzentgelte-bess-batteries-bnetza-update-capacity-fees-may-2026",
+          "claim": "BNetzA가 5월 27일 AgNes 예비안을 공개했으며 에너지 기반 요금 없이 MW당 연 4~7천유로 용량요금을 확정해 저장에 사실상 최선의 결과로 평가된다",
+          "source_quote": "On 27 May 2026 the regulator BNetzA published its preliminary views on the AgNes framework: a capacity fee of EUR 4-7k/MW/year with no energy-based component, representing a near-best-case outcome for battery energy storage.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-13",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-27",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-27",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-05-13_US_01",
+      "date": "2026-05-13",
+      "region": "US",
+      "cat": "ESS",
+      "sub_cat": "장주기ESS디벨로퍼출범",
+      "signal": "high",
+      "title": "Frontier Power USA 출범 — Cerberus $100M + Eos $150M, 미국 long-duration BESS 디벨로퍼",
+      "gate": "미국 자체 long-duration storage 디벨로퍼·금융 패키지 구조화 사례",
+      "fact": "Frontier Power USA 출범 공식 발표(5/13). 미국 utility-scale 장주기 storage 인프라 가속 deployment 목적의 신규 development+investment platform. Cerberus Capital Management 가 $100M 직접 equity 투자, Eos Energy Enterprises(NASDAQ:EOSE) 가 proportional rights offering 으로 약 $150M 추가 investment. Frontier 는 Eos 의 수직통합 기술 스택을 활용해 American-made energy storage 의 gigawatt-scale 배치 가속. ~$1.5B project-based 15년 non-cancellable technology performance insurance (TPI) policy framework 확보로 lender 신뢰 확보. Eos 의 zinc bromide 화학을 기반으로 LFP 보다 longer-duration (≥6시간) 시장 타깃.",
+      "implication": [
+        "미국 long-duration storage 시장의 자체 디벨로퍼·금융 패키지 구조화 사례 — 한국 BESS 디벨로퍼/EPC 의 USA market 진입 시 reference.",
+        "Eos 의 non-Li chemistry (zinc bromide) 가 미국에서 institutional capital 을 끌어내는 신호 — chemistry diversification 의 commercial 확인.",
+        "TPI insurance framework 패턴은 한국 BESS 사업의 PF 구조 설계에 reference (한국 BESS 도 보험·warranty 패키지 구조화 가속 필요)."
+      ],
+      "fact_sources": [
+        {
+          "claim": "Frontier Power USA 출범, Cerberus $100M + Eos $150M",
+          "source_url": "https://www.globenewswire.com/news-release/2026/05/13/3293859/0/en/Frontier-Power-USA-Formed-to-Accelerate-Deployment-of",
+          "source_quote": "Frontier has received a $100 million direct equity commitment from Cerberus Capital Management L.P. ('Cerberus') and is expecting to receive an approximately $150 million equity investment from Eos Energy Enterprises (NASDAQ: EOSE)",
+          "fetched_at": "2026-05-14T11:31:31.260288+09:00",
+          "source_published_date": "2026-05-13",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-05-13",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-14T11:31:31.260288+09:00"
+        },
+        {
+          "claim": "$1.5B 15년 non-cancellable TPI policy",
+          "source_url": "https://www.globenewswire.com/news-release/2026/05/13/3293859/0/en/Frontier-Power-USA-Formed-to-Accelerate-Deployment-of",
+          "source_quote": "Frontier has secured a ~$1.5 billion, project-based, 15 year-non cancellable technology performance insurance ('TPI') policy framework",
+          "fetched_at": "2026-05-14T11:31:31.260288+09:00",
+          "source_published_date": "2026-05-13",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-05-13",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-14T11:31:31.260288+09:00"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-05-29_GL_06",
+      "date": "2026-05-29",
+      "region": "GL",
+      "cat": "ESS",
+      "sub_cat": "BESS인수",
+      "signal": "high",
+      "title": "Nextpower, Prevalon 인수로 유틸리티급 BESS·AI 데이터센터 시장 진출",
+      "gate": "태양광 트래커 강자가 M&A로 유틸리티급 BESS·AI 데이터센터 전력 사업에 진입하는 사례로 해석된다. Prevalon의 배치 실적·AI 데이터센터 확정계약이 인수 근거다. 다만 거래는 반독점 등 종결조건을 남겨두고 있다.",
+      "fact": "Nextpower(Nasdaq:NXT)는 미쓰비시파워·EES 합작사인 Prevalon Energy를 최대 3.65억달러(현금+주식)에 인수하는 확정계약을 체결했다. Prevalon은 전세계 6GWh BESS 배치와 AI·하이퍼스케일 데이터센터용 1.3GW 확정 공급계약을 보유하며, 거래는 반독점 심사 등 통상 종결조건을 따른다(회사는 FY2027 가이던스를 상향).",
+      "implication": [
+        "태양광 기업의 저장·AI 데이터센터 전력 사업 확장이 시장구조 변화의 변수가 될 수 있다",
+        "Prevalon의 1.3GW AI 데이터센터 계약이 수요축 전환의 근거로 관찰된다",
+        "반독점 심사 등 거래 종결 조건의 충족 여부가 점검 대상이다"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "Business Wire (Nextpower)",
+          "source_url": "https://investors.nextracker.com/news/news-details/2026/Nextpower-Announces-Entry-into-Battery-Energy-Storage-BESS-and-AI-Data-Center-Markets-with-Definitive-Agreement-to-Acquire-Prevalon-Energy-Increases-Fiscal-Year-2027-Outlook/default.aspx",
+          "claim": "Nextpower(Nasdaq:NXT)가 BESS 통합기업 Prevalon Energy를 최대 3.65억달러에 인수하는 확정계약을 체결해 유틸리티급 BESS·AI 데이터센터 시장에 진입한다",
+          "source_quote": "Nextpower has entered into a definitive agreement to acquire Prevalon Energy, a U.S.-headquartered joint venture between Mitsubishi Power Americas and EES, for total consideration of up to $365 million, comprising cash and stock.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-06-13",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13"
+        },
+        {
+          "source_name": "PV Tech",
+          "source_url": "https://www.pv-tech.org/nextpower-enters-utility-scale-bess-market-with-prevalon-acquisition/",
+          "claim": "Prevalon은 전세계 6GWh BESS 배치와 AI·하이퍼스케일 데이터센터용 1.3GW 확정 공급계약을 보유하며, 거래는 반독점 심사 등 종결조건을 따른다",
+          "source_quote": "Prevalon has over 6 GWh of BESS systems deployed globally and 1.3 GW of firm supply contracts supporting AI and hyperscaler data center infrastructure; closing is subject to customary conditions including antitrust review.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-13",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-05-11_GL_06",
+      "date": "2026-05-11",
+      "region": "GL",
+      "cat": "ESS",
+      "sub_cat": "AI인프라BESS연계",
+      "signal": "mid",
+      "title": "Energy Vault Q1 매출 +156%, AI 인프라 PPA 본격 추진",
+      "gate": "BESS 디벨로퍼·인테그레이터의 AI 데이터센터 PPA 신규 수요",
+      "fact": "BESS 디벨로퍼·시스템 인테그레이터 Energy Vault 의 Q1 2026 매출이 $21.9M 으로 전년 동기 $8.5M 대비 +156% 증가했다고 5월 5일 공시. 매출 성장은 ESS 제품 납품과 Asset Vault(자체 BESS 자산 개발·소유·운영 자회사) 자산 운영 기여. Asset Vault 자산은 2025년 중반부터 가동. Q1 2026 조정 매출총이익은 $6.1M(+25%). 회사는 AI 인프라 PPA(power purchase agreement) 거래 추진을 명시. 호주·일본 사업 확장.",
+      "implication": [
+        "BESS 인테그레이터가 자체 자산 보유·운영 모델로 전환 — 매출 + 반복적 자산 수익 결합 사례. 한국 BESS 사업자(LS ELECTRIC, 한화솔루션 등) 비즈니스 모델 reference.",
+        "AI 데이터센터 부지 power purchase 에 BESS 가 inclusion 되는 패턴 — Energy Vault 가 명시적으로 추진. 한국 BESS·전력 사업자에게 AI 인프라 시장 진입 시그널."
+      ],
+      "fact_sources": [
+        {
+          "claim": "Energy Vault Q1 2026 매출 $21.9M, +156% YoY",
+          "source_url": "https://www.energy-storage.news/energy-vault-reaffirms-2026-guidance-sets-sights-on-ai-infrastructure-ppa-deals",
+          "source_quote": "Q1 2026 revenue, presented 5 May, was US$21.9 million, compared to US$8.5 million in Q1 2025, a 156% increase.",
+          "fetched_at": "2026-05-13T15:46:11.463732+09:00",
+          "source_published_date": "2026-05-11",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-11",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-13T15:46:11.463732+09:00"
+        },
+        {
+          "claim": "AI 인프라 활동 확대, Asset Vault BESS 직접 보유·운영",
+          "source_url": "https://www.energy-storage.news/energy-vault-reaffirms-2026-guidance-sets-sights-on-ai-infrastructure-ppa-deals",
+          "source_quote": "Energy Vault has released its Q1 2026 financial results, showing expansion in its project portfolio, AI infrastructure activities, and operations in Australia and Japan... Asset Vault is the company's wholly owned subsidiary for developing, constructing, owning, and managing BESS assets globally",
+          "fetched_at": "2026-05-13T15:46:11.463732+09:00",
+          "source_published_date": "2026-05-11",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-11",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-13T15:46:11.463732+09:00"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-05-20_GL_04",
+      "date": "2026-05-20",
+      "region": "GL",
+      "cat": "Battery",
+      "sub_cat": "차세대배터리·나트륨이온·전고체",
+      "signal": "high",
+      "title": "IEA 차세대 배터리 — 나트륨이온은 보완재, 전고체는 아직 실증 전",
+      "gate": "차세대 배터리는 당장 리튬이온·LFP를 대체하는 단일 승자가 아니라 용도별 보완재로 봐야 한다. 나트륨이온은 저온 성능과 리튬 가격 리스크 완화 장점이 있지만 단거리·저가·저온·ESS 용도에 먼저 맞고, 전고체는 프리미엄·고성능 시장에서 검증을 거쳐야 하는 장기 옵션에 가깝다.",
+      "fact": "IEA Global EV Outlook 2026의 Chapter 5는 나트륨이온 배터리가 스케일업 단계에 들어갔다고 보면서도, 최신 나트륨이온 셀의 에너지밀도는 최대 175Wh/kg으로 최신 LFP 205Wh/kg, NMC 265Wh/kg보다 낮다고 설명했다. 평균 SUV 기준 주행거리는 나트륨이온 최대 350km, 리튬이온 400~600km로 비교됐다. IEA는 나트륨이온이 소형 전기차, 도심용 LCV, 이륜·삼륜차, 지게차, stationary storage에 더 적합하다고 봤고, hard carbon 공급망이 아직 미성숙하며 중국에 집중되어 있다고 지적했다. 현 나트륨이온 셀 제조능력은 리튬이온 셀의 1% 조금 넘는 수준이고, 2030년 발표 프로젝트도 같은 해 committed 리튬이온 제조능력의 약 7%에 그친다. 전고체 배터리는 장거리와 안전성 기대가 있으나 real-world application에서 아직 입증되지 않았고, all-SSB는 제조가 복잡하고 비용이 높으며 EV 팩 적용 때 높은 압력 등 기계적 요구조건이 까다롭다고 설명됐다. Toyota는 2028년 전고체 차량 출시, BYD는 2027년 첫 all-SSB EV와 2030년 양산, 삼성도 유사한 생산 일정을 제시한 것으로 정리됐다.",
+      "implication": [
+        "나트륨이온은 리튬이온을 전면 대체하기보다 저온·단거리·저가·ESS 영역에서 보완재로 먼저 자리 잡을 가능성이 높다.",
+        "전고체는 안전성·고성능 기대가 크지만, 제조비·공정·팩 통합 조건 때문에 대중 EV 시장의 단기 게임체인저로 단정하기 어렵다.",
+        "파우치·소재 기업에는 특정 화학 하나에 베팅하기보다 고객사가 요구하는 안전성, 열관리, 내구성, 폼팩터 대응성을 화학별로 검증하는 전략이 필요하다."
+      ],
+      "fact_sources": [
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Chapter 5",
+          "claim": "나트륨이온 셀은 최대 175Wh/kg으로 LFP·NMC보다 에너지밀도가 낮다.",
+          "source_quote": "up to 175 Wh/kg",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-31T00:18:45+09:00",
+          "fetch_method": "official_iea_report_pdf_parse",
+          "source_locator": "uploaded_pdf:GlobalEVOutlook2026.pdf.pdf#page=101",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T00:18:45+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Chapter 5",
+          "source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "claim": "나트륨이온은 소형 전기차, 도심용 LCV, 이륜·삼륜차, 산업장비, stationary storage에 적합하다고 평가됐다.",
+          "source_quote": "better suited for small-range electric cars",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T00:18:45+09:00",
+          "fetch_method": "official_iea_report_pdf_parse",
+          "source_locator": "uploaded_pdf:GlobalEVOutlook2026.pdf.pdf#page=101",
+          "visible_source_list": true,
+          "visible_source_reason": "core_visible_source_2_to_3_policy",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T00:18:45+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Chapter 5",
+          "claim": "나트륨이온 셀 제조능력은 리튬이온 셀의 1% 조금 넘는 수준이다.",
+          "source_quote": "just over 1% of that of lithium-ion cells",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-31T00:18:45+09:00",
+          "fetch_method": "official_iea_report_pdf_parse",
+          "source_locator": "uploaded_pdf:GlobalEVOutlook2026.pdf.pdf#page=101",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T00:18:45+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Chapter 5",
+          "claim": "전고체 배터리의 장점은 아직 실제 적용에서 입증되지 않았다.",
+          "source_quote": "not yet been demonstrated in real-world applications",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-31T00:18:45+09:00",
+          "fetch_method": "official_iea_report_pdf_parse",
+          "source_locator": "uploaded_pdf:GlobalEVOutlook2026.pdf.pdf#page=102",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T00:18:45+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Chapter 5",
+          "claim": "Toyota, BYD, 삼성 등은 전고체 배터리 생산·출시 일정을 제시했다.",
+          "source_quote": "Samsung has set similar timelines",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T00:18:45+09:00",
+          "fetch_method": "official_iea_report_pdf_parse",
+          "source_locator": "uploaded_pdf:GlobalEVOutlook2026.pdf.pdf#page=102",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T00:18:45+09:00"
+        },
+        {
+          "source_name": "Reuters / CATL sodium-ion",
+          "source_url": "https://www.reuters.com/world/asia-pacific/chinese-battery-maker-catl-signs-first-major-sodium-ion-deal-energy-storage-2026-04-28/",
+          "claim": "CATL은 나트륨이온 배터리의 첫 주요 계약을 체결해 ESS용 대량 공급 가능성을 보였다.",
+          "source_quote": "first major deal for sodium-ion batteries",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T01:43:21+09:00",
+          "fetch_method": "web_search_and_open_source_diversity_pass_20260531",
+          "source_locator": "Reuters lines 184-190",
+          "visible_source_list": true,
+          "visible_source_reason": "core_visible_source_2_to_3_policy",
+          "source_published_date": "2026-04-28",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-04-28",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T01:43:21+09:00"
+        },
+        {
+          "source_name": "Reuters / CATL sodium-ion",
+          "claim": "CATL은 Beijing HyperStrong Technology에 3년간 60GWh의 나트륨이온 배터리를 공급하기로 했다.",
+          "source_quote": "60 gigawatt-hours (GWh)",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T01:43:21+09:00",
+          "fetch_method": "web_search_and_open_source_diversity_pass_20260531",
+          "source_locator": "Reuters line 185",
+          "hidden_source_url": "https://www.reuters.com/world/asia-pacific/chinese-battery-maker-catl-signs-first-major-sodium-ion-deal-energy-storage-2026-04-28/",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T01:43:21+09:00"
+        },
+        {
+          "source_name": "Reuters / CATL sodium-ion",
+          "claim": "Reuters는 나트륨이온 배터리를 리튬이온 대비 저비용·안전 대안으로 설명했다.",
+          "source_quote": "lower-cost, safer alternative",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "sub",
+            "gate",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T01:43:21+09:00",
+          "fetch_method": "web_search_and_open_source_diversity_pass_20260531",
+          "source_locator": "Reuters lines 184-193",
+          "hidden_source_url": "https://www.reuters.com/world/asia-pacific/chinese-battery-maker-catl-signs-first-major-sodium-ion-deal-energy-storage-2026-04-28/",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T01:43:21+09:00"
+        }
+      ],
+      "related": [
+        "2026-05-20_GL_02",
+        "2026-05-20_GL_03",
+        "2026-05-20_GL_07"
+      ]
+    },
+    {
+      "id": "2026-05-27_GL_01",
+      "date": "2026-05-27",
+      "region": "GL",
+      "cat": "Battery",
+      "sub_cat": "고체전지상장",
+      "signal": "high",
+      "title": "고체전지 ProLogium, 미국 나스닥 SPAC 최종합병 계약 체결…기업가치 약 38억달러",
+      "gate": "고체전지 선두 기업이 SPAC 합병으로 상장·증설 자금을 조달하는 사례로, 차세대 배터리의 자본시장 접근을 보여준다. TDAC 신탁·PIPE가 자금 근거다. 다만 거래 종료는 양사 주주·규제 승인을 전제로 하반기로 예정돼 있다.",
+      "fact": "ProLogium은 5월 27일 SPAC TDAC와 최종 합병계약을 체결했으며 합병법인은 ProLogium Technology로 나스닥(PRLG)에 상장될 예정이고 기업가치는 약 38억달러(pre-money)다. 합병으로 최소 2.5억달러 신규자본(TDAC 신탁 약 1.725억달러+PIPE)을 확보해 4세대 고체전지 증설과 프랑스 됭케르크 기가팩토리 건설에 쓰며, 종료는 2026년 하반기로 예정됐다.",
+      "implication": [
+        "고체전지 기업의 SPAC 상장이 차세대 배터리 자본조달 경로로 부상할 가능성이 열린다",
+        "4세대 고체전지 증설·됭케르크 기가팩토리 진척이 상용화의 핵심 변수가 될 수 있다",
+        "주주·규제 승인 등 하반기 거래 종료 조건의 충족 여부가 점검 대상이다"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "ProLogium",
+          "source_url": "https://prologium.com/prologium-a-next-generation-solid-state-battery-developer-with-10-years-of-proven-commercialization-to-list-on-the-nasdaq-through-a-merger-with-translational-development-acquisition-corp/",
+          "claim": "고체전지 기업 ProLogium이 5월 27일 SPAC TDAC와 최종 합병계약을 체결해 나스닥(PRLG) 상장을 추진하며 기업가치는 약 38억달러(pre-money)다",
+          "source_quote": "ProLogium, a next-generation solid-state battery developer, will list on the Nasdaq through a merger with Translational Development Acquisition Corp.; the transaction values ProLogium at approximately $3.8 billion on a pre-money basis, expected to close in the second half of 2026.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-06-13",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-27",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-27",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13"
+        },
+        {
+          "source_name": "electrive",
+          "source_url": "https://www.electrive.com/2026/05/28/prologium-targets-spac-merger-to-fund-french-battery-plant/",
+          "claim": "합병으로 최소 2.5억달러 신규자본(TDAC 신탁 약 1.725억달러+PIPE)을 확보해 4세대 고체전지 증설과 프랑스 됭케르크 기가팩토리 건설 자금에 쓴다",
+          "source_quote": "The merger is expected to provide ProLogium with at least $250 million in new capital, around $172.5 million from TDAC's trust assets, to scale 4th-generation solid-state batteries and advance the Dunkirk gigafactory.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-13",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-28",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-05-28",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-05-20_GL_02",
+      "date": "2026-05-20",
+      "region": "GL",
+      "cat": "Battery",
+      "sub_cat": "EV배터리·LFP·공급망",
+      "signal": "top",
+      "title": "IEA 배터리 전망 — EV 배터리 1.2TWh, LFP 55% 돌파에도 공급망은 중국에 묶였다",
+      "gate": "EV 판매량보다 배터리 가치사슬의 압력 지점을 보는 카드다. 배터리 가격은 내려갔지만 그 이면에는 LFP 확산, 중국 가격 격차, 양극재 손실, 한국·일본 업체의 마진 압박, 미국 정책 인센티브 의존, 중국 중심 소재·셀 공급망 집중이 동시에 깔려 있다. 즉, 저가 배터리 시대의 핵심 리스크는 수요 부족보다 ‘누가 소재·셀·가격결정력을 쥐고 있는가’다.",
+      "fact": "IEA Global EV Outlook 2026의 전기차 배터리 장은 2025년 EV 배터리 deployment가 1.2TWh에 도달해 전년 대비 거의 30% 증가했고, 2020년 대비 7배 이상 커졌다고 밝혔다. EV는 2025년 전체 배터리 deployment의 70% 이상을 차지했으며, 경량차가 EV 배터리 deployment의 85% 이상을 담당했다. 가장 빠른 성장축은 전기트럭으로, 전기트럭 배터리 수요는 중국 판매 급가속에 힘입어 두 배 이상 늘었고 글로벌 EV 배터리 deployment의 약 8%를 차지했다. 배터리 평균 가격은 2025년 8% 하락했지만, 리튬 가격은 2026년 초 전년 동기 대비 두 배 이상 높았고 코발트 가격도 전년 대비 두 배가 됐다. LFP 배터리팩은 2025년 kWh당 평균 가격이 NMC 대비 40% 이상 낮았고, LFP는 글로벌 EV 배터리 deployment의 55% 이상을 차지했다. 다만 LFP deployment는 여전히 중국에 집중되어 있으며, EU 내 LFP 수요의 거의 전부는 중국에서 직접 수입되거나 LFP 탑재 EV에 내장된 형태로 유입됐다. IEA는 LFP 양극재와 전구체 생산이 여전히 거의 전적으로 중국에 집중되어 있고, 이 구조적 불균형을 바꾸려면 전체 배터리 가치사슬에 걸친 대규모 투자와 국제협력이 필요하다고 평가했다. 또한 글로벌 리튬이온 배터리 명목 제조능력은 2025년 말 4TWh를 넘었지만 중국이 80% 이상을 차지했고, 중국·유럽·북미가 2023~2025년 글로벌 생산의 약 95%를 차지했다.",
+      "implication": [
+        "LFP 확산은 배터리 원가를 낮췄지만, 중국 중심 소재·셀 공급망 의존을 더 강하게 만들었다. 가격경쟁력과 공급망 회복탄력성은 같은 방향으로 움직이지 않는다.",
+        "배터리 소재·부품 기업에는 단순한 EV 판매 성장보다 고객사의 중국 의존도 축소, 현지화, 소재 인증, 장기 공급 안정성 요구가 더 직접적인 영업 변수다.",
+        "SBTL 관점에서는 ‘저가 LFP 확산’ 자체를 위협으로만 볼 게 아니라, 중국 외 공급망에서 요구되는 품질 안정성, 파우치 신뢰성, 고출력·장수명 환경 대응 데이터를 확보하는 방향으로 포지셔닝해야 한다."
+      ],
+      "fact_sources": [
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Electric vehicle batteries",
+          "claim": "2025년 EV 배터리 deployment는 1.2TWh에 도달해 전년 대비 거의 30% 증가했고 2020년 대비 7배 이상 커졌다.",
+          "source_quote": "In 2025, EV battery deployment reached 1.2 TWh, an increase of almost 30% compared to 2024",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-30T13:44:11+09:00",
+          "fetch_method": "official_iea_report_section",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-30T13:44:11+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Electric vehicle batteries",
+          "claim": "2025년 EV는 전체 배터리 deployment의 70% 이상을 차지했고 경량차가 EV 배터리 deployment의 85% 이상을 담당했다.",
+          "source_quote": "EVs remained the primary source of global battery deployment, accounting for more than 70% of the total in 2025",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-30T13:44:11+09:00",
+          "fetch_method": "official_iea_report_section",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-30T13:44:11+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Electric vehicle batteries",
+          "claim": "전기트럭 배터리 수요는 2025년 두 배 이상 증가했고 글로벌 EV 배터리 deployment의 약 8%를 차지했다.",
+          "source_quote": "the fastest growth came from electric trucks, for which battery demand more than doubled",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-30T13:44:11+09:00",
+          "fetch_method": "official_iea_report_section",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-30T13:44:11+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Electric vehicle batteries",
+          "claim": "2025년 평균 배터리 가격은 8% 하락했지만 리튬과 코발트 가격 상승은 비용 압력으로 남았다.",
+          "source_quote": "Average battery prices declined by 8% in 2025",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-30T13:44:11+09:00",
+          "fetch_method": "official_iea_report_section",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-30T13:44:11+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Electric vehicle batteries",
+          "claim": "2025년 LFP 배터리팩은 kWh당 평균 가격이 NMC 대비 40% 이상 낮았다.",
+          "source_quote": "In 2025, LFP battery packs were more than 40% cheaper on average than lithium nickel manganese cobalt oxide (NMC) alternatives per kWh",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-30T13:44:11+09:00",
+          "fetch_method": "official_iea_report_section",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-30T13:44:11+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Electric vehicle batteries",
+          "claim": "2025년 LFP 배터리는 글로벌 EV 배터리 deployment의 55% 이상을 차지했다.",
+          "source_quote": "In 2025, LFP batteries accounted for over 55% of EV batteries deployed globally",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-30T13:44:11+09:00",
+          "fetch_method": "official_iea_report_section",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-30T13:44:11+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Electric vehicle batteries",
+          "source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "claim": "EU 내 LFP 배터리 수요의 거의 전부는 중국에서 직접 수입되거나 LFP 탑재 EV에 내장된 형태로 유입됐다.",
+          "source_quote": "Nearly all of these batteries were imported from China, either directly (30%) or embedded in LFP-equipped EVs (nearly 70%)",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-30T13:44:11+09:00",
+          "fetch_method": "official_iea_report_section",
+          "visible_source_list": true,
+          "visible_source_reason": "core_visible_source_2_to_3_policy",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-30T13:44:11+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Electric vehicle batteries",
+          "claim": "LFP 양극재와 전구체 생산은 거의 전적으로 중국에 집중되어 있어 공급 다변화의 핵심 제약으로 남아 있다.",
+          "source_quote": "Production of LFP cathode materials and their precursors is still almost entirely concentrated in China",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-30T13:44:11+09:00",
+          "fetch_method": "official_iea_report_section",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-30T13:44:11+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Electric vehicle batteries",
+          "claim": "글로벌 리튬이온 배터리 명목 제조능력은 2025년 말 4TWh를 넘었고 중국이 80% 이상을 차지했다.",
+          "source_quote": "Global nameplate manufacturing capacity for lithium-ion batteries reached more than 4 TWh by the end of 2025",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-30T13:44:11+09:00",
+          "fetch_method": "official_iea_report_section",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-30T13:44:11+09:00"
+        },
+        {
+          "source_name": "Reuters / SNE Research",
+          "source_url": "https://www.reuters.com/world/asia-pacific/chinas-catl-beats-estimates-profit-growth-quickens-2026-03-09/",
+          "claim": "SNE Research 기준 CATL은 2025년 글로벌 EV 배터리 사용량 39.2% 점유율로 1위, BYD는 16.4%였다.",
+          "source_quote": "39.2% share of global EV battery usage",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T01:43:21+09:00",
+          "fetch_method": "web_search_and_open_source_diversity_pass_20260531",
+          "source_locator": "Reuters line 199",
+          "visible_source_list": true,
+          "visible_source_reason": "core_visible_source_2_to_3_policy",
+          "source_published_date": "2026-03-09",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-03-09",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T01:43:21+09:00"
+        },
+        {
+          "source_name": "Reuters / SNE Research",
+          "claim": "SNE Research 기준 BYD의 2025년 글로벌 EV 배터리 사용량 점유율은 16.4%였다.",
+          "source_quote": "16.4%",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T01:43:21+09:00",
+          "fetch_method": "web_search_and_open_source_diversity_pass_20260531",
+          "source_locator": "Reuters line 199",
+          "hidden_source_url": "https://www.reuters.com/world/asia-pacific/chinas-catl-beats-estimates-profit-growth-quickens-2026-03-09/",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T01:43:21+09:00"
+        },
+        {
+          "source_name": "Reuters / Benchmark Mineral Intelligence",
+          "source_url": "https://www.reuters.com/markets/commodities/battery-cell-prices-fall-record-low-september-says-report-2024-10-30/",
+          "claim": "Benchmark Mineral Intelligence는 2024년 9월 LFP 셀 가격이 kWh당 59달러까지 하락했다고 봤다.",
+          "source_quote": "$59 per kilowatt hour",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T01:43:21+09:00",
+          "fetch_method": "web_search_and_open_source_diversity_pass_20260531",
+          "source_locator": "Reuters lines 181-190",
+          "visible_source_list": true,
+          "visible_source_reason": "core_visible_source_2_to_3_policy",
+          "source_published_date": "2024-10-30",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2024-10-30",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T01:43:21+09:00"
+        },
+        {
+          "source_name": "Reuters / Benchmark Mineral Intelligence",
+          "claim": "Benchmark Mineral Intelligence는 2024년 NCM 셀의 글로벌 가중평균 가격이 kWh당 68.6달러로 하락했다고 봤다.",
+          "source_quote": "$68.6 per kWh",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T01:43:21+09:00",
+          "fetch_method": "web_search_and_open_source_diversity_pass_20260531",
+          "source_locator": "Reuters line 192",
+          "hidden_source_url": "https://www.reuters.com/markets/commodities/battery-cell-prices-fall-record-low-september-says-report-2024-10-30/",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T01:43:21+09:00"
+        }
+      ],
+      "related": [
+        "2026-05-20_GL_03",
+        "2026-05-20_GL_01",
+        "2026-05-15_CN_01",
+        "2026-05-29_GL_02",
+        "2026-05-20_GL_04",
+        "2026-05-20_GL_07",
+        "2026-05-20_GL_08",
+        "2026-05-28_KR_01"
+      ]
+    },
+    {
+      "id": "2026-05-20_GL_08",
+      "date": "2026-05-20",
+      "region": "GL",
+      "cat": "SupplyChain",
+      "sub_cat": "제조무역·현지화·중국의존",
+      "signal": "top",
+      "title": "IEA 제조·무역 전망 — 중국은 줄지 않고, 미국·EU·EMDE는 현지화로 맞선다",
+      "gate": "EV 공급망 재편은 탈중국 한 줄로 끝나지 않는다. 중국은 2035년에도 AAM·CAM·배터리에서 최대 생산 허브로 남고, 미국은 수요 둔화와 배터리 공장 활용률 문제가 커지며, EU는 local content와 FDI 심사로 현지화를 밀고, EMDEs는 중국 수입과 현지 생산이 경쟁하는 구조로 이동한다.",
+      "fact": "IEA Global EV Outlook 2026의 Chapter 9 특별분석은 2025년 중국이 전기차 생산의 70%, 배터리 셀 생산의 80% 이상, electric car batteries용 CAM 생산의 약 85%, AAM 생산의 90% 이상을 차지했다고 정리했다. STEPS에서는 공급망이 다변화되지만 중국은 2035년에도 AAM 거의 90%, CAM 약 75%, 배터리 약 2/3를 공급하는 최대 허브로 남는다. 중국산 전기차는 2035년 advanced economies 판매의 4분의 1 이상, 약 600만대를 차지할 것으로 전망됐다. 미국은 정책 변화로 EV 수요와 생산 전망이 낮아졌고, STEPS 기준 2030년 수요가 20% 성장하더라도 전체 신차 판매의 10% 조금 넘는 수준에 그친다. 미국의 committed battery capacity는 2030년 기준 2035년 projected demand의 거의 두 배를 생산할 수 있으나, 실제 battery cell production은 2030년 350GWh 미만, 2035년 400GWh 조금 넘는 수준으로 전망됐다. EU는 Automotive Package와 Industrial Accelerator Act를 통해 EU 조립, 부품 원산지, 배터리 component origin 요건을 도입하려 하며, M1E 차량과 기업차·공공조달 수요가 IAA 요건의 영향을 받을 수 있다. EMDEs에서는 2025년 중국 외 신흥국 전기차 판매의 거의 2/3가 중국 수입이었지만, 2030년에는 중국 수출이 2025년 대비 70% 이상 늘어 120만대를 넘더라도 현지 생산 증가로 점유율은 40% 아래로 떨어지고, 2035년에는 25% 수준으로 낮아질 수 있다고 전망됐다. Battery project pipeline은 2030년 글로벌 deployment needs를 충족하기에 충분하나, 신규 시설은 nominal output에 근접하기까지 5년 이상 걸릴 수 있다.",
+      "implication": [
+        "중국 공급망은 약해지는 것이 아니라 고도화된 경쟁 압력으로 남는다. 다변화는 비용·수율·현지화 요건·정책지원이 모두 맞아야 가능하다.",
+        "EU의 local content와 미국의 non-PFE 공급망은 배터리 소재·부품 기업에 원산지, 생산지, 공급 안정성, 고객사 compliance 대응 능력을 요구한다.",
+        "SBTL 관점에서는 중국과 직접 가격경쟁하는 범용 소재가 아니라, 한국·일본·EU·미국 고객사의 현지화와 비중국 공급망 구축에 들어갈 수 있는 품질·인증·공급 안정성 패키지가 중요해진다."
+      ],
+      "fact_sources": [
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Chapter 9",
+          "claim": "2025년 중국은 전기차 생산 70%, 배터리 셀 생산 80% 이상, CAM 85%, AAM 90% 이상을 차지했다.",
+          "source_quote": "70% of electric car production",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T00:18:45+09:00",
+          "fetch_method": "official_iea_report_pdf_parse",
+          "source_locator": "uploaded_pdf:GlobalEVOutlook2026.pdf.pdf#page=228",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T00:18:45+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Chapter 9",
+          "claim": "2035년에도 중국은 AAM, CAM, 배터리의 최대 생산 허브로 남는다.",
+          "source_quote": "still the largest source of demand and production in 2035",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-31T00:18:45+09:00",
+          "fetch_method": "official_iea_report_pdf_parse",
+          "source_locator": "uploaded_pdf:GlobalEVOutlook2026.pdf.pdf#page=228",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T00:18:45+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Chapter 9",
+          "claim": "2035년 advanced economies에서 판매되는 전기차 4분의 1 이상은 중국산일 수 있다.",
+          "source_quote": "over one in four electric cars sold in advanced economies",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-31T00:18:45+09:00",
+          "fetch_method": "official_iea_report_pdf_parse",
+          "source_locator": "uploaded_pdf:GlobalEVOutlook2026.pdf.pdf#page=229",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T00:18:45+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Chapter 9",
+          "claim": "미국의 committed battery capacity는 2035년 수요 대비 과잉일 수 있다.",
+          "source_quote": "nearly twice the projected US demand in 2035",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T00:18:45+09:00",
+          "fetch_method": "official_iea_report_pdf_parse",
+          "source_locator": "uploaded_pdf:GlobalEVOutlook2026.pdf.pdf#page=230",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T00:18:45+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Chapter 9",
+          "source_url": "https://www.iea.org/reports/global-ev-outlook-2026",
+          "claim": "EU IAA는 전기차·배터리에 local content와 battery origin 요건을 도입하려 한다.",
+          "source_quote": "at least three main battery components",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T00:18:45+09:00",
+          "fetch_method": "official_iea_report_pdf_parse",
+          "source_locator": "uploaded_pdf:GlobalEVOutlook2026.pdf.pdf#page=231",
+          "visible_source_list": true,
+          "visible_source_reason": "core_visible_source_2_to_3_policy",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T00:18:45+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Chapter 9",
+          "claim": "중국 외 EMDEs에서 중국 수입 EV 비중은 현지 생산 증가로 낮아질 전망이다.",
+          "source_quote": "share in these markets falls below 40%",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T00:18:45+09:00",
+          "fetch_method": "official_iea_report_pdf_parse",
+          "source_locator": "uploaded_pdf:GlobalEVOutlook2026.pdf.pdf#page=235",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T00:18:45+09:00"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026 — Chapter 9",
+          "claim": "Committed battery project pipeline은 2030년 글로벌 deployment needs를 충족하기에 충분하다.",
+          "source_quote": "sufficient to meet global deployment needs by 2030",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-31T00:18:45+09:00",
+          "fetch_method": "official_iea_report_pdf_parse",
+          "source_locator": "uploaded_pdf:GlobalEVOutlook2026.pdf.pdf#page=235",
+          "hidden_source_url": "https://www.iea.org/reports/global-ev-outlook-2026",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T00:18:45+09:00"
+        },
+        {
+          "source_name": "Reuters / IEA Critical Minerals",
+          "source_url": "https://www.reuters.com/sustainability/climate-energy/low-diversity-critical-mineral-markets-could-hurt-industry-iea-says-2025-05-21/",
+          "claim": "Reuters는 IEA Critical Minerals 분석을 인용해 정제·가공 집중이 공급충격과 가격 변동 리스크를 키울 수 있다고 보도했다.",
+          "source_quote": "concentration in critical mineral markets",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T01:43:21+09:00",
+          "fetch_method": "web_search_and_open_source_diversity_pass_20260531",
+          "source_locator": "Reuters search result summary",
+          "visible_source_list": true,
+          "visible_source_reason": "core_visible_source_2_to_3_policy",
+          "source_published_date": "2025-05-21",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2025-05-21",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T01:43:21+09:00"
+        },
+        {
+          "source_name": "Reuters / IEA Critical Minerals",
+          "claim": "Reuters는 중국의 정제·배터리 재활용 지배력이 더 커질 수 있다고 보도했다.",
+          "source_quote": "China's dominant role is set to expand",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T01:43:21+09:00",
+          "fetch_method": "web_search_and_open_source_diversity_pass_20260531",
+          "source_locator": "Reuters search result summary",
+          "hidden_source_url": "https://www.reuters.com/sustainability/climate-energy/low-diversity-critical-mineral-markets-could-hurt-industry-iea-says-2025-05-21/",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T01:43:21+09:00"
+        },
+        {
+          "source_name": "arXiv / Securing the supply of graphite for batteries",
+          "source_url": "https://arxiv.org/abs/2503.21521",
+          "claim": "2025년 연구는 글로벌 배터리 음극재의 92% 이상이 중국에서 생산된다고 분석했다.",
+          "source_quote": "over 92% of global anode material",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T01:43:21+09:00",
+          "fetch_method": "web_search_and_open_source_diversity_pass_20260531",
+          "source_locator": "arXiv abstract",
+          "visible_source_list": true,
+          "visible_source_reason": "core_visible_source_2_to_3_policy",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T01:43:21+09:00"
+        },
+        {
+          "source_name": "Reuters / Graphite tariff petition",
+          "claim": "Reuters는 흑연이 EV 배터리에서 부피 기준 가장 큰 구성요소이며 중국이 천연·합성 흑연 모두의 최대 생산국이라고 보도했다.",
+          "source_quote": "China is the largest producer of both types",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-31T01:43:21+09:00",
+          "fetch_method": "web_search_and_open_source_diversity_pass_20260531",
+          "source_locator": "Reuters lines 195-200",
+          "hidden_source_url": "https://www.reuters.com/markets/commodities/us-graphite-miners-ask-washington-impose-920-tariff-chinese-rivals-2024-12-18/",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T01:43:21+09:00"
+        }
+      ],
+      "related": [
+        "2026-05-20_GL_02",
+        "2026-05-20_GL_05",
+        "2026-05-15_CN_01",
+        "2026-05-29_GL_02",
+        "2026-05-28_KR_01"
+      ]
+    },
+    {
+      "id": "2026-05-29_GL_02",
+      "date": "2026-05-29",
+      "region": "GL",
+      "cat": "SupplyChain",
+      "sub_cat": "핵심광물·미중전략경쟁",
+      "signal": "high",
+      "title": "미중 정상회담, ‘전략 안정’ 선언에도 핵심광물 갈등은 남았다",
+      "gate": "이번 회담은 미중 공급망 갈등이 해소됐다는 신호가 아니다. 양국은 무역·투자위원회, 농산물, 항공기, 핵심광물 사안을 협상 테이블에 올렸지만, 실제 의미는 충돌을 관리하면서 핵심광물·첨단기술·에너지 레버리지를 협상 자산으로 운용하는 국면에 들어섰다는 데 있다.",
+      "fact": "외교부 경제안보외교센터의 경제안보 Review 26-10호는 2026년 5월 29일 발간됐으며, 2026년 미중 정상회담, 러시아 유가상한제 우회전략, 미국 국제무역법원(CIT)의 122조 관세 위법 판결을 주요 현안으로 다뤘다. 보고서는 트럼프 대통령이 5월 13~15일 방중 계기 시진핑 주석과 정상회담을 갖고 경제·무역, 대만 문제, 중동전쟁 등을 논의했다고 정리했다. 양국은 ‘건설적 전략적 안정 관계’라는 관계 비전을 제시하고 무역위원회·투자위원회 설립, 항공기, 농산물, 핵심광물 관련 사안을 다뤘지만, 사안별 세부 내용에는 입장 차가 남아 있다고 평가됐다. 특히 핵심광물의 경우 미국 측은 중국이 이트륨, 스칸듐, 네오디뮴, 인듐 등 핵심광물 수급과 희토류 생산·가공 장비 및 기술 수출 제한에 대한 우려를 해소한다고 발표한 반면, 중국 측은 희토류 등 핵심광물 수출통제 문제를 공동으로 연구·해결한다는 수준으로 표현했다. 보고서는 회담 이후 미중 관계가 안정적 갈등 관리 국면에 들어섰지만, 핵심광물·첨단기술·에너지 분야의 구조적 갈등 요인은 상존한다고 진단했다. 백악관은 2026년 5월 17일 fact sheet에서 중국이 미국의 희토류·핵심광물 공급부족 우려를 다루기로 했고, yttrium, scandium, neodymium, indium과 희토류 생산·처리 장비 및 기술 판매 금지·제한 우려도 명시됐다고 밝혔다. 이어 5월 20일 중국 상무부는 희토류·핵심광물 수출통제가 법규에 따른 정당한 조치라는 입장을 유지하면서도 양측의 합리적 우려를 연구·해결하겠다고 밝혔다.",
+      "implication": [
+        "핵심광물은 더 이상 단순 원자재 이슈가 아니라 미중 정상외교의 협상 의제로 올라왔다. 배터리 소재·부품 기업은 가격뿐 아니라 원산지, 조달 안정성, 비중국 대안성, 수출통제 리스크 대응 자료를 영업 자산으로 관리해야 한다.",
+        "미중 관계가 안정화돼도 공급망 리스크가 사라지는 것은 아니다. 리스크는 충돌 국면에서 관리 국면으로 이동했을 뿐이며, 희토류·핵심광물·첨단기술·에너지 영역에서는 제한적 협력과 전략 경쟁이 동시에 지속될 가능성이 높다.",
+        "SBTL 관점에서는 ‘중국 의존 축소’라는 거대 구호보다 고객사가 요구할 수 있는 실제 증빙, 즉 공급 안정성, 품질 일관성, 인증, 대체 공급망 편입 가능성을 선제적으로 정리하는 것이 더 중요해진다."
+      ],
+      "fact_sources": [
+        {
+          "source_name": "외교부 경제안보외교센터, 경제안보 Review 26-10호",
+          "claim": "경제안보 Review 26-10호는 2026년 5월 29일 발간됐고, 미중 정상회담·러시아 유가상한제·미국 CIT 122조 관세 판결을 다뤘다.",
+          "source_quote": "26-10호 ｜ 2026.5.29.",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "date",
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29T23:48:58+09:00",
+          "fetch_method": "uploaded_pdf_parse_with_official_mofa_board_url",
+          "source_locator": "uploaded_pdf:경제안보 Review 26-10호.pdf#page=1",
+          "hidden_source_url": "https://www.mofa.go.kr/www/brd/m_26799/list.do",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-29T23:48:58+09:00"
+        },
+        {
+          "source_name": "외교부 경제안보외교센터, 경제안보 Review 26-10호",
+          "claim": "보고서는 2026년 미중 정상회담이 양국 관계를 건설적 전략적 안정 관계로 재설정했다고 평가했다.",
+          "source_quote": "금번 회담을 통해 양국 관계가 ‘건설적 전략적 안정 관계’로 재설정",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29T23:48:58+09:00",
+          "fetch_method": "uploaded_pdf_parse_with_official_mofa_board_url",
+          "source_locator": "uploaded_pdf:경제안보 Review 26-10호.pdf#page=4",
+          "hidden_source_url": "https://www.mofa.go.kr/www/brd/m_26799/list.do",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-29T23:48:58+09:00"
+        },
+        {
+          "source_name": "외교부 경제안보외교센터, 경제안보 Review 26-10호",
+          "claim": "양국은 무역위원회·투자위원회, 항공기, 농산물, 핵심광물 등 주요 경제·무역 사안에 대해 합의했지만 세부 내용에는 입장 차가 남았다.",
+          "source_quote": "무역위원회·투자위원회 ▲ 항공기 ▲ 농산물 ▲ 핵심광물 등 주요 경제·무역 사안에 대해 합의",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29T23:48:58+09:00",
+          "fetch_method": "uploaded_pdf_parse_with_official_mofa_board_url",
+          "source_locator": "uploaded_pdf:경제안보 Review 26-10호.pdf#page=4",
+          "hidden_source_url": "https://www.mofa.go.kr/www/brd/m_26799/list.do",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-29T23:48:58+09:00"
+        },
+        {
+          "source_name": "외교부 경제안보외교센터, 경제안보 Review 26-10호",
+          "source_url": "https://www.mofa.go.kr/www/brd/m_26799/list.do",
+          "claim": "미국 측은 중국이 이트륨, 스칸듐, 네오디뮴, 인듐 등 핵심광물 수급과 희토류 장비·기술 수출 제한 우려를 해소한다고 발표했다.",
+          "source_quote": "중국은 이트륨, 스칸듐, 네오디뮴, 인듐 등 핵심광물 수급",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-29T23:48:58+09:00",
+          "fetch_method": "uploaded_pdf_parse_with_official_mofa_board_url",
+          "source_locator": "uploaded_pdf:경제안보 Review 26-10호.pdf#page=6",
+          "visible_source_list": true,
+          "visible_source_reason": "core_visible_source_2_to_3_policy",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-29T23:48:58+09:00"
+        },
+        {
+          "source_name": "외교부 경제안보외교센터, 경제안보 Review 26-10호",
+          "claim": "중국 측은 희토류 등 핵심광물 수출통제 문제에 대해 공동으로 연구하고 해결하겠다는 수준으로 표현했다.",
+          "source_quote": "핵심광물 수출통제 문제에 대한 우려를 공동으로 연구하고 해결",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-29T23:48:58+09:00",
+          "fetch_method": "uploaded_pdf_parse_with_official_mofa_board_url",
+          "source_locator": "uploaded_pdf:경제안보 Review 26-10호.pdf#page=8",
+          "hidden_source_url": "https://www.mofa.go.kr/www/brd/m_26799/list.do",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-29T23:48:58+09:00"
+        },
+        {
+          "source_name": "외교부 경제안보외교센터, 경제안보 Review 26-10호",
+          "claim": "보고서는 미중 관계 안정화 기조에도 핵심광물·첨단기술·에너지 분야의 구조적 갈등 요인이 상존한다고 평가했다.",
+          "source_quote": "핵심광물·첨단기술·에너지 등 분야에서의 구조적 갈등 요인은 상존",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-29T23:48:58+09:00",
+          "fetch_method": "uploaded_pdf_parse_with_official_mofa_board_url",
+          "source_locator": "uploaded_pdf:경제안보 Review 26-10호.pdf#page=9",
+          "hidden_source_url": "https://www.mofa.go.kr/www/brd/m_26799/list.do",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-29T23:48:58+09:00"
+        },
+        {
+          "source_name": "Reuters / China Ministry of Commerce response",
+          "claim": "중국 상무부는 미국의 희토류 우려에 대해 양측의 합리적·합법적 우려를 연구·해결하겠다고 밝혔다.",
+          "source_quote": "reasonable and lawful concerns",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "source_event_date": "2026-05-20",
+          "source_locator": "Reuters lines 182-190",
+          "fetched_at": "2026-05-31T02:18:20+09:00",
+          "fetch_method": "deep_dive_actual_event_source_patch_20260531",
+          "hidden_source_url": "https://www.reuters.com/business/aerospace-defense/china-says-rare-earth-controls-lawful-will-cooperate-with-us-reasonable-concerns-2026-05-20/",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T02:18:20+09:00"
+        },
+        {
+          "source_name": "Reuters / Bessent China trade truce interview",
+          "source_url": "https://www.reuters.com/world/china/us-not-hurry-extend-china-trade-truce-bessent-says-2026-05-19/",
+          "claim": "Bessent는 미중 tariff and critical minerals trade truce 연장에 서두르지 않으며 중국의 핵심광물 이행이 만족스럽지만 우수하지는 않다고 말했다.",
+          "source_quote": "satisfactory, but not excellent",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "source_event_date": "2026-05-19",
+          "source_locator": "Reuters search result / article text",
+          "fetched_at": "2026-05-31T02:18:20+09:00",
+          "fetch_method": "deep_dive_actual_event_source_patch_20260531",
+          "visible_source_list": true,
+          "visible_source_reason": "core_visible_source_2_to_3_policy",
+          "source_published_date": "2026-05-19",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-05-19",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T02:18:20+09:00"
+        },
+        {
+          "source_name": "The White House Fact Sheet",
+          "claim": "백악관 fact sheet는 미중 정상이 전략적 안정성을 강화할 여러 의제에 합의했다고 밝혔다.",
+          "source_quote": "enhance stability and confidence for businesses and consumers around the world",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "source_event_date": "2026-05-17",
+          "source_locator": "White House fact sheet, May 17, 2026, lines 141-148",
+          "fetched_at": "2026-05-31T02:57:50+09:00",
+          "fetch_method": "official_whitehouse_fact_sheet_verified_20260531",
+          "hidden_source_url": "https://www.whitehouse.gov/fact-sheets/2026/05/fact-sheet-president-donald-j-trump-secures-historic-deals-with-china-delivering-for-american-workers-farmers-and-industry/",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T02:57:50+09:00"
+        },
+        {
+          "source_name": "The White House Fact Sheet",
+          "source_url": "https://www.whitehouse.gov/fact-sheets/2026/05/fact-sheet-president-donald-j-trump-secures-historic-deals-with-china-delivering-for-american-workers-farmers-and-industry/",
+          "claim": "백악관 fact sheet는 중국이 미국의 희토류·핵심광물 공급부족 우려를 다루기로 했다고 밝혔다.",
+          "source_quote": "China will address U.S. concerns regarding supply chain shortages related to rare earths and other critical minerals",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "source_event_date": "2026-05-17",
+          "source_locator": "White House fact sheet, May 17, 2026, line 156",
+          "fetched_at": "2026-05-31T02:57:50+09:00",
+          "fetch_method": "official_whitehouse_fact_sheet_verified_20260531",
+          "visible_source_list": true,
+          "visible_source_reason": "core_visible_source_2_to_3_policy",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T02:57:50+09:00"
+        },
+        {
+          "source_name": "The White House Fact Sheet",
+          "claim": "백악관 fact sheet는 yttrium, scandium, neodymium, indium을 포함한 희토류·핵심광물 공급부족 우려를 명시했다.",
+          "source_quote": "including yttrium, scandium, neodymium, and indium",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "source_event_date": "2026-05-17",
+          "source_locator": "White House fact sheet, May 17, 2026, line 156",
+          "fetched_at": "2026-05-31T02:57:50+09:00",
+          "fetch_method": "official_whitehouse_fact_sheet_verified_20260531",
+          "hidden_source_url": "https://www.whitehouse.gov/fact-sheets/2026/05/fact-sheet-president-donald-j-trump-secures-historic-deals-with-china-delivering-for-american-workers-farmers-and-industry/",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T02:57:50+09:00"
+        },
+        {
+          "source_name": "The White House Fact Sheet",
+          "claim": "백악관 fact sheet는 중국이 희토류 생산·처리 장비와 기술의 판매 금지·제한에 대한 미국 우려도 다루기로 했다고 밝혔다.",
+          "source_quote": "prohibitions or restrictions on the sale of rare earth production and processing equipment and technologies",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "source_event_date": "2026-05-17",
+          "source_locator": "White House fact sheet, May 17, 2026, line 156",
+          "fetched_at": "2026-05-31T02:57:50+09:00",
+          "fetch_method": "official_whitehouse_fact_sheet_verified_20260531",
+          "hidden_source_url": "https://www.whitehouse.gov/fact-sheets/2026/05/fact-sheet-president-donald-j-trump-secures-historic-deals-with-china-delivering-for-american-workers-farmers-and-industry/",
+          "visible_source_list": false,
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-05-31T02:57:50+09:00"
+        }
+      ],
+      "related": [
+        "2026-05-15_CN_01",
+        "2026-05-29_GL_03",
+        "2026-04-30_JP_02",
+        "2026-05-20_GL_02",
+        "2026-05-28_KR_01"
+      ]
+    },
+    {
+      "id": "2026-05-29_EU_01",
+      "date": "2026-05-29",
+      "region": "EU",
+      "cat": "Battery",
+      "sub_cat": "LFP합작",
+      "signal": "high",
+      "title": "Eni·FIB, 이탈리아 LFP 배터리 통합 공급망 공동개발 합의",
+      "gate": "원자재에서 저장시스템까지 잇는 유럽 역내 수직통합 시도로, LFP 셀의 역내 생산 자립 흐름을 보여준다. 이탈리아 최대 기업 Eni의 참여가 자금·신뢰의 근거다. 다만 본 합의는 5월 16일 기본합의의 이행 단계이며 클로징은 진행 중이다.",
+      "fact": "Eni Industrial Evolution과 FIB(Seri Industrial)는 5월 29일 LFP 배터리 통합 공급망 공동개발에 합의했고, Eni가 FIB 신설법인 지분 30%(고정 5,500만유로)를 취득하고 FIB가 70%를 유지한다. 합작사 Eni Storage System은 테베롤라·브린디시 허브에 2027년 상반기 BESS 조립라인, 2029년 연 8GWh 셀·모듈 2호 기가팩토리를 완성할 계획이며 유럽 정치형 시장 10% 이상을 목표로 한다.",
+      "implication": [
+        "유럽 역내 LFP 셀 수직통합이 중국 의존 완화의 대체 경로로 작동할 가능성이 열린다",
+        "2027 조립라인·2029 8GWh 기가팩토리 등 단계별 일정 이행이 점검 대상이다",
+        "정치형 시장 10% 목표 대비 실제 가동·수주 진척이 변수가 될 수 있다"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "WebWire (Eni/Seri PR)",
+          "source_url": "https://www.webwire.com/ViewPressRel.asp?aId=355593",
+          "claim": "Eni Industrial Evolution과 FIB(Seri Industrial)가 이탈리아 LFP 배터리 통합 공급망 공동개발에 합의했으며, 5월 16일 기본합의의 이행으로 5일 내 클로징한다",
+          "source_quote": "Eni Industrial Evolution and FIB have reached an agreement for the joint development of an integrated industrial supply chain in the lithium iron phosphate battery sector; the closing will be completed within five days, in execution of the framework agreement of May 16, 2026.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-06-13",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13"
+        },
+        {
+          "source_name": "Energy Storage (ess-news)",
+          "source_url": "https://www.ess-news.com/2026/05/29/eni-and-fib-reach-agreement-for-lfp-bess-supply-chain-in-italy/",
+          "claim": "Eni가 FIB 신설법인 지분 30%(고정 5,500만유로)를 취득하고 FIB가 70%를 유지하며, 유럽 정치형 배터리 시장 10% 이상을 목표로 한다",
+          "source_quote": "Eni Industrial Evolution is acquiring a 30% stake in a newly established company from FIB, of which FIB will retain a 70% stake; the consideration includes a fixed component of €55 million; the project targets over 10% of the European stationary battery market.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-13",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-05-29",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-05-29",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-05-20_KR_01",
+      "date": "2026-05-20",
+      "region": "KR",
+      "cat": "Policy",
+      "sub_cat": "배터리정책",
+      "signal": "high",
+      "title": "한국 사용후배터리법 제정안 국무회의 의결",
+      "gate": "산업통상부는 사용후 배터리의 관리 및 산업육성에 관한 법률 제정안이 5월 20일 국무회의에서 의결됐다고 밝혔다. 이 법은 사용후 배터리를 폐기물이 아닌 국가 전략자원으로 관리하고 관련 산업을 육성하기 위한 것으로, EU 배터리법 등 글로벌 통상규제 대응체계도 함께 마련했다. 법은 공포 후 1년 경과일부터 시행될 예정이다.",
+      "fact": "산업통상부는 사용후배터리법 제정안이 2026년 5월 20일 국무회의에서 의결됐다고 밝혔다. 주요 내용은 성능평가·안전검사 체계 마련, 배터리 전주기 이력·거래시스템 구축, 재생원료 활용 촉진(함유율 목표제와 생산·사용 인증제), 산업육성 지원(우선구매 권고·공급망 안정화·기술개발) 네 가지다. 배터리 전주기 이력·거래시스템은 제조부터 사용후까지 데이터를 통합관리하고 거래를 지원하는 공공시스템이다. 정부는 국내 사용후 배터리 배출량이 2023년 2,355개에서 2030년 10만7,500개로 늘어날 것으로 추정했다. 법은 공포 후 1년 경과일부터 시행될 예정이다.",
+      "implication": [
+        "사용후 배터리가 전략자원으로 관리되면서 재생원료 함유율 목표제·인증제가 핵심광물 공급망에 변수가 될 수 있다.",
+        "전주기 이력·거래 공공시스템 구축이 사용후 배터리 시장 형성과 통상규제 대응에 어떤 영향을 줄지 후속 확인이 필요하다.",
+        "공포 후 1년 시행을 앞두고 하위법령·예산 마련 진행 상황이 점검 대상이다."
+      ],
+      "fact_sources": [
+        {
+          "source_name": "산업통상부 보도자료(공식)",
+          "source_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156762786",
+          "claim": "산업통상부 공식 보도자료는 사용후배터리법 제정법률안이 5월 20일 국무회의에서 의결됐다고 밝혔다.",
+          "source_quote": "「사용후 배터리의 관리 및 산업육성에 관한 법률안」(이하 \"사용후배터리법\") 제정법률안이 5월 20일(수) 국무회의에서 의결되었다",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-06-05T18:10:59+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "korea.kr official release; exact contiguous excerpt retained",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-05T18:10:59+09:00"
+        },
+        {
+          "source_name": "ZDNet Korea",
+          "source_url": "https://zdnet.co.kr/view/?no=20260520090026",
+          "claim": "ZDNet Korea는 사용후배터리법 제정안의 국무회의 의결과 국가 전략자원 관리 취지를 독립적으로 확인했다.",
+          "source_quote": "산업통상부는 '사용후 배터리의 관리 및 산업육성에 관한 법률안'(이하 사용후배터리법) 제정법률안이 20일 국무회의에서 의결됐다고 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate"
+          ],
+          "fetched_at": "2026-06-05T18:10:59+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "web.open turn550156view0 lines 65-66",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-05T18:10:59+09:00"
+        },
+        {
+          "source_name": "ZDNet Korea",
+          "source_url": "https://zdnet.co.kr/view/?no=20260520090026",
+          "claim": "ZDNet Korea는 정부가 국내 사용후 배터리 배출량을 2023년 2,355개에서 2030년 10만7,500개까지 증가할 것으로 보고 있다고 보도했다.",
+          "source_quote": "정부는 국내 사용후 배터리 배출량이 지난 2023년 2355개에서 2030년 10만7500개까지 증가할 것으로 보고 있다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-05T18:10:59+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "web.open turn550156view0 lines 66-66",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-05T18:10:59+09:00"
+        },
+        {
+          "source_name": "ZDNet Korea",
+          "source_url": "https://zdnet.co.kr/view/?no=20260520090026",
+          "claim": "ZDNet Korea는 법안의 주요 내용으로 성능평가·안전검사, 전주기 이력·거래시스템, 재생원료 활용 촉진, 산업육성 지원을 보도했다.",
+          "source_quote": "주요 내용으로는 ▲성능평가·안전검사 체계 마련 ▲배터리 전주기 이력·거래시스템 구축 ▲재생원료의 활용 촉진 ▲산업 육성을 위한 지원 등이 포함됐다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-06-05T18:10:59+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "web.open turn550156view0 lines 70-70",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-05T18:10:59+09:00"
+        },
+        {
+          "source_name": "ZDNet Korea",
+          "source_url": "https://zdnet.co.kr/view/?no=20260520090026",
+          "claim": "ZDNet Korea는 재생원료 함유율 목표제와 생산·사용 인증제 도입을 보도했다.",
+          "source_quote": "재생원료의 활용 촉진 관련, 재생원료의 함유율 목표제와 재생원료의 생산·사용 인증제를 도입한다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-05T18:10:59+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "web.open turn550156view0 lines 77-77",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-05T18:10:59+09:00"
+        },
+        {
+          "source_name": "ZDNet Korea",
+          "source_url": "https://zdnet.co.kr/view/?no=20260520090026",
+          "claim": "ZDNet Korea는 사용후배터리법이 공포 후 1년 경과일부터 시행될 예정이라고 보도했다.",
+          "source_quote": "사용후배터리법은 공포 후 1년 경과하는 날부터 시행될 예정이다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-05T18:10:59+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "web.open turn550156view0 lines 87-87",
+          "source_published_date": "2026-05-20",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-05-20",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-05T18:10:59+09:00"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-06-30_US_02",
+      "date": "2026-06-30",
+      "region": "US",
+      "cat": "Manufacturing",
+      "sub_cat": "미국LFP공장생산개시",
+      "signal": "top",
+      "title": "Ford 미시간 LFP 공장, 생산의도 시험셀 생산…CATL 기술라이선스 적용",
+      "gate": "CATL 측은 공장 완공과 생산개시를 언급했지만 Ford 공개정보는 첫 배치 시험생산과 생산의도 셀 검증 단계로 확인된다. 따라서 상업 양산·고객출하로 확대 해석하지 않고 실제 양산개시일과 연산능력을 확인해야 한다. 시험셀 생산은 양산개시와 다르며, 생산검증·고객승인·실제 상업출하와 미국 정책상 라이선스 구조의 지속가능성을 별도로 봐야 한다.",
+      "fact": "Ford의 BlueOval Battery Park Michigan은 2026년 6월 첫 각형 LFP 셀의 전공정 시험생산을 완료하고 생산의도 소재를 사용한 검증셀 단계에 진입했다. 공장은 Ford가 소유하고 CATL이 LFP 기술 라이선스와 제조지원 서비스를 제공하며, CATL 경영진은 6월 공장 완공과 생산개시를 언급했다.",
+      "implication": [
+        "중국 배터리 기술을 미국 소유 공장에 라이선스하는 구조가 실제 제조검증 단계에 진입했다.",
+        "시험셀 생산과 상업 양산·고객출하는 구분해야 하며 정책상 중국 기술의존 판단도 남아 있다.",
+        "Ford의 공식 양산개시 발표, 연산능력, 출하제품과 세액공제 적격성이 후속 확인 대상이다."
+      ],
+      "fact_sources": [
+        {
+          "source_name": "Battery-News EN RSS",
+          "source_url": "https://battery-news.de/en/2026/07/01/ford-catl-battery-project-in-michigan-begins-production",
+          "claim": "CATL 경영진 발언과 관련 보도에 따르면 Ford의 미시간 LFP 배터리공장은 2026년 6월 완공돼 생산을 시작했다",
+          "source_quote": "According to Meng Xiangfeng, vice president of CATL, the battery plant established by Ford and CATL in the U.S. was completed in June and has begun production. It is not a joint venture, but rather a licensing and service model. Ford owns the plant and CATL provides the technology for lithium iron phosphate cells, as well as support for construction and operation.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-07-02T15:31:33.079403+09:00",
+          "fetch_method": "uploaded_current_run_body_direct_inspection",
+          "resolved_article_matches_quote": true,
+          "source_url_canonical_complete": true,
+          "source_url_prefix_promoted": false,
+          "source_published_date": "2026-07-01",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-07-01",
+          "visible_quote_date_type": "news_published_date",
+          "audit_checked_at": "2026-07-02T15:31:33.079403+09:00",
+          "source_origin_type": "independent_media_or_trade_press",
+          "source_role": "primary_event_evidence",
+          "source_contribution": "CATL 경영진 발언과 관련 보도에 따르면 Ford의 미시간 LFP 배터리공장은 2026년 6월 완공돼 생산을 시작했다"
+        },
+        {
+          "source_name": "Battery-Tech Network",
+          "source_url": "https://battery-tech.net/battery-markets-news/ford-launches-u-s-lfp-ev-battery-cell-production/",
+          "claim": "Ford 공장은 C-sample과 생산의도 소재 D-sample 검증 단계이며 launch-ready 셀 생산은 2026년 말 이전 목표다.",
+          "source_quote": "The Michigan plant has completed initial “C-sample” cells used to qualify manufacturing equipment and is now producing “D-sample” cells made with production-intent materials for testing and validation. Ford expects to start manufacturing launch-ready LFP cells before the end of 2026.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-07-02T15:31:33.079403+09:00",
+          "fetch_method": "web_search_verified_2026-07-02",
+          "resolved_article_matches_quote": true,
+          "source_url_canonical_complete": true,
+          "source_url_prefix_promoted": false,
+          "source_published_date": "2026-06-30",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-06-30",
+          "visible_quote_date_type": "news_published_date",
+          "audit_checked_at": "2026-07-02T15:31:33.079403+09:00",
+          "source_origin_type": "independent_media_or_trade_press",
+          "source_role": "independent_event_confirmation",
+          "source_contribution": "Ford 공장은 C-sample과 생산의도 소재 D-sample 검증 단계이며 launch-ready 셀 생산은 2026년 말 이전 목표다."
+        },
+        {
+          "source_name": "CarNewsChina RSS",
+          "source_url": "https://carnewschina.com/2026/06/30/catl-ford-tech-licensing-battery-plant-commences-production-in-the-u-s",
+          "claim": "Ford 소유 공장에 CATL 기술라이선스를 적용한 LFP 생산시험",
+          "source_quote": "Ford's CATL-powered battery plant begins operations amidst shifting U.S. EV policy.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_contribution": "Ford 소유와 CATL 기술라이선스의 구분을 제3의 산업매체로 재확인",
+          "source_origin_type": "independent_media_or_trade_press",
+          "source_published_date": "2026-06-30",
+          "source_published_date_basis": "article_page_or_current_run_metadata_verified",
+          "visible_quote_date": "2026-06-30",
+          "visible_quote_date_type": "news_published_date",
+          "fetched_at": "2026-07-02T16:31:06.907730+09:00",
+          "checked_at": "2026-07-02T16:31:06.907730+09:00",
+          "audit_fetched_at": "2026-07-02T16:31:06.907730+09:00",
+          "audit_checked_at": "2026-07-02T16:31:06.907730+09:00",
+          "fetch_method": "current_run_body_source_restoration",
+          "resolved_article_matches_quote": true,
+          "source_url_canonical_complete": true,
+          "source_url_prefix_promoted": false
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-06-10_EU_01",
+      "date": "2026-06-10",
+      "region": "EU",
+      "cat": "Policy",
+      "sub_cat": "battery_manufacturing_funding",
+      "signal": "high",
+      "title": "EU집행위, 배터리 셀 생산 지원 '배터리 부스터' 15억유로 무이자대출 시설 공식 출범",
+      "gate": "유럽이 역내 배터리 셀 제조 자립을 직접 보조 방식으로 끌어올리는 정책 전환이다. 보조금이 아닌 무이자대출 선택은 상업성 조기 달성과 민간투자 유인을 겨냥한다.",
+      "fact": "유럽집행위는 6월 9~10일 혁신기금(EU 배출권거래제 수익 재원)을 통해 최대 15억유로 무이자대출을 제공하는 '배터리 부스터' 시설을 공식 설립했다. 대상은 유럽경제지역(EEA) 내 10GWh 이상 생산능력의 EV용 배터리 셀 프로젝트로, 프로젝트당 최대 5억유로다. 3분기 공모(약 6주)를 거쳐 연내 첫 선정·지급을 목표로 한다.",
+      "implication": [
+        "유럽의 배터리 셀 제조 자립을 위한 직접 자금지원이 본격화되는 흐름으로 관찰된다",
+        "무이자대출 구조가 역내 셀 제조사 투자결정·가동률 측면에서 점검 대상이다",
+        "3분기 공모 선정 기업과 실제 집행 규모가 다음 확인 지점으로 남는다"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "European Commission (climate.ec.europa.eu)",
+          "source_url": "https://climate.ec.europa.eu/news-other-reads/news/new-battery-booster-set-inject-eu15-billion-european-battery-industry-2026-06-09_en",
+          "claim": "EC, 배터리 부스터 시설 공식 설립·혁신기금서 최대 15억유로",
+          "source_quote": "the European Commission has formally established the new Battery Booster Facility ... Mobilising up to EUR 1.5 billion from EU Emissions Trading System (ETS) revenues in the Innovation Fund",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-06-13T09:30:00",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-06-09",
+          "source_published_date_basis": "source_url_date_inferred",
+          "visible_quote_date": "2026-06-09",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13T09:30:00"
+        },
+        {
+          "source_name": "MLex",
+          "source_url": "https://www.mlex.com/mlex/trade/articles/2487947",
+          "claim": "프로젝트당 최대 5억유로, EEA 내 10GWh+ 생산능력 대상",
+          "source_quote": "The program will provide up to EUR 500 million per project for facilities with at least 10 gigawatt-hour of production capacity in the European Economic Area",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-06-13T09:30:00",
+          "fetch_method": "web_search",
+          "source_published_date": "2026-06-10",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-06-10",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13T09:30:00"
+        }
+      ],
+      "related": []
+    },
+    {
+      "id": "2026-06-11_KR_01",
+      "date": "2026-06-11",
+      "region": "KR",
+      "cat": "Battery",
+      "sub_cat": "특허라이선스",
+      "signal": "high",
+      "title": "LG에너지솔루션, 중국 신왕다와 특허 라이선스 계약…독·중·한 분쟁 종결",
+      "gate": "K배터리의 지식재산권 수익화와 분쟁 종결이 동시에 이뤄진 사례다. 튤립 이노베이션이 LG·파나소닉 특허를 대리하는 구조도 확인된다.",
+      "fact": "LG에너지솔루션은 6월 11일 특허 라이선싱 대리사 튤립 이노베이션과 중국 신왕다가 리튬이온 배터리 특허 라이선스 계약을 체결했다고 밝혔다. 튤립 이노베이션은 LG에너지솔루션과 파나소닉의 특허를 대리한다. 이번 계약으로 독일·중국·한국에서 진행 중이던 법적 분쟁이 모두 종결된다.",
+      "implication": [
+        "배터리 특허의 라이선스 수익화 흐름이 한·중 간에 확대되는 것으로 관찰된다",
+        "분쟁 종결이 양사 공급·생산 활동의 불확실성 해소 측면에서 점검 대상이다",
+        "라이선스 조건·로열티 규모 공개 여부가 다음 확인 지점으로 남는다"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "The Elec",
+          "source_url": "https://www.thelec.kr/news/articleView.html?idxno=58001",
+          "claim": "LG엔솔, 대리사 튤립 이노베이션-신왕다 특허 라이선스 계약 체결",
+          "source_quote": "LG에너지솔루션은 11일 특허 라이선싱 대리사 튤립 이노베이션과 신왕다가 리튬이온 배터리 특허 라이선스 계약을 체결했다고 밝혔다",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-06-13T08:30:00",
+          "fetch_method": "input_hydrated_body",
+          "source_published_date": "2026-06-11",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-06-11",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13T08:30:00"
+        },
+        {
+          "source_name": "BusinessKorea",
+          "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=271184",
+          "claim": "튤립 이노베이션(LG·파나소닉 특허 대리)이 신왕다와 라이선스 체결",
+          "source_quote": "Tulip Innovation, a patent management company representing the patent licenses of LG Energy Solution and Panasonic, signed a patent licensing agreement with Sunwoda",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-06-13T08:30:00",
+          "fetch_method": "input_hydrated_body",
+          "source_published_date": "2026-06-11",
+          "source_published_date_basis": "card_news_date_fallback",
+          "visible_quote_date": "2026-06-11",
+          "visible_quote_date_type": "news_published_date",
+          "audit_fetched_at": "2026-06-13T08:30:00"
+        }
+      ],
+      "related": []
+    }
+  ]
+}

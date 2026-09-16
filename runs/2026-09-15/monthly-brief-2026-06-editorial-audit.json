@@ -405,7 +405,6 @@
       "EU": 23,
       "JP": 7
     },
-    "closing_window_card_count": 41,
     "baseline_state": [
       {
         "theme": "ESS bankability and execution already present",
@@ -460,7 +459,14 @@
           "2026-05-20_KR_01"
         ]
       }
-    ]
+    ],
+    "closing_window": {
+      "start": "2026-05-15",
+      "end": "2026-05-31",
+      "card_count": 41,
+      "top_high_count": 32
+    },
+    "may_june_unique_related_edge_count": 21
   },
   "hindsight_firewall": {
     "thesis_evidence_cutoff": "2026-06-30",

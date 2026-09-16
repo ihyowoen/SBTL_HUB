@@ -59,7 +59,7 @@
       "Moss Landing cleanup requiring lineage treatment",
       "Japan sustainability demo with insufficient independent monthly decision value"
     ],
-    "editorial_effect": "The external June sweep remains additive to the chronological May→June comparison. It strengthens the evidence that May bankability/LDES/AI signals deepened in June through longer revenue contracts and more explicit policy architecture, while recycled-material certification expands the localization delta. It does not make AI a new or singular June master narrative."
+    "editorial_effect": "The external June sweep remains additive to the chronological May→June comparison. It strengthens the evidence that May bankability/LDES/AI signals deepened in June through longer revenue contracts and more explicit policy architecture, while recycled-material certification operationalizes a May circularity direction and technology licensing adds a distinct localization-rights dimension. It does not make AI a new or singular June master narrative."
   },
   "selected_flows": [
     {
@@ -73,7 +73,7 @@
         "2026-06-23_US_01",
         "2026-06-30_GL_01"
       ],
-      "delta_classification": "DEEPENED"
+      "delta_classification": "DEEPENED_WITH_CONTINUING_EXECUTION"
     },
     {
       "id": "02",
@@ -90,7 +90,7 @@
     },
     {
       "id": "03",
-      "title": "차세대 저장, 5월의 전망에서 6월의 고객계약·인도·실차검증으로 전진",
+      "title": "차세대 저장, 5월의 나트륨·전고체 전망에서 6월의 단계전진과 신규 계약신호로 이동",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-22_CN_05",
@@ -98,14 +98,13 @@
         "2026-06-22_EU_02",
         "2026-06-17_US_02"
       ],
-      "delta_classification": "STAGE_ADVANCED"
+      "delta_classification": "STAGE_ADVANCED_PLUS_JUNE_NEW_SIGNAL"
     },
     {
       "id": "04",
       "title": "공급망, 5월의 현지화·광물 리스크에서 6월의 기업별 적격성·금융규칙으로 구체화",
       "decision": "SELECT",
       "anchor_card_ids": [
-        "2026-06-09_US_02",
         "2026-06-22_CN_01",
         "2026-06-17_GL_07",
         "2026-06-10_EU_01"
@@ -114,14 +113,14 @@
     },
     {
       "id": "05",
-      "title": "현지화, 5월의 공장·공급망에서 6월의 기술권리·순환원료·추적성으로 확장",
+      "title": "현지화, 5월의 순환·추적성 의제가 6월 운영화되고 기술라이선스가 추가",
       "decision": "SELECT",
       "anchor_card_ids": [
         "2026-06-30_US_02",
         "2026-06-25_KR_02",
         "2026-06-29_JP_01"
       ],
-      "delta_classification": "EXPANDED"
+      "delta_classification": "OPERATIONALIZED_PLUS_EXPANDED"
     }
   ],
   "rejected_or_narrowed_narratives": [
@@ -189,11 +188,15 @@
     {
       "id": "2026-06-11_KR_01",
       "reason": "Excluded from the public anchor set because the locked canonical title presents the licence as a direct LG Energy Solution–Sunwoda contract, while the underlying fact identifies Tulip Innovation–Sunwoda as the contracting pair. Keep out of publication until canonical title provenance is remediated."
+    },
+    {
+      "id": "2026-06-09_US_02",
+      "reason": "Excluded from the public anchor set because the locked canonical title includes a no-sanctions caveat, but its only title-supporting governed URL does not support that caveat. A separate Automotive World source supports the caveat but is not title-authorized under the locked Monthly Brief provenance contract. Keep audit-only pending canonical title/source remediation."
     }
   ],
   "official_source_selection": {
-    "selected_card_count": 21,
-    "selection_principle": "Compact June-only anchors selected for decision relevance and for their ability to prove what deepened, advanced, operationalized or expanded relative to the reconstructed May closing state. Cards with a public-title provenance defect are excluded pending canonical remediation.",
+    "selected_card_count": 20,
+    "selection_principle": "Compact June-only anchors selected for decision relevance and for their ability to prove what deepened, advanced, operationalized or expanded relative to the reconstructed May closing state. Cards with a public-title provenance defect are excluded pending canonical remediation, including the 1260H card whose locked title caveat is not supported by its title-authorized URL.",
     "source_card_ids": [
       "2026-06-02_EU_01",
       "2026-06-15_US_01",
@@ -209,7 +212,6 @@
       "2026-06-23_EU_01",
       "2026-06-22_EU_02",
       "2026-06-17_US_02",
-      "2026-06-09_US_02",
       "2026-06-22_CN_01",
       "2026-06-17_GL_07",
       "2026-06-10_EU_01",
@@ -323,13 +325,6 @@
         "selected_url": "https://www.theguru.co.kr/news/article.html?no=103212",
         "title_supporting_urls": [
           "https://www.theguru.co.kr/news/article.html?no=103212"
-        ]
-      },
-      {
-        "id": "2026-06-09_US_02",
-        "selected_url": "https://www.pv-magazine.com/2026/06/10/us-government-restricts-trade-with-prominent-chinese-storage-companies/",
-        "title_supporting_urls": [
-          "https://www.pv-magazine.com/2026/06/10/us-government-restricts-trade-with-prominent-chinese-storage-companies/"
         ]
       },
       {
@@ -454,7 +449,7 @@
       },
       {
         "theme": "Circularity regulation entering the agenda",
-        "finding": "Korea had already advanced used-battery legislation in May; June moves further into production-certification implementation.",
+        "finding": "Korea had already established recycled-material production/use certification and full-lifecycle tracking as policy directions in May; June advances these areas into pilot implementation and real-data validation.",
         "evidence_card_ids": [
           "2026-05-20_KR_01"
         ]
@@ -477,9 +472,9 @@
   "delta_classification": [
     {
       "flow_id": "01",
-      "classification": "DEEPENED",
+      "classification": "DEEPENED_WITH_CONTINUING_EXECUTION",
       "may_state": "Financing, revenue-floor structures and COD already existed.",
-      "june_change": "Longer 5-year/20-year tolling and 20-year capacity contracts deepen revenue visibility while tax-equity and COD continue execution evidence."
+      "june_change": "Longer 5-year/20-year tolling and 20-year capacity contracts deepen revenue visibility; June tax-equity and COD are continuing execution evidence rather than newly deeper stages."
     },
     {
       "flow_id": "02",
@@ -489,9 +484,9 @@
     },
     {
       "flow_id": "03",
-      "classification": "STAGE_ADVANCED",
-      "may_state": "Sodium-ion was mainly an outlook/complement story and solid-state remained pre-full-demonstration.",
-      "june_change": "Delivery schedules, commercial contracts and vehicle road testing create observable stage progression."
+      "classification": "STAGE_ADVANCED_PLUS_JUNE_NEW_SIGNAL",
+      "may_state": "Sodium-ion was mainly an outlook/complement story and solid-state remained pre-full-demonstration; the May baseline does not establish an iron-air progression anchor.",
+      "june_change": "Sodium-ion delivery scheduling and solid-state road testing advance from the May baseline, while CO₂ and iron-air contracts are treated as separate June commercial-contract signals."
     },
     {
       "flow_id": "04",
@@ -501,9 +496,19 @@
     },
     {
       "flow_id": "05",
-      "classification": "EXPANDED",
-      "may_state": "Localization centered on production footprint and integrated supply chains.",
-      "june_change": "Technology licensing, recycled-material certification and battery-passport verification expand the localization boundary beyond production footprint."
+      "classification": "OPERATIONALIZED_PLUS_EXPANDED",
+      "may_state": "Localization already included production-footprint/supply-chain themes plus recycled-material production/use certification and lifecycle tracking.",
+      "june_change": "Korea certification piloting and Japan passport real-data validation operationalize existing circularity/traceability directions; Ford-CATL technology licensing adds a distinct rights-based localization dimension."
     }
-  ]
+  ],
+  "codex_current_head_rereview_remediation": {
+    "review_id": 5218750696,
+    "reviewed_head": "d9d810f60cd438bf99204c17634b39b7de336c75",
+    "findings_addressed": [
+      "flow05_circularity_reclassified_as_operationalization_with_technology_licensing_as_expansion",
+      "iron_air_removed_from_may_to_june_progression_and_treated_as_june_only_contract_signal",
+      "flow01_financing_and_cod_reclassified_as_continuing_execution_while_long_contracts_remain_deepening",
+      "1260h_removed_from_public_anchor_set_due_locked_title_vs_title_authorized_source_mismatch"
+    ]
+  }
 }

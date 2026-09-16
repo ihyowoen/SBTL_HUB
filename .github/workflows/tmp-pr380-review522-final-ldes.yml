@@ -1,0 +1,55 @@
+name: tmp-pr380-review522-final-ldes
+on:
+  push:
+    branches:
+      - chatgpt/rebuild-monthly-brief-2026-06
+    paths:
+      - .github/workflows/tmp-pr380-review522-final-ldes.yml
+permissions:
+  contents: write
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/rebuild-monthly-brief-2026-06
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Patch residual LDES baseline finding
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const p = 'runs/2026-09-15/monthly-brief-2026-06-editorial-audit.json';
+          const a = JSON.parse(fs.readFileSync(p, 'utf8'));
+          const row = a.previous_month_baseline?.baseline_state?.find(x => x.theme === 'Long-duration procurement and storage policy already present');
+          if (!row) throw new Error('LDES baseline row not found');
+          const old = 'May already showed multi-GWh long-duration procurement and preliminary storage-market rule design, so June LDES evidence is a deepening of an existing direction.';
+          if (row.finding !== old) throw new Error(`Unexpected current finding: ${row.finding}`);
+          row.finding = 'May already had concrete long-duration execution: six FERMA projects totaling 5.336GWh were awarded with an eight-hour requirement, alongside preliminary storage-market rule design. June Ofgem provisional selection therefore represents a different UK cap-and-floor policy design and technology mix rather than a deeper execution stage.';
+          a.codex_review_latest_ldes_baseline_remediation = {
+            reviewed_head: 'ec13a6a626b0c498910ee1a29718143d989f06dd',
+            finding_addressed: 'residual_long_duration_baseline_deepening_reclassified_as_policy_design_differentiation'
+          };
+          fs.writeFileSync(p, JSON.stringify(a, null, 2) + '\n');
+          NODE
+      - name: Validate all
+        shell: bash
+        run: |
+          npm run validate:monthly-briefs
+          npm test
+          npm run build
+          git diff --check
+      - name: Commit remediation and remove helper
+        shell: bash
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git rm .github/workflows/tmp-pr380-review522-final-ldes.yml
+          git add runs/2026-09-15/monthly-brief-2026-06-editorial-audit.json
+          git commit -m "fix: align June LDES audit chronology"
+          git push origin HEAD:chatgpt/rebuild-monthly-brief-2026-06

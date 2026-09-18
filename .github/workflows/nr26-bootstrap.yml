@@ -116,6 +116,21 @@ jobs:
           test -n "$MERGE_PREP_REF" && test -f "$MERGE_PREP_REF"
 
           STRICT_ID_COUNT="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String((r.ids||[]).length))' "$ID_LEDGER")"
+          echo "=== NR26 CANDIDATE ASSERTION TESTS ==="
+          python3 - <<'PY'
+          import sys
+          sys.path.insert(0, "validation_scripts")
+          from related_lifecycle_check import item_specific_lineage_assertion
+          tests = [
+            "China Automotive Power Battery Industry Innovation Alliance reports August 2026 power-battery installation of 79.0 GWh versus 76.5 GWh in predecessor 2026-07-16_CN_03 for June 2026, while LFP share rises from 83.3% to 85.6%.",
+            "China Automotive Power Battery Industry Innovation Alliance adds an August 2026 reading of 79.0 GWh installed and 85.6% LFP share versus predecessor 2026-07-16_CN_03's June 76.5 GWh and 83.3% LFP share.",
+            "China Automotive Power Battery Industry Innovation Alliance data changes the tracked monthly mix from predecessor 2026-07-16_CN_03's June 76.5 GWh and 83.3% LFP share to August 79.0 GWh and 85.6% LFP share.",
+            "SNE Research reports January-July 2026 separator loading of 11.699 billion square meters, up 24.9% year on year, versus predecessor 2026-07-14_GL_03's January-May 7.489 billion square meters, up 20.7%, and adds Q2 supplier-origin shares.",
+          ]
+          for i, v in enumerate(tests, 1):
+              print("candidate", i, "item_specific=", item_specific_lineage_assertion(v), repr(v))
+          PY
+
           echo "=== NR26 RELATED DIAGNOSTIC ==="
           python3 - <<'PY'
           import json, sys

@@ -120,7 +120,7 @@ jobs:
           python3 - <<'PY'
           import json, sys
           sys.path.insert(0, "validation_scripts")
-          from related_lifecycle_core import item_specific_lineage_assertion
+          from related_lifecycle_check import item_specific_lineage_assertion
           d=json.load(open("data/cards.full.json", encoding="utf-8"))
           cards=d["cards"] if isinstance(d,dict) else d
           for cid in ("2026-09-15_CN_01","2026-09-15_GL_01"):

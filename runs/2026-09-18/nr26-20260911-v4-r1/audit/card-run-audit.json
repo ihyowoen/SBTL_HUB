@@ -1,0 +1,73 @@
+{
+  "schema": "card_run_audit_v1",
+  "status": "PASS",
+  "audit_complete": true,
+  "reviewer_independence": "SEPARATE_PASS",
+  "run_id": "NR26_20260918_R1",
+  "base_main_commit_sha": "1305dea1892b5b19ce5bad84e67407743e5b1c26",
+  "base_full_blob_sha": "a9887cb2576cb4db195d0dddbc4db9b28c17847e",
+  "document_universe_manifest_ref": "runs/2026-09-18/nr26-20260911-v4-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-18/nr26-20260911-v4-r1/stage-0-0c.json",
+  "independent_completeness_ref": "runs/2026-09-18/nr26-20260911-v4-r1/stage-0-7c.json",
+  "reviewed_operations_sha256": "ed24b79fee03b4e1edeacac90ce85510560913c7191eaf608b11a51228b22cd5",
+  "expected_before": 1640,
+  "expected_after": 1674,
+  "inserted_ids": [
+    "2026-09-14_JP_01",
+    "2026-09-15_CN_01",
+    "2026-09-15_GL_01",
+    "2026-09-10_US_01",
+    "2026-09-10_US_02",
+    "2026-09-14_GL_01",
+    "2026-09-04_US_02",
+    "2026-09-14_CN_01",
+    "2026-08-01_JP_01",
+    "2026-09-10_KR_01",
+    "2026-09-10_EU_02",
+    "2026-09-10_EU_03",
+    "2026-09-09_GL_04",
+    "2026-09-08_CN_03",
+    "2026-09-11_EU_01",
+    "2026-09-16_US_01",
+    "2026-09-16_GL_02",
+    "2026-09-16_EU_02",
+    "2026-09-17_EU_01",
+    "2026-09-16_EU_01",
+    "2026-09-16_GL_03",
+    "2026-09-16_EU_03",
+    "2026-09-11_EU_02",
+    "2026-09-16_GL_01",
+    "2026-09-16_US_02",
+    "2026-09-08_CN_02",
+    "2026-09-16_GL_04",
+    "2026-09-09_CN_02",
+    "2026-09-14_JP_02",
+    "2026-09-15_KR_01",
+    "2026-09-16_CN_01",
+    "2026-09-16_CN_02",
+    "2026-09-17_CN_01",
+    "2026-09-14_CN_02"
+  ],
+  "updated_ids": [],
+  "related_additions": [
+    {
+      "source_id": "2026-09-15_CN_01",
+      "target_id": "2026-07-16_CN_03",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-09-15_GL_01",
+      "target_id": "2026-07-14_GL_03",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-09-16_GL_01",
+      "target_id": "2026-08-05_GL_02",
+      "direction": "directional"
+    }
+  ],
+  "zero_deletion_assertion": true,
+  "zero_related_remove_assertion": true,
+  "full_output_sha256": "3598027e9d0f4654c2dd46e49811c1c4f18432db76f6b325756a286e0ca7e7cf",
+  "lean_output_sha256": "b666e7cb9fe50b1eec0dc4f78fcf1e78e1eff0cad6db6442c4ef8eee7319bbf3"
+}

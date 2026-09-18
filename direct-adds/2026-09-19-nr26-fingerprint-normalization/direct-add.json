@@ -1,0 +1,74 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "NR26_FINGERPRINT_NORMALIZATION_20260919_R1",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "cd61937bf786bd0541f00a32a61d534c1633e8fe",
+  "base_full_blob_sha": "a619cb37a7c513c751c5419d09fa6b8488170aaa",
+  "expected_before": 1674,
+  "expected_after": 1674,
+  "output_updated": "2026-09-18T15:20:00Z",
+  "operations": {
+    "add": [],
+    "update": [
+      "2026-09-10_EU_03",
+      "2026-09-16_CN_02",
+      "2026-09-16_EU_01",
+      "2026-09-17_EU_01",
+      "2026-09-16_GL_04"
+    ],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [],
+    "updates": [
+      {
+        "id": "2026-09-10_EU_03",
+        "change_type": "correction",
+        "changed_fields": [
+          "event_fingerprint"
+        ],
+        "reason": "Normalize the existing NR26 event_fingerprint date key from representative_date to the active migration contract event_date key without changing the represented event or date value.",
+        "evidence_review_summary": "Post-merge remediation prep after PR #381 review. The semantic date is unchanged; only the date-bearing fingerprint key is normalized so later governed representative-date migration can be validated atomically."
+      },
+      {
+        "id": "2026-09-16_CN_02",
+        "change_type": "correction",
+        "changed_fields": [
+          "event_fingerprint"
+        ],
+        "reason": "Normalize the existing NR26 event_fingerprint date key from representative_date to the active migration contract event_date key without changing the represented event or date value.",
+        "evidence_review_summary": "Post-merge remediation prep after PR #381 review. The semantic date is unchanged; only the date-bearing fingerprint key is normalized so later governed representative-date migration can be validated atomically."
+      },
+      {
+        "id": "2026-09-16_EU_01",
+        "change_type": "correction",
+        "changed_fields": [
+          "event_fingerprint"
+        ],
+        "reason": "Normalize the existing NR26 event_fingerprint date key from representative_date to the active migration contract event_date key without changing the represented event or date value.",
+        "evidence_review_summary": "Post-merge remediation prep after PR #381 review. The semantic date is unchanged; only the date-bearing fingerprint key is normalized so later governed representative-date migration can be validated atomically."
+      },
+      {
+        "id": "2026-09-17_EU_01",
+        "change_type": "correction",
+        "changed_fields": [
+          "event_fingerprint"
+        ],
+        "reason": "Normalize the existing NR26 event_fingerprint date key from representative_date to the active migration contract event_date key without changing the represented event or date value.",
+        "evidence_review_summary": "Post-merge remediation prep after PR #381 review. The semantic date is unchanged; only the date-bearing fingerprint key is normalized so later governed representative-date migration can be validated atomically."
+      },
+      {
+        "id": "2026-09-16_GL_04",
+        "change_type": "correction",
+        "changed_fields": [
+          "event_fingerprint"
+        ],
+        "reason": "Normalize the existing NR26 event_fingerprint date key from representative_date to the active migration contract event_date key without changing the represented event or date value.",
+        "evidence_review_summary": "Post-merge remediation prep after PR #381 review. The semantic date is unchanged; only the date-bearing fingerprint key is normalized so later governed representative-date migration can be validated atomically."
+      }
+    ]
+  }
+}

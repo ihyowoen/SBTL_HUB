@@ -116,6 +116,22 @@ jobs:
           test -n "$MERGE_PREP_REF" && test -f "$MERGE_PREP_REF"
 
           STRICT_ID_COUNT="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String((r.ids||[]).length))' "$ID_LEDGER")"
+          echo "=== NR26 RELATED DIAGNOSTIC ==="
+          python3 - <<'PY'
+          import json, sys
+          sys.path.insert(0, "validation_scripts")
+          from related_lifecycle_core import item_specific_lineage_assertion
+          d=json.load(open("data/cards.full.json", encoding="utf-8"))
+          cards=d["cards"] if isinstance(d,dict) else d
+          for cid in ("2026-09-15_CN_01","2026-09-15_GL_01"):
+              card=next(x for x in cards if x.get("id")==cid)
+              lin=card.get("related_lineage") or {}
+              print(cid, "relation_type=", repr(lin.get("relation_type")))
+              for k in ("fresh_follow_up_anchor","incremental_fact_vs_predecessor","changed_judgment_vs_predecessor"):
+                  v=lin.get(k)
+                  print(" ", k, "=", repr(v), "item_specific=", item_specific_lineage_assertion(v))
+          PY
+
           if [[ "$STRICT_ID_COUNT" -gt 0 ]]; then
             python3 validation_scripts/related_lifecycle_check.py \
               data/cards.full.json --require-contract --new-id-file "$ID_LEDGER"

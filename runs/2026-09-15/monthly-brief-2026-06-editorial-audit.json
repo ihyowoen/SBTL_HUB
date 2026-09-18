@@ -1,0 +1,597 @@
+{
+  "schema": "monthly_brief_editorial_audit_v1",
+  "issue_id": "monthly-brief-2026-06-r1",
+  "month": "2026-06",
+  "audit_date": "2026-09-16",
+  "product": "SBTL Monthly Brief",
+  "baseline": {
+    "main_commit_sha": "1305dea1892b5b19ce5bad84e67407743e5b1c26",
+    "cards_full_blob_sha": "a9887cb2576cb4db195d0dddbc4db9b28c17847e",
+    "total_canonical_cards": 1640,
+    "month_card_count": 197,
+    "signal_distribution": {
+      "top": 15,
+      "high": 84,
+      "mid": 98
+    },
+    "region_distribution": {
+      "EU": 48,
+      "CN": 39,
+      "US": 36,
+      "GL": 35,
+      "KR": 32,
+      "JP": 7
+    }
+  },
+  "method": [
+    "Lock the post-#379 main canonical snapshot and reconstruct the May closing state from all 214 May-dated canonical cards because no official May Monthly Brief exists.",
+    "Use May as the sole previous-month baseline for June delta formation; classify June flows as deepened, advanced, operationalized or expanded rather than treating already-present May signals as new.",
+    "Review all 197 June cards and all 99 June top/high cards after the independent external gap closure, while preserving the June-only public reference contract.",
+    "Apply a hindsight firewall: July, August and September events or later Monthly Brief conclusions are not evidence for the June thesis and may only be used as red-team context.",
+    "Separate contract, financing, construction, commissioning and COD; announced GW/GWh is never treated as installed capacity.",
+    "Treat AI/data-center demand as a selective power-infrastructure pull already visible in May, not a new June master cause.",
+    "Apply a strict SBTL pouch lens: no pouch-film demand inference without form-factor, customer-program or supply-contract evidence.",
+    "Require every public June reference to preserve the locked canonical title/date and use a governed title-supporting URL."
+  ],
+  "independent_external_deep_dive": {
+    "performed_after_initial_canonical_first_draft": true,
+    "candidate_count": 14,
+    "canonicalized_net_new": 7,
+    "same_event_duplicates_removed": 2,
+    "watch_only_count": 5,
+    "promoted_events": [
+      "Energy Dome–SRP 20-year CO2-storage tolling",
+      "T1 Energy–KORE Power definitive acquisition agreement",
+      "Korea recycled-material certification pilot",
+      "EU Energy Storage Tripartite Agreement",
+      "Kansai Electric BESS infrastructure fund",
+      "Trina Storage Kyushu 160MWh supply contract",
+      "ContourGlobal Wallace BESS conditional acquisition"
+    ],
+    "duplicate_findings": [
+      "Ofgem LDES Window 1 already canonical as 2026-06-26_EU_01",
+      "FERC June 18 show-cause event already canonical as 2026-07-03_US_01"
+    ],
+    "watch_only": [
+      "GM compound ESS/sodium-ion chemistry story",
+      "ESS Tech forward pipeline/target",
+      "Yulchon Chemical pouch-film patent family pending patent-family normalization",
+      "Moss Landing cleanup requiring lineage treatment",
+      "Japan sustainability demo with insufficient independent monthly decision value"
+    ],
+    "editorial_effect": "The external June sweep remains additive to the chronological May→June comparison. It strengthens the evidence that May bankability signals developed into more differentiated revenue-contract structures in June, while LDES policy architecture diversified across jurisdictions and the AI/data-center axis continued or broadened rather than moving to a demonstrably deeper execution stage. Recycled-material certification operationalizes a May circularity direction, and Ford-CATL production-intent test cells provide an execution/validation example of the technology-transfer/localization axis already present in May. It does not make AI a new or singular June master narrative."
+  },
+  "selected_flows": [
+    {
+      "id": "01",
+      "title": "ESS 자산화, 5월의 금융·장기계약에서 6월의 수익구조 다변화로 심화",
+      "decision": "SELECT",
+      "anchor_card_ids": [
+        "2026-06-02_EU_01",
+        "2026-06-15_US_01",
+        "2026-06-22_US_01",
+        "2026-06-23_US_01",
+        "2026-06-30_GL_01"
+      ],
+      "delta_classification": "STRUCTURE_DIFFERENTIATED_WITH_CONTINUING_EXECUTION"
+    },
+    {
+      "id": "02",
+      "title": "저장 수요, 5월부터 있던 장주기 조달이 6월 정책설계·저장시간 축으로 더 분화",
+      "decision": "SELECT",
+      "anchor_card_ids": [
+        "2026-06-08_GL_02",
+        "2026-06-26_EU_01",
+        "2026-06-26_EU_07",
+        "2026-06-02_JP_01",
+        "2026-06-02_US_01"
+      ],
+      "delta_classification": "POLICY_DESIGN_DIFFERENTIATED_WITH_CONTINUING_DEMAND"
+    },
+    {
+      "id": "03",
+      "title": "차세대 저장, 5월부터 엇갈린 실행단계가 6월 제품후속·계약진전·실차검증으로 더 분화",
+      "decision": "SELECT",
+      "anchor_card_ids": [
+        "2026-06-22_CN_05",
+        "2026-06-23_EU_01",
+        "2026-06-22_EU_02",
+        "2026-06-17_US_02"
+      ],
+      "delta_classification": "MIXED_CONTINUATION_STAGE_ADVANCES_PLUS_JUNE_NEW_SIGNAL"
+    },
+    {
+      "id": "04",
+      "title": "공급망, 5월부터 기업·거래 단위 조건·대응 존재…6월 명단형 통제·지원수단으로 추가 분화",
+      "decision": "SELECT",
+      "anchor_card_ids": [
+        "2026-06-22_CN_01",
+        "2026-06-17_GL_07",
+        "2026-06-10_EU_01"
+      ],
+      "delta_classification": "TRANSACTION_LEVEL_INSTRUMENTS_DIVERSIFIED"
+    },
+    {
+      "id": "05",
+      "title": "현지화, 5월부터 있던 순환·추적성·기술이전 축이 6월 실행 사례로 구체화",
+      "decision": "SELECT",
+      "anchor_card_ids": [
+        "2026-06-30_US_02",
+        "2026-06-25_KR_02",
+        "2026-06-29_JP_01"
+      ],
+      "delta_classification": "OPERATIONALIZED_EXISTING_LOCALIZATION_AXES"
+    }
+  ],
+  "rejected_or_narrowed_narratives": [
+    {
+      "narrative": "AI data centers are the main causal driver of June ESS growth",
+      "decision": "NARROW",
+      "reason": "AI-linked cases are material but the broader cross-market pattern is long-duration storage, contracted revenues, financing and grid execution."
+    },
+    {
+      "narrative": "ESS growth means EV demand has been replaced",
+      "decision": "REJECT",
+      "reason": "The evidence establishes storage growth and contracting, not one-for-one substitution from EV demand."
+    },
+    {
+      "narrative": "Long-term contracts or announced GWh equal delivered operating capacity",
+      "decision": "REJECT",
+      "reason": "Contract, financing, construction, commissioning and COD are distinct execution stages."
+    },
+    {
+      "narrative": "US 1260H listing is a general sanction or investment ban",
+      "decision": "REJECT",
+      "reason": "The canonical card limits the June action to Defense Department procurement restrictions."
+    },
+    {
+      "narrative": "G7 adopted a binding critical-mineral price floor",
+      "decision": "REJECT",
+      "reason": "Price-gap support, joint procurement and price floors remain considered tools, not a finalized binding regime."
+    },
+    {
+      "narrative": "Ford Michigan LFP is already in commercial mass production",
+      "decision": "NARROW",
+      "reason": "The governed card limits the June event to production-intent test cells."
+    },
+    {
+      "narrative": "June ESS/LFP growth directly implies pouch-film demand",
+      "decision": "REJECT",
+      "reason": "No selected June anchor proves a pouch-form-factor customer program or pouch-film supply contract."
+    }
+  ],
+  "editorial_exclusions": [
+    {
+      "id": "2026-06-16_JP_01",
+      "reason": "Canonicalized and decision-relevant, but omitted from the compact public anchor set because stronger contracted-revenue and financing cases already prove Flow 01."
+    },
+    {
+      "id": "2026-06-03_JP_02",
+      "reason": "Canonicalized supply contract retained in the universe; omitted to avoid duplicating Japan storage procurement evidence."
+    },
+    {
+      "id": "2026-06-24_EU_03",
+      "reason": "Canonicalized single-company acquisition case retained as supporting evidence, but not needed to establish a market-wide M&A trend."
+    },
+    {
+      "id": "2026-06-05_KR_01",
+      "reason": "Samsung SDI–VW supply report remains unconfirmed by VW in the card gate."
+    },
+    {
+      "id": "2026-06-30_CN_02",
+      "reason": "52.522GWh is filing volume, not construction or COD."
+    },
+    {
+      "id": "2026-06-17_CN_05",
+      "reason": "Useful solid-state caution, but the compact public set uses a stage-disciplined road-test anchor and keeps commercialization skepticism in red-team context."
+    },
+    {
+      "id": "2026-06-11_KR_01",
+      "reason": "Excluded from the public anchor set because the locked canonical title presents the licence as a direct LG Energy Solution–Sunwoda contract, while the underlying fact identifies Tulip Innovation–Sunwoda as the contracting pair. Keep out of publication until canonical title provenance is remediated."
+    },
+    {
+      "id": "2026-06-09_US_02",
+      "reason": "Excluded from the public anchor set because the locked canonical title includes a no-sanctions caveat, but its only title-supporting governed URL does not support that caveat. A separate Automotive World source supports the caveat but is not title-authorized under the locked Monthly Brief provenance contract. Keep audit-only pending canonical title/source remediation."
+    }
+  ],
+  "official_source_selection": {
+    "selected_card_count": 20,
+    "selection_principle": "Compact June-only anchors selected for decision relevance and for their ability to prove what deepened, advanced, operationalized or expanded relative to the reconstructed May closing state. Cards with a public-title provenance defect are excluded pending canonical remediation, including the 1260H card whose locked title caveat is not supported by its title-authorized URL.",
+    "source_card_ids": [
+      "2026-06-02_EU_01",
+      "2026-06-15_US_01",
+      "2026-06-22_US_01",
+      "2026-06-23_US_01",
+      "2026-06-30_GL_01",
+      "2026-06-08_GL_02",
+      "2026-06-26_EU_01",
+      "2026-06-26_EU_07",
+      "2026-06-02_JP_01",
+      "2026-06-02_US_01",
+      "2026-06-22_CN_05",
+      "2026-06-23_EU_01",
+      "2026-06-22_EU_02",
+      "2026-06-17_US_02",
+      "2026-06-22_CN_01",
+      "2026-06-17_GL_07",
+      "2026-06-10_EU_01",
+      "2026-06-30_US_02",
+      "2026-06-25_KR_02",
+      "2026-06-29_JP_01"
+    ],
+    "binding": [
+      {
+        "id": "2026-06-02_EU_01",
+        "selected_url": "https://www.next-kraftwerke.de/neues/batteriespeicher-bess-ecostor",
+        "title_supporting_urls": [
+          "https://www.next-kraftwerke.de/neues/batteriespeicher-bess-ecostor"
+        ]
+      },
+      {
+        "id": "2026-06-15_US_01",
+        "selected_url": "https://energydome.com/energy-dome-and-srp-to-add-long-duration-energy-storage-project-to-the-grid-expand-google-collaboration/",
+        "title_supporting_urls": [
+          "https://energydome.com/energy-dome-and-srp-to-add-long-duration-energy-storage-project-to-the-grid-expand-google-collaboration/",
+          "https://www.publicpower.org/periodical/article/srp-unveils-agreement-add-19-mw-long-duration-battery-storage-system-grid"
+        ]
+      },
+      {
+        "id": "2026-06-22_US_01",
+        "selected_url": "http://www.press9.kr/news/articleView.html?idxno=78280",
+        "title_supporting_urls": [
+          "http://www.press9.kr/news/articleView.html?idxno=78280",
+          "https://www.theguru.co.kr/news/article.html?no=103416",
+          "https://www.prnewswire.com/news-releases/oci-energy-closes-130-million-tax-equity-financing-with-greenprint-capital-for-san-antonio-area-battery-project-302806665.html"
+        ]
+      },
+      {
+        "id": "2026-06-23_US_01",
+        "selected_url": "https://neoen.com/en/news/2026/neoen-awarded-long-term-contract-for-new-200-mw-8-hour-battery-in-ontario-canada/",
+        "title_supporting_urls": [
+          "https://neoen.com/en/news/2026/neoen-awarded-long-term-contract-for-new-200-mw-8-hour-battery-in-ontario-canada/"
+        ]
+      },
+      {
+        "id": "2026-06-30_GL_01",
+        "selected_url": "https://www.energy-storage.news/akaysha-energys-1660mwh-orana-bess-reaches-commercial-operations-in-australia",
+        "title_supporting_urls": [
+          "https://www.energy-storage.news/akaysha-energys-1660mwh-orana-bess-reaches-commercial-operations-in-australia"
+        ]
+      },
+      {
+        "id": "2026-06-08_GL_02",
+        "selected_url": "https://www.sneresearch.com/kr/insight/release_view/671/page/0",
+        "title_supporting_urls": [
+          "https://www.sneresearch.com/kr/insight/release_view/671/page/0"
+        ]
+      },
+      {
+        "id": "2026-06-26_EU_01",
+        "selected_url": "https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers",
+        "title_supporting_urls": [
+          "https://www.ofgem.gov.uk/press-release/ofgem-boosts-long-duration-storage-secure-more-homegrown-energy-customers",
+          "https://www.ess-news.com/2026/06/26/pumped-hydro-and-lithium-bess-top-uk-ldes-cap-and-floor"
+        ]
+      },
+      {
+        "id": "2026-06-26_EU_07",
+        "selected_url": "https://energy.ec.europa.eu/strategy/affordable-energy/eu-level-tripartite-agreements_en",
+        "title_supporting_urls": [
+          "https://energy.ec.europa.eu/strategy/affordable-energy/eu-level-tripartite-agreements_en",
+          "https://energy.ec.europa.eu/publications/tripartite-agreement-energy-storage_en"
+        ]
+      },
+      {
+        "id": "2026-06-02_JP_01",
+        "selected_url": "https://www.itmedia.co.jp/smartjapan/articles/2606/12/news019.html",
+        "title_supporting_urls": [
+          "https://www.itmedia.co.jp/smartjapan/articles/2606/12/news019.html",
+          "https://www.meti.go.jp/press/2026/06/20260602001/20260602001.html"
+        ]
+      },
+      {
+        "id": "2026-06-02_US_01",
+        "selected_url": "https://ir.t1energy.com/news-releases/T1_Energy_Enters_Battery_and_Data_Center_Infrastructure_Markets",
+        "title_supporting_urls": [
+          "https://ir.t1energy.com/news-releases/T1_Energy_Enters_Battery_and_Data_Center_Infrastructure_Markets",
+          "https://www.sec.gov/Archives/edgar/data/1992243/000121390026065997/ea0293886-8k_t1energy.htm"
+        ]
+      },
+      {
+        "id": "2026-06-22_CN_05",
+        "selected_url": "https://www.china5e.com/news/news-1205419-1.html",
+        "title_supporting_urls": [
+          "https://www.china5e.com/news/news-1205419-1.html",
+          "https://www.prnewswire.com/news-releases/catl-debuts-worlds-first-field-validated-sodium-ion-bess-bringing-sodium-storage-to-commercial-reality-302807380.html"
+        ]
+      },
+      {
+        "id": "2026-06-23_EU_01",
+        "selected_url": "https://energydome.com/google-and-energy-dome-advance-multi-continent-energy-storage-buildout-with-first-bilateral-project-in-ireland/",
+        "title_supporting_urls": [
+          "https://energydome.com/google-and-energy-dome-advance-multi-continent-energy-storage-buildout-with-first-bilateral-project-in-ireland/"
+        ]
+      },
+      {
+        "id": "2026-06-22_EU_02",
+        "selected_url": "https://www.energy-storage.news/multi-day-energy-storage-startup-ore-energy-signs-1gwh-iron-air-battery-deal-with-dutch-utility",
+        "title_supporting_urls": [
+          "https://www.energy-storage.news/multi-day-energy-storage-startup-ore-energy-signs-1gwh-iron-air-battery-deal-with-dutch-utility",
+          "https://via.ritzau.dk/pressemeddelelse/15004151/ore-energy-and-budget-thuis-to-deploy-1-gwh-of-multi-day-iron-air-energy-storage-in-a-first-for-european-energy-suppliers?publisherId=13560585"
+        ]
+      },
+      {
+        "id": "2026-06-17_US_02",
+        "selected_url": "https://www.theguru.co.kr/news/article.html?no=103212",
+        "title_supporting_urls": [
+          "https://www.theguru.co.kr/news/article.html?no=103212"
+        ]
+      },
+      {
+        "id": "2026-06-22_CN_01",
+        "selected_url": "https://www.newsis.com/view/NISX20260622_0003678123",
+        "title_supporting_urls": [
+          "https://www.newsis.com/view/NISX20260622_0003678123"
+        ]
+      },
+      {
+        "id": "2026-06-17_GL_07",
+        "selected_url": "https://www.pm.gc.ca/en/news/statements/2026/06/17/g7-leaders-declaration-securing-supply-chains-critical-minerals",
+        "title_supporting_urls": [
+          "https://www.pm.gc.ca/en/news/statements/2026/06/17/g7-leaders-declaration-securing-supply-chains-critical-minerals"
+        ]
+      },
+      {
+        "id": "2026-06-10_EU_01",
+        "selected_url": "https://climate.ec.europa.eu/news-other-reads/news/new-battery-booster-set-inject-eu15-billion-european-battery-industry-2026-06-09_en",
+        "title_supporting_urls": [
+          "https://climate.ec.europa.eu/news-other-reads/news/new-battery-booster-set-inject-eu15-billion-european-battery-industry-2026-06-09_en"
+        ]
+      },
+      {
+        "id": "2026-06-30_US_02",
+        "selected_url": "https://battery-tech.net/battery-markets-news/ford-launches-u-s-lfp-ev-battery-cell-production/",
+        "title_supporting_urls": [
+          "https://battery-tech.net/battery-markets-news/ford-launches-u-s-lfp-ev-battery-cell-production/",
+          "https://battery-tech.net/battery-markets-news/ford-launches-u-s-lfp-ev-battery-cell-production/",
+          "https://carnewschina.com/2026/06/30/catl-ford-tech-licensing-battery-plant-commences-production-in-the-u-s"
+        ]
+      },
+      {
+        "id": "2026-06-25_KR_02",
+        "selected_url": "https://niwdc.me.go.kr/home/web/newsRead.do?boardId=1873220&condition.boardId=1873150&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=92&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=80&searchKey=&searchValue=",
+        "title_supporting_urls": [
+          "https://niwdc.me.go.kr/home/web/newsRead.do?boardId=1873220&condition.boardId=1873150&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=92&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=80&searchKey=&searchValue="
+        ]
+      },
+      {
+        "id": "2026-06-29_JP_01",
+        "selected_url": "https://www.denso.com/jp/ja/news/newsroom/2026/20260629-01/",
+        "title_supporting_urls": [
+          "https://www.denso.com/jp/ja/news/newsroom/2026/20260629-01/",
+          "https://www.japanindustrynews.com/2026/07/denso-and-tuv-rheinland-japan-validate-battery-passport-for-eu-compliance/amp/"
+        ]
+      }
+    ]
+  },
+  "qc": {
+    "evidence": "PASS",
+    "red_team": "PASS",
+    "editorial_coherence": "PASS",
+    "language_terminology": "PASS",
+    "provenance": "PASS_BY_GENERATED_LOCKED_BINDING",
+    "pouch_inference": "PASS_NO_DIRECT_DEMAND_INFERENCE"
+  },
+  "previous_month_baseline": {
+    "month": "2026-05",
+    "official_monthly_brief_exists": false,
+    "reconstruction_basis": "article-date May canonical universe in the same locked post-#379 snapshot",
+    "canonical_card_count": 214,
+    "signal_distribution": {
+      "top": 9,
+      "high": 135,
+      "mid": 70
+    },
+    "region_distribution": {
+      "GL": 69,
+      "KR": 56,
+      "US": 31,
+      "CN": 28,
+      "EU": 23,
+      "JP": 7
+    },
+    "baseline_state": [
+      {
+        "theme": "ESS bankability and execution already present",
+        "finding": "May already contained project-financing closes, minimum-revenue/optimization structures, utility-scale COD, large ESS supply contracts, and 20-year fixed-revenue storage contracts in Japan.",
+        "evidence_card_ids": [
+          "2026-05-04_EU_01",
+          "2026-05-05_GL_01",
+          "2026-05-14_US_01",
+          "2026-05-27_KR_02",
+          "2026-05-13_JP_01"
+        ]
+      },
+      {
+        "theme": "Long-duration procurement and storage policy already present",
+        "finding": "May already had concrete long-duration execution: six FERMA projects totaling 5.336GWh were awarded with an eight-hour requirement, alongside preliminary storage-market rule design. June Ofgem provisional selection therefore represents a different UK cap-and-floor policy design and technology mix rather than a deeper execution stage.",
+        "evidence_card_ids": [
+          "2026-05-29_GL_07",
+          "2026-05-27_EU_01",
+          "2026-05-13_US_01"
+        ]
+      },
+      {
+        "theme": "AI/data-center pull already visible",
+        "finding": "May already contained concrete long-duration procurement and AI-linked ESS demand: six FERMA projects totaling 5.336GWh were awarded with an eight-hour requirement, while DTE/Oracle and Prevalon provided large AI/hyperscale-linked storage demand signals. June should therefore be read as policy-design diversification and continuation/broadening, not a simple execution-stage deepening.",
+        "evidence_card_ids": [
+          "2026-05-27_KR_02",
+          "2026-05-29_GL_06",
+          "2026-05-11_GL_06",
+          "2026-05-29_GL_07"
+        ]
+      },
+      {
+        "theme": "Next-generation technology already showed uneven maturity by technology",
+        "finding": "May sodium-ion already included a three-year 60GWh supply contract, a Q4 mass-production plan and a commissioned 100MW/200MWh sodium BESS; Energy Dome CO₂ storage already had a commercialization-path discussion; solid-state remained short of full demonstration. June sodium-ion is therefore a product-specific follow-up, CO₂ moves from commercialization discussion to signed tolling/commercial agreements, solid-state road testing is a clearer stage advance, and iron-air remains a June-only new-contract signal.",
+        "evidence_card_ids": [
+          "2026-05-01_GL_04",
+          "2026-05-13_CN_01",
+          "2026-05-20_GL_04",
+          "2026-05-27_GL_01"
+        ]
+      },
+      {
+        "theme": "Supply-chain policy already included company- and transaction-level proposals, responses and financing",
+        "finding": "May combined macro concentration/mineral risk with company- and transaction-level signals, but their legal/execution stages differed: EU public-procurement / financial-support eligibility and foreign-investment conditions were Commission proposals under Parliament/Council review, while FEOC-linked ownership restructuring and named U.S. policy financing were concrete company-level responses/financing. June adds different named-company lists, considered support tools and EV-cell production finance rather than introducing transaction-level instruments for the first time.",
+        "evidence_card_ids": [
+          "2026-05-20_GL_02",
+          "2026-05-20_GL_08",
+          "2026-05-29_GL_02",
+          "2026-05-29_EU_01",
+          "2026-05-13_EU_01",
+          "2026-05-08_US_01",
+          "2026-05-11_US_03",
+          "2026-05-15_US_01"
+        ]
+      },
+      {
+        "theme": "Circularity regulation entering the agenda",
+        "finding": "Korea had already established recycled-material production/use certification and full-lifecycle tracking as policy directions in May; June advances these areas into pilot implementation and real-data validation.",
+        "evidence_card_ids": [
+          "2026-05-20_KR_01"
+        ]
+      }
+    ],
+    "closing_window": {
+      "start": "2026-05-15",
+      "end": "2026-05-31",
+      "card_count": 41,
+      "top_high_count": 32
+    },
+    "may_june_unique_related_edge_count": 21
+  },
+  "hindsight_firewall": {
+    "thesis_evidence_cutoff": "2026-06-30",
+    "later_month_events_used_for_june_thesis": false,
+    "later_month_briefs_used_as_publication_authority": false,
+    "permitted_later_use": "red-team only; no July-August-September event may establish or upgrade a June claim"
+  },
+  "delta_classification": [
+    {
+      "flow_id": "01",
+      "classification": "STRUCTURE_DIFFERENTIATED_WITH_CONTINUING_EXECUTION",
+      "may_state": "Financing, revenue-floor structures, COD and 20-year fixed-revenue storage contracts already existed.",
+      "june_change": "June adds different revenue-contract forms—5-year/20-year tolling and a 20-year capacity contract—while tax-equity financing and COD remain continuing execution evidence. The delta is structural differentiation, not longer contract duration."
+    },
+    {
+      "flow_id": "02",
+      "classification": "POLICY_DESIGN_DIFFERENTIATED_WITH_CONTINUING_DEMAND",
+      "may_state": "Long-duration procurement and AI-linked ESS demand were already concrete in May, including six FERMA awards totaling 5.336GWh with an eight-hour requirement and large AI/hyperscale-linked storage supply contracts.",
+      "june_change": "June does not represent a later execution stage merely because Ofgem provisionally selected 16 LDES projects. Instead, UK cap-and-floor design, a different technology mix, non-binding EU deployment pledges and Japan power-system strategy diversify the policy architecture, while AI/data-center demand remains a continuing/broadening selective axis."
+    },
+    {
+      "flow_id": "03",
+      "classification": "MIXED_CONTINUATION_STAGE_ADVANCES_PLUS_JUNE_NEW_SIGNAL",
+      "may_state": "Sodium-ion already had a 60GWh supply contract, Q4 mass-production plan and a commissioned 100MW/200MWh BESS; Energy Dome CO₂ storage already had a commercialization-path discussion; solid-state remained pre-full-demonstration. The May baseline does not establish an iron-air progression anchor.",
+      "june_change": "CATL sodium-ion delivery scheduling is a product-specific follow-up; Energy Dome CO₂ storage advances from commercialization discussion to signed tolling/commercial agreements; solid-state road testing is a clearer stage advance; iron-air remains a separate June-only new-contract signal."
+    },
+    {
+      "flow_id": "04",
+      "classification": "TRANSACTION_LEVEL_INSTRUMENTS_DIVERSIFIED",
+      "may_state": "Macro concentration/mineral risk coexisted with company/transaction-level signals at different stages: EU public-procurement / financial-support eligibility and foreign-investment conditions were Commission proposals under Parliament/Council review, while FEOC-linked ownership restructuring and named policy financing were concrete responses/financing.",
+      "june_change": "June adds a different mix of named-company export/procurement lists, considered G7 support tools and EU EV-cell production finance. The delta is diversification of transaction-level instruments and execution forms, not first-time appearance of binding EU rules."
+    },
+    {
+      "flow_id": "05",
+      "classification": "OPERATIONALIZED_EXISTING_LOCALIZATION_AXES",
+      "may_state": "Localization already included production-footprint/supply-chain themes, recycled-material production/use certification and lifecycle tracking. EU foreign-investment conditions mentioning joint ventures and technology transfer were Commission proposals under Parliament/Council review rather than operative rules.",
+      "june_change": "Korea certification piloting and Japan passport real-data validation operationalize existing circularity/traceability directions; Ford production-intent test cells show an existing CATL technology-licensing structure being applied in manufacturing validation. June is operationalization of existing localization axes, while the May EU technology-transfer condition remains proposal-stage context rather than an operative framework."
+    }
+  ],
+  "codex_current_head_rereview_remediation": {
+    "review_id": 5218750696,
+    "reviewed_head": "d9d810f60cd438bf99204c17634b39b7de336c75",
+    "findings_addressed": [
+      "flow05_circularity_reclassified_as_operationalization_with_technology_licensing_as_expansion",
+      "iron_air_removed_from_may_to_june_progression_and_treated_as_june_only_contract_signal",
+      "flow01_financing_and_cod_reclassified_as_continuing_execution_while_long_contracts_remain_deepening",
+      "1260h_removed_from_public_anchor_set_due_locked_title_vs_title_authorized_source_mismatch"
+    ]
+  },
+  "codex_final_head_rereview_remediation": {
+    "review_id": 5218883058,
+    "reviewed_head": "badbcd5c9e87060f88d30059841c051a1181884f",
+    "findings_addressed": [
+      "removed_residual_1260h_public_claim_after_anchor_quarantine",
+      "advanced_monthly_library_updated_at_to_2026_09_16",
+      "reframed_flow01_from_longer_duration_to_revenue_structure_differentiation_and_added_may_20y_anchor"
+    ]
+  },
+  "codex_review_5219257706_remediation": {
+    "reviewed_head": "af36a4e1fd50c0013b79e0466c1b92706c7e4ed8",
+    "findings_addressed": [
+      "removed residual 1260H watch-list entry because the card remains audit-only/quarantined",
+      "separated May-to-June sodium-ion/solid-state progression from June-only CO2/iron-air commercial-contract signals in executive diagnosis"
+    ]
+  },
+  "codex_review_5219397073_remediation": {
+    "review_id": 5219397073,
+    "reviewed_head": "7d8fedd86578f2b4974cfaa63596f35f3b171af6",
+    "may_baseline_additions": {
+      "sodium_execution": [
+        "2026-05-13_CN_01"
+      ],
+      "eu_procurement_investment": [
+        "2026-05-13_EU_01"
+      ],
+      "feoc_restructuring": [
+        "2026-05-08_US_01",
+        "2026-05-11_US_03"
+      ],
+      "named_policy_financing": [
+        "2026-05-15_US_01"
+      ]
+    },
+    "findings_addressed": [
+      "technology_specific_progression_split",
+      "eu_general_storage_pledge_separated_from_ldes",
+      "may_sodium_execution_added_june_product_followup",
+      "may_transaction_level_rules_added_june_instrument_diversification"
+    ]
+  },
+  "codex_review_5220166060_remediation": {
+    "review_id": 5220166060,
+    "reviewed_head": "a56a57a123d6799284b74e80a32e04cbc6aaa9db",
+    "findings_addressed": [
+      "selected_flows_03_04_05_synchronized_with_final_delta_classifications",
+      "ford_technology_license_reclassified_as_operationalization_of_existing_may_technology_transfer_axis"
+    ]
+  },
+  "codex_review_5222887743_remediation": {
+    "review_id": 5222887743,
+    "reviewed_head": "e7e1c73503e5729b86594dc9275a8e215a1497be",
+    "finding_addressed": "deep-dive editorial_effect now treats Ford-CATL as execution/validation of an existing May technology-transfer/localization axis rather than a June-new rights dimension"
+  },
+  "codex_review_5223840123_remediation": {
+    "reviewed_head": "c9338f0aefd23dd050dbca1766f0d9f902c88f69",
+    "findings_addressed": [
+      "co2_reclassified_from_june_only_to_may_commercialization_path_to_june_signed_contract_stage_advance_with_2026_05_01_GL_04_added_to_baseline",
+      "may_eu_iaa_conditions_labeled_as_commission_proposals_under_parliament_council_review_not_binding_rules",
+      "flow03_flow04_public_and_audit_classifications_synchronized"
+    ]
+  },
+  "codex_review_5224027876_remediation": {
+    "reviewed_head": "b71cdd4e113c94db1d940ad78130263e47ca7b67",
+    "findings_addressed": [
+      "watch_preserves_co2_may_to_june_contract_stage_advance_vs_iron_air_june_only_split",
+      "flow05_audit_preserves_may_eu_iaa_proposal_under_parliament_council_review_stage",
+      "flow02_reclassified_from_deepening_to_policy_design_differentiation_given_may_ferma_awards",
+      "ai_axis_reclassified_from_deepening_to_continuation_broadening"
+    ]
+  },
+  "codex_review_latest_ldes_baseline_remediation": {
+    "reviewed_head": "ec13a6a626b0c498910ee1a29718143d989f06dd",
+    "finding_addressed": "residual_long_duration_baseline_deepening_reclassified_as_policy_design_differentiation"
+  }
+}

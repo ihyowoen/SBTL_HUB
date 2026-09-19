@@ -144,6 +144,30 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             operation_card={**VISIBLE, "fact": "same fact"},
         )
 
+    def test_comparison_expressions_survive_markup_normalization(self):
+        self.assertEqual(
+            binding._normalize_text("loss <0.7% and density >300 kW/L"),
+            "loss <0.7% and density >300 kW/L",
+        )
+        self.assertEqual(
+            stage_contract._normalize_text("loss <70% and density >300 kW/L"),
+            "loss <70% and density >300 kW/L",
+        )
+        self.assertNotEqual(
+            binding._normalize_text("loss <0.7% and density >300 kW/L"),
+            binding._normalize_text("loss <70% and density >300 kW/L"),
+        )
+
+    def test_known_html_presentation_tags_are_still_normalized_out(self):
+        self.assertEqual(
+            binding._normalize_text("<strong>same fact</strong>"),
+            "same fact",
+        )
+        self.assertEqual(
+            stage_contract._normalize_text("<em>same fact</em>"),
+            "same fact",
+        )
+
     def test_empty_intermediate_values_fall_back_to_earlier_nonempty_copy(self):
         row = row06(
             content_enrichment_audit=audit(
@@ -394,6 +418,25 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
                 {"op": "replace", "path": "/metadata/detail", "value": "new"},
                 "update[0].changes[0]",
             )
+
+    def test_python_materializer_rejects_noncanonical_array_indices(self):
+        for path in ("/implication/01", "/implication/+1"):
+            card = {"id": "CARD1", "implication": ["a", "b"]}
+            with self.assertRaisesRegex(binding.Blocked, "canonical array index syntax"):
+                binding._apply_json_change(
+                    card,
+                    {"op": "replace", "path": path, "value": "x"},
+                    "update[0].changes[0]",
+                )
+
+    def test_python_materializer_accepts_canonical_array_index(self):
+        card = {"id": "CARD1", "implication": ["a", "b"]}
+        binding._apply_json_change(
+            card,
+            {"op": "replace", "path": "/implication/1", "value": "x"},
+            "update[0].changes[0]",
+        )
+        self.assertEqual(card["implication"], ["a", "x"])
 
 
 

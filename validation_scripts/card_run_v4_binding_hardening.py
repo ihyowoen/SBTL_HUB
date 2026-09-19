@@ -43,6 +43,11 @@ VISIBLE_COPY_FIELDS = ("sub", "gate", "fact", "implication")
 CONTENT_BASELINE_ORDER = ("0.5", "0.4", "C")
 CONTENT_BASELINE_STRATEGY = "nearest_upstream_visible_copy_0.5_0.4_C"
 PROMPT_06_PATH = "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md"
+PRESENTATION_HTML_TAG_RE = re.compile(
+    r"</?(?:strong|b|em|i|u|s|del|mark|span|small|sub|sup)(?:\s+[^<>]*?)?\s*/?>",
+    re.IGNORECASE,
+)
+ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
 DENSITY_DIMENSIONS = (
     "prior_state",
     "changed_state",
@@ -502,7 +507,10 @@ def _normalize_text(value):
         return value
     text=value
     text=re.sub(r"\[([^\]]+)\]\([^)]*\)",r"\1",text)
-    text=re.sub(r"<[^>]+>","",text)
+    # Strip only known presentation-formatting tags. Do not use a generic
+    # <...> regex because comparison expressions such as "<0.7%" or ">300"
+    # are substantive visible copy.
+    text=PRESENTATION_HTML_TAG_RE.sub("",text)
     text=re.sub(r"^\s{0,3}#{1,6}\s+","",text)
     text=re.sub(r"^\s*[-+>]\s+","",text)
     text=text.replace("**","").replace("__","").replace("~~","").replace(chr(96),"").replace("*","")
@@ -673,10 +681,9 @@ def _apply_json_change(document, change, label):
             else:
                 raise Blocked(f"{label} JSON pointer cannot resolve token {part!r}")
         elif isinstance(parent,list):
-            try:
-                index=int(part)
-            except ValueError:
-                raise Blocked(f"{label} JSON pointer list token must be integer: {part!r}")
+            if not isinstance(part,str) or not ARRAY_INDEX_RE.fullmatch(part):
+                raise Blocked(f"{label} JSON pointer list token must use canonical array index syntax: {part!r}")
+            index=int(part)
             if index<0 or index>=len(parent):
                 raise Blocked(f"{label} JSON pointer list index out of range: {part!r}")
             parent=parent[index]
@@ -706,10 +713,9 @@ def _apply_json_change(document, change, label):
                 raise Blocked(f"{label} '-' list token only valid for add")
             parent.append(copy.deepcopy(change.get("value")))
             return
-        try:
-            index=int(key)
-        except ValueError:
-            raise Blocked(f"{label} list token must be integer or '-'")
+        if not isinstance(key,str) or not ARRAY_INDEX_RE.fullmatch(key):
+            raise Blocked(f"{label} list token must use canonical array index syntax or '-'")
+        index=int(key)
         if op=="remove":
             if index<0 or index>=len(parent):
                 raise Blocked(f"{label} remove list index out of range")

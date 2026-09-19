@@ -492,13 +492,21 @@ def _requires_v5_content_audit(row, locked_prompt_version=None):
 def _effective_upstream_visible_value(rows_by_stage, field, label):
     for stage_name in CONTENT_BASELINE_ORDER:
         row=_single_bound_row(rows_by_stage, stage_name, label)
-        if field in row:
+        if field in row and _normalized_visible_value(field,row[field]) is not None:
             return row[field], stage_name
     return _MISSING, None
 
 
 def _normalize_text(value):
-    return " ".join(value.split()) if isinstance(value,str) else value
+    if not isinstance(value,str):
+        return value
+    text=value
+    text=re.sub(r"\[([^\]]+)\]\([^)]*\)",r"\1",text)
+    text=re.sub(r"<[^>]+>","",text)
+    text=re.sub(r"^\s{0,3}#{1,6}\s+","",text)
+    text=re.sub(r"^\s*[-+>]\s+","",text)
+    text=text.replace("**","").replace("__","").replace("~~","").replace(chr(96),"").replace("*","")
+    return " ".join(text.split())
 
 
 def _normalized_visible_value(field, value):
@@ -539,15 +547,23 @@ def _row_evidence_tokens(row):
     return tokens
 
 
-def _validate_dimension_evidence(density, row_06, label, true_dimensions):
+def _upstream_evidence_tokens(rows_by_stage,label):
+    tokens=set()
+    for stage_name in ("0.5","0.4","C","B"):
+        row=_single_bound_row(rows_by_stage,stage_name,label)
+        tokens.update(_row_evidence_tokens(row))
+    return tokens
+
+
+def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowed_evidence_tokens=None):
     mapping=density.get("dimension_evidence")
     if not isinstance(mapping,dict) or set(mapping)!=set(true_dimensions):
         raise Blocked(
             f"{label} zero-delta 0.6 density_audit.dimension_evidence must map exactly true dimensions {sorted(true_dimensions)}"
         )
-    evidence_tokens=_row_evidence_tokens(row_06)
+    evidence_tokens=set(allowed_evidence_tokens) if allowed_evidence_tokens is not None else _row_evidence_tokens(row_06)
     if not evidence_tokens:
-        raise Blocked(f"{label} zero-delta 0.6 requires bound source evidence tokens for dimension_evidence")
+        raise Blocked(f"{label} 0.6 requires bound upstream source evidence tokens for dimension_evidence")
     for name in true_dimensions:
         entry=mapping.get(name)
         if not isinstance(entry,dict):
@@ -566,7 +582,9 @@ def _validate_dimension_evidence(density, row_06, label, true_dimensions):
             raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name} has unbound evidence refs {unknown}")
 
 
-def _validate_density_audit(audit, row_06, label, *, no_change, actual_changed=()):
+def _validate_density_audit(
+    audit, row_06, label, *, no_change, actual_changed=(), allowed_evidence_tokens=None
+):
     density=audit.get("density_audit") if isinstance(audit,dict) else None
     if not isinstance(density,dict) or density.get("status")!="PASS":
         raise Blocked(f"{label} 0.6 content_enrichment_audit.density_audit must be structured PASS")
@@ -577,8 +595,11 @@ def _validate_density_audit(audit, row_06, label, *, no_change, actual_changed=(
         raise Blocked(f"{label} 0.6 density_audit dimensions must all be booleans")
     true_dimensions=[name for name in DENSITY_DIMENSIONS if dimensions[name]]
     supported=len(true_dimensions)
-    if density.get("supported_dimension_count")!=supported:
-        raise Blocked(f"{label} 0.6 density_audit.supported_dimension_count={density.get('supported_dimension_count')} != {supported}")
+    count=density.get("supported_dimension_count")
+    if not isinstance(count,int) or isinstance(count,bool):
+        raise Blocked(f"{label} 0.6 density_audit.supported_dimension_count must be a non-boolean integer")
+    if count!=supported:
+        raise Blocked(f"{label} 0.6 density_audit.supported_dimension_count={count} != {supported}")
     notes=density.get("evidence_notes")
     if not _nonempty_text(notes):
         raise Blocked(f"{label} 0.6 density_audit.evidence_notes required")
@@ -591,7 +612,10 @@ def _validate_density_audit(audit, row_06, label, *, no_change, actual_changed=(
     elif supported < 1:
         raise Blocked(f"{label} changed 0.6 copy requires at least one evidence-supported Deep Summary dimension")
 
-    _validate_dimension_evidence(density,row_06,label,true_dimensions)
+    _validate_dimension_evidence(
+        density,row_06,label,true_dimensions,
+        allowed_evidence_tokens=allowed_evidence_tokens,
+    )
     if not no_change:
         mapping=density.get("dimension_evidence")
         changed=set(actual_changed)
@@ -756,8 +780,10 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
         if not _nonempty_text(audit.get("no_change_reason")):
             raise Blocked(f"{label} zero-delta 0.6 requires explicit no_change_reason")
 
+    allowed_evidence_tokens=_upstream_evidence_tokens(rows_by_stage,label)
     _validate_density_audit(
-        audit,row_06,label,no_change=not actual_changed,actual_changed=actual_changed
+        audit,row_06,label,no_change=not actual_changed,actual_changed=actual_changed,
+        allowed_evidence_tokens=allowed_evidence_tokens,
     )
     if operation_card is not None:
         _validate_operation_visible_copy(row_06,operation_card,label)

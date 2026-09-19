@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, hashlib, json, os, subprocess, sys
+import argparse, copy, hashlib, json, os, subprocess, sys
 from collections import Counter
 from pathlib import Path
 
@@ -452,6 +452,24 @@ def _single_bound_row(rows_by_stage, stage_name, label):
     return rows[0]
 
 
+def _prompt_06_version(row):
+    if not isinstance(row,dict):
+        return None
+    for key in ("prompt_provenance_0_6","prompt_provenance"):
+        provenance=row.get(key)
+        if not isinstance(provenance,dict):
+            continue
+        version=provenance.get("prompt_version")
+        if isinstance(version,str) and version.startswith("PROMPT_0_6_"):
+            return version
+    return None
+
+
+def _requires_v5_content_audit(row):
+    version=_prompt_06_version(row)
+    return not (isinstance(version,str) and version.startswith("PROMPT_0_6_V4_"))
+
+
 def _effective_upstream_visible_value(rows_by_stage, field, label):
     for stage_name in CONTENT_BASELINE_ORDER:
         row=_single_bound_row(rows_by_stage, stage_name, label)
@@ -460,7 +478,76 @@ def _effective_upstream_visible_value(rows_by_stage, field, label):
     return _MISSING, None
 
 
-def _validate_density_audit(audit, label, *, no_change):
+def _normalize_text(value):
+    return " ".join(value.split()) if isinstance(value,str) else value
+
+
+def _normalized_visible_value(field, value):
+    if field in {"sub","gate","fact"}:
+        return _normalize_text(value) if _nonempty_text(value) else None
+    if field=="implication":
+        if not isinstance(value,list) or not value or any(not _nonempty_text(x) for x in value):
+            return None
+        return tuple(_normalize_text(x) for x in value)
+    return None
+
+
+def _row_evidence_tokens(row):
+    tokens=set()
+    if not isinstance(row,dict):
+        return tokens
+    for source in row.get("fact_sources",[]) if isinstance(row.get("fact_sources"),list) else []:
+        if not isinstance(source,dict):
+            continue
+        for key in ("id","source_id","url","source_url"):
+            value=source.get(key)
+            if _nonempty_text(value):
+                tokens.add(value.strip())
+    for entry in row.get("source_discovery_ledger",[]) if isinstance(row.get("source_discovery_ledger"),list) else []:
+        if not isinstance(entry,dict):
+            continue
+        for key in ("source_id","source_url","canonical_url"):
+            value=entry.get(key)
+            if _nonempty_text(value):
+                tokens.add(value.strip())
+    coverage=row.get("claim_source_coverage")
+    if isinstance(coverage,dict):
+        visible=coverage.get("visible_fact")
+        if isinstance(visible,dict):
+            refs=visible.get("supported_by_source_ids")
+            if isinstance(refs,list):
+                tokens.update(x.strip() for x in refs if _nonempty_text(x))
+    return tokens
+
+
+def _validate_dimension_evidence(density, row_06, label, true_dimensions):
+    mapping=density.get("dimension_evidence")
+    if not isinstance(mapping,dict) or set(mapping)!=set(true_dimensions):
+        raise Blocked(
+            f"{label} zero-delta 0.6 density_audit.dimension_evidence must map exactly true dimensions {sorted(true_dimensions)}"
+        )
+    evidence_tokens=_row_evidence_tokens(row_06)
+    if not evidence_tokens:
+        raise Blocked(f"{label} zero-delta 0.6 requires bound source evidence tokens for dimension_evidence")
+    for name in true_dimensions:
+        entry=mapping.get(name)
+        if not isinstance(entry,dict):
+            raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name} must be an object")
+        fields=entry.get("fields")
+        if not isinstance(fields,list) or not fields or len(fields)!=len(set(fields)) or any(x not in VISIBLE_COPY_FIELDS for x in fields):
+            raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name}.fields must be a non-empty unique visible-field subset")
+        for field in fields:
+            if _normalized_visible_value(field,row_06.get(field,_MISSING)) is None:
+                raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name} references empty/missing field {field}")
+        refs=entry.get("evidence_refs")
+        if not isinstance(refs,list) or not refs or any(not _nonempty_text(x) for x in refs):
+            raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name}.evidence_refs must be non-empty strings")
+        unknown=[x for x in refs if x.strip() not in evidence_tokens]
+        if unknown:
+            raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name} has unbound evidence refs {unknown}")
+
+
+def _validate_density_audit(audit, row_06, label, *, no_change):
     density=audit.get("density_audit") if isinstance(audit,dict) else None
     if not isinstance(density,dict) or density.get("status")!="PASS":
         raise Blocked(f"{label} 0.6 content_enrichment_audit.density_audit must be structured PASS")
@@ -469,7 +556,8 @@ def _validate_density_audit(audit, label, *, no_change):
         raise Blocked(f"{label} 0.6 density_audit.dimensions must contain exactly {list(DENSITY_DIMENSIONS)}")
     if any(not isinstance(dimensions[name],bool) for name in DENSITY_DIMENSIONS):
         raise Blocked(f"{label} 0.6 density_audit dimensions must all be booleans")
-    supported=sum(1 for name in DENSITY_DIMENSIONS if dimensions[name])
+    true_dimensions=[name for name in DENSITY_DIMENSIONS if dimensions[name]]
+    supported=len(true_dimensions)
     if density.get("supported_dimension_count")!=supported:
         raise Blocked(f"{label} 0.6 density_audit.supported_dimension_count={density.get('supported_dimension_count')} != {supported}")
     notes=density.get("evidence_notes")
@@ -480,12 +568,112 @@ def _validate_density_audit(audit, label, *, no_change):
             raise Blocked(f"{label} zero-delta 0.6 requires at least four evidence-supported Deep Summary dimensions; found {supported}")
         if dimensions.get("changed_state") is not True:
             raise Blocked(f"{label} zero-delta 0.6 requires changed_state=true in the density audit")
+        _validate_dimension_evidence(density,row_06,label,true_dimensions)
 
 
-def validate_content_enrichment_delta(rows_by_stage,label):
+def _validate_operation_visible_copy(row_06, operation_card, label):
+    if not isinstance(operation_card,dict):
+        raise Blocked(f"{label} cannot bind 0.6 visible copy to a materialized operation card")
+    mismatches=[]
+    for field in VISIBLE_COPY_FIELDS:
+        stage_value=_normalized_visible_value(field,row_06.get(field,_MISSING))
+        operation_value=_normalized_visible_value(field,operation_card.get(field,_MISSING))
+        if stage_value!=operation_value:
+            mismatches.append(field)
+    if mismatches:
+        raise Blocked(f"{label} applied operation visible copy does not match audited 0.6 fields {mismatches}")
+
+
+def _json_pointer_parts(path, label):
+    if not isinstance(path,str) or not path.startswith("/") or path=="/":
+        raise Blocked(f"{label} invalid JSON pointer path {path!r}")
+    return [part.replace("~1","/").replace("~0","~") for part in path[1:].split("/")]
+
+
+def _apply_json_change(document, change, label):
+    if not isinstance(change,dict):
+        raise Blocked(f"{label} change must be object")
+    parts=_json_pointer_parts(change.get("path"),label)
+    parent=document
+    for part in parts[:-1]:
+        if isinstance(parent,dict) and part in parent:
+            parent=parent[part]
+        elif isinstance(parent,list):
+            try:
+                parent=parent[int(part)]
+            except (ValueError,IndexError):
+                raise Blocked(f"{label} JSON pointer cannot resolve list token {part!r}")
+        else:
+            raise Blocked(f"{label} JSON pointer cannot resolve token {part!r}")
+    key=parts[-1]
+    op=change.get("op")
+    if isinstance(parent,dict):
+        if op=="remove":
+            if key not in parent: raise Blocked(f"{label} remove target missing at {change.get('path')}")
+            del parent[key]
+        elif op in {"add","replace"}:
+            if op=="replace" and key not in parent: raise Blocked(f"{label} replace target missing at {change.get('path')}")
+            parent[key]=copy.deepcopy(change.get("value"))
+        else:
+            raise Blocked(f"{label} unsupported change op {op!r}")
+        return
+    if isinstance(parent,list):
+        if key=="-":
+            if op!="add": raise Blocked(f"{label} '-' list token only valid for add")
+            parent.append(copy.deepcopy(change.get("value"))); return
+        try:
+            index=int(key)
+        except ValueError:
+            raise Blocked(f"{label} list token must be integer or '-'")
+        if op=="remove":
+            if index<0 or index>=len(parent): raise Blocked(f"{label} remove list index out of range")
+            parent.pop(index)
+        elif op=="replace":
+            if index<0 or index>=len(parent): raise Blocked(f"{label} replace list index out of range")
+            parent[index]=copy.deepcopy(change.get("value"))
+        elif op=="add":
+            if index<0 or index>len(parent): raise Blocked(f"{label} add list index out of range")
+            parent.insert(index,copy.deepcopy(change.get("value")))
+        else:
+            raise Blocked(f"{label} unsupported change op {op!r}")
+        return
+    raise Blocked(f"{label} JSON pointer parent is not object/array")
+
+
+def _materialized_operation_card(kind, op, expected, known, inserted, baseline_cards, insert_cards, label):
+    if kind=="insert":
+        card=op.get("card")
+        return copy.deepcopy(card) if isinstance(card,dict) else None
+    if kind=="update":
+        cid=op.get("id")
+        base=baseline_cards.get(cid)
+        if not isinstance(base,dict):
+            raise Blocked(f"{label} update target {cid} missing from declared baseline")
+        card=copy.deepcopy(base)
+        changes=op.get("changes")
+        if not isinstance(changes,list):
+            raise Blocked(f"{label}.changes must be array")
+        for index,change in enumerate(changes):
+            _apply_json_change(card,change,f"{label}.changes[{index}]")
+        return card
+    if kind=="related_add":
+        governed,_=endpoint_context(op,known,inserted,expected,label)
+        card=insert_cards.get(governed) or baseline_cards.get(governed)
+        if not isinstance(card,dict):
+            raise Blocked(f"{label} cannot materialize governed Related endpoint {governed}")
+        return copy.deepcopy(card)
+    raise Blocked(f"{label} unsupported operation kind {kind}")
+
+
+def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None):
     row_06=_single_bound_row(rows_by_stage,"0.6",label)
     if row_06.get("content_enriched") is not True:
         raise Blocked(f"{label} stage 0.6 passing row requires content_enriched=true")
+
+    # Explicit V4 artifacts remain valid historical records. V5+ (and
+    # unversioned new artifacts) must satisfy the new structured contract.
+    if not _requires_v5_content_audit(row_06):
+        return
 
     audit=row_06.get("content_enrichment_audit")
     if not isinstance(audit,dict):
@@ -498,20 +686,22 @@ def validate_content_enrichment_delta(rows_by_stage,label):
     for field in VISIBLE_COPY_FIELDS:
         baseline,source_stage=_effective_upstream_visible_value(rows_by_stage,field,label)
         baseline_sources[field]=source_stage
-        current=row_06.get(field,_MISSING)
-        if baseline is _MISSING:
-            if current is not _MISSING:
-                actual_changed.append(field)
-        elif current is _MISSING or current!=baseline:
+        baseline_normalized=_normalized_visible_value(field,baseline)
+        current_normalized=_normalized_visible_value(field,row_06.get(field,_MISSING))
+        if baseline_normalized is not None and current_normalized is None:
+            raise Blocked(f"{label} 0.6 removal/empty value for {field} cannot satisfy substantive content enrichment")
+        if baseline_normalized is None and current_normalized is not None:
+            actual_changed.append(field)
+        elif baseline_normalized is not None and current_normalized!=baseline_normalized:
             actual_changed.append(field)
 
     declared=audit.get("changed_fields")
     if not isinstance(declared,list) or len(declared)!=len(set(declared)) or any(x not in VISIBLE_COPY_FIELDS for x in declared):
         raise Blocked(f"{label} 0.6 changed_fields must be a unique subset of {list(VISIBLE_COPY_FIELDS)}")
-    expected=[field for field in VISIBLE_COPY_FIELDS if field in actual_changed]
-    if declared!=expected:
+    expected={field for field in VISIBLE_COPY_FIELDS if field in actual_changed}
+    if set(declared)!=expected:
         raise Blocked(
-            f"{label} 0.6 declared changed_fields={declared} does not equal actual visible-copy delta={expected}; "
+            f"{label} 0.6 declared changed_fields={declared} does not equal actual visible-copy delta={sorted(expected)}; "
             f"baseline_sources={baseline_sources}"
         )
 
@@ -528,7 +718,9 @@ def validate_content_enrichment_delta(rows_by_stage,label):
         if not _nonempty_text(audit.get("no_change_reason")):
             raise Blocked(f"{label} zero-delta 0.6 requires explicit no_change_reason")
 
-    _validate_density_audit(audit,label,no_change=not actual_changed)
+    _validate_density_audit(audit,row_06,label,no_change=not actual_changed)
+    if operation_card is not None:
+        _validate_operation_visible_copy(row_06,operation_card,label)
 
 
 def validate_source_diversity_chain(rows_by_stage,label):
@@ -551,10 +743,12 @@ def validate_source_diversity_chain(rows_by_stage,label):
 def validate_operations(run,governed):
     strict_specs=governed_strict_spec_identities(governed)
     base=baseline_canonical(run); known=canonical_map_from_data(base)
+    baseline_cards={c.get("id"):c for c in base.get("cards",[]) if isinstance(c,dict) and _nonempty_text(c.get("id"))}
     insert_ops=run.get("operations",{}).get("insert",[])
     if not isinstance(insert_ops,list): raise Blocked("operations.insert must be array")
     validate_insert_identities(insert_ops,known)
     inserted={op.get("card",{}).get("id"):op.get("card",{}).get("source_spec_id") for op in insert_ops if isinstance(op,dict) and isinstance(op.get("card"),dict)}
+    insert_cards={op.get("card",{}).get("id"):op.get("card") for op in insert_ops if isinstance(op,dict) and isinstance(op.get("card"),dict)}
     for kind in ("insert","update","related_add"):
         ops=run.get("operations",{}).get(kind)
         if not isinstance(ops,list): raise Blocked(f"operations.{kind} must be array")
@@ -573,7 +767,8 @@ def validate_operations(run,governed):
             if missing: raise Blocked(f"{label} missing current-run candidate binding at stages {missing}")
             validate_governed_stage_a_operation(rows_by_stage,expected,strict_specs,label)
             validate_source_diversity_chain(rows_by_stage,label)
-            validate_content_enrichment_delta(rows_by_stage,label)
+            operation_card=_materialized_operation_card(kind,op,expected,known,inserted,baseline_cards,insert_cards,label)
+            validate_content_enrichment_delta(rows_by_stage,label,operation_card=operation_card)
             if kind=="related_add": validate_related_semantics(op,expected,rows_by_stage,known,inserted,label)
 
 def main():

@@ -791,7 +791,7 @@ def main():
         if checker_validated_stage_a_decisions(source)!={"C1":("legacy_keep","stage_a_checker:legacy_keep:C1")}: raise RuntimeError("legacy_keep/dedup contract failed")
         strict={"CAND_1":("strict_passed_spec","stage_a_checker:strict_passed_spec:SPEC_NEW")}
         validate_governed_stage_a_operation({"A":[{"spec_id":"SPEC_NEW","source_story_ids":["CAND_1"]}]},"SPEC_NEW",governed_strict_spec_identities(strict),"insert[0]")
-        density={"status":"PASS","dimensions":{"prior_state":True,"changed_state":True,"quantitative_anchor":True,"boundary_or_uncertainty":True,"transmission_path":False,"next_watchpoint":False},"supported_dimension_count":4,"evidence_notes":"self-test"}
+        density={"status":"PASS","dimensions":{"prior_state":True,"changed_state":True,"quantitative_anchor":True,"boundary_or_uncertainty":True,"transmission_path":False,"next_watchpoint":False},"supported_dimension_count":4,"evidence_notes":"self-test","dimension_evidence":{"prior_state":{"fields":["fact"],"evidence_refs":["S1"]},"changed_state":{"fields":["fact"],"evidence_refs":["S1"]},"quantitative_anchor":{"fields":["fact"],"evidence_refs":["S1"]},"boundary_or_uncertainty":{"fields":["fact"],"evidence_refs":["S1"]}}}
         changed_rows={
             "C":[{"sub":"old","gate":"g","fact":"f","implication":["i"]}],
             "0.4":[{"fact":"f"}],
@@ -803,7 +803,7 @@ def main():
             "C":[{"sub":"s","gate":"g","fact":"f","implication":["i"]}],
             "0.4":[{"fact":"f"}],
             "0.5":[{"fact":"f"}],
-            "0.6":[{"sub":"s","gate":"g","fact":"f","implication":["i"],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":[],"no_change_required":True,"no_change_reason":"already sufficiently deep","density_audit":density}}],
+            "0.6":[{"sub":"s","gate":"g","fact":"f","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":[],"no_change_required":True,"no_change_reason":"already sufficiently deep","density_audit":density}}],
         }
         validate_content_enrichment_delta(zero_rows,"self-test zero")
         blocked=dict(zero_rows)

@@ -25,6 +25,10 @@ If stronger/earlier evidence changes event identity, return upstream. Evidence q
 
 Improve only evidence-safe visible copy and decision-useful framing. Preserve verified facts, source audit, date role, selection route, and Related lineage. Do not silently add new evidence or mutate event identity.
 
+A `content_enriched=true` transition requires a machine-checked substantive delta in `sub/gate/fact/implication` against the nearest upstream visible copy, resolved field-by-field in the order `0.5 → 0.4 → Stage C`. Omission of a field by an intermediate stage is not itself enrichment.
+
+Zero-delta passage is exceptional: it requires an explicit `no_change_required` reason plus a passing six-dimension Deep Summary density audit. The exception must show at least four evidence-supported dimensions including changed/current state. Raw character count is not a content-quality gate.
+
 ## 5. 0.7 — publish readiness
 
 Revalidate full schema, fact/source coverage, source synthesis, date/ID, event identity, selection route, Related lineage, terminology, unsupported inference, active blockers, and latest-version status.

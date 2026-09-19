@@ -27,7 +27,7 @@ Improve only evidence-safe visible copy and decision-useful framing. Preserve ve
 
 A V5+ `content_enriched=true` transition requires a machine-checked substantive delta in `sub/gate/fact/implication` against the nearest upstream visible copy, resolved field-by-field in the order `0.5 → 0.4 → Stage C`. Omission of a field by an intermediate stage is not itself enrichment. Whitespace-only differences and removals/emptying do not qualify as substantive enrichment.
 
-The applied formal operation must materialize the same governed visible copy that Prompt 0.6 audited; a throwaway 0.6 change cannot authorize an unchanged operation.
+The applied formal operation must materialize the same governed visible copy that Prompt 0.6 audited; a throwaway 0.6 change cannot authorize an unchanged operation. For a non-zero delta, at least one evidence-supported Deep Summary dimension must be bound to an actually changed governed field and concrete upstream evidence; a terminology-only/formatting-only string difference is not sufficient.
 
 Zero-delta passage is exceptional: it requires an explicit `no_change_required` reason plus a passing six-dimension Deep Summary density audit. The exception must show at least four evidence-supported dimensions including changed/current state, and every claimed true dimension must bind to concrete governed visible field(s) plus evidence reference(s) already present in the 0.6 evidence package. Raw character count is not a content-quality gate.
 

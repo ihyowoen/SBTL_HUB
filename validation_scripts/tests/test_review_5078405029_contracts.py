@@ -66,6 +66,13 @@ class Review5078405029ContractsTest(unittest.TestCase):
                     "source_spec_id": "SPEC_1",
                     "content_enriched": True,
                     "language_terminology_polished": True,
+                    "fact": "Substantive changed fact with a quantitative anchor and bounded current state.",
+                    "fact_sources": [
+                        {
+                            "source_id": "SRC_FIX",
+                            "source_url": "https://example.test/source"
+                        }
+                    ],
                     "content_enrichment_audit": {
                         "baseline_strategy": "nearest_upstream_visible_copy_0.5_0.4_C",
                         "changed_fields": ["fact"],
@@ -82,7 +89,25 @@ class Review5078405029ContractsTest(unittest.TestCase):
                                 "next_watchpoint": False
                             },
                             "supported_dimension_count": 4,
-                            "evidence_notes": "Positive 0.6 fixture with a substantive evidence-bounded fact delta."
+                            "evidence_notes": "Positive 0.6 fixture with a substantive evidence-bounded fact delta.",
+                            "dimension_evidence": {
+                                "prior_state": {
+                                    "fields": ["fact"],
+                                    "evidence_refs": ["SRC_FIX"]
+                                },
+                                "changed_state": {
+                                    "fields": ["fact"],
+                                    "evidence_refs": ["SRC_FIX"]
+                                },
+                                "quantitative_anchor": {
+                                    "fields": ["fact"],
+                                    "evidence_refs": ["SRC_FIX"]
+                                },
+                                "boundary_or_uncertainty": {
+                                    "fields": ["fact"],
+                                    "evidence_refs": ["SRC_FIX"]
+                                }
+                            }
                         }
                     },
                     "related_lineage": {

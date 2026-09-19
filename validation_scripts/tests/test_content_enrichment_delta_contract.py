@@ -94,12 +94,12 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
     def test_declared_changed_fields_are_order_independent(self):
         row = row06(
             sub="changed sub",
-            fact="changed fact",
+            fact="Commercial production started in 2026 at 2.5 GWh",
             content_enrichment_audit=audit(["fact", "sub"]),
         )
         binding.validate_content_enrichment_delta(
             rows(row), "insert[0]",
-            operation_card={**VISIBLE, "sub": "changed sub", "fact": "changed fact"},
+            operation_card={**VISIBLE, "sub": "changed sub", "fact": "Commercial production started in 2026 at 2.5 GWh"},
         )
 
     def test_declared_changed_fields_must_equal_actual_delta(self):
@@ -215,7 +215,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
 
     def test_operation_copy_must_match_audited_06_copy(self):
         row = row06(
-            fact="changed fact",
+            fact="Commercial production started in 2026 at 2.5 GWh",
             content_enrichment_audit=audit(["fact"]),
         )
         with self.assertRaisesRegex(binding.Blocked, "applied operation visible copy"):

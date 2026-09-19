@@ -39,6 +39,18 @@ STAGE_A_GOVERNED_POOLS = (
     "support_source_only",
 )
 IDENTITY_ROOT = "source_spec_id"
+VISIBLE_COPY_FIELDS = ("sub", "gate", "fact", "implication")
+CONTENT_BASELINE_ORDER = ("0.5", "0.4", "C")
+CONTENT_BASELINE_STRATEGY = "nearest_upstream_visible_copy_0.5_0.4_C"
+DENSITY_DIMENSIONS = (
+    "prior_state",
+    "changed_state",
+    "quantitative_anchor",
+    "boundary_or_uncertainty",
+    "transmission_path",
+    "next_watchpoint",
+)
+_MISSING = object()
 
 class Blocked(Exception): pass
 
@@ -433,6 +445,92 @@ def _relation_review_matches(review,op,target_tokens,require_reason):
         return True
     except Blocked: return False
 
+def _single_bound_row(rows_by_stage, stage_name, label):
+    rows=rows_by_stage.get(stage_name, [])
+    if len(rows)!=1:
+        raise Blocked(f"{label} stage {stage_name} requires exactly one bound row for content delta; found {len(rows)}")
+    return rows[0]
+
+
+def _effective_upstream_visible_value(rows_by_stage, field, label):
+    for stage_name in CONTENT_BASELINE_ORDER:
+        row=_single_bound_row(rows_by_stage, stage_name, label)
+        if field in row:
+            return row[field], stage_name
+    return _MISSING, None
+
+
+def _validate_density_audit(audit, label, *, no_change):
+    density=audit.get("density_audit") if isinstance(audit,dict) else None
+    if not isinstance(density,dict) or density.get("status")!="PASS":
+        raise Blocked(f"{label} 0.6 content_enrichment_audit.density_audit must be structured PASS")
+    dimensions=density.get("dimensions")
+    if not isinstance(dimensions,dict) or set(dimensions)!=set(DENSITY_DIMENSIONS):
+        raise Blocked(f"{label} 0.6 density_audit.dimensions must contain exactly {list(DENSITY_DIMENSIONS)}")
+    if any(not isinstance(dimensions[name],bool) for name in DENSITY_DIMENSIONS):
+        raise Blocked(f"{label} 0.6 density_audit dimensions must all be booleans")
+    supported=sum(1 for name in DENSITY_DIMENSIONS if dimensions[name])
+    if density.get("supported_dimension_count")!=supported:
+        raise Blocked(f"{label} 0.6 density_audit.supported_dimension_count={density.get('supported_dimension_count')} != {supported}")
+    notes=density.get("evidence_notes")
+    if not _nonempty_text(notes):
+        raise Blocked(f"{label} 0.6 density_audit.evidence_notes required")
+    if no_change:
+        if supported < 4:
+            raise Blocked(f"{label} zero-delta 0.6 requires at least four evidence-supported Deep Summary dimensions; found {supported}")
+        if dimensions.get("changed_state") is not True:
+            raise Blocked(f"{label} zero-delta 0.6 requires changed_state=true in the density audit")
+
+
+def validate_content_enrichment_delta(rows_by_stage,label):
+    row_06=_single_bound_row(rows_by_stage,"0.6",label)
+    if row_06.get("content_enriched") is not True:
+        raise Blocked(f"{label} stage 0.6 passing row requires content_enriched=true")
+
+    audit=row_06.get("content_enrichment_audit")
+    if not isinstance(audit,dict):
+        raise Blocked(f"{label} stage 0.6 requires content_enrichment_audit")
+    if audit.get("baseline_strategy")!=CONTENT_BASELINE_STRATEGY:
+        raise Blocked(f"{label} 0.6 baseline_strategy must be {CONTENT_BASELINE_STRATEGY}")
+
+    actual_changed=[]
+    baseline_sources={}
+    for field in VISIBLE_COPY_FIELDS:
+        baseline,source_stage=_effective_upstream_visible_value(rows_by_stage,field,label)
+        baseline_sources[field]=source_stage
+        current=row_06.get(field,_MISSING)
+        if baseline is _MISSING:
+            if current is not _MISSING:
+                actual_changed.append(field)
+        elif current is _MISSING or current!=baseline:
+            actual_changed.append(field)
+
+    declared=audit.get("changed_fields")
+    if not isinstance(declared,list) or len(declared)!=len(set(declared)) or any(x not in VISIBLE_COPY_FIELDS for x in declared):
+        raise Blocked(f"{label} 0.6 changed_fields must be a unique subset of {list(VISIBLE_COPY_FIELDS)}")
+    expected=[field for field in VISIBLE_COPY_FIELDS if field in actual_changed]
+    if declared!=expected:
+        raise Blocked(
+            f"{label} 0.6 declared changed_fields={declared} does not equal actual visible-copy delta={expected}; "
+            f"baseline_sources={baseline_sources}"
+        )
+
+    no_change=audit.get("no_change_required")
+    if not isinstance(no_change,bool):
+        raise Blocked(f"{label} 0.6 no_change_required must be boolean")
+
+    if actual_changed:
+        if no_change:
+            raise Blocked(f"{label} 0.6 has actual visible-copy changes but declares no_change_required=true")
+    else:
+        if not no_change:
+            raise Blocked(f"{label} 0.6 content_enriched=true with zero visible-copy delta requires no_change_required=true")
+        if not _nonempty_text(audit.get("no_change_reason")):
+            raise Blocked(f"{label} zero-delta 0.6 requires explicit no_change_reason")
+
+    _validate_density_audit(audit,label,no_change=not actual_changed)
+
+
 def validate_source_diversity_chain(rows_by_stage,label):
     observed={}
     for s in ("B","C","0.5","0.6","0.7"):
@@ -475,6 +573,7 @@ def validate_operations(run,governed):
             if missing: raise Blocked(f"{label} missing current-run candidate binding at stages {missing}")
             validate_governed_stage_a_operation(rows_by_stage,expected,strict_specs,label)
             validate_source_diversity_chain(rows_by_stage,label)
+            validate_content_enrichment_delta(rows_by_stage,label)
             if kind=="related_add": validate_related_semantics(op,expected,rows_by_stage,known,inserted,label)
 
 def main():
@@ -486,9 +585,34 @@ def main():
         if checker_validated_stage_a_decisions(source)!={"C1":("legacy_keep","stage_a_checker:legacy_keep:C1")}: raise RuntimeError("legacy_keep/dedup contract failed")
         strict={"CAND_1":("strict_passed_spec","stage_a_checker:strict_passed_spec:SPEC_NEW")}
         validate_governed_stage_a_operation({"A":[{"spec_id":"SPEC_NEW","source_story_ids":["CAND_1"]}]},"SPEC_NEW",governed_strict_spec_identities(strict),"insert[0]")
-        print("PASS: V4 binding hardening self-test; checker-valid legacy_keep and duplicate-in-row identities are supported, unchecked Stage A status aliases are ignored, operations bind to terminal-governed strict outcomes, coverage axes remain lazy/fail-closed, and existing fail-closed gates remain active"); return 0
+        density={"status":"PASS","dimensions":{"prior_state":True,"changed_state":True,"quantitative_anchor":True,"boundary_or_uncertainty":True,"transmission_path":False,"next_watchpoint":False},"supported_dimension_count":4,"evidence_notes":"self-test"}
+        changed_rows={
+            "C":[{"sub":"old","gate":"g","fact":"f","implication":["i"]}],
+            "0.4":[{"fact":"f"}],
+            "0.5":[{"fact":"f"}],
+            "0.6":[{"sub":"new","gate":"g","fact":"f","implication":["i"],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":["sub"],"no_change_required":False,"no_change_reason":"","density_audit":density}}],
+        }
+        validate_content_enrichment_delta(changed_rows,"self-test changed")
+        zero_rows={
+            "C":[{"sub":"s","gate":"g","fact":"f","implication":["i"]}],
+            "0.4":[{"fact":"f"}],
+            "0.5":[{"fact":"f"}],
+            "0.6":[{"sub":"s","gate":"g","fact":"f","implication":["i"],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":[],"no_change_required":True,"no_change_reason":"already sufficiently deep","density_audit":density}}],
+        }
+        validate_content_enrichment_delta(zero_rows,"self-test zero")
+        blocked=dict(zero_rows)
+        blocked["0.6"]=[dict(zero_rows["0.6"][0])]
+        blocked["0.6"][0]["content_enrichment_audit"]=dict(zero_rows["0.6"][0]["content_enrichment_audit"])
+        blocked["0.6"][0]["content_enrichment_audit"]["no_change_required"]=False
+        try:
+            validate_content_enrichment_delta(blocked,"self-test boolean-only")
+        except Blocked:
+            pass
+        else:
+            raise RuntimeError("zero-delta boolean-only content enrichment was not blocked")
+        print("PASS: V4 binding hardening self-test; stage binding, source diversity, Related semantics, and 0.6 effective-upstream visible-copy delta/no-change gates remain fail-closed"); return 0
     if not args.run: raise Blocked("--run PATH required")
-    run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); governed=validate_completeness(run); validate_operations(run,governed); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","terminal_decision_binding":"PASS","operation_stage_a_binding":"PASS","source_diversity_chain":"PASS","related_semantics":"PASS"})); return 0
+    run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); governed=validate_completeness(run); validate_operations(run,governed); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","terminal_decision_binding":"PASS","operation_stage_a_binding":"PASS","source_diversity_chain":"PASS","content_enrichment_delta":"PASS","related_semantics":"PASS"})); return 0
 
 if __name__=="__main__":
     try: raise SystemExit(main())

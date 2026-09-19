@@ -49,7 +49,7 @@ jobs:
           const patch = JSON.parse(fs.readFileSync(PATCH_PATH, "utf8"));
           const doc = JSON.parse(fs.readFileSync(FULL_PATH, "utf8"));
           const allowed = [...patch.allowed_changed_fields].sort();
-          const cards = doc.cards;
+          const OUTPUT_UPDATED = "2026-09-19T05:00:00Z";\n          const cards = doc.cards;
           const beforeCount = cards.length;
           const byId = new Map(cards.map(c => [c.id, c]));
           const ids = Object.keys(patch.rewrites);
@@ -88,7 +88,7 @@ jobs:
           }
 
           if (cards.length !== beforeCount) throw new Error("card count changed");
-          fs.writeFileSync(FULL_PATH, JSON.stringify(doc));
+          doc.updated = OUTPUT_UPDATED;\n          fs.writeFileSync(FULL_PATH, JSON.stringify(doc));
 
           const manifest = {
             schema: "manual_direct_add_v2",
@@ -100,7 +100,7 @@ jobs:
             base_full_blob_sha: patch.base_full_blob_sha,
             expected_before: beforeCount,
             expected_after: cards.length,
-            output_updated: "2026-09-19T05:00:00Z",
+            output_updated: OUTPUT_UPDATED,
             operations: { add: [], update: ids, id_migration: [] },
             editorial_attestation: {
               policy_version: "EMBEDDED_NEWS_VALUE_SELECTION_V4",

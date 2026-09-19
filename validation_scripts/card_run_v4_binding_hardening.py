@@ -49,8 +49,10 @@ PRESENTATION_HTML_TAG_RE = re.compile(
 )
 ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
 QUANT_SIGNAL_RE = re.compile(
-    r"(?<![A-Za-z0-9])[$€£¥₩]?\d+(?:[.,]\d+)?"
-    r"(?:\s*(?:%|x|k|m|bn|b|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
+    r"(?<![A-Za-z0-9])"
+    r"(?P<currency>[$€£¥₩]?)"
+    r"(?P<number>\d+(?:[.,]\d+)?)"
+    r"(?:\s*(?P<unit>%|x|k|m|bn|b|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
     r"(?![A-Za-z0-9])",
     re.IGNORECASE,
 )
@@ -707,12 +709,24 @@ def _visible_value_text(value):
     return str(value)
 
 
+def _canonical_numeric_text(raw):
+    value=raw.replace(",","")
+    if "." in value:
+        value=value.rstrip("0").rstrip(".")
+    if value.startswith("."):
+        value="0"+value
+    return value or "0"
+
+
 def _signal_values(dimension, text):
     if dimension=="quantitative_anchor":
-        return {
-            re.sub(r"\s+"," ",match.group(0).strip().lower())
-            for match in QUANT_SIGNAL_RE.finditer(text)
-        }
+        values=set()
+        for match in QUANT_SIGNAL_RE.finditer(text):
+            number=_canonical_numeric_text(match.group("number"))
+            currency=(match.group("currency") or "").lower()
+            unit=(match.group("unit") or "").lower()
+            values.add(f"{currency}{number}{(' '+unit) if unit else ''}")
+        return values
     patterns=DIMENSION_CANONICAL_SIGNAL_RES.get(dimension,{})
     return {
         marker
@@ -721,31 +735,71 @@ def _signal_values(dimension, text):
     }
 
 
+def _governed_copy_dimension_signals(dimension, normalized_by_field):
+    signals=set()
+    for field in VISIBLE_COPY_FIELDS:
+        signals.update(_signal_values(dimension,_visible_value_text(normalized_by_field.get(field))))
+    return signals
+
+
+def _validate_claimed_dimension_text(density, row_06, label, true_dimensions):
+    mapping=density.get("dimension_evidence")
+    for dimension in true_dimensions:
+        entry=mapping.get(dimension) if isinstance(mapping,dict) else None
+        fields=entry.get("fields") if isinstance(entry,dict) else None
+        if not isinstance(fields,list):
+            continue
+        expressed=set()
+        for field in fields:
+            expressed.update(
+                _signal_values(
+                    dimension,
+                    _visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING))),
+                )
+            )
+        if not expressed:
+            raise Blocked(
+                f"{label} 0.6 density dimension {dimension} is claimed but not expressed "
+                f"by any mapped governed field {fields}"
+            )
+
+
 def _validate_substantive_dimension_delta(
     density, row_06, label, actual_changed, upstream_normalized
 ):
     mapping=density.get("dimension_evidence")
     changed=set(actual_changed)
+    current_normalized={
+        field:_normalized_visible_value(field,row_06.get(field,_MISSING))
+        for field in VISIBLE_COPY_FIELDS
+    }
     qualifying=[]
     diagnostics={}
     for dimension,entry in mapping.items():
         if not isinstance(entry,dict):
             continue
-        for field in entry.get("fields",[]):
-            if field not in changed:
-                continue
-            before_text=_visible_value_text(upstream_normalized.get(field))
-            after_text=_visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING)))
-            before_signals=_signal_values(dimension,before_text)
-            after_signals=_signal_values(dimension,after_text)
-            added=sorted(after_signals-before_signals)
-            diagnostics[f"{dimension}:{field}"]=added
-            if added:
-                qualifying.append((dimension,field,added))
+        mapped_changed=[field for field in entry.get("fields",[]) if field in changed]
+        if not mapped_changed:
+            continue
+        upstream_signals=_governed_copy_dimension_signals(dimension,upstream_normalized)
+        current_mapped_signals=set()
+        for field in mapped_changed:
+            current_mapped_signals.update(
+                _signal_values(dimension,_visible_value_text(current_normalized.get(field)))
+            )
+        added=sorted(current_mapped_signals-upstream_signals)
+        diagnostics[dimension]={
+            "mapped_changed_fields": mapped_changed,
+            "added": added,
+            "upstream_all_governed": sorted(upstream_signals),
+        }
+        if added:
+            qualifying.append((dimension,mapped_changed,added))
     if not qualifying:
         raise Blocked(
             f"{label} changed 0.6 copy lacks a machine-detectable newly added/deepened Deep Summary signal "
-            f"relative to upstream; terminology-only rewrites do not qualify; signals={diagnostics}"
+            f"relative to the whole upstream governed copy; terminology/formatting/relocation-only rewrites "
+            f"do not qualify; signals={diagnostics}"
         )
 
 
@@ -783,6 +837,7 @@ def _validate_density_audit(
         density,row_06,label,true_dimensions,
         allowed_evidence_support=allowed_evidence_support,
     )
+    _validate_claimed_dimension_text(density,row_06,label,true_dimensions)
     if not no_change:
         mapping=density.get("dimension_evidence")
         changed=set(actual_changed)
@@ -830,6 +885,13 @@ def _apply_json_change(document, change, label):
     if op=="remove" and "value" in change:
         raise Blocked(f"{label} remove must not include value at {change.get('path')}")
     parts=_json_pointer_parts(change.get("path"),label)
+    root=parts[0]
+    if root=="id":
+        raise Blocked(f"{label} id is immutable")
+    if root=="source_spec_id":
+        raise Blocked(f"{label} source_spec_id is immutable formal binding metadata")
+    if root in {"related","related_ids","related_lineage"}:
+        raise Blocked(f"{label} relation root {root} may only be changed through related_add")
     parent=document
     create_missing=(op=="add")
     for part in parts[:-1]:
@@ -1070,10 +1132,10 @@ def main():
         validate_content_enrichment_delta(changed_rows,"self-test changed")
         zero_rows={
             "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}]}],
-            "C":[{"sub":"s","gate":"g","fact":"f","implication":["i"]}],
-            "0.4":[{"fact":"f"}],
-            "0.5":[{"fact":"f"}],
-            "0.6":[{"sub":"s","gate":"g","fact":"f","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":[],"no_change_required":True,"no_change_reason":"already sufficiently deep","density_audit":density}}],
+            "C":[{"sub":"s","gate":"g","fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","implication":["i"]}],
+            "0.4":[{"fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification."}],
+            "0.5":[{"fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification."}],
+            "0.6":[{"sub":"s","gate":"g","fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":[],"no_change_required":True,"no_change_reason":"already sufficiently deep","density_audit":density}}],
         }
         validate_content_enrichment_delta(zero_rows,"self-test zero")
         blocked=dict(zero_rows)

@@ -55,7 +55,7 @@ If none of the governed fields changed, `content_enriched=true` is allowed only 
 - `supported_dimension_count` is a non-boolean integer that exactly matches the true dimensions;
 - at least four dimensions are evidence-supported, including `changed_state`;
 - `evidence_notes` is non-empty and explains why the unchanged copy is already sufficiently decision-useful;
-- every true density dimension is bound through `dimension_evidence` to at least one non-empty governed visible field and at least one concrete evidence token already present in the bound upstream B/C/0.5 evidence chain; Prompt 0.6 may not introduce a new source token solely to justify density.
+- every true density dimension is bound through `dimension_evidence` to at least one non-empty governed visible field and at least one concrete evidence token already present in the bound upstream B/C/0.5 evidence chain **and authorized there to support each mapped governed field**; a source explicitly marked context-only, checked-not-used, or with empty/nonmatching visible-field support cannot justify that dimension. Prompt 0.6 may not introduce a new source token solely to justify density.
 
 Title-only or terminology-only edits do not satisfy the content-enrichment delta.
 

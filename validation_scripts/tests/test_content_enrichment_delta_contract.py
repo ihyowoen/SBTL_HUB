@@ -176,8 +176,23 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         row = row06(
             prompt_provenance_0_6={"prompt_version": "PROMPT_0_6_V4_20260901"},
         )
-        binding.validate_content_enrichment_delta(rows(row), "historical")
-        self.assertFalse(stage_contract._requires_v5_content_audit(row))
+        binding.validate_content_enrichment_delta(
+            rows(row), "historical",
+            locked_prompt_version="PROMPT_0_6_V4_20260901",
+        )
+        self.assertFalse(stage_contract._requires_v5_content_audit(
+            row, locked_prompt_version="PROMPT_0_6_V4_20260901"
+        ))
+
+    def test_locked_v5_contract_cannot_be_spoofed_by_v4_row_provenance(self):
+        row = row06(
+            prompt_provenance_0_6={"prompt_version": "PROMPT_0_6_V4_20260901"},
+        )
+        with self.assertRaisesRegex(binding.Blocked, "does not match locked baseline"):
+            binding.validate_content_enrichment_delta(
+                rows(row), "new-run",
+                locked_prompt_version="PROMPT_0_6_V5_20260919",
+            )
 
     def test_stage_06_v5_contract_requires_structured_audit(self):
         item = row06()

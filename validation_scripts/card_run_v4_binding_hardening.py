@@ -555,13 +555,15 @@ def _upstream_evidence_tokens(rows_by_stage,label):
     return tokens
 
 
-def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowed_evidence_tokens=None):
+def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowed_evidence_tokens):
     mapping=density.get("dimension_evidence")
     if not isinstance(mapping,dict) or set(mapping)!=set(true_dimensions):
         raise Blocked(
-            f"{label} zero-delta 0.6 density_audit.dimension_evidence must map exactly true dimensions {sorted(true_dimensions)}"
+            f"{label} 0.6 density_audit.dimension_evidence must map exactly true dimensions {sorted(true_dimensions)}"
         )
-    evidence_tokens=set(allowed_evidence_tokens) if allowed_evidence_tokens is not None else _row_evidence_tokens(row_06)
+    if allowed_evidence_tokens is None:
+        raise Blocked(f"{label} 0.6 dimension_evidence validation requires explicit bound upstream evidence tokens")
+    evidence_tokens=set(allowed_evidence_tokens)
     if not evidence_tokens:
         raise Blocked(f"{label} 0.6 requires bound upstream source evidence tokens for dimension_evidence")
     for name in true_dimensions:
@@ -583,7 +585,7 @@ def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowe
 
 
 def _validate_density_audit(
-    audit, row_06, label, *, no_change, actual_changed=(), allowed_evidence_tokens=None
+    audit, row_06, label, *, no_change, allowed_evidence_tokens, actual_changed=()
 ):
     density=audit.get("density_audit") if isinstance(audit,dict) else None
     if not isinstance(density,dict) or density.get("status")!="PASS":
@@ -655,50 +657,73 @@ def _json_pointer_parts(path, label):
 def _apply_json_change(document, change, label):
     if not isinstance(change,dict):
         raise Blocked(f"{label} change must be object")
+    op=change.get("op")
+    if op not in {"add","replace","remove"}:
+        raise Blocked(f"{label} unsupported change op {op!r}")
     parts=_json_pointer_parts(change.get("path"),label)
     parent=document
+    create_missing=(op=="add")
     for part in parts[:-1]:
-        if isinstance(parent,dict) and part in parent:
-            parent=parent[part]
+        if isinstance(parent,dict):
+            if part in parent:
+                parent=parent[part]
+            elif create_missing:
+                parent[part]={}
+                parent=parent[part]
+            else:
+                raise Blocked(f"{label} JSON pointer cannot resolve token {part!r}")
         elif isinstance(parent,list):
             try:
-                parent=parent[int(part)]
-            except (ValueError,IndexError):
-                raise Blocked(f"{label} JSON pointer cannot resolve list token {part!r}")
+                index=int(part)
+            except ValueError:
+                raise Blocked(f"{label} JSON pointer list token must be integer: {part!r}")
+            if index<0 or index>=len(parent):
+                raise Blocked(f"{label} JSON pointer list index out of range: {part!r}")
+            parent=parent[index]
         else:
             raise Blocked(f"{label} JSON pointer cannot resolve token {part!r}")
+
     key=parts[-1]
-    op=change.get("op")
     if isinstance(parent,dict):
-        if op=="remove":
-            if key not in parent: raise Blocked(f"{label} remove target missing at {change.get('path')}")
-            del parent[key]
-        elif op in {"add","replace"}:
-            if op=="replace" and key not in parent: raise Blocked(f"{label} replace target missing at {change.get('path')}")
+        exists=key in parent
+        if op=="add":
+            if exists:
+                raise Blocked(f"{label} add target already exists at {change.get('path')}")
+            parent[key]=copy.deepcopy(change.get("value"))
+        elif op=="replace":
+            if not exists:
+                raise Blocked(f"{label} replace target missing at {change.get('path')}")
             parent[key]=copy.deepcopy(change.get("value"))
         else:
-            raise Blocked(f"{label} unsupported change op {op!r}")
+            if not exists:
+                raise Blocked(f"{label} remove target missing at {change.get('path')}")
+            del parent[key]
         return
+
     if isinstance(parent,list):
         if key=="-":
-            if op!="add": raise Blocked(f"{label} '-' list token only valid for add")
-            parent.append(copy.deepcopy(change.get("value"))); return
+            if op!="add":
+                raise Blocked(f"{label} '-' list token only valid for add")
+            parent.append(copy.deepcopy(change.get("value")))
+            return
         try:
             index=int(key)
         except ValueError:
             raise Blocked(f"{label} list token must be integer or '-'")
         if op=="remove":
-            if index<0 or index>=len(parent): raise Blocked(f"{label} remove list index out of range")
+            if index<0 or index>=len(parent):
+                raise Blocked(f"{label} remove list index out of range")
             parent.pop(index)
         elif op=="replace":
-            if index<0 or index>=len(parent): raise Blocked(f"{label} replace list index out of range")
+            if index<0 or index>=len(parent):
+                raise Blocked(f"{label} replace list index out of range")
             parent[index]=copy.deepcopy(change.get("value"))
-        elif op=="add":
-            if index<0 or index>len(parent): raise Blocked(f"{label} add list index out of range")
-            parent.insert(index,copy.deepcopy(change.get("value")))
         else:
-            raise Blocked(f"{label} unsupported change op {op!r}")
+            if index<0 or index>len(parent):
+                raise Blocked(f"{label} add list index out of range")
+            parent.insert(index,copy.deepcopy(change.get("value")))
         return
+
     raise Blocked(f"{label} JSON pointer parent is not object/array")
 
 

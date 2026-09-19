@@ -114,4 +114,4 @@ When `changed_fields=[]`, `density_audit.dimension_evidence` must contain exactl
 }
 ```
 
-Explicit historical `PROMPT_0_6_V4_*` artifacts remain valid historical records; the new audit contract applies to V5+ and unversioned new artifacts.
+Explicit historical `PROMPT_0_6_V4_*` artifacts remain valid historical records. In a formal card run, the applicable 0.6 contract is resolved from the Prompt 0.6 file stored at the run's locked `base_main_commit_sha`; an item-level version label cannot downgrade a V5+ locked baseline to V4. The new structured audit contract applies to V5+ and fail-closed unversioned new artifacts.

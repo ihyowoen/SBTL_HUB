@@ -49,7 +49,8 @@ jobs:
           const patch = JSON.parse(fs.readFileSync(PATCH_PATH, "utf8"));
           const doc = JSON.parse(fs.readFileSync(FULL_PATH, "utf8"));
           const allowed = [...patch.allowed_changed_fields].sort();
-          const OUTPUT_UPDATED = "2026-09-19T05:00:00Z";\n          const cards = doc.cards;
+          const OUTPUT_UPDATED = "2026-09-19T05:00:00Z";
+          const cards = doc.cards;
           const beforeCount = cards.length;
           const byId = new Map(cards.map(c => [c.id, c]));
           const ids = Object.keys(patch.rewrites);
@@ -88,7 +89,8 @@ jobs:
           }
 
           if (cards.length !== beforeCount) throw new Error("card count changed");
-          doc.updated = OUTPUT_UPDATED;\n          fs.writeFileSync(FULL_PATH, JSON.stringify(doc));
+          doc.updated = OUTPUT_UPDATED;
+          fs.writeFileSync(FULL_PATH, JSON.stringify(doc));
 
           const manifest = {
             schema: "manual_direct_add_v2",

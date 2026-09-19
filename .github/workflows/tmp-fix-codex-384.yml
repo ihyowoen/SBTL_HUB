@@ -1,0 +1,81 @@
+name: tmp-fix-codex-384
+on:
+  push:
+    branches:
+      - remediate/nr26-deep-summary-20260919
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: remediate/nr26-deep-summary-20260919
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Apply bounded Codex review corrections
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("data/cards.full.json")
+          doc = json.loads(path.read_text(encoding="utf-8"))
+          cards = {c.get("id"): c for c in doc["cards"]}
+
+          r3 = cards["2026-09-10_US_02"]
+          r3["gate"] = "R3 Lithium은 Covington 시설에서 재활용 원료 기반 탄산리튬 회수·정제 운영을 개시했다고 밝혔다. 다만 설계능력 2,500tpa와 실제 투입·회수·판매 물량은 분리해서 봐야 한다."
+          r3["fact"] = "R3 Lithium은 조지아 Covington 시설에서 재활용 원료를 이용한 탄산리튬 회수·정제 운영을 개시했다고 밝혔다. 회사가 제시한 연간 설계능력은 2,500톤이다. 운영 개시는 확인됐지만 설계능력 자체가 실제 처리량·회수율·판매량을 의미하지는 않는다. 상업성 판단에는 원료 투입량, 회수율, 제품 규격과 고객 출하가 추가로 필요하다."
+          r3["implication"] = [
+              "미국 내 재활용 리튬 회수·정제 시설의 실제 운영개시 사례가 추가됐다.",
+              "설계능력은 최대 처리능력의 기준일 뿐 실제 가동률·수율·판매가능 물량을 보장하지 않는다.",
+              "월간 원료투입량, 제품 품질·고객승인, 첫 상업출하와 가동률이 사업성 검증의 다음 단계다."
+          ]
+
+          cz = cards["2026-09-08_CN_02"]
+          cz["gate"] = "창저우밍주의 광저우 Zengcheng 남중국 생산기지가 9월 8일 착공했다. 다만 연 24억㎡는 계획 CAPA이며 실제 공급증가는 라인 설치·고객승인·가동률을 거쳐야 한다."
+          cz["fact"] = "창저우밍주는 9월 8일 광저우 Zengcheng에서 남중국 생산기지 착공에 들어갔다. 공개된 총투자 규모는 약 33.8억위안이며 배터리용 습식 분리막 8개 라인과 PE 파이프 7개 라인, 습식 분리막 연 24억㎡ 계획이 제시됐다. 이번 사건은 남중국 신규기지가 계획에서 실제 건설 단계로 이동한 착공 사건이다. 계획 CAPA를 즉시 공급량으로 볼 수 없으며 건설속도·라인 램프·고객승인·실제 판매량을 함께 봐야 한다."
+          cz["implication"] = [
+              "남중국 신규기지 착공으로 창저우밍주의 명목 분리막 공급능력 확대 계획이 건설 단계에 들어갔다.",
+              "중국 분리막 시장의 가격경쟁 속에서 신규 CAPA가 실제 판매·수익성으로 연결되는지는 별도 문제다.",
+              "공정 진척, 8개 라인별 가동시점, 고객승인·수율·가동률과 실제 출하량이 다음 확인 포인트다."
+          ]
+
+          path.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          PY
+      - name: Rebuild lean projection
+        run: node scripts/lean_cards.mjs
+      - name: Validate bounded result
+        run: |
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          node scripts/validate_manual_direct_add_v4_hardening.mjs direct-adds/2026-09-19-nr26-deep-summary/direct-add.json
+          git diff --check
+          python3 - <<'PY'
+          import json
+          d=json.load(open("data/cards.full.json",encoding="utf-8"))
+          by={c["id"]:c for c in d["cards"]}
+          assert "이전 운영의 재개" not in by["2026-09-10_US_02"]["fact"]
+          assert "신규 시설이 단순 발표" not in by["2026-09-10_US_02"]["fact"]
+          joined=" ".join([by["2026-09-08_CN_02"]["gate"],by["2026-09-08_CN_02"]["fact"],*by["2026-09-08_CN_02"]["implication"]])
+          assert "6월" not in joined and "2026-06-24_CN_02" not in joined and "기존 라인 가동" not in joined
+          print("PASS: Codex #384 bounded corrections")
+          PY
+      - name: Commit bounded corrections
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cards.full.json public/data/cards.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Tighten Codex evidence and lineage boundaries"
+          git push origin HEAD:remediate/nr26-deep-summary-20260919

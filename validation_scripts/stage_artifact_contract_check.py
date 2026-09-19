@@ -140,7 +140,7 @@ ITEM_REQUIRED = {
     ],
     "0.6": [
         "source_spec_id", "content_enriched", "language_terminology_polished",
-        "related_lineage", "date_role", "source_diversity_status",
+        "content_enrichment_audit", "related_lineage", "date_role", "source_diversity_status",
     ],
     "0.7": [
         "source_spec_id", "final_qc_gates", "related_lineage",
@@ -197,6 +197,100 @@ def _non_empty_object(value):
 
 def _non_empty_string(value):
     return isinstance(value, str) and bool(value.strip())
+
+
+VISIBLE_COPY_FIELDS = ("sub", "gate", "fact", "implication")
+DENSITY_DIMENSIONS = (
+    "prior_state",
+    "changed_state",
+    "quantitative_anchor",
+    "boundary_or_uncertainty",
+    "transmission_path",
+    "next_watchpoint",
+)
+CONTENT_BASELINE_STRATEGY = "nearest_upstream_visible_copy_0.5_0.4_C"
+
+
+def _content_enrichment_audit_findings(item, scope):
+    findings = []
+    audit = item.get("content_enrichment_audit")
+    if not _non_empty_object(audit):
+        return [_field_finding(
+            scope, "content_enrichment_audit", "non-empty structured audit", audit,
+            "0.6 content_enriched=true requires a machine-checkable enrichment audit",
+        )]
+
+    if audit.get("baseline_strategy") != CONTENT_BASELINE_STRATEGY:
+        findings.append(_field_finding(
+            scope, "content_enrichment_audit.baseline_strategy", CONTENT_BASELINE_STRATEGY,
+            audit.get("baseline_strategy"),
+            "0.6 must use the governed nearest-upstream visible-copy baseline",
+        ))
+
+    changed = audit.get("changed_fields")
+    if not isinstance(changed, list) or any(field not in VISIBLE_COPY_FIELDS for field in changed) \
+            or len(changed) != len(set(changed)):
+        findings.append(_field_finding(
+            scope, "content_enrichment_audit.changed_fields",
+            f"unique subset of {list(VISIBLE_COPY_FIELDS)}", changed,
+            "declared visible-copy changes must use only governed content fields",
+        ))
+
+    if not isinstance(audit.get("no_change_required"), bool):
+        findings.append(_field_finding(
+            scope, "content_enrichment_audit.no_change_required", "boolean",
+            audit.get("no_change_required"),
+            "0.6 must explicitly attest whether an unchanged-copy exception is being used",
+        ))
+
+    density = audit.get("density_audit")
+    if not _non_empty_object(density):
+        findings.append(_field_finding(
+            scope, "content_enrichment_audit.density_audit", "non-empty structured audit", density,
+            "0.6 passing content requires a Deep Summary density audit",
+        ))
+        return findings
+
+    if density.get("status") != "PASS":
+        findings.append(_field_finding(
+            scope, "content_enrichment_audit.density_audit.status", "PASS",
+            density.get("status"),
+            "0.6 passing content requires a passing density audit",
+        ))
+
+    dimensions = density.get("dimensions")
+    if not isinstance(dimensions, dict):
+        findings.append(_field_finding(
+            scope, "content_enrichment_audit.density_audit.dimensions",
+            f"object with boolean keys {list(DENSITY_DIMENSIONS)}", dimensions,
+            "density audit must explicitly evaluate every governed Deep Summary dimension",
+        ))
+    else:
+        missing = [name for name in DENSITY_DIMENSIONS if name not in dimensions]
+        invalid = [name for name in DENSITY_DIMENSIONS if name in dimensions and not isinstance(dimensions[name], bool)]
+        extra = [name for name in dimensions if name not in DENSITY_DIMENSIONS]
+        if missing or invalid or extra:
+            findings.append(_field_finding(
+                scope, "content_enrichment_audit.density_audit.dimensions",
+                f"exact boolean keys {list(DENSITY_DIMENSIONS)}", dimensions,
+                f"density dimensions malformed; missing={missing}, invalid={invalid}, extra={extra}",
+            ))
+        else:
+            actual_count = sum(1 for name in DENSITY_DIMENSIONS if dimensions[name])
+            if density.get("supported_dimension_count") != actual_count:
+                findings.append(_field_finding(
+                    scope, "content_enrichment_audit.density_audit.supported_dimension_count",
+                    actual_count, density.get("supported_dimension_count"),
+                    "supported_dimension_count must equal the audited true dimensions",
+                ))
+
+    if not _non_empty_string(density.get("evidence_notes")):
+        findings.append(_field_finding(
+            scope, "content_enrichment_audit.density_audit.evidence_notes",
+            "non-empty evidence-bounded explanation", density.get("evidence_notes"),
+            "density audit must explain its evidence-supported dimensions",
+        ))
+    return findings
 
 
 def _top_level_gate_finding(stage, field, value):
@@ -334,6 +428,7 @@ def _item_value_findings(stage, item, scope):
             if item.get(field) is not True:
                 findings.append(_field_finding(scope, field, True, item.get(field),
                                                "combined 0.6 passing bucket requires both component attestations=true"))
+        findings.extend(_content_enrichment_audit_findings(item, scope))
 
     if stage == "0.7":
         gates = item.get("final_qc_gates")

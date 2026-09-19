@@ -42,7 +42,7 @@ Whitespace-only/formatting-only differences do not count as substantive enrichme
 
 The visible copy carried by the applied formal operation must match the audited 0.6 governed fields. A throwaway 0.6 edit that is not actually materialized by the operation is invalid.
 
-If at least one governed field changed, `no_change_required` must be `false`.
+If at least one governed field changed, `no_change_required` must be `false`. A raw string delta alone is insufficient: at least one Deep Summary dimension must be evidence-supported, `dimension_evidence` must bind every true dimension to concrete governed visible field(s) and upstream evidence reference(s), and at least one supported dimension must bind to a field that actually changed. This prevents terminology-only or formatting-only edits from qualifying as content enrichment.
 
 If none of the governed fields changed, `content_enriched=true` is allowed only as a narrow exception when all of the following are true:
 
@@ -85,7 +85,24 @@ Each item in `content_enriched_and_language_polished[]` must preserve the requir
       },
       "supported_dimension_count": 4,
       "evidence_notes": "Brief evidence-bounded explanation of the supported dimensions.",
-      "dimension_evidence": {}
+      "dimension_evidence": {
+        "prior_state": {
+          "fields": ["fact"],
+          "evidence_refs": ["<fact_source source_id>"]
+        },
+        "changed_state": {
+          "fields": ["fact"],
+          "evidence_refs": ["<fact_source source_id>"]
+        },
+        "quantitative_anchor": {
+          "fields": ["fact"],
+          "evidence_refs": ["<fact_source source_id>"]
+        },
+        "transmission_path": {
+          "fields": ["fact"],
+          "evidence_refs": ["<fact_source source_id>"]
+        }
+      }
     }
   },
   "related_lineage": {},

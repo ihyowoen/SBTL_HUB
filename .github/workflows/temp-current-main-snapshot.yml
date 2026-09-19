@@ -1,0 +1,44 @@
+name: TEMP current-main snapshot bridge
+
+on:
+  push:
+    branches:
+      - chatgpt/validate-20260907-stage-a-r1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Freeze current main repository snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          MAIN_SHA="$(git rev-parse origin/main)"
+          test "$MAIN_SHA" = "77b03de7cf8c941068e8adcc6ef7de4bdf5f92ae"
+          mkdir -p /tmp/current-main
+          git archive origin/main | tar -x -C /tmp/current-main
+          printf '%s\n' "$MAIN_SHA" > /tmp/current-main/.frozen-main-sha
+          git show origin/main:data/cards.full.json | sha256sum > /tmp/current-main/.cards-full-sha256
+          python - <<'PY'
+          import json
+          p='/tmp/current-main/data/cards.full.json'
+          with open(p,encoding='utf-8') as f: d=json.load(f)
+          cards=d if isinstance(d,list) else d.get('cards', d)
+          print('canonical_count', len(cards))
+          assert len(cards)==1578
+          PY
+      - name: Upload current-main snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: current-main-77b03de7-snapshot
+          path: /tmp/current-main
+          include-hidden-files: true
+          if-no-files-found: error

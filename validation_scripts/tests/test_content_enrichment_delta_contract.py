@@ -381,7 +381,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         chain = rows(row)
         chain["B"][0].pop("fact_sources", None)
         chain["C"][0].pop("fact_sources", None)
-        with self.assertRaisesRegex(binding.Blocked, "bound upstream source evidence tokens"):
+        with self.assertRaisesRegex(binding.Blocked, "bound upstream source evidence support"):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
                 operation_card={**VISIBLE, "fact": "changed fact"},

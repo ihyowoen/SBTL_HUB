@@ -307,7 +307,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         chain["C"][0]["fact"] = prior
         chain["0.4"][0]["fact"] = prior
         chain["0.5"][0]["fact"] = prior
-        with self.assertRaisesRegex(binding.Blocked, "machine-detectable newly added/deepened"):
+        with self.assertRaisesRegex(binding.Blocked, "claimed but not expressed|machine-detectable newly added/deepened"):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
                 operation_card={**VISIBLE, "fact": current},

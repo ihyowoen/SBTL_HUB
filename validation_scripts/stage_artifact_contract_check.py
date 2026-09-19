@@ -263,6 +263,8 @@ def _artifact_locked_prompt_06_version(payload):
 
 
 def _strip_paired_presentation_markup(text):
+    if text.strip() in {"**","__","~~","`","*","_"}:
+        return ""
     patterns = (
         r"\*\*(?=\S)(.+?)(?<=\S)\*\*",
         r"__(?=\S)(.+?)(?<=\S)__",

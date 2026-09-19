@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, copy, hashlib, json, os, subprocess, sys
+import argparse, copy, hashlib, json, os, re, subprocess, sys
 from collections import Counter
 from pathlib import Path
 
@@ -42,6 +42,7 @@ IDENTITY_ROOT = "source_spec_id"
 VISIBLE_COPY_FIELDS = ("sub", "gate", "fact", "implication")
 CONTENT_BASELINE_ORDER = ("0.5", "0.4", "C")
 CONTENT_BASELINE_STRATEGY = "nearest_upstream_visible_copy_0.5_0.4_C"
+PROMPT_06_PATH = "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md"
 DENSITY_DIMENSIONS = (
     "prior_state",
     "changed_state",
@@ -465,8 +466,26 @@ def _prompt_06_version(row):
     return None
 
 
-def _requires_v5_content_audit(row):
-    version=_prompt_06_version(row)
+def _locked_prompt_06_version(base_main_commit_sha):
+    if not isinstance(base_main_commit_sha,str) or len(base_main_commit_sha)!=40:
+        raise Blocked("locked base_main_commit_sha required to resolve Prompt 0.6 contract")
+    text=_git(["show",f"{base_main_commit_sha}:{PROMPT_06_PATH}"])
+    match=re.search(r"\*\*Version:\*\*\s*`?([^\s`]+)",text)
+    if not match:
+        raise Blocked(f"locked Prompt 0.6 version marker missing at {base_main_commit_sha}:{PROMPT_06_PATH}")
+    return match.group(1).strip()
+
+
+def _requires_v5_content_audit(row, locked_prompt_version=None):
+    declared=_prompt_06_version(row)
+    if locked_prompt_version is not None:
+        if declared is not None and declared!=locked_prompt_version:
+            raise Blocked(
+                f"0.6 item prompt version {declared} does not match locked baseline Prompt 0.6 version {locked_prompt_version}"
+            )
+        version=locked_prompt_version
+    else:
+        version=declared
     return not (isinstance(version,str) and version.startswith("PROMPT_0_6_V4_"))
 
 
@@ -665,14 +684,14 @@ def _materialized_operation_card(kind, op, expected, known, inserted, baseline_c
     raise Blocked(f"{label} unsupported operation kind {kind}")
 
 
-def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None):
+def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,locked_prompt_version=None):
     row_06=_single_bound_row(rows_by_stage,"0.6",label)
     if row_06.get("content_enriched") is not True:
         raise Blocked(f"{label} stage 0.6 passing row requires content_enriched=true")
 
     # Explicit V4 artifacts remain valid historical records. V5+ (and
     # unversioned new artifacts) must satisfy the new structured contract.
-    if not _requires_v5_content_audit(row_06):
+    if not _requires_v5_content_audit(row_06, locked_prompt_version=locked_prompt_version):
         return
 
     audit=row_06.get("content_enrichment_audit")
@@ -743,6 +762,7 @@ def validate_source_diversity_chain(rows_by_stage,label):
 def validate_operations(run,governed):
     strict_specs=governed_strict_spec_identities(governed)
     base=baseline_canonical(run); known=canonical_map_from_data(base)
+    locked_prompt_version=_locked_prompt_06_version(run.get("base_main_commit_sha"))
     baseline_cards={c.get("id"):c for c in base.get("cards",[]) if isinstance(c,dict) and _nonempty_text(c.get("id"))}
     insert_ops=run.get("operations",{}).get("insert",[])
     if not isinstance(insert_ops,list): raise Blocked("operations.insert must be array")
@@ -779,7 +799,10 @@ def validate_operations(run,governed):
             validate_governed_stage_a_operation(rows_by_stage,expected,strict_specs,label)
             validate_source_diversity_chain(rows_by_stage,label)
             operation_card=_materialized_operation_card(kind,op,expected,known,inserted,baseline_cards,insert_cards,updated_cards,label)
-            validate_content_enrichment_delta(rows_by_stage,label,operation_card=operation_card)
+            validate_content_enrichment_delta(
+                rows_by_stage,label,operation_card=operation_card,
+                locked_prompt_version=locked_prompt_version,
+            )
             if kind=="related_add": validate_related_semantics(op,expected,rows_by_stage,known,inserted,label)
 
 def main():

@@ -212,6 +212,10 @@ DENSITY_DIMENSIONS = (
 )
 CONTENT_BASELINE_STRATEGY = "nearest_upstream_visible_copy_0.5_0.4_C"
 PROMPT_06_PATH = "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md"
+PRESENTATION_HTML_TAG_RE = re.compile(
+    r"</?(?:strong|b|em|i|u|s|del|mark|span|small|sub|sup)(?:\s+[^<>]*?)?\s*/?>",
+    re.IGNORECASE,
+)
 
 
 def _prompt_06_version(item):
@@ -263,7 +267,7 @@ def _normalize_text(value):
         return value
     text = value
     text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)
-    text = re.sub(r"<[^>]+>", "", text)
+    text = PRESENTATION_HTML_TAG_RE.sub("", text)
     text = re.sub(r"^\s{0,3}#{1,6}\s+", "", text)
     text = re.sub(r"^\s*[-+>]\s+", "", text)
     text = text.replace("**", "").replace("__", "").replace("~~", "").replace(chr(96), "").replace("*", "")

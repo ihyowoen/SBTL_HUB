@@ -1,0 +1,46 @@
+name: tmp-verify-0-6-delta-hardening
+
+on:
+  push:
+    branches:
+      - harden/0-6-visible-copy-delta-20260919
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile validators
+        run: |
+          python3 -m py_compile \
+            validation_scripts/card_run_v4_binding_hardening.py \
+            validation_scripts/stage_artifact_contract_check.py \
+            validation_scripts/tests/test_content_enrichment_delta_contract.py
+      - name: Run focused regression tests
+        run: |
+          python3 -m unittest -v validation_scripts.tests.test_content_enrichment_delta_contract
+          python3 validation_scripts/card_run_v4_binding_hardening.py --self-test
+      - name: Run existing validator smoke tests
+        run: bash validation_scripts/run_fixture_smoke_tests.sh
+      - name: Prove the historical NR26 zero-delta artifact is blocked
+        shell: bash
+        run: |
+          set +e
+          python3 validation_scripts/card_run_v4_binding_hardening.py \
+            --run runs/2026-09-18/nr26-20260911-v4-r1/card-run.json \
+            > /tmp/nr26-hardening.out 2>&1
+          rc=$?
+          set -e
+          cat /tmp/nr26-hardening.out
+          if [ "$rc" -eq 0 ]; then
+            echo "Historical NR26 run unexpectedly passed the new 0.6 delta hardening." >&2
+            exit 1
+          fi
+          grep -Eq "content_enrichment_audit|zero visible-copy delta" /tmp/nr26-hardening.out
+          echo "PASS: historical NR26 run is blocked by the new 0.6 content-enrichment guard."

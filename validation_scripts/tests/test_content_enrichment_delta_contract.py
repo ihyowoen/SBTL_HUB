@@ -41,8 +41,10 @@ def density(*, supported=4, changed_state=True, bind_dimensions=False):
 
 
 def rows(row_06):
+    source = {"source_id": "SRC1", "source_url": "https://example.test/source"}
     return {
-        "C": [{"source_spec_id": "SPEC", **VISIBLE}],
+        "B": [{"source_spec_id": "SPEC", "fact_sources": [source]}],
+        "C": [{"source_spec_id": "SPEC", **VISIBLE, "fact_sources": [source]}],
         "0.4": [{"source_spec_id": "SPEC", "fact": VISIBLE["fact"]}],
         "0.5": [{"source_spec_id": "SPEC", "fact": VISIBLE["fact"]}],
         "0.6": [row_06],
@@ -128,6 +130,35 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             operation_card={**VISIBLE, "fact": "same fact"},
         )
 
+    def test_markdown_only_difference_is_zero_delta(self):
+        row = row06(
+            fact="**same fact**",
+            content_enrichment_audit=audit(
+                [], no_change=True, supported=4,
+                reason="Only presentation markup differs.",
+                bind_dimensions=True,
+            ),
+        )
+        binding.validate_content_enrichment_delta(
+            rows(row), "insert[0]",
+            operation_card={**VISIBLE, "fact": "same fact"},
+        )
+
+    def test_empty_intermediate_values_fall_back_to_earlier_nonempty_copy(self):
+        row = row06(
+            content_enrichment_audit=audit(
+                [], no_change=True, supported=4,
+                reason="0.5 and 0.4 empty values cannot mask Stage C.",
+                bind_dimensions=True,
+            ),
+        )
+        chain = rows(row)
+        chain["0.5"][0]["fact"] = ""
+        chain["0.4"][0]["fact"] = None
+        binding.validate_content_enrichment_delta(
+            chain, "insert[0]", operation_card=VISIBLE,
+        )
+
     def test_operation_copy_must_match_audited_06_copy(self):
         row = row06(
             fact="changed fact",
@@ -208,6 +239,51 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         with self.assertRaisesRegex(binding.Blocked, "dimension_evidence"):
             binding.validate_content_enrichment_delta(rows(row), "insert[0]")
 
+    def test_dimension_evidence_cannot_inject_new_06_only_source(self):
+        injected = audit(
+            [], no_change=True, supported=4,
+            reason="Injected source must not authorize unchanged content.",
+            bind_dimensions=True,
+        )
+        for entry in injected["density_audit"]["dimension_evidence"].values():
+            entry["evidence_refs"] = ["INJECTED"]
+        row = row06(
+            fact_sources=[{"source_id": "INJECTED", "source_url": "https://example.test/injected"}],
+            content_enrichment_audit=injected,
+        )
+        with self.assertRaisesRegex(binding.Blocked, "unbound evidence refs"):
+            binding.validate_content_enrichment_delta(rows(row), "insert[0]")
+
+    def test_boolean_supported_dimension_count_is_rejected(self):
+        one_dimension = {
+            "status": "PASS",
+            "dimensions": {
+                "prior_state": False,
+                "changed_state": True,
+                "quantitative_anchor": False,
+                "boundary_or_uncertainty": False,
+                "transmission_path": False,
+                "next_watchpoint": False,
+            },
+            "supported_dimension_count": True,
+            "evidence_notes": "Malformed boolean count.",
+            "dimension_evidence": {
+                "changed_state": {"fields": ["fact"], "evidence_refs": ["SRC1"]}
+            },
+        }
+        row = row06(
+            fact="changed fact",
+            content_enrichment_audit={
+                "baseline_strategy": binding.CONTENT_BASELINE_STRATEGY,
+                "changed_fields": ["fact"],
+                "no_change_required": False,
+                "no_change_reason": "",
+                "density_audit": one_dimension,
+            },
+        )
+        with self.assertRaisesRegex(binding.Blocked, "non-boolean integer"):
+            binding.validate_content_enrichment_delta(rows(row), "insert[0]")
+
     def test_explicit_v4_artifact_is_backward_compatible(self):
         row = row06(
             prompt_provenance_0_6={"prompt_version": "PROMPT_0_6_V4_20260901"},
@@ -234,6 +310,25 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         item = row06()
         findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
         self.assertTrue(any(x.get("field") == "content_enrichment_audit" for x in findings))
+
+    def test_stage_checker_rejects_declared_changed_field_without_visible_copy(self):
+        item = row06(content_enrichment_audit=audit(["fact"]))
+        item.pop("fact")
+        findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
+        self.assertTrue(any(
+            x.get("field") == "content_enrichment_audit.changed_fields"
+            and "fact" in (x.get("actual") or [])
+            for x in findings
+        ))
+
+    def test_stage_checker_reports_unreadable_locked_prompt(self):
+        locked, declared, error = stage_contract._artifact_locked_prompt_06_version({
+            "base_main_commit_sha": "0" * 40,
+            "prompt_provenance": {"prompt_version": "PROMPT_0_6_V4_20260901"},
+        })
+        self.assertIsNone(locked)
+        self.assertEqual(declared, "PROMPT_0_6_V4_20260901")
+        self.assertTrue(error)
 
     def test_stage_06_checker_enforces_no_change_invariants_and_dimension_binding(self):
         item = row06(

@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -209,6 +211,7 @@ DENSITY_DIMENSIONS = (
     "next_watchpoint",
 )
 CONTENT_BASELINE_STRATEGY = "nearest_upstream_visible_copy_0.5_0.4_C"
+PROMPT_06_PATH = "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md"
 
 
 def _prompt_06_version(item):
@@ -224,9 +227,32 @@ def _prompt_06_version(item):
     return None
 
 
-def _requires_v5_content_audit(item):
-    version = _prompt_06_version(item)
+def _requires_v5_content_audit(item, locked_prompt_version=None):
+    version = locked_prompt_version if locked_prompt_version is not None else _prompt_06_version(item)
     return not (isinstance(version, str) and version.startswith("PROMPT_0_6_V4_"))
+
+
+def _extract_prompt_06_version(text):
+    if not isinstance(text, str):
+        return None
+    match = re.search(r"\*\*Version:\*\*\s*`?([^\s`]+)", text)
+    return match.group(1).strip() if match else None
+
+
+def _artifact_locked_prompt_06_version(payload):
+    provenance = payload.get("prompt_provenance") if isinstance(payload, dict) else None
+    declared = provenance.get("prompt_version") if isinstance(provenance, dict) else None
+    base = payload.get("base_main_commit_sha") if isinstance(payload, dict) else None
+    if isinstance(base, str) and len(base) == 40:
+        proc = subprocess.run(
+            ["git", "-C", _REPO_ROOT, "show", f"{base}:{PROMPT_06_PATH}"],
+            text=True, capture_output=True,
+        )
+        if proc.returncode == 0:
+            locked = _extract_prompt_06_version(proc.stdout)
+            if locked:
+                return locked, declared
+    return declared if isinstance(declared, str) else None, declared
 
 
 def _normalized_visible_value(field, value):
@@ -540,7 +566,7 @@ def _related_lineage_findings(item, scope):
     return findings
 
 
-def _item_value_findings(stage, item, scope):
+def _item_value_findings(stage, item, scope, locked_prompt_version=None):
     findings = []
     if stage != "A" and not _non_empty_string(item.get("source_spec_id")):
         findings.append(_field_finding(scope, "source_spec_id", "non-empty string", item.get("source_spec_id"),
@@ -592,7 +618,15 @@ def _item_value_findings(stage, item, scope):
             if item.get(field) is not True:
                 findings.append(_field_finding(scope, field, True, item.get(field),
                                                "combined 0.6 passing bucket requires both component attestations=true"))
-        if _requires_v5_content_audit(item):
+        declared_prompt_version = _prompt_06_version(item)
+        if locked_prompt_version is not None and declared_prompt_version is not None \
+                and declared_prompt_version != locked_prompt_version:
+            findings.append(_field_finding(
+                scope, "prompt_provenance_0_6.prompt_version", locked_prompt_version,
+                declared_prompt_version,
+                "item-level Prompt 0.6 version must match the locked artifact/base contract",
+            ))
+        if _requires_v5_content_audit(item, locked_prompt_version=locked_prompt_version):
             findings.extend(_content_enrichment_audit_findings(item, scope))
 
     if stage == "0.7":
@@ -654,6 +688,17 @@ def main() -> int:
         if gate_finding:
             findings.append(gate_finding)
 
+    locked_prompt_version = None
+    if args.stage == "0.6":
+        locked_prompt_version, declared_artifact_prompt_version = _artifact_locked_prompt_06_version(payload)
+        if locked_prompt_version is not None and isinstance(declared_artifact_prompt_version, str) \
+                and declared_artifact_prompt_version != locked_prompt_version:
+            findings.append(_field_finding(
+                "top_level", "prompt_provenance.prompt_version", locked_prompt_version,
+                declared_artifact_prompt_version,
+                "artifact Prompt 0.6 version must match the prompt stored at the locked base when that commit is available",
+            ))
+
     items = collect_items(payload, args.stage)
     marker_counts = {}
     for item in items:
@@ -707,7 +752,9 @@ def main() -> int:
         # accepted_fact_safe is a passing bucket; every other stage bucket here
         # is itself the passing bucket consumed by the formal chain.
         if args.stage != "A" and (args.stage != "C" or item_marker(item) in accepted_c_markers):
-            findings.extend(_item_value_findings(args.stage, item, item_id))
+            findings.extend(_item_value_findings(
+                args.stage, item, item_id, locked_prompt_version=locked_prompt_version
+            ))
 
     result = {
         "status": "PASS" if not findings else "BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT",

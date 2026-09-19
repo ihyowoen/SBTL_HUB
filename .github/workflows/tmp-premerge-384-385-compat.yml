@@ -1,0 +1,80 @@
+name: tmp-premerge-384-385-compat
+on:
+  push:
+    branches:
+      - harden/0-6-visible-copy-delta-20260919
+
+permissions:
+  contents: read
+
+jobs:
+  compat:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: harden/0-6-visible-copy-delta-20260919
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Merge PR384 tree without committing
+        run: |
+          set -euo pipefail
+          echo "BASE_385=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          git fetch origin remediate/nr26-deep-summary-20260919:refs/remotes/origin/remediate/nr26-deep-summary-20260919 --force
+          git merge --no-commit --no-ff refs/remotes/origin/remediate/nr26-deep-summary-20260919
+          echo "PASS: #384 and #385 trees merge without content conflict"
+          git status --short
+      - name: Run combined validator and data checks
+        run: |
+          set -euo pipefail
+          python -m compileall -q validation_scripts
+          python validation_scripts/workflow_v4_architecture_check.py
+          python validation_scripts/apply_prompt_contract_overlays.py --check
+          python validation_scripts/run_active_workflow_tests.py
+          python3 validation_scripts/card_run_v4_binding_hardening.py --self-test
+          node scripts/validate_manual_direct_add.mjs --self-test
+          node scripts/validate_manual_direct_add_v4_hardening.mjs --self-test
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          git diff --check
+      - name: Diagnose locked-baseline sequencing
+        run: |
+          set -euo pipefail
+          MANIFEST=direct-adds/2026-09-19-nr26-deep-summary/direct-add.json
+          declared_main=$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.base_main_commit_sha)' "$MANIFEST")
+          declared_blob=$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.base_full_blob_sha)' "$MANIFEST")
+          echo "PR385_HEAD=$BASE_385"
+          echo "PR384_DECLARED_BASE=$declared_main"
+          if [[ "$declared_main" == "$BASE_385" ]]; then
+            echo "UNEXPECTED: #384 manifest already binds to #385 head"
+          else
+            echo "EXPECTED_OPERATIONAL_BLOCK: #385-first moves main away from #384 declared baseline; #384 would require rebase/rematerialization."
+          fi
+          git show "${declared_main}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
+          [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$declared_blob" ]]
+          node scripts/validate_json_schema_subset.mjs --schema schemas/manual-direct-add.v2.schema.json --instance "$MANIFEST"
+          node scripts/validate_manual_direct_add.mjs --manifest "$MANIFEST" --base "$RUNNER_TEMP/cards.full.base.json" --full data/cards.full.json
+          node scripts/validate_manual_direct_add_v4_hardening.mjs --manifest "$MANIFEST" --base "$RUNNER_TEMP/cards.full.base.json" --full data/cards.full.json
+          echo "PASS: combined tree is semantically valid against #384 declared original baseline."
+      - name: Verify reverse-order PR385 remains code-only
+        run: |
+          set -euo pipefail
+          merge_base=$(git merge-base "$BASE_385" refs/remotes/origin/remediate/nr26-deep-summary-20260919)
+          mapfile -t changed < <(git diff --name-only "$merge_base" "$BASE_385")
+          printf 'PR385_SIDE %s\n' "${changed[@]}"
+          for path in "${changed[@]}"; do
+            case "$path" in
+              data/cards.full.json|public/data/cards.json|direct-adds/*)
+                echo "FAIL: #385 unexpectedly carries governed card-data mutation path $path" >&2
+                exit 1
+                ;;
+            esac
+          done
+          echo "PASS: if #384 lands first, #385 remains validator/docs-only and does not inherit a stale data baseline lock."

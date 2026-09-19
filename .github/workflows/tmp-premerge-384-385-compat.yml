@@ -26,6 +26,8 @@ jobs:
         run: |
           set -euo pipefail
           echo "BASE_385=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          git config user.name "compat-bot"
+          git config user.email "compat-bot@example.invalid"
           git fetch origin remediate/nr26-deep-summary-20260919:refs/remotes/origin/remediate/nr26-deep-summary-20260919 --force
           git merge --no-commit --no-ff refs/remotes/origin/remediate/nr26-deep-summary-20260919
           echo "PASS: #384 and #385 trees merge without content conflict"

@@ -25,9 +25,13 @@ If stronger/earlier evidence changes event identity, return upstream. Evidence q
 
 Improve only evidence-safe visible copy and decision-useful framing. Preserve verified facts, source audit, date role, selection route, and Related lineage. Do not silently add new evidence or mutate event identity.
 
-A `content_enriched=true` transition requires a machine-checked substantive delta in `sub/gate/fact/implication` against the nearest upstream visible copy, resolved field-by-field in the order `0.5 → 0.4 → Stage C`. Omission of a field by an intermediate stage is not itself enrichment.
+A V5+ `content_enriched=true` transition requires a machine-checked substantive delta in `sub/gate/fact/implication` against the nearest upstream visible copy, resolved field-by-field in the order `0.5 → 0.4 → Stage C`. Omission of a field by an intermediate stage is not itself enrichment. Whitespace-only differences and removals/emptying do not qualify as substantive enrichment.
 
-Zero-delta passage is exceptional: it requires an explicit `no_change_required` reason plus a passing six-dimension Deep Summary density audit. The exception must show at least four evidence-supported dimensions including changed/current state. Raw character count is not a content-quality gate.
+The applied formal operation must materialize the same governed visible copy that Prompt 0.6 audited; a throwaway 0.6 change cannot authorize an unchanged operation.
+
+Zero-delta passage is exceptional: it requires an explicit `no_change_required` reason plus a passing six-dimension Deep Summary density audit. The exception must show at least four evidence-supported dimensions including changed/current state, and every claimed true dimension must bind to concrete governed visible field(s) plus evidence reference(s) already present in the 0.6 evidence package. Raw character count is not a content-quality gate.
+
+Explicit historical `PROMPT_0_6_V4_*` artifacts remain valid as historical records; the structured V5+ audit is not retroactively imposed on them.
 
 ## 5. 0.7 — publish readiness
 

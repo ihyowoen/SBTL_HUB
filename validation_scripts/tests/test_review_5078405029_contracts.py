@@ -66,6 +66,25 @@ class Review5078405029ContractsTest(unittest.TestCase):
                     "source_spec_id": "SPEC_1",
                     "content_enriched": True,
                     "language_terminology_polished": True,
+                    "content_enrichment_audit": {
+                        "baseline_strategy": "nearest_upstream_visible_copy_0.5_0.4_C",
+                        "changed_fields": ["fact"],
+                        "no_change_required": False,
+                        "no_change_reason": "",
+                        "density_audit": {
+                            "status": "PASS",
+                            "dimensions": {
+                                "prior_state": True,
+                                "changed_state": True,
+                                "quantitative_anchor": True,
+                                "boundary_or_uncertainty": True,
+                                "transmission_path": False,
+                                "next_watchpoint": False
+                            },
+                            "supported_dimension_count": 4,
+                            "evidence_notes": "Positive 0.6 fixture with a substantive evidence-bounded fact delta."
+                        }
+                    },
                     "related_lineage": {
                         "status": "PASS",
                         "relation_type": "new_unrelated_event",

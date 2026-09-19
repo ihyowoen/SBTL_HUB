@@ -174,6 +174,14 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         self.assertEqual(binding._normalize_text("**same fact**"), "same fact")
         self.assertEqual(stage_contract._normalize_text("**same fact**"), "same fact")
 
+    def test_strikethrough_remains_semantically_distinct(self):
+        plain = "Project approved"
+        struck = "~~Project approved~~"
+        self.assertNotEqual(binding._normalize_text(plain), binding._normalize_text(struck))
+        self.assertNotEqual(stage_contract._normalize_text(plain), stage_contract._normalize_text(struck))
+        self.assertEqual(binding._normalize_text(struck), struck)
+        self.assertEqual(stage_contract._normalize_text(struck), struck)
+
     def test_comparison_expressions_survive_markup_normalization(self):
         self.assertEqual(
             binding._normalize_text("loss <0.7% and density >300 kW/L"),
@@ -276,6 +284,45 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
                 operation_card={**VISIBLE, "fact": current},
             )
 
+    def test_prior_state_synonyms_share_one_canonical_marker(self):
+        prior = "Project was previously planned"
+        current = "Project was formerly planned"
+        row = row06(
+            fact=current,
+            content_enrichment_audit=audit(["fact"]),
+        )
+        chain = rows(row)
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "machine-detectable newly added/deepened"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current},
+            )
+
+    def test_quantitative_signal_preserves_number_unit_pair_with_spacing(self):
+        self.assertIn("10 mw", binding._signal_values("quantitative_anchor", "The project is 10 MW"))
+        self.assertIn("10 mwh", binding._signal_values("quantitative_anchor", "The project is 10 MW / 10 MWh"))
+        self.assertNotEqual(
+            binding._signal_values("quantitative_anchor", "The project is 10 MW"),
+            binding._signal_values("quantitative_anchor", "The project is 10 MW / 10 MWh"),
+        )
+
+    def test_added_energy_capacity_anchor_qualifies(self):
+        prior = "The project is 10 MW"
+        current = "The project is 10 MW / 10 MWh"
+        row = row06(
+            fact=current,
+            content_enrichment_audit=audit(["fact"]),
+        )
+        chain = rows(row)
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        binding.validate_content_enrichment_delta(
+            chain, "update[0]",
+            operation_card={**VISIBLE, "fact": current},
+        )
+
     def test_explicit_sufficient_density_no_change_exception_passes_with_bound_dimension_evidence(self):
         row = row06(
             content_enrichment_audit=audit(
@@ -338,6 +385,45 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
                 operation_card={**VISIBLE, "fact": "changed fact"},
+            )
+
+    def test_checked_not_used_source_cannot_support_fact_dimension(self):
+        row = row06(
+            fact="Commercial production started in 2026 at 2.5 GWh",
+            content_enrichment_audit=audit(["fact"]),
+        )
+        chain = rows(row)
+        unsupported = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "role": "checked_not_used_for_visible_claims",
+            "visible_claim_support": [],
+        }
+        chain["B"][0]["fact_sources"] = [unsupported]
+        chain["C"][0]["fact_sources"] = [unsupported]
+        with self.assertRaisesRegex(binding.Blocked, "bound upstream source evidence support|do not support mapped visible fields"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": "Commercial production started in 2026 at 2.5 GWh"},
+            )
+
+    def test_explicit_source_field_support_is_enforced(self):
+        row = row06(
+            fact="Commercial production started in 2026 at 2.5 GWh",
+            content_enrichment_audit=audit(["fact"]),
+        )
+        chain = rows(row)
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "visible_claim_support": ["sub"],
+        }
+        chain["B"][0]["fact_sources"] = [source]
+        chain["C"][0]["fact_sources"] = [source]
+        with self.assertRaisesRegex(binding.Blocked, "do not support mapped visible fields"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": "Commercial production started in 2026 at 2.5 GWh"},
             )
 
     def test_boolean_supported_dimension_count_is_rejected(self):

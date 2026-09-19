@@ -38,6 +38,7 @@ jobs:
           test "$(git rev-parse origin/main)" = "$BASE"
           test "$(git rev-parse "$BASE:data/cards.full.json")" = "02eaeba219e7aa13749e7cdd70d77c2775f11dee"
           git show "$BASE:data/cards.full.json" > /tmp/cards.full.base.json
+          cp /tmp/cards.full.base.json data/cards.full.json
 
           mkdir -p "$(dirname "$MANIFEST")"
 
@@ -90,7 +91,7 @@ jobs:
 
           if (cards.length !== beforeCount) throw new Error("card count changed");
           doc.updated = OUTPUT_UPDATED;
-          fs.writeFileSync(FULL_PATH, JSON.stringify(doc));
+          fs.writeFileSync(FULL_PATH, JSON.stringify(doc, null, 2) + "\n");
 
           const manifest = {
             schema: "manual_direct_add_v2",

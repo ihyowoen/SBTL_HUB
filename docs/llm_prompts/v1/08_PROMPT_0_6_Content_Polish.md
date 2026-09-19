@@ -42,7 +42,9 @@ Whitespace-only and presentation-markup-only differences (for example Markdown e
 
 The visible copy carried by the applied formal operation must match the audited 0.6 governed fields. A throwaway 0.6 edit that is not actually materialized by the operation is invalid.
 
-If at least one governed field changed, `no_change_required` must be `false`. A raw string delta alone is insufficient: at least one Deep Summary dimension must be evidence-supported, `dimension_evidence` must bind every true dimension to concrete governed visible field(s) and upstream evidence reference(s), and at least one supported dimension must bind to a field that actually changed. This prevents terminology-only or formatting-only edits from qualifying as content enrichment.
+If at least one governed field changed, `no_change_required` must be `false`. A raw string delta alone is insufficient: at least one Deep Summary dimension must be evidence-supported, `dimension_evidence` must bind every true dimension to concrete governed visible field(s) and upstream evidence reference(s), and at least one supported dimension must bind to a field that actually changed.
+
+For formal full-run validation, that changed-field binding must also show a **newly added/deepened machine-detectable signal versus the effective upstream copy** for the claimed dimension: a new quantitative anchor; a new prior-state marker; a new execution/stage/status marker; a new boundary/uncertainty marker; a new transmission-path marker; or a new next-watchpoint marker. A terminology-only synonym rewrite that preserves the same state/number/boundary/transmission/watchpoint information does not qualify. This check is fail-closed and is not a character-count or minimum-length rule.
 
 If none of the governed fields changed, `content_enriched=true` is allowed only as a narrow exception when all of the following are true:
 

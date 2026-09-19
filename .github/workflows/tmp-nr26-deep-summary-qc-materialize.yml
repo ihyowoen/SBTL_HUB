@@ -1,0 +1,64 @@
+name: tmp-nr26-deep-summary-qc-materialize
+
+on:
+  push:
+    branches:
+      - remediate/nr26-deep-summary-20260919
+    paths:
+      - tmp/nr26-deep-summary-qc-patch.json
+      - .github/workflows/tmp-nr26-deep-summary-qc-materialize.yml
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: remediate/nr26-deep-summary-20260919
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Apply bounded copy patch
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const fullPath='data/cards.full.json';
+          const patch=JSON.parse(fs.readFileSync('tmp/nr26-deep-summary-qc-patch.json','utf8'));
+          const doc=JSON.parse(fs.readFileSync(fullPath,'utf8'));
+          const allowed=new Set(['sub','gate','fact','implication']);
+          const byId=new Map(doc.cards.map(c=>[c.id,c]));
+          let count=0;
+          for(const [id,changes] of Object.entries(patch)){
+            const card=byId.get(id);
+            if(!card) throw new Error('missing card '+id);
+            for(const [field,value] of Object.entries(changes)){
+              if(!allowed.has(field)) throw new Error('illegal field '+id+' '+field);
+              card[field]=value;
+            }
+            count++;
+          }
+          if(count!==6) throw new Error('expected 6 patched cards, got '+count);
+          fs.writeFileSync(fullPath,JSON.stringify(doc,null,2)+'\n');
+          NODE
+      - name: Regenerate lean and validate
+        run: |
+          node scripts/lean_cards.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs
+          node scripts/lean_cards.mjs --check
+          git diff --check
+      - name: Commit materialized copy
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cards.full.json public/data/cards.json
+          if git diff --cached --quiet; then
+            echo "No materialized changes."
+            exit 0
+          fi
+          git commit -m "Tighten NR26 Deep Summary evidence boundaries"
+          git push

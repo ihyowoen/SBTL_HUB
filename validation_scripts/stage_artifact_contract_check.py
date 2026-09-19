@@ -480,6 +480,32 @@ def _content_enrichment_audit_findings(item, scope):
                     "zero-delta exception requires changed_state=true",
                 ))
             findings.extend(_dimension_evidence_findings(item, density, scope, true_dimensions))
+
+    if changed_valid and changed and no_change is False and valid_dimensions:
+        if not true_dimensions:
+            findings.append(_field_finding(
+                scope, "content_enrichment_audit.density_audit.supported_dimension_count",
+                ">= 1", 0,
+                "a changed visible-copy delta needs at least one evidence-supported Deep Summary dimension",
+            ))
+        else:
+            findings.extend(_dimension_evidence_findings(item, density, scope, true_dimensions))
+            mapping = density.get("dimension_evidence")
+            if isinstance(mapping, dict):
+                bound_changed = {
+                    field
+                    for entry in mapping.values()
+                    if isinstance(entry, dict)
+                    for field in entry.get("fields", [])
+                    if field in set(changed)
+                }
+                if not bound_changed:
+                    findings.append(_field_finding(
+                        scope, "content_enrichment_audit.density_audit.dimension_evidence",
+                        "at least one true dimension bound to a declared changed field",
+                        mapping,
+                        "terminology/format-only string deltas cannot satisfy substantive content enrichment",
+                    ))
     return findings
 
 

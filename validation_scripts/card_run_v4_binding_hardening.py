@@ -640,7 +640,7 @@ def _apply_json_change(document, change, label):
     raise Blocked(f"{label} JSON pointer parent is not object/array")
 
 
-def _materialized_operation_card(kind, op, expected, known, inserted, baseline_cards, insert_cards, label):
+def _materialized_operation_card(kind, op, expected, known, inserted, baseline_cards, insert_cards, updated_cards, label):
     if kind=="insert":
         card=op.get("card")
         return copy.deepcopy(card) if isinstance(card,dict) else None
@@ -658,7 +658,7 @@ def _materialized_operation_card(kind, op, expected, known, inserted, baseline_c
         return card
     if kind=="related_add":
         governed,_=endpoint_context(op,known,inserted,expected,label)
-        card=insert_cards.get(governed) or baseline_cards.get(governed)
+        card=insert_cards.get(governed) or updated_cards.get(governed) or baseline_cards.get(governed)
         if not isinstance(card,dict):
             raise Blocked(f"{label} cannot materialize governed Related endpoint {governed}")
         return copy.deepcopy(card)
@@ -749,6 +749,17 @@ def validate_operations(run,governed):
     validate_insert_identities(insert_ops,known)
     inserted={op.get("card",{}).get("id"):op.get("card",{}).get("source_spec_id") for op in insert_ops if isinstance(op,dict) and isinstance(op.get("card"),dict)}
     insert_cards={op.get("card",{}).get("id"):op.get("card") for op in insert_ops if isinstance(op,dict) and isinstance(op.get("card"),dict)}
+    updated_cards={}
+    update_ops=run.get("operations",{}).get("update",[])
+    if not isinstance(update_ops,list): raise Blocked("operations.update must be array")
+    for i,update_op in enumerate(update_ops):
+        if not isinstance(update_op,dict): raise Blocked(f"update[{i}] must be object")
+        cid=update_op.get("id")
+        if _nonempty_text(cid):
+            updated_cards[cid]=_materialized_operation_card(
+                "update",update_op,op_spec("update",update_op,known,inserted,f"update[{i}]"),
+                known,inserted,baseline_cards,insert_cards,{},f"update[{i}]"
+            )
     for kind in ("insert","update","related_add"):
         ops=run.get("operations",{}).get(kind)
         if not isinstance(ops,list): raise Blocked(f"operations.{kind} must be array")
@@ -767,7 +778,7 @@ def validate_operations(run,governed):
             if missing: raise Blocked(f"{label} missing current-run candidate binding at stages {missing}")
             validate_governed_stage_a_operation(rows_by_stage,expected,strict_specs,label)
             validate_source_diversity_chain(rows_by_stage,label)
-            operation_card=_materialized_operation_card(kind,op,expected,known,inserted,baseline_cards,insert_cards,label)
+            operation_card=_materialized_operation_card(kind,op,expected,known,inserted,baseline_cards,insert_cards,updated_cards,label)
             validate_content_enrichment_delta(rows_by_stage,label,operation_card=operation_card)
             if kind=="related_add": validate_related_semantics(op,expected,rows_by_stage,known,inserted,label)
 

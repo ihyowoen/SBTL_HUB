@@ -566,7 +566,7 @@ def _validate_dimension_evidence(density, row_06, label, true_dimensions):
             raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name} has unbound evidence refs {unknown}")
 
 
-def _validate_density_audit(audit, row_06, label, *, no_change):
+def _validate_density_audit(audit, row_06, label, *, no_change, actual_changed=()):
     density=audit.get("density_audit") if isinstance(audit,dict) else None
     if not isinstance(density,dict) or density.get("status")!="PASS":
         raise Blocked(f"{label} 0.6 content_enrichment_audit.density_audit must be structured PASS")
@@ -582,12 +582,31 @@ def _validate_density_audit(audit, row_06, label, *, no_change):
     notes=density.get("evidence_notes")
     if not _nonempty_text(notes):
         raise Blocked(f"{label} 0.6 density_audit.evidence_notes required")
+
     if no_change:
         if supported < 4:
             raise Blocked(f"{label} zero-delta 0.6 requires at least four evidence-supported Deep Summary dimensions; found {supported}")
         if dimensions.get("changed_state") is not True:
             raise Blocked(f"{label} zero-delta 0.6 requires changed_state=true in the density audit")
-        _validate_dimension_evidence(density,row_06,label,true_dimensions)
+    elif supported < 1:
+        raise Blocked(f"{label} changed 0.6 copy requires at least one evidence-supported Deep Summary dimension")
+
+    _validate_dimension_evidence(density,row_06,label,true_dimensions)
+    if not no_change:
+        mapping=density.get("dimension_evidence")
+        changed=set(actual_changed)
+        bound_changed={
+            field
+            for entry in mapping.values()
+            if isinstance(entry,dict)
+            for field in entry.get("fields",[])
+            if field in changed
+        }
+        if not bound_changed:
+            raise Blocked(
+                f"{label} changed 0.6 copy must bind at least one supported Deep Summary dimension "
+                f"to an actually changed governed field; changed={sorted(changed)}"
+            )
 
 
 def _validate_operation_visible_copy(row_06, operation_card, label):
@@ -737,7 +756,9 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
         if not _nonempty_text(audit.get("no_change_reason")):
             raise Blocked(f"{label} zero-delta 0.6 requires explicit no_change_reason")
 
-    _validate_density_audit(audit,row_06,label,no_change=not actual_changed)
+    _validate_density_audit(
+        audit,row_06,label,no_change=not actual_changed,actual_changed=actual_changed
+    )
     if operation_card is not None:
         _validate_operation_visible_copy(row_06,operation_card,label)
 

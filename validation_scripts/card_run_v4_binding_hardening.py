@@ -48,6 +48,14 @@ PRESENTATION_HTML_TAG_RE = re.compile(
     re.IGNORECASE,
 )
 ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
+QUANT_SIGNAL_RE = re.compile(r"(?<![A-Za-z0-9])(?:[$€£¥₩]?\d+(?:[.,]\d+)?(?:%|x|k|m|bn|b|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?)?)(?![A-Za-z0-9])", re.IGNORECASE)
+DIMENSION_SIGNAL_RES = {
+    "prior_state": re.compile(r"\b(?:previous(?:ly)?|prior|earlier|before|formerly|versus|vs\.?|compared\s+with|year[- ]ago|last\s+year)\b|(?:이전|종전|기존|직전|전년|과거|당초)", re.IGNORECASE),
+    "changed_state": re.compile(r"\b(?:commercial|commission(?:ed|ing)?|operation(?:al)?|production|groundbreak(?:ing)?|construction|shipment|ship(?:ped|ping)?|launch(?:ed)?|start(?:ed|ing)?|complete(?:d)?|ramp(?:ed|ing)?|resume(?:d)?|restart(?:ed)?|suspend(?:ed)?|delay(?:ed)?|cancel(?:led|ed)?|approve(?:d)?|sign(?:ed)?)\b|(?:상업생산|가동|양산|착공|건설|출하|출시|개시|시작|완공|증설|램프업|재개|재가동|중단|지연|취소|승인|체결)", re.IGNORECASE),
+    "boundary_or_uncertainty": re.compile(r"\b(?:plan(?:ned)?|target(?:ed)?|expect(?:ed)?|estimate(?:d)?|forecast|preliminary|may|might|could|subject\s+to|not\s+yet|reported|according\s+to|guidance|proposal|proposed)\b|(?:계획|목표|예정|전망|추정|잠정|가능성|미확정|아직|보도|제안)", re.IGNORECASE),
+    "transmission_path": re.compile(r"\b(?:because|due\s+to|therefore|driv(?:e|es|en)|lead(?:s|ing)?\s+to|impact(?:s|ed)?|affect(?:s|ed)?|pressure|demand|supply|cost|price|margin|procurement|supply\s+chain)\b|(?:때문|영향|압력|수요|공급|원가|비용|가격|마진|조달|공급망)", re.IGNORECASE),
+    "next_watchpoint": re.compile(r"\b(?:next|watch|milestone|qualification|certification|commissioning|ramp[- ]?up|by\s+q[1-4]|by\s+20\d{2}|expected\s+(?:by|in)|scheduled\s+(?:for|in))\b|(?:향후|다음|확인|마일스톤|인증|고객승인|가동예정|양산예정|출하예정)", re.IGNORECASE),
+}
 DENSITY_DIMENSIONS = (
     "prior_state",
     "changed_state",
@@ -502,6 +510,25 @@ def _effective_upstream_visible_value(rows_by_stage, field, label):
     return _MISSING, None
 
 
+def _strip_paired_presentation_markup(text):
+    # Strip syntactically paired emphasis/code markers only. Literal asterisks
+    # such as "2 * 3" and rating symbols such as "A*" remain substantive text.
+    patterns = (
+        r"\*\*(?=\S)(.+?)(?<=\S)\*\*",
+        r"__(?=\S)(.+?)(?<=\S)__",
+        r"~~(?=\S)(.+?)(?<=\S)~~",
+        r"`(?=\S)(.+?)(?<=\S)`",
+        r"(?<!\w)\*(?=\S)(.+?)(?<=\S)\*(?!\w)",
+        r"(?<!\w)_(?=\S)(.+?)(?<=\S)_(?!\w)",
+    )
+    previous=None
+    while previous!=text:
+        previous=text
+        for pattern in patterns:
+            text=re.sub(pattern,r"\1",text)
+    return text
+
+
 def _normalize_text(value):
     if not isinstance(value,str):
         return value
@@ -513,17 +540,23 @@ def _normalize_text(value):
     text=PRESENTATION_HTML_TAG_RE.sub("",text)
     text=re.sub(r"^\s{0,3}#{1,6}\s+","",text)
     text=re.sub(r"^\s*[-+>]\s+","",text)
-    text=text.replace("**","").replace("__","").replace("~~","").replace(chr(96),"").replace("*","")
+    text=_strip_paired_presentation_markup(text)
     return " ".join(text.split())
 
 
 def _normalized_visible_value(field, value):
     if field in {"sub","gate","fact"}:
-        return _normalize_text(value) if _nonempty_text(value) else None
+        if not _nonempty_text(value):
+            return None
+        normalized=_normalize_text(value)
+        return normalized if _nonempty_text(normalized) else None
     if field=="implication":
         if not isinstance(value,list) or not value or any(not _nonempty_text(x) for x in value):
             return None
-        return tuple(_normalize_text(x) for x in value)
+        normalized=tuple(_normalize_text(x) for x in value)
+        if any(not _nonempty_text(x) for x in normalized):
+            return None
+        return normalized
     return None
 
 
@@ -590,6 +623,51 @@ def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowe
         unknown=[x for x in refs if x.strip() not in evidence_tokens]
         if unknown:
             raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name} has unbound evidence refs {unknown}")
+
+
+def _visible_value_text(value):
+    if value is None:
+        return ""
+    if isinstance(value,tuple):
+        return " | ".join(value)
+    return str(value)
+
+
+def _signal_values(dimension, text):
+    if dimension=="quantitative_anchor":
+        return {match.group(0).strip().lower() for match in QUANT_SIGNAL_RE.finditer(text)}
+    pattern=DIMENSION_SIGNAL_RES.get(dimension)
+    if pattern is None:
+        return set()
+    return {match.group(0).strip().lower() for match in pattern.finditer(text)}
+
+
+def _validate_substantive_dimension_delta(
+    density, row_06, label, actual_changed, upstream_normalized
+):
+    mapping=density.get("dimension_evidence")
+    changed=set(actual_changed)
+    qualifying=[]
+    diagnostics={}
+    for dimension,entry in mapping.items():
+        if not isinstance(entry,dict):
+            continue
+        for field in entry.get("fields",[]):
+            if field not in changed:
+                continue
+            before_text=_visible_value_text(upstream_normalized.get(field))
+            after_text=_visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING)))
+            before_signals=_signal_values(dimension,before_text)
+            after_signals=_signal_values(dimension,after_text)
+            added=sorted(after_signals-before_signals)
+            diagnostics[f"{dimension}:{field}"]=added
+            if added:
+                qualifying.append((dimension,field,added))
+    if not qualifying:
+        raise Blocked(
+            f"{label} changed 0.6 copy lacks a machine-detectable newly added/deepened Deep Summary signal "
+            f"relative to upstream; terminology-only rewrites do not qualify; signals={diagnostics}"
+        )
 
 
 def _validate_density_audit(
@@ -668,6 +746,10 @@ def _apply_json_change(document, change, label):
     op=change.get("op")
     if op not in {"add","replace","remove"}:
         raise Blocked(f"{label} unsupported change op {op!r}")
+    if op in {"add","replace"} and "value" not in change:
+        raise Blocked(f"{label} {op} requires value at {change.get('path')}")
+    if op=="remove" and "value" in change:
+        raise Blocked(f"{label} remove must not include value at {change.get('path')}")
     parts=_json_pointer_parts(change.get("path"),label)
     parent=document
     create_missing=(op=="add")
@@ -776,10 +858,12 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
 
     actual_changed=[]
     baseline_sources={}
+    upstream_normalized={}
     for field in VISIBLE_COPY_FIELDS:
         baseline,source_stage=_effective_upstream_visible_value(rows_by_stage,field,label)
         baseline_sources[field]=source_stage
         baseline_normalized=_normalized_visible_value(field,baseline)
+        upstream_normalized[field]=baseline_normalized
         current_normalized=_normalized_visible_value(field,row_06.get(field,_MISSING))
         if baseline_normalized is not None and current_normalized is None:
             raise Blocked(f"{label} 0.6 removal/empty value for {field} cannot satisfy substantive content enrichment")
@@ -816,6 +900,10 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
         audit,row_06,label,no_change=not actual_changed,actual_changed=actual_changed,
         allowed_evidence_tokens=allowed_evidence_tokens,
     )
+    if actual_changed:
+        _validate_substantive_dimension_delta(
+            audit["density_audit"],row_06,label,actual_changed,upstream_normalized,
+        )
     if operation_card is not None:
         _validate_operation_visible_copy(row_06,operation_card,label)
 

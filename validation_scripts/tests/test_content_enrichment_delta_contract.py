@@ -49,7 +49,7 @@ def rows(row_06):
     }
 
 
-def audit(changed_fields, *, no_change=False, supported=4, reason="", bind_dimensions=False):
+def audit(changed_fields, *, no_change=False, supported=4, reason="", bind_dimensions=True):
     return {
         "baseline_strategy": binding.CONTENT_BASELINE_STRATEGY,
         "changed_fields": changed_fields,
@@ -136,6 +136,42 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         with self.assertRaisesRegex(binding.Blocked, "applied operation visible copy"):
             binding.validate_content_enrichment_delta(
                 rows(row), "insert[0]", operation_card=VISIBLE,
+            )
+
+    def test_changed_string_without_supported_deep_summary_dimension_is_blocked(self):
+        empty_density = {
+            "status": "PASS",
+            "dimensions": {name: False for name in binding.DENSITY_DIMENSIONS},
+            "supported_dimension_count": 0,
+            "evidence_notes": "Only terminology changed.",
+            "dimension_evidence": {},
+        }
+        row = row06(
+            fact="terminology-only wording",
+            content_enrichment_audit={
+                "baseline_strategy": binding.CONTENT_BASELINE_STRATEGY,
+                "changed_fields": ["fact"],
+                "no_change_required": False,
+                "no_change_reason": "",
+                "density_audit": empty_density,
+            },
+        )
+        with self.assertRaisesRegex(binding.Blocked, "at least one evidence-supported"):
+            binding.validate_content_enrichment_delta(
+                rows(row), "insert[0]",
+                operation_card={**VISIBLE, "fact": "terminology-only wording"},
+            )
+
+    def test_changed_delta_dimension_must_bind_to_an_actually_changed_field(self):
+        row = row06(
+            sub="changed sub",
+            content_enrichment_audit=audit(["sub"]),
+        )
+        # Default helper maps supported dimensions only to fact, which is unchanged here.
+        with self.assertRaisesRegex(binding.Blocked, "actually changed governed field"):
+            binding.validate_content_enrichment_delta(
+                rows(row), "insert[0]",
+                operation_card={**VISIBLE, "sub": "changed sub"},
             )
 
     def test_explicit_sufficient_density_no_change_exception_passes_with_bound_dimension_evidence(self):

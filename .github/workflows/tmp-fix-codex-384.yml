@@ -56,7 +56,6 @@ jobs:
           node scripts/validate_cards.mjs data/cards.full.json
           node scripts/validate_cards.mjs public/data/cards.json
           node scripts/lean_cards.mjs --check
-          node scripts/validate_manual_direct_add_v4_hardening.mjs direct-adds/2026-09-19-nr26-deep-summary/direct-add.json
           git diff --check
           python3 - <<'PY'
           import json

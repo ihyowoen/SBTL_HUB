@@ -30,15 +30,15 @@ The governed content fields are:
 
 `sub`, `gate`, `fact`, `implication`.
 
-Determine the effective upstream value of each field using the nearest available ordinary-stage copy in this order:
+Determine the effective upstream value of each field using the nearest **non-empty normalized visible copy** in this order:
 
 `0.5 → 0.4 → Stage C`.
 
-A field omitted by 0.5 or 0.4 is therefore **not** automatically a new 0.6 change when the same copy already existed at Stage C.
+A field omitted, null, empty, or presentation-only-empty at 0.5 or 0.4 is therefore **not** allowed to mask an earlier substantive copy and is not automatically a new 0.6 change when the same copy already existed at Stage C.
 
 A passing V5+ 0.6 item must record `content_enrichment_audit`. Its `changed_fields` must equal the actual governed visible-copy delta calculated against that effective upstream baseline.
 
-Whitespace-only/formatting-only differences do not count as substantive enrichment. Removing, nulling, or emptying an upstream governed field also does not count as enrichment and must fail closed.
+Whitespace-only and presentation-markup-only differences (for example Markdown emphasis/link wrappers or HTML emphasis tags) do not count as substantive enrichment. Removing, nulling, or emptying an upstream governed field also does not count as enrichment and must fail closed.
 
 The visible copy carried by the applied formal operation must match the audited 0.6 governed fields. A throwaway 0.6 edit that is not actually materialized by the operation is invalid.
 
@@ -50,10 +50,10 @@ If none of the governed fields changed, `content_enriched=true` is allowed only 
 - `no_change_reason` is explicit and non-empty;
 - `density_audit.status="PASS"`;
 - all six Deep Summary dimensions are audited as booleans;
-- `supported_dimension_count` exactly matches the true dimensions;
+- `supported_dimension_count` is a non-boolean integer that exactly matches the true dimensions;
 - at least four dimensions are evidence-supported, including `changed_state`;
 - `evidence_notes` is non-empty and explains why the unchanged copy is already sufficiently decision-useful;
-- every true density dimension is bound through `dimension_evidence` to at least one non-empty governed visible field and at least one concrete upstream evidence reference already present in the 0.6 evidence package.
+- every true density dimension is bound through `dimension_evidence` to at least one non-empty governed visible field and at least one concrete evidence token already present in the bound upstream B/C/0.5 evidence chain; Prompt 0.6 may not introduce a new source token solely to justify density.
 
 Title-only or terminology-only edits do not satisfy the content-enrichment delta.
 
@@ -131,4 +131,4 @@ When `changed_fields=[]`, `density_audit.dimension_evidence` must contain exactl
 }
 ```
 
-Explicit historical `PROMPT_0_6_V4_*` artifacts remain valid historical records. In a formal card run, the applicable 0.6 contract is resolved from the Prompt 0.6 file stored at the run's locked `base_main_commit_sha`; an item-level version label cannot downgrade a V5+ locked baseline to V4. The new structured audit contract applies to V5+ and fail-closed unversioned new artifacts.
+Explicit historical `PROMPT_0_6_V4_*` artifacts remain valid historical records. In a formal card run, the applicable 0.6 contract is resolved from the Prompt 0.6 file stored at the run's locked `base_main_commit_sha`; an item-level version label cannot downgrade a V5+ locked baseline to V4. A standalone checker supplied with a locked base must fail closed if that prompt file/version cannot be resolved; it may not trust a self-declared V4 label in that case. The new structured audit contract applies to V5+ and fail-closed unversioned new artifacts.

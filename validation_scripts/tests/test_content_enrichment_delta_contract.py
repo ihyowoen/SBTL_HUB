@@ -4,10 +4,19 @@ from validation_scripts import card_run_v4_binding_hardening as binding
 from validation_scripts import stage_artifact_contract_check as stage_contract
 
 
+DENSE_FACT = (
+    "Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; "
+    "target remains subject to certification."
+)
+NEW_DENSE_FACT = (
+    "Previously planned at 1 GWh; commercial production started in 2026 at 2.5 GWh; "
+    "target remains subject to certification."
+)
+
 VISIBLE = {
     "sub": "same sub",
     "gate": "same gate",
-    "fact": "same fact",
+    "fact": DENSE_FACT,
     "implication": ["same implication"],
 }
 
@@ -64,6 +73,26 @@ def audit(changed_fields, *, no_change=False, supported=4, reason="", bind_dimen
     }
 
 
+def audit_for_dimensions(changed_fields, enabled, *, no_change=False, reason=""):
+    values = {name: name in set(enabled) for name in binding.DENSITY_DIMENSIONS}
+    return {
+        "baseline_strategy": binding.CONTENT_BASELINE_STRATEGY,
+        "changed_fields": changed_fields,
+        "no_change_required": no_change,
+        "no_change_reason": reason,
+        "density_audit": {
+            "status": "PASS",
+            "dimensions": values,
+            "supported_dimension_count": len(enabled),
+            "evidence_notes": "Focused evidence-bounded density test.",
+            "dimension_evidence": {
+                name: {"fields": ["fact"], "evidence_refs": ["SRC1"]}
+                for name in enabled
+            },
+        },
+    }
+
+
 def row06(**overrides):
     base = {
         "source_spec_id": "SPEC",
@@ -83,23 +112,23 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
 
     def test_actual_fact_change_passes_and_missing_05_fields_do_not_create_false_delta(self):
         row = row06(
-            fact="Commercial production started in 2026 at 2.5 GWh",
+            fact=NEW_DENSE_FACT,
             content_enrichment_audit=audit(["fact"]),
         )
         binding.validate_content_enrichment_delta(
             rows(row), "insert[0]",
-            operation_card={**VISIBLE, "fact": "Commercial production started in 2026 at 2.5 GWh"},
+            operation_card={**VISIBLE, "fact": NEW_DENSE_FACT},
         )
 
     def test_declared_changed_fields_are_order_independent(self):
         row = row06(
             sub="changed sub",
-            fact="Commercial production started in 2026 at 2.5 GWh",
+            fact=NEW_DENSE_FACT,
             content_enrichment_audit=audit(["fact", "sub"]),
         )
         binding.validate_content_enrichment_delta(
             rows(row), "insert[0]",
-            operation_card={**VISIBLE, "sub": "changed sub", "fact": "Commercial production started in 2026 at 2.5 GWh"},
+            operation_card={**VISIBLE, "sub": "changed sub", "fact": NEW_DENSE_FACT},
         )
 
     def test_declared_changed_fields_must_equal_actual_delta(self):
@@ -118,7 +147,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
 
     def test_formatting_only_difference_is_zero_delta(self):
         row = row06(
-            fact="same   fact",
+            fact=DENSE_FACT.replace("commercial production", "commercial   production"),
             content_enrichment_audit=audit(
                 [], no_change=True, supported=4,
                 reason="Already decision-useful.",
@@ -127,12 +156,12 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         )
         binding.validate_content_enrichment_delta(
             rows(row), "insert[0]",
-            operation_card={**VISIBLE, "fact": "same fact"},
+            operation_card=VISIBLE,
         )
 
     def test_markdown_only_difference_is_zero_delta(self):
         row = row06(
-            fact="**same fact**",
+            fact=f"**{DENSE_FACT}**",
             content_enrichment_audit=audit(
                 [], no_change=True, supported=4,
                 reason="Only presentation markup differs.",
@@ -141,7 +170,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         )
         binding.validate_content_enrichment_delta(
             rows(row), "insert[0]",
-            operation_card={**VISIBLE, "fact": "same fact"},
+            operation_card=VISIBLE,
         )
 
     def test_presentation_only_empty_copy_is_treated_as_removal(self):
@@ -223,7 +252,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
 
     def test_operation_copy_must_match_audited_06_copy(self):
         row = row06(
-            fact="Commercial production started in 2026 at 2.5 GWh",
+            fact=NEW_DENSE_FACT,
             content_enrichment_audit=audit(["fact"]),
         )
         with self.assertRaisesRegex(binding.Blocked, "applied operation visible copy"):
@@ -272,7 +301,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         current = "Production increased in 2026"
         row = row06(
             fact=current,
-            content_enrichment_audit=audit(["fact"]),
+            content_enrichment_audit=audit_for_dimensions(["fact"], ["changed_state"]),
         )
         chain = rows(row)
         chain["C"][0]["fact"] = prior
@@ -289,7 +318,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         current = "Project was formerly planned"
         row = row06(
             fact=current,
-            content_enrichment_audit=audit(["fact"]),
+            content_enrichment_audit=audit_for_dimensions(["fact"], ["prior_state"]),
         )
         chain = rows(row)
         for stage in ("C", "0.4", "0.5"):
@@ -313,7 +342,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         current = "The project is 10 MW / 10 MWh"
         row = row06(
             fact=current,
-            content_enrichment_audit=audit(["fact"]),
+            content_enrichment_audit=audit_for_dimensions(["fact"], ["quantitative_anchor"]),
         )
         chain = rows(row)
         for stage in ("C", "0.4", "0.5"):
@@ -322,6 +351,71 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             chain, "update[0]",
             operation_card={**VISIBLE, "fact": current},
         )
+
+    def test_numeric_formatting_variants_share_canonical_anchor(self):
+        self.assertEqual(
+            binding._signal_values("quantitative_anchor", "Capacity is 10 MW and 1,000 MWh"),
+            binding._signal_values("quantitative_anchor", "Capacity is 10.0 MW and 1000 MWh"),
+        )
+
+    def test_numeric_formatting_only_change_does_not_qualify(self):
+        prior = "Capacity is 10 MW"
+        current = "Capacity is 10.0 MW"
+        row = row06(
+            fact=current,
+            content_enrichment_audit=audit_for_dimensions(["fact"], ["quantitative_anchor"]),
+        )
+        chain = rows(row)
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "machine-detectable newly added/deepened"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current},
+            )
+
+    def test_relocating_existing_signal_between_fields_is_not_enrichment(self):
+        upstream_fact = "Commercial production started in 2026 at 2 GWh"
+        upstream_sub = "Project overview"
+        current_fact = upstream_sub
+        current_sub = upstream_fact
+        focused = audit_for_dimensions(["sub", "fact"], ["changed_state"])
+        focused["density_audit"]["dimension_evidence"]["changed_state"]["fields"] = ["sub"]
+        row = row06(
+            sub=current_sub,
+            fact=current_fact,
+            content_enrichment_audit=focused,
+        )
+        chain = rows(row)
+        chain["C"][0].update({"sub": upstream_sub, "fact": upstream_fact})
+        chain["0.4"][0]["fact"] = upstream_fact
+        chain["0.5"][0]["fact"] = upstream_fact
+        with self.assertRaisesRegex(binding.Blocked, "whole upstream governed copy"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "sub": current_sub, "fact": current_fact},
+            )
+
+    def test_zero_delta_claimed_dimensions_must_exist_in_mapped_text(self):
+        placeholder = {
+            "sub": "s", "gate": "g", "fact": "f", "implication": ["i"],
+        }
+        row = row06(
+            **placeholder,
+            content_enrichment_audit=audit(
+                [], no_change=True, supported=4,
+                reason="Placeholder text must not satisfy density.",
+                bind_dimensions=True,
+            ),
+        )
+        chain = rows(row)
+        chain["C"][0].update(placeholder)
+        chain["0.4"][0]["fact"] = "f"
+        chain["0.5"][0]["fact"] = "f"
+        with self.assertRaisesRegex(binding.Blocked, "claimed but not expressed"):
+            binding.validate_content_enrichment_delta(
+                chain, "insert[0]", operation_card=placeholder,
+            )
 
     def test_explicit_sufficient_density_no_change_exception_passes_with_bound_dimension_evidence(self):
         row = row06(
@@ -389,7 +483,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
 
     def test_checked_not_used_source_cannot_support_fact_dimension(self):
         row = row06(
-            fact="Commercial production started in 2026 at 2.5 GWh",
+            fact=NEW_DENSE_FACT,
             content_enrichment_audit=audit(["fact"]),
         )
         chain = rows(row)
@@ -404,12 +498,12 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         with self.assertRaisesRegex(binding.Blocked, "bound upstream source evidence support|do not support mapped visible fields"):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
-                operation_card={**VISIBLE, "fact": "Commercial production started in 2026 at 2.5 GWh"},
+                operation_card={**VISIBLE, "fact": NEW_DENSE_FACT},
             )
 
     def test_explicit_source_field_support_is_enforced(self):
         row = row06(
-            fact="Commercial production started in 2026 at 2.5 GWh",
+            fact=NEW_DENSE_FACT,
             content_enrichment_audit=audit(["fact"]),
         )
         chain = rows(row)
@@ -423,7 +517,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         with self.assertRaisesRegex(binding.Blocked, "do not support mapped visible fields"):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
-                operation_card={**VISIBLE, "fact": "Commercial production started in 2026 at 2.5 GWh"},
+                operation_card={**VISIBLE, "fact": NEW_DENSE_FACT},
             )
 
     def test_boolean_supported_dimension_count_is_rejected(self):
@@ -525,6 +619,48 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             for x in findings
         ))
 
+    def test_stage_checker_rejects_checked_not_used_source_for_fact_dimension(self):
+        item = row06(
+            content_enrichment_audit=audit_for_dimensions(["fact"], ["changed_state"]),
+            fact_sources=[{
+                "source_id": "SRC1",
+                "source_url": "https://example.test/source",
+                "role": "checked_not_used_for_visible_claims",
+                "visible_claim_support": [],
+            }],
+        )
+        findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
+        self.assertTrue(any(
+            "do not support the mapped visible fields" in x.get("message", "")
+            or "concrete upstream evidence tokens" in x.get("message", "")
+            for x in findings
+        ))
+
+    def test_stage_checker_rejects_nonmatching_source_field_support(self):
+        item = row06(
+            content_enrichment_audit=audit_for_dimensions(["fact"], ["changed_state"]),
+            fact_sources=[{
+                "source_id": "SRC1",
+                "source_url": "https://example.test/source",
+                "visible_claim_support": ["sub"],
+            }],
+        )
+        findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
+        self.assertTrue(any(
+            "do not support the mapped visible fields" in x.get("message", "")
+            for x in findings
+        ))
+
+    def test_stage_checker_malformed_dimension_fields_returns_finding_not_typeerror(self):
+        malformed = audit_for_dimensions(["fact"], ["changed_state"])
+        malformed["density_audit"]["dimension_evidence"]["changed_state"]["fields"] = None
+        item = row06(content_enrichment_audit=malformed)
+        findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
+        self.assertTrue(any(
+            x.get("field", "").endswith("dimension_evidence.changed_state.fields")
+            for x in findings
+        ))
+
     def test_python_materializer_add_creates_missing_intermediate_objects_like_production_applier(self):
         card = {"id": "CARD1"}
         binding._apply_json_change(
@@ -570,6 +706,29 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
                 {"op": "replace", "path": "/metadata/detail", "value": "new"},
                 "update[0].changes[0]",
             )
+
+    def test_python_materializer_rejects_production_forbidden_update_roots(self):
+        cases = [
+            ("/id", "NEWID"),
+            ("/source_spec_id", "OTHER"),
+            ("/related", []),
+            ("/related_ids", []),
+            ("/related_lineage", {}),
+        ]
+        for pointer, value in cases:
+            card = {
+                "id": "CARD1",
+                "source_spec_id": "SPEC",
+                "related": [],
+                "related_ids": [],
+                "related_lineage": {},
+            }
+            with self.assertRaises(binding.Blocked):
+                binding._apply_json_change(
+                    card,
+                    {"op": "replace", "path": pointer, "value": value},
+                    "update[0].changes[0]",
+                )
 
     def test_python_materializer_rejects_noncanonical_array_indices(self):
         for path in ("/implication/01", "/implication/+1"):

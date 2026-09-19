@@ -863,6 +863,7 @@ def main():
         validate_governed_stage_a_operation({"A":[{"spec_id":"SPEC_NEW","source_story_ids":["CAND_1"]}]},"SPEC_NEW",governed_strict_spec_identities(strict),"insert[0]")
         density={"status":"PASS","dimensions":{"prior_state":True,"changed_state":True,"quantitative_anchor":True,"boundary_or_uncertainty":True,"transmission_path":False,"next_watchpoint":False},"supported_dimension_count":4,"evidence_notes":"self-test","dimension_evidence":{"prior_state":{"fields":["fact"],"evidence_refs":["S1"]},"changed_state":{"fields":["sub"],"evidence_refs":["S1"]},"quantitative_anchor":{"fields":["fact"],"evidence_refs":["S1"]},"boundary_or_uncertainty":{"fields":["fact"],"evidence_refs":["S1"]}}}
         changed_rows={
+            "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}]}],
             "C":[{"sub":"old","gate":"g","fact":"f","implication":["i"]}],
             "0.4":[{"fact":"f"}],
             "0.5":[{"fact":"f"}],
@@ -870,6 +871,7 @@ def main():
         }
         validate_content_enrichment_delta(changed_rows,"self-test changed")
         zero_rows={
+            "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}]}],
             "C":[{"sub":"s","gate":"g","fact":"f","implication":["i"]}],
             "0.4":[{"fact":"f"}],
             "0.5":[{"fact":"f"}],

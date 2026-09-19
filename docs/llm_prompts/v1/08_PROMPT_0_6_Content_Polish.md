@@ -38,7 +38,7 @@ A field omitted, null, empty, or presentation-only-empty at 0.5 or 0.4 is theref
 
 A passing V5+ 0.6 item must record `content_enrichment_audit`. Its `changed_fields` must equal the actual governed visible-copy delta calculated against that effective upstream baseline.
 
-Whitespace-only and presentation-markup-only differences (for example Markdown emphasis/link wrappers or HTML emphasis tags) do not count as substantive enrichment. Removing, nulling, or emptying an upstream governed field also does not count as enrichment and must fail closed.
+Whitespace-only and presentation-markup-only differences (for example Markdown emphasis/link wrappers or HTML emphasis tags) do not count as substantive enrichment. Semantic deletion/retraction markup such as Markdown strikethrough (`~~...~~`) is not presentation-only and must remain visible to delta and operation-copy checks. Removing, nulling, or emptying an upstream governed field also does not count as enrichment and must fail closed.
 
 The visible copy carried by the applied formal operation must match the audited 0.6 governed fields. A throwaway 0.6 edit that is not actually materialized by the operation is invalid.
 

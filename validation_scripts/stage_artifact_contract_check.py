@@ -306,36 +306,73 @@ def _normalized_visible_value(field, value):
     return None
 
 
-def _row_evidence_tokens(item):
-    tokens = set()
+def _source_supported_visible_fields(source):
+    if not isinstance(source, dict):
+        return set()
+    if source.get("supporting_context_only_not_visible_claim_support") is True:
+        return set()
+    if str(source.get("role") or "").strip().lower() == "checked_not_used_for_visible_claims":
+        return set()
+    explicit_keys = ("visible_claim_support", "visible_fields_supported", "supports")
+    present = [key for key in explicit_keys if key in source]
+    if present:
+        supported = set()
+        for key in present:
+            values = source.get(key)
+            if isinstance(values, list):
+                supported.update(x for x in values if x in VISIBLE_COPY_FIELDS)
+        return supported
+    return set(VISIBLE_COPY_FIELDS)
+
+
+def _add_evidence_support(token_support, source, fields):
+    if not fields or not isinstance(source, dict):
+        return
+    for key in ("id", "source_id", "url", "source_url", "canonical_url"):
+        value = source.get(key)
+        if _non_empty_string(value):
+            token_support.setdefault(value.strip(), set()).update(fields)
+
+
+def _row_evidence_token_support(item):
+    token_support = {}
     if not isinstance(item, dict):
-        return tokens
+        return token_support
     sources = item.get("fact_sources")
     if isinstance(sources, list):
         for source in sources:
-            if not isinstance(source, dict):
-                continue
-            for key in ("id", "source_id", "url", "source_url"):
-                value = source.get(key)
-                if _non_empty_string(value):
-                    tokens.add(value.strip())
+            if isinstance(source, dict):
+                _add_evidence_support(
+                    token_support, source, _source_supported_visible_fields(source)
+                )
     ledger = item.get("source_discovery_ledger")
     if isinstance(ledger, list):
         for entry in ledger:
             if not isinstance(entry, dict):
                 continue
-            for key in ("source_id", "source_url", "canonical_url"):
-                value = entry.get(key)
-                if _non_empty_string(value):
-                    tokens.add(value.strip())
+            fields = _source_supported_visible_fields(entry)
+            outcome = str(entry.get("outcome") or "").strip().lower()
+            if not any(
+                key in entry
+                for key in ("visible_claim_support", "visible_fields_supported", "supports")
+            ):
+                if outcome not in {
+                    "used_in_fact_sources",
+                    "used_for_visible_claims",
+                    "accepted_visible_evidence",
+                }:
+                    fields = set()
+            _add_evidence_support(token_support, entry, fields)
     coverage = item.get("claim_source_coverage")
     if isinstance(coverage, dict):
         visible = coverage.get("visible_fact")
         if isinstance(visible, dict):
             refs = visible.get("supported_by_source_ids")
             if isinstance(refs, list):
-                tokens.update(x.strip() for x in refs if _non_empty_string(x))
-    return tokens
+                for ref in refs:
+                    if _non_empty_string(ref):
+                        token_support.setdefault(ref.strip(), set()).add("fact")
+    return token_support
 
 
 def _dimension_evidence_findings(item, density, scope, true_dimensions):
@@ -351,8 +388,8 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
         ))
         return findings
 
-    evidence_tokens = _row_evidence_tokens(item)
-    if not evidence_tokens:
+    evidence_support = _row_evidence_token_support(item)
+    if not evidence_support:
         findings.append(_field_finding(
             scope,
             "content_enrichment_audit.density_audit.dimension_evidence",
@@ -394,13 +431,26 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                 "each claimed dimension must bind to concrete upstream evidence",
             ))
         else:
-            unknown = [x for x in refs if x.strip() not in evidence_tokens]
+            unknown = [x for x in refs if x.strip() not in evidence_support]
             if unknown:
                 findings.append(_field_finding(
                     scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
                     "refs present in fact_sources/source_discovery/claim coverage", unknown,
                     "dimension evidence contains unbound references",
                 ))
+            if isinstance(fields, list):
+                unsupported = {
+                    ref.strip(): sorted(set(fields) - evidence_support.get(ref.strip(), set()))
+                    for ref in refs
+                    if ref.strip() in evidence_support
+                    and set(fields) - evidence_support.get(ref.strip(), set())
+                }
+                if unsupported:
+                    findings.append(_field_finding(
+                        scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
+                        "refs authorized for every mapped visible field", unsupported,
+                        "dimension evidence cites sources that do not support the mapped visible fields",
+                    ))
     return findings
 
 
@@ -556,7 +606,7 @@ def _content_enrichment_audit_findings(item, scope):
                 bound_changed = {
                     field
                     for entry in mapping.values()
-                    if isinstance(entry, dict)
+                    if isinstance(entry, dict) and isinstance(entry.get("fields"), list)
                     for field in entry.get("fields", [])
                     if field in set(changed)
                 }

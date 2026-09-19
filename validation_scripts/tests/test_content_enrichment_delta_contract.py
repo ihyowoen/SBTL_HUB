@@ -254,6 +254,21 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         with self.assertRaisesRegex(binding.Blocked, "unbound evidence refs"):
             binding.validate_content_enrichment_delta(rows(row), "insert[0]")
 
+    def test_changed_delta_cannot_use_06_only_source_when_upstream_has_no_evidence_token(self):
+        row = row06(
+            fact="changed fact",
+            fact_sources=[{"source_id": "SRC1", "source_url": "https://example.test/source"}],
+            content_enrichment_audit=audit(["fact"]),
+        )
+        chain = rows(row)
+        chain["B"][0].pop("fact_sources", None)
+        chain["C"][0].pop("fact_sources", None)
+        with self.assertRaisesRegex(binding.Blocked, "bound upstream source evidence tokens"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": "changed fact"},
+            )
+
     def test_boolean_supported_dimension_count_is_rejected(self):
         one_dimension = {
             "status": "PASS",
@@ -352,6 +367,34 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             x.get("field") == "content_enrichment_audit.no_change_required"
             for x in findings
         ))
+
+    def test_python_materializer_add_creates_missing_intermediate_objects_like_production_applier(self):
+        card = {"id": "CARD1"}
+        binding._apply_json_change(
+            card,
+            {"op": "add", "path": "/metadata/detail", "value": {"status": "ok"}},
+            "update[0].changes[0]",
+        )
+        self.assertEqual(card["metadata"]["detail"], {"status": "ok"})
+
+    def test_python_materializer_add_rejects_existing_final_path(self):
+        card = {"id": "CARD1", "metadata": {"detail": "old"}}
+        with self.assertRaisesRegex(binding.Blocked, "add target already exists"):
+            binding._apply_json_change(
+                card,
+                {"op": "add", "path": "/metadata/detail", "value": "new"},
+                "update[0].changes[0]",
+            )
+
+    def test_python_materializer_replace_does_not_create_missing_intermediate_objects(self):
+        card = {"id": "CARD1"}
+        with self.assertRaisesRegex(binding.Blocked, "cannot resolve token 'metadata'"):
+            binding._apply_json_change(
+                card,
+                {"op": "replace", "path": "/metadata/detail", "value": "new"},
+                "update[0].changes[0]",
+            )
+
 
 
 if __name__ == "__main__":

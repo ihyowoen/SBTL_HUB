@@ -513,6 +513,8 @@ def _effective_upstream_visible_value(rows_by_stage, field, label):
 def _strip_paired_presentation_markup(text):
     # Strip syntactically paired emphasis/code markers only. Literal asterisks
     # such as "2 * 3" and rating symbols such as "A*" remain substantive text.
+    if text.strip() in {"**","__","~~","`","*","_"}:
+        return ""
     patterns = (
         r"\*\*(?=\S)(.+?)(?<=\S)\*\*",
         r"__(?=\S)(.+?)(?<=\S)__",
@@ -983,10 +985,10 @@ def main():
         density={"status":"PASS","dimensions":{"prior_state":True,"changed_state":True,"quantitative_anchor":True,"boundary_or_uncertainty":True,"transmission_path":False,"next_watchpoint":False},"supported_dimension_count":4,"evidence_notes":"self-test","dimension_evidence":{"prior_state":{"fields":["fact"],"evidence_refs":["S1"]},"changed_state":{"fields":["sub"],"evidence_refs":["S1"]},"quantitative_anchor":{"fields":["fact"],"evidence_refs":["S1"]},"boundary_or_uncertainty":{"fields":["fact"],"evidence_refs":["S1"]}}}
         changed_rows={
             "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}]}],
-            "C":[{"sub":"old","gate":"g","fact":"f","implication":["i"]}],
+            "C":[{"sub":"pilot project","gate":"g","fact":"f","implication":["i"]}],
             "0.4":[{"fact":"f"}],
             "0.5":[{"fact":"f"}],
-            "0.6":[{"sub":"new","gate":"g","fact":"f","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":["sub"],"no_change_required":False,"no_change_reason":"","density_audit":density}}],
+            "0.6":[{"sub":"commercial production started","gate":"g","fact":"f","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":["sub"],"no_change_required":False,"no_change_reason":"","density_audit":density}}],
         }
         validate_content_enrichment_delta(changed_rows,"self-test changed")
         zero_rows={

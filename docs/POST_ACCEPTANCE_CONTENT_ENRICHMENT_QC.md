@@ -31,7 +31,7 @@ The applied formal operation must materialize the same governed visible copy tha
 
 Zero-delta passage is exceptional: it requires an explicit `no_change_required` reason plus a passing six-dimension Deep Summary density audit. The exception must show at least four evidence-supported dimensions including changed/current state, and every claimed true dimension must bind to concrete governed visible field(s) plus evidence reference(s) already present in the 0.6 evidence package. Raw character count is not a content-quality gate.
 
-Explicit historical `PROMPT_0_6_V4_*` artifacts remain valid as historical records; the structured V5+ audit is not retroactively imposed on them.
+Explicit historical `PROMPT_0_6_V4_*` artifacts remain valid as historical records; the structured V5+ audit is not retroactively imposed on them. Formal-run validation resolves the applicable Prompt 0.6 version from the prompt file at the run's locked `base_main_commit_sha`, so a new run cannot self-label a V5+ baseline as V4 to bypass the audit.
 
 ## 5. 0.7 — publish readiness
 

@@ -1,0 +1,466 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "nr26-deep-summary-remediation-20260919",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "34386663f1795aef6cb730f9320f6cae715a5c79",
+  "base_full_blob_sha": "02eaeba219e7aa13749e7cdd70d77c2775f11dee",
+  "expected_before": 1674,
+  "expected_after": 1674,
+  "output_updated": "2026-09-19T05:00:00Z",
+  "operations": {
+    "add": [],
+    "update": [
+      "2026-09-14_JP_01",
+      "2026-09-15_CN_01",
+      "2026-09-15_GL_01",
+      "2026-09-10_US_01",
+      "2026-09-10_US_02",
+      "2026-09-14_GL_01",
+      "2026-09-04_US_02",
+      "2026-09-14_CN_01",
+      "2026-08-01_JP_01",
+      "2026-09-10_KR_01",
+      "2026-09-10_EU_02",
+      "2026-09-10_EU_03",
+      "2026-09-09_GL_04",
+      "2026-09-08_CN_03",
+      "2026-09-11_EU_01",
+      "2026-09-16_US_01",
+      "2026-09-16_GL_02",
+      "2026-09-16_EU_02",
+      "2026-09-17_EU_01",
+      "2026-09-16_EU_01",
+      "2026-09-16_GL_03",
+      "2026-09-16_EU_03",
+      "2026-09-11_EU_02",
+      "2026-09-16_GL_01",
+      "2026-09-16_US_02",
+      "2026-09-08_CN_02",
+      "2026-09-16_GL_04",
+      "2026-09-09_CN_02",
+      "2026-09-14_JP_02",
+      "2026-09-15_KR_01",
+      "2026-09-16_CN_01",
+      "2026-09-16_CN_02",
+      "2026-09-17_CN_01",
+      "2026-09-14_CN_02"
+    ],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [],
+    "updates": [
+      {
+        "id": "2026-09-14_JP_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for 오이타 Nozu BESS 50MW/196MWh 금융종결 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-15_CN_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for 중국 8월 동력배터리 79.0GWh…LFP 85.6% without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-15_GL_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for 1~7월 EV 분리막 116.99억㎡…중국계 2Q 91.5% without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-10_US_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Eos, DOE 대출 2차 트랜치서 8,701.9만달러 인출 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-10_US_02",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for R3 Lithium, Covington 리튬 회수시설 운영 개시 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-14_GL_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for CATL·BME, 이집트 배터리팩 현지생산 1GWh부터 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-04_US_02",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for NeoVolta, 미국 BESS 제조 확대에 2천만달러 조달 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-14_CN_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Sungrow, 인버터·저장장치 가격 5~15% 인상 통지 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-08-01_JP_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for 홋카이도 이시카리 10.125MW/29.97MWh BESS 상업운전 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-10_KR_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for 현대차그룹·LG에너지솔루션, 200kWh UBESS 실증 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-10_EU_02",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Vattenfall, Brunsbüttel 254MW·약 1GWh BESS FID without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-10_EU_03",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Zhero·Tesla Energy, 이탈리아 약 3GWh BESS 프레임워크 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-09_GL_04",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Waratah, 701MW 방전으로 full SIPS 계약수준 시험 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-08_CN_03",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Ruiyuan, 허베이 300MW/1,200MWh BESS 낙찰 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-11_EU_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for EU, 배터리 재활용·회수 목표 유지 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-16_US_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Blue Whale, Bartlesville 처리라인 기계적 완공 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-16_GL_02",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Nova Scotia, 50MW/200MWh BESS 3개소 준공·개소 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-16_EU_02",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for 미 DFC, DTEK 200MW/400MWh BESS에 €85m 금융 승인 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-17_EU_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for NGEN, Wagenham 85MW/170MWh BESS 커미셔닝 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-16_EU_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for AKKU One, 핀란드 125MW/300MWh BESS 착공 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-16_GL_03",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Victoria SEC, Baranduda 400MW/1.86GWh BESS 투자 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-16_EU_03",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for 유럽 16개 시장 8월 BEV 점유율 30.5% without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-11_EU_02",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for EU 알루미늄 스크랩 15% 수출관세안 철회 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-16_GL_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Fluence, FY26 매출 24억달러·조정 EBITDA -2억달러로 하향 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-16_US_02",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Lightshift·FlexGen, 16개 BESS에 EMS 확대 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-08_CN_02",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for 창저우밍주, 광저우 남중국 분리막 기지 착공 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-16_GL_04",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for 호주 첫 계통연계 NAS 250kW/1.45MWh 커미셔닝 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-09_CN_02",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for EVE·중철북경공정국, 3년 ESS 협력 5GWh 이상 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-14_JP_02",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Trina Storage·AMP-lify, 일본 BESS 약 1GWh MoU without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-15_KR_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for 한국, 핵심광물 회수 규제샌드박스 3개 과제 모집 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-16_CN_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Hithium, 785Ah 기반 4MWh 나트륨이온 BESS 공개 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-16_CN_02",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for BYD, 최대 10MW/62MWh GC Block BESS 공개 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-17_CN_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for Leapmotor·FAW, 차세대 배터리 공동개발 협력 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      },
+      {
+        "id": "2026-09-14_CN_02",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "reason": "Restore Deep Summary density for CATL, 상용차용 TECTRANS II 플랫폼 공개 without changing event identity, date, taxonomy, evidence, or Related lineage.",
+        "evidence_review_summary": "Visible copy was rewritten only from already-reviewed Stage B/C evidence, verified quantitative anchors, event-stage/date boundaries, and existing canonical predecessor context where applicable. No new event, source, identity, or Related claim was introduced."
+      }
+    ]
+  }
+}

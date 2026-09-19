@@ -48,13 +48,46 @@ PRESENTATION_HTML_TAG_RE = re.compile(
     re.IGNORECASE,
 )
 ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
-QUANT_SIGNAL_RE = re.compile(r"(?<![A-Za-z0-9])(?:[$€£¥₩]?\d+(?:[.,]\d+)?(?:%|x|k|m|bn|b|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?)?)(?![A-Za-z0-9])", re.IGNORECASE)
-DIMENSION_SIGNAL_RES = {
-    "prior_state": re.compile(r"\b(?:previous(?:ly)?|prior|earlier|before|formerly|versus|vs\.?|compared\s+with|year[- ]ago|last\s+year)\b|(?:이전|종전|기존|직전|전년|과거|당초)", re.IGNORECASE),
-    "changed_state": re.compile(r"\b(?:commercial|commission(?:ed|ing)?|operation(?:al)?|production|groundbreak(?:ing)?|construction|shipment|ship(?:ped|ping)?|launch(?:ed)?|start(?:ed|ing)?|complete(?:d)?|ramp(?:ed|ing)?|resume(?:d)?|restart(?:ed)?|suspend(?:ed)?|delay(?:ed)?|cancel(?:led|ed)?|approve(?:d)?|sign(?:ed)?)\b|(?:상업생산|가동|양산|착공|건설|출하|출시|개시|시작|완공|증설|램프업|재개|재가동|중단|지연|취소|승인|체결)", re.IGNORECASE),
-    "boundary_or_uncertainty": re.compile(r"\b(?:plan(?:ned)?|target(?:ed)?|expect(?:ed)?|estimate(?:d)?|forecast|preliminary|may|might|could|subject\s+to|not\s+yet|reported|according\s+to|guidance|proposal|proposed)\b|(?:계획|목표|예정|전망|추정|잠정|가능성|미확정|아직|보도|제안)", re.IGNORECASE),
-    "transmission_path": re.compile(r"\b(?:because|due\s+to|therefore|driv(?:e|es|en)|lead(?:s|ing)?\s+to|impact(?:s|ed)?|affect(?:s|ed)?|pressure|demand|supply|cost|price|margin|procurement|supply\s+chain)\b|(?:때문|영향|압력|수요|공급|원가|비용|가격|마진|조달|공급망)", re.IGNORECASE),
-    "next_watchpoint": re.compile(r"\b(?:next|watch|milestone|qualification|certification|commissioning|ramp[- ]?up|by\s+q[1-4]|by\s+20\d{2}|expected\s+(?:by|in)|scheduled\s+(?:for|in))\b|(?:향후|다음|확인|마일스톤|인증|고객승인|가동예정|양산예정|출하예정)", re.IGNORECASE),
+QUANT_SIGNAL_RE = re.compile(
+    r"(?<![A-Za-z0-9])[$€£¥₩]?\d+(?:[.,]\d+)?"
+    r"(?:\s*(?:%|x|k|m|bn|b|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
+    r"(?![A-Za-z0-9])",
+    re.IGNORECASE,
+)
+DIMENSION_CANONICAL_SIGNAL_RES = {
+    "prior_state": {
+        "prior_state": re.compile(r"\b(?:previous(?:ly)?|prior|earlier|before|formerly|versus|vs\.?|compared\s+with|year[- ]ago|last\s+year)\b|(?:이전|종전|기존|직전|전년|과거|당초)", re.IGNORECASE),
+    },
+    "changed_state": {
+        "production_operation": re.compile(r"\b(?:commercial(?:ly)?|commission(?:ed|ing)?|operation(?:al)?|production)\b|(?:상업생산|가동|양산)", re.IGNORECASE),
+        "construction": re.compile(r"\b(?:groundbreak(?:ing)?|construction)\b|(?:착공|건설)", re.IGNORECASE),
+        "shipment_launch": re.compile(r"\b(?:shipment|ship(?:ped|ping)?|launch(?:ed)?)\b|(?:출하|출시)", re.IGNORECASE),
+        "start": re.compile(r"\b(?:start(?:ed|ing)?)\b|(?:개시|시작)", re.IGNORECASE),
+        "completion": re.compile(r"\b(?:complete(?:d)?)\b|(?:완공)", re.IGNORECASE),
+        "ramp": re.compile(r"\b(?:ramp(?:ed|ing)?|ramp[- ]?up)\b|(?:증설|램프업)", re.IGNORECASE),
+        "restart": re.compile(r"\b(?:resume(?:d)?|restart(?:ed)?)\b|(?:재개|재가동)", re.IGNORECASE),
+        "suspension": re.compile(r"\b(?:suspend(?:ed)?)\b|(?:중단)", re.IGNORECASE),
+        "delay": re.compile(r"\b(?:delay(?:ed)?)\b|(?:지연)", re.IGNORECASE),
+        "cancellation": re.compile(r"\b(?:cancel(?:led|ed)?)\b|(?:취소)", re.IGNORECASE),
+        "approval": re.compile(r"\b(?:approve(?:d)?)\b|(?:승인)", re.IGNORECASE),
+        "agreement": re.compile(r"\b(?:sign(?:ed)?)\b|(?:체결)", re.IGNORECASE),
+    },
+    "boundary_or_uncertainty": {
+        "plan_target": re.compile(r"\b(?:plan(?:ned)?|target(?:ed)?|proposal|proposed)\b|(?:계획|목표|제안)", re.IGNORECASE),
+        "expectation_estimate": re.compile(r"\b(?:expect(?:ed)?|estimate(?:d)?|forecast|guidance)\b|(?:예정|전망|추정)", re.IGNORECASE),
+        "uncertain_conditional": re.compile(r"\b(?:preliminary|may|might|could|subject\s+to|not\s+yet)\b|(?:잠정|가능성|미확정|아직)", re.IGNORECASE),
+        "reported_attribution": re.compile(r"\b(?:reported|according\s+to)\b|(?:보도)", re.IGNORECASE),
+    },
+    "transmission_path": {
+        "causal": re.compile(r"\b(?:because|due\s+to|therefore|driv(?:e|es|en)|lead(?:s|ing)?\s+to|impact(?:s|ed)?|affect(?:s|ed)?)\b|(?:때문|영향)", re.IGNORECASE),
+        "demand_supply": re.compile(r"\b(?:demand|supply|supply\s+chain)\b|(?:수요|공급|공급망)", re.IGNORECASE),
+        "economics": re.compile(r"\b(?:pressure|cost|price|margin|procurement)\b|(?:압력|원가|비용|가격|마진|조달)", re.IGNORECASE),
+    },
+    "next_watchpoint": {
+        "generic_watch": re.compile(r"\b(?:next|watch|milestone)\b|(?:향후|다음|확인|마일스톤)", re.IGNORECASE),
+        "qualification_certification": re.compile(r"\b(?:qualification|certification)\b|(?:인증|고객승인)", re.IGNORECASE),
+        "future_execution": re.compile(r"\b(?:commissioning|ramp[- ]?up|by\s+q[1-4]|by\s+20\d{2}|expected\s+(?:by|in)|scheduled\s+(?:for|in))\b|(?:가동예정|양산예정|출하예정)", re.IGNORECASE),
+    },
 }
 DENSITY_DIMENSIONS = (
     "prior_state",
@@ -518,7 +551,6 @@ def _strip_paired_presentation_markup(text):
     patterns = (
         r"\*\*(?=\S)(.+?)(?<=\S)\*\*",
         r"__(?=\S)(.+?)(?<=\S)__",
-        r"~~(?=\S)(.+?)(?<=\S)~~",
         r"`(?=\S)(.+?)(?<=\S)`",
         r"(?<!\w)\*(?=\S)(.+?)(?<=\S)\*(?!\w)",
         r"(?<!\w)_(?=\S)(.+?)(?<=\S)_(?!\w)",
@@ -562,53 +594,84 @@ def _normalized_visible_value(field, value):
     return None
 
 
-def _row_evidence_tokens(row):
-    tokens=set()
+def _source_supported_visible_fields(source):
+    if not isinstance(source,dict):
+        return set()
+    if source.get("supporting_context_only_not_visible_claim_support") is True:
+        return set()
+    if str(source.get("role") or "").strip().lower()=="checked_not_used_for_visible_claims":
+        return set()
+    explicit_keys=("visible_claim_support","visible_fields_supported","supports")
+    present=[key for key in explicit_keys if key in source]
+    if present:
+        supported=set()
+        for key in present:
+            values=source.get(key)
+            if isinstance(values,list):
+                supported.update(x for x in values if x in VISIBLE_COPY_FIELDS)
+        return supported
+    return set(VISIBLE_COPY_FIELDS)
+
+
+def _add_evidence_tokens(token_support, source, fields):
+    if not fields:
+        return
+    for key in ("id","source_id","url","source_url","canonical_url"):
+        value=source.get(key) if isinstance(source,dict) else None
+        if _nonempty_text(value):
+            token_support.setdefault(value.strip(),set()).update(fields)
+
+
+def _row_evidence_token_support(row):
+    token_support={}
     if not isinstance(row,dict):
-        return tokens
-    for source in row.get("fact_sources",[]) if isinstance(row.get("fact_sources"),list) else []:
-        if not isinstance(source,dict):
-            continue
-        for key in ("id","source_id","url","source_url"):
-            value=source.get(key)
-            if _nonempty_text(value):
-                tokens.add(value.strip())
-    for entry in row.get("source_discovery_ledger",[]) if isinstance(row.get("source_discovery_ledger"),list) else []:
+        return token_support
+    sources=row.get("fact_sources",[]) if isinstance(row.get("fact_sources"),list) else []
+    for source in sources:
+        if isinstance(source,dict):
+            _add_evidence_tokens(token_support,source,_source_supported_visible_fields(source))
+    ledger=row.get("source_discovery_ledger",[]) if isinstance(row.get("source_discovery_ledger"),list) else []
+    for entry in ledger:
         if not isinstance(entry,dict):
             continue
-        for key in ("source_id","source_url","canonical_url"):
-            value=entry.get(key)
-            if _nonempty_text(value):
-                tokens.add(value.strip())
+        fields=_source_supported_visible_fields(entry)
+        outcome=str(entry.get("outcome") or "").strip().lower()
+        if not any(key in entry for key in ("visible_claim_support","visible_fields_supported","supports")):
+            if outcome not in {"used_in_fact_sources","used_for_visible_claims","accepted_visible_evidence"}:
+                fields=set()
+        _add_evidence_tokens(token_support,entry,fields)
     coverage=row.get("claim_source_coverage")
     if isinstance(coverage,dict):
         visible=coverage.get("visible_fact")
         if isinstance(visible,dict):
             refs=visible.get("supported_by_source_ids")
             if isinstance(refs,list):
-                tokens.update(x.strip() for x in refs if _nonempty_text(x))
-    return tokens
+                for ref in refs:
+                    if _nonempty_text(ref):
+                        token_support.setdefault(ref.strip(),set()).add("fact")
+    return token_support
 
 
-def _upstream_evidence_tokens(rows_by_stage,label):
-    tokens=set()
+def _upstream_evidence_token_support(rows_by_stage,label):
+    token_support={}
     for stage_name in ("0.5","0.4","C","B"):
         row=_single_bound_row(rows_by_stage,stage_name,label)
-        tokens.update(_row_evidence_tokens(row))
-    return tokens
+        for token,fields in _row_evidence_token_support(row).items():
+            token_support.setdefault(token,set()).update(fields)
+    return token_support
 
 
-def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowed_evidence_tokens):
+def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowed_evidence_support):
     mapping=density.get("dimension_evidence")
     if not isinstance(mapping,dict) or set(mapping)!=set(true_dimensions):
         raise Blocked(
             f"{label} 0.6 density_audit.dimension_evidence must map exactly true dimensions {sorted(true_dimensions)}"
         )
-    if allowed_evidence_tokens is None:
-        raise Blocked(f"{label} 0.6 dimension_evidence validation requires explicit bound upstream evidence tokens")
-    evidence_tokens=set(allowed_evidence_tokens)
-    if not evidence_tokens:
-        raise Blocked(f"{label} 0.6 requires bound upstream source evidence tokens for dimension_evidence")
+    if allowed_evidence_support is None:
+        raise Blocked(f"{label} 0.6 dimension_evidence validation requires explicit bound upstream evidence support")
+    evidence_support={token:set(fields) for token,fields in allowed_evidence_support.items()}
+    if not evidence_support:
+        raise Blocked(f"{label} 0.6 requires bound upstream source evidence support for dimension_evidence")
     for name in true_dimensions:
         entry=mapping.get(name)
         if not isinstance(entry,dict):
@@ -622,9 +685,18 @@ def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowe
         refs=entry.get("evidence_refs")
         if not isinstance(refs,list) or not refs or any(not _nonempty_text(x) for x in refs):
             raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name}.evidence_refs must be non-empty strings")
-        unknown=[x for x in refs if x.strip() not in evidence_tokens]
+        unknown=[x for x in refs if x.strip() not in evidence_support]
         if unknown:
-            raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name} has unbound evidence refs {unknown}")
+            raise Blocked(f"{label} 0.6 dimension_evidence.{name} has unbound evidence refs {unknown}")
+        unsupported={
+            ref.strip(): sorted(set(fields)-evidence_support.get(ref.strip(),set()))
+            for ref in refs
+            if set(fields)-evidence_support.get(ref.strip(),set())
+        }
+        if unsupported:
+            raise Blocked(
+                f"{label} 0.6 dimension_evidence.{name} refs do not support mapped visible fields {unsupported}"
+            )
 
 
 def _visible_value_text(value):
@@ -637,11 +709,16 @@ def _visible_value_text(value):
 
 def _signal_values(dimension, text):
     if dimension=="quantitative_anchor":
-        return {match.group(0).strip().lower() for match in QUANT_SIGNAL_RE.finditer(text)}
-    pattern=DIMENSION_SIGNAL_RES.get(dimension)
-    if pattern is None:
-        return set()
-    return {match.group(0).strip().lower() for match in pattern.finditer(text)}
+        return {
+            re.sub(r"\s+"," ",match.group(0).strip().lower())
+            for match in QUANT_SIGNAL_RE.finditer(text)
+        }
+    patterns=DIMENSION_CANONICAL_SIGNAL_RES.get(dimension,{})
+    return {
+        marker
+        for marker,pattern in patterns.items()
+        if pattern.search(text)
+    }
 
 
 def _validate_substantive_dimension_delta(
@@ -673,7 +750,7 @@ def _validate_substantive_dimension_delta(
 
 
 def _validate_density_audit(
-    audit, row_06, label, *, no_change, allowed_evidence_tokens, actual_changed=()
+    audit, row_06, label, *, no_change, allowed_evidence_support, actual_changed=()
 ):
     density=audit.get("density_audit") if isinstance(audit,dict) else None
     if not isinstance(density,dict) or density.get("status")!="PASS":
@@ -704,7 +781,7 @@ def _validate_density_audit(
 
     _validate_dimension_evidence(
         density,row_06,label,true_dimensions,
-        allowed_evidence_tokens=allowed_evidence_tokens,
+        allowed_evidence_support=allowed_evidence_support,
     )
     if not no_change:
         mapping=density.get("dimension_evidence")
@@ -897,10 +974,10 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
         if not _nonempty_text(audit.get("no_change_reason")):
             raise Blocked(f"{label} zero-delta 0.6 requires explicit no_change_reason")
 
-    allowed_evidence_tokens=_upstream_evidence_tokens(rows_by_stage,label)
+    allowed_evidence_support=_upstream_evidence_token_support(rows_by_stage,label)
     _validate_density_audit(
         audit,row_06,label,no_change=not actual_changed,actual_changed=actual_changed,
-        allowed_evidence_tokens=allowed_evidence_tokens,
+        allowed_evidence_support=allowed_evidence_support,
     )
     if actual_changed:
         _validate_substantive_dimension_delta(

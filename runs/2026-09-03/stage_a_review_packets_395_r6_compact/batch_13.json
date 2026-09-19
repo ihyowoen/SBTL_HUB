@@ -1,0 +1,839 @@
+{
+  "schema": "stage_a_compact_review_packet_r6_v1",
+  "batch": 13,
+  "ordinal_start": 301,
+  "ordinal_end": 325,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 301,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0229",
+      "title": "EnergyLIB strengthens Australian presence with local entity, NSW stock and Autra retail partnership",
+      "date": "2026-08-31",
+      "site": "GlobeNewswire Energy Industry",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "EnergyLIB strengthens Australian presence with local entity, NSW stock and Autra retail partnership"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0241"
+      ]
+    },
+    {
+      "ordinal": 302,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0230",
+      "title": "Uzbekistan Independence Day",
+      "date": "2026-08-31",
+      "site": "US State Department",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Uzbekistan Independence Day"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0242"
+      ]
+    },
+    {
+      "ordinal": 303,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0236",
+      "title": "반도체 다음은 양자·우주…41.4조 들여 '초격차 영토' 넓힌다[2027년 예산안]",
+      "date": "2026-09-01",
+      "site": "파이낸셜뉴스 RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "반도체 다음은 양자·우주…41.4조 들여 '초격차 영토' 넓힌다[2027년 예산안]"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0248"
+      ]
+    },
+    {
+      "ordinal": 304,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0237",
+      "title": "폐휴대폰, 집 앞에 두면 우체국이 수거…연내 '안심 방문수거' 도입",
+      "date": "2026-09-01",
+      "site": "전자신문",
+      "observation_count": 5,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "\"서랍 속 폐휴대폰 안전 배출하세요\"…기후부, 회수 실천운동 전개",
+        "“폐휴대폰 안전하게 배출하세요”…기후부, 한 달간 회수 실천운동 추진",
+        "방치된 폐휴대폰, 우체국 방문택배로 수거한다",
+        "서랍 속 잠자는 폐휴대폰, 집 앞에서 수거한다…연내 방문수거 도입",
+        "폐휴대폰, 집 앞에 두면 우체국이 수거…연내 '안심 방문수거' 도입"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "출하"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0249",
+        "XRUN_REPLAY_20260903_E0253"
+      ]
+    },
+    {
+      "ordinal": 305,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0238",
+      "title": "중동발 위기 막는다…1.4조 자원안보기금 신설해 원유·광물 확보 [2027년 예산안]",
+      "date": "2026-09-01",
+      "site": "파이낸셜뉴스 RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "중동발 위기 막는다…1.4조 자원안보기금 신설해 원유·광물 확보 [2027년 예산안]"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0250"
+      ]
+    },
+    {
+      "ordinal": 306,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0240",
+      "title": "'11% 급락' 개미 충격 만회했다…강력 수주 모멘텀에 '급등' SK이노베이션이 자회사 SK온의 미국 에너지저장장치(ESS)용 배터리셀 수주 소식에 강세다.1일 오전 10시 현재 유가증권시장에서 SK이노베이션은 전날보다 1만400원(8.29%) 오른 13만5,900원에 거래되고 있다. 장 초반 10% 이상 뛰어올라 13만8,500원을 터치했다. 전체 업종 가운데 '에너지'가 SK이노베이션 강세에 힘입어 가장 큰 폭으로 오른다. SK온은 지난달 27일 미국 ESS 제조기업 네오볼타 파워와 ESS용 배터리 셀 공급계약을 체결했다고 전날 밝혔다.계약에 따라 SK온은 2027년부터 2031년까지 5년간 총 9기가와트시(GWh) 규모의 리튬인산철(LFP) 파우치 배터리 셀을 공급한다.이는 SK온이 올해 미국 시장에서 처음 따낸 대규모 배터리 셀 수주로 업계에서는 공급계약 규모를 약 1조5천억원으로 추산한다.SK온은 이와 별도로 연내 네오볼타 파워와 9GWh 규모의 추가 협력 계약도 추진하고 있다. 추가 계약까지 성사되면 양사의 협력 규모는 총 18GWh로 확대될 전망이다.전유진 iM증권 연구원은 \"SK온은 올해 수주 가이던스(전망치)를 20GWh로 제시했는데 이번 계약으로 목표치의 45%를 채웠고, 연내 추가로 추진하는 9GWh까지 감안하면 사실상 올해 수주 목표 대부분을 달성하게 된다\"고 설명했다.그는 \"찬물을 끼얹었던 SK이노베이션과 SK아이이테크놀로지(SKIET) 합병에 대한 실망감을 조금은 덜어내는 이벤트\"라고 평가했다.다만 \"이번 계약만으로 SK온과 SKIET 지원에 대한 시장의 불만과 불안을 해소하기에는 역부족\"이라면서도 \"미국 ESS 시장 진출의 첫걸음을 뗐다는 점은 긍정적\"이라고 말했다.앞서 SK이노베이션은 지난달 25일 분리막 사업 자회사 SKIET를 흡수합병한다고 공시했는데 다음 날인 26일 주가가 11.04% 급락한 바 있다.이후 27일부터 이날까지 4거래일 연속 반등 시세를 보이는 가운데 전날 8.04% 급등에 이어 2거래일 동안에만 20% 가까이 상승, 급락 분을 만회하는 모습이다.",
+      "date": "2026-09-01",
+      "site": "한국경제TV",
+      "observation_count": 3,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "'11% 급락' 개미 충격 만회했다…강력 수주 모멘텀에 '급등' SK이노베이션이 자회사 SK온의 미국 에너지저장장치(ESS)용 배터리셀 수주 소식에 강세다.1일 오전 10시 현재 유가증권시장에서 SK이노베이션은 전날보다 1만400원(8.29%) 오른 13만5,900원에 거래되고 있다. 장 초반 10% 이상 뛰어올라 13만8,500원을 터치했다. 전체 업종 가운데 '에너지'가 SK이노베이션 강세에 힘입어 가장 큰 폭으로 오른다. SK온은 지난달 27일 미국 ESS 제조기업 네오볼타 파워와 ESS용 배터리 셀 공급계약을 체결했다고 전날 밝혔다.계약에 따라 SK온은 2027년부터 2031년까지 5년간 총 9기가와트시(GWh) 규모의 리튬인산철(LFP) 파우치 배터리 셀을 공급한다.이는 SK온이 올해 미국 시장에서 처음 따낸 대규모 배터리 셀 수주로 업계에서는 공급계약 규모를 약 1조5천억원으로 추산한다.SK온은 이와 별도로 연내 네오볼타 파워와 9GWh 규모의 추가 협력 계약도 추진하고 있다. 추가 계약까지 성사되면 양사의 협력 규모는 총 18GWh로 확대될 전망이다.전유진 iM증권 연구원은 \"SK온은 올해 수주 가이던스(전망치)를 20GWh로 제시했는데 이번 계약으로 목표치의 45%를 채웠고, 연내 추가로 추진하는 9GWh까지 감안하면 사실상 올해 수주 목표 대부분을 달성하게 된다\"고 설명했다.그는 \"찬물을 끼얹었던 SK이노베이션과 SK아이이테크놀로지(SKIET) 합병에 대한 실망감을 조금은 덜어내는 이벤트\"라고 평가했다.다만 \"이번 계약만으로 SK온과 SKIET 지원에 대한 시장의 불만과 불안을 해소하기에는 역부족\"이라면서도 \"미국 ESS 시장 진출의 첫걸음을 뗐다는 점은 긍정적\"이라고 말했다.앞서 SK이노베이션은 지난달 25일 분리막 사업 자회사 SKIET를 흡수합병한다고 공시했는데 다음 날인 26일 주가가 11.04% 급락한 바 있다.이후 27일부터 이날까지 4거래일 연속 반등 시세를 보이는 가운데 전날 8.04% 급등에 이어 2거래일 동안에만 20% 가까이 상승, 급락 분을 만회하는 모습이다.",
+        "2차전지株 살아나나...SK온 수주 소식에 SK이노베이 급등",
+        "[ET특징주] SK온 美 ESS 수주 소식에… SK이노베이션 주가 8%↑"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "lfp",
+          "리튬",
+          "배터리",
+          "분리막",
+          "전지"
+        ],
+        "execution": [
+          "계약",
+          "공급계약",
+          "수주",
+          "합병"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%",
+          "gwh",
+          "억원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "급등",
+          "급락",
+          "주가"
+        ],
+        "context": [
+          "연구",
+          "전망"
+        ]
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0252"
+      ]
+    },
+    {
+      "ordinal": 307,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0242",
+      "title": "안두릴 CEO &quot;韓日 민간공장, 전시엔 무기 생산시설로 전환해야&quot;",
+      "date": "2026-09-01",
+      "site": "아주경제",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "안두릴 CEO &quot;韓日 민간공장, 전시엔 무기 생산시설로 전환해야&quot;"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "공장"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0255"
+      ]
+    },
+    {
+      "ordinal": 308,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0243",
+      "title": "산업부, 내년 예산 13.2조 편성 ‘역대 최대’…메가프로젝트·M.AX 총력 지원",
+      "date": "2026-09-01",
+      "site": "전기신문",
+      "observation_count": 3,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "산업부, 내년 예산 13.2조 편성 ‘역대 최대’…메가프로젝트·M.AX 총력 지원",
+        "산업부, 자원안보·통상환경 대응 4.5조…4Q 최고가격제 1.4조 편성",
+        "[2027 예산안] 서남권 반도체에 매년 1.5조…M.AX·지역 주도 성장 '방점'"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0256",
+        "XRUN_REPLAY_20260903_E0266",
+        "XRUN_REPLAY_20260903_E0286"
+      ]
+    },
+    {
+      "ordinal": 309,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0248",
+      "title": "한국앤컴퍼니그룹, 전사 업무 플랫폼 전면 개편…&quot;AI로 업무 효율 제고&quot;",
+      "date": "2026-09-01",
+      "site": "아주경제",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "한국앤컴퍼니그룹, 전사 업무 플랫폼 전면 개편…&quot;AI로 업무 효율 제고&quot;"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0261"
+      ]
+    },
+    {
+      "ordinal": 310,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0249",
+      "title": "광해공단, 제32회 통계의 날 기념 '대통령 표창' 수상",
+      "date": "2026-09-01",
+      "site": "뉴시스 RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "광해공단, 제32회 통계의 날 기념 '대통령 표창' 수상"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0262"
+      ]
+    },
+    {
+      "ordinal": 311,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0250",
+      "title": "‘피지컬AI’ 예산 3배로 증액…과기정통부, 전 부처 CTO 역할",
+      "date": "2026-09-01",
+      "site": "ZDNet Korea RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "‘피지컬AI’ 예산 3배로 증액…과기정통부, 전 부처 CTO 역할"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0263"
+      ]
+    },
+    {
+      "ordinal": 312,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0251",
+      "title": "‘칩플레이션’에…삼성·LG 실속형 PC 연달아 출시",
+      "date": "2026-09-01",
+      "site": "Donga Ilbo RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "‘칩플레이션’에…삼성·LG 실속형 PC 연달아 출시"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0264"
+      ]
+    },
+    {
+      "ordinal": 313,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0255",
+      "title": "김보라 안성시장, 중앙대와 푸드테크·반도체·문화예술 잇는다...상생협력 실행단계로",
+      "date": "2026-09-01",
+      "site": "아주경제",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "김보라 안성시장, 중앙대와 푸드테크·반도체·문화예술 잇는다...상생협력 실행단계로"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0270"
+      ]
+    },
+    {
+      "ordinal": 314,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0256",
+      "title": "경영통합 무산된 혼다·닛산, '자동차 두뇌' 공동개발",
+      "date": "2026-09-01",
+      "site": "아주경제",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "경영통합 무산된 혼다·닛산, '자동차 두뇌' 공동개발"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0271"
+      ]
+    },
+    {
+      "ordinal": 315,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0258",
+      "title": "[종합] 반도체 수출 '역대 최대', 8월 수출 982.5억 달러…3개월 연속 900억 달러 ↑",
+      "date": "2026-09-01",
+      "site": "아주경제",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "[종합] 반도체 수출 '역대 최대', 8월 수출 982.5억 달러…3개월 연속 900억 달러 ↑"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0273"
+      ]
+    },
+    {
+      "ordinal": 316,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0259",
+      "title": "[미리보는 2026 국정감사(2)] 5개 발전공기업 재통합 추진",
+      "date": "2026-09-01",
+      "site": "투데이에너지",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "[미리보는 2026 국정감사(2)] 5개 발전공기업 재통합 추진"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0274"
+      ]
+    },
+    {
+      "ordinal": 317,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0261",
+      "title": "현대차, 14억 인구 인도 '대중 EV' 시장 정조준 \"콤팩트 전기 SUV 내년 투입\"",
+      "date": "2026-09-01",
+      "site": "뉴시스 RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "현대차, 14억 인구 인도 '대중 EV' 시장 정조준 \"콤팩트 전기 SUV 내년 투입\""
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0276"
+      ]
+    },
+    {
+      "ordinal": 318,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0262",
+      "title": "UAE, 이란 전쟁으로 멈춘 정유시설 5개월 만에 정상화",
+      "date": "2026-09-01",
+      "site": "더구루",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "UAE, 이란 전쟁으로 멈춘 정유시설 5개월 만에 정상화"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0278"
+      ]
+    },
+    {
+      "ordinal": 319,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0263",
+      "title": "우주청, 차세대발사체 내년 R&D 2,916억원 편성",
+      "date": "2026-09-01",
+      "site": "ZDNet Korea RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "우주청, 차세대발사체 내년 R&D 2,916억원 편성"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "억원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0279"
+      ]
+    },
+    {
+      "ordinal": 320,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0264",
+      "title": "성수품 역대 최대 18.3만t 푼다…농축수산물 최대 50% 할인[추석 민생대책]",
+      "date": "2026-09-01",
+      "site": "뉴시스 RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "성수품 역대 최대 18.3만t 푼다…농축수산물 최대 50% 할인[추석 민생대책]"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0280"
+      ]
+    },
+    {
+      "ordinal": 321,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0265",
+      "title": "“전작권 회복·방첩사 해체 등 많은 진척”",
+      "date": "2026-09-01",
+      "site": "국방일보 (국방안보)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "“전작권 회복·방첩사 해체 등 많은 진척”"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0281"
+      ]
+    },
+    {
+      "ordinal": 322,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0266",
+      "title": "“수백 개 지하도시로 은폐”…이란이 말하는 ‘자급자족’ 미사일 공장의 비밀 [밀리터리노트]",
+      "date": "2026-09-01",
+      "site": "Seoul Newspaper RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "“수백 개 지하도시로 은폐”…이란이 말하는 ‘자급자족’ 미사일 공장의 비밀 [밀리터리노트]"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "공장"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0282"
+      ]
+    },
+    {
+      "ordinal": 323,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0268",
+      "title": "LG전자, 14인치 그램북으로 국내 중저가 PC 시장 노린다",
+      "date": "2026-09-01",
+      "site": "아시아경제",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "LG전자, 14인치 그램북으로 국내 중저가 PC 시장 노린다"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0284"
+      ]
+    },
+    {
+      "ordinal": 324,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0269",
+      "title": "전기동 재고 미국 쏠림…LME는 35.8% 급감",
+      "date": "2026-09-01",
+      "site": "이투뉴스",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "전기동 재고 미국 쏠림…LME는 35.8% 급감"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0285"
+      ]
+    },
+    {
+      "ordinal": 325,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0270",
+      "title": "내년 국방예산 73.3조…핵추진잠수함 착수·KF-21 양산 확대[2027 예산안]",
+      "date": "2026-09-01",
+      "site": "뉴시스 RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "내년 국방예산 73.3조…핵추진잠수함 착수·KF-21 양산 확대[2027 예산안]"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "양산"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0287"
+      ]
+    }
+  ]
+}

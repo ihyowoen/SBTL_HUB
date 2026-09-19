@@ -1,0 +1,51 @@
+{
+  "schema": "current_event_universe_replay_defect_v1",
+  "stage": "EVENT_UNIVERSE_RECONCILIATION",
+  "status": "HOLD_CROSS_EVENT_DUPLICATE_SPLITS_DETECTED_DURING_FORMAL_STAGE_A_REVIEW",
+  "generated_date": "2026-09-03",
+  "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "superseded_pending_reconciliation": [
+    "runs/2026-09-03/current_event_universe_replay_gate_20260903_R4.json",
+    "runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json",
+    "runs/2026-09-03/canonical_relation_replay_closure_425_20260903_R3.json",
+    "runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R2.json"
+  ],
+  "detected_duplicate_split_groups": [
+    {
+      "event_ids": ["XRUN_REPLAY_20260903_E0098", "XRUN_REPLAY_20260903_E0269"],
+      "confidence": "high",
+      "same_event_basis": [
+        "same acquirer Copenhagen Infrastructure Partners (CIP)",
+        "same seller/developer Windlab",
+        "same Gawara Baya project in North Queensland",
+        "same 408MW wind plus 104MW grid-forming BESS configuration",
+        "same 100% acquisition / financial-close / construction event window"
+      ],
+      "disposition": "MUST_MERGE_BEFORE_STAGE_A"
+    },
+    {
+      "event_ids": ["XRUN_REPLAY_20260903_E0375", "XRUN_REPLAY_20260903_E0156"],
+      "confidence": "high",
+      "same_event_basis": [
+        "same Chusheng New Energy Xiangyang base",
+        "same 70GWh annual capacity",
+        "same commissioning/production-start event",
+        "same approximately 400,000 cells per day production framing"
+      ],
+      "disposition": "MUST_MERGE_BEFORE_STAGE_A"
+    }
+  ],
+  "formal_stage_a": {
+    "started": false,
+    "decision_batches_committed": 0,
+    "authorized": false,
+    "reason": "Formal review packet inspection exposed upstream event-universe duplicate splits; fail closed before item-level Stage A decisions."
+  },
+  "required_next_gate": {
+    "action": "RUN_ALL_425_CROSS_EVENT_DUPLICATE_AUDIT_AND_REBUILD_MEMBERSHIP",
+    "do_not_force_event_count": true,
+    "minimum_known_reduction": 2,
+    "current_425_count_not_authoritative": true
+  }
+}

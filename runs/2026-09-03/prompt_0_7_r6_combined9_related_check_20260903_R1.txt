@@ -1,0 +1,39 @@
+{
+  "id_scope": {
+    "applied": true,
+    "status": "FAIL",
+    "requested_count": 9,
+    "matched_count": 0,
+    "missing_ids": [
+      "2026-08-21_EU_02",
+      "2026-08-27_CN_02",
+      "2026-08-28_GL_01",
+      "2026-08-31_GL_01",
+      "2026-08-31_GL_02",
+      "2026-08-31_GL_03",
+      "2026-08-31_US_01",
+      "2026-08-31_US_02",
+      "2026-09-01_CN_01"
+    ],
+    "ambiguous_ids": [],
+    "errors": [
+      "ID scope matched zero cards",
+      "ID scope has 9 unmatched ID(s)"
+    ]
+  },
+  "status": "FAIL",
+  "cards_checked": 0,
+  "error_count": 2,
+  "finding_count": 1,
+  "findings": [
+    {
+      "id": "<id-scope>",
+      "source_spec_id": null,
+      "errors": [
+        "ID scope matched zero cards",
+        "ID scope has 9 unmatched ID(s)"
+      ],
+      "warnings": []
+    }
+  ]
+}

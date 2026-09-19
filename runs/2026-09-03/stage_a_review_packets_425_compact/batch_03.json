@@ -1,0 +1,1467 @@
+{
+  "schema": "stage_a_compact_review_packet_v1",
+  "batch": 3,
+  "event_count": 25,
+  "events": [
+    {
+      "ordinal": 51,
+      "event_id": "XRUN_REPLAY_20260903_E0216",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0007",
+        "story_id": "TF_0007",
+        "date": "2026-08-27",
+        "title": "投资收益占三成、应收账款逼近200亿：亿纬锂能陷入“规模陷阱”",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36001-12008-30700285.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "c110f0c255f2ce0921e3948f8739af1f9595d30712eee372d0bac6e677e12654"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "TF_0007"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0007",
+          "date": "2026-08-27",
+          "site": "OFweek Li-Battery",
+          "title": "投资收益占三成、应收账款逼近200亿：亿纬锂能陷入“规模陷阱”",
+          "url": "https://libattery.ofweek.com/2026-08/ART-36001-12008-30700285.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [
+          "投资"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 52,
+      "event_id": "XRUN_REPLAY_20260903_E0233",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C15",
+        "story_id": "US_2026-08-31_C15",
+        "date": "2026-08-31",
+        "title": "PowerBank Corporation Announces Development Agreement for the Development of Battery Energy Storage Projects in Ontario - Nasdaq",
+        "site": "Nasdaq Original RSS",
+        "url": "https://www.nasdaq.com/press-release/powerbank-corporation-announces-development-agreement-development-battery-energy",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "592a1d28fe8a55cef53601eaa56890bf35e6b6379040ce5230fe833699f215fd"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "US_2026-08-31_C15"
+      ],
+      "source_titles": [
+        {
+          "story_id": "US_2026-08-31_C15",
+          "date": "2026-08-31",
+          "site": "Nasdaq Original RSS",
+          "title": "PowerBank Corporation Announces Development Agreement for the Development of Battery Energy Storage Projects in Ontario - Nasdaq",
+          "url": "https://www.nasdaq.com/press-release/powerbank-corporation-announces-development-agreement-development-battery-energy"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "battery",
+          "energy storage"
+        ],
+        "execution": [
+          "agreement"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 53,
+      "event_id": "XRUN_REPLAY_20260903_E0243",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C23",
+        "story_id": "US_2026-08-31_C23",
+        "date": "2026-08-31",
+        "title": "SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue",
+        "site": "GlobeNewswire Energy Industry",
+        "url": "https://www.globenewswire.com/news-release/2026/08/31/3353345/0/en/sunscout-signs-definitive-agreement-for-first-philippine-solar-plus-storage-project-expected-to-add-us-25-million-in-construction-revenue.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "04412362c4d3766dc09e89a83c2cbd89565375abf02b05d484d24664b8458684"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "US_2026-08-31_C23"
+      ],
+      "source_titles": [
+        {
+          "story_id": "US_2026-08-31_C23",
+          "date": "2026-08-31",
+          "site": "GlobeNewswire Energy Industry",
+          "title": "SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue",
+          "url": "https://www.globenewswire.com/news-release/2026/08/31/3353345/0/en/sunscout-signs-definitive-agreement-for-first-philippine-solar-plus-storage-project-expected-to-add-us-25-million-in-construction-revenue.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "agreement",
+          "construction"
+        ],
+        "policy": [],
+        "data_financial": [
+          "revenue"
+        ],
+        "scale": [
+          "$",
+          "million"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 54,
+      "event_id": "XRUN_REPLAY_20260903_E0254",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C218",
+        "story_id": "KR_2026-09-01_C218",
+        "date": "2026-09-01",
+        "title": "호남 반도체 전력·용수에 1281억 투입…전기차 보조금 역대 최대",
+        "site": "ZDNet Korea RSS",
+        "url": "https://zdnet.co.kr/view?no=20260831102438",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "40362c5a67833752499ec58b223f11ee8489f6304f7764dd9e3c530af1677c09"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C218"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C218",
+          "date": "2026-09-01",
+          "site": "ZDNet Korea RSS",
+          "title": "호남 반도체 전력·용수에 1281억 투입…전기차 보조금 역대 최대",
+          "url": "https://zdnet.co.kr/view?no=20260831102438"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "전기차"
+        ],
+        "execution": [],
+        "policy": [
+          "보조금"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 55,
+      "event_id": "XRUN_REPLAY_20260903_E0290",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C03",
+        "story_id": "KR_2026-09-01_C03",
+        "date": "2026-09-01",
+        "title": "\"삼성전기 150만→200만원\" MLCC 판가 인상에 목표가 ↑… SK이노베이션, 美 ESS 첫 수주 [株토피아]",
+        "site": "파이낸셜뉴스 RSS",
+        "url": "https://www.fnnews.com/news/202609010940524555",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "6198ade445081fe2492f1d65bc1f676296942738f60edb43310f5bcf18f7c162"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C03"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C03",
+          "date": "2026-09-01",
+          "site": "파이낸셜뉴스 RSS",
+          "title": "\"삼성전기 150만→200만원\" MLCC 판가 인상에 목표가 ↑… SK이노베이션, 美 ESS 첫 수주 [株토피아]",
+          "url": "https://www.fnnews.com/news/202609010940524555"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [
+          "수주"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 56,
+      "event_id": "XRUN_REPLAY_20260903_E0291",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C132",
+        "story_id": "KR_2026-09-01_C132",
+        "date": "2026-09-01",
+        "title": "델타엑스, 320억 투자 유치 완료…美 ESS 생산기지 구축",
+        "site": "더일렉",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=61617",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "54ec345ef414af8b50120d477c9f605325bbd37c9e0934ca57563e1d77f47e7d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C132"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C132",
+          "date": "2026-09-01",
+          "site": "더일렉",
+          "title": "델타엑스, 320억 투자 유치 완료…美 ESS 생산기지 구축",
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=61617"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [
+          "투자"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 57,
+      "event_id": "XRUN_REPLAY_20260903_E0388",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0168",
+        "story_id": "TF_0168",
+        "date": "2026-09-01",
+        "title": "정제마진 확대·배터리 수주 쌍끌이…질주하는 SK이노",
+        "site": "매일경제",
+        "url": "https://www.mk.co.kr/news/stock/12141149",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "c5ad98948ec30d12f9360916b64912b2865ea59b21a88d223fc396e220669577"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0168"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0168",
+          "date": "2026-09-01",
+          "site": "매일경제",
+          "title": "정제마진 확대·배터리 수주 쌍끌이…질주하는 SK이노",
+          "url": "https://www.mk.co.kr/news/stock/12141149"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [
+          "수주"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 58,
+      "event_id": "XRUN_REPLAY_20260903_E0409",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0041",
+        "story_id": "TF_0041",
+        "date": "2026-08-31",
+        "title": "Rare earths miner Mont Royal inks joint study agreement with refiner to form value chain - miningweekly.com",
+        "site": "Mining Weekly (via Google News)",
+        "url": "https://www.miningweekly.com/article/rare-earths-miner-mont-royal-inks-joint-study-agreement-with-refiner-to-form-value-chain-2026-08-31",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "a7e41d01f397684d6a5b1da1d667911d22f990f809f5b71869f89f1ceb531c8e"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0041"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0041",
+          "date": "2026-08-31",
+          "site": "Mining Weekly (via Google News)",
+          "title": "Rare earths miner Mont Royal inks joint study agreement with refiner to form value chain - miningweekly.com",
+          "url": "https://www.miningweekly.com/article/rare-earths-miner-mont-royal-inks-joint-study-agreement-with-refiner-to-form-value-chain-2026-08-31"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "rare earth"
+        ],
+        "execution": [
+          "agreement"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "study"
+        ]
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 59,
+      "event_id": "XRUN_REPLAY_20260903_E0412",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0024",
+        "story_id": "TF_0024",
+        "date": "2026-09-01",
+        "title": "[Gasgoo Express] Xiaomi Auto Shares 100,000+ km Data; Arcfox T7 Tops 30,000 Pre-Orders",
+        "site": "Gasgoo RSS - Class 2",
+        "url": "https://autonews.gasgoo.com/articles/news/gasgoo-express-xiaomi-auto-shares-100000-km-data-arcfox-t7-tops-30000-pre-orders-2094619477546455041",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "2dbfcce524f4d9ce4423e3f8a2f22e4bf75d53250df501e836667546a93e82ca"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0024"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0024",
+          "date": "2026-09-01",
+          "site": "Gasgoo RSS - Class 2",
+          "title": "[Gasgoo Express] Xiaomi Auto Shares 100,000+ km Data; Arcfox T7 Tops 30,000 Pre-Orders",
+          "url": "https://autonews.gasgoo.com/articles/news/gasgoo-express-xiaomi-auto-shares-100000-km-data-arcfox-t7-tops-30000-pre-orders-2094619477546455041"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [
+          "order"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 60,
+      "event_id": "XRUN_REPLAY_20260903_E0156",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C03",
+        "story_id": "CN_2026-08-31_C03",
+        "date": "2026-08-31",
+        "title": "70GWh！楚能襄阳基地投产，日供40万颗电芯",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36001-8120-30700702.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "aedcf055412384eb12587898cd11abb5dc80e241cdd205d1b7af5916f909d507"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "CN_2026-08-31_C03",
+        "CN_2026-08-31_C04"
+      ],
+      "source_titles": [
+        {
+          "story_id": "CN_2026-08-31_C03",
+          "date": "2026-08-31",
+          "site": "OFweek Li-Battery",
+          "title": "70GWh！楚能襄阳基地投产，日供40万颗电芯",
+          "url": "https://libattery.ofweek.com/2026-08/ART-36001-8120-30700702.html"
+        },
+        {
+          "story_id": "CN_2026-08-31_C04",
+          "date": "2026-08-31",
+          "site": "OFweek Li-Battery",
+          "title": "70GWh！楚能襄阳基地投产，日供40万颗电芯",
+          "url": "https://libattery.ofweek.com/2026-08/ART-36001-8120-30700702.html"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "投产"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gwh"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 61,
+      "event_id": "XRUN_REPLAY_20260903_E0016",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C178",
+        "story_id": "KR_2026-08-31_C178",
+        "date": "2026-08-31",
+        "title": "원준, 美 실바텍스와 파트너십 체결...미국 내 독자적 LFP 생산 기반 구축 나선다",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371895",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "77da3dbbe13c39d494c33b30ef5038cdb55e44ac57a003bb9489d8af3297c232"
+        }
+      },
+      "observation_count": 4,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C178",
+        "KR_2026-08-31_C177",
+        "KR_2026-08-31_C176",
+        "KR_2026-08-31_C72"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C178",
+          "date": "2026-08-31",
+          "site": "전기신문",
+          "title": "원준, 美 실바텍스와 파트너십 체결...미국 내 독자적 LFP 생산 기반 구축 나선다",
+          "url": "https://www.electimes.com/news/articleView.html?idxno=371895"
+        },
+        {
+          "story_id": "KR_2026-08-31_C177",
+          "date": "2026-08-31",
+          "site": "아시아경제",
+          "title": "원준, 美 실바텍스와 전략적 파트너십 체결",
+          "url": "https://view.asiae.co.kr/article/2026083108102292990"
+        },
+        {
+          "story_id": "KR_2026-08-31_C176",
+          "date": "2026-08-31",
+          "site": "더일렉",
+          "title": "원준, 美 실바텍스와 LFP 양극재 생산 협력",
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=61510"
+        },
+        {
+          "story_id": "KR_2026-08-31_C72",
+          "date": "2026-08-31",
+          "site": "더일렉",
+          "title": "원준, 美 실바텍스와 LFP 양극재 생산 협력",
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=61510"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "lfp",
+          "양극"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 62,
+      "event_id": "XRUN_REPLAY_20260903_E0130",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C18",
+        "story_id": "EU_2026-08-28_C18",
+        "date": "2026-08-28",
+        "title": "Metlen scales BESS across UK, Italy, Greece and Central and Eastern Europe",
+        "site": "ESS News RSS",
+        "url": "https://www.ess-news.com/2026/08/28/metlen-scales-bess-across-uk-italy-greece-and-cee",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "faad9a32860628a7fb370807ef4656c65408bb917cf5177206bd7e63c0b8bf4c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "EU_2026-08-28_C18"
+      ],
+      "source_titles": [
+        {
+          "story_id": "EU_2026-08-28_C18",
+          "date": "2026-08-28",
+          "site": "ESS News RSS",
+          "title": "Metlen scales BESS across UK, Italy, Greece and Central and Eastern Europe",
+          "url": "https://www.ess-news.com/2026/08/28/metlen-scales-bess-across-uk-italy-greece-and-cee"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "bess",
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 63,
+      "event_id": "XRUN_REPLAY_20260903_E0299",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C62",
+        "story_id": "KR_2026-08-31_C62",
+        "date": "2026-08-31",
+        "title": "삼성SDI, 글로벌 톱티어 ESS기업에 LFP 배터리 공급",
+        "site": "더일렉",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=61568",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "13f35f939227eec8ecd8060a3b7d7fc9f78f0839745de54eb3defd50e2118f66"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C62"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C62",
+          "date": "2026-08-31",
+          "site": "더일렉",
+          "title": "삼성SDI, 글로벌 톱티어 ESS기업에 LFP 배터리 공급",
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=61568"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "lfp",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 64,
+      "event_id": "XRUN_REPLAY_20260903_E0033",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C213",
+        "story_id": "KR_2026-08-31_C213",
+        "date": "2026-08-31",
+        "title": "한일 상의, 핵심광물·에너지 공급망 협력…AI·반도체 공동 육성 - edaily.co.kr",
+        "site": "핵심광물 다자·G7 (via Google News)",
+        "url": "https://www.edaily.co.kr/News/Read?newsId=02335366645552896&mediaCodeNo=257",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "f6ebea681cb6329fb2d18926d7ff1b32cdcfd9fc232e6286917f623241cc44cd"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C213",
+        "KR_2026-08-31_C93"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C213",
+          "date": "2026-08-31",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "title": "한일 상의, 핵심광물·에너지 공급망 협력…AI·반도체 공동 육성 - edaily.co.kr",
+          "url": "https://www.edaily.co.kr/News/Read?newsId=02335366645552896&mediaCodeNo=257"
+        },
+        {
+          "story_id": "KR_2026-08-31_C93",
+          "date": "2026-08-31",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "title": "한일 상의, 핵심광물·에너지 공급망 협력…AI·반도체 공동 육성 - 네이트",
+          "url": "https://news.nate.com/view/20260831n05936"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "핵심광물"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망",
+          "핵심광물"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 65,
+      "event_id": "XRUN_REPLAY_20260903_E0075",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C06",
+        "story_id": "KR_2026-08-30_C06",
+        "date": "2026-08-30",
+        "title": "[ESG칼럼] 핵심광물 공급망 '폐전자스크랩' - 전자신문",
+        "site": "핵심광물 다자·G7 (via Google News)",
+        "url": "https://www.etnews.com/20260828000111",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "7bd3300d6760a5d8d34c9df066684d50f38a42a57a54dfa75accc4fde8ae4449"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-30_C06",
+        "KR_2026-08-30_C01"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-30_C06",
+          "date": "2026-08-30",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "title": "[ESG칼럼] 핵심광물 공급망 '폐전자스크랩' - 전자신문",
+          "url": "https://www.etnews.com/20260828000111"
+        },
+        {
+          "story_id": "KR_2026-08-30_C01",
+          "date": "2026-08-30",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "title": "[ESG칼럼] 핵심광물 공급망 '폐전자스크랩' - 전자신문",
+          "url": "https://www.etnews.com/20260828000111"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "핵심광물"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망",
+          "핵심광물"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 66,
+      "event_id": "XRUN_REPLAY_20260903_E0103",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-30_C07",
+        "story_id": "GL_2026-08-30_C07",
+        "date": "2026-08-30",
+        "title": "The Guardian view on rare earths: it’s common sense to secure essential supply chains | Editorial",
+        "site": "The Guardian US News RSS",
+        "url": "https://www.theguardian.com/commentisfree/2026/aug/30/the-guardian-view-on-rare-earths-its-common-sense-to-secure-essential-supply-chains",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "cc147211bb6d9030adc7996d1d3a8f9b2ff74f80ba5167bb9af1be315bdbf29f"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-30_C07",
+        "GL_2026-08-30_C09"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-30_C07",
+          "date": "2026-08-30",
+          "site": "The Guardian US News RSS",
+          "title": "The Guardian view on rare earths: it’s common sense to secure essential supply chains | Editorial",
+          "url": "https://www.theguardian.com/commentisfree/2026/aug/30/the-guardian-view-on-rare-earths-its-common-sense-to-secure-essential-supply-chains"
+        },
+        {
+          "story_id": "GL_2026-08-30_C09",
+          "date": "2026-08-30",
+          "site": "The Guardian US News RSS",
+          "title": "The Guardian view on rare earths: it’s common sense to secure essential supply chains | Editorial",
+          "url": "https://www.theguardian.com/commentisfree/2026/aug/30/the-guardian-view-on-rare-earths-its-common-sense-to-secure-essential-supply-chains"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "supply chain"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 67,
+      "event_id": "XRUN_REPLAY_20260903_E0107",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-29_C02",
+        "story_id": "GL_2026-08-29_C02",
+        "date": "2026-08-29",
+        "title": "China Africa Digital Center Critical Minerals Strategy - rareearthexchanges.com",
+        "site": "G7 Critical Minerals Multilateral (via Google News)",
+        "url": "https://rareearthexchanges.com/news/china-africa-digital-center-minerals",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "22400293ae9d2bec3231432e886fc31d007b460522329297d680e07ce3e60771"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-29_C03",
+        "GL_2026-08-29_C02"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-29_C03",
+          "date": "2026-08-29",
+          "site": "G7 Critical Minerals Multilateral (via Google News)",
+          "title": "China Africa Digital Center Critical Minerals Strategy - Rare Earth Exchanges",
+          "url": "https://rareearthexchanges.com/news/china-africa-digital-center-minerals"
+        },
+        {
+          "story_id": "GL_2026-08-29_C02",
+          "date": "2026-08-29",
+          "site": "G7 Critical Minerals Multilateral (via Google News)",
+          "title": "China Africa Digital Center Critical Minerals Strategy - rareearthexchanges.com",
+          "url": "https://rareearthexchanges.com/news/china-africa-digital-center-minerals"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "critical mineral",
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 68,
+      "event_id": "XRUN_REPLAY_20260903_E0109",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-29_C04",
+        "story_id": "GL_2026-08-29_C04",
+        "date": "2026-08-29",
+        "title": "India’s Argentina Mining Push Goes Beyond Lithium To Critical Minerals, Rare Earths - ETV Bharat",
+        "site": "G7 Critical Minerals Multilateral (via Google News)",
+        "url": "https://www.etvbharat.com/en/international/argentina-mining-push-goes-beyond-lithium-to-critical-minerals-to-rare-earth-for-india-enn26082904970",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "5fc211f21b7be113d5911d7bae49387e29b889f87d4290ded5526f1d79569a42"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-29_C04",
+        "GL_2026-08-29_C03"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-29_C04",
+          "date": "2026-08-29",
+          "site": "G7 Critical Minerals Multilateral (via Google News)",
+          "title": "India’s Argentina Mining Push Goes Beyond Lithium To Critical Minerals, Rare Earths - ETV Bharat",
+          "url": "https://www.etvbharat.com/en/international/argentina-mining-push-goes-beyond-lithium-to-critical-minerals-to-rare-earth-for-india-enn26082904970"
+        },
+        {
+          "story_id": "GL_2026-08-29_C03",
+          "date": "2026-08-29",
+          "site": "G7 Critical Minerals Multilateral (via Google News)",
+          "title": "India’s Argentina Mining Push Goes Beyond Lithium To Critical Minerals, Rare Earths - ETV Bharat",
+          "url": "https://www.etvbharat.com/en/international/argentina-mining-push-goes-beyond-lithium-to-critical-minerals-to-rare-earth-for-india-enn26082904970"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "critical mineral",
+          "lithium",
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 69,
+      "event_id": "XRUN_REPLAY_20260903_E0117",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C14",
+        "story_id": "GL_2026-08-28_C14",
+        "date": "2026-08-28",
+        "title": "Investments in co-located solar-plus-storage reach $25 billion in H1, says BloombergNEF",
+        "site": "PV Magazine RSS (Global)",
+        "url": "https://www.pv-magazine.com/2026/08/28/investments-in-co-located-solar-plus-storage-reach-25-billion-in-h1-says-bloombergnef",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "a69da836b037213d30182f50ac092ddad186e4e523c9e425d945cf211c215c95"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-28_C14",
+        "US_2026-08-31_C07"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-28_C14",
+          "date": "2026-08-28",
+          "site": "PV Magazine RSS (Global)",
+          "title": "Investments in co-located solar-plus-storage reach $25 billion in H1, says BloombergNEF",
+          "url": "https://www.pv-magazine.com/2026/08/28/investments-in-co-located-solar-plus-storage-reach-25-billion-in-h1-says-bloombergnef"
+        },
+        {
+          "story_id": "US_2026-08-31_C07",
+          "date": "2026-08-31",
+          "site": "PV Magazine USA RSS",
+          "title": "Investments in co-located solar-plus-storage reach $25 billion in H1, says BloombergNEF",
+          "url": "https://pv-magazine-usa.com/2026/08/31/investments-in-co-located-solar-plus-storage-reach-25-billion-in-h1-says-bloombergnef"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "investment"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "$",
+          "billion"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 70,
+      "event_id": "XRUN_REPLAY_20260903_E0179",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0124",
+        "story_id": "TF_0124",
+        "date": "2026-08-31",
+        "title": "중국의 황화물 전고체전지 cost down 전략 2026.08.31",
+        "site": "SNE Research",
+        "url": "https://www.sneresearch.com/kr/insight/special_view/1000/page/0",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "bd059784cb0da6e03f9af682fd00e36c2af3bc5667f6dc0b797083d2dd03dd8a"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0124",
+        "TF_0103"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0124",
+          "date": "2026-08-31",
+          "site": "SNE Research",
+          "title": "중국의 황화물 전고체전지 cost down 전략 2026.08.31",
+          "url": "https://www.sneresearch.com/kr/insight/special_view/1000/page/0"
+        },
+        {
+          "story_id": "TF_0103",
+          "date": "2026-08-31",
+          "site": "SNE Research",
+          "title": "중국의 황화물 전고체전지 cost down 전략 2026.08.31",
+          "url": "https://www.sneresearch.com/kr/insight/special_view/1000/page/0"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "전고체",
+          "전지"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [
+          "전고체"
+        ],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 71,
+      "event_id": "XRUN_REPLAY_20260903_E0210",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0032",
+        "story_id": "TF_0032",
+        "date": "2026-08-24",
+        "title": "Why AI data centres are turning to off-grid gas solutions - Enlit World",
+        "site": "Enlit World (via Google News)",
+        "url": "https://www.enlit.world/library/why-ai-data-centres-are-turning-to-off-grid-gas-solutions",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "fe9d5f947711a44e1cfc2b0b9c14449232120ee1af4dc89ee2e465ab58a52598"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "source_story_ids": [
+        "TF_0032",
+        "TF_0032"
+      ],
+      "source_titles": [
+        {
+          "story_id": "TF_0032",
+          "date": "2026-08-24",
+          "site": "Enlit World (via Google News)",
+          "title": "Why AI data centres are turning to off-grid gas solutions - Enlit World",
+          "url": "https://www.enlit.world/library/why-ai-data-centres-are-turning-to-off-grid-gas-solutions"
+        },
+        {
+          "story_id": "TF_0032",
+          "date": "2026-08-24",
+          "site": "Enlit World (via Google News)",
+          "title": "Why AI data centres are turning to off-grid gas solutions - enlit.world",
+          "url": "https://www.enlit.world/library/why-ai-data-centres-are-turning-to-off-grid-gas-solutions"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "grid"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "data centre"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 72,
+      "event_id": "XRUN_REPLAY_20260903_E0283",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C163",
+        "story_id": "KR_2026-09-01_C163",
+        "date": "2026-09-01",
+        "title": "슈퍼브에이아이, 소방연구원과 지하주차장 전기차 화재 조기 감지 AI 모델 개발",
+        "site": "전자신문",
+        "url": "https://www.etnews.com/20260901000161",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "4a9b555268ee67fa367836fefbc3bf0335e0b723cdd25bb37baf70c35dea5f2c"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "KR_2026-09-01_C164",
+        "KR_2026-09-01_C163"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-09-01_C164",
+          "date": "2026-09-01",
+          "site": "ZDNet Korea RSS",
+          "title": "슈퍼브에이아이, 전기차 화재 AI로 잡는다…\"오경보 80%↓\"",
+          "url": "https://zdnet.co.kr/view?no=20260901121714"
+        },
+        {
+          "story_id": "KR_2026-09-01_C163",
+          "date": "2026-09-01",
+          "site": "전자신문",
+          "title": "슈퍼브에이아이, 소방연구원과 지하주차장 전기차 화재 조기 감지 AI 모델 개발",
+          "url": "https://www.etnews.com/20260901000161"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "전기차"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "연구"
+        ]
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 73,
+      "event_id": "XRUN_REPLAY_20260903_E0337",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C24",
+        "story_id": "GL_2026-08-31_C24",
+        "date": "2026-08-31",
+        "title": "Nova Minerals CEO Updates U.S. Department of Energy on Progress of Estelle Antimony Supply Chain - Kalkine Media",
+        "site": "G7 Critical Minerals Multilateral (via Google News)",
+        "url": "https://kalkinemedia.com/au/news/announcements/nova-minerals-ceo-updates-us-department-of-energy-on-progress-of-estelle-antimony-supply-chain",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "49e81327828cbe87d7e1b2b904b728790cee1384b154c73b72ff12c7f3495c45"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "source_story_ids": [
+        "GL_2026-08-31_C24",
+        "GL_2026-08-31_C23"
+      ],
+      "source_titles": [
+        {
+          "story_id": "GL_2026-08-31_C24",
+          "date": "2026-08-31",
+          "site": "G7 Critical Minerals Multilateral (via Google News)",
+          "title": "Nova Minerals CEO Updates U.S. Department of Energy on Progress of Estelle Antimony Supply Chain - Kalkine Media",
+          "url": "https://kalkinemedia.com/au/news/announcements/nova-minerals-ceo-updates-us-department-of-energy-on-progress-of-estelle-antimony-supply-chain"
+        },
+        {
+          "story_id": "GL_2026-08-31_C23",
+          "date": "2026-08-31",
+          "site": "G7 Critical Minerals Multilateral (via Google News)",
+          "title": "Nova Minerals CEO Briefs U.S. Department of Energy on Estelle Antimony Supply Chain Progress - Kalkine",
+          "url": "https://kalkine.com.au/news/announcements/nova-minerals-ceo-briefs-us-department-of-energy-on-estelle-antimony-supply-chain-progress"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "supply chain"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 74,
+      "event_id": "XRUN_REPLAY_20260903_E0001",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-29_C02",
+        "story_id": "US_2026-08-29_C02",
+        "date": "2026-08-29",
+        "title": "State Of Charge Goes Inside EVgo Headquarters and Lab - EVChargingStations.com",
+        "site": "Tesla NACS (via Google News)",
+        "url": "https://evchargingstations.com/chargingnews/inside-evgo-headquarters-lab",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "16d90589d99fabd89f8ed5e6e0dcb0a907b2f614ba684134c0d3410f09978fca"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "US_2026-08-29_C02"
+      ],
+      "source_titles": [
+        {
+          "story_id": "US_2026-08-29_C02",
+          "date": "2026-08-29",
+          "site": "Tesla NACS (via Google News)",
+          "title": "State Of Charge Goes Inside EVgo Headquarters and Lab - EVChargingStations.com",
+          "url": "https://evchargingstations.com/chargingnews/inside-evgo-headquarters-lab"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "charging"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "quarter"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 75,
+      "event_id": "XRUN_REPLAY_20260903_E0054",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C71",
+        "story_id": "KR_2026-08-31_C71",
+        "date": "2026-08-31",
+        "title": "[사설] 7개 법안 재생에너지 대전환 기틀 기대",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302171",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "38acabe213389e578eaf3bfe33a99b919bd50626e91b9d1c18a2ddb7a9e11644"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "source_story_ids": [
+        "KR_2026-08-31_C71"
+      ],
+      "source_titles": [
+        {
+          "story_id": "KR_2026-08-31_C71",
+          "date": "2026-08-31",
+          "site": "투데이에너지",
+          "title": "[사설] 7개 법안 재생에너지 대전환 기틀 기대",
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302171"
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "법안"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

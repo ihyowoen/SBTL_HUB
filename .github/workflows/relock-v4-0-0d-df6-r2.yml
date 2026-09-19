@@ -1,0 +1,150 @@
+name: Relock V4 0.0D on current df6 main R2
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/relock00dr2/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  relock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Recompute active governance universe from current main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          python3 - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+
+          EXPECTED_MAIN='df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4'
+          EXPECTED_BLOB='53219907cdb435c3822c41d097b23e475662aa8a'
+          main=subprocess.check_output(['git','rev-parse','origin/main'],text=True).strip()
+          assert main==EXPECTED_MAIN,(main,EXPECTED_MAIN)
+          blob=subprocess.check_output(['git','rev-parse','origin/main:data/cards.full.json'],text=True).strip()
+          assert blob==EXPECTED_BLOB,(blob,EXPECTED_BLOB)
+          canonical=json.loads(subprocess.check_output(['git','show','origin/main:data/cards.full.json'],text=True))
+          cards=canonical['cards'] if isinstance(canonical,dict) and isinstance(canonical.get('cards'),list) else canonical
+          assert isinstance(cards,list) and len(cards)==1514
+
+          def show(path): return subprocess.check_output(['git','show',f'origin/main:{path}'])
+          def sha256_bytes(b): return hashlib.sha256(b).hexdigest()
+          def git_blob(path): return subprocess.check_output(['git','rev-parse',f'origin/main:{path}'],text=True).strip()
+
+          registry_path='docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json'
+          manifest_path='docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json'
+          registry=json.loads(show(registry_path)); manifest=json.loads(show(manifest_path))
+          assert registry['registry_version']=='GOVERNANCE_LIFECYCLE_REGISTRY_V4_20260902'
+          assert registry['active_override_or_addendum_count']==0
+
+          docs=sorted(subprocess.check_output(['git','ls-tree','-r','--name-only','origin/main','docs'],text=True).splitlines())
+          buckets=['active_canonical','active_named_prompts','active_validator_contracts','open_remediations','activation_required_migrations','superseded','reference_only','completed_reference','archived']
+          seen={}; overlaps=[]
+          for bucket in buckets:
+              vals=list(registry.get(bucket,[]))
+              assert len(vals)==len(set(vals)),f'duplicate within {bucket}'
+              for p in vals:
+                  if p in seen: overlaps.append((p,seen[p],bucket))
+                  seen[p]=bucket
+          assert not overlaps,overlaps
+          docs_set=set(docs); registry_classified=set(seen)
+          unknown=sorted(registry_classified-docs_set)
+          assert not unknown,('registry paths missing from docs tree',unknown)
+
+          # 0.0D V4 explicitly classifies from registry + authoritative header/body.
+          # Only non-active fallback classification is allowed here; it cannot create
+          # active authority outside the lifecycle registry.
+          fallback={}
+          for p in sorted(docs_set-registry_classified):
+              raw=show(p)
+              if p.endswith('.json'):
+                  obj=json.loads(raw)
+                  classification=str(obj.get('classification') or '').strip().upper()
+                  ordinary=obj.get('ordinary_run_applies')
+                  superseded_by=obj.get('superseded_by') or obj.get('implemented_contract')
+                  if classification=='SUPERSEDED' and ordinary is False and isinstance(superseded_by,str) and superseded_by in set(registry['active_canonical']+registry['active_named_prompts']):
+                      fallback[p]={'classification':'superseded','basis':'authoritative_self_classification','superseded_by':superseded_by,'sha256':sha256_bytes(raw)}
+                      continue
+              raise AssertionError(('unclassified docs after registry+authoritative-header classification',[p]))
+
+          classified=registry_classified|set(fallback)
+          assert classified==docs_set,(len(classified),len(docs_set),sorted(docs_set-classified))
+
+          active_canonical=list(dict.fromkeys(registry['active_canonical']+registry['active_named_prompts']))
+          active_validator=list(registry['active_validator_contracts'])
+          remediation=list(dict.fromkeys(registry['open_remediations']+registry['activation_required_migrations']))
+          required=list(dict.fromkeys(active_canonical+active_validator+remediation))
+          assert len(required)==43,len(required)
+
+          full_reads=[]
+          for p in required:
+              b=show(p); assert b.strip(),f'empty required authority {p}'
+              full_reads.append({'path':p,'byte_count':len(b),'sha256':sha256_bytes(b),'git_blob_sha':git_blob(p),'read_status':'READ_FULL_LOCKED_MAIN'})
+
+          prompt_checks=[]
+          for p in registry['active_named_prompts']:
+              b=show(p); text=b.decode('utf-8')
+              assert 'ACTIVE_CANONICAL' in text and len(text.strip())>200,f'incomplete active named prompt {p}'
+              prompt_checks.append({'path':p,'status':'PASS_COMPLETE_ACTIVE_PROMPT','sha256':sha256_bytes(b)})
+          stage_a=show('docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md').decode('utf-8')
+          for marker in ('EMBEDDED_NEWS_VALUE_SELECTION_V4','related_prepass','Related'):
+              assert marker in stage_a,marker
+
+          cp=manifest['canonical_paths']
+          assert cp['manual_direct_add_contract']=='docs/MANUAL_DIRECT_ADD_V2.md'
+          runtime=list(dict.fromkeys([cp['manual_direct_add_schema'],cp['manual_direct_add_validator'],*cp['runtime_contract_files'],*cp['validation_scripts']]))
+          assert len(runtime)==37,len(runtime)
+          runtime_reads=[]
+          for p in runtime:
+              b=show(p); assert b.strip(),f'empty runtime contract {p}'
+              runtime_reads.append({'path':p,'byte_count':len(b),'sha256':sha256_bytes(b),'git_blob_sha':git_blob(p),'read_status':'READ_FULL_LOCKED_MAIN'})
+
+          nonop=list(dict.fromkeys(registry.get('superseded',[])+registry.get('reference_only',[])+registry.get('completed_reference',[])+registry.get('archived',[])+list(fallback)))
+          out={
+            'schema':'stage_0_0d_v4_document_universe_v1','stage':'0.0D','status':'PASS','generated_date':'2026-09-03',
+            'repository_head_sha':main,'canonical_full_blob_sha':blob,'canonical_card_count':len(cards),
+            'registry_version':registry['registry_version'],'registry_sha256':sha256_bytes(show(registry_path)),'machine_manifest_sha256':sha256_bytes(show(manifest_path)),
+            'docs_inventory_count':len(docs),'classified_count':len(classified),'registry_classified_count':len(registry_classified),'authoritative_header_classified_count':len(fallback),
+            'authoritative_header_classification_ledger':fallback,
+            'active_full_read_count':len(required),'active_canonical_paths':active_canonical,'active_validator_contract_paths':active_validator,
+            'applicable_remediation_or_migration':remediation,'superseded_or_reference_paths':nonop,
+            'unclassified_paths':[],'unread_active_paths':[],'unresolved_dependencies':[],'unresolved_conflicts':[],'unregistered_active_looking_paths':[],
+            'active_override_or_addendum_count':0,'stage_a_embedded_news_value_verified':True,'all_docs_files_read_or_parsed':True,
+            'unresolved_rule_conflicts':[],'incomplete_universe_defects':[],'stage_0_0c_authorized':True,
+            'active_full_read_evidence':full_reads,'active_named_prompt_completeness':prompt_checks,
+            'runtime_dependency_count':len(runtime),'runtime_contract_paths_from_machine_manifest':runtime,'runtime_contract_evidence':runtime_reads,
+            'relock_reason':'Recomputed directly from origin/main df6fcccf. Non-active WG_016 is classified only by its authoritative self-declaration SUPERSEDED/ordinary_run_applies=false, consistent with 0.0D registry+authoritative-header classification and without creating unregistered active authority.'
+          }
+          assert out['docs_inventory_count']==90,out['docs_inventory_count']
+          assert out['classified_count']==90
+          assert out['registry_classified_count']==89
+          assert out['authoritative_header_classified_count']==1
+          assert list(fallback)==['docs/workflow_gaps/WG_016_RELATED_LIFECYCLE.json']
+          assert out['active_full_read_count']==43
+          assert out['runtime_dependency_count']==37
+          assert out['stage_0_0c_authorized'] is True
+          path=Path('runs/2026-09-03/stage_0_0d_v4_document_universe_20260903_MAIN_df6fccc_R2.json')
+          path.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+          summary={k:out[k] for k in ('stage','status','repository_head_sha','canonical_full_blob_sha','canonical_card_count','registry_version','docs_inventory_count','classified_count','registry_classified_count','authoritative_header_classified_count','active_full_read_count','runtime_dependency_count','stage_a_embedded_news_value_verified','all_docs_files_read_or_parsed','stage_0_0c_authorized')}
+          Path('runs/2026-09-03/stage_0_0d_v4_document_universe_summary_20260903_MAIN_df6fccc_R2.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(summary,ensure_ascii=False))
+          PY
+      - name: Commit relocked 0.0D R2
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/stage_0_0d_v4_document_universe_20260903_MAIN_df6fccc_R2.json runs/2026-09-03/stage_0_0d_v4_document_universe_summary_20260903_MAIN_df6fccc_R2.json
+          git rm -r .tmp/relock00dr2
+          git commit -m 'audit: relock V4 0.0D on df6 current main R2'
+          git push

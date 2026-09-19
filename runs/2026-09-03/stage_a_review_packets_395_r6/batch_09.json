@@ -1,0 +1,1887 @@
+{
+  "schema": "stage_a_review_packet_r6_v1",
+  "batch": 9,
+  "ordinal_start": 201,
+  "ordinal_end": 225,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 201,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0384",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0021",
+        "story_id": "TF_0021",
+        "date": "2026-09-01",
+        "title": "Building Cars 2.0: Supply Chains Take Center Stage as New Book Is Published",
+        "site": "Gasgoo RSS - Class 19",
+        "url": "https://autonews.gasgoo.com/articles/news/building-cars-20-supply-chains-take-center-stage-as-new-book-is-published-2094629104724041728",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "25e4ce8d4fffb99a3dbd993f67124018a822f0b8a56cec8b947f16ae21a8ec7b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0021"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0021",
+          "source_run": "20260901",
+          "source_index": 346,
+          "candidate_id": "orig:20260901_123511:TF_0021",
+          "story_id": "TF_0021",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "Building Cars 2.0: Supply Chains Take Center Stage as New Book Is Published",
+          "site": "Gasgoo RSS - Class 19",
+          "source_url": "https://autonews.gasgoo.com/articles/news/building-cars-20-supply-chains-take-center-stage-as-new-book-is-published-2094629104724041728",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "25e4ce8d4fffb99a3dbd993f67124018a822f0b8a56cec8b947f16ae21a8ec7b"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "supply chain"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0414"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 202,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0387",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0009",
+        "story_id": "TF_0009",
+        "date": "2026-08-31",
+        "title": "BYD’s new Denza N8 SUV with 1,008 km EV range revealed interior in China",
+        "site": "CarNewsChina RSS",
+        "url": "https://carnewschina.com/2026/08/31/byds-new-denza-n8-suv-with-1008-km-ev-range-revealed-interior-in-china",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b6d2b417997ee362f629a3bcd9e3a13b9cbf64af9d41c2fb5dd0cc3b5c40e8d4"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0009"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0009",
+          "source_run": "20260901",
+          "source_index": 349,
+          "candidate_id": "orig:20260901_123511:TF_0009",
+          "story_id": "TF_0009",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "BYD’s new Denza N8 SUV with 1,008 km EV range revealed interior in China",
+          "site": "CarNewsChina RSS",
+          "source_url": "https://carnewschina.com/2026/08/31/byds-new-denza-n8-suv-with-1008-km-ev-range-revealed-interior-in-china",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b6d2b417997ee362f629a3bcd9e3a13b9cbf64af9d41c2fb5dd0cc3b5c40e8d4"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0417"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 203,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0388",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0008",
+        "story_id": "TF_0008",
+        "date": "2026-08-31",
+        "title": "149.16亿元营收，归母净利润暴增1177%！瑞浦兰钧用业绩表明不卷低价也能增长",
+        "site": "OFweek储能网",
+        "url": "https://chuneng.ofweek.com/news/2026-08/ART-180220-12003-30700678.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "d159a10f9f31e1d4daa6ed0d5f5b7ce086b0f57e4a42bee13e47bba56fb12eed"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0008"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0008",
+          "source_run": "20260901",
+          "source_index": 350,
+          "candidate_id": "orig:20260901_123511:TF_0008",
+          "story_id": "TF_0008",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "149.16亿元营收，归母净利润暴增1177%！瑞浦兰钧用业绩表明不卷低价也能增长",
+          "site": "OFweek储能网",
+          "source_url": "https://chuneng.ofweek.com/news/2026-08/ART-180220-12003-30700678.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "d159a10f9f31e1d4daa6ed0d5f5b7ce086b0f57e4a42bee13e47bba56fb12eed"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "利润",
+          "营收"
+        ],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0418"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 204,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0392",
+      "representative": {
+        "observation_key": "20260831::rescue:20260831:KR_2026-08-31_C85",
+        "story_id": "KR_2026-08-31_C85",
+        "date": "2026-08-27",
+        "title": "SK Horizon AI data-center infrastructure company with KRW 3.08tn KKR/IMM investment",
+        "site": "www.sktelecom.com",
+        "url": "https://www.sktelecom.com/en/press/press_detail.do?currentPage=1&idx=1675&keyword=&type=",
+        "binding": {
+          "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+          "coverage_payload_sha256": "65d55d6274a6c81c661317bdf6fc09dd3ac5c0512cc95ebf48198984d3e9b2d2"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::rescue:20260831:KR_2026-08-31_C85"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::rescue:20260831:KR_2026-08-31_C85",
+          "source_run": "20260831",
+          "source_index": 269,
+          "candidate_id": "rescue:20260831:KR_2026-08-31_C85",
+          "story_id": "KR_2026-08-31_C85",
+          "origin": "rescue",
+          "event_date": "2026-08-27",
+          "title": "SK Horizon AI data-center infrastructure company with KRW 3.08tn KKR/IMM investment",
+          "site": "www.sktelecom.com",
+          "source_url": "https://www.sktelecom.com/en/press/press_detail.do?currentPage=1&idx=1675&keyword=&type=",
+          "binding": {
+            "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+            "coverage_payload_sha256": "65d55d6274a6c81c661317bdf6fc09dd3ac5c0512cc95ebf48198984d3e9b2d2"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "investment"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "krw"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0422"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 205,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0394",
+      "representative": {
+        "observation_key": "20260901::disc:20260901:us-data-center-ghost-demand",
+        "story_id": null,
+        "date": "2026-09-01",
+        "title": "Texas halts new data-center grid connections and audits speculative ghost demand",
+        "site": "www.reuters.com",
+        "url": "https://www.reuters.com/business/texas-halt-powering-data-centers-reflects-us-reckoning-over-ghost-demand-2026-09-01/",
+        "binding": {
+          "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+          "coverage_payload_sha256": "f5fb6ba145ecf32bfe7d910e002386108fafa8ed8d0c63084574b73a54d413eb"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::disc:20260901:us-data-center-ghost-demand"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::disc:20260901:us-data-center-ghost-demand",
+          "source_run": "20260901",
+          "source_index": 359,
+          "candidate_id": "disc:20260901:us-data-center-ghost-demand",
+          "story_id": null,
+          "origin": "discovered",
+          "event_date": "2026-09-01",
+          "title": "Texas halts new data-center grid connections and audits speculative ghost demand",
+          "site": "www.reuters.com",
+          "source_url": "https://www.reuters.com/business/texas-halt-powering-data-centers-reflects-us-reckoning-over-ghost-demand-2026-09-01/",
+          "binding": {
+            "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+            "coverage_payload_sha256": "f5fb6ba145ecf32bfe7d910e002386108fafa8ed8d0c63084574b73a54d413eb"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "grid"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0424"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 206,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0002",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C16",
+        "story_id": "US_2026-08-28_C16",
+        "date": "2026-08-28",
+        "title": "LiTime Debuts at The smarter E South America 2026 with New Lares Plug-In Home Backup and LiFePO₄ Power Solutions",
+        "site": "GlobeNewswire Energy Industry",
+        "url": "https://www.globenewswire.com/news-release/2026/08/28/3352693/0/en/litime-debuts-at-the-smarter-e-south-america-2026-with-new-lares-plug-in-home-backup-and-lifepo-power-solutions.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "37932e3967373b083b7d14e907b81f0d983735733fe5b7444dcb6e4c2eebf2b4"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C16"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C16",
+          "source_run": "20260831",
+          "source_index": 2,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C16",
+          "story_id": "US_2026-08-28_C16",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "LiTime Debuts at The smarter E South America 2026 with New Lares Plug-In Home Backup and LiFePO₄ Power Solutions",
+          "site": "GlobeNewswire Energy Industry",
+          "source_url": "https://www.globenewswire.com/news-release/2026/08/28/3352693/0/en/litime-debuts-at-the-smarter-e-south-america-2026-with-new-lares-plug-in-home-backup-and-lifepo-power-solutions.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "37932e3967373b083b7d14e907b81f0d983735733fe5b7444dcb6e4c2eebf2b4"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0002"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 207,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0004",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C19",
+        "story_id": "US_2026-08-28_C19",
+        "date": "2026-08-28",
+        "title": "Wheel-E Podcast: Powerful Bafangs, cops on Sur-Rons, Qronge, more",
+        "site": "Electrek RSS",
+        "url": "https://electrek.co/2026/08/28/wheel-e-podcast-powerful-bafangs-cops-on-sur-rons-qronge-more",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "10cee21c770f0635da5d99ede24a36ea9d5f50c8e0b690ad1ee9cebb937a3069"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C19"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C19",
+          "source_run": "20260831",
+          "source_index": 4,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C19",
+          "story_id": "US_2026-08-28_C19",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Wheel-E Podcast: Powerful Bafangs, cops on Sur-Rons, Qronge, more",
+          "site": "Electrek RSS",
+          "source_url": "https://electrek.co/2026/08/28/wheel-e-podcast-powerful-bafangs-cops-on-sur-rons-qronge-more",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "10cee21c770f0635da5d99ede24a36ea9d5f50c8e0b690ad1ee9cebb937a3069"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -5,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "podcast"
+        ],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0004"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 208,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0005",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C09",
+        "story_id": "US_2026-08-28_C09",
+        "date": "2026-08-28",
+        "title": "Emobi and OmniTrust partner to advance Plug & Charge adoption",
+        "site": "Charged EVs RSS",
+        "url": "https://chargedevs.com/newswire/emobi-and-omnitrust-partner-to-advance-plug-charge-adoption",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "428a68b026543c67e1c0c3e597bd17dfc19d0041baf7f3b1fb48466d6e62d6ce"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C09"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C09",
+          "source_run": "20260831",
+          "source_index": 5,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C09",
+          "story_id": "US_2026-08-28_C09",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Emobi and OmniTrust partner to advance Plug & Charge adoption",
+          "site": "Charged EVs RSS",
+          "source_url": "https://chargedevs.com/newswire/emobi-and-omnitrust-partner-to-advance-plug-charge-adoption",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "428a68b026543c67e1c0c3e597bd17dfc19d0041baf7f3b1fb48466d6e62d6ce"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0005"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 209,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0008",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C11",
+        "story_id": "US_2026-08-28_C11",
+        "date": "2026-08-28",
+        "title": "Generational finds cell-voltage imbalance in one in 85 used EVs tested in the UK",
+        "site": "Charged EVs RSS",
+        "url": "https://chargedevs.com/newswire/generational-finds-cell-voltage-imbalance-in-one-in-85-used-evs-tested-in-the-uk",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "b35bb7e1101c31eb89fc8998fdc2740630c27cee82f3f2bdc5cedbde872e6ce3"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C11"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C11",
+          "source_run": "20260831",
+          "source_index": 8,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C11",
+          "story_id": "US_2026-08-28_C11",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Generational finds cell-voltage imbalance in one in 85 used EVs tested in the UK",
+          "site": "Charged EVs RSS",
+          "source_url": "https://chargedevs.com/newswire/generational-finds-cell-voltage-imbalance-in-one-in-85-used-evs-tested-in-the-uk",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "b35bb7e1101c31eb89fc8998fdc2740630c27cee82f3f2bdc5cedbde872e6ce3"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0008"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 210,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0012",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C17",
+        "story_id": "US_2026-08-28_C17",
+        "date": "2026-08-28",
+        "title": "SolarWindow launches self-adhesive solar film",
+        "site": "PV Magazine USA RSS",
+        "url": "https://pv-magazine-usa.com/2026/08/28/https-www-pv-magazine-com-2026-08-27-solarwindow-launches-flexible-self-adhesive-solar-film",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "961238689c3ba7424fc3f406ae0cfccc90400156c7301f38d86efa92ce521a6c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C17"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C17",
+          "source_run": "20260831",
+          "source_index": 12,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C17",
+          "story_id": "US_2026-08-28_C17",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "SolarWindow launches self-adhesive solar film",
+          "site": "PV Magazine USA RSS",
+          "source_url": "https://pv-magazine-usa.com/2026/08/28/https-www-pv-magazine-com-2026-08-27-solarwindow-launches-flexible-self-adhesive-solar-film",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "961238689c3ba7424fc3f406ae0cfccc90400156c7301f38d86efa92ce521a6c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0012"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 211,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0015",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C12",
+        "story_id": "US_2026-08-28_C12",
+        "date": "2026-08-28",
+        "title": "Global PV additions forecast to reach 638 GW in 2026",
+        "site": "PV Magazine USA RSS",
+        "url": "https://pv-magazine-usa.com/2026/08/28/global-pv-additions-forecast-to-reach-638-gw-in-2026",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "2d16ccc8d70d282f4e0c8025a246025a3d5e05be1f0008f579b125cadf43383b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C12"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C12",
+          "source_run": "20260831",
+          "source_index": 15,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C12",
+          "story_id": "US_2026-08-28_C12",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Global PV additions forecast to reach 638 GW in 2026",
+          "site": "PV Magazine USA RSS",
+          "source_url": "https://pv-magazine-usa.com/2026/08/28/global-pv-additions-forecast-to-reach-638-gw-in-2026",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "2d16ccc8d70d282f4e0c8025a246025a3d5e05be1f0008f579b125cadf43383b"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gw "
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "forecast"
+        ]
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0015"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 212,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0017",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C223",
+        "story_id": "KR_2026-08-31_C223",
+        "date": "2026-08-31",
+        "title": "현대차그룹, 수소사업 수장에 ‘bp 출신’ 홍은희 부사장 영입",
+        "site": "서울경제TV",
+        "url": "https://www.sentv.co.kr/article/view/sentv202608310070",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "e4476beba0e3e9708ab7879ffca3a5a34bb0c6510f51c42ae41d5ddb2b675527"
+        }
+      },
+      "observation_count": 4,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C221",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C222",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C223",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C98"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C221",
+          "source_run": "20260831",
+          "source_index": 46,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C221",
+          "story_id": "KR_2026-08-31_C221",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "현대차그룹 수소 사업 수장 전격 교체 …'모빌리티' 출신서 '에너지통'으로 왜?",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260831_0003769424",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "1e1602d6ae0786cc8b2dc4b01e7e1c5363f83b03e06797ec1bb1621e3d1a8799"
+          }
+        },
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C222",
+          "source_run": "20260831",
+          "source_index": 21,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C222",
+          "story_id": "KR_2026-08-31_C222",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "현대차그룹, HMG에너지·수소사업본부장에 홍은희 부사장 영입",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831101158171",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "86b5f09f5181613c7c27bea1490567c701a4cf60e9bd5be28cac23e7dd1f879a"
+          }
+        },
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C223",
+          "source_run": "20260831",
+          "source_index": 18,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C223",
+          "story_id": "KR_2026-08-31_C223",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "현대차그룹, 수소사업 수장에 ‘bp 출신’ 홍은희 부사장 영입",
+          "site": "서울경제TV",
+          "source_url": "https://www.sentv.co.kr/article/view/sentv202608310070",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "e4476beba0e3e9708ab7879ffca3a5a34bb0c6510f51c42ae41d5ddb2b675527"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C98",
+          "source_run": "20260901",
+          "source_index": 117,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C98",
+          "story_id": "KR_2026-08-31_C98",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "현대차그룹, HMG에너지·수소사업본부장에 홍은희 부사장 영입",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831101158171",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "5d955dca9ee95084a410d5eac510e8465b30a5f5352c69cf4e6d3c6c9f009bd5"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0017",
+        "XRUN_REPLAY_20260903_E0032"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 213,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0020",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C82",
+        "story_id": "KR_2026-08-31_C82",
+        "date": "2026-08-31",
+        "title": "[특징주] SK이노베이션, SK온의 美 ESS 공급계약 소식에 6%대 강세",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831095734109",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "3c218ad829257e65718e5c78658346eaa4bf25af6a5990f6a2a9bf6f18ed4b81"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C82",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C40"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C82",
+          "source_run": "20260831",
+          "source_index": 22,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C82",
+          "story_id": "KR_2026-08-31_C82",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[특징주] SK이노베이션, SK온의 美 ESS 공급계약 소식에 6%대 강세",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831095734109",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "3c218ad829257e65718e5c78658346eaa4bf25af6a5990f6a2a9bf6f18ed4b81"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C40",
+          "source_run": "20260901",
+          "source_index": 119,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C40",
+          "story_id": "KR_2026-08-31_C40",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[특징주] SK이노베이션, SK온의 美 ESS 공급계약 소식에 6%대 강세",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831095734109",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "d2f14b4ae0fe29a1e12c3f700f2c5930889af59bd4bbaeadcc740d26d8446dfa"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 7,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [
+          "계약",
+          "공급계약"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0020"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 214,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0032",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C138",
+        "story_id": "KR_2026-08-31_C138",
+        "date": "2026-08-31",
+        "title": "볼보, ES90 사전예약 3000대 돌파…10월 출고 시작",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260831_0003769380",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "d0c9e2115c8a6c6567f8f6a167c501af9f72f6234c246f92be81d12771e7a982"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C138",
+        "20260901::orig:20260901_123511:TF_0088"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C138",
+          "source_run": "20260831",
+          "source_index": 48,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C138",
+          "story_id": "KR_2026-08-31_C138",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "볼보, ES90 사전예약 3000대 돌파…10월 출고 시작",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260831_0003769380",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "d0c9e2115c8a6c6567f8f6a167c501af9f72f6234c246f92be81d12771e7a982"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0088",
+          "source_run": "20260901",
+          "source_index": 324,
+          "candidate_id": "orig:20260901_123511:TF_0088",
+          "story_id": "TF_0088",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "볼보차, ES90 주행거리 520km 인증…파격적인 가격에 사전계약 3000 돌파",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371912",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "96e70b15ff0158557bfe0f978a20c703d1f86ed286fb2c86d297d22e049c053a"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "계약"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0034",
+        "XRUN_REPLAY_20260903_E0405"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 215,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0033",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C60",
+        "story_id": "KR_2026-08-31_C60",
+        "date": "2026-08-31",
+        "title": "[EV트렌드코리아 2026] KEMS 회원사들, 미래 e-모빌리티 기술 총출동",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371860",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "1e338007f0d96d04d4fd489690789e01a90213192454046fc9ec45368697ad4a"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C60"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C60",
+          "source_run": "20260831",
+          "source_index": 49,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C60",
+          "story_id": "KR_2026-08-31_C60",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[EV트렌드코리아 2026] KEMS 회원사들, 미래 e-모빌리티 기술 총출동",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371860",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "1e338007f0d96d04d4fd489690789e01a90213192454046fc9ec45368697ad4a"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0035"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 216,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0034",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C180",
+        "story_id": "KR_2026-08-31_C180",
+        "date": "2026-08-31",
+        "title": "유나코퍼레이션·천연가스수소차량협회, BioLNG 사업화 본격 추진",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302203",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "6903f66d3dedf3a1b9e8e3dc24d3677513a2dbfa1bcce9bd602318396aad6386"
+        }
+      },
+      "observation_count": 4,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C180",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C217",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C73",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C94"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C180",
+          "source_run": "20260831",
+          "source_index": 52,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C180",
+          "story_id": "KR_2026-08-31_C180",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "유나코퍼레이션·천연가스수소차량협회, BioLNG 사업화 본격 추진",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302203",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "6903f66d3dedf3a1b9e8e3dc24d3677513a2dbfa1bcce9bd602318396aad6386"
+          }
+        },
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C217",
+          "source_run": "20260831",
+          "source_index": 71,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C217",
+          "story_id": "KR_2026-08-31_C217",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "해외 BioLNG 국내 도입 검토…자동차·선박·수소 수요처 찾는다",
+          "site": "에너지신문",
+          "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227771",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "46219f1541dc3bf163028be753ad8bd70a2bedf46c49348ff8737818f92cc473"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C73",
+          "source_run": "20260901",
+          "source_index": 131,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C73",
+          "story_id": "KR_2026-08-31_C73",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "유나코퍼레이션·천연가스수소차량협회, BioLNG 사업화 본격 추진",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302203",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "860eb21a179e548d296d38595985e075d2d6fe9791cd23a99f92fa6a2f20bb7d"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C94",
+          "source_run": "20260901",
+          "source_index": 146,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C94",
+          "story_id": "KR_2026-08-31_C94",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "해외 BioLNG 국내 도입 검토…자동차·선박·수소 수요처 찾는다",
+          "site": "에너지신문",
+          "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227771",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "8e42757dce2f1693927e6f6b68eb70df84a86797543d639198d7feceb714004d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0036",
+        "XRUN_REPLAY_20260903_E0047"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 217,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0041",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C157",
+        "story_id": "KR_2026-08-31_C157",
+        "date": "2026-08-31",
+        "title": "수주 13조→2.8조…80조 계약도 시험대",
+        "site": "딜사이트TV",
+        "url": "https://news.dealsitetv.com/articles/175370",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "6e0b0fe37776fbaf608c659d831d8dd6b973958ac512c2f461a121f895a6e19f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C157"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C157",
+          "source_run": "20260831",
+          "source_index": 69,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C157",
+          "story_id": "KR_2026-08-31_C157",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "수주 13조→2.8조…80조 계약도 시험대",
+          "site": "딜사이트TV",
+          "source_url": "https://news.dealsitetv.com/articles/175370",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "6e0b0fe37776fbaf608c659d831d8dd6b973958ac512c2f461a121f895a6e19f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "계약",
+          "수주"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0045"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 218,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0042",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C54",
+        "story_id": "KR_2026-08-31_C54",
+        "date": "2026-08-31",
+        "title": "SK이터닉스, 국내 최대 99MW 의성 황학산 풍력 상업운전",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302195",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "6847e78e40f47d0187aa7374c234b9744a01001e0d16b08c01b5d2628aa55874"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C54",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C26"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C54",
+          "source_run": "20260831",
+          "source_index": 70,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C54",
+          "story_id": "KR_2026-08-31_C54",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "SK이터닉스, 국내 최대 99MW 의성 황학산 풍력 상업운전",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302195",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "6847e78e40f47d0187aa7374c234b9744a01001e0d16b08c01b5d2628aa55874"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C26",
+          "source_run": "20260901",
+          "source_index": 144,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C26",
+          "story_id": "KR_2026-08-31_C26",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "SK이터닉스, 국내 최대 99MW 의성 황학산 풍력 상업운전",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302195",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "5ed81f3d6fa9af9aee16c82914876eee528e7e37bc3b4de53cb863b385c0de96"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "mw "
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0046"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 219,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0044",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C204",
+        "story_id": "KR_2026-08-31_C204",
+        "date": "2026-08-31",
+        "title": "피노, 코스모신소재 대상 150억원 규모 유상증자 결정",
+        "site": "아시아경제",
+        "url": "https://view.asiae.co.kr/article/2026083108112803239",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "db36b137b8a9512fb22d0af1522051d2154d3dd2489b16019d26e8fe80090b13"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C204"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C204",
+          "source_run": "20260831",
+          "source_index": 73,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C204",
+          "story_id": "KR_2026-08-31_C204",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "피노, 코스모신소재 대상 150억원 규모 유상증자 결정",
+          "site": "아시아경제",
+          "source_url": "https://view.asiae.co.kr/article/2026083108112803239",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "db36b137b8a9512fb22d0af1522051d2154d3dd2489b16019d26e8fe80090b13"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "억원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0049"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 220,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0046",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C108",
+        "story_id": "KR_2026-08-31_C108",
+        "date": "2026-08-31",
+        "title": "금호석유화학그룹 회장단, 中 웨이하이시장 면담...파트너십 지속 강화",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831103554269",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "79f9b2bad16f5f70ca5d3d38794173aa8dcda8cba796aafe11a96ab30ffb105c"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C108",
+        "20260831::orig:20260831_143419:REVIEW_1",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C49"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C108",
+          "source_run": "20260831",
+          "source_index": 75,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C108",
+          "story_id": "KR_2026-08-31_C108",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "금호석유화학그룹 회장단, 中 웨이하이시장 면담...파트너십 지속 강화",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831103554269",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "79f9b2bad16f5f70ca5d3d38794173aa8dcda8cba796aafe11a96ab30ffb105c"
+          }
+        },
+        {
+          "observation_key": "20260831::orig:20260831_143419:REVIEW_1",
+          "source_run": "20260831",
+          "source_index": 94,
+          "candidate_id": "orig:20260831_143419:REVIEW_1",
+          "story_id": "REVIEW_1",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "금호석유화학그룹, 中 웨이하이시와 민·관 협력 확대 논의",
+          "site": "서울경제TV",
+          "source_url": "https://www.sentv.co.kr/article/view/sentv202608310078",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "7d12f7daf058c92d0451d233f2656cba47d76b1b4ca060a95a12304844090823"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C49",
+          "source_run": "20260901",
+          "source_index": 136,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C49",
+          "story_id": "KR_2026-08-31_C49",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "금호석유화학그룹 회장단, 中 웨이하이시장 면담...파트너십 지속 강화",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831103554269",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "40b8543cbfe2fc6f49fd5c93cfb84c6cde5ca30305b68515ac43863fe7321941"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0051"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 221,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0047",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C78",
+        "story_id": "KR_2026-08-31_C78",
+        "date": "2026-08-31",
+        "title": "[인터뷰]\"비용 부담 없이 국제 소송·중재…승소·합의 때만 약정액 내면 돼\"",
+        "site": "아시아경제",
+        "url": "https://view.asiae.co.kr/article/2026082610232672344",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "a9eb296bdb3f5f9c2fc847faae13be9bde65ba61dbad7b81583981fa65dfcc50"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C78"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C78",
+          "source_run": "20260831",
+          "source_index": 76,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C78",
+          "story_id": "KR_2026-08-31_C78",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[인터뷰]\"비용 부담 없이 국제 소송·중재…승소·합의 때만 약정액 내면 돼\"",
+          "site": "아시아경제",
+          "source_url": "https://view.asiae.co.kr/article/2026082610232672344",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "a9eb296bdb3f5f9c2fc847faae13be9bde65ba61dbad7b81583981fa65dfcc50"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -5,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "인터뷰"
+        ],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0052"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 222,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0050",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C195",
+        "story_id": "KR_2026-08-31_C195",
+        "date": "2026-08-31",
+        "title": "충남교육청, 전국기능경기대회 금 4개·47개 입상…직업계고 기술력 입증",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831152209032",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "a3bff4abf1a6ced3cb551cbd8d1d28f0378d1ecb776e74f691d7495ee68b2be8"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C195",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C82"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C195",
+          "source_run": "20260831",
+          "source_index": 81,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C195",
+          "story_id": "KR_2026-08-31_C195",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "충남교육청, 전국기능경기대회 금 4개·47개 입상…직업계고 기술력 입증",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831152209032",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "a3bff4abf1a6ced3cb551cbd8d1d28f0378d1ecb776e74f691d7495ee68b2be8"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C82",
+          "source_run": "20260901",
+          "source_index": 153,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C82",
+          "story_id": "KR_2026-08-31_C82",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "충남교육청, 전국기능경기대회 금 4개·47개 입상…직업계고 기술력 입증",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831152209032",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "380192557b700ad01588f9554f69e54ab0c352ddeef82ba3101e2060c139e674"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0056"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 223,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0052",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C87",
+        "story_id": "KR_2026-08-31_C87",
+        "date": "2026-08-31",
+        "title": "“전력소비 10년 새 51% 급증”…K전력기업, 호주시장 진출 ‘잰걸음’",
+        "site": "E-Daily",
+        "url": "https://www.edaily.co.kr/News/Read?newsId=03509606645552896",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "58c5731354536678803ad0fc9385e3cca29a02ee038fd43e8020bc2862312d20"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C87"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C87",
+          "source_run": "20260831",
+          "source_index": 85,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C87",
+          "story_id": "KR_2026-08-31_C87",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "“전력소비 10년 새 51% 급증”…K전력기업, 호주시장 진출 ‘잰걸음’",
+          "site": "E-Daily",
+          "source_url": "https://www.edaily.co.kr/News/Read?newsId=03509606645552896",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "58c5731354536678803ad0fc9385e3cca29a02ee038fd43e8020bc2862312d20"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0058"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 224,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0053",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C199",
+        "story_id": "KR_2026-08-31_C199",
+        "date": "2026-08-31",
+        "title": "텔레다인 플리어시스템스, 무인항공기에 최적화된 열화상 카메라 발표 2026-08-31",
+        "site": "일렉포",
+        "url": "https://elec4.co.kr/contents/article_detail?article_idx=38138&s_cate=11",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "cc9e8a407cf6d6af74bbab0a03999948970fc1d9585ddfb280b53a072cd0fd91"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C199"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C199",
+          "source_run": "20260831",
+          "source_index": 86,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C199",
+          "story_id": "KR_2026-08-31_C199",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "텔레다인 플리어시스템스, 무인항공기에 최적화된 열화상 카메라 발표 2026-08-31",
+          "site": "일렉포",
+          "source_url": "https://elec4.co.kr/contents/article_detail?article_idx=38138&s_cate=11",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "cc9e8a407cf6d6af74bbab0a03999948970fc1d9585ddfb280b53a072cd0fd91"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0059"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 225,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0054",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C179",
+        "story_id": "KR_2026-08-31_C179",
+        "date": "2026-08-31",
+        "title": "위기일까 기회일까…AI 맞닥뜨린 게임산업",
+        "site": "아시아경제",
+        "url": "https://view.asiae.co.kr/article/2026083109073172248",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "0db607d3b7832d6452738d29b426a3a9b88638b750780d47c89942b4279c0d74"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C179"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C179",
+          "source_run": "20260831",
+          "source_index": 87,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C179",
+          "story_id": "KR_2026-08-31_C179",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "위기일까 기회일까…AI 맞닥뜨린 게임산업",
+          "site": "아시아경제",
+          "source_url": "https://view.asiae.co.kr/article/2026083109073172248",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "0db607d3b7832d6452738d29b426a3a9b88638b750780d47c89942b4279c0d74"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0060"
+      ],
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

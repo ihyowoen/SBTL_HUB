@@ -1,0 +1,31 @@
+name: Regenerate R6 canonical relations and V4 preselection
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/r6-relation-preselection/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Re-anchor relations and aggregate fail-safe preselection
+        run: python3 scripts/r6_relation_preselection_regen_v2.py
+      - name: Commit R6 relation and preselection outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/canonical_relation_prepass_395_20260903_R6.json runs/2026-09-03/canonical_relation_replay_closure_395_20260903_R6.json runs/2026-09-03/stage_a_v4_preselection_replay_395_20260903_R6.json runs/2026-09-03/r6_relation_preselection_regen_summary_20260903_R1.json
+          git rm -r .tmp/r6-relation-preselection
+          git commit -m 'audit: regenerate R6 relations and V4 preselection'
+          git push

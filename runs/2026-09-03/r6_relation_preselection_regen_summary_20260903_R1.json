@@ -1,0 +1,35 @@
+{
+  "schema": "r6_relation_preselection_regen_summary_v1",
+  "status": "PASS",
+  "event_count": 395,
+  "relation_counts": {
+    "new_unrelated_event": 385,
+    "distinct_follow_up": 4,
+    "program_lineage": 2,
+    "same_event_reinforcement": 4
+  },
+  "preselection_bucket_counts": {
+    "reject_or_support_only": 186,
+    "watchlist_context": 144,
+    "candidate_review": 51,
+    "high_potential_review": 10,
+    "existing_reinforcement": 4
+  },
+  "merged_component_bucket_conflict_count": 8,
+  "sanity_probe_count": 8,
+  "sanity_probes_all_outside_reject": true,
+  "formal_stage_a_authorized": false,
+  "refs": {
+    "membership": "runs/2026-09-03/current_crossrun_event_membership_replay_corrected_395_20260903_R6.json",
+    "gate": "runs/2026-09-03/current_event_universe_replay_gate_20260903_R6.json",
+    "relation_prepass": "runs/2026-09-03/canonical_relation_prepass_395_20260903_R6.json",
+    "relation_closure": "runs/2026-09-03/canonical_relation_replay_closure_395_20260903_R6.json",
+    "preselection": "runs/2026-09-03/stage_a_v4_preselection_replay_395_20260903_R6.json"
+  },
+  "sha256": {
+    "relation_prepass": "536876e177cf92f5934700a82cd91b4cbd6592173cf43aa98fe82943c5ff9ea9",
+    "relation_closure": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+    "preselection": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf"
+  },
+  "next_gate": "R6_STAGE_A_REVIEW_PACKET_REGEN"
+}

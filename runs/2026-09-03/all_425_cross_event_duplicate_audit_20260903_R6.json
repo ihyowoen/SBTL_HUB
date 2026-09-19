@@ -1,0 +1,339 @@
+{
+  "schema": "all_425_cross_event_duplicate_audit_r6_v2",
+  "stage": "EVENT_UNIVERSE_RECONCILIATION",
+  "status": "PASS_ALL_PAIR_SCREEN_AND_FLAGGED_PAIR_ADJUDICATION",
+  "generated_date": "2026-09-03",
+  "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "input_event_membership": {
+    "path": "runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json",
+    "sha256": "9d4922dac8ac622e95fccdf915abf6807546fbb502863799855039fc6b2fd38b",
+    "event_count": 425
+  },
+  "source_identity_index": {
+    "path": "runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json",
+    "sha256": "49359afb0f4cb6a1065e8cd8e3c2f27365c686e22148e6870bb38cceb8888550",
+    "observation_count": 632
+  },
+  "audit_provenance": {
+    "exported_artifact_id": 9871518832,
+    "exported_artifact_sha256": "cb44c612050f91e77106d40928a219a6fae944c6578ddf8ce736f8a08864d44c",
+    "local_raw_inputs_rejoined": true
+  },
+  "method": {
+    "all_cross_event_pairs_scored": true,
+    "total_pairs_scored": 90100,
+    "high_risk_union_flagged_pairs": 98,
+    "flagged_pairs_adjudicated": 98,
+    "unresolved_flagged_pairs": 0,
+    "features": [
+      "word 1-2gram TF-IDF cosine",
+      "character 3-5gram TF-IDF cosine",
+      "title similarity",
+      "rare-token/distinctive-number/proper-name sweeps",
+      "raw-body and source-run manual adjudication"
+    ],
+    "story_id_guardrail": "story_id alone is never cross-run identity",
+    "event_count_target_forbidden": true
+  },
+  "result": {
+    "confirmed_merge_group_count": 25,
+    "event_reduction": 30,
+    "corrected_event_count": 395,
+    "forced_target_count": false
+  },
+  "confirmed_merge_groups": [
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0098",
+        "XRUN_REPLAY_20260903_E0269"
+      ],
+      "same_event_basis": [
+        "same CIP/Windlab Gawara Baya project",
+        "same 408MW wind + 104MW grid-forming BESS",
+        "same acquisition/financial-close/construction event"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0156",
+        "XRUN_REPLAY_20260903_E0375"
+      ],
+      "same_event_basis": [
+        "same Chusheng Xiangyang lithium-battery park",
+        "same 70GWh capacity",
+        "same commissioning/production start and ~400,000 cells/day"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0018",
+        "XRUN_REPLAY_20260903_E0041"
+      ],
+      "same_event_basis": [
+        "same Jeonbuk TP sodium-battery R&D group kickoff",
+        "same Aug 31 Jeonju Lahan meeting"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0034",
+        "XRUN_REPLAY_20260903_E0405"
+      ],
+      "same_event_basis": [
+        "same Volvo ES90 Korea announcement",
+        "same 520km range, 3,000 preorders and October delivery"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0036",
+        "XRUN_REPLAY_20260903_E0047"
+      ],
+      "same_event_basis": [
+        "same Yuna/association BioLNG action",
+        "same Shanghai Wenji visit and Aug 25-28 meetings"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0337",
+        "XRUN_REPLAY_20260903_E0407"
+      ],
+      "same_event_basis": [
+        "same Nova Minerals DOE roundtable/briefing",
+        "same Estelle antimony supply-chain agenda"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0021",
+        "XRUN_REPLAY_20260903_E0053"
+      ],
+      "same_event_basis": [
+        "same Korea-US energy-security meeting",
+        "same Lee Ho-hyun/Curt Coccodrilli, grid/ESS/supply-chain/G20 agenda"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0017",
+        "XRUN_REPLAY_20260903_E0032"
+      ],
+      "same_event_basis": [
+        "same Hyundai Motor Group appointment of Hong Eun-hee",
+        "same Energy & Hydrogen Business Division leadership action"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0072",
+        "XRUN_REPLAY_20260903_E0310"
+      ],
+      "same_event_basis": [
+        "same Lee Cheol-gyu Mining Act amendment",
+        "same Korea Mining Association legal basis and mutual-aid provision"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0062",
+        "XRUN_REPLAY_20260903_E0386",
+        "XRUN_REPLAY_20260903_E0400"
+      ],
+      "same_event_basis": [
+        "same Kia PV7 teaser/first-look",
+        "same IAA Transportation 2026 debut confirmation"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0260",
+        "XRUN_REPLAY_20260903_E0289"
+      ],
+      "same_event_basis": [
+        "same 2027 economic-security budget package",
+        "same ~KRW2.5tn, Northern Sea/Arctic route, oil stockpile and critical-minerals measures"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0247",
+        "XRUN_REPLAY_20260903_E0402"
+      ],
+      "same_event_basis": [
+        "same Strategic Materials Export/Import Notice revision",
+        "same 80+ item package and AI-chip/semiconductor-equipment scope"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0249",
+        "XRUN_REPLAY_20260903_E0253"
+      ],
+      "same_event_basis": [
+        "same Climate Ministry mobile-phone recycling package",
+        "same collection campaign and safe collection measures"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0024",
+        "XRUN_REPLAY_20260903_E0029",
+        "XRUN_REPLAY_20260903_E0044"
+      ],
+      "same_event_basis": [
+        "same Korea Automotive Technology Institute emerging-market EV report",
+        "same six-country analytical scope"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0159",
+        "XRUN_REPLAY_20260903_E0359"
+      ],
+      "same_event_basis": [
+        "same Sungrow H1 2026 earnings",
+        "same storage revenue and 25GWh shipment figures"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0148",
+        "XRUN_REPLAY_20260903_E0168",
+        "XRUN_REPLAY_20260903_E0376"
+      ],
+      "same_event_basis": [
+        "same Sunwoda H1 2026 earnings",
+        "same revenue/net-income/cash-flow figures"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0131",
+        "XRUN_REPLAY_20260903_E0143"
+      ],
+      "same_event_basis": [
+        "same Safeloop/HHL Leipzig battery-recycling economics study",
+        "same ~EUR1.90/kg loss finding"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0042",
+        "XRUN_REPLAY_20260903_E0063"
+      ],
+      "same_event_basis": [
+        "same Korea-UK FTA improved-agreement draft/public-comment action",
+        "same 55% to 25% auto threshold and battery-origin relaxation"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0086",
+        "XRUN_REPLAY_20260903_E0146"
+      ],
+      "same_event_basis": [
+        "same Hubject-Plugo Plug&Charge Japan partnership",
+        "cross-language coverage of one partnership"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0028",
+        "XRUN_REPLAY_20260903_E0082",
+        "XRUN_REPLAY_20260903_E0298"
+      ],
+      "same_event_basis": [
+        "same US large-grid national-emergency/foreign power-equipment executive action",
+        "different reporting angles, no independent second action"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0254",
+        "XRUN_REPLAY_20260903_E0277"
+      ],
+      "same_event_basis": [
+        "same Climate/Energy/Environment Ministry 2027 budget",
+        "same KRW25.7319tn and +18.3% package"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0256",
+        "XRUN_REPLAY_20260903_E0266",
+        "XRUN_REPLAY_20260903_E0286"
+      ],
+      "same_event_basis": [
+        "same Industry Ministry 2027 budget",
+        "same KRW13.2573tn/+40.5% package with different topical slices"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0338",
+        "XRUN_REPLAY_20260903_E0345"
+      ],
+      "same_event_basis": [
+        "same CATL-Moura Brazil partnership",
+        "same LRCAP 2026 participation/localization objective"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0235",
+        "XRUN_REPLAY_20260903_E0319"
+      ],
+      "same_event_basis": [
+        "same US Q2 2026 battery-storage record report",
+        "same record-quarter/20.2GWh reporting cluster"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    },
+    {
+      "old_event_ids": [
+        "XRUN_REPLAY_20260903_E0144",
+        "XRUN_REPLAY_20260903_E0231"
+      ],
+      "same_event_basis": [
+        "same Intertek CEA Section 232 market-analysis event",
+        "same module-price/import-economics analysis"
+      ],
+      "disposition": "MUST_MERGE_R6"
+    }
+  ],
+  "keep_separate_guardrails": [
+    "Vale job postings remain distinct by job",
+    "LPG monthly-price decisions remain distinct by company",
+    "underlying corporate event remains distinct from market-price reaction",
+    "tax effective action remains distinct from later scope clarification",
+    "budget package remains distinct from independently actionable submeasure/official follow-up when source action is separate",
+    "site/template boilerplate is never sufficient evidence of same-event identity"
+  ],
+  "formal_stage_a_authorized": false,
+  "next_gate": "R6_CANONICAL_RELATION_REANCHOR_AND_PRESELECTION_REGEN"
+}

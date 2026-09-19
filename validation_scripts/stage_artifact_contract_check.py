@@ -248,20 +248,39 @@ def _artifact_locked_prompt_06_version(payload):
             ["git", "-C", _REPO_ROOT, "show", f"{base}:{PROMPT_06_PATH}"],
             text=True, capture_output=True,
         )
-        if proc.returncode == 0:
-            locked = _extract_prompt_06_version(proc.stdout)
-            if locked:
-                return locked, declared
-    return declared if isinstance(declared, str) else None, declared
+        if proc.returncode != 0:
+            detail = (proc.stderr or proc.stdout or "git show failed").strip()
+            return None, declared, f"locked Prompt 0.6 cannot be read at {base}: {detail[:240]}"
+        locked = _extract_prompt_06_version(proc.stdout)
+        if not locked:
+            return None, declared, f"locked Prompt 0.6 version marker missing at {base}:{PROMPT_06_PATH}"
+        return locked, declared, None
+    return declared if isinstance(declared, str) else None, declared, None
+
+
+def _normalize_text(value):
+    if not isinstance(value, str):
+        return value
+    text = value
+    text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)
+    text = re.sub(r"<[^>]+>", "", text)
+    text = re.sub(r"^\s{0,3}#{1,6}\s+", "", text)
+    text = re.sub(r"^\s*[-+>]\s+", "", text)
+    text = text.replace("**", "").replace("__", "").replace("~~", "").replace(chr(96), "").replace("*", "")
+    return " ".join(text.split())
 
 
 def _normalized_visible_value(field, value):
     if field in {"sub", "gate", "fact"}:
-        return " ".join(value.split()) if _non_empty_string(value) else None
+        normalized = _normalize_text(value)
+        return normalized if isinstance(normalized, str) and normalized else None
     if field == "implication":
-        if not isinstance(value, list) or not value or any(not _non_empty_string(x) for x in value):
+        if not isinstance(value, list) or not value:
             return None
-        return tuple(" ".join(x.split()) for x in value)
+        normalized = tuple(_normalize_text(x) for x in value)
+        if any(not isinstance(x, str) or not x for x in normalized):
+            return None
+        return normalized
     return None
 
 
@@ -389,6 +408,19 @@ def _content_enrichment_audit_findings(item, scope):
             "declared visible-copy changes must use only governed content fields",
         ))
 
+    if changed_valid and changed:
+        empty_changed = [
+            field for field in changed
+            if _normalized_visible_value(field, item.get(field)) is None
+        ]
+        if empty_changed:
+            findings.append(_field_finding(
+                scope, "content_enrichment_audit.changed_fields",
+                "declared changed fields with non-empty normalized visible copy",
+                empty_changed,
+                "removal/null/empty/format-only values cannot be certified as changed content",
+            ))
+
     no_change = audit.get("no_change_required")
     if not isinstance(no_change, bool):
         findings.append(_field_finding(
@@ -445,10 +477,17 @@ def _content_enrichment_audit_findings(item, scope):
             valid_dimensions = True
             true_dimensions = [name for name in DENSITY_DIMENSIONS if dimensions[name]]
             actual_count = len(true_dimensions)
-            if density.get("supported_dimension_count") != actual_count:
+            declared_count = density.get("supported_dimension_count")
+            if not isinstance(declared_count, int) or isinstance(declared_count, bool):
                 findings.append(_field_finding(
                     scope, "content_enrichment_audit.density_audit.supported_dimension_count",
-                    actual_count, density.get("supported_dimension_count"),
+                    "non-boolean integer", declared_count,
+                    "supported_dimension_count must be a numeric count, not a boolean",
+                ))
+            elif declared_count != actual_count:
+                findings.append(_field_finding(
+                    scope, "content_enrichment_audit.density_audit.supported_dimension_count",
+                    actual_count, declared_count,
                     "supported_dimension_count must equal the audited true dimensions",
                 ))
 
@@ -716,7 +755,15 @@ def main() -> int:
 
     locked_prompt_version = None
     if args.stage == "0.6":
-        locked_prompt_version, declared_artifact_prompt_version = _artifact_locked_prompt_06_version(payload)
+        locked_prompt_version, declared_artifact_prompt_version, prompt_resolution_error = _artifact_locked_prompt_06_version(payload)
+        if prompt_resolution_error:
+            findings.append(_field_finding(
+                "top_level", "base_main_commit_sha",
+                "readable locked Prompt 0.6 with version marker",
+                payload.get("base_main_commit_sha"),
+                prompt_resolution_error,
+            ))
+            locked_prompt_version = "UNRESOLVED_LOCKED_PROMPT_FAIL_CLOSED"
         if locked_prompt_version is not None and isinstance(declared_artifact_prompt_version, str) \
                 and declared_artifact_prompt_version != locked_prompt_version:
             findings.append(_field_finding(

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, hashlib, json, os, subprocess, sys
+import argparse, copy, hashlib, json, os, re, subprocess, sys
 from collections import Counter
 from pathlib import Path
 
@@ -39,6 +39,67 @@ STAGE_A_GOVERNED_POOLS = (
     "support_source_only",
 )
 IDENTITY_ROOT = "source_spec_id"
+VISIBLE_COPY_FIELDS = ("sub", "gate", "fact", "implication")
+CONTENT_BASELINE_ORDER = ("0.5", "0.4", "C")
+CONTENT_BASELINE_STRATEGY = "nearest_upstream_visible_copy_0.5_0.4_C"
+PROMPT_06_PATH = "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md"
+PRESENTATION_HTML_TAG_RE = re.compile(
+    r"</?(?:strong|b|em|i|u|s|del|mark|span|small|sub|sup)(?:\s+[^<>]*?)?\s*/?>",
+    re.IGNORECASE,
+)
+ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
+QUANT_SIGNAL_RE = re.compile(
+    r"(?<![A-Za-z0-9])"
+    r"(?P<currency>[$€£¥₩]?)"
+    r"(?P<number>\d+(?:[.,]\d+)?)"
+    r"(?:\s*(?P<unit>%|x|k|m|bn|b|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
+    r"(?![A-Za-z0-9])",
+    re.IGNORECASE,
+)
+DIMENSION_CANONICAL_SIGNAL_RES = {
+    "prior_state": {
+        "prior_state": re.compile(r"\b(?:previous(?:ly)?|prior|earlier|before|formerly|versus|vs\.?|compared\s+with|year[- ]ago|last\s+year)\b|(?:이전|종전|기존|직전|전년|과거|당초)", re.IGNORECASE),
+    },
+    "changed_state": {
+        "production_operation": re.compile(r"\b(?:commercial(?:ly)?|commission(?:ed|ing)?|operation(?:al)?|production)\b|(?:상업생산|가동|양산)", re.IGNORECASE),
+        "construction": re.compile(r"\b(?:groundbreak(?:ing)?|construction)\b|(?:착공|건설)", re.IGNORECASE),
+        "shipment_launch": re.compile(r"\b(?:shipment|ship(?:ped|ping)?|launch(?:ed)?)\b|(?:출하|출시)", re.IGNORECASE),
+        "start": re.compile(r"\b(?:start(?:ed|ing)?)\b|(?:개시|시작)", re.IGNORECASE),
+        "completion": re.compile(r"\b(?:complete(?:d)?)\b|(?:완공)", re.IGNORECASE),
+        "ramp": re.compile(r"\b(?:ramp(?:ed|ing)?|ramp[- ]?up)\b|(?:증설|램프업)", re.IGNORECASE),
+        "restart": re.compile(r"\b(?:resume(?:d)?|restart(?:ed)?)\b|(?:재개|재가동)", re.IGNORECASE),
+        "suspension": re.compile(r"\b(?:suspend(?:ed)?)\b|(?:중단)", re.IGNORECASE),
+        "delay": re.compile(r"\b(?:delay(?:ed)?)\b|(?:지연)", re.IGNORECASE),
+        "cancellation": re.compile(r"\b(?:cancel(?:led|ed)?)\b|(?:취소)", re.IGNORECASE),
+        "approval": re.compile(r"\b(?:approve(?:d)?)\b|(?:승인)", re.IGNORECASE),
+        "agreement": re.compile(r"\b(?:sign(?:ed)?)\b|(?:체결)", re.IGNORECASE),
+    },
+    "boundary_or_uncertainty": {
+        "plan_target": re.compile(r"\b(?:plan(?:ned)?|target(?:ed)?|proposal|proposed)\b|(?:계획|목표|제안)", re.IGNORECASE),
+        "expectation_estimate": re.compile(r"\b(?:expect(?:ed)?|estimate(?:d)?|forecast|guidance)\b|(?:예정|전망|추정)", re.IGNORECASE),
+        "uncertain_conditional": re.compile(r"\b(?:preliminary|may|might|could|subject\s+to|not\s+yet)\b|(?:잠정|가능성|미확정|아직)", re.IGNORECASE),
+        "reported_attribution": re.compile(r"\b(?:reported|according\s+to)\b|(?:보도)", re.IGNORECASE),
+    },
+    "transmission_path": {
+        "causal": re.compile(r"\b(?:because|due\s+to|therefore|driv(?:e|es|en)|lead(?:s|ing)?\s+to|impact(?:s|ed)?|affect(?:s|ed)?)\b|(?:때문|영향)", re.IGNORECASE),
+        "demand_supply": re.compile(r"\b(?:demand|supply|supply\s+chain)\b|(?:수요|공급|공급망)", re.IGNORECASE),
+        "economics": re.compile(r"\b(?:pressure|cost|price|margin|procurement)\b|(?:압력|원가|비용|가격|마진|조달)", re.IGNORECASE),
+    },
+    "next_watchpoint": {
+        "generic_watch": re.compile(r"\b(?:next|watch|milestone)\b|(?:향후|다음|확인|마일스톤)", re.IGNORECASE),
+        "qualification_certification": re.compile(r"\b(?:qualification|certification)\b|(?:인증|고객승인)", re.IGNORECASE),
+        "future_execution": re.compile(r"\b(?:commissioning|ramp[- ]?up|by\s+q[1-4]|by\s+20\d{2}|expected\s+(?:by|in)|scheduled\s+(?:for|in))\b|(?:가동예정|양산예정|출하예정)", re.IGNORECASE),
+    },
+}
+DENSITY_DIMENSIONS = (
+    "prior_state",
+    "changed_state",
+    "quantitative_anchor",
+    "boundary_or_uncertainty",
+    "transmission_path",
+    "next_watchpoint",
+)
+_MISSING = object()
 
 class Blocked(Exception): pass
 
@@ -433,6 +494,561 @@ def _relation_review_matches(review,op,target_tokens,require_reason):
         return True
     except Blocked: return False
 
+def _single_bound_row(rows_by_stage, stage_name, label):
+    rows=rows_by_stage.get(stage_name, [])
+    if len(rows)!=1:
+        raise Blocked(f"{label} stage {stage_name} requires exactly one bound row for content delta; found {len(rows)}")
+    return rows[0]
+
+
+def _prompt_06_version(row):
+    if not isinstance(row,dict):
+        return None
+    for key in ("prompt_provenance_0_6","prompt_provenance"):
+        provenance=row.get(key)
+        if not isinstance(provenance,dict):
+            continue
+        version=provenance.get("prompt_version")
+        if isinstance(version,str) and version.startswith("PROMPT_0_6_"):
+            return version
+    return None
+
+
+def _locked_prompt_06_version(base_main_commit_sha):
+    if not isinstance(base_main_commit_sha,str) or len(base_main_commit_sha)!=40:
+        raise Blocked("locked base_main_commit_sha required to resolve Prompt 0.6 contract")
+    text=_git(["show",f"{base_main_commit_sha}:{PROMPT_06_PATH}"])
+    match=re.search(r"\*\*Version:\*\*\s*`?([^\s`]+)",text)
+    if not match:
+        raise Blocked(f"locked Prompt 0.6 version marker missing at {base_main_commit_sha}:{PROMPT_06_PATH}")
+    return match.group(1).strip()
+
+
+def _requires_v5_content_audit(row, locked_prompt_version=None):
+    declared=_prompt_06_version(row)
+    if locked_prompt_version is not None:
+        if declared is not None and declared!=locked_prompt_version:
+            raise Blocked(
+                f"0.6 item prompt version {declared} does not match locked baseline Prompt 0.6 version {locked_prompt_version}"
+            )
+        version=locked_prompt_version
+    else:
+        version=declared
+    return not (isinstance(version,str) and version.startswith("PROMPT_0_6_V4_"))
+
+
+def _effective_upstream_visible_value(rows_by_stage, field, label):
+    for stage_name in CONTENT_BASELINE_ORDER:
+        row=_single_bound_row(rows_by_stage, stage_name, label)
+        if field in row and _normalized_visible_value(field,row[field]) is not None:
+            return row[field], stage_name
+    return _MISSING, None
+
+
+def _strip_paired_presentation_markup(text):
+    # Strip syntactically paired emphasis/code markers only. Literal asterisks
+    # such as "2 * 3" and rating symbols such as "A*" remain substantive text.
+    if text.strip() in {"**","__","~~","`","*","_"}:
+        return ""
+    patterns = (
+        r"\*\*(?=\S)(.+?)(?<=\S)\*\*",
+        r"__(?=\S)(.+?)(?<=\S)__",
+        r"`(?=\S)(.+?)(?<=\S)`",
+        r"(?<!\w)\*(?=\S)(.+?)(?<=\S)\*(?!\w)",
+        r"(?<!\w)_(?=\S)(.+?)(?<=\S)_(?!\w)",
+    )
+    previous=None
+    while previous!=text:
+        previous=text
+        for pattern in patterns:
+            text=re.sub(pattern,r"\1",text)
+    return text
+
+
+def _normalize_text(value):
+    if not isinstance(value,str):
+        return value
+    text=value
+    text=re.sub(r"\[([^\]]+)\]\([^)]*\)",r"\1",text)
+    # Strip only known presentation-formatting tags. Do not use a generic
+    # <...> regex because comparison expressions such as "<0.7%" or ">300"
+    # are substantive visible copy.
+    text=PRESENTATION_HTML_TAG_RE.sub("",text)
+    text=re.sub(r"^\s{0,3}#{1,6}\s+","",text)
+    text=re.sub(r"^\s*[-+>]\s+","",text)
+    text=_strip_paired_presentation_markup(text)
+    return " ".join(text.split())
+
+
+def _normalized_visible_value(field, value):
+    if field in {"sub","gate","fact"}:
+        if not _nonempty_text(value):
+            return None
+        normalized=_normalize_text(value)
+        return normalized if _nonempty_text(normalized) else None
+    if field=="implication":
+        if not isinstance(value,list) or not value or any(not _nonempty_text(x) for x in value):
+            return None
+        normalized=tuple(_normalize_text(x) for x in value)
+        if any(not _nonempty_text(x) for x in normalized):
+            return None
+        return normalized
+    return None
+
+
+def _source_supported_visible_fields(source):
+    if not isinstance(source,dict):
+        return set()
+    if source.get("supporting_context_only_not_visible_claim_support") is True:
+        return set()
+    if str(source.get("role") or "").strip().lower()=="checked_not_used_for_visible_claims":
+        return set()
+    explicit_keys=("visible_claim_support","visible_fields_supported","supports")
+    present=[key for key in explicit_keys if key in source]
+    if present:
+        supported=set()
+        for key in present:
+            values=source.get(key)
+            if isinstance(values,list):
+                supported.update(x for x in values if x in VISIBLE_COPY_FIELDS)
+        return supported
+    return set(VISIBLE_COPY_FIELDS)
+
+
+def _add_evidence_tokens(token_support, source, fields):
+    if not fields:
+        return
+    for key in ("id","source_id","url","source_url","canonical_url"):
+        value=source.get(key) if isinstance(source,dict) else None
+        if _nonempty_text(value):
+            token_support.setdefault(value.strip(),set()).update(fields)
+
+
+def _row_evidence_token_support(row):
+    token_support={}
+    if not isinstance(row,dict):
+        return token_support
+    sources=row.get("fact_sources",[]) if isinstance(row.get("fact_sources"),list) else []
+    for source in sources:
+        if isinstance(source,dict):
+            _add_evidence_tokens(token_support,source,_source_supported_visible_fields(source))
+    ledger=row.get("source_discovery_ledger",[]) if isinstance(row.get("source_discovery_ledger"),list) else []
+    for entry in ledger:
+        if not isinstance(entry,dict):
+            continue
+        fields=_source_supported_visible_fields(entry)
+        outcome=str(entry.get("outcome") or "").strip().lower()
+        if not any(key in entry for key in ("visible_claim_support","visible_fields_supported","supports")):
+            if outcome not in {"used_in_fact_sources","used_for_visible_claims","accepted_visible_evidence"}:
+                fields=set()
+        _add_evidence_tokens(token_support,entry,fields)
+    coverage=row.get("claim_source_coverage")
+    if isinstance(coverage,dict):
+        visible=coverage.get("visible_fact")
+        if isinstance(visible,dict):
+            refs=visible.get("supported_by_source_ids")
+            if isinstance(refs,list):
+                for ref in refs:
+                    if _nonempty_text(ref):
+                        token_support.setdefault(ref.strip(),set()).add("fact")
+    return token_support
+
+
+def _upstream_evidence_token_support(rows_by_stage,label):
+    token_support={}
+    for stage_name in ("0.5","0.4","C","B"):
+        row=_single_bound_row(rows_by_stage,stage_name,label)
+        for token,fields in _row_evidence_token_support(row).items():
+            token_support.setdefault(token,set()).update(fields)
+    return token_support
+
+
+def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowed_evidence_support):
+    mapping=density.get("dimension_evidence")
+    if not isinstance(mapping,dict) or set(mapping)!=set(true_dimensions):
+        raise Blocked(
+            f"{label} 0.6 density_audit.dimension_evidence must map exactly true dimensions {sorted(true_dimensions)}"
+        )
+    if allowed_evidence_support is None:
+        raise Blocked(f"{label} 0.6 dimension_evidence validation requires explicit bound upstream evidence support")
+    evidence_support={token:set(fields) for token,fields in allowed_evidence_support.items()}
+    if not evidence_support:
+        raise Blocked(f"{label} 0.6 requires bound upstream source evidence support for dimension_evidence")
+    for name in true_dimensions:
+        entry=mapping.get(name)
+        if not isinstance(entry,dict):
+            raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name} must be an object")
+        fields=entry.get("fields")
+        if not isinstance(fields,list) or not fields or len(fields)!=len(set(fields)) or any(x not in VISIBLE_COPY_FIELDS for x in fields):
+            raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name}.fields must be a non-empty unique visible-field subset")
+        for field in fields:
+            if _normalized_visible_value(field,row_06.get(field,_MISSING)) is None:
+                raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name} references empty/missing field {field}")
+        refs=entry.get("evidence_refs")
+        if not isinstance(refs,list) or not refs or any(not _nonempty_text(x) for x in refs):
+            raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name}.evidence_refs must be non-empty strings")
+        unknown=[x for x in refs if x.strip() not in evidence_support]
+        if unknown:
+            raise Blocked(f"{label} 0.6 dimension_evidence.{name} has unbound evidence refs {unknown}")
+        unsupported={
+            ref.strip(): sorted(set(fields)-evidence_support.get(ref.strip(),set()))
+            for ref in refs
+            if set(fields)-evidence_support.get(ref.strip(),set())
+        }
+        if unsupported:
+            raise Blocked(
+                f"{label} 0.6 dimension_evidence.{name} refs do not support mapped visible fields {unsupported}"
+            )
+
+
+def _visible_value_text(value):
+    if value is None:
+        return ""
+    if isinstance(value,tuple):
+        return " | ".join(value)
+    return str(value)
+
+
+def _canonical_numeric_text(raw):
+    value=raw.replace(",","")
+    if "." in value:
+        value=value.rstrip("0").rstrip(".")
+    if value.startswith("."):
+        value="0"+value
+    return value or "0"
+
+
+def _signal_values(dimension, text):
+    if dimension=="quantitative_anchor":
+        values=set()
+        for match in QUANT_SIGNAL_RE.finditer(text):
+            number=_canonical_numeric_text(match.group("number"))
+            currency=(match.group("currency") or "").lower()
+            unit=(match.group("unit") or "").lower()
+            values.add(f"{currency}{number}{(' '+unit) if unit else ''}")
+        return values
+    patterns=DIMENSION_CANONICAL_SIGNAL_RES.get(dimension,{})
+    return {
+        marker
+        for marker,pattern in patterns.items()
+        if pattern.search(text)
+    }
+
+
+def _governed_copy_dimension_signals(dimension, normalized_by_field):
+    signals=set()
+    for field in VISIBLE_COPY_FIELDS:
+        signals.update(_signal_values(dimension,_visible_value_text(normalized_by_field.get(field))))
+    return signals
+
+
+def _validate_claimed_dimension_text(density, row_06, label, true_dimensions):
+    mapping=density.get("dimension_evidence")
+    for dimension in true_dimensions:
+        entry=mapping.get(dimension) if isinstance(mapping,dict) else None
+        fields=entry.get("fields") if isinstance(entry,dict) else None
+        if not isinstance(fields,list):
+            continue
+        expressed=set()
+        for field in fields:
+            expressed.update(
+                _signal_values(
+                    dimension,
+                    _visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING))),
+                )
+            )
+        if not expressed:
+            raise Blocked(
+                f"{label} 0.6 density dimension {dimension} is claimed but not expressed "
+                f"by any mapped governed field {fields}"
+            )
+
+
+def _validate_substantive_dimension_delta(
+    density, row_06, label, actual_changed, upstream_normalized
+):
+    mapping=density.get("dimension_evidence")
+    changed=set(actual_changed)
+    current_normalized={
+        field:_normalized_visible_value(field,row_06.get(field,_MISSING))
+        for field in VISIBLE_COPY_FIELDS
+    }
+    qualifying=[]
+    diagnostics={}
+    for dimension,entry in mapping.items():
+        if not isinstance(entry,dict):
+            continue
+        mapped_changed=[field for field in entry.get("fields",[]) if field in changed]
+        if not mapped_changed:
+            continue
+        upstream_signals=_governed_copy_dimension_signals(dimension,upstream_normalized)
+        current_mapped_signals=set()
+        for field in mapped_changed:
+            current_mapped_signals.update(
+                _signal_values(dimension,_visible_value_text(current_normalized.get(field)))
+            )
+        added=sorted(current_mapped_signals-upstream_signals)
+        diagnostics[dimension]={
+            "mapped_changed_fields": mapped_changed,
+            "added": added,
+            "upstream_all_governed": sorted(upstream_signals),
+        }
+        if added:
+            qualifying.append((dimension,mapped_changed,added))
+    if not qualifying:
+        raise Blocked(
+            f"{label} changed 0.6 copy lacks a machine-detectable newly added/deepened Deep Summary signal "
+            f"relative to the whole upstream governed copy; terminology/formatting/relocation-only rewrites "
+            f"do not qualify; signals={diagnostics}"
+        )
+
+
+def _validate_density_audit(
+    audit, row_06, label, *, no_change, allowed_evidence_support, actual_changed=()
+):
+    density=audit.get("density_audit") if isinstance(audit,dict) else None
+    if not isinstance(density,dict) or density.get("status")!="PASS":
+        raise Blocked(f"{label} 0.6 content_enrichment_audit.density_audit must be structured PASS")
+    dimensions=density.get("dimensions")
+    if not isinstance(dimensions,dict) or set(dimensions)!=set(DENSITY_DIMENSIONS):
+        raise Blocked(f"{label} 0.6 density_audit.dimensions must contain exactly {list(DENSITY_DIMENSIONS)}")
+    if any(not isinstance(dimensions[name],bool) for name in DENSITY_DIMENSIONS):
+        raise Blocked(f"{label} 0.6 density_audit dimensions must all be booleans")
+    true_dimensions=[name for name in DENSITY_DIMENSIONS if dimensions[name]]
+    supported=len(true_dimensions)
+    count=density.get("supported_dimension_count")
+    if not isinstance(count,int) or isinstance(count,bool):
+        raise Blocked(f"{label} 0.6 density_audit.supported_dimension_count must be a non-boolean integer")
+    if count!=supported:
+        raise Blocked(f"{label} 0.6 density_audit.supported_dimension_count={count} != {supported}")
+    notes=density.get("evidence_notes")
+    if not _nonempty_text(notes):
+        raise Blocked(f"{label} 0.6 density_audit.evidence_notes required")
+
+    if no_change:
+        if supported < 4:
+            raise Blocked(f"{label} zero-delta 0.6 requires at least four evidence-supported Deep Summary dimensions; found {supported}")
+        if dimensions.get("changed_state") is not True:
+            raise Blocked(f"{label} zero-delta 0.6 requires changed_state=true in the density audit")
+    elif supported < 1:
+        raise Blocked(f"{label} changed 0.6 copy requires at least one evidence-supported Deep Summary dimension")
+
+    _validate_dimension_evidence(
+        density,row_06,label,true_dimensions,
+        allowed_evidence_support=allowed_evidence_support,
+    )
+    _validate_claimed_dimension_text(density,row_06,label,true_dimensions)
+    if not no_change:
+        mapping=density.get("dimension_evidence")
+        changed=set(actual_changed)
+        bound_changed={
+            field
+            for entry in mapping.values()
+            if isinstance(entry,dict)
+            for field in entry.get("fields",[])
+            if field in changed
+        }
+        if not bound_changed:
+            raise Blocked(
+                f"{label} changed 0.6 copy must bind at least one supported Deep Summary dimension "
+                f"to an actually changed governed field; changed={sorted(changed)}"
+            )
+
+
+def _validate_operation_visible_copy(row_06, operation_card, label):
+    if not isinstance(operation_card,dict):
+        raise Blocked(f"{label} cannot bind 0.6 visible copy to a materialized operation card")
+    mismatches=[]
+    for field in VISIBLE_COPY_FIELDS:
+        stage_value=_normalized_visible_value(field,row_06.get(field,_MISSING))
+        operation_value=_normalized_visible_value(field,operation_card.get(field,_MISSING))
+        if stage_value!=operation_value:
+            mismatches.append(field)
+    if mismatches:
+        raise Blocked(f"{label} applied operation visible copy does not match audited 0.6 fields {mismatches}")
+
+
+def _json_pointer_parts(path, label):
+    if not isinstance(path,str) or not path.startswith("/") or path=="/":
+        raise Blocked(f"{label} invalid JSON pointer path {path!r}")
+    return [part.replace("~1","/").replace("~0","~") for part in path[1:].split("/")]
+
+
+def _apply_json_change(document, change, label):
+    if not isinstance(change,dict):
+        raise Blocked(f"{label} change must be object")
+    op=change.get("op")
+    if op not in {"add","replace","remove"}:
+        raise Blocked(f"{label} unsupported change op {op!r}")
+    if op in {"add","replace"} and "value" not in change:
+        raise Blocked(f"{label} {op} requires value at {change.get('path')}")
+    if op=="remove" and "value" in change:
+        raise Blocked(f"{label} remove must not include value at {change.get('path')}")
+    parts=_json_pointer_parts(change.get("path"),label)
+    root=parts[0]
+    if root=="id":
+        raise Blocked(f"{label} id is immutable")
+    if root=="source_spec_id":
+        raise Blocked(f"{label} source_spec_id is immutable formal binding metadata")
+    if root in {"related","related_ids","related_lineage"}:
+        raise Blocked(f"{label} relation root {root} may only be changed through related_add")
+    parent=document
+    create_missing=(op=="add")
+    for part in parts[:-1]:
+        if isinstance(parent,dict):
+            if part in parent:
+                parent=parent[part]
+            elif create_missing:
+                parent[part]={}
+                parent=parent[part]
+            else:
+                raise Blocked(f"{label} JSON pointer cannot resolve token {part!r}")
+        elif isinstance(parent,list):
+            if not isinstance(part,str) or not ARRAY_INDEX_RE.fullmatch(part):
+                raise Blocked(f"{label} JSON pointer list token must use canonical array index syntax: {part!r}")
+            index=int(part)
+            if index<0 or index>=len(parent):
+                raise Blocked(f"{label} JSON pointer list index out of range: {part!r}")
+            parent=parent[index]
+        else:
+            raise Blocked(f"{label} JSON pointer cannot resolve token {part!r}")
+
+    key=parts[-1]
+    if isinstance(parent,dict):
+        exists=key in parent
+        if op=="add":
+            if exists:
+                raise Blocked(f"{label} add target already exists at {change.get('path')}")
+            parent[key]=copy.deepcopy(change.get("value"))
+        elif op=="replace":
+            if not exists:
+                raise Blocked(f"{label} replace target missing at {change.get('path')}")
+            parent[key]=copy.deepcopy(change.get("value"))
+        else:
+            if not exists:
+                raise Blocked(f"{label} remove target missing at {change.get('path')}")
+            del parent[key]
+        return
+
+    if isinstance(parent,list):
+        if key=="-":
+            if op!="add":
+                raise Blocked(f"{label} '-' list token only valid for add")
+            parent.append(copy.deepcopy(change.get("value")))
+            return
+        if not isinstance(key,str) or not ARRAY_INDEX_RE.fullmatch(key):
+            raise Blocked(f"{label} list token must use canonical array index syntax or '-'")
+        index=int(key)
+        if op=="remove":
+            if index<0 or index>=len(parent):
+                raise Blocked(f"{label} remove list index out of range")
+            parent.pop(index)
+        elif op=="replace":
+            if index<0 or index>=len(parent):
+                raise Blocked(f"{label} replace list index out of range")
+            parent[index]=copy.deepcopy(change.get("value"))
+        else:
+            if index<0 or index>len(parent):
+                raise Blocked(f"{label} add list index out of range")
+            parent.insert(index,copy.deepcopy(change.get("value")))
+        return
+
+    raise Blocked(f"{label} JSON pointer parent is not object/array")
+
+
+def _materialized_operation_card(kind, op, expected, known, inserted, baseline_cards, insert_cards, updated_cards, label):
+    if kind=="insert":
+        card=op.get("card")
+        return copy.deepcopy(card) if isinstance(card,dict) else None
+    if kind=="update":
+        cid=op.get("id")
+        base=baseline_cards.get(cid)
+        if not isinstance(base,dict):
+            raise Blocked(f"{label} update target {cid} missing from declared baseline")
+        card=copy.deepcopy(base)
+        changes=op.get("changes")
+        if not isinstance(changes,list):
+            raise Blocked(f"{label}.changes must be array")
+        for index,change in enumerate(changes):
+            _apply_json_change(card,change,f"{label}.changes[{index}]")
+        return card
+    if kind=="related_add":
+        governed,_=endpoint_context(op,known,inserted,expected,label)
+        card=insert_cards.get(governed) or updated_cards.get(governed) or baseline_cards.get(governed)
+        if not isinstance(card,dict):
+            raise Blocked(f"{label} cannot materialize governed Related endpoint {governed}")
+        return copy.deepcopy(card)
+    raise Blocked(f"{label} unsupported operation kind {kind}")
+
+
+def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,locked_prompt_version=None):
+    row_06=_single_bound_row(rows_by_stage,"0.6",label)
+    if row_06.get("content_enriched") is not True:
+        raise Blocked(f"{label} stage 0.6 passing row requires content_enriched=true")
+
+    # Explicit V4 artifacts remain valid historical records. V5+ (and
+    # unversioned new artifacts) must satisfy the new structured contract.
+    if not _requires_v5_content_audit(row_06, locked_prompt_version=locked_prompt_version):
+        return
+
+    audit=row_06.get("content_enrichment_audit")
+    if not isinstance(audit,dict):
+        raise Blocked(f"{label} stage 0.6 requires content_enrichment_audit")
+    if audit.get("baseline_strategy")!=CONTENT_BASELINE_STRATEGY:
+        raise Blocked(f"{label} 0.6 baseline_strategy must be {CONTENT_BASELINE_STRATEGY}")
+
+    actual_changed=[]
+    baseline_sources={}
+    upstream_normalized={}
+    for field in VISIBLE_COPY_FIELDS:
+        baseline,source_stage=_effective_upstream_visible_value(rows_by_stage,field,label)
+        baseline_sources[field]=source_stage
+        baseline_normalized=_normalized_visible_value(field,baseline)
+        upstream_normalized[field]=baseline_normalized
+        current_normalized=_normalized_visible_value(field,row_06.get(field,_MISSING))
+        if baseline_normalized is not None and current_normalized is None:
+            raise Blocked(f"{label} 0.6 removal/empty value for {field} cannot satisfy substantive content enrichment")
+        if baseline_normalized is None and current_normalized is not None:
+            actual_changed.append(field)
+        elif baseline_normalized is not None and current_normalized!=baseline_normalized:
+            actual_changed.append(field)
+
+    declared=audit.get("changed_fields")
+    if not isinstance(declared,list) or len(declared)!=len(set(declared)) or any(x not in VISIBLE_COPY_FIELDS for x in declared):
+        raise Blocked(f"{label} 0.6 changed_fields must be a unique subset of {list(VISIBLE_COPY_FIELDS)}")
+    expected={field for field in VISIBLE_COPY_FIELDS if field in actual_changed}
+    if set(declared)!=expected:
+        raise Blocked(
+            f"{label} 0.6 declared changed_fields={declared} does not equal actual visible-copy delta={sorted(expected)}; "
+            f"baseline_sources={baseline_sources}"
+        )
+
+    no_change=audit.get("no_change_required")
+    if not isinstance(no_change,bool):
+        raise Blocked(f"{label} 0.6 no_change_required must be boolean")
+
+    if actual_changed:
+        if no_change:
+            raise Blocked(f"{label} 0.6 has actual visible-copy changes but declares no_change_required=true")
+    else:
+        if not no_change:
+            raise Blocked(f"{label} 0.6 content_enriched=true with zero visible-copy delta requires no_change_required=true")
+        if not _nonempty_text(audit.get("no_change_reason")):
+            raise Blocked(f"{label} zero-delta 0.6 requires explicit no_change_reason")
+
+    allowed_evidence_support=_upstream_evidence_token_support(rows_by_stage,label)
+    _validate_density_audit(
+        audit,row_06,label,no_change=not actual_changed,actual_changed=actual_changed,
+        allowed_evidence_support=allowed_evidence_support,
+    )
+    if actual_changed:
+        _validate_substantive_dimension_delta(
+            audit["density_audit"],row_06,label,actual_changed,upstream_normalized,
+        )
+    if operation_card is not None:
+        _validate_operation_visible_copy(row_06,operation_card,label)
+
+
 def validate_source_diversity_chain(rows_by_stage,label):
     observed={}
     for s in ("B","C","0.5","0.6","0.7"):
@@ -453,10 +1069,24 @@ def validate_source_diversity_chain(rows_by_stage,label):
 def validate_operations(run,governed):
     strict_specs=governed_strict_spec_identities(governed)
     base=baseline_canonical(run); known=canonical_map_from_data(base)
+    locked_prompt_version=_locked_prompt_06_version(run.get("base_main_commit_sha"))
+    baseline_cards={c.get("id"):c for c in base.get("cards",[]) if isinstance(c,dict) and _nonempty_text(c.get("id"))}
     insert_ops=run.get("operations",{}).get("insert",[])
     if not isinstance(insert_ops,list): raise Blocked("operations.insert must be array")
     validate_insert_identities(insert_ops,known)
     inserted={op.get("card",{}).get("id"):op.get("card",{}).get("source_spec_id") for op in insert_ops if isinstance(op,dict) and isinstance(op.get("card"),dict)}
+    insert_cards={op.get("card",{}).get("id"):op.get("card") for op in insert_ops if isinstance(op,dict) and isinstance(op.get("card"),dict)}
+    updated_cards={}
+    update_ops=run.get("operations",{}).get("update",[])
+    if not isinstance(update_ops,list): raise Blocked("operations.update must be array")
+    for i,update_op in enumerate(update_ops):
+        if not isinstance(update_op,dict): raise Blocked(f"update[{i}] must be object")
+        cid=update_op.get("id")
+        if _nonempty_text(cid):
+            updated_cards[cid]=_materialized_operation_card(
+                "update",update_op,op_spec("update",update_op,known,inserted,f"update[{i}]"),
+                known,inserted,baseline_cards,insert_cards,{},f"update[{i}]"
+            )
     for kind in ("insert","update","related_add"):
         ops=run.get("operations",{}).get(kind)
         if not isinstance(ops,list): raise Blocked(f"operations.{kind} must be array")
@@ -475,6 +1105,11 @@ def validate_operations(run,governed):
             if missing: raise Blocked(f"{label} missing current-run candidate binding at stages {missing}")
             validate_governed_stage_a_operation(rows_by_stage,expected,strict_specs,label)
             validate_source_diversity_chain(rows_by_stage,label)
+            operation_card=_materialized_operation_card(kind,op,expected,known,inserted,baseline_cards,insert_cards,updated_cards,label)
+            validate_content_enrichment_delta(
+                rows_by_stage,label,operation_card=operation_card,
+                locked_prompt_version=locked_prompt_version,
+            )
             if kind=="related_add": validate_related_semantics(op,expected,rows_by_stage,known,inserted,label)
 
 def main():
@@ -486,9 +1121,38 @@ def main():
         if checker_validated_stage_a_decisions(source)!={"C1":("legacy_keep","stage_a_checker:legacy_keep:C1")}: raise RuntimeError("legacy_keep/dedup contract failed")
         strict={"CAND_1":("strict_passed_spec","stage_a_checker:strict_passed_spec:SPEC_NEW")}
         validate_governed_stage_a_operation({"A":[{"spec_id":"SPEC_NEW","source_story_ids":["CAND_1"]}]},"SPEC_NEW",governed_strict_spec_identities(strict),"insert[0]")
-        print("PASS: V4 binding hardening self-test; checker-valid legacy_keep and duplicate-in-row identities are supported, unchecked Stage A status aliases are ignored, operations bind to terminal-governed strict outcomes, coverage axes remain lazy/fail-closed, and existing fail-closed gates remain active"); return 0
+        density={"status":"PASS","dimensions":{"prior_state":True,"changed_state":True,"quantitative_anchor":True,"boundary_or_uncertainty":True,"transmission_path":False,"next_watchpoint":False},"supported_dimension_count":4,"evidence_notes":"self-test","dimension_evidence":{"prior_state":{"fields":["fact"],"evidence_refs":["S1"]},"changed_state":{"fields":["sub"],"evidence_refs":["S1"]},"quantitative_anchor":{"fields":["fact"],"evidence_refs":["S1"]},"boundary_or_uncertainty":{"fields":["fact"],"evidence_refs":["S1"]}}}
+        changed_rows={
+            "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}]}],
+            "C":[{"sub":"pilot project","gate":"g","fact":"Previously planned at 1 GWh; target remains subject to certification.","implication":["i"]}],
+            "0.4":[{"fact":"Previously planned at 1 GWh; target remains subject to certification."}],
+            "0.5":[{"fact":"Previously planned at 1 GWh; target remains subject to certification."}],
+            "0.6":[{"sub":"commercial production started","gate":"g","fact":"Previously planned at 1 GWh; target remains subject to certification.","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":["sub"],"no_change_required":False,"no_change_reason":"","density_audit":density}}],
+        }
+        validate_content_enrichment_delta(changed_rows,"self-test changed")
+        zero_density=copy.deepcopy(density)
+        zero_density["dimension_evidence"]["changed_state"]["fields"]=["fact"]
+        zero_rows={
+            "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}]}],
+            "C":[{"sub":"s","gate":"g","fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","implication":["i"]}],
+            "0.4":[{"fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification."}],
+            "0.5":[{"fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification."}],
+            "0.6":[{"sub":"s","gate":"g","fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source"}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":[],"no_change_required":True,"no_change_reason":"already sufficiently deep","density_audit":zero_density}}],
+        }
+        validate_content_enrichment_delta(zero_rows,"self-test zero")
+        blocked=dict(zero_rows)
+        blocked["0.6"]=[dict(zero_rows["0.6"][0])]
+        blocked["0.6"][0]["content_enrichment_audit"]=dict(zero_rows["0.6"][0]["content_enrichment_audit"])
+        blocked["0.6"][0]["content_enrichment_audit"]["no_change_required"]=False
+        try:
+            validate_content_enrichment_delta(blocked,"self-test boolean-only")
+        except Blocked:
+            pass
+        else:
+            raise RuntimeError("zero-delta boolean-only content enrichment was not blocked")
+        print("PASS: V4 binding hardening self-test; stage binding, source diversity, Related semantics, and 0.6 effective-upstream visible-copy delta/no-change gates remain fail-closed"); return 0
     if not args.run: raise Blocked("--run PATH required")
-    run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); governed=validate_completeness(run); validate_operations(run,governed); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","terminal_decision_binding":"PASS","operation_stage_a_binding":"PASS","source_diversity_chain":"PASS","related_semantics":"PASS"})); return 0
+    run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); governed=validate_completeness(run); validate_operations(run,governed); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","terminal_decision_binding":"PASS","operation_stage_a_binding":"PASS","source_diversity_chain":"PASS","content_enrichment_delta":"PASS","related_semantics":"PASS"})); return 0
 
 if __name__=="__main__":
     try: raise SystemExit(main())

@@ -262,6 +262,23 @@ def _artifact_locked_prompt_06_version(payload):
     return declared if isinstance(declared, str) else None, declared, None
 
 
+def _strip_paired_presentation_markup(text):
+    patterns = (
+        r"\*\*(?=\S)(.+?)(?<=\S)\*\*",
+        r"__(?=\S)(.+?)(?<=\S)__",
+        r"~~(?=\S)(.+?)(?<=\S)~~",
+        r"`(?=\S)(.+?)(?<=\S)`",
+        r"(?<!\w)\*(?=\S)(.+?)(?<=\S)\*(?!\w)",
+        r"(?<!\w)_(?=\S)(.+?)(?<=\S)_(?!\w)",
+    )
+    previous = None
+    while previous != text:
+        previous = text
+        for pattern in patterns:
+            text = re.sub(pattern, r"\1", text)
+    return text
+
+
 def _normalize_text(value):
     if not isinstance(value, str):
         return value
@@ -270,7 +287,7 @@ def _normalize_text(value):
     text = PRESENTATION_HTML_TAG_RE.sub("", text)
     text = re.sub(r"^\s{0,3}#{1,6}\s+", "", text)
     text = re.sub(r"^\s*[-+>]\s+", "", text)
-    text = text.replace("**", "").replace("__", "").replace("~~", "").replace(chr(96), "").replace("*", "")
+    text = _strip_paired_presentation_markup(text)
     return " ".join(text.split())
 
 

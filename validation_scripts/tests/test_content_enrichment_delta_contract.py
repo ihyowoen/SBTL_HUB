@@ -83,12 +83,12 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
 
     def test_actual_fact_change_passes_and_missing_05_fields_do_not_create_false_delta(self):
         row = row06(
-            fact="changed fact",
+            fact="Commercial production started in 2026 at 2.5 GWh",
             content_enrichment_audit=audit(["fact"]),
         )
         binding.validate_content_enrichment_delta(
             rows(row), "insert[0]",
-            operation_card={**VISIBLE, "fact": "changed fact"},
+            operation_card={**VISIBLE, "fact": "Commercial production started in 2026 at 2.5 GWh"},
         )
 
     def test_declared_changed_fields_are_order_independent(self):
@@ -143,6 +143,36 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             rows(row), "insert[0]",
             operation_card={**VISIBLE, "fact": "same fact"},
         )
+
+    def test_presentation_only_empty_copy_is_treated_as_removal(self):
+        row = row06(
+            fact="**",
+            content_enrichment_audit=audit(["fact"]),
+        )
+        with self.assertRaisesRegex(binding.Blocked, "removal/empty value for fact"):
+            binding.validate_content_enrichment_delta(rows(row), "insert[0]")
+
+    def test_presentation_only_empty_intermediate_does_not_mask_stage_c(self):
+        row = row06(
+            content_enrichment_audit=audit(
+                [], no_change=True, supported=4,
+                reason="Presentation-only intermediate copy cannot mask Stage C.",
+                bind_dimensions=True,
+            ),
+        )
+        chain = rows(row)
+        chain["0.5"][0]["fact"] = "**"
+        chain["0.4"][0]["fact"] = None
+        binding.validate_content_enrichment_delta(
+            chain, "insert[0]", operation_card=VISIBLE,
+        )
+
+    def test_literal_asterisks_survive_markup_normalization(self):
+        for value in ("capacity is 2 * 3 GWh", "rating moved to A*"):
+            self.assertEqual(binding._normalize_text(value), value)
+            self.assertEqual(stage_contract._normalize_text(value), value)
+        self.assertEqual(binding._normalize_text("**same fact**"), "same fact")
+        self.assertEqual(stage_contract._normalize_text("**same fact**"), "same fact")
 
     def test_comparison_expressions_survive_markup_normalization(self):
         self.assertEqual(
@@ -227,6 +257,23 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             binding.validate_content_enrichment_delta(
                 rows(row), "insert[0]",
                 operation_card={**VISIBLE, "sub": "changed sub"},
+            )
+
+    def test_terminology_only_synonym_does_not_count_as_substantive_dimension_delta(self):
+        prior = "Production rose in 2026"
+        current = "Production increased in 2026"
+        row = row06(
+            fact=current,
+            content_enrichment_audit=audit(["fact"]),
+        )
+        chain = rows(row)
+        chain["C"][0]["fact"] = prior
+        chain["0.4"][0]["fact"] = prior
+        chain["0.5"][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "machine-detectable newly added/deepened"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current},
             )
 
     def test_explicit_sufficient_density_no_change_exception_passes_with_bound_dimension_evidence(self):
@@ -400,6 +447,25 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             "update[0].changes[0]",
         )
         self.assertEqual(card["metadata"]["detail"], {"status": "ok"})
+
+    def test_python_materializer_rejects_value_less_add_and_replace(self):
+        for op in ("add", "replace"):
+            card = {"id": "CARD1", "metadata": {}} if op == "add" else {"id": "CARD1", "metadata": {"detail": "old"}}
+            with self.assertRaisesRegex(binding.Blocked, f"{op} requires value"):
+                binding._apply_json_change(
+                    card,
+                    {"op": op, "path": "/metadata/detail"},
+                    "update[0].changes[0]",
+                )
+
+    def test_python_materializer_rejects_value_on_remove(self):
+        card = {"id": "CARD1", "metadata": {"detail": "old"}}
+        with self.assertRaisesRegex(binding.Blocked, "remove must not include value"):
+            binding._apply_json_change(
+                card,
+                {"op": "remove", "path": "/metadata/detail", "value": None},
+                "update[0].changes[0]",
+            )
 
     def test_python_materializer_add_rejects_existing_final_path(self):
         card = {"id": "CARD1", "metadata": {"detail": "old"}}

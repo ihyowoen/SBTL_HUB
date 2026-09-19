@@ -21,13 +21,12 @@ jobs:
       - name: Audit 34 Deep Summary cards against upstream evidence
         shell: bash
         run: |
+          git show origin/main:data/cards.full.json > /tmp/cards.full.main.json
           node <<'NODE'
           const fs = require('fs');
-          const cp = require('child_process');
-
           const manifest = JSON.parse(fs.readFileSync('direct-adds/2026-09-19-nr26-deep-summary/direct-add.json','utf8'));
           const current = JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
-          const baseline = JSON.parse(cp.execFileSync('git',['show','origin/main:data/cards.full.json'],{encoding:'utf8'}));
+          const baseline = JSON.parse(fs.readFileSync('/tmp/cards.full.main.json','utf8'));
           const stageB = JSON.parse(fs.readFileSync('runs/2026-09-18/nr26-20260911-v4-r1/stages/stage-b.json','utf8'));
           const stageC = JSON.parse(fs.readFileSync('runs/2026-09-18/nr26-20260911-v4-r1/stages/stage-c.json','utf8'));
 

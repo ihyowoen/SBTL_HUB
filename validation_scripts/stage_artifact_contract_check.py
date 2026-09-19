@@ -140,7 +140,7 @@ ITEM_REQUIRED = {
     ],
     "0.6": [
         "source_spec_id", "content_enriched", "language_terminology_polished",
-        "content_enrichment_audit", "related_lineage", "date_role", "source_diversity_status",
+        "related_lineage", "date_role", "source_diversity_status",
     ],
     "0.7": [
         "source_spec_id", "final_qc_gates", "related_lineage",
@@ -211,13 +211,139 @@ DENSITY_DIMENSIONS = (
 CONTENT_BASELINE_STRATEGY = "nearest_upstream_visible_copy_0.5_0.4_C"
 
 
+def _prompt_06_version(item):
+    if not isinstance(item, dict):
+        return None
+    for key in ("prompt_provenance_0_6", "prompt_provenance"):
+        provenance = item.get(key)
+        if not isinstance(provenance, dict):
+            continue
+        version = provenance.get("prompt_version")
+        if isinstance(version, str) and version.startswith("PROMPT_0_6_"):
+            return version
+    return None
+
+
+def _requires_v5_content_audit(item):
+    version = _prompt_06_version(item)
+    return not (isinstance(version, str) and version.startswith("PROMPT_0_6_V4_"))
+
+
+def _normalized_visible_value(field, value):
+    if field in {"sub", "gate", "fact"}:
+        return " ".join(value.split()) if _non_empty_string(value) else None
+    if field == "implication":
+        if not isinstance(value, list) or not value or any(not _non_empty_string(x) for x in value):
+            return None
+        return tuple(" ".join(x.split()) for x in value)
+    return None
+
+
+def _row_evidence_tokens(item):
+    tokens = set()
+    if not isinstance(item, dict):
+        return tokens
+    sources = item.get("fact_sources")
+    if isinstance(sources, list):
+        for source in sources:
+            if not isinstance(source, dict):
+                continue
+            for key in ("id", "source_id", "url", "source_url"):
+                value = source.get(key)
+                if _non_empty_string(value):
+                    tokens.add(value.strip())
+    ledger = item.get("source_discovery_ledger")
+    if isinstance(ledger, list):
+        for entry in ledger:
+            if not isinstance(entry, dict):
+                continue
+            for key in ("source_id", "source_url", "canonical_url"):
+                value = entry.get(key)
+                if _non_empty_string(value):
+                    tokens.add(value.strip())
+    coverage = item.get("claim_source_coverage")
+    if isinstance(coverage, dict):
+        visible = coverage.get("visible_fact")
+        if isinstance(visible, dict):
+            refs = visible.get("supported_by_source_ids")
+            if isinstance(refs, list):
+                tokens.update(x.strip() for x in refs if _non_empty_string(x))
+    return tokens
+
+
+def _dimension_evidence_findings(item, density, scope, true_dimensions):
+    findings = []
+    mapping = density.get("dimension_evidence")
+    if not isinstance(mapping, dict) or set(mapping) != set(true_dimensions):
+        findings.append(_field_finding(
+            scope,
+            "content_enrichment_audit.density_audit.dimension_evidence",
+            f"exact mapping for true dimensions {sorted(true_dimensions)}",
+            mapping,
+            "zero-delta exception must bind every claimed density dimension to visible copy and evidence",
+        ))
+        return findings
+
+    evidence_tokens = _row_evidence_tokens(item)
+    if not evidence_tokens:
+        findings.append(_field_finding(
+            scope,
+            "content_enrichment_audit.density_audit.dimension_evidence",
+            "references resolvable against fact_sources/source_discovery/claim coverage",
+            mapping,
+            "zero-delta exception requires concrete upstream evidence tokens",
+        ))
+        return findings
+
+    for name in true_dimensions:
+        entry = mapping.get(name)
+        if not isinstance(entry, dict):
+            findings.append(_field_finding(
+                scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}",
+                "object", entry, "dimension evidence must be structured",
+            ))
+            continue
+        fields = entry.get("fields")
+        if not isinstance(fields, list) or not fields or len(fields) != len(set(fields)) \
+                or any(field not in VISIBLE_COPY_FIELDS for field in fields):
+            findings.append(_field_finding(
+                scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.fields",
+                f"non-empty unique subset of {list(VISIBLE_COPY_FIELDS)}", fields,
+                "each claimed dimension must name the concrete visible field(s) that express it",
+            ))
+        else:
+            empty_refs = [field for field in fields if _normalized_visible_value(field, item.get(field)) is None]
+            if empty_refs:
+                findings.append(_field_finding(
+                    scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.fields",
+                    "only non-empty governed visible fields", fields,
+                    f"dimension evidence references empty/missing fields {empty_refs}",
+                ))
+        refs = entry.get("evidence_refs")
+        if not isinstance(refs, list) or not refs or any(not _non_empty_string(x) for x in refs):
+            findings.append(_field_finding(
+                scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
+                "non-empty evidence refs", refs,
+                "each claimed dimension must bind to concrete upstream evidence",
+            ))
+        else:
+            unknown = [x for x in refs if x.strip() not in evidence_tokens]
+            if unknown:
+                findings.append(_field_finding(
+                    scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
+                    "refs present in fact_sources/source_discovery/claim coverage", unknown,
+                    "dimension evidence contains unbound references",
+                ))
+    return findings
+
+
 def _content_enrichment_audit_findings(item, scope):
     findings = []
     audit = item.get("content_enrichment_audit")
     if not _non_empty_object(audit):
         return [_field_finding(
             scope, "content_enrichment_audit", "non-empty structured audit", audit,
-            "0.6 content_enriched=true requires a machine-checkable enrichment audit",
+            "0.6 V5+ content_enriched=true requires a machine-checkable enrichment audit",
         )]
 
     if audit.get("baseline_strategy") != CONTENT_BASELINE_STRATEGY:
@@ -228,20 +354,32 @@ def _content_enrichment_audit_findings(item, scope):
         ))
 
     changed = audit.get("changed_fields")
-    if not isinstance(changed, list) or any(field not in VISIBLE_COPY_FIELDS for field in changed) \
-            or len(changed) != len(set(changed)):
+    changed_valid = isinstance(changed, list) and all(field in VISIBLE_COPY_FIELDS for field in changed) \
+        and len(changed) == len(set(changed))
+    if not changed_valid:
         findings.append(_field_finding(
             scope, "content_enrichment_audit.changed_fields",
             f"unique subset of {list(VISIBLE_COPY_FIELDS)}", changed,
             "declared visible-copy changes must use only governed content fields",
         ))
 
-    if not isinstance(audit.get("no_change_required"), bool):
+    no_change = audit.get("no_change_required")
+    if not isinstance(no_change, bool):
         findings.append(_field_finding(
-            scope, "content_enrichment_audit.no_change_required", "boolean",
-            audit.get("no_change_required"),
+            scope, "content_enrichment_audit.no_change_required", "boolean", no_change,
             "0.6 must explicitly attest whether an unchanged-copy exception is being used",
         ))
+    elif changed_valid:
+        if not changed and no_change is not True:
+            findings.append(_field_finding(
+                scope, "content_enrichment_audit.no_change_required", True, no_change,
+                "an empty declared delta must use the explicit no-change exception",
+            ))
+        if changed and no_change is not False:
+            findings.append(_field_finding(
+                scope, "content_enrichment_audit.no_change_required", False, no_change,
+                "a declared visible-copy delta cannot simultaneously claim no_change_required",
+            ))
 
     density = audit.get("density_audit")
     if not _non_empty_object(density):
@@ -259,6 +397,8 @@ def _content_enrichment_audit_findings(item, scope):
         ))
 
     dimensions = density.get("dimensions")
+    valid_dimensions = False
+    true_dimensions = []
     if not isinstance(dimensions, dict):
         findings.append(_field_finding(
             scope, "content_enrichment_audit.density_audit.dimensions",
@@ -276,7 +416,9 @@ def _content_enrichment_audit_findings(item, scope):
                 f"density dimensions malformed; missing={missing}, invalid={invalid}, extra={extra}",
             ))
         else:
-            actual_count = sum(1 for name in DENSITY_DIMENSIONS if dimensions[name])
+            valid_dimensions = True
+            true_dimensions = [name for name in DENSITY_DIMENSIONS if dimensions[name]]
+            actual_count = len(true_dimensions)
             if density.get("supported_dimension_count") != actual_count:
                 findings.append(_field_finding(
                     scope, "content_enrichment_audit.density_audit.supported_dimension_count",
@@ -290,6 +432,28 @@ def _content_enrichment_audit_findings(item, scope):
             "non-empty evidence-bounded explanation", density.get("evidence_notes"),
             "density audit must explain its evidence-supported dimensions",
         ))
+
+    if changed_valid and not changed and no_change is True:
+        if not _non_empty_string(audit.get("no_change_reason")):
+            findings.append(_field_finding(
+                scope, "content_enrichment_audit.no_change_reason",
+                "non-empty reason", audit.get("no_change_reason"),
+                "zero-delta exception requires an explicit reason",
+            ))
+        if valid_dimensions:
+            if len(true_dimensions) < 4:
+                findings.append(_field_finding(
+                    scope, "content_enrichment_audit.density_audit.supported_dimension_count",
+                    ">= 4", len(true_dimensions),
+                    "zero-delta exception requires at least four supported dimensions",
+                ))
+            if dimensions.get("changed_state") is not True:
+                findings.append(_field_finding(
+                    scope, "content_enrichment_audit.density_audit.dimensions.changed_state",
+                    True, dimensions.get("changed_state"),
+                    "zero-delta exception requires changed_state=true",
+                ))
+            findings.extend(_dimension_evidence_findings(item, density, scope, true_dimensions))
     return findings
 
 
@@ -428,7 +592,8 @@ def _item_value_findings(stage, item, scope):
             if item.get(field) is not True:
                 findings.append(_field_finding(scope, field, True, item.get(field),
                                                "combined 0.6 passing bucket requires both component attestations=true"))
-        findings.extend(_content_enrichment_audit_findings(item, scope))
+        if _requires_v5_content_audit(item):
+            findings.extend(_content_enrichment_audit_findings(item, scope))
 
     if stage == "0.7":
         gates = item.get("final_qc_gates")

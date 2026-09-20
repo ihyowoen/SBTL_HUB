@@ -44,7 +44,7 @@ CONTENT_BASELINE_ORDER = ("0.5", "0.4", "C")
 CONTENT_BASELINE_STRATEGY = "nearest_upstream_visible_copy_0.5_0.4_C"
 PROMPT_06_PATH = "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md"
 PRESENTATION_HTML_TAG_RE = re.compile(
-    r"</?(?:strong|b|em|i|u|s|del|mark|span|small|sub|sup)(?:\s+[^<>]*?)?\s*/?>",
+    r"</?(?:strong|b|em|i|u|mark|span|small|sub|sup)(?:\s+[^<>]*?)?\s*/?>",
     re.IGNORECASE,
 )
 ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
@@ -61,7 +61,7 @@ DIMENSION_CANONICAL_SIGNAL_RES = {
         "prior_state": re.compile(r"\b(?:previous(?:ly)?|prior|earlier|before|formerly|versus|vs\.?|compared\s+with|year[- ]ago|last\s+year)\b|(?:이전|종전|기존|직전|전년|과거|당초)", re.IGNORECASE),
     },
     "changed_state": {
-        "production_operation": re.compile(r"\b(?:commercial(?:ly)?|commission(?:ed|ing)?|operation(?:al)?|production)\b|(?:상업생산|가동|양산)", re.IGNORECASE),
+        "production_operation": re.compile(r"\b(?:commercial\s+production|commission(?:ed|ing)?|operational|in\s+operation|produc(?:ing|ed))\b|(?:상업생산|가동|양산)", re.IGNORECASE),
         "construction": re.compile(r"\b(?:groundbreak(?:ing)?|construction)\b|(?:착공|건설)", re.IGNORECASE),
         "shipment_launch": re.compile(r"\b(?:shipment|ship(?:ped|ping)?|launch(?:ed)?)\b|(?:출하|출시)", re.IGNORECASE),
         "commencement": re.compile(r"\b(?:start(?:ed|ing)?|begin|began|begun|commence(?:d|ment)?)\b|(?:개시|시작)", re.IGNORECASE),
@@ -603,7 +603,7 @@ def _source_supported_visible_fields(source):
         return set()
     if str(source.get("role") or "").strip().lower()=="checked_not_used_for_visible_claims":
         return set()
-    explicit_keys=("visible_claim_support","visible_fields_supported","supports")
+    explicit_keys=("visible_claim_support","visible_fields_supported","visible_supports","supports")
     present=[key for key in explicit_keys if key in source]
     if present:
         supported=set()
@@ -635,11 +635,11 @@ def _add_evidence_tokens(token_support, source, fields):
             token_support.setdefault(value.strip(),set()).update(fields)
 
 
-def _row_evidence_token_support(row):
+def _row_evidence_token_state(row):
     token_support={}
     explicitly_excluded=set()
     if not isinstance(row,dict):
-        return token_support
+        return token_support,explicitly_excluded
     sources=row.get("fact_sources",[]) if isinstance(row.get("fact_sources"),list) else []
     for source in sources:
         if not isinstance(source,dict):
@@ -651,14 +651,19 @@ def _row_evidence_token_support(row):
             for token in tokens:
                 token_support.pop(token,None)
             continue
-        _add_evidence_tokens(token_support,source,fields)
+        for token in tokens:
+            if token not in explicitly_excluded:
+                token_support.setdefault(token,set()).update(fields)
     ledger=row.get("source_discovery_ledger",[]) if isinstance(row.get("source_discovery_ledger"),list) else []
     for entry in ledger:
         if not isinstance(entry,dict):
             continue
         fields=_source_supported_visible_fields(entry)
         outcome=str(entry.get("outcome") or "").strip().lower()
-        if not any(key in entry for key in ("visible_claim_support","visible_fields_supported","supports")):
+        if not any(
+            key in entry
+            for key in ("visible_claim_support","visible_fields_supported","visible_supports","supports")
+        ):
             if outcome not in {"used_in_fact_sources","used_for_visible_claims","accepted_visible_evidence"}:
                 fields=set()
         tokens=_evidence_tokens(entry)
@@ -681,16 +686,28 @@ def _row_evidence_token_support(row):
                         token=ref.strip()
                         if token not in explicitly_excluded:
                             token_support.setdefault(token,set()).add("fact")
-    return token_support
+    return token_support,explicitly_excluded
+
+
+def _row_evidence_token_support(row):
+    support,_=_row_evidence_token_state(row)
+    return support
 
 
 def _upstream_evidence_token_support(rows_by_stage,label):
-    token_support={}
+    resolved_support={}
+    resolved_tokens=set()
     for stage_name in ("0.5","0.4","C","B"):
         row=_single_bound_row(rows_by_stage,stage_name,label)
-        for token,fields in _row_evidence_token_support(row).items():
-            token_support.setdefault(token,set()).update(fields)
-    return token_support
+        stage_support,stage_excluded=_row_evidence_token_state(row)
+        for token in stage_excluded:
+            if token not in resolved_tokens:
+                resolved_tokens.add(token)
+        for token,fields in stage_support.items():
+            if token not in resolved_tokens:
+                resolved_support[token]=set(fields)
+                resolved_tokens.add(token)
+    return resolved_support
 
 
 def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowed_evidence_support):
@@ -1103,6 +1120,21 @@ def validate_source_diversity_chain(rows_by_stage,label):
         detail=", ".join(f"{stage}={status}" for stage,status in observed.items())
         raise Blocked(f"{label} source_diversity_status drifts across the bound stage chain: {detail}")
 
+def _validate_unique_update_targets(update_ops):
+    if not isinstance(update_ops,list):
+        raise Blocked("operations.update must be array")
+    seen=set()
+    for index,op in enumerate(update_ops):
+        if not isinstance(op,dict):
+            raise Blocked(f"update[{index}] must be object")
+        cid=op.get("id")
+        if _nonempty_text(cid):
+            key=cid.strip()
+            if key in seen:
+                raise Blocked(f"operations.update has duplicate target id {key}")
+            seen.add(key)
+
+
 def validate_operations(run,governed):
     strict_specs=governed_strict_spec_identities(governed)
     base=baseline_canonical(run); known=canonical_map_from_data(base)
@@ -1115,7 +1147,7 @@ def validate_operations(run,governed):
     insert_cards={op.get("card",{}).get("id"):op.get("card") for op in insert_ops if isinstance(op,dict) and isinstance(op.get("card"),dict)}
     updated_cards={}
     update_ops=run.get("operations",{}).get("update",[])
-    if not isinstance(update_ops,list): raise Blocked("operations.update must be array")
+    _validate_unique_update_targets(update_ops)
     for i,update_op in enumerate(update_ops):
         if not isinstance(update_op,dict): raise Blocked(f"update[{i}] must be object")
         cid=update_op.get("id")

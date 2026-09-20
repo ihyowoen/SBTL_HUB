@@ -329,6 +329,32 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
                 operation_card={**VISIBLE, "fact": current},
             )
 
+    def test_commencement_synonyms_share_one_canonical_marker(self):
+        prior = "Production began in 2026"
+        current = "Production started in 2026"
+        row = row06(
+            fact=current,
+            content_enrichment_audit=audit_for_dimensions(["fact"], ["changed_state"]),
+        )
+        chain = rows(row)
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "machine-detectable newly added/deepened"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current},
+            )
+
+    def test_large_grouped_numeric_anchor_canonicalizes_full_number(self):
+        self.assertEqual(
+            binding._signal_values("quantitative_anchor", "Capacity is 1,000,000 MW"),
+            binding._signal_values("quantitative_anchor", "Capacity is 1000000 MW"),
+        )
+        self.assertIn(
+            "1000000 mw",
+            binding._signal_values("quantitative_anchor", "Capacity is 1,000,000 MW"),
+        )
+
     def test_quantitative_signal_preserves_number_unit_pair_with_spacing(self):
         self.assertIn("10 mw", binding._signal_values("quantitative_anchor", "The project is 10 MW"))
         self.assertIn("10 mwh", binding._signal_values("quantitative_anchor", "The project is 10 MW / 10 MWh"))
@@ -501,6 +527,32 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
                 operation_card={**VISIBLE, "fact": NEW_DENSE_FACT},
             )
 
+    def test_claim_coverage_cannot_restore_explicitly_excluded_source(self):
+        row = row06(
+            fact=NEW_DENSE_FACT,
+            content_enrichment_audit=audit(["fact"]),
+        )
+        chain = rows(row)
+        excluded = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "role": "checked_not_used_for_visible_claims",
+            "visible_claim_support": [],
+        }
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [excluded]
+            chain[stage][0]["claim_source_coverage"] = {
+                "visible_fact": {"supported_by_source_ids": ["SRC1"]}
+            }
+        with self.assertRaisesRegex(
+            binding.Blocked,
+            "bound upstream source evidence support|unbound evidence refs|do not support mapped visible fields",
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": NEW_DENSE_FACT},
+            )
+
     def test_explicit_source_field_support_is_enforced(self):
         row = row06(
             fact=NEW_DENSE_FACT,
@@ -651,6 +703,44 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             for x in findings
         ))
 
+    def test_stage_checker_zero_delta_dimensions_must_be_expressed_by_mapped_text(self):
+        placeholder = {"sub": "s", "gate": "g", "fact": "f", "implication": ["i"]}
+        item = row06(
+            **placeholder,
+            content_enrichment_audit=audit(
+                [], no_change=True, supported=4,
+                reason="Placeholder copy must not pass standalone density.",
+                bind_dimensions=True,
+            ),
+        )
+        findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
+        self.assertTrue(any(
+            "claimed but not expressed" in x.get("message", "")
+            for x in findings
+        ))
+
+    def test_stage_checker_claim_coverage_cannot_restore_excluded_source(self):
+        item = row06(
+            fact=NEW_DENSE_FACT,
+            content_enrichment_audit=audit(["fact"]),
+            fact_sources=[{
+                "source_id": "SRC1",
+                "source_url": "https://example.test/source",
+                "role": "checked_not_used_for_visible_claims",
+                "visible_claim_support": [],
+            }],
+            claim_source_coverage={
+                "visible_fact": {"supported_by_source_ids": ["SRC1"]}
+            },
+        )
+        findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
+        self.assertTrue(any(
+            "unbound references" in x.get("message", "")
+            or "do not support the mapped visible fields" in x.get("message", "")
+            or "concrete upstream evidence tokens" in x.get("message", "")
+            for x in findings
+        ))
+
     def test_stage_checker_malformed_dimension_fields_returns_finding_not_typeerror(self):
         malformed = audit_for_dimensions(["fact"], ["changed_state"])
         malformed["density_audit"]["dimension_evidence"]["changed_state"]["fields"] = None
@@ -660,6 +750,33 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             x.get("field", "").endswith("dimension_evidence.changed_state.fields")
             for x in findings
         ))
+
+    def test_python_materializer_rejects_empty_update_change_list(self):
+        with self.assertRaisesRegex(binding.Blocked, "non-empty array"):
+            binding._materialized_operation_card(
+                "update",
+                {"id": "CARD1", "changes": []},
+                None, None, None,
+                {"CARD1": {"id": "CARD1", **VISIBLE}},
+                {}, {}, "update[0]",
+            )
+
+    def test_python_materializer_rejects_duplicate_update_paths(self):
+        operation = {
+            "id": "CARD1",
+            "changes": [
+                {"op": "replace", "path": "/fact", "value": NEW_DENSE_FACT},
+                {"op": "replace", "path": "/fact", "value": DENSE_FACT},
+            ],
+        }
+        with self.assertRaisesRegex(binding.Blocked, "duplicate paths"):
+            binding._materialized_operation_card(
+                "update",
+                operation,
+                None, None, None,
+                {"CARD1": {"id": "CARD1", **VISIBLE}},
+                {}, {}, "update[0]",
+            )
 
     def test_python_materializer_add_creates_missing_intermediate_objects_like_production_applier(self):
         card = {"id": "CARD1"}

@@ -51,7 +51,7 @@ ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
 QUANT_SIGNAL_RE = re.compile(
     r"(?<![A-Za-z0-9])"
     r"(?P<currency>[$€£¥₩]?)"
-    r"(?P<number>\d+(?:[.,]\d+)?)"
+    r"(?P<number>(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?|\d+,\d+)"
     r"(?:\s*(?P<unit>%|x|k|m|bn|b|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
     r"(?![A-Za-z0-9])",
     re.IGNORECASE,
@@ -64,7 +64,7 @@ DIMENSION_CANONICAL_SIGNAL_RES = {
         "production_operation": re.compile(r"\b(?:commercial(?:ly)?|commission(?:ed|ing)?|operation(?:al)?|production)\b|(?:상업생산|가동|양산)", re.IGNORECASE),
         "construction": re.compile(r"\b(?:groundbreak(?:ing)?|construction)\b|(?:착공|건설)", re.IGNORECASE),
         "shipment_launch": re.compile(r"\b(?:shipment|ship(?:ped|ping)?|launch(?:ed)?)\b|(?:출하|출시)", re.IGNORECASE),
-        "start": re.compile(r"\b(?:start(?:ed|ing)?)\b|(?:개시|시작)", re.IGNORECASE),
+        "commencement": re.compile(r"\b(?:start(?:ed|ing)?|begin|began|begun|commence(?:d|ment)?)\b|(?:개시|시작)", re.IGNORECASE),
         "completion": re.compile(r"\b(?:complete(?:d)?)\b|(?:완공)", re.IGNORECASE),
         "ramp": re.compile(r"\b(?:ramp(?:ed|ing)?|ramp[- ]?up)\b|(?:증설|램프업)", re.IGNORECASE),
         "restart": re.compile(r"\b(?:resume(?:d)?|restart(?:ed)?)\b|(?:재개|재가동)", re.IGNORECASE),
@@ -615,6 +615,17 @@ def _source_supported_visible_fields(source):
     return set(VISIBLE_COPY_FIELDS)
 
 
+def _evidence_tokens(source):
+    tokens=set()
+    if not isinstance(source,dict):
+        return tokens
+    for key in ("id","source_id","url","source_url","canonical_url"):
+        value=source.get(key)
+        if _nonempty_text(value):
+            tokens.add(value.strip())
+    return tokens
+
+
 def _add_evidence_tokens(token_support, source, fields):
     if not fields:
         return
@@ -626,12 +637,21 @@ def _add_evidence_tokens(token_support, source, fields):
 
 def _row_evidence_token_support(row):
     token_support={}
+    explicitly_excluded=set()
     if not isinstance(row,dict):
         return token_support
     sources=row.get("fact_sources",[]) if isinstance(row.get("fact_sources"),list) else []
     for source in sources:
-        if isinstance(source,dict):
-            _add_evidence_tokens(token_support,source,_source_supported_visible_fields(source))
+        if not isinstance(source,dict):
+            continue
+        fields=_source_supported_visible_fields(source)
+        tokens=_evidence_tokens(source)
+        if not fields:
+            explicitly_excluded.update(tokens)
+            for token in tokens:
+                token_support.pop(token,None)
+            continue
+        _add_evidence_tokens(token_support,source,fields)
     ledger=row.get("source_discovery_ledger",[]) if isinstance(row.get("source_discovery_ledger"),list) else []
     for entry in ledger:
         if not isinstance(entry,dict):
@@ -641,7 +661,15 @@ def _row_evidence_token_support(row):
         if not any(key in entry for key in ("visible_claim_support","visible_fields_supported","supports")):
             if outcome not in {"used_in_fact_sources","used_for_visible_claims","accepted_visible_evidence"}:
                 fields=set()
-        _add_evidence_tokens(token_support,entry,fields)
+        tokens=_evidence_tokens(entry)
+        if not fields:
+            explicitly_excluded.update(tokens)
+            for token in tokens:
+                token_support.pop(token,None)
+            continue
+        for token in tokens:
+            if token not in explicitly_excluded:
+                token_support.setdefault(token,set()).update(fields)
     coverage=row.get("claim_source_coverage")
     if isinstance(coverage,dict):
         visible=coverage.get("visible_fact")
@@ -650,7 +678,9 @@ def _row_evidence_token_support(row):
             if isinstance(refs,list):
                 for ref in refs:
                     if _nonempty_text(ref):
-                        token_support.setdefault(ref.strip(),set()).add("fact")
+                        token=ref.strip()
+                        if token not in explicitly_excluded:
+                            token_support.setdefault(token,set()).add("fact")
     return token_support
 
 
@@ -710,7 +740,11 @@ def _visible_value_text(value):
 
 
 def _canonical_numeric_text(raw):
-    value=raw.replace(",","")
+    value=raw
+    if re.fullmatch(r"\d{1,3}(?:,\d{3})+(?:\.\d+)?",value):
+        value=value.replace(",","")
+    elif "," in value and "." not in value:
+        value=value.replace(",",".")
     if "." in value:
         value=value.rstrip("0").rstrip(".")
     if value.startswith("."):
@@ -967,8 +1001,11 @@ def _materialized_operation_card(kind, op, expected, known, inserted, baseline_c
             raise Blocked(f"{label} update target {cid} missing from declared baseline")
         card=copy.deepcopy(base)
         changes=op.get("changes")
-        if not isinstance(changes,list):
-            raise Blocked(f"{label}.changes must be array")
+        if not isinstance(changes,list) or not changes:
+            raise Blocked(f"{label}.changes must be non-empty array")
+        paths=[change.get("path") if isinstance(change,dict) else None for change in changes]
+        if len(paths)!=len(set(paths)):
+            raise Blocked(f"{label}.changes contains duplicate paths")
         for index,change in enumerate(changes):
             _apply_json_change(card,change,f"{label}.changes[{index}]")
         return card

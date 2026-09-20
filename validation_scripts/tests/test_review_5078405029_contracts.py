@@ -66,7 +66,7 @@ class Review5078405029ContractsTest(unittest.TestCase):
                     "source_spec_id": "SPEC_1",
                     "content_enriched": True,
                     "language_terminology_polished": True,
-                    "fact": "Substantive changed fact with a quantitative anchor and bounded current state.",
+                    "fact": "Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.",
                     "fact_sources": [
                         {
                             "source_id": "SRC_FIX",

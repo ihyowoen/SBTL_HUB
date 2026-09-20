@@ -13,11 +13,22 @@ NEW_DENSE_FACT = (
     "target remains subject to certification."
 )
 
+SOURCE_QUOTE = (
+    "Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh "
+    "and 2.5 GWh; target remains subject to certification; capacity is 10 MW / 10 MWh."
+)
+SOURCE = {
+    "source_id": "SRC1",
+    "source_url": "https://example.test/source",
+    "source_quote": SOURCE_QUOTE,
+}
+
 VISIBLE = {
     "sub": "same sub",
     "gate": "same gate",
     "fact": DENSE_FACT,
     "implication": ["same implication"],
+    "fact_sources": [SOURCE],
 }
 
 
@@ -50,7 +61,7 @@ def density(*, supported=4, changed_state=True, bind_dimensions=False):
 
 
 def rows(row_06):
-    source = {"source_id": "SRC1", "source_url": "https://example.test/source"}
+    source = dict(SOURCE)
     return {
         "B": [{"source_spec_id": "SPEC", "fact_sources": [source]}],
         "C": [{"source_spec_id": "SPEC", **VISIBLE, "fact_sources": [source]}],
@@ -97,7 +108,7 @@ def row06(**overrides):
     base = {
         "source_spec_id": "SPEC",
         **VISIBLE,
-        "fact_sources": [{"source_id": "SRC1", "source_url": "https://example.test/source"}],
+        "fact_sources": [dict(SOURCE)],
         "content_enriched": True,
     }
     base.update(overrides)
@@ -661,6 +672,98 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             "do not support the mapped visible fields" in x.get("message", "")
             for x in findings
         ))
+
+    def test_added_quantitative_signal_must_exist_in_referenced_upstream_evidence(self):
+        prior = "Capacity is 10 MW"
+        current = "Capacity is 999 MW"
+        focused = audit_for_dimensions(["fact"], ["quantitative_anchor"])
+        row = row06(
+            fact=current,
+            fact_sources=[{
+                "source_id": "SRC1",
+                "source_url": "https://example.test/source",
+                "source_quote": "The project has a capacity of 10 MW.",
+            }],
+            content_enrichment_audit=focused,
+        )
+        chain = rows(row)
+        source_10 = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "The project has a capacity of 10 MW.",
+        }
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source_10]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "not grounded.*source quote/claim evidence"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source_10]},
+            )
+
+    def test_negated_changed_state_markers_do_not_count_as_realized_state(self):
+        text = (
+            "Previously planned 10 MW project has not started and is not approved "
+            "because supply costs may rise."
+        )
+        focused = audit(
+            [], no_change=True, supported=5,
+            reason="Negated execution markers are not realized current state.",
+            bind_dimensions=True,
+        )
+        row = row06(fact=text, content_enrichment_audit=focused)
+        chain = rows(row)
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = text
+        with self.assertRaisesRegex(binding.Blocked, "changed_state.*claimed but not expressed|claimed but not expressed"):
+            binding.validate_content_enrichment_delta(
+                chain, "insert[0]",
+                operation_card={**VISIBLE, "fact": text},
+            )
+
+    def test_leading_zero_numeric_anchor_is_canonicalized(self):
+        self.assertEqual(
+            binding._signal_values("quantitative_anchor", "Capacity is 10 MW"),
+            binding._signal_values("quantitative_anchor", "Capacity is 010 MW"),
+        )
+
+    def test_leading_zero_numeric_formatting_only_change_does_not_qualify(self):
+        prior = "Capacity is 10 MW"
+        current = "Capacity is 010 MW"
+        row = row06(
+            fact=current,
+            content_enrichment_audit=audit_for_dimensions(["fact"], ["quantitative_anchor"]),
+        )
+        chain = rows(row)
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "machine-detectable newly added/deepened"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current},
+            )
+
+    def test_malformed_locked_base_sha_fails_closed(self):
+        locked, declared, error = stage_contract._artifact_locked_prompt_06_version({
+            "base_main_commit_sha": "abc123",
+            "prompt_provenance": {"prompt_version": "PROMPT_0_6_V4_20260901"},
+        })
+        self.assertIsNone(locked)
+        self.assertEqual(declared, "PROMPT_0_6_V4_20260901")
+        self.assertIn("malformed", error)
+
+    def test_materialized_operation_must_preserve_bound_evidence_package(self):
+        row = row06(
+            fact=NEW_DENSE_FACT,
+            content_enrichment_audit=audit(["fact"]),
+        )
+        operation = {**VISIBLE, "fact": NEW_DENSE_FACT}
+        operation.pop("fact_sources", None)
+        with self.assertRaisesRegex(binding.Blocked, "does not preserve bound evidence ref SRC1"):
+            binding.validate_content_enrichment_delta(
+                rows(row), "update[0]", operation_card=operation,
+            )
 
     def test_boolean_supported_dimension_count_is_rejected(self):
         one_dimension = {

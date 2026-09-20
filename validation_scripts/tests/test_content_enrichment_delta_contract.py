@@ -211,6 +211,14 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         self.assertEqual(binding._normalize_text(struck), struck)
         self.assertEqual(stage_contract._normalize_text(struck), struck)
 
+    def test_html_deletion_tags_remain_semantically_distinct(self):
+        plain = "Project approved"
+        for deleted in ("<del>Project approved</del>", "<s>Project approved</s>"):
+            self.assertNotEqual(binding._normalize_text(plain), binding._normalize_text(deleted))
+            self.assertNotEqual(stage_contract._normalize_text(plain), stage_contract._normalize_text(deleted))
+            self.assertEqual(binding._normalize_text(deleted), deleted)
+            self.assertEqual(stage_contract._normalize_text(deleted), deleted)
+
     def test_comparison_expressions_survive_markup_normalization(self):
         self.assertEqual(
             binding._normalize_text("loss <0.7% and density >300 kW/L"),
@@ -455,6 +463,27 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             rows(row), "insert[0]", operation_card=VISIBLE,
         )
 
+    def test_planned_production_does_not_satisfy_changed_state(self):
+        planned = (
+            "Previously, planned production of 10 MW remains subject to approval "
+            "because supply costs may rise."
+        )
+        focused = audit(
+            [], no_change=True, supported=5,
+            reason="Planned production is not a realized current-state change.",
+            bind_dimensions=True,
+        )
+        row = row06(fact=planned, content_enrichment_audit=focused)
+        chain = rows(row)
+        chain["C"][0]["fact"] = planned
+        chain["0.4"][0]["fact"] = planned
+        chain["0.5"][0]["fact"] = planned
+        with self.assertRaisesRegex(binding.Blocked, "changed_state.*claimed but not expressed|claimed but not expressed"):
+            binding.validate_content_enrichment_delta(
+                chain, "insert[0]",
+                operation_card={**VISIBLE, "fact": planned},
+            )
+
     def test_zero_delta_weak_density_is_blocked(self):
         row = row06(
             content_enrichment_audit=audit(
@@ -571,6 +600,67 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
                 chain, "update[0]",
                 operation_card={**VISIBLE, "fact": NEW_DENSE_FACT},
             )
+
+    def test_canonical_visible_supports_field_limits_ledger_scope(self):
+        row = row06(
+            fact=NEW_DENSE_FACT,
+            content_enrichment_audit=audit(["fact"]),
+        )
+        chain = rows(row)
+        ledger = [{
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "outcome": "used_in_fact_sources",
+            "visible_supports": ["sub"],
+        }]
+        chain["B"][0].pop("fact_sources", None)
+        chain["C"][0].pop("fact_sources", None)
+        chain["B"][0]["source_discovery_ledger"] = ledger
+        chain["C"][0]["source_discovery_ledger"] = ledger
+        with self.assertRaisesRegex(binding.Blocked, "do not support mapped visible fields"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": NEW_DENSE_FACT},
+            )
+
+    def test_nearest_stage_exclusion_overrides_older_positive_evidence(self):
+        row = row06(
+            fact=NEW_DENSE_FACT,
+            content_enrichment_audit=audit(["fact"]),
+        )
+        chain = rows(row)
+        chain["0.5"][0]["fact_sources"] = [{
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "role": "checked_not_used_for_visible_claims",
+            "visible_claim_support": [],
+        }]
+        with self.assertRaisesRegex(
+            binding.Blocked,
+            "bound upstream source evidence support|unbound evidence refs|do not support mapped visible fields",
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": NEW_DENSE_FACT},
+            )
+
+    def test_stage_checker_honors_canonical_visible_supports_scope(self):
+        item = row06(
+            fact=NEW_DENSE_FACT,
+            content_enrichment_audit=audit(["fact"]),
+            fact_sources=[],
+            source_discovery_ledger=[{
+                "source_id": "SRC1",
+                "source_url": "https://example.test/source",
+                "outcome": "used_in_fact_sources",
+                "visible_supports": ["sub"],
+            }],
+        )
+        findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
+        self.assertTrue(any(
+            "do not support the mapped visible fields" in x.get("message", "")
+            for x in findings
+        ))
 
     def test_boolean_supported_dimension_count_is_rejected(self):
         one_dimension = {
@@ -750,6 +840,13 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             x.get("field", "").endswith("dimension_evidence.changed_state.fields")
             for x in findings
         ))
+
+    def test_duplicate_update_targets_are_rejected_before_materialization(self):
+        with self.assertRaisesRegex(binding.Blocked, "duplicate target id CARD1"):
+            binding._validate_unique_update_targets([
+                {"id": "CARD1", "changes": [{"op": "replace", "path": "/fact", "value": "a"}]},
+                {"id": "CARD1", "changes": [{"op": "replace", "path": "/fact", "value": "b"}]},
+            ])
 
     def test_python_materializer_rejects_empty_update_change_list(self):
         with self.assertRaisesRegex(binding.Blocked, "non-empty array"):

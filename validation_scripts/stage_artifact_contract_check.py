@@ -214,7 +214,7 @@ DENSITY_DIMENSIONS = (
 CONTENT_BASELINE_STRATEGY = "nearest_upstream_visible_copy_0.5_0.4_C"
 PROMPT_06_PATH = "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md"
 PRESENTATION_HTML_TAG_RE = re.compile(
-    r"</?(?:strong|b|em|i|u|s|del|mark|span|small|sub|sup)(?:\s+[^<>]*?)?\s*/?>",
+    r"</?(?:strong|b|em|i|u|mark|span|small|sub|sup)(?:\s+[^<>]*?)?\s*/?>",
     re.IGNORECASE,
 )
 
@@ -314,7 +314,7 @@ def _source_supported_visible_fields(source):
         return set()
     if str(source.get("role") or "").strip().lower() == "checked_not_used_for_visible_claims":
         return set()
-    explicit_keys = ("visible_claim_support", "visible_fields_supported", "supports")
+    explicit_keys = ("visible_claim_support", "visible_fields_supported", "visible_supports", "supports")
     present = [key for key in explicit_keys if key in source]
     if present:
         supported = set()
@@ -373,7 +373,7 @@ def _row_evidence_token_support(item):
             outcome = str(entry.get("outcome") or "").strip().lower()
             if not any(
                 key in entry
-                for key in ("visible_claim_support", "visible_fields_supported", "supports")
+                for key in ("visible_claim_support", "visible_fields_supported", "visible_supports", "supports")
             ):
                 if outcome not in {
                     "used_in_fact_sources",

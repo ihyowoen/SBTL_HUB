@@ -247,8 +247,10 @@ def _extract_prompt_06_version(text):
 def _artifact_locked_prompt_06_version(payload):
     provenance = payload.get("prompt_provenance") if isinstance(payload, dict) else None
     declared = provenance.get("prompt_version") if isinstance(provenance, dict) else None
-    base = payload.get("base_main_commit_sha") if isinstance(payload, dict) else None
-    if isinstance(base, str) and len(base) == 40:
+    if isinstance(payload, dict) and "base_main_commit_sha" in payload:
+        base = payload.get("base_main_commit_sha")
+        if not isinstance(base, str) or not re.fullmatch(r"[0-9a-fA-F]{40}", base):
+            return None, declared, f"locked Prompt 0.6 base_main_commit_sha is malformed: {base!r}"
         proc = subprocess.run(
             ["git", "-C", _REPO_ROOT, "show", f"{base}:{PROMPT_06_PATH}"],
             text=True, capture_output=True,

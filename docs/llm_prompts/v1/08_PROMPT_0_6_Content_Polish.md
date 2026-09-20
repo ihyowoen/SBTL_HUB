@@ -53,7 +53,7 @@ If none of the governed fields changed, `content_enriched=true` is allowed only 
 - `density_audit.status="PASS"`;
 - all six Deep Summary dimensions are audited as booleans;
 - `supported_dimension_count` is a non-boolean integer that exactly matches the true dimensions;
-- at least four dimensions are evidence-supported, including `changed_state`;
+- at least four dimensions are evidence-supported, including `changed_state`; `changed_state` requires an actual current execution/status signal and cannot be satisfied by a bare planned/target production noun;
 - `evidence_notes` is non-empty and explains why the unchanged copy is already sufficiently decision-useful;
 - every true density dimension is bound through `dimension_evidence` to at least one non-empty governed visible field and at least one concrete evidence token already present in the bound upstream B/C/0.5 evidence chain **and authorized there to support each mapped governed field**; a source explicitly marked context-only, checked-not-used, or with empty/nonmatching visible-field support (including canonical ledger `visible_supports`) cannot justify that dimension, and an explicit exclusion cannot be restored by contradictory `claim_source_coverage` or by older upstream stages. Evidence scope is resolved from the nearest authoritative upstream stage (`0.5 → 0.4 → C → B`). The mapped visible text itself must express the claimed dimension; placeholder copy plus a valid source token is insufficient. Prompt 0.6 may not introduce a new source token solely to justify density.
 

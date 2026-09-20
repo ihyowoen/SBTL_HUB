@@ -51,9 +51,23 @@ ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
 QUANT_SIGNAL_RE = re.compile(
     r"(?<![A-Za-z0-9])"
     r"(?P<currency>[$€£¥₩]?)"
-    r"(?P<number>(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?|\d+,\d+)"
+    r"(?P<number>\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+,\d+|\d+(?:\.\d+)?)"
     r"(?:\s*(?P<unit>%|x|k|m|bn|b|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
     r"(?![A-Za-z0-9])",
+    re.IGNORECASE,
+)
+EVIDENCE_TEXT_KEYS = (
+    "source_quote", "quote", "claim", "source_claim", "claim_text",
+    "visible_claim", "evidence_text", "source_excerpt", "excerpt",
+)
+NON_REALIZED_CHANGED_STATE_PREFIX_RE = re.compile(
+    r"(?:"
+    r"\b(?:not|never|without)\b(?:\s+\w+){0,3}\s*$"
+    r"|\bno\s+(?:current\s+)?(?:\w+\s+){0,2}$"
+    r"|\b(?:is|are|was|were|has|have|had|do|does|did|will|would|can|could)\s+not(?:\s+\w+){0,2}\s*$"
+    r"|\b(?:plan(?:ned)?|target(?:ed)?|expect(?:ed)?|propos(?:ed|al)|schedul(?:ed|ing))\b(?:\s+\w+){0,2}\s*$"
+    r"|n['’]t(?:\s+\w+){0,2}\s*$"
+    r")",
     re.IGNORECASE,
 )
 DIMENSION_CANONICAL_SIGNAL_RES = {
@@ -626,6 +640,49 @@ def _evidence_tokens(source):
     return tokens
 
 
+def _source_evidence_texts(source):
+    texts=[]
+    if not isinstance(source,dict):
+        return texts
+    for key in EVIDENCE_TEXT_KEYS:
+        value=source.get(key)
+        if _nonempty_text(value):
+            texts.append(value.strip())
+        elif isinstance(value,list):
+            texts.extend(x.strip() for x in value if _nonempty_text(x))
+    return list(dict.fromkeys(texts))
+
+
+def _row_evidence_token_texts(row):
+    token_texts={}
+    if not isinstance(row,dict):
+        return token_texts
+    for source in row.get("fact_sources",[]) if isinstance(row.get("fact_sources"),list) else []:
+        if not isinstance(source,dict) or not _source_supported_visible_fields(source):
+            continue
+        texts=_source_evidence_texts(source)
+        for token in _evidence_tokens(source):
+            if texts:
+                token_texts.setdefault(token,[]).extend(texts)
+    for entry in row.get("source_discovery_ledger",[]) if isinstance(row.get("source_discovery_ledger"),list) else []:
+        if not isinstance(entry,dict):
+            continue
+        fields=_source_supported_visible_fields(entry)
+        outcome=str(entry.get("outcome") or "").strip().lower()
+        if not any(
+            key in entry
+            for key in ("visible_claim_support","visible_fields_supported","visible_supports","supports")
+        ) and outcome not in {"used_in_fact_sources","used_for_visible_claims","accepted_visible_evidence"}:
+            fields=set()
+        if not fields:
+            continue
+        texts=_source_evidence_texts(entry)
+        for token in _evidence_tokens(entry):
+            if texts:
+                token_texts.setdefault(token,[]).extend(texts)
+    return {token:list(dict.fromkeys(texts)) for token,texts in token_texts.items()}
+
+
 def _add_evidence_tokens(token_support, source, fields):
     if not fields:
         return
@@ -710,6 +767,21 @@ def _upstream_evidence_token_support(rows_by_stage,label):
     return resolved_support
 
 
+def _upstream_evidence_token_texts(rows_by_stage,label,allowed_evidence_support):
+    allowed=set(allowed_evidence_support)
+    token_texts={token:[] for token in allowed}
+    for stage_name in ("0.5","0.4","C","B"):
+        row=_single_bound_row(rows_by_stage,stage_name,label)
+        for token,texts in _row_evidence_token_texts(row).items():
+            if token in allowed:
+                token_texts.setdefault(token,[]).extend(texts)
+    return {
+        token:list(dict.fromkeys(texts))
+        for token,texts in token_texts.items()
+        if texts
+    }
+
+
 def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowed_evidence_support):
     mapping=density.get("dimension_evidence")
     if not isinstance(mapping,dict) or set(mapping)!=set(true_dimensions):
@@ -762,11 +834,19 @@ def _canonical_numeric_text(raw):
         value=value.replace(",","")
     elif "," in value and "." not in value:
         value=value.replace(",",".")
-    if "." in value:
-        value=value.rstrip("0").rstrip(".")
-    if value.startswith("."):
-        value="0"+value
+    whole,sep,fraction=value.partition(".")
+    whole=whole.lstrip("0") or "0"
+    if sep:
+        fraction=fraction.rstrip("0")
+        value=whole+(("." + fraction) if fraction else "")
+    else:
+        value=whole
     return value or "0"
+
+
+def _changed_state_match_is_realized(text,match):
+    prefix=text[max(0,match.start()-64):match.start()]
+    return NON_REALIZED_CHANGED_STATE_PREFIX_RE.search(prefix) is None
 
 
 def _signal_values(dimension, text):
@@ -779,11 +859,14 @@ def _signal_values(dimension, text):
             values.add(f"{currency}{number}{(' '+unit) if unit else ''}")
         return values
     patterns=DIMENSION_CANONICAL_SIGNAL_RES.get(dimension,{})
-    return {
-        marker
-        for marker,pattern in patterns.items()
-        if pattern.search(text)
-    }
+    values=set()
+    for marker,pattern in patterns.items():
+        matches=list(pattern.finditer(text))
+        if dimension=="changed_state":
+            matches=[match for match in matches if _changed_state_match_is_realized(text,match)]
+        if matches:
+            values.add(marker)
+    return values
 
 
 def _governed_copy_dimension_signals(dimension, normalized_by_field):
@@ -816,7 +899,7 @@ def _validate_claimed_dimension_text(density, row_06, label, true_dimensions):
 
 
 def _validate_substantive_dimension_delta(
-    density, row_06, label, actual_changed, upstream_normalized
+    density, row_06, label, actual_changed, upstream_normalized, allowed_evidence_texts
 ):
     mapping=density.get("dimension_evidence")
     changed=set(actual_changed)
@@ -839,11 +922,27 @@ def _validate_substantive_dimension_delta(
                 _signal_values(dimension,_visible_value_text(current_normalized.get(field)))
             )
         added=sorted(current_mapped_signals-upstream_signals)
+        refs=[
+            ref.strip() for ref in entry.get("evidence_refs",[])
+            if _nonempty_text(ref)
+        ]
+        evidence_signals=set()
+        for ref in refs:
+            for evidence_text in allowed_evidence_texts.get(ref,[]):
+                evidence_signals.update(_signal_values(dimension,evidence_text))
+        ungrounded=sorted(set(added)-evidence_signals)
         diagnostics[dimension]={
             "mapped_changed_fields": mapped_changed,
             "added": added,
             "upstream_all_governed": sorted(upstream_signals),
+            "evidence_signals": sorted(evidence_signals),
+            "ungrounded": ungrounded,
         }
+        if ungrounded:
+            raise Blocked(
+                f"{label} changed 0.6 dimension {dimension} introduces signals not grounded "
+                f"in referenced upstream source quote/claim evidence: {ungrounded}"
+            )
         if added:
             qualifying.append((dimension,mapped_changed,added))
     if not qualifying:
@@ -917,6 +1016,70 @@ def _validate_operation_visible_copy(row_06, operation_card, label):
             mismatches.append(field)
     if mismatches:
         raise Blocked(f"{label} applied operation visible copy does not match audited 0.6 fields {mismatches}")
+
+
+def _materialized_card_evidence_support(card):
+    support={}
+    excluded=set()
+    if not isinstance(card,dict):
+        return support
+    for source in card.get("fact_sources",[]) if isinstance(card.get("fact_sources"),list) else []:
+        if not isinstance(source,dict):
+            continue
+        fields=_source_supported_visible_fields(source)
+        tokens=_evidence_tokens(source)
+        if not fields:
+            excluded.update(tokens)
+            for token in tokens:
+                support.pop(token,None)
+            continue
+        for token in tokens:
+            if token not in excluded:
+                support.setdefault(token,set()).update(fields)
+    for entry in card.get("source_discovery_ledger",[]) if isinstance(card.get("source_discovery_ledger"),list) else []:
+        if not isinstance(entry,dict):
+            continue
+        fields=_source_supported_visible_fields(entry)
+        outcome=str(entry.get("outcome") or "").strip().lower()
+        if not any(
+            key in entry
+            for key in ("visible_claim_support","visible_fields_supported","visible_supports","supports")
+        ) and outcome not in {"used_in_fact_sources","used_for_visible_claims","accepted_visible_evidence"}:
+            fields=set()
+        tokens=_evidence_tokens(entry)
+        if not fields:
+            excluded.update(tokens)
+            for token in tokens:
+                support.pop(token,None)
+            continue
+        for token in tokens:
+            if token not in excluded:
+                support.setdefault(token,set()).update(fields)
+    return support
+
+
+def _validate_materialized_operation_evidence(density, operation_card, label):
+    mapping=density.get("dimension_evidence") if isinstance(density,dict) else None
+    if not isinstance(mapping,dict):
+        return
+    support=_materialized_card_evidence_support(operation_card)
+    for dimension,entry in mapping.items():
+        if not isinstance(entry,dict):
+            continue
+        fields=set(entry.get("fields",[])) if isinstance(entry.get("fields"),list) else set()
+        refs=[ref.strip() for ref in entry.get("evidence_refs",[]) if _nonempty_text(ref)] if isinstance(entry.get("evidence_refs"),list) else []
+        for ref in refs:
+            if ref not in support:
+                raise Blocked(
+                    f"{label} materialized operation card does not preserve bound evidence ref {ref} "
+                    f"for dimension {dimension}"
+                )
+            missing=fields-support.get(ref,set())
+            if missing:
+                raise Blocked(
+                    f"{label} materialized operation evidence ref {ref} no longer supports "
+                    f"mapped fields {sorted(missing)} for dimension {dimension}"
+                )
 
 
 def _json_pointer_parts(path, label):
@@ -1091,6 +1254,9 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
             raise Blocked(f"{label} zero-delta 0.6 requires explicit no_change_reason")
 
     allowed_evidence_support=_upstream_evidence_token_support(rows_by_stage,label)
+    allowed_evidence_texts=_upstream_evidence_token_texts(
+        rows_by_stage,label,allowed_evidence_support
+    )
     _validate_density_audit(
         audit,row_06,label,no_change=not actual_changed,actual_changed=actual_changed,
         allowed_evidence_support=allowed_evidence_support,
@@ -1098,9 +1264,13 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
     if actual_changed:
         _validate_substantive_dimension_delta(
             audit["density_audit"],row_06,label,actual_changed,upstream_normalized,
+            allowed_evidence_texts,
         )
     if operation_card is not None:
         _validate_operation_visible_copy(row_06,operation_card,label)
+        _validate_materialized_operation_evidence(
+            audit["density_audit"],operation_card,label
+        )
 
 
 def validate_source_diversity_chain(rows_by_stage,label):

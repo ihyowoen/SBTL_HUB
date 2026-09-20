@@ -19,6 +19,7 @@ if _REPO_ROOT not in sys.path:
 
 from validation_scripts.stage_a_v4_contract import validate_stage_a_v4_spec
 from validation_scripts.stage_a_v4_hardening import validate_stage_a_v4_hardening
+from validation_scripts import card_run_v4_binding_hardening as _content_binding
 
 STAGE_TOP_LEVEL = {
     "A": [
@@ -325,6 +326,17 @@ def _source_supported_visible_fields(source):
     return set(VISIBLE_COPY_FIELDS)
 
 
+def _evidence_tokens(source):
+    tokens = set()
+    if not isinstance(source, dict):
+        return tokens
+    for key in ("id", "source_id", "url", "source_url", "canonical_url"):
+        value = source.get(key)
+        if _non_empty_string(value):
+            tokens.add(value.strip())
+    return tokens
+
+
 def _add_evidence_support(token_support, source, fields):
     if not fields or not isinstance(source, dict):
         return
@@ -336,15 +348,22 @@ def _add_evidence_support(token_support, source, fields):
 
 def _row_evidence_token_support(item):
     token_support = {}
+    explicitly_excluded = set()
     if not isinstance(item, dict):
         return token_support
     sources = item.get("fact_sources")
     if isinstance(sources, list):
         for source in sources:
-            if isinstance(source, dict):
-                _add_evidence_support(
-                    token_support, source, _source_supported_visible_fields(source)
-                )
+            if not isinstance(source, dict):
+                continue
+            fields = _source_supported_visible_fields(source)
+            tokens = _evidence_tokens(source)
+            if not fields:
+                explicitly_excluded.update(tokens)
+                for token in tokens:
+                    token_support.pop(token, None)
+                continue
+            _add_evidence_support(token_support, source, fields)
     ledger = item.get("source_discovery_ledger")
     if isinstance(ledger, list):
         for entry in ledger:
@@ -362,7 +381,15 @@ def _row_evidence_token_support(item):
                     "accepted_visible_evidence",
                 }:
                     fields = set()
-            _add_evidence_support(token_support, entry, fields)
+            tokens = _evidence_tokens(entry)
+            if not fields:
+                explicitly_excluded.update(tokens)
+                for token in tokens:
+                    token_support.pop(token, None)
+                continue
+            for token in tokens:
+                if token not in explicitly_excluded:
+                    token_support.setdefault(token, set()).update(fields)
     coverage = item.get("claim_source_coverage")
     if isinstance(coverage, dict):
         visible = coverage.get("visible_fact")
@@ -371,8 +398,30 @@ def _row_evidence_token_support(item):
             if isinstance(refs, list):
                 for ref in refs:
                     if _non_empty_string(ref):
-                        token_support.setdefault(ref.strip(), set()).add("fact")
+                        token = ref.strip()
+                        if token not in explicitly_excluded:
+                            token_support.setdefault(token, set()).add("fact")
     return token_support
+
+
+def _visible_value_text(value):
+    if value is None:
+        return ""
+    if isinstance(value, tuple):
+        return " | ".join(value)
+    return str(value)
+
+
+def _mapped_dimension_signals(item, dimension, fields):
+    signals = set()
+    for field in fields:
+        signals.update(
+            _content_binding._signal_values(
+                dimension,
+                _visible_value_text(_normalized_visible_value(field, item.get(field))),
+            )
+        )
+    return signals
 
 
 def _dimension_evidence_findings(item, density, scope, true_dimensions):
@@ -422,6 +471,12 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                     scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.fields",
                     "only non-empty governed visible fields", fields,
                     f"dimension evidence references empty/missing fields {empty_refs}",
+                ))
+            elif not _mapped_dimension_signals(item, name, fields):
+                findings.append(_field_finding(
+                    scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.fields",
+                    "mapped visible text expressing the claimed Deep Summary dimension", fields,
+                    "dimension is claimed but not expressed by any mapped governed field",
                 ))
         refs = entry.get("evidence_refs")
         if not isinstance(refs, list) or not refs or any(not _non_empty_string(x) for x in refs):

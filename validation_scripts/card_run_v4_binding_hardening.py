@@ -52,10 +52,13 @@ QUANT_SIGNAL_RE = re.compile(
     r"(?<![A-Za-z0-9])"
     r"(?P<currency>[$€£¥₩]?)"
     r"(?P<number>\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+,\d+|\d+(?:\.\d+)?)"
-    r"(?:\s*(?P<unit>%|x|k|m|bn|b|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
+    r"(?:\s*(?P<magnitude>thousand|million|billion|trillion|mn|bn|tn|k|m|b)\b)?"
+    r"(?:\s*(?P<currency_code>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\b)?"
+    r"(?:\s*(?P<unit>%|x|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
     r"(?![A-Za-z0-9])",
     re.IGNORECASE,
 )
+
 EVIDENCE_TEXT_KEYS = (
     "source_quote", "quote", "claim", "source_claim", "claim_text",
     "visible_claim", "evidence_text", "source_excerpt", "excerpt",
@@ -82,14 +85,22 @@ TENTATIVE_CHANGED_STATE_PREFIX_RE = re.compile(
     r")",
     re.IGNORECASE,
 )
+NON_REALIZED_CHANGED_STATE_SUFFIX_RE = re.compile(
+    r"^\s*(?:"
+    r"(?:has|have|had|is|are|was|were|will|would|can|could)?\s*(?:not|never|n['’]t)\b"
+    r"|not\s+yet\b"
+    r"|(?:is|are|remains?|remain)\s+(?:planned|targeted|expected|scheduled)\b"
+    r")",
+    re.IGNORECASE,
+)
 DIMENSION_CANONICAL_SIGNAL_RES = {
     "prior_state": {
         "prior_state": re.compile(r"\b(?:previous(?:ly)?|prior|earlier|before|formerly|versus|vs\.?|compared\s+with|year[- ]ago|last\s+year)\b|(?:이전|종전|기존|직전|전년|과거|당초)", re.IGNORECASE),
     },
     "changed_state": {
         "production_operation": re.compile(r"\b(?:commercial\s+production|commission(?:ed|ing)?|operational|in\s+operation|produc(?:ing|ed))\b|(?:상업생산|가동|양산)", re.IGNORECASE),
-        "construction": re.compile(r"\b(?:groundbreak(?:ing)?|construction)\b|(?:착공|건설)", re.IGNORECASE),
-        "shipment_launch": re.compile(r"\b(?:shipment|ship(?:ped|ping)?|launch(?:ed)?)\b|(?:출하|출시)", re.IGNORECASE),
+        "construction": re.compile(r"\b(?:broke\s+ground|groundbreak(?:ing)?|under\s+construction|construction\s+(?:began|started|commenced|completed|is\s+underway))\b|(?:착공|건설\s*(?:중|시작|완료))", re.IGNORECASE),
+        "shipment_launch": re.compile(r"\b(?:ship(?:ped|ping)?|launch(?:ed)?)\b|(?:출하|출시)", re.IGNORECASE),
         "commencement": re.compile(r"\b(?:start(?:ed|ing)?|begin|began|begun|commence(?:d|ment)?)\b|(?:개시|시작)", re.IGNORECASE),
         "completion": re.compile(r"\b(?:complete(?:d)?)\b|(?:완공)", re.IGNORECASE),
         "ramp": re.compile(r"\b(?:ramp(?:ed|ing)?|ramp[- ]?up)\b|(?:증설|램프업)", re.IGNORECASE),
@@ -652,9 +663,29 @@ def _evidence_tokens(source):
     return tokens
 
 
+def _source_evidence_is_usable(source):
+    if not isinstance(source,dict):
+        return False
+    if source.get("fetched") is False:
+        return False
+    if source.get("resolved_article_matches_quote") is False:
+        return False
+    if source.get("headline_only") is True or source.get("rss_or_snippet_only") is True:
+        return False
+    negative_status=re.compile(
+        r"(?:fetch[_ -]?failed|\bfailed\b|\berror\b|unverif|not[_ -]?verified|mismatch|invalid|unresolved)",
+        re.IGNORECASE,
+    )
+    for key in ("source_quote_status","quote_status","claim_status","evidence_status","fetch_status"):
+        value=source.get(key)
+        if isinstance(value,str) and negative_status.search(value):
+            return False
+    return True
+
+
 def _source_evidence_texts(source):
     texts=[]
-    if not isinstance(source,dict):
+    if not isinstance(source,dict) or not _source_evidence_is_usable(source):
         return texts
     for key in EVIDENCE_TEXT_KEYS:
         value=source.get(key)
@@ -827,17 +858,24 @@ def _upstream_evidence_token_support(rows_by_stage,label):
 
 def _upstream_evidence_token_texts(rows_by_stage,label,allowed_evidence_support):
     allowed=set(allowed_evidence_support)
-    token_texts={token:[] for token in allowed}
+    resolved={}
+    unresolved=set(allowed)
     for stage_name in ("0.5","0.4","C","B"):
+        if not unresolved:
+            break
         row=_single_bound_row(rows_by_stage,stage_name,label)
-        for token,texts in _row_evidence_token_texts(row).items():
-            if token in allowed:
-                token_texts.setdefault(token,[]).extend(texts)
-    return {
-        token:list(dict.fromkeys(texts))
-        for token,texts in token_texts.items()
-        if texts
-    }
+        stage_support,stage_excluded=_row_evidence_token_state(row)
+        stage_texts=_row_evidence_token_texts(row)
+        for token in list(unresolved):
+            if token in stage_excluded:
+                unresolved.remove(token)
+                continue
+            if token in stage_support:
+                texts=stage_texts.get(token,[])
+                if texts:
+                    resolved[token]=list(dict.fromkeys(texts))
+                unresolved.remove(token)
+    return resolved
 
 
 def _upstream_evidence_token_packages(rows_by_stage,label,allowed_evidence_support):
@@ -848,11 +886,16 @@ def _upstream_evidence_token_packages(rows_by_stage,label,allowed_evidence_suppo
         if not unresolved:
             break
         row=_single_bound_row(rows_by_stage,stage_name,label)
+        stage_support,stage_excluded=_row_evidence_token_state(row)
         stage_packages=_row_evidence_token_packages(row)
         for token in list(unresolved):
-            packages=stage_packages.get(token)
-            if packages:
-                resolved[token]=packages
+            if token in stage_excluded:
+                unresolved.remove(token)
+                continue
+            if token in stage_support:
+                packages=stage_packages.get(token,[])
+                if packages:
+                    resolved[token]=packages
                 unresolved.remove(token)
     return resolved
 
@@ -919,19 +962,42 @@ def _canonical_numeric_text(raw):
     return value or "0"
 
 
+MAGNITUDE_CANONICAL = {
+    "thousand":"k", "k":"k",
+    "million":"m", "mn":"m", "m":"m",
+    "billion":"bn", "bn":"bn", "b":"bn",
+    "trillion":"tn", "tn":"tn",
+}
+
+
+def _quantitative_signal_from_match(match):
+    number=_canonical_numeric_text(match.group("number"))
+    currency=(match.group("currency") or "").lower()
+    magnitude=MAGNITUDE_CANONICAL.get((match.group("magnitude") or "").lower(),"")
+    currency_code=(match.group("currency_code") or "").lower()
+    unit=(match.group("unit") or "").lower()
+    suffix=[x for x in (magnitude,currency_code,unit) if x]
+    return f"{currency}{number}{(' ' + ' '.join(suffix)) if suffix else ''}"
+
+
 def _quantitative_signal_kind(signal):
     match=re.fullmatch(
-        r"(?P<currency>[$€£¥₩]?)(?P<number>\d+(?:\.\d+)?)(?:\s+(?P<unit>\S+))?",
+        r"(?P<currency>[$€£¥₩]?)(?P<number>\d+(?:\.\d+)?)(?:\s+(?P<suffix>.+))?",
         signal,
     )
     if not match:
         return None
-    return ((match.group("currency") or "").lower(), (match.group("unit") or "").lower())
+    suffix=tuple((match.group("suffix") or "").lower().split())
+    return ((match.group("currency") or "").lower(),suffix)
+
 
 
 def _changed_state_match_strength(text,match):
     prefix=text[max(0,match.start()-64):match.start()]
+    suffix=text[match.end():min(len(text),match.end()+64)]
     if NON_REALIZED_CHANGED_STATE_PREFIX_RE.search(prefix):
+        return 0
+    if NON_REALIZED_CHANGED_STATE_SUFFIX_RE.search(suffix):
         return 0
     if TENTATIVE_CHANGED_STATE_PREFIX_RE.search(prefix):
         return 1
@@ -964,31 +1030,37 @@ def _governed_copy_dimension_strengths(dimension,normalized_by_field):
     return strengths
 
 
-def _signal_values(dimension, text):
+def _signal_counter(dimension,text):
+    counts=Counter()
     if dimension=="quantitative_anchor":
-        values=set()
         for match in QUANT_SIGNAL_RE.finditer(text):
-            number=_canonical_numeric_text(match.group("number"))
-            currency=(match.group("currency") or "").lower()
-            unit=(match.group("unit") or "").lower()
-            values.add(f"{currency}{number}{(' '+unit) if unit else ''}")
-        return values
+            counts[_quantitative_signal_from_match(match)]+=1
+        return counts
     patterns=DIMENSION_CANONICAL_SIGNAL_RES.get(dimension,{})
-    values=set()
     for marker,pattern in patterns.items():
-        matches=list(pattern.finditer(text))
-        if dimension=="changed_state":
-            matches=[match for match in matches if _changed_state_match_is_realized(text,match)]
-        if matches:
-            values.add(marker)
-    return values
+        for match in pattern.finditer(text):
+            if dimension=="changed_state" and not _changed_state_match_is_realized(text,match):
+                continue
+            counts[marker]+=1
+    return counts
+
+
+def _signal_values(dimension, text):
+    return set(_signal_counter(dimension,text))
+
+
+def _governed_copy_dimension_signal_counts(dimension,normalized_by_field):
+    counts=Counter()
+    for field in VISIBLE_COPY_FIELDS:
+        counts.update(
+            _signal_counter(dimension,_visible_value_text(normalized_by_field.get(field)))
+        )
+    return counts
 
 
 def _governed_copy_dimension_signals(dimension, normalized_by_field):
-    signals=set()
-    for field in VISIBLE_COPY_FIELDS:
-        signals.update(_signal_values(dimension,_visible_value_text(normalized_by_field.get(field))))
-    return signals
+    return set(_governed_copy_dimension_signal_counts(dimension,normalized_by_field))
+
 
 
 def _validate_claimed_dimension_text(density, row_06, label, true_dimensions):

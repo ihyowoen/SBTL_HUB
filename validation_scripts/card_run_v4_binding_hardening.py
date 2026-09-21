@@ -1545,7 +1545,8 @@ def _governed_factual_claim_counts(normalized_by_field):
 
 
 def _validate_changed_factual_grounding(
-    density,current_normalized,upstream_normalized,actual_changed,allowed_evidence_texts,label
+    density,current_normalized,upstream_normalized,actual_changed,
+    allowed_evidence_texts,allowed_evidence_packages,label
 ):
     mapping=density.get("dimension_evidence") if isinstance(density,dict) else {}
     upstream_all=_governed_factual_claim_counts(upstream_normalized)
@@ -1578,6 +1579,7 @@ def _validate_changed_factual_grounding(
                 for ref in entry.get("evidence_refs",[]) if isinstance(entry.get("evidence_refs"),list) else []:
                     if _nonempty_text(ref) and ref.strip() not in refs:
                         refs.append(ref.strip())
+        refs=_unique_evidence_refs_by_identity(refs,allowed_evidence_packages)
         evidence_counts=Counter()
         for ref in refs:
             for evidence_text in allowed_evidence_texts.get(ref,[]):
@@ -1641,7 +1643,8 @@ def _validate_claimed_dimension_text(density, row_06, label, true_dimensions):
 
 
 def _validate_claimed_dimension_evidence_grounding(
-    density,row_06,label,true_dimensions,allowed_evidence_texts
+    density,row_06,label,true_dimensions,
+    allowed_evidence_texts,allowed_evidence_packages
 ):
     mapping=density.get("dimension_evidence") if isinstance(density,dict) else None
     for dimension in true_dimensions:
@@ -1653,6 +1656,7 @@ def _validate_claimed_dimension_evidence_grounding(
             ref.strip() for ref in entry.get("evidence_refs",[])
             if _nonempty_text(ref)
         ] if isinstance(entry.get("evidence_refs"),list) else []
+        refs=_unique_evidence_refs_by_identity(refs,allowed_evidence_packages)
         visible_counts=Counter()
         for field in fields:
             visible_counts.update(
@@ -1681,7 +1685,8 @@ def _validate_claimed_dimension_evidence_grounding(
 
 
 def _validate_substantive_dimension_delta(
-    density, row_06, label, actual_changed, upstream_normalized, allowed_evidence_texts
+    density,row_06,label,actual_changed,upstream_normalized,
+    allowed_evidence_texts,allowed_evidence_packages
 ):
     mapping=density.get("dimension_evidence")
     changed=set(actual_changed)
@@ -1788,6 +1793,7 @@ def _validate_substantive_dimension_delta(
                 ref.strip() for ref in entry.get("evidence_refs",[])
                 if _nonempty_text(ref)
             ] if isinstance(entry.get("evidence_refs"),list) else []
+            refs=_unique_evidence_refs_by_identity(refs,allowed_evidence_packages)
             evidence_counts=Counter()
             evidence_strength_occurrences={}
             for ref in refs:
@@ -1802,6 +1808,36 @@ def _validate_substantive_dimension_delta(
                 signal:sorted(values)
                 for signal,values in evidence_strength_occurrences.items()
             }
+
+            subject_state_gaps={}
+            if dimension=="changed_state":
+                advancements=_state_subject_advancements(
+                    upstream_field_text,current_field_text
+                )
+                evidence_subject_occurrences={}
+                for ref in refs:
+                    for evidence_text in allowed_evidence_texts.get(ref,[]):
+                        for key,strengths in _state_subject_strength_occurrences(
+                            evidence_text
+                        ).items():
+                            evidence_subject_occurrences.setdefault(key,[]).extend(strengths)
+                evidence_subject_occurrences={
+                    key:sorted(values)
+                    for key,values in evidence_subject_occurrences.items()
+                }
+                for key,required_strengths in advancements.items():
+                    if not _strength_multiset_covers(
+                        required_strengths,evidence_subject_occurrences.get(key,[])
+                    ):
+                        subject_state_gaps[key]={
+                            "required_current_strengths":required_strengths,
+                            "evidence_strengths":evidence_subject_occurrences.get(key,[]),
+                        }
+                if subject_state_gaps:
+                    raise Blocked(
+                        f"{label} changed 0.6 changed_state subject/modality claims are not "
+                        f"grounded in referenced nearest-stage evidence: {subject_state_gaps}"
+                    )
 
             ungrounded_added={}
             for signal,count in added.items():
@@ -1867,7 +1903,7 @@ def _validate_substantive_dimension_delta(
 
     _validate_changed_factual_grounding(
         density,current_normalized,upstream_normalized,actual_changed,
-        allowed_evidence_texts,label,
+        allowed_evidence_texts,allowed_evidence_packages,label,
     )
 
     # Verified upstream substantive signals may not silently disappear. The one

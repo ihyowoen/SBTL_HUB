@@ -110,7 +110,7 @@ CLAUSE_BOUNDARY_RE = re.compile(
     re.IGNORECASE,
 )
 CLAUSE_NEGATION_RE = re.compile(
-    r"\b(?:not|never|without)\b|n['’]t\b",
+    r"\b(?:not|never|without|neither|nor)\b|n['’]t\b",
     re.IGNORECASE,
 )
 FACTUAL_IDENTITY_TOKEN_RE = re.compile(
@@ -151,6 +151,12 @@ GENERIC_FACTUAL_PREDICATE_RE = re.compile(
     r"(?P<verb_after_subject>[A-Za-z][A-Za-z-]{2,}(?:s|ed|ing))\b"
     r"\s+(?P<tail_after_subject>[^.;:!?]{1,120})"
     r")",
+)
+MODAL_FACTUAL_PREDICATE_RE = re.compile(
+    r"\b(?:can|could|may|might|will|would|must|should|shall)\s+"
+    r"(?:not\s+)?(?P<verb>[A-Za-z][A-Za-z-]+)\b"
+    r"\s+(?P<tail>[^.;:!?]{1,120})",
+    re.IGNORECASE,
 )
 FACTUAL_CONTENT_WORD_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9_-]{2,}\b|[가-힣]{2,}")
 FACTUAL_CONTENT_STOPWORDS = FACTUAL_IDENTITY_STOPWORDS | {
@@ -682,7 +688,11 @@ def _normalize_text(value):
     # are substantive visible copy.
     text=PRESENTATION_HTML_TAG_RE.sub("",text)
     text=re.sub(r"^\s{0,3}#{1,6}\s+","",text)
-    text=re.sub(r"^\s*[-+>]\s+","",text)
+    # A spaced leading sign/bound is part of a numeric claim, not markup.
+    text=re.sub(
+        r"^\s*[-+>]\s+(?!\s*(?:[$€£¥₩]?\d|USD\b|EUR\b|GBP\b|KRW\b|CNY\b|RMB\b|JPY\b|AUD\b|CAD\b|CHF\b|HKD\b|SGD\b))",
+        "",text,flags=re.IGNORECASE,
+    )
     text=_strip_paired_presentation_markup(text)
     return " ".join(text.split())
 
@@ -735,6 +745,11 @@ def _evidence_tokens(source):
 
 def _has_positive_fetch_metadata(source):
     if not isinstance(source,dict):
+        return False
+    if source.get("fetched") is False:
+        return False
+    status=str(source.get("fetch_status") or "").strip().lower()
+    if re.search(r"fail|error|timeout|timed_out|blocked|unavailable|not_fetched",status):
         return False
     if source.get("fetched") is True:
         return True
@@ -917,7 +932,34 @@ def _add_evidence_tokens(token_support, source, fields):
             token_support.setdefault(value.strip(),set()).update(fields)
 
 
-def _row_evidence_token_state(row):
+def _evidence_alias_groups(rows):
+    """Join source identifiers transitively, including aliases in older stages."""
+    groups=[]
+    for row in rows:
+        for key in ("fact_sources","source_discovery_ledger"):
+            for source in row.get(key,[]) if isinstance(row.get(key),list) else []:
+                tokens=_evidence_tokens(source)
+                if not tokens:
+                    continue
+                separate=[]
+                for group in groups:
+                    if group & tokens:
+                        tokens.update(group)
+                    else:
+                        separate.append(group)
+                groups=separate+[tokens]
+    return groups
+
+
+def _expand_evidence_aliases(tokens,groups):
+    expanded=set(tokens)
+    for group in groups:
+        if group & expanded:
+            expanded.update(group)
+    return expanded
+
+
+def _row_evidence_token_state(row,alias_groups=None):
     token_support={}
     explicitly_excluded=set()
     if not isinstance(row,dict):
@@ -968,6 +1010,10 @@ def _row_evidence_token_state(row):
                         token=ref.strip()
                         if token not in explicitly_excluded:
                             token_support.setdefault(token,set()).add("fact")
+    groups=_evidence_alias_groups([row]) if alias_groups is None else alias_groups
+    explicitly_excluded=_expand_evidence_aliases(explicitly_excluded,groups)
+    for token in explicitly_excluded:
+        token_support.pop(token,None)
     return token_support,explicitly_excluded
 
 
@@ -979,9 +1025,13 @@ def _row_evidence_token_support(row):
 def _upstream_evidence_token_support(rows_by_stage,label):
     resolved_support={}
     resolved_tokens=set()
+    aliases=_evidence_alias_groups([
+        _single_bound_row(rows_by_stage,stage_name,label)
+        for stage_name in ("0.5","0.4","C","B")
+    ])
     for stage_name in ("0.5","0.4","C","B"):
         row=_single_bound_row(rows_by_stage,stage_name,label)
-        stage_support,stage_excluded=_row_evidence_token_state(row)
+        stage_support,stage_excluded=_row_evidence_token_state(row,aliases)
         for token in stage_excluded:
             if token not in resolved_tokens:
                 resolved_tokens.add(token)
@@ -1142,8 +1192,6 @@ def _quantitative_signal_from_match(match):
     bound=(match.group("bound") or "")
     bound={"≤":"<=","≥":">=","≈":"~"}.get(bound,bound)
     sign=(match.group("sign") or "")
-    if sign=="+":
-        sign=""
     number=_canonical_numeric_text(match.group("number"))
     currency=(match.group("currency") or "").lower()
     magnitude=MAGNITUDE_CANONICAL.get((match.group("magnitude") or "").lower(),"")
@@ -1420,6 +1468,43 @@ def _factual_predicate_content_counter(text):
             token=word.casefold()
             if token not in FACTUAL_CONTENT_STOPWORDS:
                 counts[token]+=1
+    for match in MODAL_FACTUAL_PREDICATE_RE.finditer(text):
+        # Copular auxiliaries are handled by the state/modality validators.
+        if match.group("verb").casefold() in {"be","have"}:
+            continue
+        for word in [match.group("verb")]+FACTUAL_CONTENT_WORD_RE.findall(match.group("tail")):
+            token=word.casefold()
+            if token not in FACTUAL_CONTENT_STOPWORDS:
+                counts[token]+=1
+    return counts
+
+
+def _factual_predicate_subject_counter(text):
+    """Keep predicate content attached to its local subject, not a global bag."""
+    counts=Counter()
+    if not isinstance(text,str):
+        return counts
+    for pattern in (FACTUAL_PREDICATE_RE,GENERIC_FACTUAL_PREDICATE_RE,MODAL_FACTUAL_PREDICATE_RE):
+        for match in pattern.finditer(text):
+            groups=match.groupdict()
+            tail_name=next((name for name in ("tail","tail_after_connector","tail_after_subject")
+                            if groups.get(name)),None)
+            if not tail_name:
+                continue
+            verb_name=next((name for name in ("verb","verb_after_connector","verb_after_subject")
+                            if groups.get(name)),None)
+            start=match.start(verb_name) if verb_name else match.start()
+            verb=(groups[verb_name] if verb_name else text[start:match.start(tail_name)]).strip().casefold()
+            if pattern is MODAL_FACTUAL_PREDICATE_RE and verb in {"be","have"}:
+                continue
+            subject=_claim_subject_for_span(text,start,match.start(tail_name))
+            # Stop at a new coordinated clause instead of attaching its object
+            # to the preceding predicate.
+            tail=re.split(r"\b(?:and|but|while|whereas)\b",groups[tail_name],maxsplit=1,flags=re.IGNORECASE)[0]
+            for word in FACTUAL_CONTENT_WORD_RE.findall(tail):
+                token=word.casefold()
+                if token not in FACTUAL_CONTENT_STOPWORDS:
+                    counts[(subject,verb,token)]+=1
     return counts
 
 
@@ -1593,6 +1678,20 @@ def _validate_changed_factual_grounding(
                 f"predicate tokens not grounded in referenced nearest-stage evidence: {missing}"
             )
 
+        predicate_pairs=_factual_predicate_subject_counter(_visible_value_text(current_normalized.get(field)))
+        upstream_predicate_pairs=_factual_predicate_subject_counter(_visible_value_text(upstream_normalized.get(field)))
+        introduced_predicate_pairs=predicate_pairs-upstream_predicate_pairs
+        evidence_predicate_pairs=Counter()
+        for ref in refs:
+            for evidence_text in allowed_evidence_texts.get(ref,[]):
+                evidence_predicate_pairs.update(_factual_predicate_subject_counter(evidence_text))
+        missing_predicate_pairs=introduced_predicate_pairs-evidence_predicate_pairs
+        if missing_predicate_pairs:
+            raise Blocked(
+                f"{label} changed 0.6 field {field} subject/predicate claims are not grounded "
+                f"in referenced nearest-stage evidence: {dict(missing_predicate_pairs)}"
+            )
+
         current_pairs=_factual_quantitative_pair_counter(
             _visible_value_text(current_normalized.get(field))
         )
@@ -1680,6 +1779,24 @@ def _validate_claimed_dimension_evidence_grounding(
                 f"{label} zero-delta 0.6 dimension {dimension} is not grounded in referenced "
                 f"upstream source quote/claim evidence for every signal occurrence; missing={missing_signals}"
             )
+        if dimension=="changed_state":
+            visible_strengths={}
+            evidence_strengths={}
+            for field in fields:
+                text=_visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING)))
+                for key,values in _state_subject_strength_occurrences(text).items():
+                    visible_strengths.setdefault(key,[]).extend(values)
+            for ref in refs:
+                for text in allowed_evidence_texts.get(ref,[]):
+                    for key,values in _state_subject_strength_occurrences(text).items():
+                        evidence_strengths.setdefault(key,[]).extend(values)
+            gaps={key:values for key,values in visible_strengths.items()
+                  if not _strength_multiset_covers(values,evidence_strengths.get(key,[]))}
+            if gaps:
+                raise Blocked(
+                    f"{label} 0.6 changed_state subject/modality claims are not grounded "
+                    f"in referenced upstream evidence; required_current_strengths={gaps}"
+                )
 
 
 def _validate_substantive_dimension_delta(
@@ -1732,6 +1849,10 @@ def _validate_substantive_dimension_delta(
         )>0
     })
     remaining_deepened=Counter(deepened_changed_state)
+    global_subject_advancements=_state_subject_advancements(
+        "; ".join(_visible_value_text(upstream_normalized.get(field)) for field in VISIBLE_COPY_FIELDS),
+        "; ".join(_visible_value_text(current_normalized.get(field)) for field in VISIBLE_COPY_FIELDS),
+    )
 
     qualifying=[]
     grounded_state_advancement=False
@@ -1770,7 +1891,11 @@ def _validate_substantive_dimension_delta(
                     )
                     if field_count>0:
                         deepened[signal]=min(field_count,budget)
-            introduced=set(added)|set(deepened)
+            advancements=(
+                _state_subject_advancements(upstream_field_text,current_field_text)
+                if dimension=="changed_state" else {}
+            )
+            introduced=set(added)|set(deepened)|set(advancements)
             if not introduced:
                 continue
 
@@ -1892,12 +2017,15 @@ def _validate_substantive_dimension_delta(
                     f"added={ungrounded_added} deepened={ungrounded_deepened}"
                 )
 
-            qualifying.append((dimension,field,sorted(introduced)))
+            substantive_state_advancement=bool(set(advancements)&set(global_subject_advancements))
+            if added or deepened or substantive_state_advancement:
+                qualifying.append((dimension,field,sorted(introduced)))
             grounded_introduced_counts[dimension].update(added)
             if dimension=="changed_state":
                 for signal,count in deepened.items():
                     remaining_deepened[signal]-=count
-                grounded_state_advancement=True
+                if added or deepened or substantive_state_advancement:
+                    grounded_state_advancement=True
 
     _validate_changed_factual_grounding(
         density,current_normalized,upstream_normalized,actual_changed,

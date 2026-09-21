@@ -60,13 +60,25 @@ EVIDENCE_TEXT_KEYS = (
     "source_quote", "quote", "claim", "source_claim", "claim_text",
     "visible_claim", "evidence_text", "source_excerpt", "excerpt",
 )
+EVIDENCE_VERIFICATION_KEYS = (
+    "source_quote_status", "quote_status", "claim_status", "evidence_status",
+    "fetch_status", "resolved_article_matches_quote", "fetched",
+    "headline_only", "rss_or_snippet_only", "claim_use", "evidence_role",
+)
 NON_REALIZED_CHANGED_STATE_PREFIX_RE = re.compile(
     r"(?:"
     r"\b(?:not|never|without)\b(?:\s+\w+){0,3}\s*$"
     r"|\bno\s+(?:current\s+)?(?:\w+\s+){0,2}$"
     r"|\b(?:is|are|was|were|has|have|had|do|does|did|will|would|can|could)\s+not(?:\s+\w+){0,2}\s*$"
-    r"|\b(?:plan(?:ned)?|target(?:ed)?|expect(?:ed)?|propos(?:ed|al)|schedul(?:ed|ing))\b(?:\s+\w+){0,2}\s*$"
+    r"|\b(?:plan(?:ned)?|target(?:ed)?|propos(?:ed|al)|schedul(?:ed|ing))\b(?:\s+\w+){0,2}\s*$"
     r"|n['’]t(?:\s+\w+){0,2}\s*$"
+    r")",
+    re.IGNORECASE,
+)
+TENTATIVE_CHANGED_STATE_PREFIX_RE = re.compile(
+    r"(?:"
+    r"\b(?:may|might|could|possibly|potentially|likely\s+to|expected\s+to)\b(?:\s+\w+){0,3}\s*$"
+    r"|\bsubject\s+to\b(?:\s+\w+){0,3}\s*$"
     r")",
     re.IGNORECASE,
 )
@@ -653,6 +665,52 @@ def _source_evidence_texts(source):
     return list(dict.fromkeys(texts))
 
 
+def _source_evidence_package(source):
+    if not isinstance(source,dict):
+        return {}
+    package={}
+    for key in EVIDENCE_TEXT_KEYS + EVIDENCE_VERIFICATION_KEYS:
+        if key not in source:
+            continue
+        value=source.get(key)
+        if isinstance(value,str):
+            value=value.strip()
+        if value in (None,"",[]):
+            continue
+        package[key]=copy.deepcopy(value)
+    return package
+
+
+def _row_evidence_token_packages(row):
+    packages={}
+    if not isinstance(row,dict):
+        return packages
+    containers=[]
+    if isinstance(row.get("fact_sources"),list):
+        containers.extend(row["fact_sources"])
+    if isinstance(row.get("source_discovery_ledger"),list):
+        containers.extend(row["source_discovery_ledger"])
+    for source in containers:
+        if not isinstance(source,dict):
+            continue
+        fields=_source_supported_visible_fields(source)
+        if not fields:
+            continue
+        if source in (row.get("source_discovery_ledger") or []):
+            outcome=str(source.get("outcome") or "").strip().lower()
+            if not any(
+                key in source
+                for key in ("visible_claim_support","visible_fields_supported","visible_supports","supports")
+            ) and outcome not in {"used_in_fact_sources","used_for_visible_claims","accepted_visible_evidence"}:
+                continue
+        package=_source_evidence_package(source)
+        if not package:
+            continue
+        for token in _evidence_tokens(source):
+            packages.setdefault(token,[]).append(package)
+    return packages
+
+
 def _row_evidence_token_texts(row):
     token_texts={}
     if not isinstance(row,dict):
@@ -782,6 +840,23 @@ def _upstream_evidence_token_texts(rows_by_stage,label,allowed_evidence_support)
     }
 
 
+def _upstream_evidence_token_packages(rows_by_stage,label,allowed_evidence_support):
+    allowed=set(allowed_evidence_support)
+    resolved={}
+    unresolved=set(allowed)
+    for stage_name in ("0.5","0.4","C","B"):
+        if not unresolved:
+            break
+        row=_single_bound_row(rows_by_stage,stage_name,label)
+        stage_packages=_row_evidence_token_packages(row)
+        for token in list(unresolved):
+            packages=stage_packages.get(token)
+            if packages:
+                resolved[token]=packages
+                unresolved.remove(token)
+    return resolved
+
+
 def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowed_evidence_support):
     mapping=density.get("dimension_evidence")
     if not isinstance(mapping,dict) or set(mapping)!=set(true_dimensions):
@@ -844,9 +919,39 @@ def _canonical_numeric_text(raw):
     return value or "0"
 
 
-def _changed_state_match_is_realized(text,match):
+def _changed_state_match_strength(text,match):
     prefix=text[max(0,match.start()-64):match.start()]
-    return NON_REALIZED_CHANGED_STATE_PREFIX_RE.search(prefix) is None
+    if NON_REALIZED_CHANGED_STATE_PREFIX_RE.search(prefix):
+        return 0
+    if TENTATIVE_CHANGED_STATE_PREFIX_RE.search(prefix):
+        return 1
+    return 2
+
+
+def _changed_state_match_is_realized(text,match):
+    return _changed_state_match_strength(text,match)>0
+
+
+def _signal_strengths(dimension,text):
+    if dimension!="changed_state":
+        return {signal:1 for signal in _signal_values(dimension,text)}
+    strengths={}
+    for marker,pattern in DIMENSION_CANONICAL_SIGNAL_RES["changed_state"].items():
+        for match in pattern.finditer(text):
+            strength=_changed_state_match_strength(text,match)
+            if strength>0:
+                strengths[marker]=max(strengths.get(marker,0),strength)
+    return strengths
+
+
+def _governed_copy_dimension_strengths(dimension,normalized_by_field):
+    strengths={}
+    for field in VISIBLE_COPY_FIELDS:
+        for signal,strength in _signal_strengths(
+            dimension,_visible_value_text(normalized_by_field.get(field))
+        ).items():
+            strengths[signal]=max(strengths.get(signal,0),strength)
+    return strengths
 
 
 def _signal_values(dimension, text):
@@ -898,6 +1003,39 @@ def _validate_claimed_dimension_text(density, row_06, label, true_dimensions):
             )
 
 
+def _validate_claimed_dimension_evidence_grounding(
+    density,row_06,label,true_dimensions,allowed_evidence_texts
+):
+    mapping=density.get("dimension_evidence") if isinstance(density,dict) else None
+    for dimension in true_dimensions:
+        entry=mapping.get(dimension) if isinstance(mapping,dict) else None
+        if not isinstance(entry,dict):
+            continue
+        fields=entry.get("fields") if isinstance(entry.get("fields"),list) else []
+        refs=[
+            ref.strip() for ref in entry.get("evidence_refs",[])
+            if _nonempty_text(ref)
+        ] if isinstance(entry.get("evidence_refs"),list) else []
+        visible_signals=set()
+        for field in fields:
+            visible_signals.update(
+                _signal_values(
+                    dimension,
+                    _visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING))),
+                )
+            )
+        evidence_signals=set()
+        for ref in refs:
+            for evidence_text in allowed_evidence_texts.get(ref,[]):
+                evidence_signals.update(_signal_values(dimension,evidence_text))
+        if not (visible_signals & evidence_signals):
+            raise Blocked(
+                f"{label} zero-delta 0.6 dimension {dimension} is not grounded in referenced "
+                f"upstream source quote/claim evidence; visible={sorted(visible_signals)} "
+                f"evidence={sorted(evidence_signals)}"
+            )
+
+
 def _validate_substantive_dimension_delta(
     density, row_06, label, actual_changed, upstream_normalized, allowed_evidence_texts
 ):
@@ -907,50 +1045,126 @@ def _validate_substantive_dimension_delta(
         field:_normalized_visible_value(field,row_06.get(field,_MISSING))
         for field in VISIBLE_COPY_FIELDS
     }
+    true_dimensions={
+        name for name,value in density.get("dimensions",{}).items()
+        if value is True
+    }
+
+    upstream_by_dimension={
+        dimension:_governed_copy_dimension_signals(dimension,upstream_normalized)
+        for dimension in DENSITY_DIMENSIONS
+    }
+    current_by_dimension={
+        dimension:_governed_copy_dimension_signals(dimension,current_normalized)
+        for dimension in DENSITY_DIMENSIONS
+    }
+    upstream_strengths=_governed_copy_dimension_strengths(
+        "changed_state",upstream_normalized
+    )
+    current_strengths=_governed_copy_dimension_strengths(
+        "changed_state",current_normalized
+    )
+    deepened_changed_state={
+        signal
+        for signal,strength in current_strengths.items()
+        if strength>upstream_strengths.get(signal,0)
+        and upstream_strengths.get(signal,0)>0
+    }
+
     qualifying=[]
+    grounded_state_advancement=False
     diagnostics={}
-    for dimension,entry in mapping.items():
-        if not isinstance(entry,dict):
-            continue
-        mapped_changed=[field for field in entry.get("fields",[]) if field in changed]
-        if not mapped_changed:
-            continue
-        upstream_signals=_governed_copy_dimension_signals(dimension,upstream_normalized)
-        current_mapped_signals=set()
-        for field in mapped_changed:
-            current_mapped_signals.update(
-                _signal_values(dimension,_visible_value_text(current_normalized.get(field)))
+
+    for field in changed:
+        current_field_text=_visible_value_text(current_normalized.get(field))
+        for dimension in DENSITY_DIMENSIONS:
+            current_field_signals=_signal_values(dimension,current_field_text)
+            added=set(current_field_signals)-upstream_by_dimension[dimension]
+            deepened=set()
+            if dimension=="changed_state":
+                field_strengths=_signal_strengths(dimension,current_field_text)
+                deepened={
+                    signal for signal in deepened_changed_state
+                    if signal in field_strengths
+                    and field_strengths[signal]>upstream_strengths.get(signal,0)
+                }
+            introduced=added|deepened
+            if not introduced:
+                continue
+            entry=mapping.get(dimension) if isinstance(mapping,dict) else None
+            if dimension not in true_dimensions or not isinstance(entry,dict):
+                raise Blocked(
+                    f"{label} changed 0.6 field {field} introduces undeclared governed "
+                    f"{dimension} signals {sorted(introduced)}"
+                )
+            mapped_fields=entry.get("fields") if isinstance(entry.get("fields"),list) else []
+            if field not in mapped_fields:
+                raise Blocked(
+                    f"{label} changed 0.6 field {field} introduces {dimension} signals "
+                    f"{sorted(introduced)} but dimension_evidence does not map that field"
+                )
+            refs=[
+                ref.strip() for ref in entry.get("evidence_refs",[])
+                if _nonempty_text(ref)
+            ] if isinstance(entry.get("evidence_refs"),list) else []
+            evidence_signals=set()
+            evidence_strengths={}
+            for ref in refs:
+                for evidence_text in allowed_evidence_texts.get(ref,[]):
+                    evidence_signals.update(_signal_values(dimension,evidence_text))
+                    if dimension=="changed_state":
+                        for signal,strength in _signal_strengths(dimension,evidence_text).items():
+                            evidence_strengths[signal]=max(
+                                evidence_strengths.get(signal,0),strength
+                            )
+            ungrounded_added=sorted(added-evidence_signals)
+            ungrounded_deepened=sorted(
+                signal for signal in deepened
+                if evidence_strengths.get(signal,0)<current_strengths.get(signal,0)
             )
-        added=sorted(current_mapped_signals-upstream_signals)
-        refs=[
-            ref.strip() for ref in entry.get("evidence_refs",[])
-            if _nonempty_text(ref)
-        ]
-        evidence_signals=set()
-        for ref in refs:
-            for evidence_text in allowed_evidence_texts.get(ref,[]):
-                evidence_signals.update(_signal_values(dimension,evidence_text))
-        ungrounded=sorted(set(added)-evidence_signals)
-        diagnostics[dimension]={
-            "mapped_changed_fields": mapped_changed,
-            "added": added,
-            "upstream_all_governed": sorted(upstream_signals),
-            "evidence_signals": sorted(evidence_signals),
-            "ungrounded": ungrounded,
-        }
-        if ungrounded:
-            raise Blocked(
-                f"{label} changed 0.6 dimension {dimension} introduces signals not grounded "
-                f"in referenced upstream source quote/claim evidence: {ungrounded}"
-            )
-        if added:
-            qualifying.append((dimension,mapped_changed,added))
+            diagnostics[(field,dimension)]={
+                "added":sorted(added),
+                "deepened":sorted(deepened),
+                "evidence_signals":sorted(evidence_signals),
+                "evidence_strengths":evidence_strengths,
+                "ungrounded_added":ungrounded_added,
+                "ungrounded_deepened":ungrounded_deepened,
+            }
+            if ungrounded_added or ungrounded_deepened:
+                raise Blocked(
+                    f"{label} changed 0.6 dimension {dimension} introduces/deepens signals "
+                    f"not grounded in referenced upstream source quote/claim evidence: "
+                    f"added={ungrounded_added} deepened={ungrounded_deepened}"
+                )
+            qualifying.append((dimension,field,sorted(introduced)))
+            if dimension=="changed_state":
+                grounded_state_advancement=True
+
+    # Verified upstream substantive signals may not silently disappear. The one
+    # allowed semantic contraction is removal of uncertainty/plan markers when
+    # the same edit carries a grounded realized-state advancement.
+    for dimension in DENSITY_DIMENSIONS:
+        lost=upstream_by_dimension[dimension]-current_by_dimension[dimension]
+        if not lost:
+            continue
+        if (
+            dimension=="boundary_or_uncertainty"
+            and grounded_state_advancement
+            and lost <= {"plan_target","expectation_estimate","uncertain_conditional"}
+        ):
+            continue
+        raise Blocked(
+            f"{label} changed 0.6 copy deletes verified upstream {dimension} signals "
+            f"{sorted(lost)}"
+        )
+
     if not qualifying:
         raise Blocked(
             f"{label} changed 0.6 copy lacks a machine-detectable newly added/deepened Deep Summary signal "
             f"relative to the whole upstream governed copy; terminology/formatting/relocation-only rewrites "
             f"do not qualify; signals={diagnostics}"
         )
+
 
 
 def _validate_density_audit(
@@ -1058,16 +1272,30 @@ def _materialized_card_evidence_support(card):
     return support
 
 
-def _validate_materialized_operation_evidence(density, operation_card, label):
+def _materialized_card_evidence_packages(card):
+    return _row_evidence_token_packages(card)
+
+
+def _package_preserves(required,actual):
+    return all(actual.get(key)==value for key,value in required.items())
+
+
+def _validate_materialized_operation_evidence(
+    density, operation_card, label, required_evidence_packages
+):
     mapping=density.get("dimension_evidence") if isinstance(density,dict) else None
     if not isinstance(mapping,dict):
         return
     support=_materialized_card_evidence_support(operation_card)
+    packages=_materialized_card_evidence_packages(operation_card)
     for dimension,entry in mapping.items():
         if not isinstance(entry,dict):
             continue
         fields=set(entry.get("fields",[])) if isinstance(entry.get("fields"),list) else set()
-        refs=[ref.strip() for ref in entry.get("evidence_refs",[]) if _nonempty_text(ref)] if isinstance(entry.get("evidence_refs"),list) else []
+        refs=[
+            ref.strip() for ref in entry.get("evidence_refs",[])
+            if _nonempty_text(ref)
+        ] if isinstance(entry.get("evidence_refs"),list) else []
         for ref in refs:
             if ref not in support:
                 raise Blocked(
@@ -1080,6 +1308,23 @@ def _validate_materialized_operation_evidence(density, operation_card, label):
                     f"{label} materialized operation evidence ref {ref} no longer supports "
                     f"mapped fields {sorted(missing)} for dimension {dimension}"
                 )
+            required_packages=required_evidence_packages.get(ref,[])
+            actual_packages=packages.get(ref,[])
+            if not required_packages:
+                raise Blocked(
+                    f"{label} bound evidence ref {ref} has no preserved upstream quote/claim "
+                    f"verification package"
+                )
+            if not any(
+                _package_preserves(required,actual)
+                for required in required_packages
+                for actual in actual_packages
+            ):
+                raise Blocked(
+                    f"{label} materialized operation evidence ref {ref} does not preserve "
+                    f"its upstream quote/claim and verification-status package"
+                )
+
 
 
 def _json_pointer_parts(path, label):
@@ -1257,6 +1502,9 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
     allowed_evidence_texts=_upstream_evidence_token_texts(
         rows_by_stage,label,allowed_evidence_support
     )
+    allowed_evidence_packages=_upstream_evidence_token_packages(
+        rows_by_stage,label,allowed_evidence_support
+    )
     _validate_density_audit(
         audit,row_06,label,no_change=not actual_changed,actual_changed=actual_changed,
         allowed_evidence_support=allowed_evidence_support,
@@ -1266,10 +1514,18 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
             audit["density_audit"],row_06,label,actual_changed,upstream_normalized,
             allowed_evidence_texts,
         )
+    else:
+        true_dimensions=[
+            name for name,value in audit["density_audit"]["dimensions"].items()
+            if value is True
+        ]
+        _validate_claimed_dimension_evidence_grounding(
+            audit["density_audit"],row_06,label,true_dimensions,allowed_evidence_texts
+        )
     if operation_card is not None:
         _validate_operation_visible_copy(row_06,operation_card,label)
         _validate_materialized_operation_evidence(
-            audit["density_audit"],operation_card,label
+            audit["density_audit"],operation_card,label,allowed_evidence_packages
         )
 
 

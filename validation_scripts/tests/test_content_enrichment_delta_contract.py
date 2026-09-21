@@ -2543,6 +2543,157 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             )
 
 
+    def test_coordinating_conjunction_with_explicit_subject_requires_grounding(self):
+        prior = "Capacity is 10 MW"
+        current = "Capacity is 20 MW and it burns coal"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "predicate tokens not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_coordinated_state_subjects_are_each_grounded(self):
+        prior = "Alpha and Beta may be approved at 10 MW"
+        current = "Alpha and Beta are approved at 20 MW"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Beta is approved at 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        subjects = binding._state_subject_strength_occurrences(current)
+        self.assertIn("alpha=>approval", subjects)
+        self.assertIn("beta=>approval", subjects)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["changed_state", "quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "subject/modality claims"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_stage_checker_rejects_weaker_changed_state_modality(self):
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Previously, the project may be delayed at 10 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        item = row06(
+            fact="Previously, the project is delayed at 10 MW.",
+            fact_sources=[source],
+        )
+        focused = {
+            "dimensions": {
+                name: name == "changed_state"
+                for name in binding.DENSITY_DIMENSIONS
+            },
+            "dimension_evidence": {
+                "changed_state": {
+                    "fields": ["fact"],
+                    "evidence_refs": ["SRC1"],
+                }
+            },
+        }
+        findings = stage_contract._dimension_evidence_findings(
+            item, focused, "SPEC", ["changed_state"]
+        )
+        self.assertTrue(any(
+            "modality is stronger" in str(finding.get("message", ""))
+            for finding in findings
+        ))
+
+    def test_conflicting_quote_status_aliases_make_evidence_unusable(self):
+        conflicting = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "quote_status": "fetch_failed",
+            "fetched": True,
+        }
+        self.assertFalse(binding._source_evidence_is_usable(conflicting))
+
+        inconsistent_but_usable = {
+            **conflicting,
+            "quote_status": "document_quote_verified",
+        }
+        self.assertFalse(binding._source_evidence_is_usable(inconsistent_but_usable))
+
+    def test_materialized_operation_rejects_new_evidence_source(self):
+        prior = "Capacity is 10 MW"
+        current = "Capacity is 20 MW"
+        source1 = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source1",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        source2 = {
+            "source_id": "SRC2",
+            "source_url": "https://example.test/source2",
+            "source_quote": "Unbound new evidence source.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source1, source2],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source1]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "introduces evidence source tokens.*authoritative upstream"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={
+                    **VISIBLE,
+                    "fact": current,
+                    "fact_sources": [source1, source2],
+                },
+            )
+
+
 
 if __name__ == "__main__":
     unittest.main()

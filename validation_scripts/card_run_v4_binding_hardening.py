@@ -128,6 +128,9 @@ FACTUAL_IDENTITY_STOPWORDS = {
     "production","commercial","previously","target","site","plant","facility",
     "company","according","battery","energy","market","supply","demand","source",
     "usd","eur","gbp","krw","cny","rmb","jpy","aud","cad","chf","hkd","sgd",
+    "mw","gw","gwh","mwh","kwh","tpa","kt","mt","sqm","km","tons","tonnes",
+    "january","february","march","april","may","june","july","august",
+    "september","october","november","december",
 }
 FACTUAL_PREDICATE_RE = re.compile(
     r"\b(?:uses?|using|contains?|containing|includes?|including|comprises?|"
@@ -2046,21 +2049,21 @@ def main():
         validate_governed_stage_a_operation({"A":[{"spec_id":"SPEC_NEW","source_story_ids":["CAND_1"]}]},"SPEC_NEW",governed_strict_spec_identities(strict),"insert[0]")
         density={"status":"PASS","dimensions":{"prior_state":True,"changed_state":True,"quantitative_anchor":True,"boundary_or_uncertainty":True,"transmission_path":False,"next_watchpoint":False},"supported_dimension_count":4,"evidence_notes":"self-test","dimension_evidence":{"prior_state":{"fields":["fact"],"evidence_refs":["S1"]},"changed_state":{"fields":["sub"],"evidence_refs":["S1"]},"quantitative_anchor":{"fields":["fact"],"evidence_refs":["S1"]},"boundary_or_uncertainty":{"fields":["fact"],"evidence_refs":["S1"]}}}
         changed_rows={
-            "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started; target remains subject to certification."}]}],
+            "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started; target remains subject to certification.","source_quote_status":"body_quote_verified","fetched":True}]}],
             "C":[{"sub":"pilot project","gate":"g","fact":"Previously planned at 1 GWh; target remains subject to certification.","implication":["i"]}],
             "0.4":[{"fact":"Previously planned at 1 GWh; target remains subject to certification."}],
             "0.5":[{"fact":"Previously planned at 1 GWh; target remains subject to certification."}],
-            "0.6":[{"sub":"commercial production started","gate":"g","fact":"Previously planned at 1 GWh; target remains subject to certification.","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started; target remains subject to certification."}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":["sub"],"no_change_required":False,"no_change_reason":"","density_audit":density}}],
+            "0.6":[{"sub":"commercial production started","gate":"g","fact":"Previously planned at 1 GWh; target remains subject to certification.","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started; target remains subject to certification.","source_quote_status":"body_quote_verified","fetched":True}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":["sub"],"no_change_required":False,"no_change_reason":"","density_audit":density}}],
         }
         validate_content_enrichment_delta(changed_rows,"self-test changed")
         zero_density=copy.deepcopy(density)
         zero_density["dimension_evidence"]["changed_state"]["fields"]=["fact"]
         zero_rows={
-            "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started; target remains subject to certification."}]}],
+            "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started; target remains subject to certification.","source_quote_status":"body_quote_verified","fetched":True}]}],
             "C":[{"sub":"s","gate":"g","fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","implication":["i"]}],
             "0.4":[{"fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification."}],
             "0.5":[{"fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification."}],
-            "0.6":[{"sub":"s","gate":"g","fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started; target remains subject to certification."}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":[],"no_change_required":True,"no_change_reason":"already sufficiently deep","density_audit":zero_density}}],
+            "0.6":[{"sub":"s","gate":"g","fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started; target remains subject to certification.","source_quote_status":"body_quote_verified","fetched":True}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":[],"no_change_required":True,"no_change_reason":"already sufficiently deep","density_audit":zero_density}}],
         }
         validate_content_enrichment_delta(zero_rows,"self-test zero")
         blocked=dict(zero_rows)

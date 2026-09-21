@@ -1566,8 +1566,6 @@ def _validate_changed_factual_grounding(
             _visible_value_text(upstream_normalized.get(field))
         )
         introduced=current_counts-upstream_field_counts
-        if not introduced:
-            continue
         refs=[]
         if isinstance(mapping,dict):
             for entry in mapping.values():
@@ -2298,19 +2296,20 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
     _validate_density_audit(
         audit,row_06,label,no_change=not actual_changed,actual_changed=actual_changed,
         allowed_evidence_support=allowed_evidence_support,
+        allowed_evidence_packages=allowed_evidence_packages,
+    )
+    true_dimensions=[
+        name for name,value in audit["density_audit"]["dimensions"].items()
+        if value is True
+    ]
+    _validate_claimed_dimension_evidence_grounding(
+        audit["density_audit"],row_06,label,true_dimensions,
+        allowed_evidence_texts,allowed_evidence_packages,
     )
     if actual_changed:
         _validate_substantive_dimension_delta(
             audit["density_audit"],row_06,label,actual_changed,upstream_normalized,
-            allowed_evidence_texts,
-        )
-    else:
-        true_dimensions=[
-            name for name,value in audit["density_audit"]["dimensions"].items()
-            if value is True
-        ]
-        _validate_claimed_dimension_evidence_grounding(
-            audit["density_audit"],row_06,label,true_dimensions,allowed_evidence_texts
+            allowed_evidence_texts,allowed_evidence_packages,
         )
     if operation_card is not None:
         _validate_operation_visible_copy(row_06,operation_card,label)

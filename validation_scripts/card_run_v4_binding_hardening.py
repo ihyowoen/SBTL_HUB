@@ -141,6 +141,17 @@ FACTUAL_PREDICATE_RE = re.compile(
     r"\s+(?P<tail>[^.;:!?]{1,120})",
     re.IGNORECASE,
 )
+GENERIC_FACTUAL_PREDICATE_RE = re.compile(
+    r"(?:"
+    r"\b(?:and|but|while|whereas)\s+"
+    r"(?P<verb_after_connector>[A-Za-z][A-Za-z-]{2,}(?:s|ed|ing))\b"
+    r"\s+(?P<tail_after_connector>[^.;:!?]{1,120})"
+    r"|(?:^|[.;:!?]\s*)"
+    r"(?P<subject>[A-Z][A-Za-z0-9&._-]{2,})\s+"
+    r"(?P<verb_after_subject>[A-Za-z][A-Za-z-]{2,}(?:s|ed|ing))\b"
+    r"\s+(?P<tail_after_subject>[^.;:!?]{1,120})"
+    r")",
+)
 FACTUAL_CONTENT_WORD_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9_-]{2,}\b|[가-힣]{2,}")
 FACTUAL_CONTENT_STOPWORDS = FACTUAL_IDENTITY_STOPWORDS | {
     "and","or","but","yet","with","from","into","onto","over","under","through",
@@ -1135,15 +1146,9 @@ def _signal_strength_occurrences(dimension,text):
         for signal,count in _signal_counter(dimension,text).items():
             occurrences[signal]=[1]*count
         return occurrences
-    for marker,pattern in DIMENSION_CANONICAL_SIGNAL_RES["changed_state"].items():
-        strengths=[]
-        for match in pattern.finditer(text):
-            strength=_changed_state_match_strength(text,match)
-            if strength>0:
-                strengths.append(strength)
-        if strengths:
-            occurrences[marker]=sorted(strengths)
-    return occurrences
+    for occurrence in _canonical_changed_state_occurrences(text):
+        occurrences.setdefault(occurrence["marker"],[]).append(occurrence["strength"])
+    return {marker:sorted(values) for marker,values in occurrences.items()}
 
 
 def _signal_strengths(dimension,text):
@@ -1217,9 +1222,72 @@ def _dimension_match_is_valid(dimension,marker,text,match):
         and _is_calendar_may(text,match)
     ):
         return False
+    if (
+        dimension=="next_watchpoint"
+        and marker=="generic_watch"
+        and match.group(0).casefold()=="next"
+        and re.match(r"\s+to\b",text[match.end():],re.IGNORECASE)
+    ):
+        return False
     if dimension=="changed_state" and not _changed_state_match_is_realized(text,match):
         return False
     return True
+
+
+def _canonical_changed_state_marker(text,marker,match):
+    if marker=="commencement":
+        prefix=text[max(0,match.start()-48):match.start()]
+        if re.search(r"\b(?:commercial\s+)?production\s*$",prefix,re.IGNORECASE):
+            return "production_commencement"
+    if marker=="production_operation":
+        matched=match.group(0)
+        suffix=text[match.end():min(len(text),match.end()+48)]
+        if (
+            re.search(r"\bproduction\b",matched,re.IGNORECASE)
+            and re.match(r"\s+(?:has\s+|have\s+|had\s+)?(?:started|began|begun|commenced)\b",suffix,re.IGNORECASE)
+        ):
+            return "production_commencement"
+    return marker
+
+
+def _canonical_changed_state_occurrences(text):
+    occurrences=[]
+    for marker,pattern in DIMENSION_CANONICAL_SIGNAL_RES["changed_state"].items():
+        for match in pattern.finditer(text):
+            strength=_changed_state_match_strength(text,match)
+            if strength<=0:
+                continue
+            canonical=_canonical_changed_state_marker(text,marker,match)
+            entry={
+                "marker":canonical,
+                "original_marker":marker,
+                "start":match.start(),
+                "end":match.end(),
+                "strength":strength,
+                "match":match,
+            }
+            if canonical=="production_commencement":
+                merged=False
+                for existing in occurrences:
+                    if existing["marker"]!="production_commencement":
+                        continue
+                    if existing["original_marker"]==marker:
+                        continue
+                    gap=max(
+                        0,
+                        max(existing["start"],entry["start"])
+                        - min(existing["end"],entry["end"]),
+                    )
+                    if gap<=48:
+                        existing["start"]=min(existing["start"],entry["start"])
+                        existing["end"]=max(existing["end"],entry["end"])
+                        existing["strength"]=max(existing["strength"],entry["strength"])
+                        merged=True
+                        break
+                if merged:
+                    continue
+            occurrences.append(entry)
+    return sorted(occurrences,key=lambda item:(item["start"],item["end"],item["marker"]))
 
 
 def _signal_counter(dimension,text):
@@ -1227,6 +1295,10 @@ def _signal_counter(dimension,text):
     if dimension=="quantitative_anchor":
         for match in QUANT_SIGNAL_RE.finditer(text):
             counts[_quantitative_signal_from_match(match)]+=1
+        return counts
+    if dimension=="changed_state":
+        for occurrence in _canonical_changed_state_occurrences(text):
+            counts[occurrence["marker"]]+=1
         return counts
     patterns=DIMENSION_CANONICAL_SIGNAL_RES.get(dimension,{})
     for marker,pattern in patterns.items():
@@ -1284,6 +1356,17 @@ def _factual_predicate_content_counter(text):
             token=word.casefold()
             if token not in FACTUAL_CONTENT_STOPWORDS:
                 counts[token]+=1
+    for match in GENERIC_FACTUAL_PREDICATE_RE.finditer(text):
+        verb=match.group("verb_after_connector") or match.group("verb_after_subject")
+        tail=match.group("tail_after_connector") or match.group("tail_after_subject") or ""
+        if verb:
+            token=verb.casefold()
+            if token not in FACTUAL_CONTENT_STOPWORDS:
+                counts[token]+=1
+        for word in FACTUAL_CONTENT_WORD_RE.findall(tail):
+            token=word.casefold()
+            if token not in FACTUAL_CONTENT_STOPWORDS:
+                counts[token]+=1
     return counts
 
 
@@ -1332,11 +1415,29 @@ def _factual_quantitative_pair_counter(text):
         local=[span for span in identities if span[0]>=left and span[1]<=right]
         if not local:
             continue
-        preceding=[span for span in local if span[1]<=match.start()]
-        if preceding:
-            chosen=max(preceding,key=lambda span:span[1])
+        following=sorted(
+            (span for span in local if span[0]>=match.end()),
+            key=lambda span:span[0],
+        )
+        postpositive=None
+        for span in following:
+            bridge=text[match.end():span[0]]
+            if re.fullmatch(
+                r"\s*(?:for|of|at|in|by|from|to|with)\s+(?:the\s+)?",
+                bridge,re.IGNORECASE,
+            ):
+                postpositive=span
+                break
+            if re.search(r"[.;:!?]|\b(?:and|or|but|while|whereas)\b",bridge,re.IGNORECASE):
+                break
+        if postpositive is not None:
+            chosen=postpositive
         else:
-            chosen=min(local,key=lambda span:span[0])
+            preceding=[span for span in local if span[1]<=match.start()]
+            if preceding:
+                chosen=max(preceding,key=lambda span:span[1])
+            else:
+                chosen=min(local,key=lambda span:span[0])
         counts[f"{chosen[2]}=>{signal}"]+=1
     return counts
 

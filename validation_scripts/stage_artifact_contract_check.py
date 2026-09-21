@@ -710,7 +710,7 @@ def _content_enrichment_audit_findings(item, scope):
                     for entry in mapping.values()
                     if isinstance(entry, dict) and isinstance(entry.get("fields"), list)
                     for field in entry.get("fields", [])
-                    if field in set(changed)
+                    if isinstance(field, str) and field in changed
                 }
                 if not bound_changed:
                     findings.append(_field_finding(

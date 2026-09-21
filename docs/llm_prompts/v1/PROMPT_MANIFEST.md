@@ -1,7 +1,7 @@
-# SBTL LLM Prompt Manifest V4
+# SBTL LLM Prompt Manifest V4.1
 
 **Status:** `ACTIVE_CANONICAL`  
-**Version:** `PROMPT_MANIFEST_V4_20260829`
+**Version:** `PROMPT_MANIFEST_V4_1_20260902`
 
 ## 1. Launcher
 
@@ -9,14 +9,19 @@ Ordinary new-news runs start with:
 
 `docs/llm_prompts/v1/00_NEW_RUN_MASTER_PROMPT.md`
 
+The run first creates a deterministic governance lock. Future named-stage prompts are locked at that time but loaded just in time, not all pre-read at startup.
+
 ## 2. Pipeline
 
 ```text
-0.0D → Input Audit → 0.0C → expanded event universe lock → canonical/event reconciliation
-→ 0.1 A
-→ 0.2 B ⇄ 0.2R bounded B repair when needed
-→ 0.3 C ⇄ 0.3R controlled C revalidation when needed
-→ 0.4 → 0.5 → 0.6 → 0.7 → 0.7C → 0.8 → merge → 0.9 → optional 1.0 → 1.1
+0.0D machine governance lock + bootstrap context
+→ Input Audit
+→ JIT 0.0C → expanded event universe lock → canonical/event reconciliation
+→ JIT 0.1 A
+→ JIT 0.2 B ⇄ JIT 0.2R bounded B repair when needed
+→ JIT 0.3 C ⇄ JIT 0.3R controlled C revalidation when needed
+→ JIT 0.4 → JIT 0.5 → JIT 0.6 → JIT 0.7 → JIT 0.7C → JIT 0.8
+→ merge → JIT 0.9 → optional 1.0 → 1.1
 ```
 
 0.2R and 0.3R are conditional repair loops. Downstream defects route to the earliest responsible stage; there are no ordinary 0.4R/0.5R/0.6R/0.7R prompt families.
@@ -25,7 +30,7 @@ Ordinary new-news runs start with:
 
 | Stage | File | Complete role |
 |---|---|---|
-| 0.0D | `00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md` | active-governance inventory/read/conflict gate |
+| 0.0D | `00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md` | deterministic governance lock + bootstrap gate |
 | 0.0C | `00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md` | missing-news/follow-up/reinforcement/correction discovery |
 | 0.1 | `01_PROMPT_0_1_Stage_A.md` | integrated news-value selector + Related pre-pass |
 | 0.2 | `02_PROMPT_0_2_Stage_B_r0.md` | evidence/date/source/Related resolution + draft |
@@ -45,25 +50,35 @@ Ordinary new-news runs start with:
 
 There is **no active 0.1S companion/override stage**.
 
-## 4. Active canonical domains
+## 4. Locked/JIT contract
+
+`GOVERNANCE_LIFECYCLE_REGISTRY.json` registers the complete named-prompt set. `scripts/governance_lock_v4.mjs` binds each prompt path to the exact git blob at the run's locked `main` SHA.
+
+Except for the 0.0D prompt in the bootstrap set, named prompts use `load_policy = jit_before_stage`.
+
+Before executing a stage, load that prompt from the locked commit and verify its blob against the governance lock. Do not silently substitute a later `main` version.
+
+## 5. Active canonical domains
 
 Governed by `RUN_GOVERNANCE_INDEX.md`. Item news value is embedded in Stage A; portfolio news value/completeness is in `EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md`; Related is in `RELATED_LIFECYCLE_CONTRACT.md`.
 
-## 5. No active patch assembly
+Active domain contracts are also blob-locked at 0.0D and loaded on demand when a stage explicitly requires them. Locking authority does not require placing every active body in model context before 0.0C.
+
+## 6. No active patch assembly
 
 No ordinary named prompt requires an active override, hardening addendum, overlay injection, or patch stub. Files retained with those historical names must be lifecycle-marked non-operative.
 
-## 6. Compatibility contracts
+## 7. Compatibility contracts
 
-Existing V3 machine schemas/validators may remain to validate historical and current compatibility fields until separately migrated. They do not create a second editorial authority and do not require the retired V3 policy files to be read.
+Existing V3 machine schemas/validators may remain to validate historical and current compatibility fields until separately migrated. They do not create a second editorial authority and do not require retired V3 policy files to be read.
 
-## 7. Mutation modes
+## 8. Mutation modes
 
 - formal 0.8 card-run;
 - governed `MANUAL_DIRECT_ADD_V2` for already-reviewed bounded changes.
 
 These modes are mutually exclusive within one data PR.
 
-## 8. Package validity
+## 9. Package validity
 
-Invalid when an active prompt depends on a later overlay/addendum, Stage A lacks embedded news value/Related pre-pass, R is used to launder a selection/event-identity defect, 0.4 is treated as first lineage creation, raw is treated as complete without 0.0C, 0.8 is authorized without 0.7C in a formal run, baseline is not current canonical full, or direct add fabricates full-run states.
+Invalid when the deterministic governance lock cannot be reproduced, a stage prompt path/blob does not match the lock, an active prompt depends on a later overlay/addendum, Stage A lacks embedded news value/Related pre-pass, R is used to launder a selection/event-identity defect, 0.4 is treated as first lineage creation, raw is treated as complete without 0.0C, 0.8 is authorized without 0.7C in a formal run, baseline is not current canonical full, or direct add fabricates full-run states.

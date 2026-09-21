@@ -18,6 +18,7 @@ class WorkflowV4ArchitectureTests(unittest.TestCase):
         self.assertFalse(any("01A_PROMPT_0_1S" in x for x in registry["active_named_prompts"]))
         self.assertIn("docs/MANUAL_DIRECT_ADD_V2.md", registry["active_canonical"])
         self.assertIn("docs/MANUAL_DIRECT_ADD_V1.md", registry["superseded"])
+        self.assertEqual(len(registry["bootstrap_read"]), 8)
 
     def test_stage_a_embeds_news_value_and_related(self):
         text = (P / "01_PROMPT_0_1_Stage_A.md").read_text(encoding="utf-8")
@@ -39,8 +40,9 @@ class WorkflowV4ArchitectureTests(unittest.TestCase):
         workflow = (ROOT / "docs" / "WORKFLOW.md").read_text(encoding="utf-8")
         self.assertIn("0.2R only for bounded Stage-B repair", master)
         self.assertIn("0.3R only for controlled Stage-C revalidation", master)
-        self.assertIn("0.2 B ⇄ 0.2R", manifest)
-        self.assertIn("0.3 C ⇄ 0.3R", manifest)
+        self.assertIn("JIT 0.2 B ⇄ JIT 0.2R", manifest)
+        self.assertIn("JIT 0.3 C ⇄ JIT 0.3R", manifest)
+        self.assertIn("0.2R and 0.3R are conditional repair loops", manifest)
         self.assertIn("There are no separate ordinary `0.4R`, `0.5R`, `0.6R`, or `0.7R`", workflow)
         self.assertIn("earliest responsible", workflow)
         self.assertIn("stage", workflow.lower())
@@ -52,8 +54,10 @@ class WorkflowV4ArchitectureTests(unittest.TestCase):
 
     def test_master_prompt_is_launcher(self):
         text = (P / "00_NEW_RUN_MASTER_PROMPT.md").read_text(encoding="utf-8")
-        self.assertIn("NEW_RUN_MASTER_PROMPT_V4_20260829", text)
+        self.assertIn("NEW_RUN_MASTER_PROMPT_V4_1_20260902", text)
         self.assertIn("EMBEDDED_NEWS_VALUE_SELECTION_V4", text)
+        self.assertIn("governance_lock_v4.mjs", text)
+        self.assertIn("Do **not** pre-load all 17 named-stage prompts", text)
 
     def test_direct_add_v2_machine_schema(self):
         schema = json.loads((ROOT / "schemas" / "manual-direct-add.v2.schema.json").read_text(encoding="utf-8"))

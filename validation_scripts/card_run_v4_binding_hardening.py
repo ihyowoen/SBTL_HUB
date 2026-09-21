@@ -1401,18 +1401,24 @@ def _validate_substantive_dimension_delta(
         for dimension in DENSITY_DIMENSIONS
     }
 
-    upstream_strengths=_governed_copy_dimension_strengths(
+    upstream_strength_occurrences=_governed_copy_dimension_strength_occurrences(
         "changed_state",upstream_normalized
     )
-    current_strengths=_governed_copy_dimension_strengths(
+    current_strength_occurrences=_governed_copy_dimension_strength_occurrences(
         "changed_state",current_normalized
     )
-    deepened_changed_state={
-        signal
-        for signal,strength in current_strengths.items()
-        if strength>upstream_strengths.get(signal,0)
-        and upstream_strengths.get(signal,0)>0
-    }
+    deepened_changed_state=Counter({
+        signal:_strength_deepening_count(
+            upstream_strength_occurrences.get(signal,[]),
+            current_strength_occurrences.get(signal,[]),
+        )
+        for signal in set(upstream_strength_occurrences)|set(current_strength_occurrences)
+        if _strength_deepening_count(
+            upstream_strength_occurrences.get(signal,[]),
+            current_strength_occurrences.get(signal,[]),
+        )>0
+    })
+    remaining_deepened=Counter(deepened_changed_state)
 
     qualifying=[]
     grounded_state_advancement=False
@@ -1433,16 +1439,25 @@ def _validate_substantive_dimension_delta(
                 for signal,count in field_added.items()
                 if added_counts[dimension].get(signal,0)>0
             })
-            deepened=set()
+            deepened=Counter()
+            current_field_strength_occurrences={}
             if dimension=="changed_state":
-                field_strengths=_signal_strengths(dimension,current_field_text)
-                upstream_field_strengths=_signal_strengths(dimension,upstream_field_text)
-                deepened={
-                    signal for signal in deepened_changed_state
-                    if signal in field_strengths
-                    and field_strengths[signal]>upstream_field_strengths.get(signal,0)
-                }
-            introduced=set(added)|deepened
+                current_field_strength_occurrences=_signal_strength_occurrences(
+                    dimension,current_field_text
+                )
+                upstream_field_strength_occurrences=_signal_strength_occurrences(
+                    dimension,upstream_field_text
+                )
+                for signal,budget in list(remaining_deepened.items()):
+                    if budget<=0:
+                        continue
+                    field_count=_strength_deepening_count(
+                        upstream_field_strength_occurrences.get(signal,[]),
+                        current_field_strength_occurrences.get(signal,[]),
+                    )
+                    if field_count>0:
+                        deepened[signal]=min(field_count,budget)
+            introduced=set(added)|set(deepened)
             if not introduced:
                 continue
 
@@ -1464,15 +1479,19 @@ def _validate_substantive_dimension_delta(
                 if _nonempty_text(ref)
             ] if isinstance(entry.get("evidence_refs"),list) else []
             evidence_counts=Counter()
-            evidence_strengths={}
+            evidence_strength_occurrences={}
             for ref in refs:
                 for evidence_text in allowed_evidence_texts.get(ref,[]):
                     evidence_counts.update(_signal_counter(dimension,evidence_text))
                     if dimension=="changed_state":
-                        for signal,strength in _signal_strengths(dimension,evidence_text).items():
-                            evidence_strengths[signal]=max(
-                                evidence_strengths.get(signal,0),strength
-                            )
+                        for signal,strengths in _signal_strength_occurrences(
+                            dimension,evidence_text
+                        ).items():
+                            evidence_strength_occurrences.setdefault(signal,[]).extend(strengths)
+            evidence_strength_occurrences={
+                signal:sorted(values)
+                for signal,values in evidence_strength_occurrences.items()
+            }
 
             ungrounded_added={}
             for signal,count in added.items():
@@ -1490,15 +1509,21 @@ def _validate_substantive_dimension_delta(
                         "evidence_occurrences":evidence_counts.get(signal,0),
                     }
 
-            ungrounded_deepened=sorted(
-                signal for signal in deepened
-                if evidence_strengths.get(signal,0)<current_strengths.get(signal,0)
-            )
+            ungrounded_deepened={}
+            for signal,count in deepened.items():
+                required_strengths=current_field_strength_occurrences.get(signal,[])
+                evidence_strengths=evidence_strength_occurrences.get(signal,[])
+                if not _strength_multiset_covers(required_strengths,evidence_strengths):
+                    ungrounded_deepened[signal]={
+                        "deepened_occurrences":count,
+                        "required_current_strengths":required_strengths,
+                        "evidence_strengths":evidence_strengths,
+                    }
             diagnostics[(field,dimension)]={
                 "added":dict(added),
-                "deepened":sorted(deepened),
+                "deepened":dict(deepened),
                 "evidence_counts":dict(evidence_counts),
-                "evidence_strengths":evidence_strengths,
+                "evidence_strength_occurrences":evidence_strength_occurrences,
                 "ungrounded_added":ungrounded_added,
                 "ungrounded_deepened":ungrounded_deepened,
             }
@@ -1512,6 +1537,8 @@ def _validate_substantive_dimension_delta(
             qualifying.append((dimension,field,sorted(introduced)))
             grounded_introduced_counts[dimension].update(added)
             if dimension=="changed_state":
+                for signal,count in deepened.items():
+                    remaining_deepened[signal]-=count
                 grounded_state_advancement=True
 
     _validate_changed_factual_grounding(

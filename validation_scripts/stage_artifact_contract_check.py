@@ -323,11 +323,15 @@ def _source_supported_visible_fields(source):
     explicit_keys = ("visible_claim_support", "visible_fields_supported", "visible_supports", "supports")
     present = [key for key in explicit_keys if key in source]
     if present:
-        supported = set()
+        declared = []
         for key in present:
             values = source.get(key)
-            if isinstance(values, list):
-                supported.update(x for x in values if x in VISIBLE_COPY_FIELDS)
+            if not isinstance(values, list):
+                return set()
+            declared.append({x for x in values if x in VISIBLE_COPY_FIELDS})
+        supported = set(declared[0])
+        for fields in declared[1:]:
+            supported.intersection_update(fields)
         return supported
     return set(VISIBLE_COPY_FIELDS)
 

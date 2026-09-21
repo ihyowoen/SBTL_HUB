@@ -2160,7 +2160,10 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         for stage in ("C", "0.4", "0.5"):
             chain[stage][0]["fact"] = prior
         injected = {**source, "claim": "Capacity is 999 MW."}
-        with self.assertRaisesRegex(binding.Blocked, "does not preserve.*upstream quote/claim"):
+        with self.assertRaisesRegex(
+            binding.Blocked,
+            "does not preserve.*upstream quote/claim|introduces evidence packages.*authoritative upstream"
+        ):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
                 operation_card={**VISIBLE, "fact": current, "fact_sources": [injected]},

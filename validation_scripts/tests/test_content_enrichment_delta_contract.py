@@ -856,6 +856,8 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             "source_id": "SRC1",
             "source_url": "https://example.test/source",
             "source_quote": "The project was approved; capacity remains 10 MW / 20 MWh.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
         }
         row = row06(
             fact=current,

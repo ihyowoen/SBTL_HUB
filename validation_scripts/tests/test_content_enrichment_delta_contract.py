@@ -763,7 +763,10 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         )
         operation = {**VISIBLE, "fact": NEW_DENSE_FACT}
         operation.pop("fact_sources", None)
-        with self.assertRaisesRegex(binding.Blocked, "does not preserve bound evidence ref SRC1"):
+        with self.assertRaisesRegex(
+            binding.Blocked,
+            "does not preserve bound evidence ref SRC1|drops authoritative upstream evidence source tokens"
+        ):
             binding.validate_content_enrichment_delta(
                 rows(row), "update[0]", operation_card=operation,
             )

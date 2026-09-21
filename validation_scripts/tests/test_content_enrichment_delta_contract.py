@@ -1771,6 +1771,177 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         self.assertEqual(card["implication"], ["a", "x"])
 
 
+    def test_zero_delta_quantitative_grounding_requires_every_visible_signal(self):
+        text = (
+            "Previously, commercial production started at 10 MW and 999 MW; "
+            "target remains subject to certification."
+        )
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": (
+                "Previously, commercial production started at 10 MW; "
+                "target remains subject to certification."
+            ),
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=text,
+            fact_sources=[source],
+            content_enrichment_audit=audit(
+                [], no_change=True, supported=4,
+                reason="Every visible quantitative signal must be grounded.",
+                bind_dimensions=True,
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = text
+        with self.assertRaisesRegex(binding.Blocked, "not fully grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "insert[0]",
+                operation_card={**VISIBLE, "fact": text, "fact_sources": [source]},
+            )
+
+    def test_stage_checker_quantitative_grounding_requires_every_visible_signal(self):
+        text = (
+            "Previously, commercial production started at 10 MW and 999 MW; "
+            "target remains subject to certification."
+        )
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": (
+                "Previously, commercial production started at 10 MW; "
+                "target remains subject to certification."
+            ),
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        item = row06(
+            fact=text,
+            fact_sources=[source],
+            content_enrichment_audit=audit(
+                [], no_change=True, supported=4,
+                reason="Standalone grounding must cover all mapped signals.",
+                bind_dimensions=True,
+            ),
+        )
+        findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
+        self.assertTrue(any(
+            "not fully grounded" in finding.get("message", "")
+            and "999 mw" in str(finding.get("actual", "")).lower()
+            for finding in findings
+        ))
+
+    def test_stage_checker_fact_source_exclusion_is_sticky_across_duplicate_tokens(self):
+        excluded = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "role": "checked_not_used_for_visible_claims",
+            "visible_claim_support": [],
+        }
+        later_positive = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "supports": ["fact"],
+            "source_quote": "Commercial production started.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        item = row06(
+            fact="Commercial production started.",
+            fact_sources=[excluded, later_positive],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["changed_state"]
+            ),
+        )
+        findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
+        self.assertTrue(any(
+            "unbound references" in finding.get("message", "")
+            or "concrete upstream evidence tokens" in finding.get("message", "")
+            for finding in findings
+        ))
+
+    def test_stage_checker_non_string_dimension_field_returns_finding(self):
+        malformed = audit_for_dimensions(["fact"], ["changed_state"])
+        malformed["density_audit"]["dimension_evidence"]["changed_state"]["fields"] = [{}]
+        item = row06(content_enrichment_audit=malformed)
+        findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
+        self.assertTrue(any(
+            finding.get("field", "").endswith(
+                "dimension_evidence.changed_state.fields"
+            )
+            for finding in findings
+        ))
+
+    def test_new_changed_state_marker_requires_equal_or_stronger_evidence_modality(self):
+        prior = "Capacity is 10 MW"
+        current = "Capacity is 10 MW; the project is delayed"
+        weak = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 10 MW; the project may be delayed.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[weak],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["changed_state"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [weak]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "required_current_strengths|introduces/deepens"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [weak]},
+            )
+
+    def test_quantitative_entity_value_swap_requires_pair_grounding(self):
+        prior = "Alpha has capacity of 10 MW; Beta has capacity of 20 MW"
+        current = (
+            "Alpha has capacity of 20 MW; Beta has capacity of 10 MW; "
+            "Total capacity is 30 MW"
+        )
+        total_only = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Total capacity is 30 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[total_only],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [total_only]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "rebinds/adds quantitative claims to factual entities"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [total_only]},
+            )
+
+
 
 if __name__ == "__main__":
     unittest.main()

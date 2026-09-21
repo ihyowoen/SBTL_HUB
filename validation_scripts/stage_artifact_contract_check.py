@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
 import re
 import subprocess
@@ -365,7 +366,9 @@ def _row_evidence_token_support(item):
                 for token in tokens:
                     token_support.pop(token, None)
                 continue
-            _add_evidence_support(token_support, source, fields)
+            for token in tokens:
+                if token not in explicitly_excluded:
+                    token_support.setdefault(token, set()).update(fields)
     ledger = item.get("source_discovery_ledger")
     if isinstance(ledger, list):
         for entry in ledger:
@@ -414,16 +417,20 @@ def _visible_value_text(value):
     return str(value)
 
 
-def _mapped_dimension_signals(item, dimension, fields):
-    signals = set()
+def _mapped_dimension_signal_counts(item, dimension, fields):
+    counts = Counter()
     for field in fields:
-        signals.update(
-            _content_binding._signal_values(
+        counts.update(
+            _content_binding._signal_counter(
                 dimension,
                 _visible_value_text(_normalized_visible_value(field, item.get(field))),
             )
         )
-    return signals
+    return counts
+
+
+def _mapped_dimension_signals(item, dimension, fields):
+    return set(_mapped_dimension_signal_counts(item, dimension, fields))
 
 
 def _dimension_evidence_findings(item, density, scope, true_dimensions):
@@ -460,7 +467,12 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
             ))
             continue
         fields = entry.get("fields")
-        if not isinstance(fields, list) or not fields or len(fields) != len(set(fields)) \
+        valid_field_entries = (
+            isinstance(fields, list)
+            and bool(fields)
+            and all(isinstance(field, str) for field in fields)
+        )
+        if not valid_field_entries or len(fields) != len(set(fields)) \
                 or any(field not in VISIBLE_COPY_FIELDS for field in fields):
             findings.append(_field_finding(
                 scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.fields",
@@ -516,22 +528,30 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                         "refs authorized for every mapped visible field", unsupported,
                         "dimension evidence cites sources that do not support the mapped visible fields",
                     ))
-                if isinstance(fields, list) and fields:
-                    visible_signals = _mapped_dimension_signals(item, name, fields)
-                    evidence_signals = set()
+                if isinstance(fields, list) and fields and all(isinstance(field, str) for field in fields):
+                    visible_counts = _mapped_dimension_signal_counts(item, name, fields)
+                    evidence_counts = Counter()
                     for ref in refs:
                         if not _non_empty_string(ref):
                             continue
                         for evidence_text in evidence_texts.get(ref.strip(), []):
-                            evidence_signals.update(
-                                _content_binding._signal_values(name, evidence_text)
+                            evidence_counts.update(
+                                _content_binding._signal_counter(name, evidence_text)
                             )
-                    if visible_signals and not (visible_signals & evidence_signals):
+                    missing_signals = {
+                        signal: {
+                            "required_occurrences": count,
+                            "evidence_occurrences": evidence_counts.get(signal, 0),
+                        }
+                        for signal, count in visible_counts.items()
+                        if evidence_counts.get(signal, 0) < count
+                    }
+                    if missing_signals:
                         findings.append(_field_finding(
                             scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
-                            "referenced usable quote/claim evidence expressing the mapped dimension",
-                            refs,
-                            "dimension is not grounded in the referenced quote/claim evidence",
+                            "referenced usable quote/claim evidence covering every mapped signal occurrence",
+                            missing_signals,
+                            "dimension is not fully grounded in the referenced quote/claim evidence",
                         ))
     return findings
 

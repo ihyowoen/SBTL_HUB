@@ -1023,6 +1023,11 @@ def _row_evidence_token_state(row,alias_groups=None):
                         if token not in explicitly_excluded:
                             token_support.setdefault(token,set()).add("fact")
     groups=_evidence_alias_groups([row]) if alias_groups is None else alias_groups
+    expanded_support={}
+    for token,fields in token_support.items():
+        for alias in _expand_evidence_aliases({token},groups):
+            expanded_support.setdefault(alias,set()).update(fields)
+    token_support=expanded_support
     explicitly_excluded=_expand_evidence_aliases(explicitly_excluded,groups)
     for token in explicitly_excluded:
         token_support.pop(token,None)
@@ -1071,18 +1076,31 @@ def _nearest_upstream_evidence_packages(rows_by_stage,label,allowed_evidence_sup
     allowed=set(allowed_evidence_support)
     resolved={}
     unresolved=set(allowed)
-    for stage_name in ("0.5","0.4","C","B"):
+    rows=[
+        _single_bound_row(rows_by_stage,stage_name,label)
+        for stage_name in ("0.5","0.4","C","B")
+    ]
+    aliases=_evidence_alias_groups(rows)
+    for stage_name,row in zip(("0.5","0.4","C","B"),rows):
         if not unresolved:
             break
-        row=_single_bound_row(rows_by_stage,stage_name,label)
-        stage_support,stage_excluded=_row_evidence_token_state(row)
+        stage_support,stage_excluded=_row_evidence_token_state(row,aliases)
         stage_packages=_row_evidence_token_packages(row)
         for token in sorted(unresolved):
             if token in stage_excluded:
                 unresolved.remove(token)
                 continue
             if token in stage_support:
-                packages=stage_packages.get(token,[])
+                package_tokens=_expand_evidence_aliases({token},aliases)
+                packages=[]
+                seen=set()
+                for package_token in sorted(package_tokens):
+                    for package in stage_packages.get(package_token,[]):
+                        identity=_evidence_package_identity(package)
+                        if identity in seen:
+                            continue
+                        seen.add(identity)
+                        packages.append(package)
                 if len(packages)>1:
                     raise Blocked(
                         f"{label} nearest authoritative evidence token {token} is ambiguous: "

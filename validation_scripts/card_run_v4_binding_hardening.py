@@ -919,6 +919,16 @@ def _canonical_numeric_text(raw):
     return value or "0"
 
 
+def _quantitative_signal_kind(signal):
+    match=re.fullmatch(
+        r"(?P<currency>[$€£¥₩]?)(?P<number>\d+(?:\.\d+)?)(?:\s+(?P<unit>\S+))?",
+        signal,
+    )
+    if not match:
+        return None
+    return ((match.group("currency") or "").lower(), (match.group("unit") or "").lower())
+
+
 def _changed_state_match_strength(text,match):
     prefix=text[max(0,match.start()-64):match.start()]
     if NON_REALIZED_CHANGED_STATE_PREFIX_RE.search(prefix):
@@ -1073,6 +1083,7 @@ def _validate_substantive_dimension_delta(
 
     qualifying=[]
     grounded_state_advancement=False
+    grounded_introduced={dimension:set() for dimension in DENSITY_DIMENSIONS}
     diagnostics={}
 
     for field in changed:
@@ -1137,6 +1148,7 @@ def _validate_substantive_dimension_delta(
                     f"added={ungrounded_added} deepened={ungrounded_deepened}"
                 )
             qualifying.append((dimension,field,sorted(introduced)))
+            grounded_introduced[dimension].update(introduced)
             if dimension=="changed_state":
                 grounded_state_advancement=True
 
@@ -1153,6 +1165,19 @@ def _validate_substantive_dimension_delta(
             and lost <= {"plan_target","expectation_estimate","uncertain_conditional"}
         ):
             continue
+        if dimension=="quantitative_anchor" and grounded_introduced[dimension]:
+            replacement_kinds={
+                _quantitative_signal_kind(signal)
+                for signal in grounded_introduced[dimension]
+            }
+            replacement_kinds.discard(None)
+            unreplaced={
+                signal for signal in lost
+                if _quantitative_signal_kind(signal) not in replacement_kinds
+            }
+            if not unreplaced:
+                continue
+            lost=unreplaced
         raise Blocked(
             f"{label} changed 0.6 copy deletes verified upstream {dimension} signals "
             f"{sorted(lost)}"

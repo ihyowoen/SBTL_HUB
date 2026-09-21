@@ -50,6 +50,8 @@ PRESENTATION_HTML_TAG_RE = re.compile(
 ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
 QUANT_SIGNAL_RE = re.compile(
     r"(?<![A-Za-z0-9])"
+    r"(?P<bound><=|>=|≤|≥|<|>|≈|~)?\s*"
+    r"(?P<sign>[+-])?\s*"
     r"(?P<currency>[$€£¥₩]?)"
     r"(?P<number>\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+,\d+|\d+(?:\.\d+)?)"
     r"(?:\s*(?P<magnitude>thousand|million|billion|trillion|mn|bn|tn|k|m|b)\b)?"
@@ -93,6 +95,30 @@ NON_REALIZED_CHANGED_STATE_SUFFIX_RE = re.compile(
     r")",
     re.IGNORECASE,
 )
+CLAUSE_BOUNDARY_RE = re.compile(
+    r"[.;:!?]|\b(?:but|however|although|though|whereas)\b",
+    re.IGNORECASE,
+)
+CLAUSE_NEGATION_RE = re.compile(
+    r"\b(?:not|never|without)\b|n['’]t\b",
+    re.IGNORECASE,
+)
+FACTUAL_IDENTITY_TOKEN_RE = re.compile(
+    r"\b(?:[A-Z][A-Za-z0-9&._-]{2,}|[A-Z]{2,}[A-Z0-9&._-]*)\b"
+)
+LOCATION_PHRASE_RE = re.compile(
+    r"\b(?:at|in|near|from|to|with|by)\s+(?:the\s+)?([A-Za-z][A-Za-z0-9&._-]{2,})\b",
+    re.IGNORECASE,
+)
+KOREAN_IDENTITY_RE = re.compile(
+    r"(?<![가-힣])([가-힣]{2,}(?:공장|시설|법인|시|도|군|구|읍|면|리))(?![가-힣])"
+)
+FACTUAL_IDENTITY_STOPWORDS = {
+    "the","this","that","these","those","project","capacity","investment",
+    "production","commercial","previously","target","site","plant","facility",
+    "company","according","battery","energy","market","supply","demand","source",
+    "usd","eur","gbp","krw","cny","rmb","jpy","aud","cad","chf","hkd","sgd",
+}
 DIMENSION_CANONICAL_SIGNAL_RES = {
     "prior_state": {
         "prior_state": re.compile(r"\b(?:previous(?:ly)?|prior|earlier|before|formerly|versus|vs\.?|compared\s+with|year[- ]ago|last\s+year)\b|(?:이전|종전|기존|직전|전년|과거|당초)", re.IGNORECASE),
@@ -697,7 +723,7 @@ def _source_evidence_texts(source):
 
 
 def _source_evidence_package(source):
-    if not isinstance(source,dict):
+    if not isinstance(source,dict) or not _source_evidence_is_usable(source):
         return {}
     package={}
     for key in EVIDENCE_TEXT_KEYS + EVIDENCE_VERIFICATION_KEYS:
@@ -739,7 +765,18 @@ def _row_evidence_token_packages(row):
             continue
         for token in _evidence_tokens(source):
             packages.setdefault(token,[]).append(package)
-    return packages
+    deduped={}
+    for token,items in packages.items():
+        seen=set()
+        unique=[]
+        for package in items:
+            key=json.dumps(package,sort_keys=True,ensure_ascii=False,separators=(",",":"))
+            if key in seen:
+                continue
+            seen.add(key)
+            unique.append(package)
+        deduped[token]=unique
+    return deduped
 
 
 def _row_evidence_token_texts(row):
@@ -856,29 +893,20 @@ def _upstream_evidence_token_support(rows_by_stage,label):
     return resolved_support
 
 
-def _upstream_evidence_token_texts(rows_by_stage,label,allowed_evidence_support):
-    allowed=set(allowed_evidence_support)
-    resolved={}
-    unresolved=set(allowed)
-    for stage_name in ("0.5","0.4","C","B"):
-        if not unresolved:
-            break
-        row=_single_bound_row(rows_by_stage,stage_name,label)
-        stage_support,stage_excluded=_row_evidence_token_state(row)
-        stage_texts=_row_evidence_token_texts(row)
-        for token in list(unresolved):
-            if token in stage_excluded:
-                unresolved.remove(token)
-                continue
-            if token in stage_support:
-                texts=stage_texts.get(token,[])
-                if texts:
-                    resolved[token]=list(dict.fromkeys(texts))
-                unresolved.remove(token)
-    return resolved
+def _package_texts(package):
+    texts=[]
+    if not isinstance(package,dict):
+        return texts
+    for key in EVIDENCE_TEXT_KEYS:
+        value=package.get(key)
+        if _nonempty_text(value):
+            texts.append(value.strip())
+        elif isinstance(value,list):
+            texts.extend(x.strip() for x in value if _nonempty_text(x))
+    return list(dict.fromkeys(texts))
 
 
-def _upstream_evidence_token_packages(rows_by_stage,label,allowed_evidence_support):
+def _nearest_upstream_evidence_packages(rows_by_stage,label,allowed_evidence_support):
     allowed=set(allowed_evidence_support)
     resolved={}
     unresolved=set(allowed)
@@ -894,10 +922,32 @@ def _upstream_evidence_token_packages(rows_by_stage,label,allowed_evidence_suppo
                 continue
             if token in stage_support:
                 packages=stage_packages.get(token,[])
+                if len(packages)>1:
+                    raise Blocked(
+                        f"{label} nearest authoritative evidence token {token} is ambiguous: "
+                        f"multiple distinct usable quote/claim packages at stage {stage_name}"
+                    )
                 if packages:
                     resolved[token]=packages
                 unresolved.remove(token)
     return resolved
+
+
+def _upstream_evidence_token_texts(rows_by_stage,label,allowed_evidence_support):
+    packages=_nearest_upstream_evidence_packages(
+        rows_by_stage,label,allowed_evidence_support
+    )
+    return {
+        token:_package_texts(items[0])
+        for token,items in packages.items()
+        if items and _package_texts(items[0])
+    }
+
+
+def _upstream_evidence_token_packages(rows_by_stage,label,allowed_evidence_support):
+    return _nearest_upstream_evidence_packages(
+        rows_by_stage,label,allowed_evidence_support
+    )
 
 
 def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowed_evidence_support):
@@ -924,13 +974,16 @@ def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowe
         refs=entry.get("evidence_refs")
         if not isinstance(refs,list) or not refs or any(not _nonempty_text(x) for x in refs):
             raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name}.evidence_refs must be non-empty strings")
-        unknown=[x for x in refs if x.strip() not in evidence_support]
+        normalized_refs=[x.strip() for x in refs]
+        if len(normalized_refs)!=len(set(normalized_refs)):
+            raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name}.evidence_refs must be unique after normalization")
+        unknown=[x for x in normalized_refs if x not in evidence_support]
         if unknown:
             raise Blocked(f"{label} 0.6 dimension_evidence.{name} has unbound evidence refs {unknown}")
         unsupported={
-            ref.strip(): sorted(set(fields)-evidence_support.get(ref.strip(),set()))
-            for ref in refs
-            if set(fields)-evidence_support.get(ref.strip(),set())
+            ref: sorted(set(fields)-evidence_support.get(ref,set()))
+            for ref in normalized_refs
+            if set(fields)-evidence_support.get(ref,set())
         }
         if unsupported:
             raise Blocked(
@@ -971,18 +1024,23 @@ MAGNITUDE_CANONICAL = {
 
 
 def _quantitative_signal_from_match(match):
+    bound=(match.group("bound") or "")
+    bound={"≤":"<=","≥":">=","≈":"~"}.get(bound,bound)
+    sign=(match.group("sign") or "")
+    if sign=="+":
+        sign=""
     number=_canonical_numeric_text(match.group("number"))
     currency=(match.group("currency") or "").lower()
     magnitude=MAGNITUDE_CANONICAL.get((match.group("magnitude") or "").lower(),"")
     currency_code=(match.group("currency_code") or "").lower()
     unit=(match.group("unit") or "").lower()
     suffix=[x for x in (magnitude,currency_code,unit) if x]
-    return f"{currency}{number}{(' ' + ' '.join(suffix)) if suffix else ''}"
+    return f"{bound}{sign}{currency}{number}{(' ' + ' '.join(suffix)) if suffix else ''}"
 
 
 def _quantitative_signal_kind(signal):
     match=re.fullmatch(
-        r"(?P<currency>[$€£¥₩]?)(?P<number>\d+(?:\.\d+)?)(?:\s+(?P<suffix>.+))?",
+        r"(?:(?:<=|>=|<|>|~))?[+-]?(?P<currency>[$€£¥₩]?)(?P<number>\d+(?:\.\d+)?)(?:\s+(?P<suffix>.+))?",
         signal,
     )
     if not match:
@@ -995,6 +1053,13 @@ def _quantitative_signal_kind(signal):
 def _changed_state_match_strength(text,match):
     prefix=text[max(0,match.start()-64):match.start()]
     suffix=text[match.end():min(len(text),match.end()+64)]
+    clause_prefix=text[:match.start()]
+    boundaries=list(CLAUSE_BOUNDARY_RE.finditer(clause_prefix))
+    if boundaries:
+        clause_prefix=clause_prefix[boundaries[-1].end():]
+    clause_prefix=re.sub(r"\bnot\s+only\b","",clause_prefix,flags=re.IGNORECASE)
+    if CLAUSE_NEGATION_RE.search(clause_prefix):
+        return 0
     if NON_REALIZED_CHANGED_STATE_PREFIX_RE.search(prefix):
         return 0
     if NON_REALIZED_CHANGED_STATE_SUFFIX_RE.search(suffix):
@@ -1061,6 +1126,73 @@ def _governed_copy_dimension_signal_counts(dimension,normalized_by_field):
 def _governed_copy_dimension_signals(dimension, normalized_by_field):
     return set(_governed_copy_dimension_signal_counts(dimension,normalized_by_field))
 
+
+
+def _factual_identity_counter(text):
+    counts=Counter()
+    if not isinstance(text,str):
+        return counts
+    for match in FACTUAL_IDENTITY_TOKEN_RE.finditer(text):
+        token=match.group(0).strip(".,;:()[]{}").casefold()
+        if token and token not in FACTUAL_IDENTITY_STOPWORDS:
+            counts[token]+=1
+    for match in LOCATION_PHRASE_RE.finditer(text):
+        token=match.group(1).strip(".,;:()[]{}").casefold()
+        if token and token not in FACTUAL_IDENTITY_STOPWORDS:
+            counts[token]+=1
+    for match in KOREAN_IDENTITY_RE.finditer(text):
+        token=match.group(1)
+        if token:
+            counts[token]+=1
+    return counts
+
+
+def _governed_factual_identity_counts(normalized_by_field):
+    counts=Counter()
+    for field in VISIBLE_COPY_FIELDS:
+        counts.update(
+            _factual_identity_counter(_visible_value_text(normalized_by_field.get(field)))
+        )
+    return counts
+
+
+def _validate_changed_factual_identity_grounding(
+    density,current_normalized,upstream_normalized,actual_changed,allowed_evidence_texts,label
+):
+    mapping=density.get("dimension_evidence") if isinstance(density,dict) else {}
+    upstream_counts=_governed_factual_identity_counts(upstream_normalized)
+    for field in actual_changed:
+        current_counts=_factual_identity_counter(
+            _visible_value_text(current_normalized.get(field))
+        )
+        introduced=current_counts-upstream_counts
+        if not introduced:
+            continue
+        refs=[]
+        if isinstance(mapping,dict):
+            for entry in mapping.values():
+                if not isinstance(entry,dict):
+                    continue
+                fields=entry.get("fields")
+                if not isinstance(fields,list) or field not in fields:
+                    continue
+                for ref in entry.get("evidence_refs",[]) if isinstance(entry.get("evidence_refs"),list) else []:
+                    if _nonempty_text(ref) and ref.strip() not in refs:
+                        refs.append(ref.strip())
+        evidence_counts=Counter()
+        for ref in refs:
+            for evidence_text in allowed_evidence_texts.get(ref,[]):
+                evidence_counts.update(_factual_identity_counter(evidence_text))
+        missing={
+            token:count
+            for token,count in introduced.items()
+            if evidence_counts.get(token,0)<count
+        }
+        if missing:
+            raise Blocked(
+                f"{label} changed 0.6 field {field} introduces factual identity/location/entity "
+                f"tokens not grounded in referenced nearest-stage evidence: {missing}"
+            )
 
 
 def _validate_claimed_dimension_text(density, row_06, label, true_dimensions):

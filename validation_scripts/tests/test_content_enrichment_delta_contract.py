@@ -1248,7 +1248,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             chain[stage][0]["fact_sources"] = [source]
         for stage in ("C", "0.4", "0.5"):
             chain[stage][0]["fact"] = prior
-        with self.assertRaisesRegex(binding.Blocked, "factual identity/location/entity tokens not grounded"):
+        with self.assertRaisesRegex(binding.Blocked, "factual identity/location/predicate tokens not grounded"):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
                 operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},

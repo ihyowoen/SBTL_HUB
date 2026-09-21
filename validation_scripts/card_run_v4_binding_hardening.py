@@ -59,7 +59,9 @@ QUANT_SIGNAL_RE = re.compile(
     r"(?:\s*(?P<currency_code_suffix>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\b)?"
     r"(?:\s*(?P<unit>%|x|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
     r"(?:\s+(?!(?:and|or|but|yet|for|from|to|at|in|on|by|with|because|while|whereas|previously|currently|planned|approved|started|delayed|completed|commercial|subject|target)\b)"
-    r"(?P<generic_unit>[A-Za-z][A-Za-z0-9²³/_-]{0,31}))?"
+    r"(?P<generic_unit>[A-Za-z][A-Za-z0-9²³_-]{0,31}))?"
+    r"(?:(?P<unit_separator>\s+per\s+|\s*/\s*)"
+    r"(?P<unit_denominator>[A-Za-z][A-Za-z0-9²³_-]{0,31}))?"
     r"(?![A-Za-z0-9])",
     re.IGNORECASE,
 )
@@ -178,6 +180,17 @@ COMMA_PARTICIPIAL_FACTUAL_RE = re.compile(
     r",\s*(?!(?:using|containing|including)\b)"
     r"(?P<verb>[A-Za-z][A-Za-z-]{2,}ing)\b"
     r"\s+(?P<tail>[^.;:!?]{1,120})",
+    re.IGNORECASE,
+)
+DETERMINER_SENTENCE_FACTUAL_RE = re.compile(
+    r"(?:^|[.;:!?]\s+)"
+    r"(?P<sentence_subject>"
+    r"(?:the|a|an|this|that|these|those)\s+"
+    r"(?:(?:[A-Z][A-Za-z0-9&._-]*)\s+)?"
+    r"[A-Za-z][A-Za-z0-9&._-]*"
+    r")\s+"
+    r"(?P<sentence_verb>[A-Za-z][A-Za-z-]{1,})\b"
+    r"\s+(?P<sentence_tail>[^.;:!?]{1,120})",
     re.IGNORECASE,
 )
 FACTUAL_CONTENT_WORD_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9_-]{2,}\b|[가-힣]{2,}")
@@ -745,11 +758,15 @@ def _source_supported_visible_fields(source):
     explicit_keys=("visible_claim_support","visible_fields_supported","visible_supports","supports")
     present=[key for key in explicit_keys if key in source]
     if present:
-        supported=set()
+        declared=[]
         for key in present:
             values=source.get(key)
-            if isinstance(values,list):
-                supported.update(x for x in values if x in VISIBLE_COPY_FIELDS)
+            if not isinstance(values,list):
+                return set()
+            declared.append({x for x in values if x in VISIBLE_COPY_FIELDS})
+        supported=set(declared[0])
+        for fields in declared[1:]:
+            supported.intersection_update(fields)
         return supported
     return set(VISIBLE_COPY_FIELDS)
 
@@ -1259,13 +1276,17 @@ def _quantitative_signal_from_match(match):
         currency_code=prefix_code or suffix_code
     unit=(match.group("unit") or "").lower()
     generic_unit=(match.groupdict().get("generic_unit") or "").lower()
+    denominator=(match.groupdict().get("unit_denominator") or "").lower()
     if generic_unit in {
         "and","or","but","yet","for","from","to","at","in","on","by","with",
         "because","while","whereas","previously","currently","planned","approved",
         "started","delayed","completed","commercial","subject","target",
     }:
         generic_unit=""
-    suffix=[x for x in (magnitude,currency_code,unit or generic_unit) if x]
+    measurement_unit=unit or generic_unit
+    if measurement_unit and denominator:
+        measurement_unit=f"{measurement_unit}/{denominator}"
+    suffix=[x for x in (magnitude,currency_code,measurement_unit) if x]
     return f"{bound}{sign}{currency}{number}{(' ' + ' '.join(suffix)) if suffix else ''}"
 
 
@@ -1303,7 +1324,10 @@ def _changed_state_match_strength(text,match):
         prefix,re.IGNORECASE,
     ):
         return 0
-    if re.search(r"\b(?:will|shall)\s*$",prefix,re.IGNORECASE):
+    if re.search(
+        r"\b(?:will|shall)\s+(?:(?:not\s+)?(?:be|have|been|being)\s+){0,3}$",
+        prefix,re.IGNORECASE,
+    ) or re.search(r"\b(?:will|shall)\s*$",prefix,re.IGNORECASE):
         return 0
     if TENTATIVE_CHANGED_STATE_PREFIX_RE.search(prefix):
         return 1
@@ -1571,6 +1595,17 @@ def _factual_predicate_content_counter(text):
             token=word.casefold()
             if token not in FACTUAL_CONTENT_STOPWORDS:
                 counts[token]+=1
+    for match in DETERMINER_SENTENCE_FACTUAL_RE.finditer(text):
+        verb=match.group("sentence_verb")
+        if verb.casefold() in {
+            "am","is","are","was","were","be","been","being",
+            "has","have","had","do","does","did",
+        }:
+            continue
+        for word in [verb]+FACTUAL_CONTENT_WORD_RE.findall(match.group("sentence_tail")):
+            token=word.casefold()
+            if token not in FACTUAL_CONTENT_STOPWORDS:
+                counts[token]+=1
     return counts
 
 
@@ -1582,17 +1617,20 @@ def _factual_predicate_subject_counter(text):
     for pattern in (
         FACTUAL_PREDICATE_RE,GENERIC_FACTUAL_PREDICATE_RE,
         EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE,
+        DETERMINER_SENTENCE_FACTUAL_RE,
         MODAL_FACTUAL_PREDICATE_RE,COMMA_PARTICIPIAL_FACTUAL_RE,
     ):
         for match in pattern.finditer(text):
             groups=match.groupdict()
             tail_name=next((name for name in (
-                                "tail","tail_after_connector","tail_after_subject","explicit_tail"
+                                "tail","tail_after_connector","tail_after_subject","explicit_tail",
+                                "sentence_tail"
                             ) if groups.get(name)),None)
             if not tail_name:
                 continue
             verb_name=next((name for name in (
-                                "verb","verb_after_connector","verb_after_subject","explicit_verb"
+                                "verb","verb_after_connector","verb_after_subject","explicit_verb",
+                                "sentence_verb"
                             ) if groups.get(name)),None)
             start=match.start(verb_name) if verb_name else match.start()
             verb=(groups[verb_name] if verb_name else text[start:match.start(tail_name)]).strip().casefold()
@@ -2377,11 +2415,18 @@ def _validate_materialized_operation_evidence(
     support=_materialized_card_evidence_support(operation_card)
     packages=_materialized_card_evidence_packages(operation_card)
     authorized_tokens=set(required_evidence_packages)
-    unexpected_tokens=sorted(set(support)-authorized_tokens)
+    actual_tokens=set(support)
+    unexpected_tokens=sorted(actual_tokens-authorized_tokens)
     if unexpected_tokens:
         raise Blocked(
             f"{label} materialized operation card introduces evidence source tokens "
             f"not present in the authoritative upstream evidence chain: {unexpected_tokens}"
+        )
+    missing_tokens=sorted(authorized_tokens-actual_tokens)
+    if missing_tokens:
+        raise Blocked(
+            f"{label} materialized operation card drops authoritative upstream evidence "
+            f"source tokens: {missing_tokens}"
         )
     required_package_identities={
         _evidence_package_identity(package)

@@ -279,7 +279,7 @@ def _strip_paired_presentation_markup(text):
     while previous != text:
         previous = text
         for pattern in patterns:
-            text = re.sub(pattern, r"\1", text)
+            text = re.sub(pattern, r"\1", text, flags=re.DOTALL)
     return text
 
 

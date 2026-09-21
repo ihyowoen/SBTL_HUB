@@ -795,6 +795,48 @@ def _source_evidence_package(source):
     return package
 
 
+def _evidence_package_identity(package):
+    if not isinstance(package,dict) or not package:
+        return None
+    return json.dumps(
+        package,sort_keys=True,ensure_ascii=False,separators=(",",":")
+    )
+
+
+def _evidence_ref_identity(ref,packages_by_ref):
+    packages=packages_by_ref.get(ref,[]) if isinstance(packages_by_ref,dict) else []
+    if len(packages)!=1:
+        return None
+    return _evidence_package_identity(packages[0])
+
+
+def _duplicate_evidence_ref_aliases(refs,packages_by_ref):
+    seen={}
+    duplicates={}
+    for ref in refs:
+        identity=_evidence_ref_identity(ref,packages_by_ref)
+        if identity is None:
+            continue
+        if identity in seen and seen[identity]!=ref:
+            duplicates.setdefault(seen[identity],[]).append(ref)
+        else:
+            seen[identity]=ref
+    return duplicates
+
+
+def _unique_evidence_refs_by_identity(refs,packages_by_ref):
+    unique=[]
+    seen=set()
+    for ref in refs:
+        identity=_evidence_ref_identity(ref,packages_by_ref)
+        key=("package",identity) if identity is not None else ("ref",ref)
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(ref)
+    return unique
+
+
 def _row_evidence_token_packages(row):
     packages={}
     if not isinstance(row,dict):
@@ -1007,7 +1049,10 @@ def _upstream_evidence_token_packages(rows_by_stage,label,allowed_evidence_suppo
     )
 
 
-def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowed_evidence_support):
+def _validate_dimension_evidence(
+    density,row_06,label,true_dimensions,
+    allowed_evidence_support,allowed_evidence_packages
+):
     mapping=density.get("dimension_evidence")
     if not isinstance(mapping,dict) or set(mapping)!=set(true_dimensions):
         raise Blocked(
@@ -1039,6 +1084,14 @@ def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowe
         normalized_refs=[x.strip() for x in refs]
         if len(normalized_refs)!=len(set(normalized_refs)):
             raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name}.evidence_refs must be unique after normalization")
+        alias_duplicates=_duplicate_evidence_ref_aliases(
+            normalized_refs,allowed_evidence_packages
+        )
+        if alias_duplicates:
+            raise Blocked(
+                f"{label} 0.6 dimension_evidence.{name}.evidence_refs contain aliases "
+                f"for the same resolved source/evidence package {alias_duplicates}"
+            )
         unknown=[x for x in normalized_refs if x not in evidence_support]
         if unknown:
             raise Blocked(f"{label} 0.6 dimension_evidence.{name} has unbound evidence refs {unknown}")
@@ -1862,7 +1915,8 @@ def _validate_substantive_dimension_delta(
 
 
 def _validate_density_audit(
-    audit, row_06, label, *, no_change, allowed_evidence_support, actual_changed=()
+    audit,row_06,label,*,no_change,allowed_evidence_support,
+    allowed_evidence_packages,actual_changed=()
 ):
     density=audit.get("density_audit") if isinstance(audit,dict) else None
     if not isinstance(density,dict) or density.get("status")!="PASS":
@@ -1894,6 +1948,7 @@ def _validate_density_audit(
     _validate_dimension_evidence(
         density,row_06,label,true_dimensions,
         allowed_evidence_support=allowed_evidence_support,
+        allowed_evidence_packages=allowed_evidence_packages,
     )
     _validate_claimed_dimension_text(density,row_06,label,true_dimensions)
     if not no_change:
@@ -1971,7 +2026,7 @@ def _materialized_card_evidence_packages(card):
 
 
 def _package_preserves(required,actual):
-    return all(actual.get(key)==value for key,value in required.items())
+    return required==actual
 
 
 def _validate_materialized_operation_evidence(

@@ -1132,14 +1132,23 @@ def _validate_substantive_dimension_delta(
         if value is True
     }
 
-    upstream_by_dimension={
-        dimension:_governed_copy_dimension_signals(dimension,upstream_normalized)
+    upstream_counts={
+        dimension:_governed_copy_dimension_signal_counts(dimension,upstream_normalized)
         for dimension in DENSITY_DIMENSIONS
     }
-    current_by_dimension={
-        dimension:_governed_copy_dimension_signals(dimension,current_normalized)
+    current_counts={
+        dimension:_governed_copy_dimension_signal_counts(dimension,current_normalized)
         for dimension in DENSITY_DIMENSIONS
     }
+    added_counts={
+        dimension:current_counts[dimension]-upstream_counts[dimension]
+        for dimension in DENSITY_DIMENSIONS
+    }
+    lost_counts={
+        dimension:upstream_counts[dimension]-current_counts[dimension]
+        for dimension in DENSITY_DIMENSIONS
+    }
+
     upstream_strengths=_governed_copy_dimension_strengths(
         "changed_state",upstream_normalized
     )
@@ -1155,25 +1164,36 @@ def _validate_substantive_dimension_delta(
 
     qualifying=[]
     grounded_state_advancement=False
-    grounded_introduced={dimension:set() for dimension in DENSITY_DIMENSIONS}
+    grounded_introduced_counts={
+        dimension:Counter() for dimension in DENSITY_DIMENSIONS
+    }
     diagnostics={}
 
     for field in changed:
         current_field_text=_visible_value_text(current_normalized.get(field))
+        upstream_field_text=_visible_value_text(upstream_normalized.get(field))
         for dimension in DENSITY_DIMENSIONS:
-            current_field_signals=_signal_values(dimension,current_field_text)
-            added=set(current_field_signals)-upstream_by_dimension[dimension]
+            current_field_counts=_signal_counter(dimension,current_field_text)
+            upstream_field_counts=_signal_counter(dimension,upstream_field_text)
+            field_added=current_field_counts-upstream_field_counts
+            added=Counter({
+                signal:min(count,added_counts[dimension].get(signal,0))
+                for signal,count in field_added.items()
+                if added_counts[dimension].get(signal,0)>0
+            })
             deepened=set()
             if dimension=="changed_state":
                 field_strengths=_signal_strengths(dimension,current_field_text)
+                upstream_field_strengths=_signal_strengths(dimension,upstream_field_text)
                 deepened={
                     signal for signal in deepened_changed_state
                     if signal in field_strengths
-                    and field_strengths[signal]>upstream_strengths.get(signal,0)
+                    and field_strengths[signal]>upstream_field_strengths.get(signal,0)
                 }
-            introduced=added|deepened
+            introduced=set(added)|deepened
             if not introduced:
                 continue
+
             entry=mapping.get(dimension) if isinstance(mapping,dict) else None
             if dimension not in true_dimensions or not isinstance(entry,dict):
                 raise Blocked(
@@ -1186,29 +1206,46 @@ def _validate_substantive_dimension_delta(
                     f"{label} changed 0.6 field {field} introduces {dimension} signals "
                     f"{sorted(introduced)} but dimension_evidence does not map that field"
                 )
+
             refs=[
                 ref.strip() for ref in entry.get("evidence_refs",[])
                 if _nonempty_text(ref)
             ] if isinstance(entry.get("evidence_refs"),list) else []
-            evidence_signals=set()
+            evidence_counts=Counter()
             evidence_strengths={}
             for ref in refs:
                 for evidence_text in allowed_evidence_texts.get(ref,[]):
-                    evidence_signals.update(_signal_values(dimension,evidence_text))
+                    evidence_counts.update(_signal_counter(dimension,evidence_text))
                     if dimension=="changed_state":
                         for signal,strength in _signal_strengths(dimension,evidence_text).items():
                             evidence_strengths[signal]=max(
                                 evidence_strengths.get(signal,0),strength
                             )
-            ungrounded_added=sorted(added-evidence_signals)
+
+            ungrounded_added={}
+            for signal,count in added.items():
+                # If the same marker already existed in this field, the evidence
+                # package must distinguish the repeated claim by carrying at least
+                # the full current occurrence count for that marker.
+                required=(
+                    current_field_counts[signal]
+                    if upstream_field_counts.get(signal,0)>0
+                    else count
+                )
+                if evidence_counts.get(signal,0)<required:
+                    ungrounded_added[signal]={
+                        "required_occurrences":required,
+                        "evidence_occurrences":evidence_counts.get(signal,0),
+                    }
+
             ungrounded_deepened=sorted(
                 signal for signal in deepened
                 if evidence_strengths.get(signal,0)<current_strengths.get(signal,0)
             )
             diagnostics[(field,dimension)]={
-                "added":sorted(added),
+                "added":dict(added),
                 "deepened":sorted(deepened),
-                "evidence_signals":sorted(evidence_signals),
+                "evidence_counts":dict(evidence_counts),
                 "evidence_strengths":evidence_strengths,
                 "ungrounded_added":ungrounded_added,
                 "ungrounded_deepened":ungrounded_deepened,
@@ -1216,11 +1253,12 @@ def _validate_substantive_dimension_delta(
             if ungrounded_added or ungrounded_deepened:
                 raise Blocked(
                     f"{label} changed 0.6 dimension {dimension} introduces/deepens signals "
-                    f"not grounded in referenced upstream source quote/claim evidence: "
+                    f"not grounded in referenced nearest-stage source quote/claim evidence: "
                     f"added={ungrounded_added} deepened={ungrounded_deepened}"
                 )
+
             qualifying.append((dimension,field,sorted(introduced)))
-            grounded_introduced[dimension].update(introduced)
+            grounded_introduced_counts[dimension].update(added)
             if dimension=="changed_state":
                 grounded_state_advancement=True
 
@@ -1228,31 +1266,35 @@ def _validate_substantive_dimension_delta(
     # allowed semantic contraction is removal of uncertainty/plan markers when
     # the same edit carries a grounded realized-state advancement.
     for dimension in DENSITY_DIMENSIONS:
-        lost=upstream_by_dimension[dimension]-current_by_dimension[dimension]
+        lost=lost_counts[dimension]
         if not lost:
             continue
         if (
             dimension=="boundary_or_uncertainty"
             and grounded_state_advancement
-            and lost <= {"plan_target","expectation_estimate","uncertain_conditional"}
+            and set(lost) <= {"plan_target","expectation_estimate","uncertain_conditional"}
         ):
             continue
-        if dimension=="quantitative_anchor" and grounded_introduced[dimension]:
-            replacement_kinds={
-                _quantitative_signal_kind(signal)
-                for signal in grounded_introduced[dimension]
-            }
-            replacement_kinds.discard(None)
-            unreplaced={
-                signal for signal in lost
-                if _quantitative_signal_kind(signal) not in replacement_kinds
-            }
+        if dimension=="quantitative_anchor" and grounded_introduced_counts[dimension]:
+            replacement_budget=Counter()
+            for signal,count in grounded_introduced_counts[dimension].items():
+                kind=_quantitative_signal_kind(signal)
+                if kind is not None:
+                    replacement_budget[kind]+=count
+            unreplaced=Counter()
+            for signal,count in lost.items():
+                kind=_quantitative_signal_kind(signal)
+                replace=min(count,replacement_budget.get(kind,0))
+                if replace:
+                    replacement_budget[kind]-=replace
+                if count>replace:
+                    unreplaced[signal]=count-replace
             if not unreplaced:
                 continue
             lost=unreplaced
         raise Blocked(
             f"{label} changed 0.6 copy deletes verified upstream {dimension} signals "
-            f"{sorted(lost)}"
+            f"{dict(lost)}"
         )
 
     if not qualifying:

@@ -291,7 +291,10 @@ def _normalize_text(value):
     text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)
     text = PRESENTATION_HTML_TAG_RE.sub("", text)
     text = re.sub(r"^\s{0,3}#{1,6}\s+", "", text)
-    text = re.sub(r"^\s*[-+>]\s+", "", text)
+    text = re.sub(
+        r"^\s*[-+>]\s+(?!\s*(?:[$€£¥₩]?\d|USD\b|EUR\b|GBP\b|KRW\b|CNY\b|RMB\b|JPY\b|AUD\b|CAD\b|CHF\b|HKD\b|SGD\b))",
+        "", text, flags=re.IGNORECASE,
+    )
     text = _strip_paired_presentation_markup(text)
     return " ".join(text.split())
 

@@ -1078,6 +1078,182 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
         )
 
+    def test_duplicate_evidence_refs_cannot_double_count_one_quote(self):
+        prior = "The site permit was approved"
+        current = "The site permit was approved; project financing was approved"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Project financing was approved.",
+            "source_quote_status": "body_quote_verified",
+        }
+        focused = audit_for_dimensions(["fact"], ["changed_state"])
+        focused["density_audit"]["dimension_evidence"]["changed_state"]["evidence_refs"] = [
+            "SRC1", " SRC1 "
+        ]
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=focused,
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "evidence_refs must be unique after normalization"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_nearest_stage_duplicate_token_packages_are_rejected_as_ambiguous(self):
+        prior = "Capacity is 10 MW"
+        current = "Capacity is 20 MW"
+        source_20 = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+        }
+        source_10 = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 10 MW.",
+            "source_quote_status": "body_quote_verified",
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source_20],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        chain["0.5"][0]["fact_sources"] = [source_20, source_10]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "evidence token SRC1 is ambiguous"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source_20]},
+            )
+
+    def test_clause_level_negation_blocks_distant_not_started(self):
+        text = (
+            "Previously, the planned 10 MW project has not as of this week started "
+            "because supply costs may rise."
+        )
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": text,
+            "source_quote_status": "body_quote_verified",
+        }
+        row = row06(
+            fact=text,
+            fact_sources=[source],
+            content_enrichment_audit=audit(
+                [], no_change=True, supported=5,
+                reason="Clause-level negation prevents realized changed-state.",
+                bind_dimensions=True,
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = text
+        with self.assertRaisesRegex(binding.Blocked, "changed_state.*claimed but not expressed|claimed but not expressed"):
+            binding.validate_content_enrichment_delta(
+                chain, "insert[0]",
+                operation_card={**VISIBLE, "fact": text, "fact_sources": [source]},
+            )
+
+    def test_quantitative_polarity_and_bounds_are_part_of_claim_identity(self):
+        self.assertNotEqual(
+            binding._signal_values("quantitative_anchor", "Capacity is -10 MW"),
+            binding._signal_values("quantitative_anchor", "Capacity is 10 MW"),
+        )
+        self.assertNotEqual(
+            binding._signal_values("quantitative_anchor", "Capacity is >20 MW"),
+            binding._signal_values("quantitative_anchor", "Capacity is <20 MW"),
+        )
+        self.assertIn("-10 mw", binding._signal_values("quantitative_anchor", "Capacity is -10 MW"))
+        self.assertIn(">20 mw", binding._signal_values("quantitative_anchor", "Capacity is >20 MW"))
+        self.assertIn("<20 mw", binding._signal_values("quantitative_anchor", "Capacity is <20 MW"))
+
+    def test_quantitative_polarity_mismatch_cannot_ground_enrichment(self):
+        prior = "Capacity is 5 MW"
+        current = "Capacity is -10 MW"
+        positive = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 10 MW.",
+            "source_quote_status": "body_quote_verified",
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[positive],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [positive]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "not grounded.*nearest-stage"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [positive]},
+            )
+
+    def test_factual_location_addition_outside_dimension_taxonomy_requires_grounding(self):
+        prior = "Capacity is 10 MW"
+        current = "Capacity is 20 MW at the Mars facility"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "factual identity/location/entity tokens not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_standalone_duplicate_evidence_refs_are_reported(self):
+        item = row06(
+            content_enrichment_audit=audit(
+                [], no_change=True, supported=4,
+                reason="Duplicate refs must not double-count evidence.",
+                bind_dimensions=True,
+            ),
+        )
+        item["content_enrichment_audit"]["density_audit"]["dimension_evidence"]["changed_state"]["evidence_refs"] = [
+            "SRC1", " SRC1 "
+        ]
+        findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
+        self.assertTrue(any(
+            "duplicate evidence refs" in x.get("message", "")
+            for x in findings
+        ))
+
     def test_boolean_supported_dimension_count_is_rejected(self):
         one_dimension = {
             "status": "PASS",

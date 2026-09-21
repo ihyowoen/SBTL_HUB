@@ -1800,7 +1800,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             chain[stage][0]["fact_sources"] = [source]
         for stage in ("C", "0.4", "0.5"):
             chain[stage][0]["fact"] = text
-        with self.assertRaisesRegex(binding.Blocked, "not fully grounded"):
+        with self.assertRaisesRegex(binding.Blocked, "not grounded"):
             binding.validate_content_enrichment_delta(
                 chain, "insert[0]",
                 operation_card={**VISIBLE, "fact": text, "fact_sources": [source]},
@@ -1832,7 +1832,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         )
         findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
         self.assertTrue(any(
-            "not fully grounded" in finding.get("message", "")
+            "not grounded" in finding.get("message", "")
             and "999 mw" in str(finding.get("actual", "")).lower()
             for finding in findings
         ))

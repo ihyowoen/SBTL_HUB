@@ -2847,6 +2847,140 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         )
 
 
+    def test_future_state_with_intervening_auxiliary_is_not_realized(self):
+        for text in (
+            "Previously, the planned 10 MW project will be delayed because supply costs rose",
+            "Previously, the planned 10 MW project shall be approved because funding cleared",
+            "Previously, the planned 10 MW project will have started because demand rose",
+        ):
+            with self.subTest(text=text):
+                self.assertFalse(binding._signal_values("changed_state", text))
+
+    def test_determiner_led_sentence_factual_addition_requires_grounding(self):
+        prior = "Capacity is 10 MW."
+        current = "Capacity is 20 MW. The plant burns coal."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "predicate tokens not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_compound_quantitative_units_preserve_denominator(self):
+        per_day = binding._signal_values(
+            "quantitative_anchor", "Output is 20 barrels per day"
+        )
+        per_month = binding._signal_values(
+            "quantitative_anchor", "Output is 20 barrels per month"
+        )
+        per_kg = binding._signal_values(
+            "quantitative_anchor", "Output is 20 barrels/kg"
+        )
+        self.assertIn("20 barrels/day", per_day)
+        self.assertIn("20 barrels/month", per_month)
+        self.assertIn("20 barrels/kg", per_kg)
+        self.assertNotEqual(per_day, per_month)
+
+        prior = "Output is 10 barrels per day"
+        current = "Output is 20 barrels per day"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Output is 20 barrels per month.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_restrictive_support_aliases_are_intersected(self):
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+            "visible_supports": [],
+            "supports": ["fact"],
+        }
+        self.assertEqual(binding._source_supported_visible_fields(source), set())
+        self.assertEqual(stage_contract._source_supported_visible_fields(source), set())
+
+    def test_materialized_operation_preserves_all_authoritative_evidence_tokens(self):
+        prior = "Capacity is 10 MW"
+        current = "Capacity is 20 MW"
+        source1 = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source1",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        source2 = {
+            "source_id": "SRC2",
+            "source_url": "https://example.test/source2",
+            "source_quote": "Supporting context from the same authoritative chain.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source1, source2],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source1, source2]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "drops authoritative upstream evidence source tokens"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={
+                    **VISIBLE,
+                    "fact": current,
+                    "fact_sources": [source1],
+                },
+            )
+
+
 
 if __name__ == "__main__":
     unittest.main()

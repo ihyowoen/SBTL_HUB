@@ -58,7 +58,8 @@ QUANT_SIGNAL_RE = re.compile(
     r"(?:\s*(?P<magnitude>thousand|million|billion|trillion|mn|bn|tn|k|m|b)\b)?"
     r"(?:\s*(?P<currency_code_suffix>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\b)?"
     r"(?:\s*(?P<unit>%|x|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
-    r"(?:\s*(?P<generic_unit>[A-Za-z][A-Za-z0-9²³/_-]{0,31}))?"
+    r"(?:\s+(?!(?:and|or|but|yet|for|from|to|at|in|on|by|with|because|while|whereas|previously|currently|planned|approved|started|delayed|completed|commercial|subject|target)\b)"
+    r"(?P<generic_unit>[A-Za-z][A-Za-z0-9²³/_-]{0,31}))?"
     r"(?![A-Za-z0-9])",
     re.IGNORECASE,
 )

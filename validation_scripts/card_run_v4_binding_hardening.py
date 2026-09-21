@@ -51,11 +51,12 @@ ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
 QUANT_SIGNAL_RE = re.compile(
     r"(?<![A-Za-z0-9])"
     r"(?P<bound><=|>=|≤|≥|<|>|≈|~)?\s*"
+    r"(?:(?P<currency_code_prefix>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\s+)?"
     r"(?P<sign>[+-])?\s*"
     r"(?P<currency>[$€£¥₩]?)"
     r"(?P<number>\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+,\d+|\d+(?:\.\d+)?)"
     r"(?:\s*(?P<magnitude>thousand|million|billion|trillion|mn|bn|tn|k|m|b)\b)?"
-    r"(?:\s*(?P<currency_code>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\b)?"
+    r"(?:\s*(?P<currency_code_suffix>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\b)?"
     r"(?:\s*(?P<unit>%|x|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
     r"(?![A-Za-z0-9])",
     re.IGNORECASE,
@@ -70,6 +71,15 @@ EVIDENCE_VERIFICATION_KEYS = (
     "fetch_status", "resolved_article_matches_quote", "fetched",
     "headline_only", "rss_or_snippet_only", "claim_use", "evidence_role",
 )
+USABLE_QUOTE_STATUSES = {
+    "body_quote_verified",
+    "official_material_quote_verified",
+    "document_quote_verified",
+}
+FETCH_METADATA_KEYS = {
+    "fetched", "fetched_at", "checked_at", "body", "body_text",
+    "document_text", "official_material_text",
+}
 NON_REALIZED_CHANGED_STATE_PREFIX_RE = re.compile(
     r"(?:"
     r"\b(?:not|never|without)\b(?:\s+\w+){0,3}\s*$"
@@ -96,7 +106,7 @@ NON_REALIZED_CHANGED_STATE_SUFFIX_RE = re.compile(
     re.IGNORECASE,
 )
 CLAUSE_BOUNDARY_RE = re.compile(
-    r"[.;:!?]|\b(?:but|however|although|though|whereas)\b",
+    r"[.;:!?]|\b(?:and|or|but|yet|however|although|though|whereas)\b",
     re.IGNORECASE,
 )
 CLAUSE_NEGATION_RE = re.compile(
@@ -118,6 +128,26 @@ FACTUAL_IDENTITY_STOPWORDS = {
     "production","commercial","previously","target","site","plant","facility",
     "company","according","battery","energy","market","supply","demand","source",
     "usd","eur","gbp","krw","cny","rmb","jpy","aud","cad","chf","hkd","sgd",
+}
+FACTUAL_PREDICATE_RE = re.compile(
+    r"\b(?:uses?|using|contains?|containing|includes?|including|comprises?|"
+    r"relies\s+on|sources?|supplies?|owns?|operates?|employs?|produces?|"
+    r"manufactures?|recycles?|acquires?|acquired|selects?|selected|"
+    r"partners?\s+with|partnered\s+with|contracts?\s+with|contracted\s+with|"
+    r"built\s+with|made\s+with|located\s+in|based\s+in|powered\s+by)"
+    r"\s+(?P<tail>[^.;:!?]{1,120})",
+    re.IGNORECASE,
+)
+FACTUAL_CONTENT_WORD_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9_-]{2,}\b|[가-힣]{2,}")
+FACTUAL_CONTENT_STOPWORDS = FACTUAL_IDENTITY_STOPWORDS | {
+    "and","or","but","yet","with","from","into","onto","over","under","through",
+    "for","per","via","its","their","our","his","her","new","same","current",
+    "planned","approved","started","delayed","completed","commercial","remains",
+    "remain","will","would","could","may","might","uses","using","contains",
+    "containing","includes","including","comprises","relies","sources","supplies",
+    "owns","operates","employs","produces","manufactures","recycles","acquires",
+    "acquired","selects","selected","partners","partnered","contracts","contracted",
+    "built","made","located","based","powered",
 }
 DIMENSION_CANONICAL_SIGNAL_RES = {
     "prior_state": {
@@ -624,7 +654,7 @@ def _strip_paired_presentation_markup(text):
     while previous!=text:
         previous=text
         for pattern in patterns:
-            text=re.sub(pattern,r"\1",text)
+            text=re.sub(pattern,r"\1",text,flags=re.DOTALL)
     return text
 
 
@@ -689,29 +719,35 @@ def _evidence_tokens(source):
     return tokens
 
 
+def _has_positive_fetch_metadata(source):
+    if not isinstance(source,dict):
+        return False
+    if source.get("fetched") is True:
+        return True
+    return any(
+        key!="fetched" and bool(source.get(key))
+        for key in FETCH_METADATA_KEYS
+    )
+
+
 def _source_evidence_is_usable(source):
     if not isinstance(source,dict):
         return False
-    if source.get("fetched") is False:
+    quote_status=source.get("source_quote_status") or source.get("quote_status")
+    if quote_status not in USABLE_QUOTE_STATUSES:
+        return False
+    if not _has_positive_fetch_metadata(source):
         return False
     if source.get("resolved_article_matches_quote") is False:
         return False
     if source.get("headline_only") is True or source.get("rss_or_snippet_only") is True:
         return False
-    negative_status=re.compile(
-        r"(?:fetch[_ -]?failed|\bfailed\b|\berror\b|unverif|not[_ -]?verified|mismatch|invalid|unresolved)",
-        re.IGNORECASE,
-    )
-    for key in ("source_quote_status","quote_status","claim_status","evidence_status","fetch_status"):
-        value=source.get(key)
-        if isinstance(value,str) and negative_status.search(value):
-            return False
-    return True
+    return bool(_source_evidence_texts_raw(source))
 
 
-def _source_evidence_texts(source):
+def _source_evidence_texts_raw(source):
     texts=[]
-    if not isinstance(source,dict) or not _source_evidence_is_usable(source):
+    if not isinstance(source,dict):
         return texts
     for key in EVIDENCE_TEXT_KEYS:
         value=source.get(key)
@@ -720,6 +756,13 @@ def _source_evidence_texts(source):
         elif isinstance(value,list):
             texts.extend(x.strip() for x in value if _nonempty_text(x))
     return list(dict.fromkeys(texts))
+
+
+
+def _source_evidence_texts(source):
+    if not _source_evidence_is_usable(source):
+        return []
+    return _source_evidence_texts_raw(source)
 
 
 def _source_evidence_package(source):
@@ -1032,7 +1075,12 @@ def _quantitative_signal_from_match(match):
     number=_canonical_numeric_text(match.group("number"))
     currency=(match.group("currency") or "").lower()
     magnitude=MAGNITUDE_CANONICAL.get((match.group("magnitude") or "").lower(),"")
-    currency_code=(match.group("currency_code") or "").lower()
+    prefix_code=(match.group("currency_code_prefix") or "").lower()
+    suffix_code=(match.group("currency_code_suffix") or "").lower()
+    if prefix_code and suffix_code and prefix_code!=suffix_code:
+        currency_code=f"{prefix_code}/{suffix_code}"
+    else:
+        currency_code=prefix_code or suffix_code
     unit=(match.group("unit") or "").lower()
     suffix=[x for x in (magnitude,currency_code,unit) if x]
     return f"{bound}{sign}{currency}{number}{(' ' + ' '.join(suffix)) if suffix else ''}"
@@ -1073,26 +1121,67 @@ def _changed_state_match_is_realized(text,match):
     return _changed_state_match_strength(text,match)>0
 
 
-def _signal_strengths(dimension,text):
+def _signal_strength_occurrences(dimension,text):
+    occurrences={}
     if dimension!="changed_state":
-        return {signal:1 for signal in _signal_values(dimension,text)}
-    strengths={}
+        for signal,count in _signal_counter(dimension,text).items():
+            occurrences[signal]=[1]*count
+        return occurrences
     for marker,pattern in DIMENSION_CANONICAL_SIGNAL_RES["changed_state"].items():
+        strengths=[]
         for match in pattern.finditer(text):
             strength=_changed_state_match_strength(text,match)
             if strength>0:
-                strengths[marker]=max(strengths.get(marker,0),strength)
-    return strengths
+                strengths.append(strength)
+        if strengths:
+            occurrences[marker]=sorted(strengths)
+    return occurrences
+
+
+def _signal_strengths(dimension,text):
+    return {
+        marker:max(strengths)
+        for marker,strengths in _signal_strength_occurrences(dimension,text).items()
+        if strengths
+    }
+
+
+def _governed_copy_dimension_strength_occurrences(dimension,normalized_by_field):
+    occurrences={}
+    for field in VISIBLE_COPY_FIELDS:
+        for marker,strengths in _signal_strength_occurrences(
+            dimension,_visible_value_text(normalized_by_field.get(field))
+        ).items():
+            occurrences.setdefault(marker,[]).extend(strengths)
+    return {marker:sorted(values) for marker,values in occurrences.items()}
 
 
 def _governed_copy_dimension_strengths(dimension,normalized_by_field):
-    strengths={}
-    for field in VISIBLE_COPY_FIELDS:
-        for signal,strength in _signal_strengths(
-            dimension,_visible_value_text(normalized_by_field.get(field))
-        ).items():
-            strengths[signal]=max(strengths.get(signal,0),strength)
-    return strengths
+    return {
+        marker:max(strengths)
+        for marker,strengths in _governed_copy_dimension_strength_occurrences(
+            dimension,normalized_by_field
+        ).items()
+        if strengths
+    }
+
+
+def _strength_deepening_count(upstream,current):
+    before=sorted(upstream)
+    after=sorted(current)
+    return sum(1 for old,new in zip(before,after) if new>old)
+
+
+def _strength_multiset_covers(required,evidence):
+    pool=sorted(evidence)
+    for target in sorted(required,reverse=True):
+        candidates=[(idx,value) for idx,value in enumerate(pool) if value>=target]
+        if not candidates:
+            return False
+        idx,_=candidates[0]
+        pool.pop(idx)
+    return True
+
 
 
 def _signal_counter(dimension,text):
@@ -1104,7 +1193,7 @@ def _signal_counter(dimension,text):
     patterns=DIMENSION_CANONICAL_SIGNAL_RES.get(dimension,{})
     for marker,pattern in patterns.items():
         for match in pattern.finditer(text):
-            if dimension=="changed_state" and not _changed_state_match_is_realized(text,match):
+            if not _dimension_match_is_valid(dimension,marker,text,match):
                 continue
             counts[marker]+=1
     return counts
@@ -1147,25 +1236,55 @@ def _factual_identity_counter(text):
     return counts
 
 
-def _governed_factual_identity_counts(normalized_by_field):
+def _factual_predicate_content_counter(text):
+    counts=Counter()
+    if not isinstance(text,str):
+        return counts
+    for match in FACTUAL_PREDICATE_RE.finditer(text):
+        tail=match.group("tail")
+        for word in FACTUAL_CONTENT_WORD_RE.findall(tail):
+            token=word.casefold()
+            if token not in FACTUAL_CONTENT_STOPWORDS:
+                counts[token]+=1
+    return counts
+
+
+def _factual_claim_counter(text):
+    counts=_factual_identity_counter(text)
+    counts.update(_factual_predicate_content_counter(text))
+    return counts
+
+
+def _governed_factual_claim_counts(normalized_by_field):
     counts=Counter()
     for field in VISIBLE_COPY_FIELDS:
         counts.update(
-            _factual_identity_counter(_visible_value_text(normalized_by_field.get(field)))
+            _factual_claim_counter(_visible_value_text(normalized_by_field.get(field)))
         )
     return counts
 
 
-def _validate_changed_factual_identity_grounding(
+def _validate_changed_factual_grounding(
     density,current_normalized,upstream_normalized,actual_changed,allowed_evidence_texts,label
 ):
     mapping=density.get("dimension_evidence") if isinstance(density,dict) else {}
-    upstream_counts=_governed_factual_identity_counts(upstream_normalized)
+    upstream_all=_governed_factual_claim_counts(upstream_normalized)
+    current_all=_governed_factual_claim_counts(current_normalized)
+    removed=upstream_all-current_all
+    if removed:
+        raise Blocked(
+            f"{label} changed 0.6 copy deletes verified upstream factual identity/location/"
+            f"predicate tokens {dict(removed)}"
+        )
+
     for field in actual_changed:
-        current_counts=_factual_identity_counter(
+        current_counts=_factual_claim_counter(
             _visible_value_text(current_normalized.get(field))
         )
-        introduced=current_counts-upstream_counts
+        upstream_field_counts=_factual_claim_counter(
+            _visible_value_text(upstream_normalized.get(field))
+        )
+        introduced=current_counts-upstream_field_counts
         if not introduced:
             continue
         refs=[]
@@ -1182,7 +1301,7 @@ def _validate_changed_factual_identity_grounding(
         evidence_counts=Counter()
         for ref in refs:
             for evidence_text in allowed_evidence_texts.get(ref,[]):
-                evidence_counts.update(_factual_identity_counter(evidence_text))
+                evidence_counts.update(_factual_claim_counter(evidence_text))
         missing={
             token:count
             for token,count in introduced.items()
@@ -1190,9 +1309,10 @@ def _validate_changed_factual_identity_grounding(
         }
         if missing:
             raise Blocked(
-                f"{label} changed 0.6 field {field} introduces factual identity/location/entity "
-                f"tokens not grounded in referenced nearest-stage evidence: {missing}"
+                f"{label} changed 0.6 field {field} introduces factual identity/location/"
+                f"predicate tokens not grounded in referenced nearest-stage evidence: {missing}"
             )
+
 
 
 def _validate_claimed_dimension_text(density, row_06, label, true_dimensions):
@@ -1394,7 +1514,7 @@ def _validate_substantive_dimension_delta(
             if dimension=="changed_state":
                 grounded_state_advancement=True
 
-    _validate_changed_factual_identity_grounding(
+    _validate_changed_factual_grounding(
         density,current_normalized,upstream_normalized,actual_changed,
         allowed_evidence_texts,label,
     )

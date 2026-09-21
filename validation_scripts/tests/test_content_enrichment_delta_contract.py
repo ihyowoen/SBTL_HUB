@@ -765,6 +765,138 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
                 rows(row), "update[0]", operation_card=operation,
             )
 
+    def test_zero_delta_dimensions_must_be_grounded_in_referenced_evidence(self):
+        unsupported_source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "This quote discusses an unrelated corporate announcement.",
+        }
+        row = row06(
+            fact_sources=[unsupported_source],
+            content_enrichment_audit=audit(
+                [], no_change=True, supported=4,
+                reason="Visible copy cannot self-ground without matching source evidence.",
+                bind_dimensions=True,
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [unsupported_source]
+        with self.assertRaisesRegex(binding.Blocked, "zero-delta.*not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "insert[0]",
+                operation_card={**VISIBLE, "fact_sources": [unsupported_source]},
+            )
+
+    def test_materialized_operation_must_preserve_quote_and_verification_status(self):
+        verified_source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": SOURCE_QUOTE,
+            "source_quote_status": "body_quote_verified",
+            "resolved_article_matches_quote": True,
+        }
+        row = row06(
+            fact=NEW_DENSE_FACT,
+            fact_sources=[verified_source],
+            content_enrichment_audit=audit(["fact"]),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [verified_source]
+        stripped_source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "visible_claim_support": ["fact"],
+        }
+        with self.assertRaisesRegex(binding.Blocked, "does not preserve.*quote/claim.*verification-status"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={
+                    **VISIBLE,
+                    "fact": NEW_DENSE_FACT,
+                    "fact_sources": [stripped_source],
+                },
+            )
+
+    def test_added_governed_signal_outside_declared_dimension_map_is_blocked(self):
+        prior = "Capacity is 10 MW"
+        current = "Capacity is 20 MW and the project was canceled"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "introduces undeclared governed changed_state"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_enrichment_cannot_delete_verified_upstream_quantitative_signal(self):
+        prior = "Capacity is 10 MW / 20 MWh"
+        current = "Capacity is 10 MW and the project was approved"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "The project was approved; capacity remains 10 MW / 20 MWh.",
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["changed_state"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "deletes verified upstream quantitative_anchor signals"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_evidence_backed_modality_deepening_qualifies(self):
+        prior = "The project may be delayed"
+        current = "The project is delayed"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "The project is delayed.",
+            "source_quote_status": "body_quote_verified",
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["changed_state"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        binding.validate_content_enrichment_delta(
+            chain, "update[0]",
+            operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+        )
+
     def test_boolean_supported_dimension_count_is_rejected(self):
         one_dimension = {
             "status": "PASS",

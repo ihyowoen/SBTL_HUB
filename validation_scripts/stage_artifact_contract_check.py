@@ -489,7 +489,14 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                 "each claimed dimension must bind to concrete upstream evidence",
             ))
         else:
-            unknown = [x for x in refs if x.strip() not in evidence_support]
+            normalized_refs = [x.strip() for x in refs]
+            if len(normalized_refs) != len(set(normalized_refs)):
+                findings.append(_field_finding(
+                    scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
+                    "unique normalized evidence refs", refs,
+                    "duplicate evidence refs can double-count the same quote/claim",
+                ))
+            unknown = [x for x in normalized_refs if x not in evidence_support]
             if unknown:
                 findings.append(_field_finding(
                     scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
@@ -498,10 +505,10 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                 ))
             if isinstance(fields, list):
                 unsupported = {
-                    ref.strip(): sorted(set(fields) - evidence_support.get(ref.strip(), set()))
-                    for ref in refs
-                    if ref.strip() in evidence_support
-                    and set(fields) - evidence_support.get(ref.strip(), set())
+                    ref: sorted(set(fields) - evidence_support.get(ref, set()))
+                    for ref in normalized_refs
+                    if ref in evidence_support
+                    and set(fields) - evidence_support.get(ref, set())
                 }
                 if unsupported:
                     findings.append(_field_finding(

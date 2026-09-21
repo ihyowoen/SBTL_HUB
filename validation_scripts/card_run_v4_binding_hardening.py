@@ -146,6 +146,10 @@ FACTUAL_PREDICATE_RE = re.compile(
 GENERIC_FACTUAL_PREDICATE_RE = re.compile(
     r"(?:"
     r"\b(?:and|but|while|whereas)\s+"
+    r"(?:(?P<subject_after_connector>"
+    r"(?:it|they|he|she|we|you|this|that|these|those)"
+    r"|(?:the\s+)?[A-Z][A-Za-z0-9&._-]{1,}"
+    r")\s+)?"
     r"(?P<verb_after_connector>[A-Za-z][A-Za-z-]{2,}(?:s|ed|ing))\b"
     r"\s+(?P<tail_after_connector>[^.;:!?]{1,120})"
     r"|(?:^|[.;:!?]\s*)"
@@ -775,8 +779,19 @@ def _source_evidence_is_usable(source):
     ):
         if flag in source and not isinstance(source.get(flag),bool):
             return False
-    quote_status=source.get("source_quote_status") or source.get("quote_status")
-    if quote_status not in USABLE_QUOTE_STATUSES:
+    present_statuses=[]
+    for key in ("source_quote_status","quote_status"):
+        if key not in source:
+            continue
+        value=source.get(key)
+        if not _nonempty_text(value):
+            return False
+        present_statuses.append(value.strip())
+    if not present_statuses:
+        return False
+    if any(status not in USABLE_QUOTE_STATUSES for status in present_statuses):
+        return False
+    if len(set(present_statuses))!=1:
         return False
     if not _has_positive_fetch_metadata(source):
         return False
@@ -1595,19 +1610,49 @@ def _claim_segment_bounds(text,start,end):
     return left,right
 
 
-def _claim_subject_for_span(text,start,end):
+def _claim_subjects_for_span(text,start,end):
     identities=_factual_identity_spans(text)
     left,right=_claim_segment_bounds(text,start,end)
     local=[span for span in identities if span[0]>=left and span[1]<=right]
     if not local:
-        return "__generic__"
-    preceding=[span for span in local if span[1]<=start]
+        return ["__generic__"]
+    preceding=sorted(
+        (span for span in local if span[1]<=start),
+        key=lambda span:span[0],
+    )
     if preceding:
-        return max(preceding,key=lambda span:span[1])[2]
-    following=[span for span in local if span[0]>=end]
+        group=[preceding[-1]]
+        for candidate in reversed(preceding[:-1]):
+            bridge=text[candidate[1]:group[0][0]]
+            if re.fullmatch(
+                r"\s*(?:(?:,\s*)?(?:and|or|&)\s*|,\s*)",
+                bridge,re.IGNORECASE,
+            ):
+                group.insert(0,candidate)
+                continue
+            break
+        return [span[2] for span in group]
+    following=sorted(
+        (span for span in local if span[0]>=end),
+        key=lambda span:span[0],
+    )
     if following:
-        return min(following,key=lambda span:span[0])[2]
-    return "__generic__"
+        group=[following[0]]
+        for candidate in following[1:]:
+            bridge=text[group[-1][1]:candidate[0]]
+            if re.fullmatch(
+                r"\s*(?:(?:,\s*)?(?:and|or|&)\s*|,\s*)",
+                bridge,re.IGNORECASE,
+            ):
+                group.append(candidate)
+                continue
+            break
+        return [span[2] for span in group]
+    return ["__generic__"]
+
+
+def _claim_subject_for_span(text,start,end):
+    return _claim_subjects_for_span(text,start,end)[-1]
 
 
 def _state_subject_strength_occurrences(text):
@@ -1615,11 +1660,12 @@ def _state_subject_strength_occurrences(text):
     if not isinstance(text,str):
         return occurrences
     for occurrence in _canonical_changed_state_occurrences(text):
-        subject=_claim_subject_for_span(
+        subjects=_claim_subjects_for_span(
             text,occurrence["start"],occurrence["end"]
         )
-        key=f"{subject}=>{occurrence['marker']}"
-        occurrences.setdefault(key,[]).append(occurrence["strength"])
+        for subject in subjects:
+            key=f"{subject}=>{occurrence['marker']}"
+            occurrences.setdefault(key,[]).append(occurrence["strength"])
     return {key:sorted(values) for key,values in occurrences.items()}
 
 
@@ -2252,6 +2298,33 @@ def _validate_materialized_operation_evidence(
         return
     support=_materialized_card_evidence_support(operation_card)
     packages=_materialized_card_evidence_packages(operation_card)
+    authorized_tokens=set(required_evidence_packages)
+    unexpected_tokens=sorted(set(support)-authorized_tokens)
+    if unexpected_tokens:
+        raise Blocked(
+            f"{label} materialized operation card introduces evidence source tokens "
+            f"not present in the authoritative upstream evidence chain: {unexpected_tokens}"
+        )
+    required_package_identities={
+        _evidence_package_identity(package)
+        for items in required_evidence_packages.values()
+        for package in items
+        if _evidence_package_identity(package) is not None
+    }
+    unexpected_packages=[]
+    for token,items in packages.items():
+        if token not in authorized_tokens:
+            continue
+        for package in items:
+            identity=_evidence_package_identity(package)
+            if identity is not None and identity not in required_package_identities:
+                unexpected_packages.append(token)
+    if unexpected_packages:
+        raise Blocked(
+            f"{label} materialized operation card introduces evidence packages "
+            f"not present in the authoritative upstream evidence chain: "
+            f"{sorted(set(unexpected_packages))}"
+        )
     for dimension,entry in mapping.items():
         if not isinstance(entry,dict):
             continue

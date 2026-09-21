@@ -158,6 +158,16 @@ GENERIC_FACTUAL_PREDICATE_RE = re.compile(
     r"\s+(?P<tail_after_subject>[^.;:!?]{1,120})"
     r")",
 )
+EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE = re.compile(
+    r"\b(?:and|but|while|whereas)\s+"
+    r"(?P<explicit_subject>"
+    r"(?:it|they|he|she|we|you|this|that|these|those)"
+    r"|(?:the\s+)?[A-Za-z][A-Za-z0-9&._-]{1,}"
+    r")\s+"
+    r"(?P<explicit_verb>[A-Za-z][A-Za-z-]{1,})\b"
+    r"\s+(?P<explicit_tail>[^.;:!?]{1,120})",
+    re.IGNORECASE,
+)
 MODAL_FACTUAL_PREDICATE_RE = re.compile(
     r"\b(?:can|could|may|might|will|would|must|should|shall)\s+"
     r"(?:not\s+)?(?P<verb>[A-Za-z][A-Za-z-]+)\b"
@@ -1266,8 +1276,10 @@ def _quantitative_signal_kind(signal):
     )
     if not match:
         return None
-    suffix=tuple((match.group("suffix") or "").lower().split())
-    return ((match.group("currency") or "").lower(),suffix)
+    suffix=list((match.group("suffix") or "").lower().split())
+    if suffix and suffix[0] in {"k","m","bn","tn"}:
+        suffix=suffix[1:]
+    return ((match.group("currency") or "").lower(),tuple(suffix))
 
 
 
@@ -1284,6 +1296,12 @@ def _changed_state_match_strength(text,match):
     if NON_REALIZED_CHANGED_STATE_PREFIX_RE.search(prefix):
         return 0
     if NON_REALIZED_CHANGED_STATE_SUFFIX_RE.search(suffix):
+        return 0
+    if re.search(
+        r"\b(?:risk|chance|possibility|prospect|threat)\s+(?:of|for)\s+(?:being\s+)?$"
+        r"|\bpotential\s+(?:for|of)\s+(?:being\s+)?$",
+        prefix,re.IGNORECASE,
+    ):
         return 0
     if re.search(r"\b(?:will|shall)\s*$",prefix,re.IGNORECASE):
         return 0
@@ -1528,6 +1546,13 @@ def _factual_predicate_content_counter(text):
             token=word.casefold()
             if token not in FACTUAL_CONTENT_STOPWORDS:
                 counts[token]+=1
+    for match in EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE.finditer(text):
+        verb=match.group("explicit_verb")
+        tail=match.group("explicit_tail")
+        for word in [verb]+FACTUAL_CONTENT_WORD_RE.findall(tail):
+            token=word.casefold()
+            if token not in FACTUAL_CONTENT_STOPWORDS:
+                counts[token]+=1
     for match in MODAL_FACTUAL_PREDICATE_RE.finditer(text):
         # Copular auxiliaries are handled by the state/modality validators.
         if match.group("verb").casefold() in {"be","have"}:
@@ -1551,16 +1576,19 @@ def _factual_predicate_subject_counter(text):
         return counts
     for pattern in (
         FACTUAL_PREDICATE_RE,GENERIC_FACTUAL_PREDICATE_RE,
+        EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE,
         MODAL_FACTUAL_PREDICATE_RE,COMMA_PARTICIPIAL_FACTUAL_RE,
     ):
         for match in pattern.finditer(text):
             groups=match.groupdict()
-            tail_name=next((name for name in ("tail","tail_after_connector","tail_after_subject")
-                            if groups.get(name)),None)
+            tail_name=next((name for name in (
+                                "tail","tail_after_connector","tail_after_subject","explicit_tail"
+                            ) if groups.get(name)),None)
             if not tail_name:
                 continue
-            verb_name=next((name for name in ("verb","verb_after_connector","verb_after_subject")
-                            if groups.get(name)),None)
+            verb_name=next((name for name in (
+                                "verb","verb_after_connector","verb_after_subject","explicit_verb"
+                            ) if groups.get(name)),None)
             start=match.start(verb_name) if verb_name else match.start()
             verb=(groups[verb_name] if verb_name else text[start:match.start(tail_name)]).strip().casefold()
             if pattern is MODAL_FACTUAL_PREDICATE_RE and verb in {"be","have"}:
@@ -1681,6 +1709,28 @@ def _state_subject_advancements(upstream_text,current_text):
     return advanced
 
 
+def _factual_location_pair_counter(text):
+    counts=Counter()
+    if not isinstance(text,str):
+        return counts
+    identities=_factual_identity_spans(text)
+    for match in LOCATION_PHRASE_RE.finditer(text):
+        location=match.group(1).strip(".,;:()[]{}").casefold()
+        if not location or location in FACTUAL_IDENTITY_STOPWORDS:
+            continue
+        left,right=_claim_segment_bounds(text,match.start(),match.end())
+        preceding=[
+            span for span in identities
+            if span[0]>=left and span[1]<=match.start()
+            and span[2]!=location
+        ]
+        if not preceding:
+            continue
+        subject=max(preceding,key=lambda span:span[1])[2]
+        counts[f"{subject}=>{location}"]+=1
+    return counts
+
+
 def _factual_quantitative_pair_counter(text):
     counts=Counter()
     if not isinstance(text,str):
@@ -1790,6 +1840,26 @@ def _validate_changed_factual_grounding(
                 f"{label} changed 0.6 field {field} subject/predicate claims are not grounded "
                 f"in referenced nearest-stage evidence: {dict(missing_predicate_pairs)}"
             )
+
+        current_location_pairs=_factual_location_pair_counter(
+            _visible_value_text(current_normalized.get(field))
+        )
+        upstream_location_pairs=_factual_location_pair_counter(
+            _visible_value_text(upstream_normalized.get(field))
+        )
+        introduced_location_pairs=current_location_pairs-upstream_location_pairs
+        if introduced_location_pairs:
+            evidence_location_pairs=Counter()
+            for ref in refs:
+                for evidence_text in allowed_evidence_texts.get(ref,[]):
+                    evidence_location_pairs.update(_factual_location_pair_counter(evidence_text))
+            missing_location_pairs=introduced_location_pairs-evidence_location_pairs
+            if missing_location_pairs:
+                raise Blocked(
+                    f"{label} changed 0.6 field {field} rebinds/adds entity-location claims "
+                    f"without matching referenced nearest-stage evidence: "
+                    f"{dict(missing_location_pairs)}"
+                )
 
         current_pairs=_factual_quantitative_pair_counter(
             _visible_value_text(current_normalized.get(field))

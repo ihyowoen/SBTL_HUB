@@ -1394,6 +1394,11 @@ def _validate_substantive_dimension_delta(
             if dimension=="changed_state":
                 grounded_state_advancement=True
 
+    _validate_changed_factual_identity_grounding(
+        density,current_normalized,upstream_normalized,actual_changed,
+        allowed_evidence_texts,label,
+    )
+
     # Verified upstream substantive signals may not silently disappear. The one
     # allowed semantic contraction is removal of uncertainty/plan markers when
     # the same edit carries a grounded realized-state advancement.
@@ -1581,6 +1586,11 @@ def _validate_materialized_operation_evidence(
                 )
             required_packages=required_evidence_packages.get(ref,[])
             actual_packages=packages.get(ref,[])
+            if len(actual_packages)>1:
+                raise Blocked(
+                    f"{label} materialized operation evidence ref {ref} is ambiguous: "
+                    f"multiple distinct quote/claim packages"
+                )
             if not required_packages:
                 raise Blocked(
                     f"{label} bound evidence ref {ref} has no preserved upstream quote/claim "

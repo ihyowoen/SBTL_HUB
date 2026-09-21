@@ -440,6 +440,7 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
         return findings
 
     evidence_support = _row_evidence_token_support(item)
+    evidence_texts = _content_binding._row_evidence_token_texts(item)
     if not evidence_support:
         findings.append(_field_finding(
             scope,
@@ -508,6 +509,23 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                         "refs authorized for every mapped visible field", unsupported,
                         "dimension evidence cites sources that do not support the mapped visible fields",
                     ))
+                if isinstance(fields, list) and fields:
+                    visible_signals = _mapped_dimension_signals(item, name, fields)
+                    evidence_signals = set()
+                    for ref in refs:
+                        if not _non_empty_string(ref):
+                            continue
+                        for evidence_text in evidence_texts.get(ref.strip(), []):
+                            evidence_signals.update(
+                                _content_binding._signal_values(name, evidence_text)
+                            )
+                    if visible_signals and not (visible_signals & evidence_signals):
+                        findings.append(_field_finding(
+                            scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
+                            "referenced usable quote/claim evidence expressing the mapped dimension",
+                            refs,
+                            "dimension is not grounded in the referenced quote/claim evidence",
+                        ))
     return findings
 
 

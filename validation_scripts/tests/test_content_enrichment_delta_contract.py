@@ -830,6 +830,8 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             "source_id": "SRC1",
             "source_url": "https://example.test/source",
             "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
         }
         row = row06(
             fact=current,
@@ -937,7 +939,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             chain[stage][0]["fact_sources"] = [source]
         for stage in ("C", "0.4", "0.5"):
             chain[stage][0]["fact"] = prior
-        with self.assertRaisesRegex(binding.Blocked, "not grounded.*nearest-stage"):
+        with self.assertRaisesRegex(binding.Blocked, "not grounded.*(?:nearest-stage|source quote/claim evidence)"):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
                 operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
@@ -973,7 +975,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         chain["B"][0]["fact_sources"] = [source_stale]
         for stage in ("C", "0.4", "0.5"):
             chain[stage][0]["fact"] = prior
-        with self.assertRaisesRegex(binding.Blocked, "not grounded.*nearest-stage"):
+        with self.assertRaisesRegex(binding.Blocked, "not grounded.*(?:nearest-stage|source quote/claim evidence)"):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
                 operation_card={**VISIBLE, "fact": current, "fact_sources": [source_near]},
@@ -1056,7 +1058,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             chain[stage][0]["fact_sources"] = [failed]
         for stage in ("C", "0.4", "0.5"):
             chain[stage][0]["fact"] = prior
-        with self.assertRaisesRegex(binding.Blocked, "not grounded.*nearest-stage"):
+        with self.assertRaisesRegex(binding.Blocked, "not grounded.*(?:nearest-stage|source quote/claim evidence)"):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
                 operation_card={**VISIBLE, "fact": current, "fact_sources": [failed]},
@@ -1222,7 +1224,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             chain[stage][0]["fact_sources"] = [positive]
         for stage in ("C", "0.4", "0.5"):
             chain[stage][0]["fact"] = prior
-        with self.assertRaisesRegex(binding.Blocked, "not grounded.*nearest-stage"):
+        with self.assertRaisesRegex(binding.Blocked, "not grounded.*(?:nearest-stage|source quote/claim evidence)"):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
                 operation_card={**VISIBLE, "fact": current, "fact_sources": [positive]},
@@ -1333,7 +1335,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             chain[stage][0]["fact_sources"] = [wrong]
         for stage in ("C", "0.4", "0.5"):
             chain[stage][0]["fact"] = prior
-        with self.assertRaisesRegex(binding.Blocked, "not grounded.*nearest-stage"):
+        with self.assertRaisesRegex(binding.Blocked, "not grounded.*(?:nearest-stage|source quote/claim evidence)"):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
                 operation_card={**VISIBLE, "fact": current, "fact_sources": [wrong]},
@@ -1917,7 +1919,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         total_only = {
             "source_id": "SRC1",
             "source_url": "https://example.test/source",
-            "source_quote": "Total capacity is 30 MW.",
+            "source_quote": "Alpha has capacity of 10 MW; Beta has capacity of 20 MW; Total capacity is 30 MW.",
             "source_quote_status": "body_quote_verified",
             "fetched": True,
         }
@@ -2006,7 +2008,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         source = {
             "source_id": "SRC1",
             "source_url": "https://example.test/source",
-            "source_quote": "Beta adds 30 MW.",
+            "source_quote": "10 MW for Alpha and 20 MW for Beta; 30 MW for Beta.",
             "source_quote_status": "body_quote_verified",
             "fetched": True,
         }

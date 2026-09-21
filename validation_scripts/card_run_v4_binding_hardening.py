@@ -1404,6 +1404,46 @@ def _claim_segment_bounds(text,start,end):
     return left,right
 
 
+def _claim_subject_for_span(text,start,end):
+    identities=_factual_identity_spans(text)
+    left,right=_claim_segment_bounds(text,start,end)
+    local=[span for span in identities if span[0]>=left and span[1]<=right]
+    if not local:
+        return "__generic__"
+    preceding=[span for span in local if span[1]<=start]
+    if preceding:
+        return max(preceding,key=lambda span:span[1])[2]
+    following=[span for span in local if span[0]>=end]
+    if following:
+        return min(following,key=lambda span:span[0])[2]
+    return "__generic__"
+
+
+def _state_subject_strength_occurrences(text):
+    occurrences={}
+    if not isinstance(text,str):
+        return occurrences
+    for occurrence in _canonical_changed_state_occurrences(text):
+        subject=_claim_subject_for_span(
+            text,occurrence["start"],occurrence["end"]
+        )
+        key=f"{subject}=>{occurrence['marker']}"
+        occurrences.setdefault(key,[]).append(occurrence["strength"])
+    return {key:sorted(values) for key,values in occurrences.items()}
+
+
+def _state_subject_advancements(upstream_text,current_text):
+    upstream=_state_subject_strength_occurrences(upstream_text)
+    current=_state_subject_strength_occurrences(current_text)
+    advanced={}
+    for key,current_strengths in current.items():
+        if not _strength_multiset_covers(
+            current_strengths,upstream.get(key,[])
+        ):
+            advanced[key]=current_strengths
+    return advanced
+
+
 def _factual_quantitative_pair_counter(text):
     counts=Counter()
     if not isinstance(text,str):

@@ -962,7 +962,7 @@ def _nearest_upstream_evidence_packages(rows_by_stage,label,allowed_evidence_sup
         row=_single_bound_row(rows_by_stage,stage_name,label)
         stage_support,stage_excluded=_row_evidence_token_state(row)
         stage_packages=_row_evidence_token_packages(row)
-        for token in list(unresolved):
+        for token in sorted(unresolved):
             if token in stage_excluded:
                 unresolved.remove(token)
                 continue
@@ -1012,7 +1012,12 @@ def _validate_dimension_evidence(density, row_06, label, true_dimensions, allowe
         if not isinstance(entry,dict):
             raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name} must be an object")
         fields=entry.get("fields")
-        if not isinstance(fields,list) or not fields or len(fields)!=len(set(fields)) or any(x not in VISIBLE_COPY_FIELDS for x in fields):
+        valid_fields=(
+            isinstance(fields,list)
+            and bool(fields)
+            and all(isinstance(x,str) for x in fields)
+        )
+        if not valid_fields or len(fields)!=len(set(fields)) or any(x not in VISIBLE_COPY_FIELDS for x in fields):
             raise Blocked(f"{label} zero-delta 0.6 dimension_evidence.{name}.fields must be a non-empty unique visible-field subset")
         for field in fields:
             if _normalized_visible_value(field,row_06.get(field,_MISSING)) is None:
@@ -1476,8 +1481,8 @@ def _validate_claimed_dimension_evidence_grounding(
         }
         if missing_signals:
             raise Blocked(
-                f"{label} zero-delta 0.6 dimension {dimension} is not fully grounded in referenced "
-                f"upstream source quote/claim evidence; missing={missing_signals}"
+                f"{label} zero-delta 0.6 dimension {dimension} is not grounded in referenced "
+                f"upstream source quote/claim evidence for every signal occurrence; missing={missing_signals}"
             )
 
 

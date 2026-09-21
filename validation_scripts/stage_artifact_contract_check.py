@@ -448,6 +448,7 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
 
     evidence_support = _row_evidence_token_support(item)
     evidence_texts = _content_binding._row_evidence_token_texts(item)
+    evidence_packages = _content_binding._row_evidence_token_packages(item)
     if not evidence_support:
         findings.append(_field_finding(
             scope,
@@ -508,6 +509,15 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                     "unique normalized evidence refs", refs,
                     "duplicate evidence refs can double-count the same quote/claim",
                 ))
+            alias_duplicates = _content_binding._duplicate_evidence_ref_aliases(
+                normalized_refs, evidence_packages
+            )
+            if alias_duplicates:
+                findings.append(_field_finding(
+                    scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
+                    "one reference per resolved source/evidence package", alias_duplicates,
+                    "source-id/URL aliases must not double-count one quote/claim package",
+                ))
             unknown = [x for x in normalized_refs if x not in evidence_support]
             if unknown:
                 findings.append(_field_finding(
@@ -531,10 +541,12 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                 if isinstance(fields, list) and fields and all(isinstance(field, str) for field in fields):
                     visible_counts = _mapped_dimension_signal_counts(item, name, fields)
                     evidence_counts = Counter()
-                    for ref in refs:
-                        if not _non_empty_string(ref):
-                            continue
-                        for evidence_text in evidence_texts.get(ref.strip(), []):
+                    unique_refs = _content_binding._unique_evidence_refs_by_identity(
+                        [ref.strip() for ref in refs if _non_empty_string(ref)],
+                        evidence_packages,
+                    )
+                    for ref in unique_refs:
+                        for evidence_text in evidence_texts.get(ref, []):
                             evidence_counts.update(
                                 _content_binding._signal_counter(name, evidence_text)
                             )

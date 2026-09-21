@@ -1288,6 +1288,54 @@ def _factual_claim_counter(text):
     return counts
 
 
+def _factual_identity_spans(text):
+    if not isinstance(text,str):
+        return []
+    spans=set()
+    for match in FACTUAL_IDENTITY_TOKEN_RE.finditer(text):
+        token=match.group(0).strip(".,;:()[]{}").casefold()
+        if token and token not in FACTUAL_IDENTITY_STOPWORDS:
+            spans.add((match.start(),match.end(),token))
+    for match in LOCATION_PHRASE_RE.finditer(text):
+        token=match.group(1).strip(".,;:()[]{}").casefold()
+        if token and token not in FACTUAL_IDENTITY_STOPWORDS:
+            spans.add((match.start(1),match.end(1),token))
+    for match in KOREAN_IDENTITY_RE.finditer(text):
+        token=match.group(1)
+        if token:
+            spans.add((match.start(1),match.end(1),token))
+    return sorted(spans)
+
+
+def _claim_segment_bounds(text,start,end):
+    boundaries=".;:!?\n"
+    left=max([text.rfind(mark,0,start) for mark in boundaries]+[-1])+1
+    right_candidates=[text.find(mark,end) for mark in boundaries]
+    right_candidates=[pos for pos in right_candidates if pos>=0]
+    right=min(right_candidates) if right_candidates else len(text)
+    return left,right
+
+
+def _factual_quantitative_pair_counter(text):
+    counts=Counter()
+    if not isinstance(text,str):
+        return counts
+    identities=_factual_identity_spans(text)
+    for match in QUANT_SIGNAL_RE.finditer(text):
+        signal=_quantitative_signal_from_match(match)
+        left,right=_claim_segment_bounds(text,match.start(),match.end())
+        local=[span for span in identities if span[0]>=left and span[1]<=right]
+        if not local:
+            continue
+        preceding=[span for span in local if span[1]<=match.start()]
+        if preceding:
+            chosen=max(preceding,key=lambda span:span[1])
+        else:
+            chosen=min(local,key=lambda span:span[0])
+        counts[f"{chosen[2]}=>{signal}"]+=1
+    return counts
+
+
 def _governed_factual_claim_counts(normalized_by_field):
     counts=Counter()
     for field in VISIBLE_COPY_FIELDS:
@@ -1346,6 +1394,29 @@ def _validate_changed_factual_grounding(
                 f"predicate tokens not grounded in referenced nearest-stage evidence: {missing}"
             )
 
+        current_pairs=_factual_quantitative_pair_counter(
+            _visible_value_text(current_normalized.get(field))
+        )
+        upstream_pairs=_factual_quantitative_pair_counter(
+            _visible_value_text(upstream_normalized.get(field))
+        )
+        introduced_pairs=current_pairs-upstream_pairs
+        if introduced_pairs:
+            evidence_pairs=Counter()
+            for ref in refs:
+                for evidence_text in allowed_evidence_texts.get(ref,[]):
+                    evidence_pairs.update(_factual_quantitative_pair_counter(evidence_text))
+            missing_pairs={
+                pair:count
+                for pair,count in introduced_pairs.items()
+                if evidence_pairs.get(pair,0)<count
+            }
+            if missing_pairs:
+                raise Blocked(
+                    f"{label} changed 0.6 field {field} rebinds/adds quantitative claims to "
+                    f"factual entities without matching referenced nearest-stage evidence: {missing_pairs}"
+                )
+
 
 
 def _validate_claimed_dimension_text(density, row_06, label, true_dimensions):
@@ -1383,23 +1454,30 @@ def _validate_claimed_dimension_evidence_grounding(
             ref.strip() for ref in entry.get("evidence_refs",[])
             if _nonempty_text(ref)
         ] if isinstance(entry.get("evidence_refs"),list) else []
-        visible_signals=set()
+        visible_counts=Counter()
         for field in fields:
-            visible_signals.update(
-                _signal_values(
+            visible_counts.update(
+                _signal_counter(
                     dimension,
                     _visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING))),
                 )
             )
-        evidence_signals=set()
+        evidence_counts=Counter()
         for ref in refs:
             for evidence_text in allowed_evidence_texts.get(ref,[]):
-                evidence_signals.update(_signal_values(dimension,evidence_text))
-        if not (visible_signals & evidence_signals):
+                evidence_counts.update(_signal_counter(dimension,evidence_text))
+        missing_signals={
+            signal:{
+                "required_occurrences":count,
+                "evidence_occurrences":evidence_counts.get(signal,0),
+            }
+            for signal,count in visible_counts.items()
+            if evidence_counts.get(signal,0)<count
+        }
+        if missing_signals:
             raise Blocked(
-                f"{label} zero-delta 0.6 dimension {dimension} is not grounded in referenced "
-                f"upstream source quote/claim evidence; visible={sorted(visible_signals)} "
-                f"evidence={sorted(evidence_signals)}"
+                f"{label} zero-delta 0.6 dimension {dimension} is not fully grounded in referenced "
+                f"upstream source quote/claim evidence; missing={missing_signals}"
             )
 
 
@@ -1536,11 +1614,25 @@ def _validate_substantive_dimension_delta(
                     if upstream_field_counts.get(signal,0)>0
                     else count
                 )
-                if evidence_counts.get(signal,0)<required:
-                    ungrounded_added[signal]={
-                        "required_occurrences":required,
-                        "evidence_occurrences":evidence_counts.get(signal,0),
-                    }
+                details={
+                    "required_occurrences":required,
+                    "evidence_occurrences":evidence_counts.get(signal,0),
+                }
+                occurrence_gap=evidence_counts.get(signal,0)<required
+                strength_gap=False
+                if dimension=="changed_state":
+                    required_strengths=current_field_strength_occurrences.get(signal,[])
+                    evidence_strengths=evidence_strength_occurrences.get(signal,[])
+                    strength_gap=not _strength_multiset_covers(
+                        required_strengths,evidence_strengths
+                    )
+                    if strength_gap:
+                        details.update({
+                            "required_current_strengths":required_strengths,
+                            "evidence_strengths":evidence_strengths,
+                        })
+                if occurrence_gap or strength_gap:
+                    ungrounded_added[signal]=details
 
             ungrounded_deepened={}
             for signal,count in deepened.items():
@@ -2079,21 +2171,21 @@ def main():
         validate_governed_stage_a_operation({"A":[{"spec_id":"SPEC_NEW","source_story_ids":["CAND_1"]}]},"SPEC_NEW",governed_strict_spec_identities(strict),"insert[0]")
         density={"status":"PASS","dimensions":{"prior_state":True,"changed_state":True,"quantitative_anchor":True,"boundary_or_uncertainty":True,"transmission_path":False,"next_watchpoint":False},"supported_dimension_count":4,"evidence_notes":"self-test","dimension_evidence":{"prior_state":{"fields":["fact"],"evidence_refs":["S1"]},"changed_state":{"fields":["sub"],"evidence_refs":["S1"]},"quantitative_anchor":{"fields":["fact"],"evidence_refs":["S1"]},"boundary_or_uncertainty":{"fields":["fact"],"evidence_refs":["S1"]}}}
         changed_rows={
-            "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started; target remains subject to certification.","source_quote_status":"body_quote_verified","fetched":True}]}],
+            "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","source_quote_status":"body_quote_verified","fetched":True}]}],
             "C":[{"sub":"pilot project","gate":"g","fact":"Previously planned at 1 GWh; target remains subject to certification.","implication":["i"]}],
             "0.4":[{"fact":"Previously planned at 1 GWh; target remains subject to certification."}],
             "0.5":[{"fact":"Previously planned at 1 GWh; target remains subject to certification."}],
-            "0.6":[{"sub":"commercial production started","gate":"g","fact":"Previously planned at 1 GWh; target remains subject to certification.","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started; target remains subject to certification.","source_quote_status":"body_quote_verified","fetched":True}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":["sub"],"no_change_required":False,"no_change_reason":"","density_audit":density}}],
+            "0.6":[{"sub":"commercial production started","gate":"g","fact":"Previously planned at 1 GWh; target remains subject to certification.","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","source_quote_status":"body_quote_verified","fetched":True}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":["sub"],"no_change_required":False,"no_change_reason":"","density_audit":density}}],
         }
         validate_content_enrichment_delta(changed_rows,"self-test changed")
         zero_density=copy.deepcopy(density)
         zero_density["dimension_evidence"]["changed_state"]["fields"]=["fact"]
         zero_rows={
-            "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started; target remains subject to certification.","source_quote_status":"body_quote_verified","fetched":True}]}],
+            "B":[{"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","source_quote_status":"body_quote_verified","fetched":True}]}],
             "C":[{"sub":"s","gate":"g","fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","implication":["i"]}],
             "0.4":[{"fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification."}],
             "0.5":[{"fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification."}],
-            "0.6":[{"sub":"s","gate":"g","fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started; target remains subject to certification.","source_quote_status":"body_quote_verified","fetched":True}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":[],"no_change_required":True,"no_change_reason":"already sufficiently deep","density_audit":zero_density}}],
+            "0.6":[{"sub":"s","gate":"g","fact":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","implication":["i"],"fact_sources":[{"source_id":"S1","source_url":"https://example.test/source","source_quote":"Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.","source_quote_status":"body_quote_verified","fetched":True}],"content_enriched":True,"content_enrichment_audit":{"baseline_strategy":CONTENT_BASELINE_STRATEGY,"changed_fields":[],"no_change_required":True,"no_change_reason":"already sufficiently deep","density_audit":zero_density}}],
         }
         validate_content_enrichment_delta(zero_rows,"self-test zero")
         blocked=dict(zero_rows)

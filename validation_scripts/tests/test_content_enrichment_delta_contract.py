@@ -2697,6 +2697,156 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             )
 
 
+    def test_irregular_finite_verb_after_explicit_subject_requires_grounding(self):
+        prior = "Alpha capacity is 10 MW."
+        current = "Alpha capacity is 20 MW and it sold coal."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Alpha capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "predicate tokens not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_hypothetical_delay_noun_is_not_realized_changed_state(self):
+        text = (
+            "Previously, the planned 10 MW project faces a risk of delay "
+            "because supply costs rose."
+        )
+        self.assertNotIn(
+            "delay",
+            binding._signal_values("changed_state", text),
+        )
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": text,
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        values = {name: False for name in binding.DENSITY_DIMENSIONS}
+        for name in (
+            "prior_state", "changed_state", "quantitative_anchor",
+            "boundary_or_uncertainty", "transmission_path",
+        ):
+            values[name] = True
+        focused = {
+            "baseline_strategy": binding.CONTENT_BASELINE_STRATEGY,
+            "changed_fields": [],
+            "no_change_required": True,
+            "no_change_reason": "Risk of delay is not a realized state.",
+            "density_audit": {
+                "status": "PASS",
+                "dimensions": values,
+                "supported_dimension_count": 5,
+                "evidence_notes": "Hypothetical delay regression.",
+                "dimension_evidence": {
+                    name: {"fields": ["fact"], "evidence_refs": ["SRC1"]}
+                    for name, enabled in values.items() if enabled
+                },
+            },
+        }
+        row = row06(
+            fact=text,
+            fact_sources=[source],
+            content_enrichment_audit=focused,
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = text
+        with self.assertRaisesRegex(binding.Blocked, "claimed but not expressed"):
+            binding.validate_content_enrichment_delta(
+                chain, "insert[0]",
+                operation_card={**VISIBLE, "fact": text, "fact_sources": [source]},
+            )
+
+    def test_entity_location_swap_requires_pair_grounding(self):
+        prior = "Alpha is in Texas. Beta is in Ohio. Capacity is 10 MW."
+        current = "Alpha is in Ohio. Beta is in Texas. Capacity is 20 MW."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": (
+                "Alpha is in Texas. Beta is in Ohio. Capacity is 20 MW."
+            ),
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        current_pairs = binding._factual_location_pair_counter(current)
+        self.assertIn("alpha=>ohio", current_pairs)
+        self.assertIn("beta=>texas", current_pairs)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "rebinds/adds entity-location claims"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_grounded_magnitude_change_replaces_prior_amount(self):
+        prior = "Investment is 5 million USD"
+        current = "Investment is 10 billion USD"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Investment is 10 billion USD.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        self.assertEqual(
+            binding._quantitative_signal_kind("5 m usd"),
+            binding._quantitative_signal_kind("10 bn usd"),
+        )
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        binding.validate_content_enrichment_delta(
+            chain, "update[0]",
+            operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+        )
+
+
 
 if __name__ == "__main__":
     unittest.main()

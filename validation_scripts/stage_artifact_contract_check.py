@@ -568,6 +568,38 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                             missing_signals,
                             "dimension is not grounded in the referenced quote/claim evidence; uncovered signal occurrences remain",
                         ))
+                    if name == "changed_state":
+                        visible_subject_strengths = {}
+                        for field in fields:
+                            text = _visible_value_text(
+                                _normalized_visible_value(field, item.get(field))
+                            )
+                            for key, strengths in _content_binding._state_subject_strength_occurrences(text).items():
+                                visible_subject_strengths.setdefault(key, []).extend(strengths)
+                        evidence_subject_strengths = {}
+                        for ref in unique_refs:
+                            for evidence_text in evidence_texts.get(ref, []):
+                                for key, strengths in _content_binding._state_subject_strength_occurrences(evidence_text).items():
+                                    evidence_subject_strengths.setdefault(key, []).extend(strengths)
+                        modality_gaps = {}
+                        for key, required_strengths in visible_subject_strengths.items():
+                            required_strengths = sorted(required_strengths)
+                            evidence_strengths = sorted(evidence_subject_strengths.get(key, []))
+                            if not _content_binding._strength_multiset_covers(
+                                required_strengths, evidence_strengths
+                            ):
+                                modality_gaps[key] = {
+                                    "required_strengths": required_strengths,
+                                    "evidence_strengths": evidence_strengths,
+                                }
+                        if modality_gaps:
+                            findings.append(_field_finding(
+                                scope,
+                                f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
+                                "referenced evidence matching every changed-state subject at equal-or-stronger modality",
+                                modality_gaps,
+                                "changed-state modality is stronger than the referenced quote/claim evidence",
+                            ))
     return findings
 
 

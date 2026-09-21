@@ -70,7 +70,9 @@ class Review5078405029ContractsTest(unittest.TestCase):
                     "fact_sources": [
                         {
                             "source_id": "SRC_FIX",
-                            "source_url": "https://example.test/source"
+                            "source_url": "https://example.test/source",
+                            "source_quote": "Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.",
+                            "source_quote_status": "body_quote_verified"
                         }
                     ],
                     "content_enrichment_audit": {

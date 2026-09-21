@@ -515,7 +515,7 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                     "refs present in fact_sources/source_discovery/claim coverage", unknown,
                     "dimension evidence contains unbound references",
                 ))
-            if isinstance(fields, list):
+            if valid_field_entries:
                 unsupported = {
                     ref: sorted(set(fields) - evidence_support.get(ref, set()))
                     for ref in normalized_refs
@@ -551,7 +551,7 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                             scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
                             "referenced usable quote/claim evidence covering every mapped signal occurrence",
                             missing_signals,
-                            "dimension is not fully grounded in the referenced quote/claim evidence",
+                            "dimension is not grounded in the referenced quote/claim evidence; uncovered signal occurrences remain",
                         ))
     return findings
 

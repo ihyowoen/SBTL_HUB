@@ -1,0 +1,34 @@
+{
+  "schema": "historical_governed_carry_forward_20260825_active_v1",
+  "status": "RECONSTRUCTED_EXACT_PENDING_CURRENT_RECONCILIATION",
+  "reconstructed_on": "2026-09-02",
+  "source_cohort": "20260825_MULTI_INPUT",
+  "source_artifacts": {
+    "review_pool_promotion_batch5_local_sha256": "3ad9b135d2ac52ceee9b1c031fe3e191a20d5312831b26eb1a86167e114877ab",
+    "earnings_formal_promotion_r1_local_sha256": "4b12f589194219344bc415099113257c27022b6a49ccb75024d6cf1822142c1e",
+    "stage_a_20260825_local_sha256": "4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae"
+  },
+  "accounting": {
+    "review_pool_total": 384,
+    "needs_user_decision_after_review": 264,
+    "later_promoted_unique_story_ids": 18,
+    "remaining_active_exact": 246,
+    "source_augmentation_queue": 221,
+    "earnings_deep_dive_remaining": 25,
+    "queue_priority_1": 31,
+    "queue_priority_2": 190,
+    "all_remaining_rows_itemized_by_story_id": true
+  },
+  "derivation": "Take all 264 rows whose final_review_pool_disposition was needs_user_decision_after_review, then subtract the 18 unique story_ids formally promoted by the 2026-08-26 earnings promotion artifact. The exact remainder is 246.",
+  "excluded_as_later_promoted_story_ids": ["U0028","U0124","U0138","U0365","U0549","U0627","U0747","U1049","U1464","U1537","U1542","U1709","U1743","U1782","U1944","U2041","U2053","U2057"],
+  "source_augmentation_story_ids": ["U0979","U0807","U0423","U1509","U2006","U1503","U0593","U0179","U1810","U0966","U1012","U1941","U1797","U1103","U0793","U1929","U0705","U0818","U2046","U0439","U0332","U1430","U1499","U1498","U0417","U0110","U1629","U0923","U2016","U1974","U1002","U0441","U0447","U2040","U1224","U1080","U1225","U1227","U1552","U0808","U1543","U1548","U2052","U2021","U0467","U0824","U2042","U0460","U0840","U1567","U2017","U1228","U0484","U2032","U1749","U2113","U0631","U1388","U0868","U1120","U1847","U2073","U0101","U0502","U1254","U2093","U1314","U0060","U0024","U0787","U0589","U0900","U1274","U1798","U0135","U0572","U0574","U0569","U0144","U1100","U1089","U0436","U1531","U1500","U0429","U1981","U1995","U1989","U1213","U0434","U1185","U2106","U1469","U0368","U2105","U0988","U0343","U0388","U0746","U0773","U1950","U1459","U0404","U0542","U0344","U1476","U0587","U1176","U1416","U1922","U1926","U1415","U1915","U1411","U1170","U0980","U0520","U0191","U0666","U1121","U1660","U1828","U1627","U1777","U1779","U1792","U2065","U1776","U1275","U1796","U0357","U0371","U1428","U0982","U0981","U1004","U0530","U0331","U0335","U1212","U1511","U0437","U0427","U1986","U1494","U1215","U1219","U0797","U0890","U0888","U1016","U2003","U2001","U1806","U0493","U1286","U1585","U2062","U2070","U0499","U0586","U0596","U0595","U0568","U0570","U1082","U1084","U1085","U1293","U1270","U1271","U1278","U1279","U1774","U1775","U0147","U0909","U0903","U0904","U1025","U1026","U1525","U1512","U1513","U1502","U1495","U1731","U1993","U1516","U0414","U0426","U0891","U0418","U0419","U0410","U0412","U0784","U0790","U1999","U2005","U0919","U0751","U1190","U1446","U1971","U1975","U0559","U0830","U1238","U1229","U1556","U1551","U1739","U1747","U2045","U2051","U2026","U1501","U1066","U1178","U1921"],
+  "earnings_deep_dive_story_ids": ["U1559","U1562","U1222","U2060","U1237","U0823","U0469","U1042","U1269","U1036","U1746","U0617","U0920","U0218","U0675","U1139","U0626","U0503","U1350","U0897","U1047","U1581","U1655","U0794","U1518"],
+  "priority_1_source_augmentation_story_ids": ["U0979","U0807","U0423","U1509","U2006","U1503","U0593","U0179","U1810","U0966","U1012","U1941","U1797","U1103","U0793","U1929","U0705","U0818","U2046","U0439","U0332","U1430","U1499","U1498","U0417","U0110","U1629","U0923","U2016","U1974","U1002"],
+  "required_reconciliation_against": {
+    "canonical_card_count": 1514,
+    "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+    "current_cross_run_event_universe_r3_count": 425,
+    "current_cross_run_run_id": "SBTL_V4_XRUN_20260831_143419__20260901_123511_R3"
+  },
+  "allowed_final_dispositions": ["already_canonicalized","current_event_duplicate_or_same_event","existing_card_reinforcement","stale_or_no_longer_material","conditional_watchlist","active_carry_forward_to_stage_a"]
+}

@@ -58,6 +58,7 @@ QUANT_SIGNAL_RE = re.compile(
     r"(?:\s*(?P<magnitude>thousand|million|billion|trillion|mn|bn|tn|k|m|b)\b)?"
     r"(?:\s*(?P<currency_code_suffix>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\b)?"
     r"(?:\s*(?P<unit>%|x|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
+    r"(?:\s*(?P<generic_unit>[A-Za-z][A-Za-z0-9²³/_-]{0,31}))?"
     r"(?![A-Za-z0-9])",
     re.IGNORECASE,
 )
@@ -155,6 +156,12 @@ GENERIC_FACTUAL_PREDICATE_RE = re.compile(
 MODAL_FACTUAL_PREDICATE_RE = re.compile(
     r"\b(?:can|could|may|might|will|would|must|should|shall)\s+"
     r"(?:not\s+)?(?P<verb>[A-Za-z][A-Za-z-]+)\b"
+    r"\s+(?P<tail>[^.;:!?]{1,120})",
+    re.IGNORECASE,
+)
+COMMA_PARTICIPIAL_FACTUAL_RE = re.compile(
+    r",\s*(?!(?:using|containing|including)\b)"
+    r"(?P<verb>[A-Za-z][A-Za-z-]{2,}ing)\b"
     r"\s+(?P<tail>[^.;:!?]{1,120})",
     re.IGNORECASE,
 )
@@ -762,6 +769,11 @@ def _has_positive_fetch_metadata(source):
 def _source_evidence_is_usable(source):
     if not isinstance(source,dict):
         return False
+    for flag in (
+        "fetched","resolved_article_matches_quote","headline_only","rss_or_snippet_only"
+    ):
+        if flag in source and not isinstance(source.get(flag),bool):
+            return False
     quote_status=source.get("source_quote_status") or source.get("quote_status")
     if quote_status not in USABLE_QUOTE_STATUSES:
         return False
@@ -1202,7 +1214,14 @@ def _quantitative_signal_from_match(match):
     else:
         currency_code=prefix_code or suffix_code
     unit=(match.group("unit") or "").lower()
-    suffix=[x for x in (magnitude,currency_code,unit) if x]
+    generic_unit=(match.groupdict().get("generic_unit") or "").lower()
+    if generic_unit in {
+        "and","or","but","yet","for","from","to","at","in","on","by","with",
+        "because","while","whereas","previously","currently","planned","approved",
+        "started","delayed","completed","commercial","subject","target",
+    }:
+        generic_unit=""
+    suffix=[x for x in (magnitude,currency_code,unit or generic_unit) if x]
     return f"{bound}{sign}{currency}{number}{(' ' + ' '.join(suffix)) if suffix else ''}"
 
 
@@ -1231,6 +1250,8 @@ def _changed_state_match_strength(text,match):
     if NON_REALIZED_CHANGED_STATE_PREFIX_RE.search(prefix):
         return 0
     if NON_REALIZED_CHANGED_STATE_SUFFIX_RE.search(suffix):
+        return 0
+    if re.search(r"\b(?:will|shall)\s*$",prefix,re.IGNORECASE):
         return 0
     if TENTATIVE_CHANGED_STATE_PREFIX_RE.search(prefix):
         return 1
@@ -1304,7 +1325,12 @@ def _is_calendar_may(text,match):
     prefix=text[:match.start()]
     suffix=text[match.end():]
     if re.match(
-        r"\s+(?:\d{1,2}(?:st|nd|rd|th)?(?:,)?\s+)?(?:19|20)\d{2}\b",
+        r"\s+\d{1,2}(?:st|nd|rd|th)?\b(?:,?\s+(?:19|20)\d{2}\b)?",
+        suffix,re.IGNORECASE,
+    ):
+        return True
+    if re.match(
+        r"\s+(?:19|20)\d{2}\b",
         suffix,re.IGNORECASE,
     ):
         return True
@@ -1476,6 +1502,11 @@ def _factual_predicate_content_counter(text):
             token=word.casefold()
             if token not in FACTUAL_CONTENT_STOPWORDS:
                 counts[token]+=1
+    for match in COMMA_PARTICIPIAL_FACTUAL_RE.finditer(text):
+        for word in [match.group("verb")]+FACTUAL_CONTENT_WORD_RE.findall(match.group("tail")):
+            token=word.casefold()
+            if token not in FACTUAL_CONTENT_STOPWORDS:
+                counts[token]+=1
     return counts
 
 
@@ -1484,7 +1515,10 @@ def _factual_predicate_subject_counter(text):
     counts=Counter()
     if not isinstance(text,str):
         return counts
-    for pattern in (FACTUAL_PREDICATE_RE,GENERIC_FACTUAL_PREDICATE_RE,MODAL_FACTUAL_PREDICATE_RE):
+    for pattern in (
+        FACTUAL_PREDICATE_RE,GENERIC_FACTUAL_PREDICATE_RE,
+        MODAL_FACTUAL_PREDICATE_RE,COMMA_PARTICIPIAL_FACTUAL_RE,
+    ):
         for match in pattern.finditer(text):
             groups=match.groupdict()
             tail_name=next((name for name in ("tail","tail_after_connector","tail_after_subject")
@@ -1534,7 +1568,7 @@ def _factual_identity_spans(text):
 
 
 def _claim_segment_bounds(text,start,end):
-    boundaries=".;:!?\n"
+    boundaries=".;:!?|\n"
     left=max([text.rfind(mark,0,start) for mark in boundaries]+[-1])+1
     right_candidates=[text.find(mark,end) for mark in boundaries]
     right_candidates=[pos for pos in right_candidates if pos>=0]
@@ -2392,7 +2426,12 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
             actual_changed.append(field)
 
     declared=audit.get("changed_fields")
-    if not isinstance(declared,list) or len(declared)!=len(set(declared)) or any(x not in VISIBLE_COPY_FIELDS for x in declared):
+    if (
+        not isinstance(declared,list)
+        or any(not isinstance(x,str) for x in declared)
+        or len(declared)!=len(set(declared))
+        or any(x not in VISIBLE_COPY_FIELDS for x in declared)
+    ):
         raise Blocked(f"{label} 0.6 changed_fields must be a unique subset of {list(VISIBLE_COPY_FIELDS)}")
     expected={field for field in VISIBLE_COPY_FIELDS if field in actual_changed}
     if set(declared)!=expected:

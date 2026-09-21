@@ -1187,6 +1187,36 @@ def _strength_multiset_covers(required,evidence):
 
 
 
+def _is_calendar_may(text,match):
+    if match.group(0).casefold()!="may":
+        return False
+    prefix=text[:match.start()]
+    suffix=text[match.end():]
+    if re.match(
+        r"\s+(?:\d{1,2}(?:st|nd|rd|th)?(?:,)?\s+)?(?:19|20)\d{2}\b",
+        suffix,re.IGNORECASE,
+    ):
+        return True
+    if match.group(0)=="May" and re.search(
+        r"\b(?:in|since|from|during|by|through|until|around)\s*$",
+        prefix,re.IGNORECASE,
+    ):
+        return True
+    return False
+
+
+def _dimension_match_is_valid(dimension,marker,text,match):
+    if (
+        dimension=="boundary_or_uncertainty"
+        and marker=="uncertain_conditional"
+        and _is_calendar_may(text,match)
+    ):
+        return False
+    if dimension=="changed_state" and not _changed_state_match_is_realized(text,match):
+        return False
+    return True
+
+
 def _signal_counter(dimension,text):
     counts=Counter()
     if dimension=="quantitative_anchor":

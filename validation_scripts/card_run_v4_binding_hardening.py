@@ -1548,6 +1548,11 @@ def _factual_predicate_content_counter(text):
                 counts[token]+=1
     for match in EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE.finditer(text):
         verb=match.group("explicit_verb")
+        if verb.casefold() in {
+            "am","is","are","was","were","be","been","being",
+            "has","have","had","do","does","did",
+        }:
+            continue
         tail=match.group("explicit_tail")
         for word in [verb]+FACTUAL_CONTENT_WORD_RE.findall(tail):
             token=word.casefold()
@@ -1591,7 +1596,10 @@ def _factual_predicate_subject_counter(text):
                             ) if groups.get(name)),None)
             start=match.start(verb_name) if verb_name else match.start()
             verb=(groups[verb_name] if verb_name else text[start:match.start(tail_name)]).strip().casefold()
-            if pattern is MODAL_FACTUAL_PREDICATE_RE and verb in {"be","have"}:
+            if verb in {
+                "am","is","are","was","were","be","been","being",
+                "has","have","had","do","does","did",
+            }:
                 continue
             subject=_claim_subject_for_span(text,start,match.start(tail_name))
             # Stop at a new coordinated clause instead of attaching its object

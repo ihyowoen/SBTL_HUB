@@ -3785,6 +3785,120 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             )
 
 
+    def test_intransitive_standalone_predicate_requires_grounding(self):
+        prior = "Capacity is 10 MW."
+        current = "Capacity is 20 MW. It exploded."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        factual = binding._factual_predicate_content_counter("It exploded.")
+        self.assertIn("exploded", factual)
+        pairs = binding._factual_predicate_subject_counter("It exploded.")
+        self.assertTrue(any(
+            key[1] == "pos:exploded" and key[2] == "__predicate__"
+            for key in pairs
+        ))
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "predicate tokens not grounded|subject/predicate claims are not grounded"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_factual_predicate_polarity_requires_grounding(self):
+        prior = "Capacity is 10 MW. It does not sell coal."
+        current = "Capacity is 20 MW. It does sell coal."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        prior_pairs = binding._factual_predicate_subject_counter(prior)
+        current_pairs = binding._factual_predicate_subject_counter(current)
+        self.assertTrue(any(key[1] == "neg:sell" for key in prior_pairs))
+        self.assertTrue(any(key[1] == "pos:sell" for key in current_pairs))
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "subject/predicate claims are not grounded"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_multiword_proper_subject_relationships_are_distinct(self):
+        prior = (
+            "Capacity is 10 MW. Alpha Corp sold gas. Beta Corp sold coal."
+        )
+        current = (
+            "Capacity is 20 MW. Alpha Corp sold coal. Beta Corp sold gas."
+        )
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": (
+                "Capacity is 20 MW. Alpha Corp sold gas. Beta Corp sold coal."
+            ),
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        pairs = binding._factual_predicate_subject_counter(current)
+        self.assertIn(("alpha corp", "pos:sold", "coal"), pairs)
+        self.assertIn(("beta corp", "pos:sold", "gas"), pairs)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "subject/predicate claims are not grounded"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1332,6 +1332,15 @@ def _changed_state_match_strength(text,match):
     all_boundaries=boundaries+coordinate_boundaries
     if all_boundaries:
         clause_prefix=clause_prefix[max(item.end() for item in all_boundaries):]
+    if re.match(
+        r"(?:commercial\s+production|production|construction)\b",
+        match.group(0),re.IGNORECASE,
+    ):
+        noun_subject_conjunction=re.search(
+            r"\b(?:and|or)\s+$",clause_prefix,re.IGNORECASE
+        )
+        if noun_subject_conjunction:
+            clause_prefix=clause_prefix[noun_subject_conjunction.end():]
     clause_prefix=re.sub(r"\bnot\s+only\b","",clause_prefix,flags=re.IGNORECASE)
     if CLAUSE_NEGATION_RE.search(clause_prefix):
         return 0

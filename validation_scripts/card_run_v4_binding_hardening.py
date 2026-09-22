@@ -2003,6 +2003,12 @@ def _factual_predicate_subject_counter(text):
     return counts
 
 
+LOWERCASE_FACTUAL_FRAGMENT_STOPWORDS = {
+    "changed","unchanged","same","sub","gate","fact","implication",
+    "overview","placeholder","summary","draft","copy","text","field",
+}
+
+
 LOWERCASE_FACTUAL_FRAGMENT_RE = re.compile(
     r"(?:^|[.;:!?]\s+)"
     r"(?P<fragment>[a-z][a-z0-9_-]{2,}"
@@ -2017,7 +2023,11 @@ def _lowercase_factual_fragment_counter(text):
         return counts
     for match in LOWERCASE_FACTUAL_FRAGMENT_RE.finditer(text):
         words=[word.casefold() for word in match.group("fragment").split()]
-        if any(word in FACTUAL_CONTENT_STOPWORDS for word in words):
+        if any(
+            word in FACTUAL_CONTENT_STOPWORDS
+            or word in LOWERCASE_FACTUAL_FRAGMENT_STOPWORDS
+            for word in words
+        ):
             continue
         phrase=" ".join(words)
         counts[f"fragment:{phrase}"]+=1

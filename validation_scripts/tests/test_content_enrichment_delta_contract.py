@@ -3477,7 +3477,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
                 self.assertFalse(binding._signal_values("changed_state", text))
 
     def test_location_claim_binds_every_coordinated_subject(self):
-        prior = "Alpha capacity is 10 MW. Alpha and Beta are in Ohio."
+        prior = "Alpha capacity is 10 MW."
         current = "Alpha capacity is 20 MW. Alpha and Beta are in Texas."
         source = {
             "source_id": "SRC1",

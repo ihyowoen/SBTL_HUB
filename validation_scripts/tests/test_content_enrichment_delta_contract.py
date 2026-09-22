@@ -3899,6 +3899,182 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             )
 
 
+    def test_spaced_lowercase_m_is_metre_not_million(self):
+        metres = binding._signal_values("quantitative_anchor", "It spans 20 m")
+        millions = binding._signal_values("quantitative_anchor", "It spans 20 million")
+        self.assertIn("20 meter", metres)
+        self.assertIn("20 m", millions)
+        self.assertNotEqual(metres, millions)
+
+        prior = "It spans 10 m"
+        current = "It spans 20 m"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "It spans 20 million.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_determiner_led_modified_subject_relationships_are_distinct(self):
+        prior = (
+            "Capacity is 10 MW. The northern refinery sold coal. "
+            "The southern refinery sold gas."
+        )
+        current = (
+            "Capacity is 20 MW. The northern refinery sold gas. "
+            "The southern refinery sold coal."
+        )
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": (
+                "Capacity is 20 MW. The northern refinery sold coal. "
+                "The southern refinery sold gas."
+            ),
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        pairs = binding._factual_predicate_subject_counter(current)
+        self.assertIn(("northern refinery", "pos:sold", "gas"), pairs)
+        self.assertIn(("southern refinery", "pos:sold", "coal"), pairs)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "subject/predicate claims are not grounded"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_lowercase_factual_fragment_requires_grounding(self):
+        prior = "Capacity is 10 MW."
+        current = "Capacity is 20 MW. lithium feedstock."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        fragments = binding._lowercase_factual_fragment_counter(current)
+        self.assertIn("fragment:lithium feedstock", fragments)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "factual identity/location/predicate tokens not grounded"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_added_uncertainty_marker_requires_same_subject_evidence(self):
+        prior = "Capacity is 10 MW. Alpha project. Beta project."
+        current = "Capacity is 20 MW. Alpha target remains. Beta project."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": (
+                "Capacity is 20 MW. Alpha project. Beta target remains."
+            ),
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        current_pairs = binding._boundary_subject_counter(current)
+        evidence_pairs = binding._boundary_subject_counter(source["source_quote"])
+        self.assertIn("alpha=>plan_target", current_pairs)
+        self.assertIn("beta=>plan_target", evidence_pairs)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor", "boundary_or_uncertainty"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "boundary/uncertainty subject claims are not grounded"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_stage_checker_claim_coverage_cannot_widen_explicit_scope(self):
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+            "visible_supports": ["sub"],
+        }
+        item = row06(
+            fact="Capacity is 20 MW",
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        item["claim_source_coverage"] = {
+            "visible_fact": {"supported_by_source_ids": ["SRC1"]}
+        }
+        support = stage_contract._row_evidence_token_support(item)
+        self.assertNotIn("fact", support.get("SRC1", set()))
+        findings = stage_contract._content_enrichment_audit_findings(item, "SPEC")
+        self.assertTrue(any(
+            "support" in str(finding.get("message", "")).lower()
+            or "evidence" in str(finding.get("message", "")).lower()
+            for finding in findings
+        ))
+
+
 
 if __name__ == "__main__":
     unittest.main()

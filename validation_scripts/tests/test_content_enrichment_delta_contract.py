@@ -3467,6 +3467,182 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             )
 
 
+    def test_deontic_state_constructions_are_not_realized(self):
+        for text in (
+            "Previously, the planned 10 MW project must be approved because supply costs rose, subject to permit",
+            "Previously, the planned 10 MW project needs to be approved because supply costs rose",
+            "Previously, the planned 10 MW project is required to be approved because supply costs rose",
+        ):
+            with self.subTest(text=text):
+                self.assertFalse(binding._signal_values("changed_state", text))
+
+    def test_location_claim_binds_every_coordinated_subject(self):
+        prior = "Alpha capacity is 10 MW. Alpha and Beta are in Ohio."
+        current = "Alpha capacity is 20 MW. Alpha and Beta are in Texas."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": (
+                "Alpha capacity is 20 MW. Alpha and Beta mention Texas. "
+                "Beta is in Texas."
+            ),
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        pairs = binding._factual_location_pair_counter(current)
+        self.assertIn("alpha=>texas", pairs)
+        self.assertIn("beta=>texas", pairs)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "rebinds/adds entity-location claims"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_evidence_package_preserves_visible_field_authorization(self):
+        prior = "Capacity is 10 MW"
+        current = "Capacity is 20 MW"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+            "visible_supports": ["fact"],
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+
+        broadened = {**source, "visible_supports": ["fact", "sub"]}
+        with self.assertRaisesRegex(
+            binding.Blocked, "source-token bindings|upstream quote/claim"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={
+                    **VISIBLE,
+                    "fact": current,
+                    "fact_sources": [broadened],
+                },
+            )
+
+    def test_quantitative_replacement_must_preserve_bound_entity(self):
+        prior = "Alpha capacity is 10 MW. Beta project."
+        current = "Alpha project. Beta capacity is 20 MW."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Beta capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "quantitative claims across factual entities"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_korean_factual_predicate_addition_requires_grounding(self):
+        prior = "용량은 10 MW이다."
+        current = "용량은 20 MW이다. 석탄을 판매했다."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "용량은 20 MW이다.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        factual = binding._factual_predicate_content_counter("석탄을 판매했다.")
+        self.assertIn("석탄을", factual)
+        self.assertIn("판매했다", factual)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "predicate tokens not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_uncertainty_removal_must_match_advanced_subject(self):
+        prior = "Gamma target remains 10 MW. Beta may be delayed."
+        current = "Gamma remains 10 MW. Beta is delayed."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Beta is delayed.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["changed_state"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "deletes verified upstream boundary_or_uncertainty signals"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+
 
 if __name__ == "__main__":
     unittest.main()

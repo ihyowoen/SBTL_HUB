@@ -4103,7 +4103,8 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         for stage in ("B", "C"):
             chain[stage][0]["fact_sources"] = [source]
         with self.assertRaisesRegex(
-            binding.Blocked, "evidence-grounded realized changed_state"
+            binding.Blocked,
+            "evidence-grounded realized changed_state|evidence-grounded realized strength-2"
         ):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",

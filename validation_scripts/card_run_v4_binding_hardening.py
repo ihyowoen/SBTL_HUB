@@ -212,13 +212,15 @@ SENTENCE_PROPER_FACTUAL_RE = re.compile(
     r"(?:\s+[A-Z][A-Za-z0-9&._-]{1,}){0,3}"
     r")\s+"
     r"(?P<sentence_proper_verb>[A-Za-z][A-Za-z-]{1,})\b"
-    r"\s+(?P<sentence_proper_tail>[^.;:!?]{1,120})",
+    r"(?:\s+(?P<sentence_proper_tail>[^.;:!?]{1,120}))?"
+    r"(?=[.;:!?]|$)",
 )
 SENTENCE_PRONOUN_FACTUAL_RE = re.compile(
     r"(?:^|[.;:!?]\s+)"
     r"(?P<sentence_pronoun>it|they|he|she|we|you|this|that|these|those)\s+"
     r"(?P<sentence_pronoun_verb>[A-Za-z][A-Za-z-]{1,})\b"
-    r"\s+(?P<sentence_pronoun_tail>[^.;:!?]{1,120})",
+    r"(?:\s+(?P<sentence_pronoun_tail>[^.;:!?]{1,120}))?"
+    r"(?=[.;:!?]|$)",
     re.IGNORECASE,
 )
 EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE = re.compile(
@@ -1693,17 +1695,17 @@ def _factual_identity_counter(text):
 
 def _lexical_predicate_after_auxiliary(tail):
     if not isinstance(tail,str):
-        return None,None
+        return None,None,False
     match=re.match(
-        r"^\s*(?:not\s+)?"
+        r"^\s*(?P<negated>not\s+)?"
         r"(?:(?:be|been|being|have|has|had|do|does|did)\s+){0,3}"
         r"(?P<verb>[A-Za-z][A-Za-z-]{1,})\b"
         r"\s*(?P<tail>.*)$",
         tail,re.IGNORECASE,
     )
     if not match:
-        return None,None
-    return match.group("verb"),match.group("tail")
+        return None,None,False
+    return match.group("verb"),match.group("tail"),bool(match.group("negated"))
 
 
 def _copular_factual_tokens(tail):
@@ -1834,12 +1836,13 @@ def _factual_predicate_content_counter(text):
                     counts[token]+=1
                 continue
             if verb.casefold() in {"has","have","had","do","does","did"}:
-                lexical_verb,lexical_tail=_lexical_predicate_after_auxiliary(tail)
+                lexical_verb,lexical_tail,_=_lexical_predicate_after_auxiliary(tail)
                 if not lexical_verb:
                     continue
                 verb=lexical_verb
                 tail=lexical_tail or ""
-            for word in [verb]+FACTUAL_CONTENT_WORD_RE.findall(tail):
+            words=[verb]+FACTUAL_CONTENT_WORD_RE.findall(tail or "")
+            for word in words:
                 token=word.casefold()
                 if token not in FACTUAL_CONTENT_STOPWORDS:
                     counts[token]+=1
@@ -1851,7 +1854,7 @@ def _factual_predicate_content_counter(text):
             continue
         tail=match.group("explicit_tail")
         if verb.casefold() in {"has","have","had","do","does","did"}:
-            lexical_verb,lexical_tail=_lexical_predicate_after_auxiliary(tail)
+            lexical_verb,lexical_tail,_=_lexical_predicate_after_auxiliary(tail)
             if not lexical_verb:
                 continue
             verb=lexical_verb
@@ -1910,34 +1913,51 @@ def _factual_predicate_subject_counter(text):
             tail_name=next((name for name in (
                                 "tail","tail_after_connector","tail_after_subject","explicit_tail",
                                 "sentence_pronoun_tail","sentence_proper_tail","sentence_tail"
-                            ) if groups.get(name)),None)
-            if not tail_name:
-                continue
+                            ) if name in groups),None)
             verb_name=next((name for name in (
                                 "verb","verb_after_connector","verb_after_subject","explicit_verb",
                                 "sentence_pronoun_verb","sentence_proper_verb","sentence_verb"
                             ) if groups.get(name)),None)
-            start=match.start(verb_name) if verb_name else match.start()
-            verb=(groups[verb_name] if verb_name else text[start:match.start(tail_name)]).strip().casefold()
-            subject=_claim_subject_for_span(text,start,match.start(tail_name))
+            if not verb_name:
+                continue
+            start=match.start(verb_name)
+            tail_value=(groups.get(tail_name) or "") if tail_name else ""
+            tail_start=match.start(tail_name) if tail_name and groups.get(tail_name) else match.end(verb_name)
+            verb=groups[verb_name].strip().casefold()
+            proper_subject=groups.get("sentence_proper_subject")
+            subject=(
+                re.sub(r"\s+"," ",proper_subject.strip()).casefold()
+                if proper_subject
+                else _claim_subject_for_span(text,start,tail_start)
+            )
+            polarity="pos"
             if verb in {"am","is","are","was","were","be","been","being"}:
-                for token in _copular_factual_tokens(groups[tail_name]):
+                for token in _copular_factual_tokens(tail_value):
                     counts[(subject,"be",token)]+=1
                 continue
             if verb in {"has","have","had","do","does","did"}:
-                lexical_verb,lexical_tail=_lexical_predicate_after_auxiliary(groups[tail_name])
+                lexical_verb,lexical_tail,negated=_lexical_predicate_after_auxiliary(tail_value)
                 if not lexical_verb:
                     continue
                 verb=lexical_verb.casefold()
-                groups=dict(groups)
-                groups[tail_name]=lexical_tail or ""
+                polarity="neg" if negated else "pos"
+                tail_value=lexical_tail or ""
+            elif re.match(r"^\s*not\b",tail_value,re.IGNORECASE):
+                polarity="neg"
+                tail_value=re.sub(r"^\s*not\b\s*","",tail_value,count=1,flags=re.IGNORECASE)
             # Stop at a new coordinated clause instead of attaching its object
             # to the preceding predicate.
-            tail=re.split(r"\b(?:and|but|while|whereas)\b",groups[tail_name],maxsplit=1,flags=re.IGNORECASE)[0]
-            for word in FACTUAL_CONTENT_WORD_RE.findall(tail):
-                token=word.casefold()
-                if token not in FACTUAL_CONTENT_STOPWORDS:
-                    counts[(subject,verb,token)]+=1
+            tail=re.split(r"\b(?:and|but|while|whereas)\b",tail_value,maxsplit=1,flags=re.IGNORECASE)[0]
+            content_tokens=[
+                word.casefold()
+                for word in FACTUAL_CONTENT_WORD_RE.findall(tail)
+                if word.casefold() not in FACTUAL_CONTENT_STOPWORDS
+            ]
+            if not content_tokens:
+                counts[(subject,f"{polarity}:{verb}","__predicate__")]+=1
+            else:
+                for token in content_tokens:
+                    counts[(subject,f"{polarity}:{verb}",token)]+=1
     return counts
 
 

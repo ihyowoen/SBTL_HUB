@@ -1341,6 +1341,22 @@ def _changed_state_match_strength(text,match):
         )
         if noun_subject_conjunction:
             clause_prefix=clause_prefix[noun_subject_conjunction.end():]
+    if re.match(
+        r"(?:start(?:ed|ing)?|begin|began|begun|commence(?:d)?|approve(?:d)?|"
+        r"delay(?:ed)?|complete(?:d)?|resume(?:d)?|restart(?:ed)?|"
+        r"suspend(?:ed)?|cancel(?:led|ed)?|sign(?:ed)?|launch(?:ed)?|"
+        r"ship(?:ped|ping)?)\b",
+        match.group(0),re.IGNORECASE,
+    ):
+        trailing_subject_conjunction=re.search(
+            r"\b(?:and|or)\s+"
+            r"(?:(?:the|a|an)\s+)?[A-Za-z][A-Za-z0-9&._-]{1,}"
+            r"(?:\s+(?:is|are|was|were|has|have|had|will|shall|may|might|could))?"
+            r"\s+$",
+            clause_prefix,re.IGNORECASE,
+        )
+        if trailing_subject_conjunction:
+            clause_prefix=clause_prefix[trailing_subject_conjunction.end():]
     clause_prefix=re.sub(r"\bnot\s+only\b","",clause_prefix,flags=re.IGNORECASE)
     if CLAUSE_NEGATION_RE.search(clause_prefix):
         return 0

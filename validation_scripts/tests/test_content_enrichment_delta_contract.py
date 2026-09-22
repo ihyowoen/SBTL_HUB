@@ -3258,7 +3258,7 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             "source_quote": source1["source_quote"],
         }
         with self.assertRaisesRegex(
-            binding.Blocked, "do not exactly preserve.*source-token bindings"
+            binding.Blocked, "does not preserve.*source-token bindings"
         ):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",

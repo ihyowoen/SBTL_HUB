@@ -545,7 +545,9 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                     findings.extend(issue.as_finding(scope) for issue in _content_core.grounding_issues(
                         name, visible_counts, evidence_counts,
                         visible_subject_strengths, evidence_subject_strengths,
-                        require_realized=False,
+                        require_realized=(
+                            item.get("content_enrichment_audit", {}).get("no_change_required") is True
+                        ),
                     ))
     return findings
 
@@ -945,6 +947,11 @@ def main() -> int:
         "missing_count": len(findings),
         "findings": findings,
     }
+    if args.stage == "0.6":
+        result["validation_scope"] = {
+            "mode": "stage_artifact_only",
+            "not_verified": ["upstream_evidence_authority", "actual_visible_copy_delta", "materialized_operation"],
+        }
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 1 if findings else 0
 

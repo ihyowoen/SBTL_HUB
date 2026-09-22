@@ -2498,7 +2498,7 @@ def _validate_claimed_dimension_text(density, row_06, label, true_dimensions):
 
 def _validate_claimed_dimension_evidence_grounding(
     density,row_06,label,true_dimensions,
-    allowed_evidence_texts,allowed_evidence_packages
+    allowed_evidence_texts,allowed_evidence_packages,*,no_change
 ):
     mapping=density.get("dimension_evidence") if isinstance(density,dict) else None
     for dimension in true_dimensions:
@@ -2527,7 +2527,7 @@ def _validate_claimed_dimension_evidence_grounding(
                         evidence_strengths.setdefault(key,[]).extend(values)
         issues=_content_core.grounding_issues(
             dimension,visible_counts,evidence_counts,visible_strengths,evidence_strengths,
-            require_realized=True,
+            require_realized=no_change,
         )
         if issues:
             raise Blocked(f"{label} {issues[0].message}")
@@ -2876,43 +2876,7 @@ def _validate_substantive_dimension_delta(
 
 
 
-def _validate_zero_delta_realized_state(
-    density,row_06,label,allowed_evidence_packages
-):
-    state_entry=density.get("dimension_evidence",{}).get("changed_state",{})
-    state_fields=state_entry.get("fields",[]) if isinstance(state_entry,dict) else []
-    state_refs=state_entry.get("evidence_refs",[]) if isinstance(state_entry,dict) else []
-    current_state_text="; ".join(
-        _visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING)))
-        for field in state_fields
-    )
-    current_occurrences=_state_subject_strength_occurrences(current_state_text)
-    realized_keys={
-        key for key,strengths in current_occurrences.items()
-        if any(strength>=2 for strength in strengths)
-    }
-    evidence_occurrences={}
-    for ref in state_refs:
-        packages=allowed_evidence_packages.get(ref,[]) if isinstance(allowed_evidence_packages,dict) else []
-        for package in packages:
-            if not isinstance(package,dict):
-                continue
-            for evidence_key in EVIDENCE_TEXT_KEYS:
-                value=package.get(evidence_key)
-                texts=[value] if _nonempty_text(value) else (
-                    [x for x in value if _nonempty_text(x)] if isinstance(value,list) else []
-                )
-                for evidence_text in texts:
-                    for key,strengths in _state_subject_strength_occurrences(evidence_text).items():
-                        evidence_occurrences.setdefault(key,[]).extend(strengths)
-    if not any(
-        any(strength>=2 for strength in evidence_occurrences.get(key,[]))
-        for key in realized_keys
-    ):
-        raise Blocked(
-            f"{label} zero-delta 0.6 requires at least one mapped, "
-            f"evidence-grounded realized changed_state claim"
-        )
+
 
 
 
@@ -3303,12 +3267,8 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
     ]
     _validate_claimed_dimension_evidence_grounding(
         audit["density_audit"],row_06,label,true_dimensions,
-        allowed_evidence_texts,allowed_evidence_packages,
+        allowed_evidence_texts,allowed_evidence_packages,no_change=not actual_changed,
     )
-    if not actual_changed:
-        _validate_zero_delta_realized_state(
-            audit["density_audit"],row_06,label,allowed_evidence_packages
-        )
     if actual_changed:
         _validate_substantive_dimension_delta(
             audit["density_audit"],row_06,label,actual_changed,upstream_normalized,

@@ -320,6 +320,11 @@ def _source_supported_visible_fields(source):
         return set()
     if str(source.get("role") or "").strip().lower() == "checked_not_used_for_visible_claims":
         return set()
+    if str(source.get("evidence_role") or "").strip().lower() in {
+        "not_used", "context_only", "support_only", "supporting_context_only",
+        "duplicate_document_access",
+    }:
+        return set()
     explicit_keys = ("visible_claim_support", "visible_fields_supported", "visible_supports", "supports")
     present = [key for key in explicit_keys if key in source]
     if present:

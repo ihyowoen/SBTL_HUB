@@ -114,11 +114,10 @@ CLAUSE_BOUNDARY_RE = re.compile(
     re.IGNORECASE,
 )
 COORDINATING_NEW_SUBJECT_RE = re.compile(
-    r"\b(?:and|or)\s+"
-    r"(?:(?:it|they|he|she|we|you|this|that|these|those)\b"
-    r"|(?:the|a|an)\s+(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2}[A-Za-z][A-Za-z0-9&._-]*\b"
-    r"|[A-Z][A-Za-z0-9&._-]{1,}\b)",
-    re.IGNORECASE,
+    r"(?i:\b(?:and|or)\s+)"
+    r"(?:(?i:it|they|he|she|we|you|this|that|these|those)\b"
+    r"|(?i:the|a|an)\s+(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2}[A-Za-z][A-Za-z0-9&._-]*\b"
+    r"|[A-Z][A-Za-z0-9&._-]{1,}\b)"
 )
 CLAUSE_NEGATION_RE = re.compile(
     r"\b(?:not|never|without|neither|nor)\b|n['’]t\b",

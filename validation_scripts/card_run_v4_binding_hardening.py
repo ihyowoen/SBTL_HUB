@@ -1357,7 +1357,7 @@ def _quantitative_signal_from_match(match):
     sign=(match.group("sign") or "")
     number=_canonical_numeric_text(match.group("number"))
     currency=(match.group("currency") or "").lower()
-    magnitude=MAGNITUDE_CANONICAL.get((match.group("magnitude") or "").lower(),"")
+    raw_magnitude=(match.group("magnitude") or "")
     prefix_code=(match.group("currency_code_prefix") or "").lower()
     suffix_code=(match.group("currency_code_suffix") or "").lower()
     if prefix_code and suffix_code and prefix_code!=suffix_code:
@@ -1367,13 +1367,28 @@ def _quantitative_signal_from_match(match):
     unit=(match.group("unit") or "").lower()
     generic_unit=(match.groupdict().get("generic_unit") or "").lower()
     denominator=(match.groupdict().get("unit_denominator") or "").lower()
+    number_to_magnitude=(
+        match.string[match.end("number"):match.start("magnitude")]
+        if raw_magnitude and match.start("magnitude")>=0 else ""
+    )
+    spaced_bare_metre=(
+        raw_magnitude=="m"
+        and bool(re.search(r"\s",number_to_magnitude))
+        and not currency and not prefix_code and not suffix_code
+        and not unit and not generic_unit and not denominator
+    )
+    magnitude=(
+        ""
+        if spaced_bare_metre
+        else MAGNITUDE_CANONICAL.get(raw_magnitude.lower(),"")
+    )
     if generic_unit in {
         "and","or","but","yet","for","from","to","at","in","on","by","with",
         "because","while","whereas","previously","currently","planned","approved",
         "started","delayed","completed","commercial","subject","target",
     }:
         generic_unit=""
-    measurement_unit=unit or generic_unit
+    measurement_unit="meter" if spaced_bare_metre else (unit or generic_unit)
     if measurement_unit and denominator:
         measurement_unit=f"{measurement_unit}/{denominator}"
     suffix=[x for x in (magnitude,currency_code,measurement_unit) if x]
@@ -1944,11 +1959,18 @@ def _factual_predicate_subject_counter(text):
             tail_start=match.start(tail_name) if tail_name and groups.get(tail_name) else match.end(verb_name)
             verb=groups[verb_name].strip().casefold()
             proper_subject=groups.get("sentence_proper_subject")
-            subject=(
-                re.sub(r"\s+"," ",proper_subject.strip()).casefold()
-                if proper_subject
-                else _claim_subject_for_span(text,start,tail_start)
-            )
+            determiner_subject=groups.get("sentence_subject")
+            captured_subject=proper_subject or determiner_subject
+            if captured_subject:
+                normalized_subject=re.sub(r"\s+"," ",captured_subject.strip()).casefold()
+                if determiner_subject:
+                    normalized_subject=re.sub(
+                        r"^(?:the|a|an|this|that|these|those)\s+","",
+                        normalized_subject,count=1,flags=re.IGNORECASE,
+                    )
+                subject=normalized_subject
+            else:
+                subject=_claim_subject_for_span(text,start,tail_start)
             polarity="pos"
             if verb in {"am","is","are","was","were","be","been","being"}:
                 for token in _copular_factual_tokens(tail_value):
@@ -1981,9 +2003,31 @@ def _factual_predicate_subject_counter(text):
     return counts
 
 
+LOWERCASE_FACTUAL_FRAGMENT_RE = re.compile(
+    r"(?:^|[.;:!?]\s+)"
+    r"(?P<fragment>[a-z][a-z0-9_-]{2,}"
+    r"(?:\s+[a-z][a-z0-9_-]{2,}){1,3})"
+    r"(?=[.;:!?]|$)"
+)
+
+
+def _lowercase_factual_fragment_counter(text):
+    counts=Counter()
+    if not isinstance(text,str):
+        return counts
+    for match in LOWERCASE_FACTUAL_FRAGMENT_RE.finditer(text):
+        words=[word.casefold() for word in match.group("fragment").split()]
+        if any(word in FACTUAL_CONTENT_STOPWORDS for word in words):
+            continue
+        phrase=" ".join(words)
+        counts[f"fragment:{phrase}"]+=1
+    return counts
+
+
 def _factual_claim_counter(text):
     counts=_factual_identity_counter(text)
     counts.update(_factual_predicate_content_counter(text))
+    counts.update(_lowercase_factual_fragment_counter(text))
     return counts
 
 
@@ -2542,6 +2586,30 @@ def _validate_substantive_dimension_delta(
             }
 
             subject_state_gaps={}
+            if dimension=="boundary_or_uncertainty":
+                current_boundary_pairs=_boundary_subject_counter(current_field_text)
+                upstream_boundary_pairs=_boundary_subject_counter(upstream_field_text)
+                introduced_boundary_pairs=Counter({
+                    pair:count
+                    for pair,count in (current_boundary_pairs-upstream_boundary_pairs).items()
+                    if pair.split("=>",1)[-1] in set(added)
+                })
+                evidence_boundary_pairs=Counter()
+                for ref in refs:
+                    for evidence_text in allowed_evidence_texts.get(ref,[]):
+                        evidence_boundary_pairs.update(
+                            _boundary_subject_counter(evidence_text)
+                        )
+                boundary_pair_gaps={
+                    pair:count
+                    for pair,count in introduced_boundary_pairs.items()
+                    if evidence_boundary_pairs.get(pair,0)<count
+                }
+                if boundary_pair_gaps:
+                    raise Blocked(
+                        f"{label} changed 0.6 boundary/uncertainty subject claims are not "
+                        f"grounded in referenced nearest-stage evidence: {boundary_pair_gaps}"
+                    )
             if dimension=="changed_state":
                 advancements=_state_subject_advancements(
                     upstream_field_text,current_field_text

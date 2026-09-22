@@ -186,6 +186,7 @@ GENERIC_FACTUAL_PREDICATE_RE = re.compile(
 )
 SENTENCE_PROPER_FACTUAL_RE = re.compile(
     r"(?:^|[.;:!?]\s+)"
+    r"(?!(?i:the|a|an|this|that|these|those)\b)"
     r"(?P<sentence_proper_subject>"
     r"[A-Z][A-Za-z0-9&._-]{1,}"
     r"(?:\s+[A-Z][A-Za-z0-9&._-]{1,}){0,3}"
@@ -243,6 +244,11 @@ FACTUAL_CONTENT_STOPWORDS = FACTUAL_IDENTITY_STOPWORDS | {
     "owns","operates","employs","produces","manufactures","recycles","acquires",
     "acquired","selects","selected","partners","partnered","contracts","contracted",
     "built","made","located","based","powered",
+    "am","is","are","was","were","be","been","being",
+    "has","have","had","do","does","did",
+    "begin","began","begun","commence","commenced","resume","resumed",
+    "restart","restarted","suspend","suspended","cancel","cancelled","canceled",
+    "sign","signed","launch","launched","ship","shipped","shipping",
 }
 DIMENSION_CANONICAL_SIGNAL_RES = {
     "prior_state": {
@@ -1630,10 +1636,21 @@ def _copular_factual_tokens(tail):
     if not isinstance(tail,str):
         return []
     residual=list(tail)
-    for pattern in DIMENSION_CANONICAL_SIGNAL_RES["changed_state"].values():
-        for match in pattern.finditer(tail):
-            for index in range(match.start(),match.end()):
-                residual[index]=" "
+    spans=[]
+    for match in QUANT_SIGNAL_RE.finditer(tail):
+        spans.append((match.start(),match.end()))
+    for dimension in (
+        "prior_state","changed_state","boundary_or_uncertainty",
+        "transmission_path","next_watchpoint",
+    ):
+        for pattern in DIMENSION_CANONICAL_SIGNAL_RES.get(dimension,{}).values():
+            for match in pattern.finditer(tail):
+                spans.append((match.start(),match.end()))
+    for match in LOCATION_PHRASE_RE.finditer(tail):
+        spans.append((match.start(),match.end()))
+    for start,end in spans:
+        for index in range(start,end):
+            residual[index]=" "
     residual="".join(residual)
     return [
         word.casefold()
@@ -1790,7 +1807,7 @@ def _factual_identity_spans(text):
             spans.add((match.start(1),match.end(1),token))
     for match in COMMON_NOUN_SUBJECT_RE.finditer(text):
         token=match.group("head").casefold()
-        if token:
+        if token and token not in FACTUAL_IDENTITY_STOPWORDS:
             spans.add((match.start("head"),match.end("head"),token))
     return sorted(spans)
 
@@ -2566,8 +2583,9 @@ def _validate_materialized_operation_evidence(
             }
     if package_mismatches:
         raise Blocked(
-            f"{label} materialized operation evidence packages do not exactly preserve "
-            f"their authoritative source-token bindings: {package_mismatches}"
+            f"{label} materialized operation evidence package does not preserve "
+            f"authoritative source-token bindings or its upstream quote/claim "
+            f"verification-status package: {package_mismatches}"
         )
     for dimension,entry in mapping.items():
         if not isinstance(entry,dict):

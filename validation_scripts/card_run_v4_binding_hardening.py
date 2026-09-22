@@ -65,7 +65,11 @@ QUANT_SIGNAL_RE = re.compile(
     r"[A-Za-z][A-Za-z0-9²³_-]{0,31}){0,3}"
     r"))?"
     r"(?:(?P<unit_separator>\s+per\s+|\s*/\s*)"
-    r"(?P<unit_denominator>[A-Za-z][A-Za-z0-9²³_-]{0,31}))?"
+    r"(?P<unit_denominator>"
+    r"[A-Za-z][A-Za-z0-9²³_-]{0,31}"
+    r"(?:\s+(?!(?:and|or|but|yet|for|from|to|at|in|on|by|with|because|while|whereas|previously|currently|planned|approved|started|delayed|completed|commercial|subject|target|project|plant|facility|capacity|investment|production)\b)"
+    r"[A-Za-z][A-Za-z0-9²³_-]{0,31}){0,3}"
+    r"))?"
     r"(?![A-Za-z0-9])",
     re.IGNORECASE,
 )
@@ -142,6 +146,16 @@ LOCATION_PHRASE_RE = re.compile(
 )
 KOREAN_IDENTITY_RE = re.compile(
     r"(?<![가-힣])([가-힣]{2,}(?:공장|시설|법인|시|도|군|구|읍|면|리))(?![가-힣])"
+)
+COMMON_NOUN_COORDINATED_SUBJECT_RE = re.compile(
+    r"\b(?:the|a|an|this|that|these|those)\s+"
+    r"(?P<group>"
+    r"[A-Za-z][A-Za-z0-9&._-]*"
+    r"(?:\s+(?:,\s*|and\s+|or\s+|&\s*)[A-Za-z][A-Za-z0-9&._-]*)+"
+    r")\s+"
+    r"(?=(?:may|might|could|can|will|shall|would|should|must|"
+    r"is|are|was|were|has|have|had|does|do|did)\b)",
+    re.IGNORECASE,
 )
 COMMON_NOUN_SUBJECT_RE = re.compile(
     r"\b(?:the|a|an|this|that|these|those)\s+"
@@ -801,6 +815,11 @@ def _source_supported_visible_fields(source):
         return set()
     if str(source.get("role") or "").strip().lower()=="checked_not_used_for_visible_claims":
         return set()
+    if str(source.get("evidence_role") or "").strip().lower() in {
+        "not_used","context_only","support_only","supporting_context_only",
+        "duplicate_document_access",
+    }:
+        return set()
     explicit_keys=("visible_claim_support","visible_fields_supported","visible_supports","supports")
     present=[key for key in explicit_keys if key in source]
     if present:
@@ -1398,6 +1417,14 @@ def _changed_state_match_strength(text,match):
     ):
         return 0
     if re.search(
+        r"\b(?:would|should|can)\s+"
+        r"(?:(?:(?:not\s+)?(?:be|have|been|being)|"
+        r"[A-Za-z][A-Za-z-]*ly|eventually|probably|possibly|likely|"
+        r"soon|later|ultimately|still)\s+){0,6}$",
+        prefix,re.IGNORECASE,
+    ) or re.search(r"\b(?:would|should|can)\s*$",prefix,re.IGNORECASE):
+        return 0
+    if re.search(
         r"\b(?:is|are|was|were|be|been)\s+"
         r"(?:going\s+to|set\s+to|due\s+to)\s+"
         r"(?:(?:be|have|been|being)\s+){0,3}$",
@@ -1632,6 +1659,21 @@ def _factual_identity_counter(text):
     return counts
 
 
+def _lexical_predicate_after_auxiliary(tail):
+    if not isinstance(tail,str):
+        return None,None
+    match=re.match(
+        r"^\s*(?:not\s+)?"
+        r"(?:(?:be|been|being|have|has|had|do|does|did)\s+){0,3}"
+        r"(?P<verb>[A-Za-z][A-Za-z-]{1,})\b"
+        r"\s*(?P<tail>.*)$",
+        tail,re.IGNORECASE,
+    )
+    if not match:
+        return None,None
+    return match.group("verb"),match.group("tail")
+
+
 def _copular_factual_tokens(tail):
     if not isinstance(tail,str):
         return []
@@ -1692,7 +1734,11 @@ def _factual_predicate_content_counter(text):
                     counts[token]+=1
                 continue
             if verb.casefold() in {"has","have","had","do","does","did"}:
-                continue
+                lexical_verb,lexical_tail=_lexical_predicate_after_auxiliary(tail)
+                if not lexical_verb:
+                    continue
+                verb=lexical_verb
+                tail=lexical_tail or ""
             for word in [verb]+FACTUAL_CONTENT_WORD_RE.findall(tail):
                 token=word.casefold()
                 if token not in FACTUAL_CONTENT_STOPWORDS:
@@ -1703,9 +1749,13 @@ def _factual_predicate_content_counter(text):
             for token in _copular_factual_tokens(match.group("explicit_tail")):
                 counts[token]+=1
             continue
-        if verb.casefold() in {"has","have","had","do","does","did"}:
-            continue
         tail=match.group("explicit_tail")
+        if verb.casefold() in {"has","have","had","do","does","did"}:
+            lexical_verb,lexical_tail=_lexical_predicate_after_auxiliary(tail)
+            if not lexical_verb:
+                continue
+            verb=lexical_verb
+            tail=lexical_tail or ""
         for word in [verb]+FACTUAL_CONTENT_WORD_RE.findall(tail):
             token=word.casefold()
             if token not in FACTUAL_CONTENT_STOPWORDS:
@@ -1772,7 +1822,12 @@ def _factual_predicate_subject_counter(text):
                     counts[(subject,"be",token)]+=1
                 continue
             if verb in {"has","have","had","do","does","did"}:
-                continue
+                lexical_verb,lexical_tail=_lexical_predicate_after_auxiliary(groups[tail_name])
+                if not lexical_verb:
+                    continue
+                verb=lexical_verb.casefold()
+                groups=dict(groups)
+                groups[tail_name]=lexical_tail or ""
             # Stop at a new coordinated clause instead of attaching its object
             # to the preceding predicate.
             tail=re.split(r"\b(?:and|but|while|whereas)\b",groups[tail_name],maxsplit=1,flags=re.IGNORECASE)[0]
@@ -1805,6 +1860,20 @@ def _factual_identity_spans(text):
         token=match.group(1)
         if token:
             spans.add((match.start(1),match.end(1),token))
+    for match in COMMON_NOUN_COORDINATED_SUBJECT_RE.finditer(text):
+        group=match.group("group")
+        group_start=match.start("group")
+        for segment in re.split(r"\s*(?:,|\band\b|\bor\b|&)\s*",group,flags=re.IGNORECASE):
+            segment=segment.strip()
+            if not segment:
+                continue
+            head=segment.split()[-1]
+            token=head.casefold()
+            if token in FACTUAL_IDENTITY_STOPWORDS:
+                continue
+            local_start=group.find(head)
+            if local_start>=0:
+                spans.add((group_start+local_start,group_start+local_start+len(head),token))
     for match in COMMON_NOUN_SUBJECT_RE.finditer(text):
         token=match.group("head").casefold()
         if token and token not in FACTUAL_IDENTITY_STOPWORDS:
@@ -2733,6 +2802,8 @@ def _materialized_operation_card(kind, op, expected, known, inserted, baseline_c
         if not isinstance(changes,list) or not changes:
             raise Blocked(f"{label}.changes must be non-empty array")
         paths=[change.get("path") if isinstance(change,dict) else None for change in changes]
+        if any(not isinstance(path,str) for path in paths):
+            raise Blocked(f"{label}.changes paths must all be strings")
         if len(paths)!=len(set(paths)):
             raise Blocked(f"{label}.changes contains duplicate paths")
         for index,change in enumerate(changes):

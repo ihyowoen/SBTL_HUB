@@ -1954,7 +1954,8 @@ def _factual_predicate_subject_counter(text):
                 if word.casefold() not in FACTUAL_CONTENT_STOPWORDS
             ]
             if not content_tokens:
-                counts[(subject,f"{polarity}:{verb}","__predicate__")]+=1
+                if verb not in FACTUAL_CONTENT_STOPWORDS:
+                    counts[(subject,f"{polarity}:{verb}","__predicate__")]+=1
             else:
                 for token in content_tokens:
                     counts[(subject,f"{polarity}:{verb}",token)]+=1

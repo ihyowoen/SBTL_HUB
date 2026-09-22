@@ -1894,6 +1894,22 @@ def _factual_predicate_content_counter(text):
     return counts
 
 
+ZERO_ARGUMENT_IRREGULAR_FACTUAL_VERBS = {
+    "sold","fell","rose","grew","ran","went","came","sank","broke","burst",
+    "shut","left","won","lost","drove","flew","stood","sat","lay","led","paid",
+}
+
+
+def _looks_like_zero_argument_factual_verb(verb):
+    token=str(verb or "").strip().casefold()
+    if not token or token in FACTUAL_CONTENT_STOPWORDS:
+        return False
+    return (
+        re.fullmatch(r"[a-z][a-z-]*(?:s|ed|ing)",token) is not None
+        or token in ZERO_ARGUMENT_IRREGULAR_FACTUAL_VERBS
+    )
+
+
 def _factual_predicate_subject_counter(text):
     """Keep predicate content attached to its local subject, not a global bag."""
     counts=Counter()
@@ -1954,7 +1970,7 @@ def _factual_predicate_subject_counter(text):
                 if word.casefold() not in FACTUAL_CONTENT_STOPWORDS
             ]
             if not content_tokens:
-                if verb not in FACTUAL_CONTENT_STOPWORDS:
+                if _looks_like_zero_argument_factual_verb(verb):
                     counts[(subject,f"{polarity}:{verb}","__predicate__")]+=1
             else:
                 for token in content_tokens:

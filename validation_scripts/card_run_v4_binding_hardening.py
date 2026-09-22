@@ -1974,6 +1974,12 @@ def _factual_predicate_content_counter(text):
     return counts
 
 
+ZERO_ARGUMENT_SUBJECT_BOUND_STATE_VERBS = {
+    "started","completed","delayed","approved","launched","shipped",
+    "resumed","restarted","suspended","cancelled","canceled","signed",
+}
+
+
 ZERO_ARGUMENT_IRREGULAR_FACTUAL_VERBS = {
     "sold","fell","rose","grew","ran","went","came","sank","broke","burst",
     "shut","left","won","lost","drove","flew","stood","sat","lay","led","paid",
@@ -2125,7 +2131,10 @@ def _factual_predicate_subject_counter(text):
                 if word.casefold() not in FACTUAL_CONTENT_STOPWORDS
             ]
             if not content_tokens:
-                if _looks_like_zero_argument_factual_verb(verb):
+                if (
+                    _looks_like_zero_argument_factual_verb(verb)
+                    or verb in ZERO_ARGUMENT_SUBJECT_BOUND_STATE_VERBS
+                ):
                     counts[(subject,f"{polarity}:{verb}","__predicate__")]+=1
             else:
                 for token in content_tokens:

@@ -1,0 +1,42 @@
+name: PR385 phase3 checkpoint preparation
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'docs/audits/pr385/phase3_build/**'
+      - '.github/workflows/pr385-phase3-checkpoint.yml'
+permissions:
+  contents: read
+concurrency:
+  group: pr385-phase3-preparation
+  cancel-in-progress: true
+jobs:
+  prepare:
+    if: github.event.pull_request.number == 385 && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'harden/0-6-visible-copy-delta-20260919'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build isolated commits, verify checkpoint, publish only a fresh proof branch
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: python docs/audits/pr385/phase3_build/prepare_checkpoint.py
+      - name: Preserve exact logs, unresolved cases, source identities and candidate files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr385-phase3-checkpoint-${{ github.run_id }}
+          path: ${{ runner.temp }}/pr385-phase3-proof/
+          if-no-files-found: error
+          retention-days: 7

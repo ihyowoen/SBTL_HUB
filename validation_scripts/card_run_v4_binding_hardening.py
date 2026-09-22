@@ -257,7 +257,8 @@ DETERMINER_SENTENCE_FACTUAL_RE = re.compile(
 FACTUAL_CONTENT_WORD_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9_-]{1,}\b|[가-힣]{2,}")
 FACTUAL_CONTENT_STOPWORDS = FACTUAL_IDENTITY_STOPWORDS | {
     "and","or","but","yet","with","from","into","onto","over","under","through",
-    "for","per","via","its","their","our","his","her","new","same","current",
+    "for","per","via","in","on","at","to","by","of","as","if","up","no","so",
+    "its","their","our","his","her","new","same","current",
     "planned","approved","started","delayed","completed","commercial","remains",
     "remain","will","would","could","may","might","uses","using","contains",
     "containing","includes","including","comprises","relies","sources","supplies",
@@ -2007,7 +2008,9 @@ def _claim_subjects_for_span(text,start,end):
         for candidate in reversed(preceding[:-1]):
             bridge=text[candidate[1]:group[0][0]]
             if re.fullmatch(
-                r"\s*(?:(?:,\s*)?(?:and|or|&)\s*|,\s*)",
+                r"\s*(?:(?:,\s*)?(?:and|or|&)\s*|,\s*)"
+                r"(?:(?:the|a|an|this|that|these|those)\s+)?"
+                r"(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2}",
                 bridge,re.IGNORECASE,
             ):
                 group.insert(0,candidate)
@@ -2023,7 +2026,9 @@ def _claim_subjects_for_span(text,start,end):
         for candidate in following[1:]:
             bridge=text[group[-1][1]:candidate[0]]
             if re.fullmatch(
-                r"\s*(?:(?:,\s*)?(?:and|or|&)\s*|,\s*)",
+                r"\s*(?:(?:,\s*)?(?:and|or|&)\s*|,\s*)"
+                r"(?:(?:the|a|an|this|that|these|those)\s+)?"
+                r"(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2}",
                 bridge,re.IGNORECASE,
             ):
                 group.append(candidate)

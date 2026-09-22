@@ -3305,6 +3305,165 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             )
 
 
+    def test_multiword_unit_denominator_is_preserved(self):
+        square_meter = binding._signal_values(
+            "quantitative_anchor", "Output is 20 metric tons per square meter"
+        )
+        square_foot = binding._signal_values(
+            "quantitative_anchor", "Output is 20 metric tons per square foot"
+        )
+        self.assertIn("20 metric tons/square meter", square_meter)
+        self.assertIn("20 metric tons/square foot", square_foot)
+        self.assertNotEqual(square_meter, square_foot)
+
+        prior = "Output is 10 metric tons per square meter"
+        current = "Output is 20 metric tons per square meter"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Output is 20 metric tons per square foot.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_conditional_modal_states_are_not_realized(self):
+        for text in (
+            "Previously, the planned 10 MW project would be approved because supply costs rose",
+            "Previously, the planned 10 MW project should be approved because supply costs rose",
+            "Previously, the planned 10 MW project can be approved because supply costs rose",
+        ):
+            with self.subTest(text=text):
+                self.assertFalse(binding._signal_values("changed_state", text))
+
+    def test_coordinated_common_noun_subjects_are_each_bound(self):
+        prior = "The refinery and mine may be approved at 10 MW"
+        current = "The refinery and mine are approved at 20 MW"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "The mine is approved at 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        states = binding._state_subject_strength_occurrences(current)
+        pairs = binding._factual_quantitative_pair_counter(current)
+        self.assertIn("refinery=>approval", states)
+        self.assertIn("mine=>approval", states)
+        self.assertIn("refinery=>20 mw", pairs)
+        self.assertIn("mine=>20 mw", pairs)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["changed_state", "quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "subject/modality claims|rebinds/adds quantitative claims"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_auxiliary_chain_exposes_lexical_factual_predicate(self):
+        prior = "Capacity is 10 MW."
+        current = "Capacity is 20 MW. It has sold coal."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        factual = binding._factual_predicate_content_counter("It has sold coal.")
+        self.assertIn("sold", factual)
+        self.assertIn("coal", factual)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "predicate tokens not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_not_used_evidence_role_cannot_support_visible_claims(self):
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+            "evidence_role": "not_used",
+        }
+        self.assertEqual(binding._source_supported_visible_fields(source), set())
+        self.assertEqual(stage_contract._source_supported_visible_fields(source), set())
+
+        row = row06(
+            fact="Capacity is 20 MW",
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = "Capacity is 10 MW"
+        with self.assertRaisesRegex(binding.Blocked, "not grounded|refs do not support"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": "Capacity is 20 MW", "fact_sources": [source]},
+            )
+
+    def test_malformed_change_path_blocks_before_deduplication(self):
+        op = {
+            "id": "CARD1",
+            "changes": [{"op": "replace", "path": {}, "value": "x"}],
+        }
+        with self.assertRaisesRegex(binding.Blocked, "changes paths must all be strings"):
+            binding._materialized_operation_card(
+                "update", op, None, {}, {},
+                {"CARD1": {"id": "CARD1", "fact": "old"}},
+                {}, {}, "update[0]",
+            )
+
+
 
 if __name__ == "__main__":
     unittest.main()

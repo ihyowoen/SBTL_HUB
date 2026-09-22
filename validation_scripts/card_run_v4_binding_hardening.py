@@ -1841,7 +1841,10 @@ def _factual_predicate_content_counter(text):
                     continue
                 verb=lexical_verb
                 tail=lexical_tail or ""
-            words=[verb]+FACTUAL_CONTENT_WORD_RE.findall(tail or "")
+            tail_words=FACTUAL_CONTENT_WORD_RE.findall(tail or "")
+            words=list(tail_words)
+            if tail_words or _looks_like_zero_argument_factual_verb(verb):
+                words.insert(0,verb)
             for word in words:
                 token=word.casefold()
                 if token not in FACTUAL_CONTENT_STOPWORDS:

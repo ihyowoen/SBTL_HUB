@@ -364,6 +364,7 @@ def _add_evidence_support(token_support, source, fields):
 def _row_evidence_token_support(item):
     token_support = {}
     explicitly_excluded = set()
+    explicitly_scoped = {}
     if not isinstance(item, dict):
         return token_support
     sources = item.get("fact_sources")
@@ -373,6 +374,13 @@ def _row_evidence_token_support(item):
                 continue
             fields = _source_supported_visible_fields(source)
             tokens = _evidence_tokens(source)
+            has_explicit_scope = any(
+                key in source
+                for key in ("visible_claim_support", "visible_fields_supported", "visible_supports", "supports")
+            )
+            if has_explicit_scope:
+                for token in tokens:
+                    explicitly_scoped.setdefault(token, set()).update(fields)
             if not fields:
                 explicitly_excluded.update(tokens)
                 for token in tokens:
@@ -388,10 +396,14 @@ def _row_evidence_token_support(item):
                 continue
             fields = _source_supported_visible_fields(entry)
             outcome = str(entry.get("outcome") or "").strip().lower()
-            if not any(
+            has_explicit_scope = any(
                 key in entry
                 for key in ("visible_claim_support", "visible_fields_supported", "visible_supports", "supports")
-            ):
+            )
+            if has_explicit_scope:
+                for token in _evidence_tokens(entry):
+                    explicitly_scoped.setdefault(token, set()).update(fields)
+            if not has_explicit_scope:
                 if outcome not in {
                     "used_in_fact_sources",
                     "used_for_visible_claims",
@@ -416,7 +428,13 @@ def _row_evidence_token_support(item):
                 for ref in refs:
                     if _non_empty_string(ref):
                         token = ref.strip()
-                        if token not in explicitly_excluded:
+                        if (
+                            token not in explicitly_excluded
+                            and (
+                                token not in explicitly_scoped
+                                or "fact" in explicitly_scoped[token]
+                            )
+                        ):
                             token_support.setdefault(token, set()).add("fact")
     return token_support
 

@@ -917,7 +917,19 @@ def _source_evidence_texts(source):
 def _source_evidence_package(source):
     if not isinstance(source,dict) or not _source_evidence_is_usable(source):
         return {}
-    package={}
+    package={
+        "__effective_visible_support__": sorted(_source_supported_visible_fields(source)),
+        "__support_declarations__": {
+            key: sorted({
+                value for value in source.get(key,[])
+                if value in VISIBLE_COPY_FIELDS
+            })
+            for key in (
+                "visible_claim_support","visible_fields_supported","visible_supports","supports"
+            )
+            if key in source and isinstance(source.get(key),list)
+        },
+    }
     for key in EVIDENCE_TEXT_KEYS + EVIDENCE_VERIFICATION_KEYS:
         if key not in source:
             continue
@@ -1417,6 +1429,15 @@ def _changed_state_match_strength(text,match):
     ):
         return 0
     if re.search(
+        r"\b(?:must)\s+"
+        r"(?:(?:be|have|been|being)\s+){0,3}$"
+        r"|\b(?:needs?|needed)\s+to\s+(?:(?:be|have|been|being)\s+){0,3}$"
+        r"|\b(?:is|are|was|were|be|been)\s+required\s+to\s+"
+        r"(?:(?:be|have|been|being)\s+){0,3}$",
+        prefix,re.IGNORECASE,
+    ):
+        return 0
+    if re.search(
         r"\b(?:would|should|can)\s+"
         r"(?:(?:(?:not\s+)?(?:be|have|been|being)|"
         r"[A-Za-z][A-Za-z-]*ly|eventually|probably|possibly|likely|"
@@ -1701,6 +1722,39 @@ def _copular_factual_tokens(tail):
     ]
 
 
+def _korean_factual_tokens(text):
+    if not isinstance(text,str) or not re.search(r"[가-힣]",text):
+        return []
+    tokens=[]
+    for clause_match in re.finditer(r"(?:^|[.;:!?]\s*)(?P<clause>[^.;:!?]+)",text):
+        clause=clause_match.group("clause")
+        residual=list(clause)
+        spans=[]
+        for match in QUANT_SIGNAL_RE.finditer(clause):
+            spans.append((match.start(),match.end()))
+        for dimension in DENSITY_DIMENSIONS:
+            if dimension=="quantitative_anchor":
+                continue
+            for pattern in DIMENSION_CANONICAL_SIGNAL_RES.get(dimension,{}).values():
+                for match in pattern.finditer(clause):
+                    start,end=match.start(),match.end()
+                    while start>0 and re.match(r"[가-힣]",clause[start-1]):
+                        start-=1
+                    while end<len(clause) and re.match(r"[가-힣]",clause[end]):
+                        end+=1
+                    spans.append((start,end))
+        for start,end in spans:
+            for index in range(start,end):
+                residual[index]=" "
+        residual="".join(residual)
+        if not re.search(r"[가-힣]{2,}(?:했다|하였다|한다|된다|됐다|되었다)\b",residual):
+            continue
+        for word in re.findall(r"[가-힣]{2,}",residual):
+            if word not in {"그리고","그러나","하지만","때문에","따라서"}:
+                tokens.append(word)
+    return tokens
+
+
 def _factual_predicate_content_counter(text):
     counts=Counter()
     if not isinstance(text,str):
@@ -1773,6 +1827,8 @@ def _factual_predicate_content_counter(text):
             token=word.casefold()
             if token not in FACTUAL_CONTENT_STOPWORDS:
                 counts[token]+=1
+    for word in _korean_factual_tokens(text):
+        counts[word]+=1
     for match in DETERMINER_SENTENCE_FACTUAL_RE.finditer(text):
         verb=match.group("sentence_verb")
         tail=match.group("sentence_tail")
@@ -1978,8 +2034,12 @@ def _factual_location_pair_counter(text):
         ]
         if not preceding:
             continue
-        subject=max(preceding,key=lambda span:span[1])[2]
-        counts[f"{subject}=>{location}"]+=1
+        subjects=_claim_subjects_for_span(text,match.start(),match.end())
+        if subjects==["__generic__"]:
+            subjects=[max(preceding,key=lambda span:span[1])[2]]
+        for subject in subjects:
+            if subject!=location:
+                counts[f"{subject}=>{location}"]+=1
     return counts
 
 
@@ -2017,6 +2077,43 @@ def _factual_quantitative_pair_counter(text):
                 subjects=[min(local,key=lambda span:span[0])[2]]
         for subject in subjects:
             counts[f"{subject}=>{signal}"]+=1
+    return counts
+
+
+def _governed_quantitative_pair_counts(normalized_by_field):
+    counts=Counter()
+    for field in VISIBLE_COPY_FIELDS:
+        counts.update(
+            _factual_quantitative_pair_counter(
+                _visible_value_text(normalized_by_field.get(field))
+            )
+        )
+    return counts
+
+
+def _boundary_subject_counter(text):
+    counts=Counter()
+    if not isinstance(text,str):
+        return counts
+    for marker,pattern in DIMENSION_CANONICAL_SIGNAL_RES["boundary_or_uncertainty"].items():
+        for match in pattern.finditer(text):
+            if not _dimension_match_is_valid(
+                "boundary_or_uncertainty",marker,text,match
+            ):
+                continue
+            for subject in _claim_subjects_for_span(text,match.start(),match.end()):
+                counts[f"{subject}=>{marker}"]+=1
+    return counts
+
+
+def _governed_boundary_subject_counts(normalized_by_field):
+    counts=Counter()
+    for field in VISIBLE_COPY_FIELDS:
+        counts.update(
+            _boundary_subject_counter(
+                _visible_value_text(normalized_by_field.get(field))
+            )
+        )
     return counts
 
 
@@ -2276,6 +2373,7 @@ def _validate_substantive_dimension_delta(
 
     qualifying=[]
     grounded_state_advancement=False
+    grounded_state_advancement_subjects=set()
     grounded_introduced_counts={
         dimension:Counter() for dimension in DENSITY_DIMENSIONS
     }
@@ -2446,6 +2544,9 @@ def _validate_substantive_dimension_delta(
                     remaining_deepened[signal]-=count
                 if added or deepened or substantive_state_advancement:
                     grounded_state_advancement=True
+                if substantive_state_advancement:
+                    for key in set(advancements)&set(global_subject_advancements):
+                        grounded_state_advancement_subjects.add(key.split("=>",1)[0])
 
     _validate_changed_factual_grounding(
         density,current_normalized,upstream_normalized,actual_changed,
@@ -2464,8 +2565,46 @@ def _validate_substantive_dimension_delta(
             and grounded_state_advancement
             and set(lost) <= {"plan_target","expectation_estimate","uncertain_conditional"}
         ):
-            continue
+            upstream_boundary_pairs=_governed_boundary_subject_counts(upstream_normalized)
+            current_boundary_pairs=_governed_boundary_subject_counts(current_normalized)
+            removed_boundary_pairs=upstream_boundary_pairs-current_boundary_pairs
+            relevant_removed={
+                pair:count
+                for pair,count in removed_boundary_pairs.items()
+                if pair.split("=>",1)[-1] in set(lost)
+            }
+            if relevant_removed and all(
+                pair.split("=>",1)[0] in grounded_state_advancement_subjects
+                for pair in relevant_removed
+            ):
+                continue
         if dimension=="quantitative_anchor" and grounded_introduced_counts[dimension]:
+            upstream_pairs=_governed_quantitative_pair_counts(upstream_normalized)
+            current_pairs=_governed_quantitative_pair_counts(current_normalized)
+            removed_pairs=upstream_pairs-current_pairs
+            added_pairs=current_pairs-upstream_pairs
+            pair_budget=Counter()
+            for pair,count in added_pairs.items():
+                subject,signal=pair.split("=>",1)
+                kind=_quantitative_signal_kind(signal)
+                if kind is not None:
+                    pair_budget[(subject,kind)]+=count
+            unreplaced_pairs={}
+            for pair,count in removed_pairs.items():
+                subject,signal=pair.split("=>",1)
+                kind=_quantitative_signal_kind(signal)
+                if kind is None:
+                    continue
+                replace=min(count,pair_budget.get((subject,kind),0))
+                if replace:
+                    pair_budget[(subject,kind)]-=replace
+                if count>replace:
+                    unreplaced_pairs[pair]=count-replace
+            if unreplaced_pairs:
+                raise Blocked(
+                    f"{label} changed 0.6 copy rebinds/deletes verified upstream "
+                    f"quantitative claims across factual entities {unreplaced_pairs}"
+                )
             replacement_budget=Counter()
             for signal,count in grounded_introduced_counts[dimension].items():
                 kind=_quantitative_signal_kind(signal)

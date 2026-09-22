@@ -3445,7 +3445,10 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             chain[stage][0]["fact_sources"] = [source]
         for stage in ("C", "0.4", "0.5"):
             chain[stage][0]["fact"] = "Capacity is 10 MW"
-        with self.assertRaisesRegex(binding.Blocked, "not grounded|refs do not support"):
+        with self.assertRaisesRegex(
+            binding.Blocked,
+            "not grounded|refs do not support|requires bound upstream source evidence support"
+        ):
             binding.validate_content_enrichment_delta(
                 chain, "update[0]",
                 operation_card={**VISIBLE, "fact": "Capacity is 20 MW", "fact_sources": [source]},

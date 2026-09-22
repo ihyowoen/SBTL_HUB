@@ -4087,10 +4087,11 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             "fetched": True,
         }
         focused = audit_for_dimensions(
-            ["fact"],
+            [],
             ["prior_state", "quantitative_anchor", "changed_state", "transmission_path"],
+            no_change=True,
+            reason="Zero-delta requires a realized current state.",
         )
-        focused["no_change"] = True
         row = row06(
             fact=text,
             fact_sources=[source],

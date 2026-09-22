@@ -148,10 +148,16 @@ KOREAN_IDENTITY_RE = re.compile(
     r"(?<![가-힣])([가-힣]{2,}(?:공장|시설|법인|시|도|군|구|읍|면|리))(?![가-힣])"
 )
 COMMON_NOUN_COORDINATED_SUBJECT_RE = re.compile(
-    r"\b(?:the|a|an|this|that|these|those)\s+"
-    r"(?P<group>"
+    r"\b(?P<group>"
+    r"(?:the|a|an|this|that|these|those)\s+"
+    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2})"
     r"[A-Za-z][A-Za-z0-9&._-]*"
-    r"(?:\s+(?:,\s*|and\s+|or\s+|&\s*)[A-Za-z][A-Za-z0-9&._-]*)+"
+    r"(?:"
+    r"\s*(?:,\s*|and\s+|or\s+|&\s*)"
+    r"(?:(?:the|a|an|this|that|these|those)\s+)?"
+    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2})"
+    r"[A-Za-z][A-Za-z0-9&._-]*"
+    r")+"
     r")\s+"
     r"(?=(?:may|might|could|can|will|shall|would|should|must|"
     r"is|are|was|were|has|have|had|does|do|did)\b)",
@@ -248,7 +254,7 @@ DETERMINER_SENTENCE_FACTUAL_RE = re.compile(
     r"\s+(?P<sentence_tail>[^.;:!?]{1,120})",
     re.IGNORECASE,
 )
-FACTUAL_CONTENT_WORD_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9_-]{2,}\b|[가-힣]{2,}")
+FACTUAL_CONTENT_WORD_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9_-]{1,}\b|[가-힣]{2,}")
 FACTUAL_CONTENT_STOPWORDS = FACTUAL_IDENTITY_STOPWORDS | {
     "and","or","but","yet","with","from","into","onto","over","under","through",
     "for","per","via","its","their","our","his","her","new","same","current",
@@ -853,7 +859,11 @@ def _has_positive_fetch_metadata(source):
     if source.get("fetched") is False:
         return False
     status=str(source.get("fetch_status") or "").strip().lower()
-    if re.search(r"fail|error|timeout|timed_out|blocked|unavailable|not_fetched",status):
+    if re.search(
+        r"fail|error|timeout|timed_out|blocked|unavailable|not_fetched|"
+        r"pending|unknown|queued|in_progress|processing|not_started|unresolved",
+        status,
+    ):
         return False
     if source.get("fetched") is True:
         return True
@@ -1755,6 +1765,41 @@ def _korean_factual_tokens(text):
     return tokens
 
 
+KOREAN_FACTUAL_RELATION_RE = re.compile(
+    r"(?P<subject>[가-힣]{2,}?)(?:은|는|이|가)\s+"
+    r"(?P<object>[가-힣]{2,}?)(?:을|를)\s+"
+    r"(?P<predicate>[가-힣]{2,}(?:했다|하였다|한다|된다|됐다|되었다))\b"
+)
+
+
+def _korean_factual_relation_counter(text):
+    counts=Counter()
+    if not isinstance(text,str):
+        return counts
+    for clause_match in re.finditer(r"(?:^|[.;:!?]\s*)(?P<clause>[^.;:!?]+)",text):
+        clause=clause_match.group("clause")
+        if any(QUANT_SIGNAL_RE.finditer(clause)):
+            continue
+        governed=False
+        for dimension in DENSITY_DIMENSIONS:
+            if dimension=="quantitative_anchor":
+                continue
+            if any(
+                pattern.search(clause)
+                for pattern in DIMENSION_CANONICAL_SIGNAL_RES.get(dimension,{}).values()
+            ):
+                governed=True
+                break
+        if governed:
+            continue
+        for match in KOREAN_FACTUAL_RELATION_RE.finditer(clause):
+            subject=match.group("subject")
+            obj=match.group("object")
+            predicate=match.group("predicate")
+            counts[(subject,predicate,obj)]+=1
+    return counts
+
+
 def _factual_predicate_content_counter(text):
     counts=Counter()
     if not isinstance(text,str):
@@ -1850,6 +1895,7 @@ def _factual_predicate_subject_counter(text):
     counts=Counter()
     if not isinstance(text,str):
         return counts
+    counts.update(_korean_factual_relation_counter(text))
     for pattern in (
         FACTUAL_PREDICATE_RE,GENERIC_FACTUAL_PREDICATE_RE,
         EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE,

@@ -3643,6 +3643,144 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             )
 
 
+    def test_repeated_determiners_in_coordinated_common_subjects_are_bound(self):
+        prior = "The refinery and the mine may be approved at 10 MW"
+        current = "The refinery and the mine are approved at 20 MW"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "The mine is approved at 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        states = binding._state_subject_strength_occurrences(current)
+        pairs = binding._factual_quantitative_pair_counter(current)
+        self.assertIn("refinery=>approval", states)
+        self.assertIn("mine=>approval", states)
+        self.assertIn("refinery=>20 mw", pairs)
+        self.assertIn("mine=>20 mw", pairs)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["changed_state", "quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "subject/modality claims|rebinds/adds quantitative claims"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_korean_factual_relationship_swap_requires_grounding(self):
+        prior = "용량은 10 MW이다. 알파는 석탄을 판매했다. 베타는 철강을 판매했다."
+        current = "용량은 20 MW이다. 알파는 철강을 판매했다. 베타는 석탄을 판매했다."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "용량은 20 MW이다.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        prior_pairs = binding._korean_factual_relation_counter(prior)
+        current_pairs = binding._korean_factual_relation_counter(current)
+        self.assertIn(("알파", "판매했다", "철강"), current_pairs)
+        self.assertIn(("베타", "판매했다", "석탄"), current_pairs)
+        self.assertNotEqual(prior_pairs, current_pairs)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "subject/predicate claims are not grounded"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_pending_fetch_status_cannot_ground_enrichment(self):
+        prior = "Capacity is 10 MW"
+        current = "Capacity is 20 MW"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetch_status": "pending",
+            "fetched_at": "2026-09-22T00:00:00Z",
+        }
+        self.assertFalse(binding._source_evidence_is_usable(source))
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "requires bound upstream source evidence support|not grounded"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_two_character_factual_tail_tokens_require_grounding(self):
+        prior = "Capacity is 10 MW."
+        current = "Capacity is 20 MW. It uses Li."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        factual = binding._factual_predicate_content_counter("It uses Li.")
+        self.assertIn("li", factual)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "predicate tokens not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+
 
 if __name__ == "__main__":
     unittest.main()

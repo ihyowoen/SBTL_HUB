@@ -58,8 +58,12 @@ QUANT_SIGNAL_RE = re.compile(
     r"(?:\s*(?P<magnitude>thousand|million|billion|trillion|mn|bn|tn|k|m|b)\b)?"
     r"(?:\s*(?P<currency_code_suffix>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\b)?"
     r"(?:\s*(?P<unit>%|x|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
-    r"(?:\s+(?!(?:and|or|but|yet|for|from|to|at|in|on|by|with|because|while|whereas|per|previously|currently|planned|approved|started|delayed|completed|commercial|subject|target)\b)"
-    r"(?P<generic_unit>[A-Za-z][A-Za-z0-9²³_-]{0,31}))?"
+    r"(?:\s+(?P<generic_unit>"
+    r"(?!(?:and|or|but|yet|for|from|to|at|in|on|by|with|because|while|whereas|per|previously|currently|planned|approved|started|delayed|completed|commercial|subject|target|project|plant|facility|capacity|investment|production)\b)"
+    r"[A-Za-z][A-Za-z0-9²³_-]{0,31}"
+    r"(?:\s+(?!(?:and|or|but|yet|for|from|to|at|in|on|by|with|because|while|whereas|per|previously|currently|planned|approved|started|delayed|completed|commercial|subject|target|project|plant|facility|capacity|investment|production)\b)"
+    r"[A-Za-z][A-Za-z0-9²³_-]{0,31}){0,3}"
+    r"))?"
     r"(?:(?P<unit_separator>\s+per\s+|\s*/\s*)"
     r"(?P<unit_denominator>[A-Za-z][A-Za-z0-9²³_-]{0,31}))?"
     r"(?![A-Za-z0-9])",
@@ -139,6 +143,14 @@ LOCATION_PHRASE_RE = re.compile(
 KOREAN_IDENTITY_RE = re.compile(
     r"(?<![가-힣])([가-힣]{2,}(?:공장|시설|법인|시|도|군|구|읍|면|리))(?![가-힣])"
 )
+COMMON_NOUN_SUBJECT_RE = re.compile(
+    r"\b(?:the|a|an|this|that|these|those)\s+"
+    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2})"
+    r"(?P<head>[A-Za-z][A-Za-z0-9&._-]*)\s+"
+    r"(?=(?:may|might|could|can|will|shall|would|should|must|"
+    r"is|are|was|were|has|have|had|does|do|did)\b)",
+    re.IGNORECASE,
+)
 FACTUAL_IDENTITY_STOPWORDS = {
     "the","this","that","these","those","project","capacity","investment",
     "production","commercial","previously","target","site","plant","facility",
@@ -171,6 +183,15 @@ GENERIC_FACTUAL_PREDICATE_RE = re.compile(
     r"(?P<verb_after_subject>[A-Za-z][A-Za-z-]{2,}(?:s|ed|ing))\b"
     r"\s+(?P<tail_after_subject>[^.;:!?]{1,120})"
     r")",
+)
+SENTENCE_PROPER_FACTUAL_RE = re.compile(
+    r"(?:^|[.;:!?]\s+)"
+    r"(?P<sentence_proper_subject>"
+    r"[A-Z][A-Za-z0-9&._-]{1,}"
+    r"(?:\s+[A-Z][A-Za-z0-9&._-]{1,}){0,3}"
+    r")\s+"
+    r"(?P<sentence_proper_verb>[A-Za-z][A-Za-z-]{1,})\b"
+    r"\s+(?P<sentence_proper_tail>[^.;:!?]{1,120})",
 )
 SENTENCE_PRONOUN_FACTUAL_RE = re.compile(
     r"(?:^|[.;:!?]\s+)"
@@ -1371,6 +1392,13 @@ def _changed_state_match_strength(text,match):
     ):
         return 0
     if re.search(
+        r"\b(?:is|are|was|were|be|been)\s+"
+        r"(?:going\s+to|set\s+to|due\s+to)\s+"
+        r"(?:(?:be|have|been|being)\s+){0,3}$",
+        prefix,re.IGNORECASE,
+    ):
+        return 0
+    if re.search(
         r"\b(?:will|shall)\s+"
         r"(?:(?:(?:not\s+)?(?:be|have|been|being)|"
         r"[A-Za-z][A-Za-z-]*ly|eventually|probably|possibly|likely|"
@@ -1598,6 +1626,22 @@ def _factual_identity_counter(text):
     return counts
 
 
+def _copular_factual_tokens(tail):
+    if not isinstance(tail,str):
+        return []
+    residual=list(tail)
+    for pattern in DIMENSION_CANONICAL_SIGNAL_RES["changed_state"].values():
+        for match in pattern.finditer(tail):
+            for index in range(match.start(),match.end()):
+                residual[index]=" "
+    residual="".join(residual)
+    return [
+        word.casefold()
+        for word in FACTUAL_CONTENT_WORD_RE.findall(residual)
+        if word.casefold() not in FACTUAL_CONTENT_STOPWORDS
+    ]
+
+
 def _factual_predicate_content_counter(text):
     counts=Counter()
     if not isinstance(text,str):
@@ -1619,24 +1663,30 @@ def _factual_predicate_content_counter(text):
             token=word.casefold()
             if token not in FACTUAL_CONTENT_STOPWORDS:
                 counts[token]+=1
-    for match in SENTENCE_PRONOUN_FACTUAL_RE.finditer(text):
-        verb=match.group("sentence_pronoun_verb")
-        if verb.casefold() in {
-            "am","is","are","was","were","be","been","being",
-            "has","have","had","do","does","did",
-        }:
-            continue
-        tail=match.group("sentence_pronoun_tail")
-        for word in [verb]+FACTUAL_CONTENT_WORD_RE.findall(tail):
-            token=word.casefold()
-            if token not in FACTUAL_CONTENT_STOPWORDS:
-                counts[token]+=1
+    for pattern,verb_group,tail_group in (
+        (SENTENCE_PRONOUN_FACTUAL_RE,"sentence_pronoun_verb","sentence_pronoun_tail"),
+        (SENTENCE_PROPER_FACTUAL_RE,"sentence_proper_verb","sentence_proper_tail"),
+    ):
+        for match in pattern.finditer(text):
+            verb=match.group(verb_group)
+            tail=match.group(tail_group)
+            if verb.casefold() in {"am","is","are","was","were","be","been","being"}:
+                for token in _copular_factual_tokens(tail):
+                    counts[token]+=1
+                continue
+            if verb.casefold() in {"has","have","had","do","does","did"}:
+                continue
+            for word in [verb]+FACTUAL_CONTENT_WORD_RE.findall(tail):
+                token=word.casefold()
+                if token not in FACTUAL_CONTENT_STOPWORDS:
+                    counts[token]+=1
     for match in EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE.finditer(text):
         verb=match.group("explicit_verb")
-        if verb.casefold() in {
-            "am","is","are","was","were","be","been","being",
-            "has","have","had","do","does","did",
-        }:
+        if verb.casefold() in {"am","is","are","was","were","be","been","being"}:
+            for token in _copular_factual_tokens(match.group("explicit_tail")):
+                counts[token]+=1
+            continue
+        if verb.casefold() in {"has","have","had","do","does","did"}:
             continue
         tail=match.group("explicit_tail")
         for word in [verb]+FACTUAL_CONTENT_WORD_RE.findall(tail):
@@ -1658,12 +1708,14 @@ def _factual_predicate_content_counter(text):
                 counts[token]+=1
     for match in DETERMINER_SENTENCE_FACTUAL_RE.finditer(text):
         verb=match.group("sentence_verb")
-        if verb.casefold() in {
-            "am","is","are","was","were","be","been","being",
-            "has","have","had","do","does","did",
-        }:
+        tail=match.group("sentence_tail")
+        if verb.casefold() in {"am","is","are","was","were","be","been","being"}:
+            for token in _copular_factual_tokens(tail):
+                counts[token]+=1
             continue
-        for word in [verb]+FACTUAL_CONTENT_WORD_RE.findall(match.group("sentence_tail")):
+        if verb.casefold() in {"has","have","had","do","does","did"}:
+            continue
+        for word in [verb]+FACTUAL_CONTENT_WORD_RE.findall(tail):
             token=word.casefold()
             if token not in FACTUAL_CONTENT_STOPWORDS:
                 counts[token]+=1
@@ -1679,6 +1731,7 @@ def _factual_predicate_subject_counter(text):
         FACTUAL_PREDICATE_RE,GENERIC_FACTUAL_PREDICATE_RE,
         EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE,
         SENTENCE_PRONOUN_FACTUAL_RE,
+        SENTENCE_PROPER_FACTUAL_RE,
         DETERMINER_SENTENCE_FACTUAL_RE,
         MODAL_FACTUAL_PREDICATE_RE,COMMA_PARTICIPIAL_FACTUAL_RE,
     ):
@@ -1686,22 +1739,23 @@ def _factual_predicate_subject_counter(text):
             groups=match.groupdict()
             tail_name=next((name for name in (
                                 "tail","tail_after_connector","tail_after_subject","explicit_tail",
-                                "sentence_pronoun_tail","sentence_tail"
+                                "sentence_pronoun_tail","sentence_proper_tail","sentence_tail"
                             ) if groups.get(name)),None)
             if not tail_name:
                 continue
             verb_name=next((name for name in (
                                 "verb","verb_after_connector","verb_after_subject","explicit_verb",
-                                "sentence_pronoun_verb","sentence_verb"
+                                "sentence_pronoun_verb","sentence_proper_verb","sentence_verb"
                             ) if groups.get(name)),None)
             start=match.start(verb_name) if verb_name else match.start()
             verb=(groups[verb_name] if verb_name else text[start:match.start(tail_name)]).strip().casefold()
-            if verb in {
-                "am","is","are","was","were","be","been","being",
-                "has","have","had","do","does","did",
-            }:
-                continue
             subject=_claim_subject_for_span(text,start,match.start(tail_name))
+            if verb in {"am","is","are","was","were","be","been","being"}:
+                for token in _copular_factual_tokens(groups[tail_name]):
+                    counts[(subject,"be",token)]+=1
+                continue
+            if verb in {"has","have","had","do","does","did"}:
+                continue
             # Stop at a new coordinated clause instead of attaching its object
             # to the preceding predicate.
             tail=re.split(r"\b(?:and|but|while|whereas)\b",groups[tail_name],maxsplit=1,flags=re.IGNORECASE)[0]
@@ -1734,6 +1788,10 @@ def _factual_identity_spans(text):
         token=match.group(1)
         if token:
             spans.add((match.start(1),match.end(1),token))
+    for match in COMMON_NOUN_SUBJECT_RE.finditer(text):
+        token=match.group("head").casefold()
+        if token:
+            spans.add((match.start("head"),match.end("head"),token))
     return sorted(spans)
 
 
@@ -2489,25 +2547,27 @@ def _validate_materialized_operation_evidence(
             f"{label} materialized operation card drops authoritative upstream evidence "
             f"source tokens: {missing_tokens}"
         )
-    required_package_identities={
-        _evidence_package_identity(package)
-        for items in required_evidence_packages.values()
-        for package in items
-        if _evidence_package_identity(package) is not None
-    }
-    unexpected_packages=[]
-    for token,items in packages.items():
-        if token not in authorized_tokens:
-            continue
-        for package in items:
-            identity=_evidence_package_identity(package)
-            if identity is not None and identity not in required_package_identities:
-                unexpected_packages.append(token)
-    if unexpected_packages:
+    package_mismatches={}
+    for token in sorted(authorized_tokens):
+        required_ids={
+            _evidence_package_identity(package)
+            for package in required_evidence_packages.get(token,[])
+            if _evidence_package_identity(package) is not None
+        }
+        actual_ids={
+            _evidence_package_identity(package)
+            for package in packages.get(token,[])
+            if _evidence_package_identity(package) is not None
+        }
+        if actual_ids!=required_ids:
+            package_mismatches[token]={
+                "required_package_count":len(required_ids),
+                "actual_package_count":len(actual_ids),
+            }
+    if package_mismatches:
         raise Blocked(
-            f"{label} materialized operation card introduces evidence packages "
-            f"not present in the authoritative upstream evidence chain: "
-            f"{sorted(set(unexpected_packages))}"
+            f"{label} materialized operation evidence packages do not exactly preserve "
+            f"their authoritative source-token bindings: {package_mismatches}"
         )
     for dimension,entry in mapping.items():
         if not isinstance(entry,dict):

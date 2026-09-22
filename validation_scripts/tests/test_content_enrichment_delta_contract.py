@@ -4258,6 +4258,99 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             )
 
 
+    def test_zero_delta_requires_realized_strength_two_state(self):
+        text = (
+            "Previously, the planned 10 MW project may be approved because demand rose, "
+            "subject to permit"
+        )
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": text,
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        values = {name: False for name in binding.DENSITY_DIMENSIONS}
+        for name in (
+            "prior_state", "changed_state", "quantitative_anchor",
+            "boundary_or_uncertainty", "transmission_path",
+        ):
+            values[name] = True
+        focused = {
+            "baseline_strategy": binding.CONTENT_BASELINE_STRATEGY,
+            "changed_fields": [],
+            "no_change_required": True,
+            "no_change_reason": "No visible-copy delta.",
+            "density_audit": {
+                "status": "PASS",
+                "dimensions": values,
+                "supported_dimension_count": 5,
+                "evidence_notes": "Tentative state only.",
+                "dimension_evidence": {
+                    name: {"fields": ["fact"], "evidence_refs": ["SRC1"]}
+                    for name, enabled in values.items() if enabled
+                },
+            },
+        }
+        row = row06(
+            fact=text, fact_sources=[source], content_enrichment_audit=focused
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = text
+        with self.assertRaisesRegex(binding.Blocked, "realized strength-2"):
+            binding.validate_content_enrichment_delta(
+                chain, "insert[0]",
+                operation_card={**VISIBLE, "fact": text, "fact_sources": [source]},
+            )
+
+    def test_comma_joined_independent_factual_clauses_keep_subjects(self):
+        current = (
+            "Capacity is 20 MW. The northern refinery sold gas, "
+            "the southern refinery sold coal."
+        )
+        pairs = binding._factual_predicate_subject_counter(current)
+        self.assertIn(("northern refinery", "pos:sold", "gas"), pairs)
+        self.assertIn(("southern refinery", "pos:sold", "coal"), pairs)
+
+    def test_tail_less_determiner_predicate_keeps_subject(self):
+        pairs = binding._factual_predicate_subject_counter("The refinery started.")
+        self.assertTrue(any(
+            key[0] == "refinery" and key[1].endswith(":started")
+            for key in pairs
+        ))
+
+    def test_quantitative_binding_preserves_full_proper_name(self):
+        pairs = binding._factual_quantitative_pair_counter(
+            "Alpha Corp capacity is 10 MW. Beta Corp capacity is 20 MW."
+        )
+        self.assertIn("alpha corp=>10 mw", pairs)
+        self.assertIn("beta corp=>20 mw", pairs)
+        self.assertNotIn("corp=>10 mw", pairs)
+
+    def test_contracted_auxiliary_keeps_negative_factual_polarity(self):
+        for text in (
+            "Alpha isn't profitable.",
+            "Alpha isn’t profitable.",
+        ):
+            with self.subTest(text=text):
+                pairs = binding._factual_predicate_subject_counter(text)
+                self.assertTrue(any(
+                    key[0] == "alpha" and key[1].startswith("neg:")
+                    and key[2] == "profitable"
+                    for key in pairs
+                ))
+
+    def test_negative_korean_factual_relation_is_grounded(self):
+        text = "알파는 석탄을 판매하지 않았다."
+        pairs = binding._korean_factual_relation_counter(text)
+        self.assertIn(("알파", "neg:판매", "석탄"), pairs)
+        tokens = binding._factual_predicate_content_counter(text)
+        self.assertTrue(tokens)
+
+
 
 if __name__ == "__main__":
     unittest.main()

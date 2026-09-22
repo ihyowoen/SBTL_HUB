@@ -117,7 +117,13 @@ COORDINATING_NEW_SUBJECT_RE = re.compile(
     r"(?i:\b(?:and|or)\s+)"
     r"(?:(?i:it|they|he|she|we|you|this|that|these|those)\b"
     r"|(?i:the|a|an)\s+(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2}[A-Za-z][A-Za-z0-9&._-]*\b"
-    r"|[A-Z][A-Za-z0-9&._-]{1,}\b)"
+    r"|[A-Z][A-Za-z0-9&._-]{1,}\b"
+    r"|[a-z][A-Za-z0-9&._-]{1,}\s+(?="
+    r"(?i:is|are|was|were|has|have|had|will|shall|may|might|could|"
+    r"start(?:ed|ing)?|begin|began|begun|commence(?:d)?|approve(?:d)?|"
+    r"delay(?:ed)?|complete(?:d)?|resume(?:d)?|restart(?:ed)?|"
+    r"suspend(?:ed)?|cancel(?:led|ed)?|sign(?:ed)?|launch(?:ed)?|ship(?:ped|ping)?)\b"
+    r"))"
 )
 CLAUSE_NEGATION_RE = re.compile(
     r"\b(?:not|never|without|neither|nor)\b|n['’]t\b",

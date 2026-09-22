@@ -140,6 +140,12 @@ CLAUSE_NEGATION_RE = re.compile(
 FACTUAL_IDENTITY_TOKEN_RE = re.compile(
     r"\b(?:[A-Z][A-Za-z0-9&._-]{2,}|[A-Z]{2,}[A-Z0-9&._-]*)\b"
 )
+MULTIWORD_PROPER_IDENTITY_RE = re.compile(
+    r"\b(?P<proper>"
+    r"[A-Z][A-Za-z0-9&._-]{1,}\s+"
+    r"(?:Corp(?:oration)?|Group|AG|Ltd|LLC|Inc|Co|PLC)"
+    r")\b"
+)
 LOCATION_PHRASE_RE = re.compile(
     r"\b(?:at|in|near|from|to|with|by)\s+(?:the\s+)?([A-Za-z][A-Za-z0-9&._-]{2,})\b",
     re.IGNORECASE,
@@ -168,7 +174,10 @@ COMMON_NOUN_SUBJECT_RE = re.compile(
     r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2})"
     r"(?P<head>[A-Za-z][A-Za-z0-9&._-]*)\s+"
     r"(?=(?:may|might|could|can|will|shall|would|should|must|"
-    r"is|are|was|were|has|have|had|does|do|did)\b)",
+    r"is|are|was|were|has|have|had|does|do|did|"
+    r"start(?:ed|ing)?|begin|began|begun|commence(?:d)?|approve(?:d)?|"
+    r"delay(?:ed)?|complete(?:d)?|resume(?:d)?|restart(?:ed)?|"
+    r"suspend(?:ed)?|cancel(?:led|ed)?|sign(?:ed)?|launch(?:ed)?|ship(?:ped|ping)?)\b)",
     re.IGNORECASE,
 )
 FACTUAL_IDENTITY_STOPWORDS = {
@@ -249,11 +258,37 @@ DETERMINER_SENTENCE_FACTUAL_RE = re.compile(
     r"(?:^|[.;:!?]\s+)"
     r"(?P<sentence_subject>"
     r"(?:the|a|an|this|that|these|those)\s+"
-    r"(?:(?:[A-Z][A-Za-z0-9&._-]*)\s+)?"
+    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*)\s+){0,2}"
     r"[A-Za-z][A-Za-z0-9&._-]*"
     r")\s+"
     r"(?P<sentence_verb>[A-Za-z][A-Za-z-]{1,})\b"
-    r"\s+(?P<sentence_tail>[^.;:!?]{1,120})",
+    r"(?:\s+(?P<sentence_tail>[^.;:!?]{1,120}))?"
+    r"(?=[.;:!?]|$)",
+    re.IGNORECASE,
+)
+COMMA_INDEPENDENT_FACTUAL_RE = re.compile(
+    r",\s*"
+    r"(?P<comma_subject>"
+    r"(?:the|a|an|this|that|these|those)\s+"
+    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*)\s+){0,2}"
+    r"[A-Za-z][A-Za-z0-9&._-]*"
+    r")\s+"
+    r"(?P<comma_verb>[A-Za-z][A-Za-z-]{1,})\b"
+    r"(?:\s+(?P<comma_tail>[^.;:!?]{1,120}))?"
+    r"(?=[.;:!?]|$)",
+    re.IGNORECASE,
+)
+CONTRACTED_AUX_FACTUAL_RE = re.compile(
+    r"(?:^|[.;:!?]\s+)"
+    r"(?P<contracted_subject>"
+    r"(?:it|they|he|she|we|you|this|that|these|those)"
+    r"|(?:the|a|an|this|that|these|those)\s+"
+    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*)\s+){0,2}[A-Za-z][A-Za-z0-9&._-]*"
+    r"|[A-Z][A-Za-z0-9&._-]{1,}(?:\s+[A-Z][A-Za-z0-9&._-]{1,}){0,3}"
+    r")\s+"
+    r"(?P<contracted_aux>is|are|was|were|has|have|had|does|do|did)n['’]t\b"
+    r"(?:\s+(?P<contracted_tail>[^.;:!?]{1,120}))?"
+    r"(?=[.;:!?]|$)",
     re.IGNORECASE,
 )
 FACTUAL_CONTENT_WORD_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9_-]{1,}\b|[가-힣]{2,}")

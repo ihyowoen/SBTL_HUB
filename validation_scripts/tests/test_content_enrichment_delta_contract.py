@@ -2984,6 +2984,128 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
             )
 
 
+    def test_known_unit_compound_denominator_is_preserved(self):
+        per_year = binding._signal_values(
+            "quantitative_anchor", "Output is 20 MW per year"
+        )
+        per_month = binding._signal_values(
+            "quantitative_anchor", "Output is 20 MW per month"
+        )
+        self.assertIn("20 mw/year", per_year)
+        self.assertIn("20 mw/month", per_month)
+        self.assertNotEqual(per_year, per_month)
+
+        prior = "Output is 10 MW per year"
+        current = "Output is 20 MW per year"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Output is 20 MW per month.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_standalone_pronoun_irregular_verb_requires_grounding(self):
+        prior = "Capacity is 10 MW."
+        current = "Capacity is 20 MW. It sold coal."
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(binding.Blocked, "predicate tokens not grounded"):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+    def test_adverbial_future_states_are_not_realized(self):
+        for text in (
+            "Previously, the planned 10 MW project will eventually be delayed because supply costs rose",
+            "Previously, the planned 10 MW project shall probably have started because demand rose",
+        ):
+            with self.subTest(text=text):
+                self.assertFalse(binding._signal_values("changed_state", text))
+
+    def test_shared_negation_persists_across_coordinated_state_list(self):
+        text = (
+            "Previously, the planned 10 MW project has not been approved, delayed, "
+            "or started because supply costs rose"
+        )
+        self.assertFalse(binding._signal_values("changed_state", text))
+
+    def test_independent_coordinated_subject_starts_new_negation_scope(self):
+        text = "Alpha is not delayed and Beta is delayed"
+        states = binding._state_subject_strength_occurrences(text)
+        self.assertNotIn("alpha=>delay", states)
+        self.assertIn("beta=>delay", states)
+
+    def test_quantitative_claim_binds_every_coordinated_subject(self):
+        prior = "Alpha and Beta capacities are 10 MW"
+        current = "Alpha and Beta capacities are 20 MW"
+        source = {
+            "source_id": "SRC1",
+            "source_url": "https://example.test/source",
+            "source_quote": "Beta capacity is 20 MW.",
+            "source_quote_status": "body_quote_verified",
+            "fetched": True,
+        }
+        pairs = binding._factual_quantitative_pair_counter(current)
+        self.assertIn("alpha=>20 mw", pairs)
+        self.assertIn("beta=>20 mw", pairs)
+
+        row = row06(
+            fact=current,
+            fact_sources=[source],
+            content_enrichment_audit=audit_for_dimensions(
+                ["fact"], ["quantitative_anchor"]
+            ),
+        )
+        chain = rows(row)
+        for stage in ("B", "C"):
+            chain[stage][0]["fact_sources"] = [source]
+        for stage in ("C", "0.4", "0.5"):
+            chain[stage][0]["fact"] = prior
+        with self.assertRaisesRegex(
+            binding.Blocked, "rebinds/adds quantitative claims"
+        ):
+            binding.validate_content_enrichment_delta(
+                chain, "update[0]",
+                operation_card={**VISIBLE, "fact": current, "fact_sources": [source]},
+            )
+
+
 
 if __name__ == "__main__":
     unittest.main()

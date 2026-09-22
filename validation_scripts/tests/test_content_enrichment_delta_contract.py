@@ -3071,6 +3071,12 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         self.assertNotIn("alpha=>delay", states)
         self.assertIn("beta=>delay", states)
 
+        noun_led = "The permit was not approved in May and construction started in June"
+        signals = binding._signal_values("changed_state", noun_led)
+        self.assertNotIn("approval", signals)
+        self.assertIn("construction", signals)
+        self.assertIn("commencement", signals)
+
     def test_quantitative_claim_binds_every_coordinated_subject(self):
         prior = "Alpha and Beta capacities are 10 MW"
         current = "Alpha and Beta capacities are 20 MW"

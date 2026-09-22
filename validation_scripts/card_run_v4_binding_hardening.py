@@ -258,7 +258,7 @@ DETERMINER_SENTENCE_FACTUAL_RE = re.compile(
     r"(?:^|[.;:!?]\s+)"
     r"(?P<sentence_subject>"
     r"(?:the|a|an|this|that|these|those)\s+"
-    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*)\s+){0,2}"
+    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*)\s+){0,2}?"
     r"[A-Za-z][A-Za-z0-9&._-]*"
     r")\s+"
     r"(?P<sentence_verb>[A-Za-z][A-Za-z-]{1,})\b"
@@ -270,7 +270,7 @@ COMMA_INDEPENDENT_FACTUAL_RE = re.compile(
     r",\s*"
     r"(?P<comma_subject>"
     r"(?:the|a|an|this|that|these|those)\s+"
-    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*)\s+){0,2}"
+    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*)\s+){0,2}?"
     r"[A-Za-z][A-Za-z0-9&._-]*"
     r")\s+"
     r"(?P<comma_verb>[A-Za-z][A-Za-z-]{1,})\b"
@@ -283,7 +283,7 @@ CONTRACTED_AUX_FACTUAL_RE = re.compile(
     r"(?P<contracted_subject>"
     r"(?:it|they|he|she|we|you|this|that|these|those)"
     r"|(?:the|a|an|this|that|these|those)\s+"
-    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*)\s+){0,2}[A-Za-z][A-Za-z0-9&._-]*"
+    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*)\s+){0,2}?[A-Za-z][A-Za-z0-9&._-]*"
     r"|[A-Z][A-Za-z0-9&._-]{1,}(?:\s+[A-Z][A-Za-z0-9&._-]{1,}){0,3}"
     r")\s+"
     r"(?P<contracted_aux>is|are|was|were|has|have|had|does|do|did)n['’]t\b"
@@ -1960,7 +1960,7 @@ def _factual_predicate_content_counter(text):
         counts[word]+=1
     for match in DETERMINER_SENTENCE_FACTUAL_RE.finditer(text):
         verb=match.group("sentence_verb")
-        tail=match.group("sentence_tail")
+        tail=match.group("sentence_tail") or ""
         if verb.casefold() in {"am","is","are","was","were","be","been","being"}:
             for token in _copular_factual_tokens(tail):
                 counts[token]+=1
@@ -2939,6 +2939,7 @@ def _validate_density_audit(
         allowed_evidence_support=allowed_evidence_support,
         allowed_evidence_packages=allowed_evidence_packages,
     )
+    _validate_claimed_dimension_text(density,row_06,label,true_dimensions)
     if no_change:
         state_entry=density.get("dimension_evidence",{}).get("changed_state",{})
         state_fields=state_entry.get("fields",[]) if isinstance(state_entry,dict) else []
@@ -2974,7 +2975,6 @@ def _validate_density_audit(
                 f"{label} zero-delta 0.6 requires at least one mapped, "
                 f"evidence-grounded realized changed_state claim"
             )
-    _validate_claimed_dimension_text(density,row_06,label,true_dimensions)
     if not no_change:
         mapping=density.get("dimension_evidence")
         changed=set(actual_changed)

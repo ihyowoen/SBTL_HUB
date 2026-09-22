@@ -58,7 +58,7 @@ QUANT_SIGNAL_RE = re.compile(
     r"(?:\s*(?P<magnitude>thousand|million|billion|trillion|mn|bn|tn|k|m|b)\b)?"
     r"(?:\s*(?P<currency_code_suffix>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\b)?"
     r"(?:\s*(?P<unit>%|x|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
-    r"(?:\s+(?!(?:and|or|but|yet|for|from|to|at|in|on|by|with|because|while|whereas|previously|currently|planned|approved|started|delayed|completed|commercial|subject|target)\b)"
+    r"(?:\s+(?!(?:and|or|but|yet|for|from|to|at|in|on|by|with|because|while|whereas|per|previously|currently|planned|approved|started|delayed|completed|commercial|subject|target)\b)"
     r"(?P<generic_unit>[A-Za-z][A-Za-z0-9²³_-]{0,31}))?"
     r"(?:(?P<unit_separator>\s+per\s+|\s*/\s*)"
     r"(?P<unit_denominator>[A-Za-z][A-Za-z0-9²³_-]{0,31}))?"
@@ -110,7 +110,14 @@ NON_REALIZED_CHANGED_STATE_SUFFIX_RE = re.compile(
     re.IGNORECASE,
 )
 CLAUSE_BOUNDARY_RE = re.compile(
-    r"[.;:!?]|\b(?:and|or|but|yet|however|although|though|whereas)\b",
+    r"[.;:!?]|\b(?:but|yet|however|although|though|whereas)\b",
+    re.IGNORECASE,
+)
+COORDINATING_NEW_SUBJECT_RE = re.compile(
+    r"\b(?:and|or)\s+"
+    r"(?:(?:it|they|he|she|we|you|this|that|these|those)\b"
+    r"|(?:the|a|an)\s+(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2}[A-Za-z][A-Za-z0-9&._-]*\b"
+    r"|[A-Z][A-Za-z0-9&._-]{1,}\b)",
     re.IGNORECASE,
 )
 CLAUSE_NEGATION_RE = re.compile(
@@ -159,6 +166,13 @@ GENERIC_FACTUAL_PREDICATE_RE = re.compile(
     r"(?P<verb_after_subject>[A-Za-z][A-Za-z-]{2,}(?:s|ed|ing))\b"
     r"\s+(?P<tail_after_subject>[^.;:!?]{1,120})"
     r")",
+)
+SENTENCE_PRONOUN_FACTUAL_RE = re.compile(
+    r"(?:^|[.;:!?]\s+)"
+    r"(?P<sentence_pronoun>it|they|he|she|we|you|this|that|these|those)\s+"
+    r"(?P<sentence_pronoun_verb>[A-Za-z][A-Za-z-]{1,})\b"
+    r"\s+(?P<sentence_pronoun_tail>[^.;:!?]{1,120})",
+    re.IGNORECASE,
 )
 EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE = re.compile(
     r"\b(?:and|but|while|whereas)\s+"
@@ -1305,12 +1319,14 @@ def _quantitative_signal_kind(signal):
 
 
 def _changed_state_match_strength(text,match):
-    prefix=text[max(0,match.start()-64):match.start()]
+    prefix=text[max(0,match.start()-96):match.start()]
     suffix=text[match.end():min(len(text),match.end()+64)]
     clause_prefix=text[:match.start()]
     boundaries=list(CLAUSE_BOUNDARY_RE.finditer(clause_prefix))
-    if boundaries:
-        clause_prefix=clause_prefix[boundaries[-1].end():]
+    coordinate_boundaries=list(COORDINATING_NEW_SUBJECT_RE.finditer(clause_prefix))
+    all_boundaries=boundaries+coordinate_boundaries
+    if all_boundaries:
+        clause_prefix=clause_prefix[max(item.end() for item in all_boundaries):]
     clause_prefix=re.sub(r"\bnot\s+only\b","",clause_prefix,flags=re.IGNORECASE)
     if CLAUSE_NEGATION_RE.search(clause_prefix):
         return 0
@@ -1325,7 +1341,10 @@ def _changed_state_match_strength(text,match):
     ):
         return 0
     if re.search(
-        r"\b(?:will|shall)\s+(?:(?:not\s+)?(?:be|have|been|being)\s+){0,3}$",
+        r"\b(?:will|shall)\s+"
+        r"(?:(?:(?:not\s+)?(?:be|have|been|being)|"
+        r"[A-Za-z][A-Za-z-]*ly|eventually|probably|possibly|likely|"
+        r"soon|later|ultimately|still)\s+){0,6}$",
         prefix,re.IGNORECASE,
     ) or re.search(r"\b(?:will|shall)\s*$",prefix,re.IGNORECASE):
         return 0
@@ -1570,6 +1589,18 @@ def _factual_predicate_content_counter(text):
             token=word.casefold()
             if token not in FACTUAL_CONTENT_STOPWORDS:
                 counts[token]+=1
+    for match in SENTENCE_PRONOUN_FACTUAL_RE.finditer(text):
+        verb=match.group("sentence_pronoun_verb")
+        if verb.casefold() in {
+            "am","is","are","was","were","be","been","being",
+            "has","have","had","do","does","did",
+        }:
+            continue
+        tail=match.group("sentence_pronoun_tail")
+        for word in [verb]+FACTUAL_CONTENT_WORD_RE.findall(tail):
+            token=word.casefold()
+            if token not in FACTUAL_CONTENT_STOPWORDS:
+                counts[token]+=1
     for match in EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE.finditer(text):
         verb=match.group("explicit_verb")
         if verb.casefold() in {
@@ -1617,6 +1648,7 @@ def _factual_predicate_subject_counter(text):
     for pattern in (
         FACTUAL_PREDICATE_RE,GENERIC_FACTUAL_PREDICATE_RE,
         EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE,
+        SENTENCE_PRONOUN_FACTUAL_RE,
         DETERMINER_SENTENCE_FACTUAL_RE,
         MODAL_FACTUAL_PREDICATE_RE,COMMA_PARTICIPIAL_FACTUAL_RE,
     ):
@@ -1624,13 +1656,13 @@ def _factual_predicate_subject_counter(text):
             groups=match.groupdict()
             tail_name=next((name for name in (
                                 "tail","tail_after_connector","tail_after_subject","explicit_tail",
-                                "sentence_tail"
+                                "sentence_pronoun_tail","sentence_tail"
                             ) if groups.get(name)),None)
             if not tail_name:
                 continue
             verb_name=next((name for name in (
                                 "verb","verb_after_connector","verb_after_subject","explicit_verb",
-                                "sentence_verb"
+                                "sentence_pronoun_verb","sentence_verb"
                             ) if groups.get(name)),None)
             start=match.start(verb_name) if verb_name else match.start()
             verb=(groups[verb_name] if verb_name else text[start:match.start(tail_name)]).strip().casefold()
@@ -1804,14 +1836,13 @@ def _factual_quantitative_pair_counter(text):
             if re.search(r"[.;:!?]|\b(?:and|or|but|while|whereas)\b",bridge,re.IGNORECASE):
                 break
         if postpositive is not None:
-            chosen=postpositive
+            subjects=[postpositive[2]]
         else:
-            preceding=[span for span in local if span[1]<=match.start()]
-            if preceding:
-                chosen=max(preceding,key=lambda span:span[1])
-            else:
-                chosen=min(local,key=lambda span:span[0])
-        counts[f"{chosen[2]}=>{signal}"]+=1
+            subjects=_claim_subjects_for_span(text,match.start(),match.end())
+            if subjects==["__generic__"] and local:
+                subjects=[min(local,key=lambda span:span[0])[2]]
+        for subject in subjects:
+            counts[f"{subject}=>{signal}"]+=1
     return counts
 
 

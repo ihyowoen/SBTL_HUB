@@ -1990,6 +1990,40 @@ def _looks_like_zero_argument_factual_verb(verb):
     )
 
 
+FACTUAL_AUXILIARY_VERBS = {
+    "am","is","are","was","were","be","been","being",
+    "has","have","had","do","does","did",
+    "can","could","may","might","will","would","must","should","shall",
+}
+FACTUAL_SUBJECT_FALSE_HEADS = FACTUAL_AUXILIARY_VERBS | {
+    "started","starting","approved","delayed","completed","resumed","restarted",
+    "suspended","cancelled","canceled","signed","launched","shipped","shipping",
+    "commenced","began","begun",
+}
+
+
+def _is_finite_factual_verb_token(token):
+    value=str(token or "").strip().casefold()
+    return value in FACTUAL_AUXILIARY_VERBS or _looks_like_zero_argument_factual_verb(value)
+
+
+def _repair_captured_subject_predicate(subject,verb,tail):
+    normalized_subject=re.sub(r"\s+"," ",str(subject or "").strip())
+    current=str(verb or "").strip()
+    remainder=str(tail or "").strip()
+    if _is_finite_factual_verb_token(current):
+        return normalized_subject,current,remainder
+    words=[current]+re.findall(r"[A-Za-z][A-Za-z-]*",remainder)
+    for index,candidate in enumerate(words[1:],start=1):
+        if _is_finite_factual_verb_token(candidate):
+            repaired_subject=" ".join(
+                [normalized_subject]+[part for part in words[:index] if part]
+            ).strip()
+            repaired_tail=" ".join(words[index+1:])
+            return repaired_subject,candidate,repaired_tail
+    return normalized_subject,current,remainder
+
+
 def _factual_predicate_subject_counter(text):
     """Keep predicate content attached to its local subject, not a global bag."""
     counts=Counter()
@@ -2029,6 +2063,10 @@ def _factual_predicate_subject_counter(text):
             comma_subject=groups.get("comma_subject")
             contracted_subject=groups.get("contracted_subject")
             captured_subject=proper_subject or determiner_subject or comma_subject or contracted_subject
+            if (determiner_subject or comma_subject) and captured_subject:
+                captured_subject,verb,tail_value=_repair_captured_subject_predicate(
+                    captured_subject,verb,tail_value
+                )
             if captured_subject:
                 normalized_subject=re.sub(r"\s+"," ",captured_subject.strip()).casefold()
                 if determiner_subject or comma_subject or (
@@ -2163,17 +2201,32 @@ def _factual_identity_spans(text):
             segment=segment.strip()
             if not segment:
                 continue
-            head=segment.split()[-1]
+            parts=segment.split()
+            head=parts[-1]
+            if head.casefold() in FACTUAL_SUBJECT_FALSE_HEADS and len(parts)>1:
+                head=parts[-2]
             token=head.casefold()
-            if token in FACTUAL_IDENTITY_STOPWORDS:
+            if token in FACTUAL_IDENTITY_STOPWORDS or token in FACTUAL_SUBJECT_FALSE_HEADS:
                 continue
             local_start=group.find(head)
             if local_start>=0:
                 spans.add((group_start+local_start,group_start+local_start+len(head),token))
     for match in COMMON_NOUN_SUBJECT_RE.finditer(text):
-        token=match.group("head").casefold()
-        if token and token not in FACTUAL_IDENTITY_STOPWORDS:
-            spans.add((match.start("head"),match.end("head"),token))
+        head=match.group("head")
+        start=match.start("head")
+        end=match.end("head")
+        token=head.casefold()
+        if token in FACTUAL_SUBJECT_FALSE_HEADS:
+            prefix=text[match.start():start]
+            previous=list(re.finditer(r"[A-Za-z][A-Za-z0-9&._-]*",prefix))
+            if previous:
+                prior=previous[-1]
+                head=prior.group(0)
+                start=match.start()+prior.start()
+                end=match.start()+prior.end()
+                token=head.casefold()
+        if token and token not in FACTUAL_IDENTITY_STOPWORDS and token not in FACTUAL_SUBJECT_FALSE_HEADS:
+            spans.add((start,end,token))
     return sorted(spans)
 
 

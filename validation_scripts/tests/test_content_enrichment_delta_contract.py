@@ -3368,6 +3368,10 @@ class ContentEnrichmentDeltaTests(unittest.TestCase):
         self.assertIn("mine=>approval", states)
         self.assertIn("refinery=>20 mw", pairs)
         self.assertIn("mine=>20 mw", pairs)
+        modified = "The large refinery and the deep mine are approved at 20 MW"
+        modified_states = binding._state_subject_strength_occurrences(modified)
+        self.assertIn("refinery=>approval", modified_states)
+        self.assertIn("mine=>approval", modified_states)
 
         row = row06(
             fact=current,

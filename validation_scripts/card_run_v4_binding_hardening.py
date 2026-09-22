@@ -1810,7 +1810,10 @@ def _korean_factual_tokens(text):
             for index in range(start,end):
                 residual[index]=" "
         residual="".join(residual)
-        if not re.search(r"[가-힣]{2,}(?:했다|하였다|한다|된다|됐다|되었다)\b",residual):
+        if not (
+            re.search(r"[가-힣]{2,}(?:했다|하였다|한다|된다|됐다|되었다)\b",residual)
+            or re.search(r"[가-힣]{2,}?하지\s+(?:않았다|않는다)\b",residual)
+        ):
             continue
         for word in re.findall(r"[가-힣]{2,}",residual):
             if word not in {"그리고","그러나","하지만","때문에","따라서"}:
@@ -1822,6 +1825,12 @@ KOREAN_FACTUAL_RELATION_RE = re.compile(
     r"(?P<subject>[가-힣]{2,}?)(?:은|는|이|가)\s+"
     r"(?P<object>[가-힣]{2,}?)(?:을|를)\s+"
     r"(?P<predicate>[가-힣]{2,}(?:했다|하였다|한다|된다|됐다|되었다))\b"
+)
+KOREAN_NEGATIVE_FACTUAL_RELATION_RE = re.compile(
+    r"(?P<subject>[가-힣]{2,}?)(?:은|는|이|가)\s+"
+    r"(?P<object>[가-힣]{2,}?)(?:을|를)\s+"
+    r"(?P<stem>[가-힣]{2,}?)하지\s+"
+    r"(?P<ending>않았다|않는다)\b"
 )
 
 
@@ -1850,6 +1859,11 @@ def _korean_factual_relation_counter(text):
             obj=match.group("object")
             predicate=match.group("predicate")
             counts[(subject,predicate,obj)]+=1
+        for match in KOREAN_NEGATIVE_FACTUAL_RELATION_RE.finditer(clause):
+            subject=match.group("subject")
+            obj=match.group("object")
+            stem=match.group("stem")
+            counts[(subject,f"neg:{stem}",obj)]+=1
     return counts
 
 
@@ -1857,6 +1871,19 @@ def _factual_predicate_content_counter(text):
     counts=Counter()
     if not isinstance(text,str):
         return counts
+    for match in CONTRACTED_AUX_FACTUAL_RE.finditer(text):
+        aux=match.group("contracted_aux").casefold()
+        tail=match.group("contracted_tail") or ""
+        if aux in {"is","are","was","were"}:
+            for token in _copular_factual_tokens(tail):
+                counts[token]+=1
+        else:
+            lexical_verb,lexical_tail,_=_lexical_predicate_after_auxiliary(tail)
+            if lexical_verb:
+                for word in [lexical_verb]+FACTUAL_CONTENT_WORD_RE.findall(lexical_tail or ""):
+                    token=word.casefold()
+                    if token not in FACTUAL_CONTENT_STOPWORDS:
+                        counts[token]+=1
     for match in FACTUAL_PREDICATE_RE.finditer(text):
         tail=match.group("tail")
         for word in FACTUAL_CONTENT_WORD_RE.findall(tail):
@@ -1975,17 +2002,21 @@ def _factual_predicate_subject_counter(text):
         SENTENCE_PRONOUN_FACTUAL_RE,
         SENTENCE_PROPER_FACTUAL_RE,
         DETERMINER_SENTENCE_FACTUAL_RE,
+        COMMA_INDEPENDENT_FACTUAL_RE,
+        CONTRACTED_AUX_FACTUAL_RE,
         MODAL_FACTUAL_PREDICATE_RE,COMMA_PARTICIPIAL_FACTUAL_RE,
     ):
         for match in pattern.finditer(text):
             groups=match.groupdict()
             tail_name=next((name for name in (
                                 "tail","tail_after_connector","tail_after_subject","explicit_tail",
-                                "sentence_pronoun_tail","sentence_proper_tail","sentence_tail"
+                                "sentence_pronoun_tail","sentence_proper_tail","sentence_tail",
+                                "comma_tail","contracted_tail"
                             ) if name in groups),None)
             verb_name=next((name for name in (
                                 "verb","verb_after_connector","verb_after_subject","explicit_verb",
-                                "sentence_pronoun_verb","sentence_proper_verb","sentence_verb"
+                                "sentence_pronoun_verb","sentence_proper_verb","sentence_verb",
+                                "comma_verb","contracted_aux"
                             ) if groups.get(name)),None)
             if not verb_name:
                 continue
@@ -1995,10 +2026,17 @@ def _factual_predicate_subject_counter(text):
             verb=groups[verb_name].strip().casefold()
             proper_subject=groups.get("sentence_proper_subject")
             determiner_subject=groups.get("sentence_subject")
-            captured_subject=proper_subject or determiner_subject
+            comma_subject=groups.get("comma_subject")
+            contracted_subject=groups.get("contracted_subject")
+            captured_subject=proper_subject or determiner_subject or comma_subject or contracted_subject
             if captured_subject:
                 normalized_subject=re.sub(r"\s+"," ",captured_subject.strip()).casefold()
-                if determiner_subject:
+                if determiner_subject or comma_subject or (
+                    contracted_subject and re.match(
+                        r"^(?:the|a|an|this|that|these|those)\b",
+                        contracted_subject,re.IGNORECASE,
+                    )
+                ):
                     normalized_subject=re.sub(
                         r"^(?:the|a|an|this|that|these|those)\s+","",
                         normalized_subject,count=1,flags=re.IGNORECASE,
@@ -2007,6 +2045,19 @@ def _factual_predicate_subject_counter(text):
             else:
                 subject=_claim_subject_for_span(text,start,tail_start)
             polarity="pos"
+            contracted_aux=groups.get("contracted_aux")
+            if contracted_aux:
+                aux=contracted_aux.casefold()
+                polarity="neg"
+                if aux in {"is","are","was","were"}:
+                    for token in _copular_factual_tokens(tail_value):
+                        counts[(subject,"neg:be",token)]+=1
+                    continue
+                lexical_verb,lexical_tail,_=_lexical_predicate_after_auxiliary(tail_value)
+                if not lexical_verb:
+                    continue
+                verb=lexical_verb.casefold()
+                tail_value=lexical_tail or ""
             if verb in {"am","is","are","was","were","be","been","being"}:
                 for token in _copular_factual_tokens(tail_value):
                     counts[(subject,"be",token)]+=1
@@ -2023,7 +2074,13 @@ def _factual_predicate_subject_counter(text):
                 tail_value=re.sub(r"^\s*not\b\s*","",tail_value,count=1,flags=re.IGNORECASE)
             # Stop at a new coordinated clause instead of attaching its object
             # to the preceding predicate.
-            tail=re.split(r"\b(?:and|but|while|whereas)\b",tail_value,maxsplit=1,flags=re.IGNORECASE)[0]
+            tail=re.split(
+                r"\b(?:and|but|while|whereas)\b"
+                r"|,\s*(?=(?:the|a|an|this|that|these|those)\s+"
+                r"(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2}"
+                r"[A-Za-z][A-Za-z0-9&._-]*\s+[A-Za-z][A-Za-z-]{1,}\b)",
+                tail_value,maxsplit=1,flags=re.IGNORECASE,
+            )[0]
             content_tokens=[
                 word.casefold()
                 for word in FACTUAL_CONTENT_WORD_RE.findall(tail)
@@ -2080,7 +2137,14 @@ def _factual_identity_spans(text):
     if not isinstance(text,str):
         return []
     spans=set()
+    proper_spans=[]
+    for match in MULTIWORD_PROPER_IDENTITY_RE.finditer(text):
+        token=re.sub(r"\s+"," ",match.group("proper").strip()).casefold()
+        proper_spans.append((match.start("proper"),match.end("proper"),token))
+        spans.add((match.start("proper"),match.end("proper"),token))
     for match in FACTUAL_IDENTITY_TOKEN_RE.finditer(text):
+        if any(start<=match.start() and match.end()<=end for start,end,_ in proper_spans):
+            continue
         token=match.group(0).strip(".,;:()[]{}").casefold()
         if token and token not in FACTUAL_IDENTITY_STOPWORDS:
             spans.add((match.start(),match.end(),token))
@@ -2875,6 +2939,41 @@ def _validate_density_audit(
         allowed_evidence_support=allowed_evidence_support,
         allowed_evidence_packages=allowed_evidence_packages,
     )
+    if no_change:
+        state_entry=density.get("dimension_evidence",{}).get("changed_state",{})
+        state_fields=state_entry.get("fields",[]) if isinstance(state_entry,dict) else []
+        state_refs=state_entry.get("evidence_refs",[]) if isinstance(state_entry,dict) else []
+        current_state_text="; ".join(
+            _visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING)))
+            for field in state_fields
+        )
+        current_occurrences=_state_subject_strength_occurrences(current_state_text)
+        realized_keys={
+            key for key,strengths in current_occurrences.items()
+            if any(strength>=2 for strength in strengths)
+        }
+        evidence_occurrences={}
+        for ref in state_refs:
+            packages=allowed_evidence_packages.get(ref,[]) if isinstance(allowed_evidence_packages,dict) else []
+            for package in packages:
+                if not isinstance(package,dict):
+                    continue
+                for evidence_key in EVIDENCE_TEXT_KEYS:
+                    value=package.get(evidence_key)
+                    texts=[value] if _nonempty_text(value) else (
+                        [x for x in value if _nonempty_text(x)] if isinstance(value,list) else []
+                    )
+                    for evidence_text in texts:
+                        for key,strengths in _state_subject_strength_occurrences(evidence_text).items():
+                            evidence_occurrences.setdefault(key,[]).extend(strengths)
+        if not any(
+            any(strength>=2 for strength in evidence_occurrences.get(key,[]))
+            for key in realized_keys
+        ):
+            raise Blocked(
+                f"{label} zero-delta 0.6 requires at least one mapped, "
+                f"evidence-grounded realized changed_state claim"
+            )
     _validate_claimed_dimension_text(density,row_06,label,true_dimensions)
     if not no_change:
         mapping=density.get("dimension_evidence")

@@ -21,6 +21,7 @@ if _REPO_ROOT not in sys.path:
 from validation_scripts.stage_a_v4_contract import validate_stage_a_v4_spec
 from validation_scripts.stage_a_v4_hardening import validate_stage_a_v4_hardening
 from validation_scripts import card_run_v4_binding_hardening as _content_binding
+from validation_scripts import content_enrichment_core as _content_core
 
 STAGE_TOP_LEVEL = {
     "A": [
@@ -203,21 +204,11 @@ def _non_empty_string(value):
     return isinstance(value, str) and bool(value.strip())
 
 
-VISIBLE_COPY_FIELDS = ("sub", "gate", "fact", "implication")
-DENSITY_DIMENSIONS = (
-    "prior_state",
-    "changed_state",
-    "quantitative_anchor",
-    "boundary_or_uncertainty",
-    "transmission_path",
-    "next_watchpoint",
-)
-CONTENT_BASELINE_STRATEGY = "nearest_upstream_visible_copy_0.5_0.4_C"
+VISIBLE_COPY_FIELDS = _content_core.VISIBLE_COPY_FIELDS
+DENSITY_DIMENSIONS = _content_core.DENSITY_DIMENSIONS
+CONTENT_BASELINE_STRATEGY = _content_core.CONTENT_BASELINE_STRATEGY
 PROMPT_06_PATH = "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md"
-PRESENTATION_HTML_TAG_RE = re.compile(
-    r"</?(?:strong|b|em|i|u|mark|span|small|sub|sup)(?:\s+[^<>]*?)?\s*/?>",
-    re.IGNORECASE,
-)
+PRESENTATION_HTML_TAG_RE = _content_core.PRESENTATION_HTML_TAG_RE
 
 
 def _prompt_06_version(item):
@@ -266,51 +257,13 @@ def _artifact_locked_prompt_06_version(payload):
     return declared if isinstance(declared, str) else None, declared, None
 
 
-def _strip_paired_presentation_markup(text):
-    if text.strip() in {"**","__","~~","`","*","_"}:
-        return ""
-    patterns = (
-        r"\*\*(?=\S)(.+?)(?<=\S)\*\*",
-        r"__(?=\S)(.+?)(?<=\S)__",
-        r"`(?=\S)(.+?)(?<=\S)`",
-        r"(?<!\w)\*(?=\S)(.+?)(?<=\S)\*(?!\w)",
-        r"(?<!\w)_(?=\S)(.+?)(?<=\S)_(?!\w)",
-    )
-    previous = None
-    while previous != text:
-        previous = text
-        for pattern in patterns:
-            text = re.sub(pattern, r"\1", text, flags=re.DOTALL)
-    return text
+_strip_paired_presentation_markup = _content_core._strip_paired_presentation_markup
 
 
-def _normalize_text(value):
-    if not isinstance(value, str):
-        return value
-    text = value
-    text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)
-    text = PRESENTATION_HTML_TAG_RE.sub("", text)
-    text = re.sub(r"^\s{0,3}#{1,6}\s+", "", text)
-    text = re.sub(
-        r"^\s*[-+>]\s+(?!\s*(?:[$€£¥₩]?\d|USD\b|EUR\b|GBP\b|KRW\b|CNY\b|RMB\b|JPY\b|AUD\b|CAD\b|CHF\b|HKD\b|SGD\b))",
-        "", text, flags=re.IGNORECASE,
-    )
-    text = _strip_paired_presentation_markup(text)
-    return " ".join(text.split())
+_normalize_text = _content_core._normalize_text
 
 
-def _normalized_visible_value(field, value):
-    if field in {"sub", "gate", "fact"}:
-        normalized = _normalize_text(value)
-        return normalized if isinstance(normalized, str) and normalized else None
-    if field == "implication":
-        if not isinstance(value, list) or not value:
-            return None
-        normalized = tuple(_normalize_text(x) for x in value)
-        if any(not isinstance(x, str) or not x for x in normalized):
-            return None
-        return normalized
-    return None
+_normalized_visible_value = _content_core._normalized_visible_value
 
 
 def _source_supported_visible_fields(source):
@@ -439,12 +392,7 @@ def _row_evidence_token_support(item):
     return token_support
 
 
-def _visible_value_text(value):
-    if value is None:
-        return ""
-    if isinstance(value, tuple):
-        return " | ".join(value)
-    return str(value)
+_visible_value_text = _content_core._visible_value_text
 
 
 def _mapped_dimension_signal_counts(item, dimension, fields):
@@ -476,9 +424,12 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
         ))
         return findings
 
-    evidence_support = _row_evidence_token_support(item)
-    evidence_texts = _content_binding._row_evidence_token_texts(item)
-    evidence_packages = _content_binding._row_evidence_token_packages(item)
+    evidence_context = _content_core.ResolvedEvidenceContext.from_maps(
+        scope="local_row", support=_row_evidence_token_support(item),
+        texts=_content_binding._row_evidence_token_texts(item),
+        packages=_content_binding._row_evidence_token_packages(item),
+    )
+    evidence_support, evidence_texts, evidence_packages = evidence_context.legacy_maps()
     if not evidence_support:
         findings.append(_field_finding(
             scope,
@@ -580,53 +531,22 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                             evidence_counts.update(
                                 _content_binding._signal_counter(name, evidence_text)
                             )
-                    missing_signals = {
-                        signal: {
-                            "required_occurrences": count,
-                            "evidence_occurrences": evidence_counts.get(signal, 0),
-                        }
-                        for signal, count in visible_counts.items()
-                        if evidence_counts.get(signal, 0) < count
-                    }
-                    if missing_signals:
-                        findings.append(_field_finding(
-                            scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
-                            "referenced usable quote/claim evidence covering every mapped signal occurrence",
-                            missing_signals,
-                            "dimension is not grounded in the referenced quote/claim evidence; uncovered signal occurrences remain",
-                        ))
+                    visible_subject_strengths = {}
+                    evidence_subject_strengths = {}
                     if name == "changed_state":
-                        visible_subject_strengths = {}
                         for field in fields:
-                            text = _visible_value_text(
-                                _normalized_visible_value(field, item.get(field))
-                            )
+                            text = _visible_value_text(_normalized_visible_value(field, item.get(field)))
                             for key, strengths in _content_binding._state_subject_strength_occurrences(text).items():
                                 visible_subject_strengths.setdefault(key, []).extend(strengths)
-                        evidence_subject_strengths = {}
                         for ref in unique_refs:
-                            for evidence_text in evidence_texts.get(ref, []):
-                                for key, strengths in _content_binding._state_subject_strength_occurrences(evidence_text).items():
+                            for text in evidence_texts.get(ref, []):
+                                for key, strengths in _content_binding._state_subject_strength_occurrences(text).items():
                                     evidence_subject_strengths.setdefault(key, []).extend(strengths)
-                        modality_gaps = {}
-                        for key, required_strengths in visible_subject_strengths.items():
-                            required_strengths = sorted(required_strengths)
-                            evidence_strengths = sorted(evidence_subject_strengths.get(key, []))
-                            if not _content_binding._strength_multiset_covers(
-                                required_strengths, evidence_strengths
-                            ):
-                                modality_gaps[key] = {
-                                    "required_strengths": required_strengths,
-                                    "evidence_strengths": evidence_strengths,
-                                }
-                        if modality_gaps:
-                            findings.append(_field_finding(
-                                scope,
-                                f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
-                                "referenced evidence matching every changed-state subject at equal-or-stronger modality",
-                                modality_gaps,
-                                "changed-state modality is stronger than the referenced quote/claim evidence",
-                            ))
+                    findings.extend(issue.as_finding(scope) for issue in _content_core.grounding_issues(
+                        name, visible_counts, evidence_counts,
+                        visible_subject_strengths, evidence_subject_strengths,
+                        require_realized=False,
+                    ))
     return findings
 
 
@@ -695,56 +615,15 @@ def _content_enrichment_audit_findings(item, scope):
         ))
         return findings
 
-    if density.get("status") != "PASS":
-        findings.append(_field_finding(
-            scope, "content_enrichment_audit.density_audit.status", "PASS",
-            density.get("status"),
-            "0.6 passing content requires a passing density audit",
-        ))
-
+    findings.extend(issue.as_finding(scope) for issue in _content_core.density_policy_issues(
+        density, no_change=changed_valid and not changed and no_change is True,
+    ))
     dimensions = density.get("dimensions")
-    valid_dimensions = False
-    true_dimensions = []
-    if not isinstance(dimensions, dict):
-        findings.append(_field_finding(
-            scope, "content_enrichment_audit.density_audit.dimensions",
-            f"object with boolean keys {list(DENSITY_DIMENSIONS)}", dimensions,
-            "density audit must explicitly evaluate every governed Deep Summary dimension",
-        ))
-    else:
-        missing = [name for name in DENSITY_DIMENSIONS if name not in dimensions]
-        invalid = [name for name in DENSITY_DIMENSIONS if name in dimensions and not isinstance(dimensions[name], bool)]
-        extra = [name for name in dimensions if name not in DENSITY_DIMENSIONS]
-        if missing or invalid or extra:
-            findings.append(_field_finding(
-                scope, "content_enrichment_audit.density_audit.dimensions",
-                f"exact boolean keys {list(DENSITY_DIMENSIONS)}", dimensions,
-                f"density dimensions malformed; missing={missing}, invalid={invalid}, extra={extra}",
-            ))
-        else:
-            valid_dimensions = True
-            true_dimensions = [name for name in DENSITY_DIMENSIONS if dimensions[name]]
-            actual_count = len(true_dimensions)
-            declared_count = density.get("supported_dimension_count")
-            if not isinstance(declared_count, int) or isinstance(declared_count, bool):
-                findings.append(_field_finding(
-                    scope, "content_enrichment_audit.density_audit.supported_dimension_count",
-                    "non-boolean integer", declared_count,
-                    "supported_dimension_count must be a numeric count, not a boolean",
-                ))
-            elif declared_count != actual_count:
-                findings.append(_field_finding(
-                    scope, "content_enrichment_audit.density_audit.supported_dimension_count",
-                    actual_count, declared_count,
-                    "supported_dimension_count must equal the audited true dimensions",
-                ))
-
-    if not _non_empty_string(density.get("evidence_notes")):
-        findings.append(_field_finding(
-            scope, "content_enrichment_audit.density_audit.evidence_notes",
-            "non-empty evidence-bounded explanation", density.get("evidence_notes"),
-            "density audit must explain its evidence-supported dimensions",
-        ))
+    valid_dimensions = (
+        isinstance(dimensions, dict) and set(dimensions) == set(DENSITY_DIMENSIONS)
+        and all(isinstance(dimensions[name], bool) for name in DENSITY_DIMENSIONS)
+    )
+    true_dimensions = [name for name in DENSITY_DIMENSIONS if dimensions[name]] if valid_dimensions else []
 
     if changed_valid and not changed and no_change is True:
         if not _non_empty_string(audit.get("no_change_reason")):
@@ -754,28 +633,10 @@ def _content_enrichment_audit_findings(item, scope):
                 "zero-delta exception requires an explicit reason",
             ))
         if valid_dimensions:
-            if len(true_dimensions) < 4:
-                findings.append(_field_finding(
-                    scope, "content_enrichment_audit.density_audit.supported_dimension_count",
-                    ">= 4", len(true_dimensions),
-                    "zero-delta exception requires at least four supported dimensions",
-                ))
-            if dimensions.get("changed_state") is not True:
-                findings.append(_field_finding(
-                    scope, "content_enrichment_audit.density_audit.dimensions.changed_state",
-                    True, dimensions.get("changed_state"),
-                    "zero-delta exception requires changed_state=true",
-                ))
             findings.extend(_dimension_evidence_findings(item, density, scope, true_dimensions))
 
     if changed_valid and changed and no_change is False and valid_dimensions:
-        if not true_dimensions:
-            findings.append(_field_finding(
-                scope, "content_enrichment_audit.density_audit.supported_dimension_count",
-                ">= 1", 0,
-                "a changed visible-copy delta needs at least one evidence-supported Deep Summary dimension",
-            ))
-        else:
+        if true_dimensions:
             findings.extend(_dimension_evidence_findings(item, density, scope, true_dimensions))
             mapping = density.get("dimension_evidence")
             if isinstance(mapping, dict):

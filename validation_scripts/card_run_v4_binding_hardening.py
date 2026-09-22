@@ -5,6 +5,9 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from validation_scripts import content_enrichment_core as _content_core
 REGISTRY = ROOT / "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json"
 COVERAGE_AXES_PATH = Path(os.environ.get(
     "WORKFLOW_V4_COVERAGE_AXES_PATH",
@@ -39,14 +42,11 @@ STAGE_A_GOVERNED_POOLS = (
     "support_source_only",
 )
 IDENTITY_ROOT = "source_spec_id"
-VISIBLE_COPY_FIELDS = ("sub", "gate", "fact", "implication")
+VISIBLE_COPY_FIELDS = _content_core.VISIBLE_COPY_FIELDS
 CONTENT_BASELINE_ORDER = ("0.5", "0.4", "C")
-CONTENT_BASELINE_STRATEGY = "nearest_upstream_visible_copy_0.5_0.4_C"
+CONTENT_BASELINE_STRATEGY = _content_core.CONTENT_BASELINE_STRATEGY
 PROMPT_06_PATH = "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md"
-PRESENTATION_HTML_TAG_RE = re.compile(
-    r"</?(?:strong|b|em|i|u|mark|span|small|sub|sup)(?:\s+[^<>]*?)?\s*/?>",
-    re.IGNORECASE,
-)
+PRESENTATION_HTML_TAG_RE = _content_core.PRESENTATION_HTML_TAG_RE
 ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
 QUANT_SIGNAL_RE = re.compile(
     r"(?<![A-Za-z0-9])"
@@ -343,14 +343,7 @@ DIMENSION_CANONICAL_SIGNAL_RES = {
         "future_execution": re.compile(r"\b(?:commissioning|ramp[- ]?up|by\s+q[1-4]|by\s+20\d{2}|expected\s+(?:by|in)|scheduled\s+(?:for|in))\b|(?:가동예정|양산예정|출하예정)", re.IGNORECASE),
     },
 }
-DENSITY_DIMENSIONS = (
-    "prior_state",
-    "changed_state",
-    "quantitative_anchor",
-    "boundary_or_uncertainty",
-    "transmission_path",
-    "next_watchpoint",
-)
+DENSITY_DIMENSIONS = _content_core.DENSITY_DIMENSIONS
 _MISSING = object()
 
 class Blocked(Exception): pass
@@ -797,59 +790,13 @@ def _effective_upstream_visible_value(rows_by_stage, field, label):
     return _MISSING, None
 
 
-def _strip_paired_presentation_markup(text):
-    # Strip syntactically paired emphasis/code markers only. Literal asterisks
-    # such as "2 * 3" and rating symbols such as "A*" remain substantive text.
-    if text.strip() in {"**","__","~~","`","*","_"}:
-        return ""
-    patterns = (
-        r"\*\*(?=\S)(.+?)(?<=\S)\*\*",
-        r"__(?=\S)(.+?)(?<=\S)__",
-        r"`(?=\S)(.+?)(?<=\S)`",
-        r"(?<!\w)\*(?=\S)(.+?)(?<=\S)\*(?!\w)",
-        r"(?<!\w)_(?=\S)(.+?)(?<=\S)_(?!\w)",
-    )
-    previous=None
-    while previous!=text:
-        previous=text
-        for pattern in patterns:
-            text=re.sub(pattern,r"\1",text,flags=re.DOTALL)
-    return text
+_strip_paired_presentation_markup = _content_core._strip_paired_presentation_markup
 
 
-def _normalize_text(value):
-    if not isinstance(value,str):
-        return value
-    text=value
-    text=re.sub(r"\[([^\]]+)\]\([^)]*\)",r"\1",text)
-    # Strip only known presentation-formatting tags. Do not use a generic
-    # <...> regex because comparison expressions such as "<0.7%" or ">300"
-    # are substantive visible copy.
-    text=PRESENTATION_HTML_TAG_RE.sub("",text)
-    text=re.sub(r"^\s{0,3}#{1,6}\s+","",text)
-    # A spaced leading sign/bound is part of a numeric claim, not markup.
-    text=re.sub(
-        r"^\s*[-+>]\s+(?!\s*(?:[$€£¥₩]?\d|USD\b|EUR\b|GBP\b|KRW\b|CNY\b|RMB\b|JPY\b|AUD\b|CAD\b|CHF\b|HKD\b|SGD\b))",
-        "",text,flags=re.IGNORECASE,
-    )
-    text=_strip_paired_presentation_markup(text)
-    return " ".join(text.split())
+_normalize_text = _content_core._normalize_text
 
 
-def _normalized_visible_value(field, value):
-    if field in {"sub","gate","fact"}:
-        if not _nonempty_text(value):
-            return None
-        normalized=_normalize_text(value)
-        return normalized if _nonempty_text(normalized) else None
-    if field=="implication":
-        if not isinstance(value,list) or not value or any(not _nonempty_text(x) for x in value):
-            return None
-        normalized=tuple(_normalize_text(x) for x in value)
-        if any(not _nonempty_text(x) for x in normalized):
-            return None
-        return normalized
-    return None
+_normalized_visible_value = _content_core._normalized_visible_value
 
 
 def _source_supported_visible_fields(source):
@@ -1354,12 +1301,7 @@ def _validate_dimension_evidence(
             )
 
 
-def _visible_value_text(value):
-    if value is None:
-        return ""
-    if isinstance(value,tuple):
-        return " | ".join(value)
-    return str(value)
+_visible_value_text = _content_core._visible_value_text
 
 
 def _canonical_numeric_text(raw):
@@ -1577,15 +1519,7 @@ def _strength_deepening_count(upstream,current):
     return sum(1 for old,new in zip(before,after) if new>old)
 
 
-def _strength_multiset_covers(required,evidence):
-    pool=sorted(evidence)
-    for target in sorted(required,reverse=True):
-        candidates=[(idx,value) for idx,value in enumerate(pool) if value>=target]
-        if not candidates:
-            return False
-        idx,_=candidates[0]
-        pool.pop(idx)
-    return True
+_strength_multiset_covers = _content_core._strength_multiset_covers
 
 
 
@@ -2572,66 +2506,31 @@ def _validate_claimed_dimension_evidence_grounding(
         if not isinstance(entry,dict):
             continue
         fields=entry.get("fields") if isinstance(entry.get("fields"),list) else []
-        refs=[
-            ref.strip() for ref in entry.get("evidence_refs",[])
-            if _nonempty_text(ref)
-        ] if isinstance(entry.get("evidence_refs"),list) else []
+        refs=[ref.strip() for ref in entry.get("evidence_refs",[]) if _nonempty_text(ref)] \
+            if isinstance(entry.get("evidence_refs"),list) else []
         refs=_unique_evidence_refs_by_identity(refs,allowed_evidence_packages)
         visible_counts=Counter()
-        for field in fields:
-            visible_counts.update(
-                _signal_counter(
-                    dimension,
-                    _visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING))),
-                )
-            )
         evidence_counts=Counter()
-        for ref in refs:
-            for evidence_text in allowed_evidence_texts.get(ref,[]):
-                evidence_counts.update(_signal_counter(dimension,evidence_text))
-        missing_signals={
-            signal:{
-                "required_occurrences":count,
-                "evidence_occurrences":evidence_counts.get(signal,0),
-            }
-            for signal,count in visible_counts.items()
-            if evidence_counts.get(signal,0)<count
-        }
-        if missing_signals:
-            raise Blocked(
-                f"{label} zero-delta 0.6 dimension {dimension} is not grounded in referenced "
-                f"upstream source quote/claim evidence for every signal occurrence; missing={missing_signals}"
-            )
-        if dimension=="changed_state":
-            visible_strengths={}
-            evidence_strengths={}
-            for field in fields:
-                text=_visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING)))
+        visible_strengths={}
+        evidence_strengths={}
+        for field in fields:
+            text=_visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING)))
+            visible_counts.update(_signal_counter(dimension,text))
+            if dimension=="changed_state":
                 for key,values in _state_subject_strength_occurrences(text).items():
                     visible_strengths.setdefault(key,[]).extend(values)
-            for ref in refs:
-                for text in allowed_evidence_texts.get(ref,[]):
+        for ref in refs:
+            for text in allowed_evidence_texts.get(ref,[]):
+                evidence_counts.update(_signal_counter(dimension,text))
+                if dimension=="changed_state":
                     for key,values in _state_subject_strength_occurrences(text).items():
                         evidence_strengths.setdefault(key,[]).extend(values)
-            gaps={key:values for key,values in visible_strengths.items()
-                  if not _strength_multiset_covers(values,evidence_strengths.get(key,[]))}
-            if gaps:
-                raise Blocked(
-                    f"{label} 0.6 changed_state subject/modality claims are not grounded "
-                    f"in referenced upstream evidence; required_current_strengths={gaps}"
-                )
-            if not any(
-                any(strength>=2 for strength in strengths)
-                and _strength_multiset_covers(
-                    [strength for strength in strengths if strength>=2],
-                    evidence_strengths.get(key,[]),
-                )
-                for key,strengths in visible_strengths.items()
-            ):
-                raise Blocked(
-                    f"{label} zero-delta 0.6 changed_state requires at least one "
-                    f"evidence-grounded realized strength-2 subject/state claim"
-                )
+        issues=_content_core.grounding_issues(
+            dimension,visible_counts,evidence_counts,visible_strengths,evidence_strengths,
+            require_realized=True,
+        )
+        if issues:
+            raise Blocked(f"{label} {issues[0].message}")
 
 
 def _validate_substantive_dimension_delta(
@@ -3022,31 +2921,10 @@ def _validate_density_audit(
     allowed_evidence_packages,actual_changed=()
 ):
     density=audit.get("density_audit") if isinstance(audit,dict) else None
-    if not isinstance(density,dict) or density.get("status")!="PASS":
-        raise Blocked(f"{label} 0.6 content_enrichment_audit.density_audit must be structured PASS")
-    dimensions=density.get("dimensions")
-    if not isinstance(dimensions,dict) or set(dimensions)!=set(DENSITY_DIMENSIONS):
-        raise Blocked(f"{label} 0.6 density_audit.dimensions must contain exactly {list(DENSITY_DIMENSIONS)}")
-    if any(not isinstance(dimensions[name],bool) for name in DENSITY_DIMENSIONS):
-        raise Blocked(f"{label} 0.6 density_audit dimensions must all be booleans")
-    true_dimensions=[name for name in DENSITY_DIMENSIONS if dimensions[name]]
-    supported=len(true_dimensions)
-    count=density.get("supported_dimension_count")
-    if not isinstance(count,int) or isinstance(count,bool):
-        raise Blocked(f"{label} 0.6 density_audit.supported_dimension_count must be a non-boolean integer")
-    if count!=supported:
-        raise Blocked(f"{label} 0.6 density_audit.supported_dimension_count={count} != {supported}")
-    notes=density.get("evidence_notes")
-    if not _nonempty_text(notes):
-        raise Blocked(f"{label} 0.6 density_audit.evidence_notes required")
-
-    if no_change:
-        if supported < 4:
-            raise Blocked(f"{label} zero-delta 0.6 requires at least four evidence-supported Deep Summary dimensions; found {supported}")
-        if dimensions.get("changed_state") is not True:
-            raise Blocked(f"{label} zero-delta 0.6 requires changed_state=true in the density audit")
-    elif supported < 1:
-        raise Blocked(f"{label} changed 0.6 copy requires at least one evidence-supported Deep Summary dimension")
+    issues=_content_core.density_policy_issues(density,no_change=no_change)
+    if issues:
+        raise Blocked(f"{label} {issues[0].message}")
+    true_dimensions=[name for name in DENSITY_DIMENSIONS if density["dimensions"][name]]
 
     _validate_dimension_evidence(
         density,row_06,label,true_dimensions,
@@ -3339,6 +3217,19 @@ def _materialized_operation_card(kind, op, expected, known, inserted, baseline_c
     raise Blocked(f"{label} unsupported operation kind {kind}")
 
 
+def _resolve_content_evidence_context(rows_by_stage, label):
+    """Resolve authoritative packages once; all downstream views share them."""
+    support = _upstream_evidence_token_support(rows_by_stage, label)
+    packages = _nearest_upstream_evidence_packages(rows_by_stage, label, support)
+    texts = {
+        token: _package_texts(items[0])
+        for token, items in packages.items() if items and _package_texts(items[0])
+    }
+    return _content_core.ResolvedEvidenceContext.from_maps(
+        scope="bound_upstream", support=support, texts=texts, packages=packages,
+    )
+
+
 def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,locked_prompt_version=None):
     row_06=_single_bound_row(rows_by_stage,"0.6",label)
     if row_06.get("content_enriched") is not True:
@@ -3399,13 +3290,8 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
         if not _nonempty_text(audit.get("no_change_reason")):
             raise Blocked(f"{label} zero-delta 0.6 requires explicit no_change_reason")
 
-    allowed_evidence_support=_upstream_evidence_token_support(rows_by_stage,label)
-    allowed_evidence_texts=_upstream_evidence_token_texts(
-        rows_by_stage,label,allowed_evidence_support
-    )
-    allowed_evidence_packages=_upstream_evidence_token_packages(
-        rows_by_stage,label,allowed_evidence_support
-    )
+    evidence_context=_resolve_content_evidence_context(rows_by_stage,label)
+    allowed_evidence_support,allowed_evidence_texts,allowed_evidence_packages=evidence_context.legacy_maps()
     _validate_density_audit(
         audit,row_06,label,no_change=not actual_changed,actual_changed=actual_changed,
         allowed_evidence_support=allowed_evidence_support,

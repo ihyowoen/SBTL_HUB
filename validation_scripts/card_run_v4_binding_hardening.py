@@ -2611,6 +2611,18 @@ def _validate_claimed_dimension_evidence_grounding(
                     f"{label} 0.6 changed_state subject/modality claims are not grounded "
                     f"in referenced upstream evidence; required_current_strengths={gaps}"
                 )
+            if not any(
+                any(strength>=2 for strength in strengths)
+                and _strength_multiset_covers(
+                    [strength for strength in strengths if strength>=2],
+                    evidence_strengths.get(key,[]),
+                )
+                for key,strengths in visible_strengths.items()
+            ):
+                raise Blocked(
+                    f"{label} zero-delta 0.6 changed_state requires at least one "
+                    f"evidence-grounded realized strength-2 subject/state claim"
+                )
 
 
 def _validate_substantive_dimension_delta(

@@ -1,0 +1,78 @@
+{
+  "patch_sha256": "fb63d03b3c870009e009f4b580da9031a63a635f31d93f39e69df774c4b0b037",
+  "before": {
+    "validation_scripts/card_run_v4_binding_hardening.py": "af6e3a941a04a69b108aefb6f5d7eb66c3514dd4",
+    "validation_scripts/content_enrichment_core.py": "c1e759cc9f32f6692272439a984a7e6fff45fb0a",
+    "validation_scripts/stage_artifact_contract_check.py": "9b96711d1e4aa3de532dfaf03c67833156c61744"
+  },
+  "after": {
+    "validation_scripts/card_run_v4_binding_hardening.py": "359d4956e4526b3a989a439cb09f37236ca83787",
+    "validation_scripts/content_enrichment_core.py": "44b4376b5a7fb42fb22821bef5a77e6039061763",
+    "validation_scripts/stage_artifact_contract_check.py": "0dfa21c2383340ec987ac001747e2ec1d197d03b",
+    "validation_scripts/content_semantic_atoms.py": "633b15975a58235393685bea9d606db333d08cfb",
+    "validation_scripts/tests/test_content_semantic_atoms.py": "15559ae60ede078efd9321834b0fd515cf73b717",
+    "docs/audits/pr385/PHASE4A_IMPLEMENTATION.md": "ef8283b086472e5c1380227f678503208ba7ffbd"
+  },
+  "transport_parts": [
+    {
+      "path": "part00.b64",
+      "size": 3000,
+      "git_blob": "2b704703c2b6e58b129abbe6b2f59dfa683c8f56"
+    },
+    {
+      "path": "part01.b64",
+      "size": 3000,
+      "git_blob": "a85d7df2795bc479cf386c933576bb14e897331b"
+    },
+    {
+      "path": "part02.b64",
+      "size": 3000,
+      "git_blob": "30abf6eccd400548a0f0720fbd162d476bcee01c"
+    },
+    {
+      "path": "part03.b64",
+      "size": 3000,
+      "git_blob": "9500a53cdb21ed4620ac812d2b732db6a3424446"
+    },
+    {
+      "path": "part040.b64",
+      "size": 1000,
+      "git_blob": "f09e6ae4fb09fded9be464f63d93bf1392c8b0a6"
+    },
+    {
+      "path": "part041.b64",
+      "size": 1000,
+      "git_blob": "a6850ccaff4d27c26eeac1b9bd27a3dd52968814"
+    },
+    {
+      "path": "part042.b64",
+      "size": 1000,
+      "git_blob": "6640811ea757af460d63b05867f9492b4663022b"
+    },
+    {
+      "path": "part050.b64",
+      "size": 1000,
+      "git_blob": "83cc362845aa0c29da8cc853f7dfeeb0ae3268d5"
+    },
+    {
+      "path": "part051.b64",
+      "size": 1000,
+      "git_blob": "1aab8375955a323706b96f7757e69f76a1c03a1c"
+    },
+    {
+      "path": "part052.b64",
+      "size": 1000,
+      "git_blob": "e6458c27eb3c190374256a57f40fc7a3775f0492"
+    },
+    {
+      "path": "part060.b64",
+      "size": 1000,
+      "git_blob": "5cac72ec8cf6f14e6dd6c3b22adf6cbd0ed8ca09"
+    },
+    {
+      "path": "part061.b64",
+      "size": 496,
+      "git_blob": "ff3dc508f6c3a89efbcd89da739d15c071f1458d"
+    }
+  ]
+}

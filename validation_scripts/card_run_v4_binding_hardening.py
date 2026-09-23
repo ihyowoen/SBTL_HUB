@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 from validation_scripts import content_enrichment_core as _content_core
+from validation_scripts import content_semantic_atoms as _semantic_atoms
 REGISTRY = ROOT / "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json"
 COVERAGE_AXES_PATH = Path(os.environ.get(
     "WORKFLOW_V4_COVERAGE_AXES_PATH",
@@ -48,32 +49,7 @@ CONTENT_BASELINE_STRATEGY = _content_core.CONTENT_BASELINE_STRATEGY
 PROMPT_06_PATH = "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md"
 PRESENTATION_HTML_TAG_RE = _content_core.PRESENTATION_HTML_TAG_RE
 ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
-QUANT_SIGNAL_RE = re.compile(
-    r"(?<![A-Za-z0-9])"
-    r"(?P<bound><=|>=|≤|≥|<|>|≈|~)?\s*"
-    r"(?:(?P<currency_code_prefix>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\s+)?"
-    r"(?P<sign>[+-])?\s*"
-    r"(?P<currency>[$€£¥₩]?)"
-    r"(?P<number>\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+,\d+|\d+(?:\.\d+)?)"
-    r"(?:\s*(?P<magnitude>thousand|million|billion|trillion|mn|bn|tn|k|m|b)\b)?"
-    r"(?:\s*(?P<currency_code_suffix>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\b)?"
-    r"(?:\s*(?P<unit>%|x|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
-    r"(?:\s+(?P<generic_unit>"
-    r"(?!(?:and|or|but|yet|for|from|to|at|in|on|by|with|because|while|whereas|per|previously|currently|planned|approved|started|delayed|completed|commercial|subject|target|project|plant|facility|capacity|investment|production)\b)"
-    r"[A-Za-z][A-Za-z0-9²³_-]{0,31}"
-    r"(?:\s+(?!(?:and|or|but|yet|for|from|to|at|in|on|by|with|because|while|whereas|per|previously|currently|planned|approved|started|delayed|completed|commercial|subject|target|project|plant|facility|capacity|investment|production)\b)"
-    r"[A-Za-z][A-Za-z0-9²³_-]{0,31}){0,3}"
-    r"))?"
-    r"(?:(?P<unit_separator>\s+per\s+|\s*/\s*)"
-    r"(?P<unit_denominator>"
-    r"[A-Za-z][A-Za-z0-9²³_-]{0,31}"
-    r"(?:\s+(?!(?:and|or|but|yet|for|from|to|at|in|on|by|with|because|while|whereas|previously|currently|planned|approved|started|delayed|completed|commercial|subject|target|project|plant|facility|capacity|investment|production)\b)"
-    r"[A-Za-z][A-Za-z0-9²³_-]{0,31}){0,3}"
-    r"))?"
-    r"(?![A-Za-z0-9])",
-    re.IGNORECASE,
-)
-
+QUANT_SIGNAL_RE = _semantic_atoms.QUANT_SIGNAL_RE
 EVIDENCE_TEXT_KEYS = (
     "source_quote", "quote", "claim", "source_claim", "claim_text",
     "visible_claim", "evidence_text", "source_excerpt", "excerpt",
@@ -92,51 +68,12 @@ FETCH_METADATA_KEYS = {
     "fetched", "fetched_at", "checked_at", "body", "body_text",
     "document_text", "official_material_text",
 }
-NON_REALIZED_CHANGED_STATE_PREFIX_RE = re.compile(
-    r"(?:"
-    r"\b(?:not|never|without)\b(?:\s+\w+){0,3}\s*$"
-    r"|\bno\s+(?:current\s+)?(?:\w+\s+){0,2}$"
-    r"|\b(?:is|are|was|were|has|have|had|do|does|did|will|would|can|could)\s+not(?:\s+\w+){0,2}\s*$"
-    r"|\b(?:plan(?:ned)?|target(?:ed)?|propos(?:ed|al)|schedul(?:ed|ing))\b(?:\s+\w+){0,2}\s*$"
-    r"|n['’]t(?:\s+\w+){0,2}\s*$"
-    r")",
-    re.IGNORECASE,
-)
-TENTATIVE_CHANGED_STATE_PREFIX_RE = re.compile(
-    r"(?:"
-    r"\b(?:may|might|could|possibly|potentially|likely\s+to|expected\s+to)\b(?:\s+\w+){0,3}\s*$"
-    r"|\bsubject\s+to\b(?:\s+\w+){0,3}\s*$"
-    r")",
-    re.IGNORECASE,
-)
-NON_REALIZED_CHANGED_STATE_SUFFIX_RE = re.compile(
-    r"^\s*(?:"
-    r"(?:has|have|had|is|are|was|were|will|would|can|could)?\s*(?:not|never|n['’]t)\b"
-    r"|not\s+yet\b"
-    r"|(?:is|are|remains?|remain)\s+(?:planned|targeted|expected|scheduled)\b"
-    r")",
-    re.IGNORECASE,
-)
-CLAUSE_BOUNDARY_RE = re.compile(
-    r"[.;:!?]|\b(?:but|yet|however|although|though|whereas)\b",
-    re.IGNORECASE,
-)
-COORDINATING_NEW_SUBJECT_RE = re.compile(
-    r"(?i:\b(?:and|or)\s+)"
-    r"(?:(?i:it|they|he|she|we|you|this|that|these|those)\b"
-    r"|(?i:the|a|an)\s+(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2}[A-Za-z][A-Za-z0-9&._-]*\b"
-    r"|[A-Z][A-Za-z0-9&._-]{1,}\b"
-    r"|[a-z][A-Za-z0-9&._-]{1,}\s+(?="
-    r"(?i:is|are|was|were|has|have|had|will|shall|may|might|could|"
-    r"start(?:ed|ing)?|begin|began|begun|commence(?:d)?|approve(?:d)?|"
-    r"delay(?:ed)?|complete(?:d)?|resume(?:d)?|restart(?:ed)?|"
-    r"suspend(?:ed)?|cancel(?:led|ed)?|sign(?:ed)?|launch(?:ed)?|ship(?:ped|ping)?)\b"
-    r"))"
-)
-CLAUSE_NEGATION_RE = re.compile(
-    r"\b(?:not|never|without|neither|nor)\b|n['’]t\b",
-    re.IGNORECASE,
-)
+NON_REALIZED_CHANGED_STATE_PREFIX_RE = _semantic_atoms.NON_REALIZED_CHANGED_STATE_PREFIX_RE
+TENTATIVE_CHANGED_STATE_PREFIX_RE = _semantic_atoms.TENTATIVE_CHANGED_STATE_PREFIX_RE
+NON_REALIZED_CHANGED_STATE_SUFFIX_RE = _semantic_atoms.NON_REALIZED_CHANGED_STATE_SUFFIX_RE
+CLAUSE_BOUNDARY_RE = _semantic_atoms.CLAUSE_BOUNDARY_RE
+COORDINATING_NEW_SUBJECT_RE = _semantic_atoms.COORDINATING_NEW_SUBJECT_RE
+CLAUSE_NEGATION_RE = _semantic_atoms.CLAUSE_NEGATION_RE
 FACTUAL_IDENTITY_TOKEN_RE = re.compile(
     r"\b(?:[A-Z][A-Za-z0-9&._-]{2,}|[A-Z]{2,}[A-Z0-9&._-]*)\b"
 )
@@ -1304,73 +1241,11 @@ def _validate_dimension_evidence(
 _visible_value_text = _content_core._visible_value_text
 
 
-def _canonical_numeric_text(raw):
-    value=raw
-    if re.fullmatch(r"\d{1,3}(?:,\d{3})+(?:\.\d+)?",value):
-        value=value.replace(",","")
-    elif "," in value and "." not in value:
-        value=value.replace(",",".")
-    whole,sep,fraction=value.partition(".")
-    whole=whole.lstrip("0") or "0"
-    if sep:
-        fraction=fraction.rstrip("0")
-        value=whole+(("." + fraction) if fraction else "")
-    else:
-        value=whole
-    return value or "0"
+_canonical_numeric_text = _semantic_atoms._canonical_numeric_text
 
+MAGNITUDE_CANONICAL = _semantic_atoms.MAGNITUDE_CANONICAL
 
-MAGNITUDE_CANONICAL = {
-    "thousand":"k", "k":"k",
-    "million":"m", "mn":"m", "m":"m",
-    "billion":"bn", "bn":"bn", "b":"bn",
-    "trillion":"tn", "tn":"tn",
-}
-
-
-def _quantitative_signal_from_match(match):
-    bound=(match.group("bound") or "")
-    bound={"≤":"<=","≥":">=","≈":"~"}.get(bound,bound)
-    sign=(match.group("sign") or "")
-    number=_canonical_numeric_text(match.group("number"))
-    currency=(match.group("currency") or "").lower()
-    raw_magnitude=(match.group("magnitude") or "")
-    prefix_code=(match.group("currency_code_prefix") or "").lower()
-    suffix_code=(match.group("currency_code_suffix") or "").lower()
-    if prefix_code and suffix_code and prefix_code!=suffix_code:
-        currency_code=f"{prefix_code}/{suffix_code}"
-    else:
-        currency_code=prefix_code or suffix_code
-    unit=(match.group("unit") or "").lower()
-    generic_unit=(match.groupdict().get("generic_unit") or "").lower()
-    denominator=(match.groupdict().get("unit_denominator") or "").lower()
-    number_to_magnitude=(
-        match.string[match.end("number"):match.start("magnitude")]
-        if raw_magnitude and match.start("magnitude")>=0 else ""
-    )
-    spaced_bare_metre=(
-        raw_magnitude=="m"
-        and bool(re.search(r"\s",number_to_magnitude))
-        and not currency and not prefix_code and not suffix_code
-        and not unit and not generic_unit and not denominator
-    )
-    magnitude=(
-        ""
-        if spaced_bare_metre
-        else MAGNITUDE_CANONICAL.get(raw_magnitude.lower(),"")
-    )
-    if generic_unit in {
-        "and","or","but","yet","for","from","to","at","in","on","by","with",
-        "because","while","whereas","previously","currently","planned","approved",
-        "started","delayed","completed","commercial","subject","target",
-    }:
-        generic_unit=""
-    measurement_unit="meter" if spaced_bare_metre else (unit or generic_unit)
-    if measurement_unit and denominator:
-        measurement_unit=f"{measurement_unit}/{denominator}"
-    suffix=[x for x in (magnitude,currency_code,measurement_unit) if x]
-    return f"{bound}{sign}{currency}{number}{(' ' + ' '.join(suffix)) if suffix else ''}"
-
+_quantitative_signal_from_match = _semantic_atoms.quantitative_signal_from_match
 
 def _quantitative_signal_kind(signal):
     match=re.fullmatch(
@@ -1386,89 +1261,7 @@ def _quantitative_signal_kind(signal):
 
 
 
-def _changed_state_match_strength(text,match):
-    prefix=text[max(0,match.start()-96):match.start()]
-    suffix=text[match.end():min(len(text),match.end()+64)]
-    clause_prefix=text[:match.start()]
-    boundaries=list(CLAUSE_BOUNDARY_RE.finditer(clause_prefix))
-    coordinate_boundaries=list(COORDINATING_NEW_SUBJECT_RE.finditer(clause_prefix))
-    all_boundaries=boundaries+coordinate_boundaries
-    if all_boundaries:
-        clause_prefix=clause_prefix[max(item.end() for item in all_boundaries):]
-    if re.match(
-        r"(?:commercial\s+production|production|construction)\b",
-        match.group(0),re.IGNORECASE,
-    ):
-        noun_subject_conjunction=re.search(
-            r"\b(?:and|or)\s+$",clause_prefix,re.IGNORECASE
-        )
-        if noun_subject_conjunction:
-            clause_prefix=clause_prefix[noun_subject_conjunction.end():]
-    if re.match(
-        r"(?:start(?:ed|ing)?|begin|began|begun|commence(?:d)?|approve(?:d)?|"
-        r"delay(?:ed)?|complete(?:d)?|resume(?:d)?|restart(?:ed)?|"
-        r"suspend(?:ed)?|cancel(?:led|ed)?|sign(?:ed)?|launch(?:ed)?|"
-        r"ship(?:ped|ping)?)\b",
-        match.group(0),re.IGNORECASE,
-    ):
-        trailing_subject_conjunction=re.search(
-            r"\b(?:and|or)\s+"
-            r"(?:(?:the|a|an)\s+)?[A-Za-z][A-Za-z0-9&._-]{1,}"
-            r"(?:\s+(?:is|are|was|were|has|have|had|will|shall|may|might|could))?"
-            r"\s+$",
-            clause_prefix,re.IGNORECASE,
-        )
-        if trailing_subject_conjunction:
-            clause_prefix=clause_prefix[trailing_subject_conjunction.end():]
-    clause_prefix=re.sub(r"\bnot\s+only\b","",clause_prefix,flags=re.IGNORECASE)
-    if CLAUSE_NEGATION_RE.search(clause_prefix):
-        return 0
-    if NON_REALIZED_CHANGED_STATE_PREFIX_RE.search(prefix):
-        return 0
-    if NON_REALIZED_CHANGED_STATE_SUFFIX_RE.search(suffix):
-        return 0
-    if re.search(
-        r"\b(?:risk|chance|possibility|prospect|threat)\s+(?:of|for)\s+(?:being\s+)?$"
-        r"|\bpotential\s+(?:for|of)\s+(?:being\s+)?$",
-        prefix,re.IGNORECASE,
-    ):
-        return 0
-    if re.search(
-        r"\b(?:must)\s+"
-        r"(?:(?:be|have|been|being)\s+){0,3}$"
-        r"|\b(?:needs?|needed)\s+to\s+(?:(?:be|have|been|being)\s+){0,3}$"
-        r"|\b(?:is|are|was|were|be|been)\s+required\s+to\s+"
-        r"(?:(?:be|have|been|being)\s+){0,3}$",
-        prefix,re.IGNORECASE,
-    ):
-        return 0
-    if re.search(
-        r"\b(?:would|should|can)\s+"
-        r"(?:(?:(?:not\s+)?(?:be|have|been|being)|"
-        r"[A-Za-z][A-Za-z-]*ly|eventually|probably|possibly|likely|"
-        r"soon|later|ultimately|still)\s+){0,6}$",
-        prefix,re.IGNORECASE,
-    ) or re.search(r"\b(?:would|should|can)\s*$",prefix,re.IGNORECASE):
-        return 0
-    if re.search(
-        r"\b(?:is|are|was|were|be|been)\s+"
-        r"(?:going\s+to|set\s+to|due\s+to)\s+"
-        r"(?:(?:be|have|been|being)\s+){0,3}$",
-        prefix,re.IGNORECASE,
-    ):
-        return 0
-    if re.search(
-        r"\b(?:will|shall)\s+"
-        r"(?:(?:(?:not\s+)?(?:be|have|been|being)|"
-        r"[A-Za-z][A-Za-z-]*ly|eventually|probably|possibly|likely|"
-        r"soon|later|ultimately|still)\s+){0,6}$",
-        prefix,re.IGNORECASE,
-    ) or re.search(r"\b(?:will|shall)\s*$",prefix,re.IGNORECASE):
-        return 0
-    if TENTATIVE_CHANGED_STATE_PREFIX_RE.search(prefix):
-        return 1
-    return 2
-
+_changed_state_match_strength = _semantic_atoms.changed_state_match_strength
 
 def _changed_state_match_is_realized(text,match):
     return _changed_state_match_strength(text,match)>0
@@ -1624,8 +1417,8 @@ def _canonical_changed_state_occurrences(text):
 def _signal_counter(dimension,text):
     counts=Counter()
     if dimension=="quantitative_anchor":
-        for match in QUANT_SIGNAL_RE.finditer(text):
-            counts[_quantitative_signal_from_match(match)]+=1
+        for signal in _semantic_atoms.quantitative_signals(text):
+            counts[signal]+=1
         return counts
     if dimension=="changed_state":
         for occurrence in _canonical_changed_state_occurrences(text):
@@ -3203,6 +2996,10 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
     # unversioned new artifacts) must satisfy the new structured contract.
     if not _requires_v5_content_audit(row_06, locked_prompt_version=locked_prompt_version):
         return
+
+    coverage_issues=_content_core.quantity_coverage_issues(row_06)
+    if coverage_issues:
+        raise Blocked(f"{label} {coverage_issues[0].rule_id}: {coverage_issues[0].message}")
 
     audit=row_06.get("content_enrichment_audit")
     if not isinstance(audit,dict):

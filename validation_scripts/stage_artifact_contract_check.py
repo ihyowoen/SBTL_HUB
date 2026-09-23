@@ -553,7 +553,7 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
 
 
 def _content_enrichment_audit_findings(item, scope):
-    findings = []
+    findings = [issue.as_finding(scope) for issue in _content_core.quantity_coverage_issues(item)]
     audit = item.get("content_enrichment_audit")
     if not _non_empty_object(audit):
         return [_field_finding(

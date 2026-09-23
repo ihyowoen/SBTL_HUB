@@ -11,6 +11,8 @@ import re
 from dataclasses import dataclass
 from typing import Mapping, Sequence
 
+from validation_scripts import content_semantic_atoms as _semantic_atoms
+
 VISIBLE_COPY_FIELDS = ("sub", "gate", "fact", "implication")
 
 DENSITY_DIMENSIONS = (
@@ -271,4 +273,20 @@ def grounding_issues(dimension: str, visible_counts: Mapping, evidence_counts: M
             "C06.GROUNDING.REALIZED", field, "at least one evidence-grounded realized state", False,
             "zero-delta 0.6 changed_state requires at least one evidence-grounded realized strength-2 subject/state claim",
         ))
+    return issues
+
+
+def quantity_coverage_issues(row):
+    """Do not certify a compound amount that this bounded parser cannot resolve."""
+    issues = []
+    for field in VISIBLE_COPY_FIELDS:
+        text = _visible_value_text(_normalized_visible_value(field, row.get(field)))
+        unsupported = _semantic_atoms.unsupported_quantity_spans(text)
+        if unsupported:
+            issues.append(ContractIssue(
+                "C06.QUANTITY.UNSUPPORTED", field,
+                "fully parsed single-scale Korean currency amount",
+                [raw for _, _, raw in unsupported],
+                "Korean money expression is not fully parsed; route to evidence/content repair rather than certifying partial numeric tokens",
+            ))
     return issues

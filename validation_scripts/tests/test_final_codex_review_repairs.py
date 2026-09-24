@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 from validation_scripts import card_run_v4_binding_hardening as binding
@@ -109,29 +110,37 @@ class FinalCodexReviewRepairs(unittest.TestCase):
         self.assertTrue(any('locked' in (x.get('message') or '').lower() for x in result['findings']), result['findings'])
 
     def test_python_preflight_uses_registry_from_locked_revision(self):
-        # A minimal manifest is enough: the old bug failed before reading its details
-        # because the HEAD registry contained six PR audit paths absent from BASE_343.
-        manifest = ROOT/'tmp-final-codex-preflight.json'
-        old_registry = json.loads(subprocess.check_output(
-            ['git','-C',str(ROOT),'show',f'{BASE_343}:docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json'], text=True))
+        current_registry = json.loads((ROOT/'docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json').read_text())
         fields = ('active_canonical','active_named_prompts','active_validator_contracts','open_remediations',
                   'activation_required_migrations','superseded','reference_only')
-        docs = subprocess.check_output(['git','-C',str(ROOT),'ls-tree','-r','--name-only',BASE_343,'docs'], text=True).splitlines()
+        locked_registry = copy.deepcopy(current_registry)
+        for field in fields:
+            locked_registry[field] = [p for p in locked_registry[field] if not p.startswith('docs/audits/pr385/')]
+        docs = sorted({p for field in fields for p in locked_registry[field]})
         payload = {
             'docs_inventory_count':len(docs),'classified_count':len(docs),
-            'active_full_read_count':len(set(old_registry['active_canonical'])|set(old_registry['active_named_prompts'])|
-                                         set(old_registry['active_validator_contracts'])|set(old_registry['open_remediations'])|
-                                         set(old_registry['activation_required_migrations'])),
-            'active_canonical_paths':old_registry['active_canonical']+old_registry['active_named_prompts'],
-            'active_validator_contract_paths':old_registry['active_validator_contracts'],
-            'applicable_remediation_or_migration':old_registry['open_remediations']+old_registry['activation_required_migrations'],
-            'superseded_or_reference_paths':old_registry['superseded']+old_registry['reference_only'],
+            'active_full_read_count':len(set(locked_registry['active_canonical'])|set(locked_registry['active_named_prompts'])|
+                                         set(locked_registry['active_validator_contracts'])|set(locked_registry['open_remediations'])|
+                                         set(locked_registry['activation_required_migrations'])),
+            'active_canonical_paths':locked_registry['active_canonical']+locked_registry['active_named_prompts'],
+            'active_validator_contract_paths':locked_registry['active_validator_contracts'],
+            'applicable_remediation_or_migration':locked_registry['open_remediations']+locked_registry['activation_required_migrations'],
+            'superseded_or_reference_paths':locked_registry['superseded']+locked_registry['reference_only'],
         }
+        manifest = ROOT/'tmp-final-codex-preflight.json'
         manifest.write_text(json.dumps(payload), encoding='utf-8')
+        def fake_git(args):
+            if args[:1] == ['show']:
+                return json.dumps(locked_registry)
+            if args[:4] == ['ls-tree','-r','--name-only',BASE_343]:
+                return '\n'.join(docs)
+            raise AssertionError(args)
         try:
-            binding.validate_preflight({'document_universe_manifest_ref':manifest.name,'base_main_commit_sha':BASE_343})
+            with mock.patch.object(binding, '_git', side_effect=fake_git):
+                binding.validate_preflight({'document_universe_manifest_ref':manifest.name,'base_main_commit_sha':BASE_343})
         finally:
             manifest.unlink(missing_ok=True)
+
 
 
 if __name__ == '__main__':

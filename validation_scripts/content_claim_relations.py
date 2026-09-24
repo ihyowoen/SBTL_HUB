@@ -61,7 +61,7 @@ def clauses(text: str) -> tuple[Clause, ...]:
 
 def exact_clause_set(texts: Iterable[str]) -> frozenset[str]:
     """Literal novelty only: do not discard subjects, periods, polarity or roles."""
-    return frozenset(' '.join(c.text.split()) for text in texts for c in clauses(text))
+    return frozenset(' '.join(c.text.split()).casefold() for text in texts for c in clauses(text))
 
 
 _WORD = re.compile(r'[A-Za-z가-힣][A-Za-z가-힣0-9&._-]*|[<>≤≥=+−-]|\d+(?:\.\d+)?')
@@ -79,7 +79,8 @@ def ordered_terms(text: str) -> tuple[str, ...]:
     return tuple(out)
 
 
-_KR_SUBJECT = r'(?P<subject>[가-힣A-Za-z][가-힣A-Za-z0-9&_-]+?)(?:은|는|이|가)\s+'
+_KR_SUBJECT = (r'(?P<subject>[가-힣A-Za-z][가-힣A-Za-z0-9&_-]*'
+               r'(?:\s+[가-힣A-Za-z][가-힣A-Za-z0-9&_-]*){0,3})(?:은|는|이|가)\s+')
 _KR_OBJECT = re.compile(
     r'^' + _KR_SUBJECT + r'(?P<object>.+?)(?:을|를)\s+'
     r'(?P<context>.*?)'
@@ -147,16 +148,39 @@ _SUBJECT = (r'(?P<subject>' + _PROPER + r'|(?:[Tt]he|[Aa]n?)\s+[A-Za-z][A-Za-z0-
             r'|[Ii]t|[Tt]hey|[Hh]e|[Ss]he)')
 _ACTIONS = (r'sold|sells?|acquired|acquires?|bought|buys?|used|uses?|burned|burns?|burnt'
             r'|supplied|supplies|supply|selected|selects?|recycled|recycles?'
-            r'|owned|owns?|employed|employs?|manufactured|manufactures?')
+            r'|owned|owns?|employed|employs?|manufactured|manufactures?|exported|exports?|imported|imports?|shipped|ships?|delivered|delivers?')
 _EN_ACTION = re.compile(
     r'^' + _SUBJECT + r'\s+'
     r'(?P<aux>(?i:(?:(?:can|could|may|might|will|would|must|should|has|have|had|did|does|do)\s+)?'
     r'(?:not\s+)?))'
     r'(?P<verb>(?i:' + _ACTIONS + r'))\s+(?P<tail>.+)$'
 )
+_EN_PASSIVE = re.compile(
+    r'^(?P<object>.+?)\s+'
+    r'(?P<aux>(?i:(?:is|are|was|were|has\s+been|have\s+been|had\s+been)))\s+'
+    r'(?P<verb>(?i:sold|acquired|bought|used|burned|burnt|supplied|selected|recycled|owned|employed|manufactured|exported|imported|shipped|delivered))\s+'
+    r'by\s+(?P<subject>' + _PROPER + r')(?P<tail>\s+.+)?$'
+)
 _TOPIC = re.compile(r'^(?P<topic>' + _PROPER + r')\s+(?:project|plant|facility|company)$')
 _NEW_ACTION = re.compile(r'\s+(?:and|but|while|whereas)\s+(?=' + _SUBJECT + r'\s+(?i:' + _ACTIONS + r')\b)')
 _PRONOUNS = {'it', 'they', 'he', 'she'}
+
+
+def immediate_pronoun_topic(text: str, position: int) -> str | None:
+    """Resolve only an immediately preceding named topic for a pronoun clause."""
+    parsed = clauses(text)
+    for index, clause in enumerate(parsed):
+        if clause.start <= position <= clause.end:
+            if not re.match(r'(?i)^(?:it|they|he|she)\b', clause.text):
+                return None
+            if index == 0:
+                return None
+            previous = parsed[index - 1]
+            if text[previous.end:clause.start].strip() != '.':
+                return None
+            match = _TOPIC.fullmatch(previous.text)
+            return match['topic'].casefold() if match else None
+    return None
 
 
 def english_relations(text: str) -> Counter:
@@ -195,6 +219,11 @@ def english_relations(text: str) -> Counter:
                     subject = (subject, previous.text if previous else '')
             out[(kind, subject, match['aux'].strip().casefold(),
                  match['verb'].casefold(), ordered_terms(match['tail']))] += 1
+        passive = _EN_PASSIVE.fullmatch(clause.text.strip())
+        if passive:
+            out[('relation:en:passive', passive['subject'].casefold(),
+                 passive['aux'].strip().casefold(), passive['verb'].casefold(),
+                 ordered_terms(passive['object']), ordered_terms(passive['tail'] or ''))] += 1
         previous = clause
     return out
 
@@ -202,7 +231,9 @@ def english_relations(text: str) -> Counter:
 _METRIC = re.compile(
     r'(?<![A-Za-z가-힣])(?P<metric>capacity|output|revenue|profit|sales|investment|cost|margin|'
     r'용량|출력|매출|이익|판매량|투자액|비용|마진)'
-    r'(?:은|는|이|가)?\s*(?:(?:is|was|are|were|of|at)\s+|[:=]\s*)?$', re.I
+    r'(?:은|는|이|가)?\s*'
+    r'(?:(?:in|for|during)\s+(?P<post_period>20\d{2}(?:\s*(?:Q[1-4]|[1-4]분기))?|Q[1-4](?:\s+20\d{2})?)\s*)?'
+    r'(?:(?:is|was|are|were|of|at)\s+|[:=]\s*)?$', re.I
 )
 _PERIOD = re.compile(r'(?<!\w)(?:20\d{2}(?:년)?(?:\s*(?:Q[1-4]|[1-4]분기))?|Q[1-4](?:\s+20\d{2})?)(?!\w)', re.I)
 
@@ -225,8 +256,11 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
             if subjects == ['__generic__']:
                 # Bare "Capacity is 10 MW" is not an explicit entity binding.
                 continue
-            periods = list(_PERIOD.finditer(prefix[:match.start()]))
-            period = re.sub(r'\s+', ' ', periods[-1][0].casefold()) if periods else ''
+            if match.groupdict().get('post_period'):
+                period = re.sub(r'\s+', ' ', match['post_period'].casefold())
+            else:
+                periods = list(_PERIOD.finditer(prefix[:match.start()]))
+                period = re.sub(r'\s+', ' ', periods[-1][0].casefold()) if periods else ''
             for subject in subjects:
                 out[('metric:quantity', subject, metric, period,
                      atoms.quantity_from_match(quantity).signal)] += 1

@@ -93,10 +93,17 @@ function requiredCoverageAxes() {
   }
 }
 
-function lifecycleSets(root) {
-  const registryPath = resolve(root, REGISTRY_PATH);
-  if (!existsSync(registryPath)) fail("BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", `current lifecycle registry missing: ${REGISTRY_PATH}`);
-  const registry = readJson(registryPath, "lifecycle registry");
+function lifecycleSets(root, baseMainCommitSha) {
+  if (!nonEmptyText(baseMainCommitSha) || !/^[0-9a-f]{40}$/i.test(baseMainCommitSha)) {
+    fail("BLOCKED_DOCUMENT_UNIVERSE_BINDING", "base_main_commit_sha must be a full commit SHA for lifecycle registry resolution");
+  }
+  const proc = spawnSync("git", ["-C", root, "show", `${baseMainCommitSha}:${REGISTRY_PATH}`], { encoding: "utf8" });
+  if (proc.status !== 0) {
+    fail("BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", `cannot read locked lifecycle registry at ${baseMainCommitSha}: ${(proc.stderr || proc.stdout || "git show failed").trim()}`);
+  }
+  let registry;
+  try { registry = JSON.parse(proc.stdout); }
+  catch (error) { fail("BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", `locked lifecycle registry is invalid JSON: ${error.message}`); }
   if (registry.status !== "ACTIVE_VALIDATOR_CONTRACT") {
     fail("BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", "lifecycle registry must be ACTIVE_VALIDATOR_CONTRACT");
   }
@@ -167,7 +174,7 @@ function validateDocumentUniverse(run, root) {
     fail("BLOCKED_DOCUMENT_UNIVERSE_DETAIL", "0.0D classified_count must equal docs_inventory_count on PASS");
   }
 
-  const registry = lifecycleSets(root);
+  const registry = lifecycleSets(root, run.base_main_commit_sha);
   const treeDocs = lockedDocsTreePaths(root, run.base_main_commit_sha);
   if (JSON.stringify(treeDocs) !== JSON.stringify(registry.allClassified)) {
     const missing = treeDocs.filter((item) => !registry.allClassified.includes(item));

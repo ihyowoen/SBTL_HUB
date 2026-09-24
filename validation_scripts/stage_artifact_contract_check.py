@@ -254,7 +254,9 @@ def _artifact_locked_prompt_06_version(payload):
         if not locked:
             return None, declared, f"locked Prompt 0.6 version marker missing at {base}:{PROMPT_06_PATH}"
         return locked, declared, None
-    return declared if isinstance(declared, str) else None, declared, None
+    if isinstance(declared, str) and declared.startswith("PROMPT_0_6_V4_"):
+        return None, declared, "historical V4 exemption requires a readable locked base_main_commit_sha"
+    return None, declared, None
 
 
 _strip_paired_presentation_markup = _content_core._strip_paired_presentation_markup
@@ -420,6 +422,57 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
     return findings
 
 
+def _standalone_changed_factual_findings(item, scope):
+    audit = item.get("content_enrichment_audit")
+    if not isinstance(audit, dict):
+        return []
+    changed = audit.get("changed_fields")
+    if not isinstance(changed, list) or not changed:
+        return []
+    density = audit.get("density_audit")
+    mapping = density.get("dimension_evidence") if isinstance(density, dict) else {}
+    evidence_context = _content_core.ResolvedEvidenceContext.from_maps(
+        scope="local_row", support=_row_evidence_token_support(item),
+        texts=_content_binding._row_evidence_token_texts(item),
+        packages=_content_binding._row_evidence_token_packages(item),
+    )
+    _, evidence_texts, evidence_packages = evidence_context.legacy_maps()
+    findings = []
+    for field in changed:
+        if field not in VISIBLE_COPY_FIELDS:
+            continue
+        refs = []
+        if isinstance(mapping, dict):
+            for entry in mapping.values():
+                if not isinstance(entry, dict) or field not in (entry.get("fields") or []):
+                    continue
+                if _content_core.field_evidence_ref_issues(entry):
+                    continue
+                for ref in _content_core.dimension_field_refs(entry).get(field, []):
+                    if _non_empty_string(ref) and ref.strip() not in refs:
+                        refs.append(ref.strip())
+        refs = _content_binding._unique_evidence_refs_by_identity(refs, evidence_packages)
+        visible = _content_binding._factual_claim_counter(
+            _visible_value_text(_normalized_visible_value(field, item.get(field)))
+        )
+        if not visible:
+            continue
+        grounded = Counter()
+        for ref in refs:
+            for text in evidence_texts.get(ref, []):
+                grounded.update(_content_binding._factual_claim_counter(text))
+        missing = visible - grounded
+        if missing:
+            finding = _field_finding(
+                scope, field, "all factual identity/predicate tokens in a changed field grounded by its assigned verified evidence",
+                dict(missing),
+                "standalone 0.6 cannot certify a changed visible field containing factual claims absent from its assigned verified evidence",
+            )
+            finding["rule_id"] = "C06.GROUNDING.FIELD_IDENTITY"
+            findings.append(finding)
+    return findings
+
+
 def _content_enrichment_audit_findings(item, scope):
     findings = [issue.as_finding(scope) for issue in _content_core.quantity_coverage_issues(item)]
     audit = item.get("content_enrichment_audit")
@@ -524,6 +577,7 @@ def _content_enrichment_audit_findings(item, scope):
                         mapping,
                         "terminology/format-only string deltas cannot satisfy substantive content enrichment",
                     ))
+    findings.extend(_standalone_changed_factual_findings(item, scope))
     return findings
 
 

@@ -346,8 +346,21 @@ def _locked_docs_tree_paths(base_main_commit_sha):
     return {line.strip() for line in output.splitlines() if line.strip()}
 
 
+def _locked_lifecycle_registry(base_main_commit_sha):
+    if not isinstance(base_main_commit_sha,str) or not re.fullmatch(r"[0-9a-fA-F]{40}",base_main_commit_sha):
+        raise Blocked("locked base_main_commit_sha required to resolve lifecycle registry")
+    try:
+        raw=_git(["show",f"{base_main_commit_sha}:docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json"])
+        payload=json.loads(raw)
+    except Exception as exc:
+        raise Blocked(f"cannot read lifecycle registry from locked commit {base_main_commit_sha}: {exc}") from exc
+    if not isinstance(payload,dict) or payload.get("status")!="ACTIVE_VALIDATOR_CONTRACT":
+        raise Blocked("locked lifecycle registry must be ACTIVE_VALIDATOR_CONTRACT")
+    return payload
+
+
 def validate_preflight(run):
-    a=load(repo_json(run["document_universe_manifest_ref"])); r=load(REGISTRY)
+    a=load(repo_json(run["document_universe_manifest_ref"])); r=_locked_lifecycle_registry(run.get("base_main_commit_sha"))
     expected_c=set(r.get("active_canonical",[]))|set(r.get("active_named_prompts",[]))
     expected_v=set(r.get("active_validator_contracts",[]))
     expected_m=set(r.get("open_remediations",[]))|set(r.get("activation_required_migrations",[]))
@@ -2179,6 +2192,10 @@ def _state_subject_strength_occurrences(text):
         subjects=_claim_subjects_for_span(
             text,occurrence["start"],occurrence["end"]
         )
+        if subjects == ["__generic__"]:
+            topic = _claim_relations.immediate_pronoun_topic(text, occurrence["start"])
+            if topic:
+                subjects = [topic]
         for subject in subjects:
             key=f"{subject}=>{occurrence['marker']}"
             occurrences.setdefault(key,[]).append(occurrence["strength"])

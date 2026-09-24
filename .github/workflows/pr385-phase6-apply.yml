@@ -1,0 +1,55 @@
+name: PR385 phase6 apply validated candidate
+on:
+  push:
+    branches:
+      - harden/0-6-visible-copy-delta-20260919
+    paths:
+      - docs/audits/pr385/phase6_stage/phase6.patch.gz.b64
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Verify transport and apply exact locally validated patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXPECTED_BASE='72a2738aa3463db3276bc5e24cbd861154bdc1af'
+          EXPECTED_PATCH_SHA='8991bcecdce9fc35b1ed6019944f6b0d2ac573aa79505b17a72319f7bcc69f57'
+          TRANSPORT='docs/audits/pr385/phase6_stage/phase6.patch.gz.b64'
+          test "$(git rev-parse HEAD~2)" = "$EXPECTED_BASE"
+          base64 -d "$TRANSPORT" | gzip -d > /tmp/phase6.patch
+          test "$(sha256sum /tmp/phase6.patch | awk '{print $1}')" = "$EXPECTED_PATCH_SHA"
+          git apply --check /tmp/phase6.patch
+          git apply --index /tmp/phase6.patch
+          rm -f "$TRANSPORT" .github/workflows/pr385-phase6-apply.yml
+          rmdir docs/audits/pr385/phase6_stage 2>/dev/null || true
+          python validation_scripts/card_run_v4_binding_hardening.py --self-test
+          node scripts/validate_card_run_v4_hardening.mjs --self-test
+          python docs/audits/pr385/reproduce.py --repo "$PWD" --expect-head "$(git rev-parse HEAD)" --output /tmp/characterization.json || rc=$?
+          python - <<'PY'
+          import json
+          d=json.load(open('/tmp/characterization.json'))
+          s=d['summary']
+          assert s['expectations_met']==32 and s['violations']==0 and s['runtime_errors']==0, s
+          PY
+          git diff --check --cached
+      - name: Commit final candidate and remove transport
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -A
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'fix(0.6): complete semantic and V5 evidence hardening'
+          git push origin HEAD:harden/0-6-visible-copy-delta-20260919

@@ -1,20 +1,21 @@
 name: PR385 phase6 apply validated candidate
 on:
-  push:
-    branches:
-      - harden/0-6-visible-copy-delta-20260919
+  pull_request:
     paths:
       - docs/audits/pr385/phase6_stage/READY
+      - docs/audits/pr385/phase6_stage/part*.b64
+      - .github/workflows/pr385-phase6-apply.yml
 permissions:
   contents: write
 jobs:
   apply:
+    if: github.event.pull_request.number == 385 && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'harden/0-6-visible-copy-delta-20260919'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:

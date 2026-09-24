@@ -266,130 +266,16 @@ _normalize_text = _content_core._normalize_text
 _normalized_visible_value = _content_core._normalized_visible_value
 
 
-def _source_supported_visible_fields(source):
-    if not isinstance(source, dict):
-        return set()
-    if source.get("supporting_context_only_not_visible_claim_support") is True:
-        return set()
-    if str(source.get("role") or "").strip().lower() == "checked_not_used_for_visible_claims":
-        return set()
-    if str(source.get("evidence_role") or "").strip().lower() in {
-        "not_used", "context_only", "support_only", "supporting_context_only",
-        "duplicate_document_access",
-    }:
-        return set()
-    explicit_keys = ("visible_claim_support", "visible_fields_supported", "visible_supports", "supports")
-    present = [key for key in explicit_keys if key in source]
-    if present:
-        declared = []
-        for key in present:
-            values = source.get(key)
-            if not isinstance(values, list):
-                return set()
-            declared.append({x for x in values if x in VISIBLE_COPY_FIELDS})
-        supported = set(declared[0])
-        for fields in declared[1:]:
-            supported.intersection_update(fields)
-        return supported
-    return set(VISIBLE_COPY_FIELDS)
-
-
-def _evidence_tokens(source):
-    tokens = set()
-    if not isinstance(source, dict):
-        return tokens
-    for key in ("id", "source_id", "url", "source_url", "canonical_url"):
-        value = source.get(key)
-        if _non_empty_string(value):
-            tokens.add(value.strip())
-    return tokens
-
-
-def _add_evidence_support(token_support, source, fields):
-    if not fields or not isinstance(source, dict):
-        return
-    for key in ("id", "source_id", "url", "source_url", "canonical_url"):
-        value = source.get(key)
-        if _non_empty_string(value):
-            token_support.setdefault(value.strip(), set()).update(fields)
+# Compatibility names share one local authority implementation.
+_source_supported_visible_fields = _content_binding._source_supported_visible_fields
+_evidence_tokens = _content_binding._evidence_tokens
+_add_evidence_support = _content_binding._add_evidence_tokens
 
 
 def _row_evidence_token_support(item):
-    token_support = {}
-    explicitly_excluded = set()
-    explicitly_scoped = {}
-    if not isinstance(item, dict):
-        return token_support
-    sources = item.get("fact_sources")
-    if isinstance(sources, list):
-        for source in sources:
-            if not isinstance(source, dict):
-                continue
-            fields = _source_supported_visible_fields(source)
-            tokens = _evidence_tokens(source)
-            has_explicit_scope = any(
-                key in source
-                for key in ("visible_claim_support", "visible_fields_supported", "visible_supports", "supports")
-            )
-            if has_explicit_scope:
-                for token in tokens:
-                    explicitly_scoped.setdefault(token, set()).update(fields)
-            if not fields:
-                explicitly_excluded.update(tokens)
-                for token in tokens:
-                    token_support.pop(token, None)
-                continue
-            for token in tokens:
-                if token not in explicitly_excluded:
-                    token_support.setdefault(token, set()).update(fields)
-    ledger = item.get("source_discovery_ledger")
-    if isinstance(ledger, list):
-        for entry in ledger:
-            if not isinstance(entry, dict):
-                continue
-            fields = _source_supported_visible_fields(entry)
-            outcome = str(entry.get("outcome") or "").strip().lower()
-            has_explicit_scope = any(
-                key in entry
-                for key in ("visible_claim_support", "visible_fields_supported", "visible_supports", "supports")
-            )
-            if has_explicit_scope:
-                for token in _evidence_tokens(entry):
-                    explicitly_scoped.setdefault(token, set()).update(fields)
-            if not has_explicit_scope:
-                if outcome not in {
-                    "used_in_fact_sources",
-                    "used_for_visible_claims",
-                    "accepted_visible_evidence",
-                }:
-                    fields = set()
-            tokens = _evidence_tokens(entry)
-            if not fields:
-                explicitly_excluded.update(tokens)
-                for token in tokens:
-                    token_support.pop(token, None)
-                continue
-            for token in tokens:
-                if token not in explicitly_excluded:
-                    token_support.setdefault(token, set()).update(fields)
-    coverage = item.get("claim_source_coverage")
-    if isinstance(coverage, dict):
-        visible = coverage.get("visible_fact")
-        if isinstance(visible, dict):
-            refs = visible.get("supported_by_source_ids")
-            if isinstance(refs, list):
-                for ref in refs:
-                    if _non_empty_string(ref):
-                        token = ref.strip()
-                        if (
-                            token not in explicitly_excluded
-                            and (
-                                token not in explicitly_scoped
-                                or "fact" in explicitly_scoped[token]
-                            )
-                        ):
-                            token_support.setdefault(token, set()).add("fact")
-    return token_support
+    # Row-local policy parity only; this does NOT attest to locked upstream
+    # authority, actual field delta or operation/source preservation.
+    return _content_binding._row_evidence_token_support(item)
 
 
 _visible_value_text = _content_core._visible_value_text
@@ -506,48 +392,30 @@ def _dimension_evidence_findings(item, density, scope, true_dimensions):
                     "refs present in fact_sources/source_discovery/claim coverage", unknown,
                     "dimension evidence contains unbound references",
                 ))
-            if valid_field_entries:
+            if valid_field_entries and all(field in VISIBLE_COPY_FIELDS for field in fields):
+                shape_issues = _content_core.field_evidence_ref_issues(entry)
+                if shape_issues:
+                    findings.extend(issue.as_finding(scope) for issue in shape_issues)
+                    continue
+                field_refs = _content_core.dimension_field_refs(entry)
                 unsupported = {
-                    ref: sorted(set(fields) - evidence_support.get(ref, set()))
+                    ref: sorted(field for field in fields if ref in field_refs[field]
+                                and field not in evidence_support.get(ref, set()))
                     for ref in normalized_refs
-                    if ref in evidence_support
-                    and set(fields) - evidence_support.get(ref, set())
+                    if ref in evidence_support and any(
+                        ref in field_refs[field] and field not in evidence_support.get(ref, set())
+                        for field in fields)
                 }
                 if unsupported:
                     findings.append(_field_finding(
                         scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
-                        "refs authorized for every mapped visible field", unsupported,
+                        "refs authorized for every assigned mapped visible field", unsupported,
                         "dimension evidence cites sources that do not support the mapped visible fields",
                     ))
-                if isinstance(fields, list) and fields and all(isinstance(field, str) for field in fields):
-                    visible_counts = _mapped_dimension_signal_counts(item, name, fields)
-                    evidence_counts = Counter()
-                    unique_refs = _content_binding._unique_evidence_refs_by_identity(
-                        [ref.strip() for ref in refs if _non_empty_string(ref)],
-                        evidence_packages,
-                    )
-                    for ref in unique_refs:
-                        for evidence_text in evidence_texts.get(ref, []):
-                            evidence_counts.update(
-                                _content_binding._signal_counter(name, evidence_text)
-                            )
-                    visible_subject_strengths = {}
-                    evidence_subject_strengths = {}
-                    if name == "changed_state":
-                        for field in fields:
-                            text = _visible_value_text(_normalized_visible_value(field, item.get(field)))
-                            for key, strengths in _content_binding._state_subject_strength_occurrences(text).items():
-                                visible_subject_strengths.setdefault(key, []).extend(strengths)
-                        for ref in unique_refs:
-                            for text in evidence_texts.get(ref, []):
-                                for key, strengths in _content_binding._state_subject_strength_occurrences(text).items():
-                                    evidence_subject_strengths.setdefault(key, []).extend(strengths)
-                    findings.extend(issue.as_finding(scope) for issue in _content_core.grounding_issues(
-                        name, visible_counts, evidence_counts,
-                        visible_subject_strengths, evidence_subject_strengths,
-                        require_realized=(
-                            item.get("content_enrichment_audit", {}).get("no_change_required") is True
-                        ),
+                findings.extend(issue.as_finding(scope) for issue in
+                    _content_binding._dimension_evidence_grounding_issues(
+                        name, entry, item, evidence_texts, evidence_packages,
+                        no_change=item.get("content_enrichment_audit", {}).get("no_change_required") is True,
                     ))
     return findings
 
@@ -865,7 +733,7 @@ def main() -> int:
             findings.append(gate_finding)
 
     locked_prompt_version = None
-    if args.stage == "0.6":
+    if args.stage in {"0.5", "0.6"}:
         locked_prompt_version, declared_artifact_prompt_version, prompt_resolution_error = _artifact_locked_prompt_06_version(payload)
         if prompt_resolution_error:
             findings.append(_field_finding(
@@ -875,7 +743,7 @@ def main() -> int:
                 prompt_resolution_error,
             ))
             locked_prompt_version = "UNRESOLVED_LOCKED_PROMPT_FAIL_CLOSED"
-        if locked_prompt_version is not None and isinstance(declared_artifact_prompt_version, str) \
+        if args.stage == "0.6" and locked_prompt_version is not None and isinstance(declared_artifact_prompt_version, str) \
                 and declared_artifact_prompt_version != locked_prompt_version:
             findings.append(_field_finding(
                 "top_level", "prompt_provenance.prompt_version", locked_prompt_version,
@@ -939,6 +807,16 @@ def main() -> int:
             findings.extend(_item_value_findings(
                 args.stage, item, item_id, locked_prompt_version=locked_prompt_version
             ))
+            if args.stage == "0.5" and locked_prompt_version is not None \
+                    and not locked_prompt_version.startswith("PROMPT_0_6_V4_"):
+                try:
+                    _content_binding.validate_v5_stage_05_handoff_row(item, str(item_id or "0.5 item"))
+                except _content_binding.Blocked as exc:
+                    findings.append({
+                        "scope": item_id,
+                        "contract": "v5_0_5_evidence_handoff",
+                        "message": str(exc),
+                    })
 
     result = {
         "status": "PASS" if not findings else "BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT",

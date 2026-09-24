@@ -10,6 +10,12 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
+# Share the suffix boundary between extraction and whole-expression coverage;
+# case particles such as '5억의' must not erase the scale on either path.
+_KOREAN_QUANTITY_END = (
+    r"(?=$|[^가-힣0-9]|이다|이며|이고|이었|였|으로|에서|까지|부터|보다|정도|규모|수준|[이가을를은는의에도과와])"
+)
+
 QUANT_SIGNAL_RE = re.compile(
     r"(?<![A-Za-z0-9])"
     r"(?P<bound><=|>=|≤|≥|<|>|≈|~)?\s*"
@@ -17,10 +23,12 @@ QUANT_SIGNAL_RE = re.compile(
     r"(?P<sign>[+−﹣－＋-])?\s*"
     r"(?P<currency>[$€£¥₩]?)"
     r"(?P<number>\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+,\d+|\d+(?:\.\d+)?)"
-    r"(?:\s*(?P<korean_magnitude>백만|천|만|억|조)?\s*(?P<korean_currency>달러|유로|위안|원|엔))?"
+    r"(?:\s*(?P<korean_magnitude>백만|십|백|천|만|억|조)"
+    r"(?=달러|유로|위안|원|엔|" + _KOREAN_QUANTITY_END + r"))?"
+    r"(?:\s*(?P<korean_currency>달러|유로|위안|원|엔))?"
     r"(?:\s*(?P<magnitude>thousand|million|billion|trillion|mn|bn|tn|k|m|b)\b)?"
     r"(?:\s*(?P<currency_code_suffix>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\b)?"
-    r"(?:\s*(?P<unit>%|x|mw|gw|gwh|mwh|kwh|tpa|kt|mt|sqm|m²|km|tons?|tonnes?))?"
+    r"(?:\s*(?P<unit>%|x|gwh|mwh|kwh|gw|mw|tpa|kt|mt|sqm|m²|km|tonnes?|tons?|t)(?![A-Za-z0-9]))?"
     r"(?:\s+(?P<generic_unit>"
     r"(?!(?:and|or|but|yet|for|from|to|at|in|on|by|with|because|while|whereas|per|previously|currently|planned|approved|started|delayed|completed|commercial|subject|target|project|plant|facility|capacity|investment|production)\b)"
     r"[A-Za-z][A-Za-z0-9²³_-]{0,31}"
@@ -63,7 +71,7 @@ MAGNITUDE_CANONICAL = {
 
 
 SIGN_CANONICAL = {"−": "-", "﹣": "-", "－": "-", "＋": "+"}
-KOREAN_SCALE = {"": 0, "천": 3, "만": 4, "백만": 6, "억": 8, "조": 12}
+KOREAN_SCALE = {"": 0, "십": 1, "백": 2, "천": 3, "만": 4, "백만": 6, "억": 8, "조": 12}
 KOREAN_CURRENCY = {"원": "krw", "달러": "dollar_unspecified", "유로": "eur", "위안": "cny", "엔": "jpy"}
 # A bare Korean "dollar" is not necessarily USD. Preserve that ambiguity.
 
@@ -130,9 +138,14 @@ def quantity_from_match(match) -> QuantityObservation:
                    "started", "delayed", "completed", "commercial", "subject", "target"}:
         generic = ""
     unit = "meter" if metre else unit or generic
-    if get("korean_currency"):
-        # Scale is part of the amount, not an ignorable trailing word.
+    # A scale is meaningful even when currency is unstated. Do not infer KRW.
+    if (get("korean_magnitude") == "조" and not get("korean_currency")
+            and re.search(r"(?:^|[^가-힣])제\s*$", match.string[:match.start("number")])):
+        # 제5조 is an ordinal article, not a five-trillion amount.
+        unit = "조항"
+    elif get("korean_magnitude"):
         number = _shift_decimal(number, KOREAN_SCALE[get("korean_magnitude")])
+    if get("korean_currency"):
         korean_code = KOREAN_CURRENCY[get("korean_currency")]
         currency_code = (currency_code + "/" + korean_code
                          if currency_code and currency_code != korean_code else korean_code)
@@ -144,12 +157,14 @@ def quantitative_signal_from_match(match):
     return quantity_from_match(match).signal
 
 
-# A conservative whole-expression detector. Compound Korean money is currently
-# explicitly unsupported rather than split into unrelated numbers or truncated.
+# Match the *whole* expression before exposing numeric tokens. Composition
+# (e.g. 6십억원 or 1조 2000억) is still outside this bounded grammar. The
+# detector includes bare scales so missing currency cannot hide a partial parse.
 _KOREAN_MONEY_EXPRESSION = re.compile(
     r"(?<![0-9])(?:[+−﹣－＋-]\s*)?[0-9][0-9,.]*"
-    r"(?:\s*(?:백만|천|만|억|조)\s*(?:[0-9][0-9,.]*)?)*"
-    r"\s*(?:달러|유로|위안|원|엔)"
+    r"(?:(?:\s*(?:백만|십|백|천|만|억|조)\s*(?:[0-9][0-9,.]*)?)+"
+    r"(?:\s*(?:달러|유로|위안|원|엔))?|\s*(?:달러|유로|위안|원|엔))"
+    r"(?![A-Za-z0-9])" + _KOREAN_QUANTITY_END
 )
 
 
@@ -158,7 +173,8 @@ def unsupported_quantity_spans(text):
     for match in _KOREAN_MONEY_EXPRESSION.finditer(text):
         whole = match.group(0)
         parsed = QUANT_SIGNAL_RE.fullmatch(whole)
-        if parsed is None or not parsed.groupdict().get("korean_currency"):
+        if parsed is None or not (parsed.groupdict().get("korean_currency")
+                                 or parsed.groupdict().get("korean_magnitude")):
             spans.append((match.start(), match.end(), whole))
     return tuple(spans)
 
@@ -265,11 +281,25 @@ def _independent_context(text, match):
 
 
 _CONDITIONAL_EN = re.compile(
-    r"\b(?:if|unless|whether|assuming|provided\s+that|providing\s+that|in\s+the\s+event\s+that)\b",
+    r"\b(?:if|unless|assuming|provided\s+that|providing\s+that|in\s+the\s+event\s+that)\b",
     re.IGNORECASE,
 )
 _KOREAN_NEXT_SUBJECT = re.compile(r"(?:[가-힣](?:고|며|는데)|,)\s+(?P<subject>(?:[가-힣]{2,}|[A-Z][A-Za-z0-9_-]+)(?:은|는|이|가))\s+")
 _KOREAN_CONTRAST = re.compile(r"(?:지만|반면|그러나|하지만|그런데)\s*")
+# Only explicit predicate constructions gain realized strength. An unsupported
+# form still has its own observation; it is not silently promoted to an event.
+_KOREAN_COMPLETED_OBJECT = re.compile(r"^[을를]\s*(?:받았|마쳤|완료했|시작했)")
+_KOREAN_ENTERED_EVENT = re.compile(r"^에\s*(?:들어갔|돌입했)")
+_KOREAN_CONDITIONAL_SUFFIX = re.compile(
+    r"^(?:[가-힣\s]*?(?:다면|되면|하면|으면|될\s*경우|된\s*경우)(?=$|\s|[.,;!?])"
+    r"|\s*(?:조건|여부))"
+)
+_KOREAN_INTERRUPTED_EVENT = re.compile(r"^(?:[을를]\s*)?\s*(?:중단|중지)")
+_KOREAN_FUTURE_CONTEXT = re.compile(r"(?:내년|향후|앞으로|오는\s*(?:[0-9]+년|[0-9]+월))")
+_KOREAN_DATED_CONTEXT = re.compile(r"[0-9]{4}년(?:도|에|부터|까지)?")
+_KOREAN_NONPAST_PREDICATE = re.compile(r"^(?:한다|된다|[을를]\s*(?:시작한다|개시한다))")
+_KOREAN_ONGOING_SUFFIX = r"중(?=$|[^가-힣]|이다|이며|이고|인|에|으로)"
+
 
 
 def _korean_state_observation(text, match, prefix, suffix):
@@ -286,25 +316,36 @@ def _korean_state_observation(text, match, prefix, suffix):
         suffix = suffix[:next_subject.start("subject")]
     # Only the local predicate determines negation/condition; later independent
     # subjects are outside this occurrence's suffix scope.
-    if (re.search(r"(?:안|못)\s*$|(?:미|비)$", prefix)
+    if (re.search(r"(?<![가-힣])(?:안|못)\s*$|(?:미|비)$", prefix)
             or re.search(r"(?:지\s*(?:않|못)|\b아니|(?:적|바)\s*(?:이\s*)?없)", suffix)):
         return _state_observation(match, 0, "negated", "korean_local_negation")
     if (re.search(r"(?:만약|경우에만)\s*[^.;!?]*$", prefix)
-            or re.search(r"^(?:[가-힣]*?(?:다면|되면|하면|될\s*경우|된\s*경우)|\s*(?:조건|여부))", suffix)):
+            or _KOREAN_CONDITIONAL_SUFFIX.search(suffix)):
         return _state_observation(match, 0, "conditional", "korean_conditional_predicate")
     if re.search(r"(?:예정|계획|목표|전망|예상|기대|추진|검토|해야|하여야|필요)", suffix):
         return _state_observation(match, 0, "prospective", "korean_not_realized")
     if re.search(r"(?:가능성|가능|[될할]\s*수\s*있)", suffix):
         return _state_observation(match, 1, "tentative", "korean_possibility")
-    if re.search(r"(?:예정|내년|향후|앞으로)\s*$", prefix):
+    if _KOREAN_INTERRUPTED_EVENT.match(suffix):
+        # '가동 중단됐다' asserts a suspension, not running. The suspension
+        # marker has its own observation and can still supply realized density.
+        return _state_observation(match, 0, "interrupted", "korean_interrupted_event")
+    if (re.search(r"예정\s*$", prefix)
+            or ((_KOREAN_FUTURE_CONTEXT.search(prefix) or _KOREAN_DATED_CONTEXT.search(prefix))
+                and _KOREAN_NONPAST_PREDICATE.match(suffix))):
+        # Dates for the project being approved do not undo a past approval;
+        # only a dated/future nonpast predicate is treated as prospective here.
         return _state_observation(match, 0, "prospective", "korean_future_context")
-    if re.match(r"^(?:했|됐|하였|되었|한다|된다|중|\s*(?:완료|확정|개시|시작|중))", suffix):
+    if re.match(r"^(?:했|됐|하였|되었|한다|된다|\s*(?:완료|확정|개시|시작|"
+                + _KOREAN_ONGOING_SUFFIX + r"))", suffix):
         # Approval-in-progress is not an approval already granted.
         if match.group(0) == "승인" and re.match(r"^\s*중", suffix):
             return _state_observation(match, 0, "pending", "approval_in_progress")
         return _state_observation(match, 2, "realized", "korean_asserted_predicate")
-    if re.match(r"^(?:을|를)\s*(?:받았|마쳤|완료했|시작했)", suffix):
+    if _KOREAN_COMPLETED_OBJECT.match(suffix):
         return _state_observation(match, 2, "realized", "korean_completed_object")
+    if _KOREAN_ENTERED_EVENT.match(suffix):
+        return _state_observation(match, 2, "realized", "korean_entered_event")
     if re.search(r"(?:중|완료)$", match.group(0)):
         return _state_observation(match, 2, "realized", "korean_asserted_marker")
     return _state_observation(match, 0, "unsupported", "korean_state_syntax_unresolved")
@@ -319,7 +360,11 @@ def state_observation(text, match):
         return _korean_state_observation(text, match, local_prefix, local_suffix)
     if re.search(r"\bto\s+(?:be\s+)?$", local_prefix, re.IGNORECASE):
         return _state_observation(match, 0, "prospective", "english_infinitive")
-    if _CONDITIONAL_EN.search(local_prefix) or _CONDITIONAL_EN.search(local_suffix):
+    # 'whether X was approved' queries X. A later 'and will decide whether ...'
+    # does not make an already asserted approval conditional. True if/unless
+    # conditions can be preposed or postposed and keep their enclosing scope.
+    if (_CONDITIONAL_EN.search(local_prefix) or _CONDITIONAL_EN.search(local_suffix)
+            or re.search(r"\bwhether\b", local_prefix, re.IGNORECASE)):
         return _state_observation(match, 0, "conditional", "english_conditional_scope")
     prefix=text[max(0,match.start()-96):match.start()]
     suffix=text[match.end():min(len(text),match.end()+64)]

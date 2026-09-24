@@ -1,0 +1,233 @@
+"""Bounded, ordered claim witnesses for Prompt 0.6.
+
+No truth inference, translation, external model, or editorial claim input. These
+observations supplement (never replace) quantity, modality, provenance, scope and
+operation guards. Unsupported grammar is not evidence of equivalence. Pronoun
+binding is deliberately limited to an immediately preceding explicit named topic;
+ambiguous new pronoun relations are returned as unresolved, not guessed.
+"""
+from __future__ import annotations
+
+import re
+from collections import Counter
+from dataclasses import dataclass
+from typing import Callable, Iterable
+
+from validation_scripts import content_semantic_atoms as atoms
+
+
+@dataclass(frozen=True)
+class Clause:
+    start: int
+    end: int
+    text: str
+
+
+# Protect decimal numbers and dotted initialisms; do not split 10.5 or U.S.
+_INITIALISM_END = re.compile(r'(?:\b[A-Za-z]\.){2,}$')
+_ABBREVIATION_END = re.compile(r'\b(?:Mr|Mrs|Ms|Dr|Prof|Corp|Inc|Ltd|Co|vs)\.$', re.I)
+
+
+def clauses(text: str) -> tuple[Clause, ...]:
+    if not isinstance(text, str):
+        return ()
+    out = []
+    begin = 0
+    for index, char in enumerate(text):
+        terminal = char in ';!?|\n'
+        if char == '.':
+            prev = text[index - 1] if index else ''
+            nxt = text[index + 1] if index + 1 < len(text) else ''
+            terminal = not (
+                (prev.isdigit() and nxt.isdigit())
+                or (prev.isalpha() and nxt.isalpha())
+                or _INITIALISM_END.search(text[:index + 1])
+                or _ABBREVIATION_END.search(text[:index + 1])
+            )
+        if terminal:
+            left, right = begin, index
+            while left < right and text[left].isspace():
+                left += 1
+            while right > left and text[right - 1].isspace():
+                right -= 1
+            if left < right:
+                out.append(Clause(left, right, text[left:right]))
+            begin = index + 1
+    if text[begin:].strip():
+        left = begin + len(text[begin:]) - len(text[begin:].lstrip())
+        out.append(Clause(left, len(text.rstrip()), text[left:].rstrip()))
+    return tuple(out)
+
+
+def exact_clause_set(texts: Iterable[str]) -> frozenset[str]:
+    """Literal novelty only: do not discard subjects, periods, polarity or roles."""
+    return frozenset(' '.join(c.text.split()) for text in texts for c in clauses(text))
+
+
+_WORD = re.compile(r'[A-Za-z가-힣][A-Za-z가-힣0-9&._-]*|[<>≤≥=+−-]|\d+(?:\.\d+)?')
+
+
+def ordered_terms(text: str) -> tuple[str, ...]:
+    """Retain order and prepositions; canonicalize only existing quantity atoms."""
+    out = []
+    end = 0
+    for match in atoms.QUANT_SIGNAL_RE.finditer(text):
+        out.extend(x.casefold() for x in _WORD.findall(text[end:match.start()]))
+        out.append('quantity:' + atoms.quantity_from_match(match).signal)
+        end = match.end()
+    out.extend(x.casefold() for x in _WORD.findall(text[end:]))
+    return tuple(out)
+
+
+_KR_SUBJECT = r'(?P<subject>[가-힣A-Za-z][가-힣A-Za-z0-9&_-]+?)(?:은|는|이|가)\s+'
+_KR_OBJECT = re.compile(
+    r'^' + _KR_SUBJECT + r'(?P<object>.+?)(?:을|를)\s+'
+    r'(?P<context>.*?)'
+    r'(?P<predicate>[가-힣]{2,}?(?:했다|하였다|한다|된다|됐다|되었다)'
+    r'|[가-힣]{2,}?하지\s+(?:않았다|않는다))$'
+)
+
+# A finite trailing-quantity form is also an observed relation: the numeric
+# suffix must not cause subject/object roles to disappear (original A06).
+_KR_TRAILING_QUANTITY = re.compile(
+    r'^' + _KR_SUBJECT + r'(?P<object>.+?)(?:을|를)\s+'
+    r'(?P<predicate>[가-힣]{2,}?(?:했다|하였다|한다|된다|됐다|되었다)'
+    r'|[가-힣]{2,}?하지\s+(?:않았다|않는다))\s+(?P<context>.+)$'
+)
+_KR_DESCRIPTION = re.compile(
+    r'^' + _KR_SUBJECT + r'(?P<attribute>[가-힣]{2,}?)(?:이|가|은|는)\s+'
+    r'(?P<polarity>안\s+|그다지\s+)?'
+    r'(?P<predicate>높다|낮다|크다|작다|많다|적다|있다|없다|좋다|나쁘다'
+    r'|높았다|낮았다|컸다|작았다|많았다|적었다|있었다|없었다)'
+    r'(?P<negation>\s*(?:는\s+)?(?:아니다|않다))?$'
+)
+
+
+def korean_relations(text: str) -> Counter:
+    """Subject-object-predicate retains intervening quantities, not a token bag."""
+    out = Counter()
+    for clause in clauses(text):
+        match = _KR_OBJECT.fullmatch(clause.text)
+        if match is None:
+            trailing = _KR_TRAILING_QUANTITY.fullmatch(clause.text)
+            if trailing and atoms.QUANT_SIGNAL_RE.match(trailing['context']):
+                match = trailing
+        if match:
+            subject, predicate, obj = match['subject'].casefold(), match['predicate'], match['object']
+            context = ordered_terms(match['context'])
+            if not context:
+                # Preserve the published three-part helper identity for simple
+                # SOV clauses, including its canonical negative stem.
+                negated = re.fullmatch(r"(.+?)하지\s+(?:않았다|않는다)", predicate)
+                predicate = "neg:" + negated[1] if negated else predicate
+                out[(subject, predicate, obj)] += 1
+            else:
+                out[('relation:kr', subject, predicate, ordered_terms(obj), context)] += 1
+        match = _KR_DESCRIPTION.fullmatch(clause.text)
+        if match:
+            out[('description:kr', match['subject'].casefold(), match['attribute'],
+                 ' '.join((match['polarity'] or '').split()), match['predicate'],
+                 ' '.join((match['negation'] or '').split()))] += 1
+    return out
+
+
+def korean_description_tokens(text: str) -> list[str]:
+    # Used by the legacy content inventory as well as the ordered relation guard.
+    out = []
+    for clause in clauses(text):
+        match = _KR_DESCRIPTION.fullmatch(clause.text)
+        if match:
+            out.extend(x for x in (match['subject'], match['attribute'],
+                                   match['polarity'], match['predicate'], match['negation']) if x)
+    return out
+
+
+_PROPER = r'[A-Z][A-Za-z0-9&._-]+(?:\s+(?:[A-Z][A-Za-z0-9&._-]+|project|plant|facility|company)){0,3}'
+_SUBJECT = (r'(?P<subject>' + _PROPER + r'|(?:[Tt]he|[Aa]n?)\s+[A-Za-z][A-Za-z0-9_-]+'
+            r'|[Ii]t|[Tt]hey|[Hh]e|[Ss]he)')
+_ACTIONS = (r'sold|sells?|acquired|acquires?|bought|buys?|used|uses?|burned|burns?|burnt'
+            r'|supplied|supplies|supply|selected|selects?|recycled|recycles?'
+            r'|owned|owns?|employed|employs?|manufactured|manufactures?')
+_EN_ACTION = re.compile(
+    r'^' + _SUBJECT + r'\s+'
+    r'(?P<aux>(?i:(?:(?:can|could|may|might|will|would|must|should|has|have|had|did|does|do)\s+)?'
+    r'(?:not\s+)?))'
+    r'(?P<verb>(?i:' + _ACTIONS + r'))\s+(?P<tail>.+)$'
+)
+_TOPIC = re.compile(r'^(?P<topic>' + _PROPER + r')\s+(?:project|plant|facility|company)$')
+_NEW_ACTION = re.compile(r'\s+(?:and|but|while|whereas)\s+(?=' + _SUBJECT + r'\s+(?i:' + _ACTIONS + r')\b)')
+_PRONOUNS = {'it', 'they', 'he', 'she'}
+
+
+def english_relations(text: str) -> Counter:
+    out = Counter()
+    previous = None
+    for clause in clauses(text):
+        # A topic is used only by the immediately following sentence. It must not
+        # cross a semicolon/pipe (used to join independent fields and sources).
+        topic = None
+        if previous is not None and text[previous.end:clause.start].strip() == '.':
+            prev_topic = _TOPIC.fullmatch(previous.text)
+            if prev_topic:
+                topic = prev_topic['topic'].casefold()
+        segments = []
+        pos = 0
+        for boundary in _NEW_ACTION.finditer(clause.text):
+            segments.append(clause.text[pos:boundary.start()])
+            pos = boundary.end()
+        segments.append(clause.text[pos:])
+        for segment in segments:
+            match = _EN_ACTION.fullmatch(segment.strip())
+            if not match:
+                continue
+            subject = re.sub(r'^(?:the|a|an)\s+', '', match['subject'].casefold())
+            kind = 'relation:en'
+            if subject in _PRONOUNS:
+                if topic is not None:
+                    # Singular named topics cannot resolve the plural pronoun.
+                    if subject != 'it':
+                        kind = 'relation:unresolved'
+                    subject = topic
+                else:
+                    kind = 'relation:unresolved'
+                    # Keeping the explicit context prevents permutation across
+                    # otherwise identical, unresolved pronoun strings.
+                    subject = (subject, previous.text if previous else '')
+            out[(kind, subject, match['aux'].strip().casefold(),
+                 match['verb'].casefold(), ordered_terms(match['tail']))] += 1
+        previous = clause
+    return out
+
+
+_METRIC = re.compile(
+    r'(?<![A-Za-z가-힣])(?P<metric>capacity|output|revenue|profit|sales|investment|cost|margin|'
+    r'용량|출력|매출|이익|판매량|투자액|비용|마진)'
+    r'(?:은|는|이|가)?\s*(?:(?:is|was|are|were|of|at)\s+|[:=]\s*)?$', re.I
+)
+_PERIOD = re.compile(r'(?<!\w)(?:20\d{2}(?:년)?(?:\s*(?:Q[1-4]|[1-4]분기))?|Q[1-4](?:\s+20\d{2})?)(?!\w)', re.I)
+
+
+def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter:
+    """Explicit entity+metric+period+quantity, not a shared entity-number bag.
+
+    Generic unlabelled numbers stay governed by the existing quantity contract.
+    No metric is inferred from the unit or from a different evidence field.
+    """
+    out = Counter()
+    for clause in clauses(text):
+        for quantity in atoms.QUANT_SIGNAL_RE.finditer(clause.text):
+            prefix = clause.text[:quantity.start()]
+            match = _METRIC.search(prefix)
+            if not match:
+                continue
+            metric = match['metric'].casefold()
+            subjects = subjects_for_span(text, clause.start + match.start(), clause.start + quantity.end())
+            if subjects == ['__generic__']:
+                # Bare "Capacity is 10 MW" is not an explicit entity binding.
+                continue
+            periods = list(_PERIOD.finditer(prefix[:match.start()]))
+            period = re.sub(r'\s+', ' ', periods[-1][0].casefold()) if periods else ''
+            for subject in subjects:
+                out[('metric:quantity', subject, metric, period,
+                     atoms.quantity_from_match(quantity).signal)] += 1
+    return out

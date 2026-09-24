@@ -44,7 +44,7 @@ The visible copy carried by the applied formal operation must match the audited 
 
 If at least one governed field changed, `no_change_required` must be `false`. A raw string delta alone is insufficient: at least one Deep Summary dimension must be evidence-supported, `dimension_evidence` must bind every true dimension to concrete governed visible field(s) and upstream evidence reference(s), and at least one supported dimension must bind to a field that actually changed.
 
-For formal full-run validation, that changed-field binding must also show a **newly added/deepened machine-detectable signal versus the effective upstream governed copy as a whole** for the claimed dimension: a new quantitative anchor; a new prior-state marker; a new execution/stage/status marker; a new boundary/uncertainty marker (calendar month uses such as `May 2026` do not count as uncertainty); a new transmission-path marker; or a new next-watchpoint marker. Moving an existing signal from `fact` to `sub`, or between any other governed fields, does not qualify. Qualitative synonyms are canonicalized to the same semantic marker before delta comparison so wording substitutions cannot manufacture enrichment, including equivalent commencement terms such as `began`/`started`. Quantitative signals preserve the full bound/sign/number/magnitude/currency/unit identity, including currency codes placed before or after the number: `-10 MW` differs from `10 MW`, `>20 MW` differs from `<20 MW`, and `10 million USD` differs from `10 billion USD`; numerically equivalent formatting such as `10 MW` vs `10.0 MW`, `1,000 MW` vs `1000 MW`, and fully grouped values such as `1,000,000 MW` vs `1000000 MW` still canonicalize to the same anchor. A terminology-only synonym, numeric-formatting-only edit, leading-zero rewrite, negated execution/status wording, or signal relocation that preserves the same state/number/boundary/transmission/watchpoint information does not qualify. Any newly added or semantically deepened machine-detectable signal must also appear in the referenced upstream source quote/claim evidence package at equal or stronger status strength; a source token alone does not authorize a new number or state. Grounding evidence must use one of the repository-approved verified quote statuses (`body_quote_verified`, `official_material_quote_verified`, `document_quote_verified`) and carry positive fetch metadata; absent, pending, or unknown verification states do not qualify. Every newly introduced governed signal in every changed field must be declared in `dimensions`, mapped to that field in `dimension_evidence`, and grounded in its referenced evidence. `evidence_refs[]` must be unique after trimming/normalization; duplicate refs may not multiply one quote into multiple supporting occurrences. All substantive factual additions must be evidence-grounded, including facts outside the six Deep Summary signal taxonomies such as newly introduced locations, facilities, counterparties, entities, identifying names, and ordinary factual predicates or lowercase claim content such as material/feedstock use. Verified upstream factual identities and predicates may not silently disappear. Verified upstream substantive signals may not silently disappear from the governed copy. A bounded exception applies only when plan/expectation/uncertainty markers are removed as part of an evidence-grounded realized-state advancement. Evidence-backed modality deepening, such as `may be delayed` → `is delayed`, qualifies even when the canonical state marker identity is unchanged, and modality strength is tracked per status occurrence rather than as one maximum per marker. Repeated status claims retain occurrence count: one `approved` claim becoming two distinct evidence-backed `approved` claims is substantive when the referenced evidence carries the corresponding occurrences. This check is fail-closed and is not a character-count or minimum-length rule.
+For formal full-run validation, that changed-field binding must also show a **newly added/deepened machine-detectable signal versus the effective upstream governed copy as a whole** for the claimed dimension: a new quantitative anchor; a new prior-state marker; a new execution/stage/status marker; a new boundary/uncertainty marker (calendar month uses such as `May 2026` do not count as uncertainty); a new transmission-path marker; or a new next-watchpoint marker. Moving an existing signal from `fact` to `sub`, or between any other governed fields, does not qualify. Qualitative synonyms are canonicalized to the same semantic marker before delta comparison so wording substitutions cannot manufacture enrichment, including equivalent commencement terms such as `began`/`started`. Quantitative signals preserve the full bound/sign/number/magnitude/currency/unit identity, including currency codes placed before or after the number: `-10 MW` differs from `10 MW`, `>20 MW` differs from `<20 MW`, and `10 million USD` differs from `10 billion USD`; numerically equivalent formatting such as `10 MW` vs `10.0 MW`, `1,000 MW` vs `1000 MW`, and fully grouped values such as `1,000,000 MW` vs `1000000 MW` still canonicalize to the same anchor. A terminology-only synonym, numeric-formatting-only edit, leading-zero rewrite, negated execution/status wording, or signal relocation that preserves the same state/number/boundary/transmission/watchpoint information does not qualify. Any newly added or semantically deepened machine-detectable signal must also appear in the referenced upstream verified source quote evidence package at equal or stronger status strength; a source token alone does not authorize a new number or state. Grounding evidence must use one of the repository-approved verified quote statuses (`body_quote_verified`, `official_material_quote_verified`, `document_quote_verified`) and carry positive fetch metadata; absent, pending, or unknown verification states do not qualify. Every newly introduced governed signal in every changed field must be declared in `dimensions`, mapped to that field in `dimension_evidence`, and grounded in its referenced evidence. `evidence_refs[]` must be unique after trimming/normalization; duplicate refs may not multiply one quote into multiple supporting occurrences. All substantive factual additions must be evidence-grounded, including facts outside the six Deep Summary signal taxonomies such as newly introduced locations, facilities, counterparties, entities, identifying names, and ordinary factual predicates or lowercase claim content such as material/feedstock use. Verified upstream factual identities and predicates may not silently disappear. Verified upstream substantive signals may not silently disappear from the governed copy. A bounded exception applies only when plan/expectation/uncertainty markers are removed as part of an evidence-grounded realized-state advancement. Evidence-backed modality deepening, such as `may be delayed` → `is delayed`, qualifies even when the canonical state marker identity is unchanged, and modality strength is tracked per status occurrence rather than as one maximum per marker. Repeated status claims retain occurrence count: one `approved` claim becoming two distinct evidence-backed `approved` claims is substantive when the referenced evidence carries the corresponding occurrences. This check is fail-closed and is not a character-count or minimum-length rule.
 
 If none of the governed fields changed, `content_enriched=true` is allowed only as a narrow exception when all of the following are true:
 
@@ -55,9 +55,11 @@ If none of the governed fields changed, `content_enriched=true` is allowed only 
 - `supported_dimension_count` is a non-boolean integer that exactly matches the true dimensions;
 - at least four dimensions are evidence-supported, including `changed_state`; `changed_state` requires an actual current execution/status signal and cannot be satisfied by a bare planned/target production noun;
 - `evidence_notes` is non-empty and explains why the unchanged copy is already sufficiently decision-useful;
-- every true density dimension is bound through `dimension_evidence` to at least one non-empty governed visible field and at least one concrete evidence token already present in the bound upstream B/C/0.5 evidence chain **and authorized there to support each mapped governed field**; a source explicitly marked context-only, checked-not-used, or with empty/nonmatching visible-field support (including canonical ledger `visible_supports`) cannot justify that dimension, and an explicit exclusion cannot be restored by contradictory `claim_source_coverage` or by older upstream stages. Evidence scope, grounding quote/claim text, and the preserved evidence package are all resolved from the same nearest authoritative upstream stage (`0.5 → 0.4 → C → B`); older contradictory text cannot backfill a nearer-stage package. A single evidence token may not resolve to multiple distinct usable quote/claim packages at that authoritative stage; such ambiguity is a BLOCK. The mapped visible text itself must express the claimed dimension and, for zero-delta passage, at least one matching signal for every claimed true dimension must also appear in the referenced upstream source quote/claim evidence; placeholder copy or unrelated evidence plus a valid source token is insufficient. Positive `changed_state` markers must be realized rather than negated, and negation scope is predicate/conjunct-aware rather than extending across a later independent `and/or` conjunct (`not started`, `not approved`), including clause-level negation separated by intervening words (`has not as of this week started`) and negation that follows a state noun (`construction has not started`), and must not be merely planned/target wording. Prompt 0.6 may not introduce a new source token solely to justify density. The final materialized insert/update card must preserve every `dimension_evidence.evidence_refs[]` token, its mapped visible-field support, and the bound upstream quote/claim plus verification-status package; explicitly unusable evidence (`fetch_failed`, `fetched=false`, quote mismatch, headline/snippet-only) cannot ground a dimension, and removing or weakening the valid evidence package is a BLOCK.
+- every true density dimension is bound through `dimension_evidence` to at least one non-empty governed visible field and at least one concrete evidence token already present in the bound upstream B/C/0.5 evidence chain **and authorized there to support each mapped governed field**; a source explicitly marked context-only, checked-not-used, or with empty/nonmatching visible-field support (including canonical ledger `visible_supports`) cannot justify that dimension, and an explicit exclusion cannot be restored by contradictory `claim_source_coverage` or by older upstream stages. Evidence scope, grounding verified quote text, and the preserved evidence package are all resolved from the same nearest authoritative upstream stage (`0.5 → 0.4 → C → B`); older contradictory text cannot backfill a nearer-stage package. A single evidence token may not resolve to multiple distinct usable quote/claim packages at that authoritative stage; such ambiguity is a BLOCK. The mapped visible text itself must express the claimed dimension and, for zero-delta passage, every mapped signal occurrence (subject to the explicit field-scoped exact-copy reuse rule below) must also appear in the referenced upstream verified source quote evidence; placeholder copy or unrelated evidence plus a valid source token is insufficient. Positive `changed_state` markers must be realized rather than negated, and negation scope is predicate/conjunct-aware rather than extending across a later independent `and/or` conjunct (`not started`, `not approved`), including clause-level negation separated by intervening words (`has not as of this week started`) and negation that follows a state noun (`construction has not started`), and must not be merely planned/target wording. Prompt 0.6 may not introduce a new source token solely to justify density. The final materialized insert/update card must preserve every `dimension_evidence.evidence_refs[]` token, its mapped visible-field support, and the bound upstream quote/claim plus verification-status package; explicitly unusable evidence (`fetch_failed`, `fetched=false`, quote mismatch, headline/snippet-only) cannot ground a dimension, and removing or weakening the valid evidence package is a BLOCK.
 
 Title-only or terminology-only edits do not satisfy the content-enrichment delta.
+
+A verified quote status certifies only literal source text in `source_quote`, `quote`, `source_excerpt`, or `excerpt` (a non-empty string or list of non-empty strings). `claim`, `source_claim`, `claim_text`, `visible_claim`, and free-form `evidence_text` are editorial metadata, not independent grounding evidence. They remain preserved in the bound package but must not contribute numeric, state, identity, or density signals. A claim-only package is unusable even with positive fetch metadata or a verified-looking `claim_status`; adding an unverified editorial claim must not invalidate an otherwise usable literal quote. Reusing an excerpt still requires the existing quote-status, fetch, authority, exclusion, field-support, and materialized-package checks; these fields do not independently prove a live source was fetched or authenticated.
 
 ## Machine output contract
 
@@ -134,3 +136,139 @@ When `changed_fields=[]`, `density_audit.dimension_evidence` must contain exactl
 ```
 
 Explicit historical `PROMPT_0_6_V4_*` artifacts remain valid historical records. In a formal card run, the applicable 0.6 contract is resolved from the Prompt 0.6 file stored at the run's locked `base_main_commit_sha`; an item-level version label cannot downgrade a V5+ locked baseline to V4. A standalone checker supplied with a locked base must fail closed if that prompt file/version cannot be resolved; it may not trust a self-declared V4 label in that case. The new structured audit contract applies to V5+ and fail-closed unversioned new artifacts.
+
+### Source presence, field authority and grounding are separate
+
+For V5+ content validation, retain three distinct views of the bound upstream
+chain: (1) source-bearing records to preserve, (2) permitted visible fields,
+and (3) usable verified literal quotes. A source can be present without being
+permitted to ground any claim. In particular, paraphrase-only, unverified and
+context-only records may remain in the output unchanged without becoming new
+sources or usable quote evidence.
+
+The preservation view selects each source identity's nearest declaration in
+`0.5 → 0.4 → C → B`, including its source-ID/URL aliases. All distinct source-bearing
+records at that stage are retained, with their original `fact_sources` or
+`source_discovery_ledger` container and metadata. Dictionary key order and source
+record order and explicit field-support set order are immaterial; silently dropping a record, changing its content,
+verification flags, field scope, aliases or container role is not permitted at
+0.6/materialization. New evidence and corrections belong upstream. Tokenless
+search notes are outside this source-identity check; this is not a replacement
+for the complete source-audit/ledger schema.
+
+No-new-source and preservation checks compare against that source-record view,
+not just the usable-quote subset. Removing an inconvenient paraphrase-only
+source is not a way to pass. Conversely, retaining it does not make its claim,
+missing quote, non-allowlisted status or failed fetch valid grounding. All
+existing mapped-ref, quote-only, exclusion, package-identity and modality checks
+continue to apply. A newer unverified declaration must not borrow a stale quote
+or verified flag from an older stage.
+
+Field scope and exclusion apply across transitive source aliases. Explicit
+scope is a ceiling (intersect conflicting scopes); a claim-coverage reference or
+an unscoped alias record cannot widen it. Full and standalone content checks use
+the same row-local authority resolver. Standalone PASS still does not verify
+upstream authority, actual visible delta, or final source preservation.
+
+This change does not adopt `body_level_evidence_verified` as a verified-quote
+alias, does not treat a missing ledger outcome as a successful outcome, and does
+not exempt inherited numbers/claims from grounding. Missing ledger vocabulary remains separate; the bounded reuse rules below clarify grounding of retained claims. Historical locked V4 handling is unchanged.
+
+## Field-scoped quote reuse — optional V5 audit extension
+
+A retained fact is **not exempt from evidence grounding** merely because it was
+present at 0.5 or a prior stage reported PASS. Reuse the already-preserved verified
+literal quotes and their authorized field references; do not refetch unchanged
+source material solely to repeat the same check. When the retained quote is
+missing, unusable, excluded, or no longer supports the current subject/value/state,
+repair the evidence upstream. A text hash, editor claim, or earlier PASS is not a
+substitute. New and changed claims remain subject to the existing declaration,
+novelty, factual identity, modality, and operation-copy checks.
+
+An entry in `density_audit.dimension_evidence` may explicitly provide
+`field_evidence_refs` to assign different source references to different visible
+fields. For example, a retained fact can reuse S_OLD while a changed sub uses S_NEW:
+
+```json
+{
+  "fields": ["sub", "fact"],
+  "evidence_refs": ["S_NEW", "S_OLD"],
+  "field_evidence_refs": {
+    "sub": ["S_NEW"],
+    "fact": ["S_OLD"]
+  }
+}
+```
+
+The optional map must have exactly the keys in `fields`. Each value is a non-empty
+list of unique trimmed references, and their union must equal `evidence_refs`.
+All references must resolve in the same authoritative upstream evidence context;
+source-ID/URL aliases may not multiply a package. Every reference must be authorized
+for every field **to which it is assigned**, without widening the source's explicit
+support ceiling. Every mapped field must be grounded by its own assigned quotes;
+quotes assigned only to another field cannot lend facts, numbers or modality.
+Materialization must preserve the same references, permissions and complete source
+records. Malformed maps fail closed, rather than falling back to the legacy mode.
+
+Each field's observed signals are checked, including retained signals. An additional
+combined occurrence budget protects distinct claims from sharing one occurrence.
+Only identical **complete normalized field values** among the explicitly mapped
+fields may reuse one quote occurrence. Different subjects, predicates, periods,
+qualifiers or wording are not merged just because a number or marker is equal.
+Repeats inside one field are not deduplicated. An implication array is not treated
+as identical to a scalar string joined with a separator. Semantic retraction markup
+is not removed to manufacture identity. Copying an existing complete field into
+another field does not, by itself, create new enrichment; an unmapped destination
+cannot borrow this reuse permission.
+
+Zero-delta retains the four-dimension minimum and evidence-grounded realized state.
+**All observed mapped claims**, not just one convenient number per dimension, must
+be grounded subject to the exact-copy reuse rule. This deliberately rejects the
+unsafe reading that one matching number authorizes another ungrounded retained
+number. There is no automatic exemption for inherited clauses within a changed
+field: include their retained verified reference alongside references for new facts.
+
+When `field_evidence_refs` is absent, the existing fields-by-refs cross-product
+and occurrence behavior is preserved. Existing audits are not silently migrated;
+use the optional map only with validators that implement this extension. Historical
+locked V4 handling is unchanged. This is bounded quote reuse, not a claim-ledger
+verification cache or complete natural-language entailment. Differently worded
+versions of the same fact, sub-sentence inheritance and unrecognized relations are
+not automatically certified as equivalent. Standalone verifies only its supplied
+row; it does not attest to upstream provenance, actual delta or final application.
+
+
+### Ordered relation and exact-repeat checks
+
+V5 grounding must not assemble a claim from unrelated occurrences of its subject,
+object, counterparty or metric. The bounded machine observer preserves Korean
+subject/object/predicate relations even when a numeric process qualifier intervenes;
+it also observes explicit Korean subject/attribute descriptive clauses. English
+transaction observations keep the whole ordered argument sequence, including
+`to`/`from`, polarity and auxiliaries, rather than separate subject/object token pairs.
+An immediately preceding explicit named-topic sentence (such as `Alpha project.`)
+can bind `It` in the following sentence; this binding cannot cross separate quote
+texts or field separators. A newly introduced ambiguous pronoun relation is a
+`C06.RELATION.UNRESOLVED` repair requirement, not an inferred matching actor.
+
+Explicit named-entity metric/period/quantity associations must match assigned
+verified quotes, including when global number counts have not changed. A metric
+reassignment must still declare/map `quantitative_anchor`. Boundary/uncertainty
+subjects remain bound in the no-change path and legacy unscoped dimension maps;
+field-scoped source authority and occurrence budgets remain unchanged. Technology
+or product labels are not newly promoted to entity roles merely because they appear
+next to a number.
+
+Exact repeated or relocated normalized clauses cannot by themselves qualify as
+newly added/deepened information, even if a quote repeats the same sentence. Distinct
+named subjects, periods and metric roles remain distinct; other genuine enrichment
+is not invalidated just because an existing sentence is also repeated. Numeric,
+state, evidence-authority and deletion rules remain in force.
+
+These are finite observed patterns, not a multilingual entailment engine. They do
+not certify arbitrary passive/active paraphrases, translation, long-distance
+coreference or every unrecognized predicate. Bound content validation compares
+changed factual relations with the nearest upstream baseline and quotes. Standalone
+validation shares mapped metric/boundary grounding, but cannot certify factual
+novelty, actual prior/current changes or materialization without the bound chain.
+A PASS on a finite probe set is not production or merge approval.

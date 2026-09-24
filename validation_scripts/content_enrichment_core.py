@@ -140,9 +140,10 @@ class ResolvedEvidenceContext:
     _support_json: str
     _texts_json: str
     _packages_json: str
+    _source_records_json: str = "null"
 
     @classmethod
-    def from_maps(cls, *, scope, support, texts, packages):
+    def from_maps(cls, *, scope, support, texts, packages, source_records=None):
         if scope not in {"bound_upstream", "local_row"}:
             raise ValueError("unknown content evidence context scope")
         if not all(isinstance(value, dict) for value in (support, texts, packages)):
@@ -163,9 +164,22 @@ class ResolvedEvidenceContext:
         if any(not isinstance(values, list) or any(not isinstance(value, dict) for value in values)
                for values in packages.values()):
             raise ValueError("evidence context requires package arrays")
+        if source_records is not None and (
+            not isinstance(source_records, list) or any(
+                not isinstance(record, dict)
+                or set(record) != {"container", "source"}
+                or record.get("container") not in {"fact_sources", "source_discovery_ledger"}
+                or not isinstance(record.get("source"), dict)
+                for record in source_records
+            )
+        ):
+            raise ValueError("resolved evidence context requires source-record snapshots")
         dump = lambda value: json.dumps(value, sort_keys=True, ensure_ascii=False,
                                         separators=(",", ":"), allow_nan=False)
-        return cls(scope, dump(normalized_support), dump(texts), dump(packages))
+        normalized_records = None if source_records is None else [
+            json.loads(key) for key in sorted({dump(record) for record in source_records})
+        ]
+        return cls(scope, dump(normalized_support), dump(texts), dump(packages), dump(normalized_records))
 
     def legacy_maps(self):
         """Compatibility adapter, not a second authority resolution."""
@@ -174,6 +188,10 @@ class ResolvedEvidenceContext:
             json.loads(self._texts_json),
             json.loads(self._packages_json),
         )
+
+    def source_records(self):
+        """Detached preservation inventory, or None if this scope did not resolve it."""
+        return json.loads(self._source_records_json)
 
     @property
     def unverified_scopes(self):
@@ -228,6 +246,75 @@ def density_policy_issues(density, *, no_change: bool):
               dimensions.get("changed_state"),
               "zero-delta 0.6 requires changed_state=true in the density audit")
     return issues
+
+
+
+def field_evidence_ref_issues(entry):
+    """Validate the opt-in field map without inventing upstream authority.
+
+    The legacy fields x refs contract is unchanged when the key is absent.
+    The map, when present, is a complete partition/overlap of the declared refs,
+    not an extra pool of evidence or an inherited-fact verification exemption.
+    """
+    if not isinstance(entry, dict) or "field_evidence_refs" not in entry:
+        return []
+    path = "content_enrichment_audit.density_audit.dimension_evidence.field_evidence_refs"
+    def issue(suffix, expected, actual, message):
+        return [ContractIssue("C06.GROUNDING.FIELD_REFS." + suffix, path, expected, actual, message)]
+    fields = entry.get("fields")
+    refs = entry.get("evidence_refs")
+    mapping = entry["field_evidence_refs"]
+    if not isinstance(mapping, dict):
+        return issue("SHAPE", "object", mapping, "field_evidence_refs must be an object")
+    if (not isinstance(fields, list) or not fields
+            or any(not isinstance(f, str) or f not in VISIBLE_COPY_FIELDS for f in fields)
+            or len(fields) != len(set(fields)) or set(mapping) != set(fields)):
+        return issue("FIELDS", "exactly the mapped governed fields", mapping,
+                     "field_evidence_refs must cover exactly the mapped governed fields")
+    if (not isinstance(refs, list) or not refs or any(not _nonempty_text(r) for r in refs)
+            or len(refs) != len({r.strip() for r in refs})):
+        return issue("REFS", "unique non-empty evidence_refs", refs,
+                     "field_evidence_refs requires unique non-empty declared evidence_refs")
+    used = set()
+    for field, values in mapping.items():
+        if (not isinstance(values, list) or not values or any(not _nonempty_text(r) for r in values)
+                or len(values) != len({r.strip() for r in values})):
+            return issue("REFS", "non-empty unique refs for " + field, values,
+                         "each field_evidence_refs entry must contain unique non-empty refs")
+        used.update(r.strip() for r in values)
+    if used != {r.strip() for r in refs}:
+        return issue("UNION", "union equals declared evidence_refs", sorted(used),
+                     "field_evidence_refs union must equal declared evidence_refs; no hidden or unused refs")
+    return []
+
+
+def dimension_field_refs(entry):
+    """Return normalized field -> refs after shape validation; never fallback on malformed opt-in."""
+    issues = field_evidence_ref_issues(entry)
+    if issues:
+        raise ValueError(issues[0].message)
+    if "field_evidence_refs" in entry:
+        return {f: [r.strip() for r in values] for f, values in entry["field_evidence_refs"].items()}
+    return {f: [r.strip() for r in entry.get("evidence_refs", [])]
+            for f in entry.get("fields", [])}
+
+
+def distinct_visible_fields(normalized_by_field, fields):
+    """Reuse only identical *complete* normalized fields, not equal tokens/numbers.
+
+    A tuple of implication items stays distinct from a scalar containing a pipe.
+    Repeated sentences within one field and differently worded claims keep their
+    occurrence counts. This is literal copy identity, not semantic entailment.
+    """
+    out = []
+    seen = set()
+    for field in fields:
+        value = normalized_by_field.get(field)
+        key = (type(value), value)
+        if key not in seen:
+            seen.add(key)
+            out.append(field)
+    return out
 
 
 def grounding_issues(dimension: str, visible_counts: Mapping, evidence_counts: Mapping,
@@ -285,8 +372,8 @@ def quantity_coverage_issues(row):
         if unsupported:
             issues.append(ContractIssue(
                 "C06.QUANTITY.UNSUPPORTED", field,
-                "fully parsed single-scale Korean currency amount",
+                "fully parsed single-scale Korean quantity or currency amount",
                 [raw for _, _, raw in unsupported],
-                "Korean money expression is not fully parsed; route to evidence/content repair rather than certifying partial numeric tokens",
+                "Korean quantity expression is not fully parsed; route to evidence/content repair rather than certifying partial numeric tokens",
             ))
     return issues

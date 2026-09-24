@@ -9,6 +9,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 from validation_scripts import content_enrichment_core as _content_core
 from validation_scripts import content_semantic_atoms as _semantic_atoms
+from validation_scripts import content_claim_relations as _claim_relations
 REGISTRY = ROOT / "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json"
 COVERAGE_AXES_PATH = Path(os.environ.get(
     "WORKFLOW_V4_COVERAGE_AXES_PATH",
@@ -45,11 +46,18 @@ STAGE_A_GOVERNED_POOLS = (
 IDENTITY_ROOT = "source_spec_id"
 VISIBLE_COPY_FIELDS = _content_core.VISIBLE_COPY_FIELDS
 CONTENT_BASELINE_ORDER = ("0.5", "0.4", "C")
+EVIDENCE_BASELINE_ORDER = ("0.5", "0.4", "C", "B")
+SOURCE_CONTAINERS = ("fact_sources", "source_discovery_ledger")
+SOURCE_SUPPORT_KEYS = ("visible_claim_support", "visible_fields_supported", "visible_supports", "supports")
 CONTENT_BASELINE_STRATEGY = _content_core.CONTENT_BASELINE_STRATEGY
 PROMPT_06_PATH = "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md"
 PRESENTATION_HTML_TAG_RE = _content_core.PRESENTATION_HTML_TAG_RE
 ARRAY_INDEX_RE = re.compile(r"^(?:0|[1-9]\d*)$")
 QUANT_SIGNAL_RE = _semantic_atoms.QUANT_SIGNAL_RE
+# Quote verification applies only to literal source excerpts. Editorial claims
+# (including ambiguous free-form evidence_text) remain bound package metadata;
+# preserving that metadata must never let it supply its own grounding facts.
+GROUNDING_QUOTE_TEXT_KEYS = ("source_quote", "quote", "source_excerpt", "excerpt")
 EVIDENCE_TEXT_KEYS = (
     "source_quote", "quote", "claim", "source_claim", "claim_text",
     "visible_claim", "evidence_text", "source_excerpt", "excerpt",
@@ -251,13 +259,13 @@ DIMENSION_CANONICAL_SIGNAL_RES = {
     },
     "changed_state": {
         "production_operation": re.compile(r"\b(?:commercial\s+production|commission(?:ed|ing)?|operational|in\s+operation|produc(?:ing|ed))\b|(?:상업생산|가동|양산)", re.IGNORECASE),
-        "construction": re.compile(r"\b(?:broke\s+ground|groundbreak(?:ing)?|under\s+construction|construction\s+(?:began|started|commenced|completed|is\s+underway))\b|(?:착공|건설\s*(?:중|시작|완료))", re.IGNORECASE),
+        "construction": re.compile(r"\b(?:broke\s+ground|groundbreak(?:ing)?|under\s+construction|construction\s+(?:began|started|commenced|completed|is\s+underway))\b|(?:착공|건설\s*(?:중(?!단|지)|시작|완료))", re.IGNORECASE),
         "shipment_launch": re.compile(r"\b(?:ship(?:ped|ping)?|launch(?:ed)?)\b|(?:출하|출시)", re.IGNORECASE),
         "commencement": re.compile(r"\b(?:start(?:ed|ing)?|begin|began|begun|commence(?:d|ment)?)\b|(?:개시|시작)", re.IGNORECASE),
         "completion": re.compile(r"\b(?:complete(?:d)?)\b|(?:완공)", re.IGNORECASE),
         "ramp": re.compile(r"\b(?:ramp(?:ed|ing)?|ramp[- ]?up)\b|(?:증설|램프업)", re.IGNORECASE),
         "restart": re.compile(r"\b(?:resume(?:d)?|restart(?:ed)?)\b|(?:재개|재가동)", re.IGNORECASE),
-        "suspension": re.compile(r"\b(?:suspend(?:ed)?)\b|(?:중단)", re.IGNORECASE),
+        "suspension": re.compile(r"\b(?:suspend(?:ed)?)\b|(?:중단|중지)", re.IGNORECASE),
         "delay": re.compile(r"\b(?:delay(?:ed)?)\b|(?:지연)", re.IGNORECASE),
         "cancellation": re.compile(r"\b(?:cancel(?:led|ed)?)\b|(?:취소)", re.IGNORECASE),
         "approval": re.compile(r"\b(?:approve(?:d)?)\b|(?:승인)", re.IGNORECASE),
@@ -311,14 +319,53 @@ def coverage_axes():
     topics=strings(payload.get("topics"),"workflow-v4 coverage axes topics")
     return regions,topics
 
+def _registry_lifecycle_paths(registry):
+    fields=(
+        "active_canonical","active_named_prompts","active_validator_contracts",
+        "open_remediations","activation_required_migrations","superseded","reference_only",
+    )
+    paths=set()
+    for field in fields:
+        values=registry.get(field,[])
+        if not isinstance(values,list):
+            raise Blocked(f"lifecycle registry {field} must be array")
+        for value in values:
+            if not _nonempty_text(value):
+                raise Blocked(f"lifecycle registry {field} contains non-string/empty path")
+            value=value.strip()
+            if value in paths:
+                raise Blocked(f"lifecycle registry classifies path more than once: {value}")
+            paths.add(value)
+    return paths
+
+
+def _locked_docs_tree_paths(base_main_commit_sha):
+    if not isinstance(base_main_commit_sha,str) or not re.fullmatch(r"[0-9a-fA-F]{40}",base_main_commit_sha):
+        raise Blocked("locked base_main_commit_sha required to validate docs/** inventory")
+    output=_git(["ls-tree","-r","--name-only",base_main_commit_sha,"docs"])
+    return {line.strip() for line in output.splitlines() if line.strip()}
+
+
 def validate_preflight(run):
     a=load(repo_json(run["document_universe_manifest_ref"])); r=load(REGISTRY)
     expected_c=set(r.get("active_canonical",[]))|set(r.get("active_named_prompts",[]))
     expected_v=set(r.get("active_validator_contracts",[]))
     expected_m=set(r.get("open_remediations",[]))|set(r.get("activation_required_migrations",[]))
+    registry_paths=_registry_lifecycle_paths(r)
+    docs_tree=_locked_docs_tree_paths(run.get("base_main_commit_sha"))
+    if registry_paths!=docs_tree:
+        unclassified=sorted(docs_tree-registry_paths)
+        stale=sorted(registry_paths-docs_tree)
+        raise Blocked(f"lifecycle registry must classify exact locked docs/** tree; unclassified={unclassified} stale={stale}")
+    if a.get("docs_inventory_count")!=len(docs_tree):
+        raise Blocked(f"0.0D docs_inventory_count must equal locked docs/** tree count ({len(docs_tree)})")
+    if a.get("classified_count")!=len(docs_tree):
+        raise Blocked(f"0.0D classified_count must equal locked docs/** tree count ({len(docs_tree)})")
     if strings(a.get("active_canonical_paths"),"0.0D.active_canonical_paths")!=expected_c: raise Blocked("0.0D active_canonical_paths != current registry active set")
     if strings(a.get("active_validator_contract_paths"),"0.0D.active_validator_contract_paths")!=expected_v: raise Blocked("0.0D active_validator_contract_paths != current registry validator set")
     if strings(a.get("applicable_remediation_or_migration"),"0.0D.applicable remediation/migration",allow_empty=True)!=expected_m: raise Blocked("0.0D applicable remediation/migration != current registry set")
+    expected_sr=set(r.get("superseded",[]))|set(r.get("reference_only",[]))
+    if strings(a.get("superseded_or_reference_paths"),"0.0D.superseded_or_reference_paths",allow_empty=True)!=expected_sr: raise Blocked("0.0D superseded_or_reference_paths != current registry reference set")
     required=len(expected_c|expected_v|expected_m)
     if a.get("active_full_read_count")!=required: raise Blocked(f"0.0D active_full_read_count must equal exact active/dependency closure ({required})")
 
@@ -748,7 +795,7 @@ def _source_supported_visible_fields(source):
         "duplicate_document_access",
     }:
         return set()
-    explicit_keys=("visible_claim_support","visible_fields_supported","visible_supports","supports")
+    explicit_keys=SOURCE_SUPPORT_KEYS
     present=[key for key in explicit_keys if key in source]
     if present:
         declared=[]
@@ -773,6 +820,65 @@ def _evidence_tokens(source):
         if _nonempty_text(value):
             tokens.add(value.strip())
     return tokens
+
+
+def _row_source_records(row):
+    """Detached source-bearing records; presence is NOT grounding authority.
+
+    Container is part of identity: discovery metadata must not silently become a
+    fact_source. Tokenless discovery/search notes remain outside this map.
+    """
+    records = []
+    if not isinstance(row, dict):
+        return records
+    for container in SOURCE_CONTAINERS:
+        sources = row.get(container)
+        if not isinstance(sources, list):
+            continue
+        for source in sources:
+            if isinstance(source, dict) and _evidence_tokens(source):
+                records.append({"container": container, "source": copy.deepcopy(source)})
+    return records
+
+
+def _source_record_identity(record):
+    normalized = copy.deepcopy(record)
+    source = normalized["source"]
+    # These are identifier/text wrappers or set-valued field declarations, not
+    # substantive edits. Do not coerce booleans, missing metadata or quote lists.
+    for key in ("id", "source_id", "url", "source_url", "canonical_url") + EVIDENCE_TEXT_KEYS + EVIDENCE_VERIFICATION_KEYS:
+        if isinstance(source.get(key), str):
+            source[key] = source[key].strip()
+    for key in SOURCE_SUPPORT_KEYS:
+        value = source.get(key)
+        if isinstance(value, list) and all(isinstance(field, str) for field in value):
+            source[key] = sorted(set(value))
+    return json.dumps(normalized, sort_keys=True, ensure_ascii=False,
+                      separators=(",", ":"), allow_nan=False)
+
+
+def _upstream_source_records(rows_by_stage, label):
+    """Freeze the nearest declaration for each transitive source identity.
+
+    A declared but unverified/context-only source stops fallback just as a
+    verified source does. Never attach an older quote to a newer metadata row.
+    Select all distinct records at that stage, including negative ledger rows.
+    """
+    rows = [_single_bound_row(rows_by_stage, name, label) for name in EVIDENCE_BASELINE_ORDER]
+    aliases = _evidence_alias_groups(rows)
+    claimed = set()
+    selected = {}
+    for row in rows:
+        declared = set()
+        for record in _row_source_records(row):
+            tokens = _expand_evidence_aliases(_evidence_tokens(record["source"]), aliases)
+            if tokens & claimed:
+                continue
+            declared.update(tokens)
+            selected.setdefault(_source_record_identity(record), record)
+        # Do not let one record suppress other declarations in this same row.
+        claimed.update(declared)
+    return [selected[key] for key in sorted(selected)]
 
 
 def _has_positive_fetch_metadata(source):
@@ -830,7 +936,7 @@ def _source_evidence_texts_raw(source):
     texts=[]
     if not isinstance(source,dict):
         return texts
-    for key in EVIDENCE_TEXT_KEYS:
+    for key in GROUNDING_QUOTE_TEXT_KEYS:
         value=source.get(key)
         if _nonempty_text(value):
             texts.append(value.strip())
@@ -873,6 +979,67 @@ def _source_evidence_package(source):
         package[key]=copy.deepcopy(value)
     return package
 
+
+def validate_v5_stage_05_handoff_row(row,label):
+    """Validate the 0.5 -> V5 0.6 grounding handoff without inventing evidence.
+
+    This is deliberately narrower than a general claim-entailment engine. It
+    requires the visible fact carried by a passing 0.5 row to be linked to
+    explicit, field-authorized literal source excerpts with real fetch/quote
+    verification metadata. Preserved context-only/paraphrase-only records may
+    remain in the row, but they cannot satisfy this grounding handoff.
+    """
+    if not isinstance(row,dict):
+        raise Blocked(f"{label} V5 0.5 handoff row must be object")
+    fact=row.get("fact")
+    if _normalized_visible_value("fact",fact) is None:
+        raise Blocked(f"{label} V5 0.5 handoff requires non-empty visible fact")
+    sources=row.get("fact_sources")
+    if not isinstance(sources,list) or not sources or any(not isinstance(source,dict) for source in sources):
+        raise Blocked(f"{label} V5 0.5 handoff requires non-empty fact_sources objects")
+
+    coverage=row.get("claim_source_coverage")
+    if not isinstance(coverage,dict) or coverage.get("status")!="PASS":
+        raise Blocked(f"{label} V5 0.5 handoff requires claim_source_coverage.status=PASS")
+    visible_fact=coverage.get("visible_fact")
+    if not isinstance(visible_fact,dict):
+        raise Blocked(f"{label} V5 0.5 handoff requires claim_source_coverage.visible_fact")
+    claim=visible_fact.get("claim")
+    if _normalized_visible_value("fact",claim)!=_normalized_visible_value("fact",fact):
+        raise Blocked(f"{label} V5 0.5 visible_fact.claim must match the carried fact")
+    refs=visible_fact.get("supported_by_source_ids")
+    if not isinstance(refs,list) or not refs or any(not _nonempty_text(ref) for ref in refs):
+        raise Blocked(f"{label} V5 0.5 supported_by_source_ids must be a non-empty string array")
+    normalized_refs=[ref.strip() for ref in refs]
+    if len(normalized_refs)!=len(set(normalized_refs)):
+        raise Blocked(f"{label} V5 0.5 supported_by_source_ids contains duplicates")
+    if coverage.get("unsupported_visible_claim_count")!=0:
+        raise Blocked(f"{label} V5 0.5 unsupported_visible_claim_count must be 0")
+
+    token_index={}
+    for index,source in enumerate(sources):
+        tokens=_evidence_tokens(source)
+        if not tokens:
+            raise Blocked(f"{label} V5 0.5 fact_sources[{index}] requires source identity token")
+        for token in tokens:
+            token_index.setdefault(token,[]).append((index,source))
+
+    for ref in normalized_refs:
+        matches=token_index.get(ref,[])
+        if len(matches)!=1:
+            raise Blocked(f"{label} V5 0.5 evidence ref {ref!r} must resolve to exactly one fact_source; found {len(matches)}")
+        index,source=matches[0]
+        explicit_support=[key for key in SOURCE_SUPPORT_KEYS if key in source]
+        if not explicit_support:
+            raise Blocked(f"{label} V5 0.5 grounding source {ref!r} requires explicit visible-field support")
+        if "fact" not in _source_supported_visible_fields(source):
+            raise Blocked(f"{label} V5 0.5 grounding source {ref!r} is not authorized for fact")
+        if source.get("fetched") is not True:
+            raise Blocked(f"{label} V5 0.5 grounding source {ref!r} requires fetched=true")
+        if not _source_evidence_is_usable(source):
+            raise Blocked(f"{label} V5 0.5 grounding source {ref!r} requires a verified literal quote and usable fetch metadata")
+        if not _source_evidence_texts_raw(source):
+            raise Blocked(f"{label} V5 0.5 grounding source {ref!r} has no literal source excerpt")
 
 def _evidence_package_identity(package):
     if not isinstance(package,dict) or not package:
@@ -1023,67 +1190,64 @@ def _expand_evidence_aliases(tokens,groups):
     return expanded
 
 
-def _row_evidence_token_state(row,alias_groups=None):
-    token_support={}
-    explicitly_excluded=set()
-    if not isinstance(row,dict):
-        return token_support,explicitly_excluded
-    sources=row.get("fact_sources",[]) if isinstance(row.get("fact_sources"),list) else []
-    for source in sources:
-        if not isinstance(source,dict):
+def _row_evidence_token_state(row, alias_groups=None, *, include_claim_coverage=True):
+    """Resolve field authority without confusing it with quote availability.
+
+    Explicit scope is a ceiling across all aliases in a row. Coverage names a
+    claim/source association; it cannot widen that ceiling or undo exclusion.
+    The existing ledger outcome vocabulary is deliberately unchanged here.
+    """
+    token_support = {}
+    explicitly_excluded = set()
+    explicitly_scoped = {}
+    if not isinstance(row, dict):
+        return token_support, explicitly_excluded
+    groups = _evidence_alias_groups([row]) if alias_groups is None else alias_groups
+    for container in SOURCE_CONTAINERS:
+        records = row.get(container)
+        if not isinstance(records, list):
             continue
-        fields=_source_supported_visible_fields(source)
-        tokens=_evidence_tokens(source)
-        if not fields:
-            explicitly_excluded.update(tokens)
-            for token in tokens:
-                token_support.pop(token,None)
-            continue
-        for token in tokens:
-            if token not in explicitly_excluded:
-                token_support.setdefault(token,set()).update(fields)
-    ledger=row.get("source_discovery_ledger",[]) if isinstance(row.get("source_discovery_ledger"),list) else []
-    for entry in ledger:
-        if not isinstance(entry,dict):
-            continue
-        fields=_source_supported_visible_fields(entry)
-        outcome=str(entry.get("outcome") or "").strip().lower()
-        if not any(
-            key in entry
-            for key in ("visible_claim_support","visible_fields_supported","visible_supports","supports")
-        ):
-            if outcome not in {"used_in_fact_sources","used_for_visible_claims","accepted_visible_evidence"}:
-                fields=set()
-        tokens=_evidence_tokens(entry)
-        if not fields:
-            explicitly_excluded.update(tokens)
-            for token in tokens:
-                token_support.pop(token,None)
-            continue
-        for token in tokens:
-            if token not in explicitly_excluded:
-                token_support.setdefault(token,set()).update(fields)
-    coverage=row.get("claim_source_coverage")
-    if isinstance(coverage,dict):
-        visible=coverage.get("visible_fact")
-        if isinstance(visible,dict):
-            refs=visible.get("supported_by_source_ids")
-            if isinstance(refs,list):
-                for ref in refs:
-                    if _nonempty_text(ref):
-                        token=ref.strip()
-                        if token not in explicitly_excluded:
-                            token_support.setdefault(token,set()).add("fact")
-    groups=_evidence_alias_groups([row]) if alias_groups is None else alias_groups
-    expanded_support={}
-    for token,fields in token_support.items():
-        for alias in _expand_evidence_aliases({token},groups):
-            expanded_support.setdefault(alias,set()).update(fields)
-    token_support=expanded_support
-    explicitly_excluded=_expand_evidence_aliases(explicitly_excluded,groups)
-    for token in explicitly_excluded:
-        token_support.pop(token,None)
-    return token_support,explicitly_excluded
+        for source in records:
+            if not isinstance(source, dict):
+                continue
+            tokens = _expand_evidence_aliases(_evidence_tokens(source), groups)
+            fields = _source_supported_visible_fields(source)
+            has_scope = any(key in source for key in SOURCE_SUPPORT_KEYS)
+            if has_scope:
+                for token in tokens:
+                    if token in explicitly_scoped:
+                        explicitly_scoped[token].intersection_update(fields)
+                    else:
+                        explicitly_scoped[token] = set(fields)
+            if container == "source_discovery_ledger" and not has_scope:
+                outcome = str(source.get("outcome") or "").strip().lower()
+                if outcome not in {"used_in_fact_sources", "used_for_visible_claims", "accepted_visible_evidence"}:
+                    fields = set()
+            if not fields:
+                explicitly_excluded.update(tokens)
+            else:
+                for token in tokens:
+                    token_support.setdefault(token, set()).update(fields)
+    coverage = row.get("claim_source_coverage")
+    if include_claim_coverage and isinstance(coverage, dict):
+        visible = coverage.get("visible_fact")
+        refs = visible.get("supported_by_source_ids") if isinstance(visible, dict) else None
+        if isinstance(refs, list):
+            for ref in refs:
+                if not _nonempty_text(ref):
+                    continue
+                for token in _expand_evidence_aliases({ref.strip()}, groups):
+                    if token not in explicitly_excluded and (
+                        token not in explicitly_scoped or "fact" in explicitly_scoped[token]
+                    ):
+                        token_support.setdefault(token, set()).add("fact")
+    for token in list(token_support):
+        if token in explicitly_scoped:
+            token_support[token].intersection_update(explicitly_scoped[token])
+        if token in explicitly_excluded or not token_support[token]:
+            explicitly_excluded.add(token)
+            token_support.pop(token, None)
+    return token_support, explicitly_excluded
 
 
 def _row_evidence_token_support(row):
@@ -1096,9 +1260,9 @@ def _upstream_evidence_token_support(rows_by_stage,label):
     resolved_tokens=set()
     aliases=_evidence_alias_groups([
         _single_bound_row(rows_by_stage,stage_name,label)
-        for stage_name in ("0.5","0.4","C","B")
+        for stage_name in EVIDENCE_BASELINE_ORDER
     ])
-    for stage_name in ("0.5","0.4","C","B"):
+    for stage_name in EVIDENCE_BASELINE_ORDER:
         row=_single_bound_row(rows_by_stage,stage_name,label)
         stage_support,stage_excluded=_row_evidence_token_state(row,aliases)
         for token in stage_excluded:
@@ -1112,16 +1276,9 @@ def _upstream_evidence_token_support(rows_by_stage,label):
 
 
 def _package_texts(package):
-    texts=[]
-    if not isinstance(package,dict):
-        return texts
-    for key in EVIDENCE_TEXT_KEYS:
-        value=package.get(key)
-        if _nonempty_text(value):
-            texts.append(value.strip())
-        elif isinstance(value,list):
-            texts.extend(x.strip() for x in value if _nonempty_text(x))
-    return list(dict.fromkeys(texts))
+    # Use the same quote-only projection as the standalone row path. Packages
+    # retain editorial fields for exact identity/preservation, not grounding.
+    return _source_evidence_texts_raw(package)
 
 
 def _nearest_upstream_evidence_packages(rows_by_stage,label,allowed_evidence_support):
@@ -1130,10 +1287,10 @@ def _nearest_upstream_evidence_packages(rows_by_stage,label,allowed_evidence_sup
     unresolved=set(allowed)
     rows=[
         _single_bound_row(rows_by_stage,stage_name,label)
-        for stage_name in ("0.5","0.4","C","B")
+        for stage_name in EVIDENCE_BASELINE_ORDER
     ]
     aliases=_evidence_alias_groups(rows)
-    for stage_name,row in zip(("0.5","0.4","C","B"),rows):
+    for stage_name,row in zip(EVIDENCE_BASELINE_ORDER,rows):
         if not unresolved:
             break
         stage_support,stage_excluded=_row_evidence_token_state(row,aliases)
@@ -1227,10 +1384,16 @@ def _validate_dimension_evidence(
         unknown=[x for x in normalized_refs if x not in evidence_support]
         if unknown:
             raise Blocked(f"{label} 0.6 dimension_evidence.{name} has unbound evidence refs {unknown}")
-        unsupported={
-            ref: sorted(set(fields)-evidence_support.get(ref,set()))
+        scope_issues = _content_core.field_evidence_ref_issues(entry)
+        if scope_issues:
+            raise Blocked(f"{label} {scope_issues[0].rule_id}: {scope_issues[0].message}")
+        field_refs = _content_core.dimension_field_refs(entry)
+        unsupported = {
+            ref: sorted(field for field in fields if ref in field_refs[field]
+                        and field not in evidence_support.get(ref, set()))
             for ref in normalized_refs
-            if set(fields)-evidence_support.get(ref,set())
+            if any(ref in field_refs[field] and field not in evidence_support.get(ref, set())
+                   for field in fields)
         }
         if unsupported:
             raise Blocked(
@@ -1515,9 +1678,9 @@ def _copular_factual_tokens(tail):
 def _korean_factual_tokens(text):
     if not isinstance(text,str) or not re.search(r"[가-힣]",text):
         return []
-    tokens=[]
-    for clause_match in re.finditer(r"(?:^|[.;:!?]\s*)(?P<clause>[^.;:!?]+)",text):
-        clause=clause_match.group("clause")
+    tokens=_claim_relations.korean_description_tokens(text)
+    for clause_observation in _claim_relations.clauses(text):
+        clause=clause_observation.text
         residual=list(clause)
         spans=[]
         for match in QUANT_SIGNAL_RE.finditer(clause):
@@ -1548,50 +1711,8 @@ def _korean_factual_tokens(text):
     return tokens
 
 
-KOREAN_FACTUAL_RELATION_RE = re.compile(
-    r"(?P<subject>[가-힣]{2,}?)(?:은|는|이|가)\s+"
-    r"(?P<object>[가-힣]{2,}?)(?:을|를)\s+"
-    r"(?P<predicate>[가-힣]{2,}(?:했다|하였다|한다|된다|됐다|되었다))\b"
-)
-KOREAN_NEGATIVE_FACTUAL_RELATION_RE = re.compile(
-    r"(?P<subject>[가-힣]{2,}?)(?:은|는|이|가)\s+"
-    r"(?P<object>[가-힣]{2,}?)(?:을|를)\s+"
-    r"(?P<stem>[가-힣]{2,}?)하지\s+"
-    r"(?P<ending>않았다|않는다)\b"
-)
-
-
 def _korean_factual_relation_counter(text):
-    counts=Counter()
-    if not isinstance(text,str):
-        return counts
-    for clause_match in re.finditer(r"(?:^|[.;:!?]\s*)(?P<clause>[^.;:!?]+)",text):
-        clause=clause_match.group("clause")
-        if any(QUANT_SIGNAL_RE.finditer(clause)):
-            continue
-        governed=False
-        for dimension in DENSITY_DIMENSIONS:
-            if dimension=="quantitative_anchor":
-                continue
-            if any(
-                pattern.search(clause)
-                for pattern in DIMENSION_CANONICAL_SIGNAL_RES.get(dimension,{}).values()
-            ):
-                governed=True
-                break
-        if governed:
-            continue
-        for match in KOREAN_FACTUAL_RELATION_RE.finditer(clause):
-            subject=match.group("subject")
-            obj=match.group("object")
-            predicate=match.group("predicate")
-            counts[(subject,predicate,obj)]+=1
-        for match in KOREAN_NEGATIVE_FACTUAL_RELATION_RE.finditer(clause):
-            subject=match.group("subject")
-            obj=match.group("object")
-            stem=match.group("stem")
-            counts[(subject,f"neg:{stem}",obj)]+=1
-    return counts
+    return _claim_relations.korean_relations(text)
 
 
 def _factual_predicate_content_counter(text):
@@ -1763,6 +1884,7 @@ def _factual_predicate_subject_counter(text):
     if not isinstance(text,str):
         return counts
     counts.update(_korean_factual_relation_counter(text))
+    counts.update(_claim_relations.english_relations(text))
     for pattern in (
         FACTUAL_PREDICATE_RE,GENERIC_FACTUAL_PREDICATE_RE,
         EXPLICIT_SUBJECT_FACTUAL_PREDICATE_RE,
@@ -1900,10 +2022,35 @@ def _lowercase_factual_fragment_counter(text):
     return counts
 
 
+def _literal_factual_token_occurrence_count(text, token):
+    """Bound parser-overlap counts by literal occurrences in the governed text.
+
+    Several factual recognizers intentionally overlap so they can catch different
+    sentence shapes.  A single lexical occurrence must not consume two or three
+    units of evidence merely because multiple recognizers matched the same span.
+    Real repeated wording still keeps its occurrence budget because the literal
+    token itself appears repeatedly.
+    """
+    if not isinstance(text,str) or not isinstance(token,str) or not token:
+        return 0
+    literal=token[len("fragment:"):] if token.startswith("fragment:") else token
+    if not literal:
+        return 0
+    pattern=re.compile(
+        r"(?<![A-Za-z0-9가-힣])" + re.escape(literal) + r"(?![A-Za-z0-9가-힣])",
+        re.IGNORECASE,
+    )
+    return sum(1 for _ in pattern.finditer(text))
+
+
 def _factual_claim_counter(text):
     counts=_factual_identity_counter(text)
     counts.update(_factual_predicate_content_counter(text))
     counts.update(_lowercase_factual_fragment_counter(text))
+    for token,count in list(counts.items()):
+        literal_count=_literal_factual_token_occurrence_count(text,token)
+        if literal_count:
+            counts[token]=min(count,literal_count)
     return counts
 
 
@@ -2189,7 +2336,7 @@ def _validate_changed_factual_grounding(
                 fields=entry.get("fields")
                 if not isinstance(fields,list) or field not in fields:
                     continue
-                for ref in entry.get("evidence_refs",[]) if isinstance(entry.get("evidence_refs"),list) else []:
+                for ref in _content_core.dimension_field_refs(entry).get(field, []):
                     if _nonempty_text(ref) and ref.strip() not in refs:
                         refs.append(ref.strip())
         refs=_unique_evidence_refs_by_identity(refs,allowed_evidence_packages)
@@ -2215,6 +2362,12 @@ def _validate_changed_factual_grounding(
         for ref in refs:
             for evidence_text in allowed_evidence_texts.get(ref,[]):
                 evidence_predicate_pairs.update(_factual_predicate_subject_counter(evidence_text))
+        unresolved = {str(pair): count for pair, count in introduced_predicate_pairs.items()
+                      if isinstance(pair, tuple) and pair and pair[0] == "relation:unresolved"}
+        if unresolved:
+            raise Blocked(f"{label} C06.RELATION.UNRESOLVED: changed field {field} introduces "
+                          f"subject/predicate claims are not grounded: pronoun relations require an "
+                          f"unambiguous supported antecedent; {unresolved}")
         missing_predicate_pairs=introduced_predicate_pairs-evidence_predicate_pairs
         if missing_predicate_pairs:
             raise Blocked(
@@ -2266,6 +2419,27 @@ def _validate_changed_factual_grounding(
                 )
 
 
+        # An entity's same two numbers may have swapped *metrics* without any
+        # global numeric multiset change. Preserve metric and period as roles.
+        metric_counter = lambda text: _claim_relations.metric_quantity_relations(text, _claim_subjects_for_span)
+        metric_added = (metric_counter(_visible_value_text(current_normalized.get(field)))
+                        - metric_counter(_visible_value_text(upstream_normalized.get(field))))
+        if metric_added:
+            metric_entry = mapping.get("quantitative_anchor") if isinstance(mapping, dict) else None
+            if (not density.get("dimensions", {}).get("quantitative_anchor")
+                    or not isinstance(metric_entry, dict) or field not in metric_entry.get("fields", [])):
+                raise Blocked(f"{label} C06.RELATION.METRIC: field {field} introduces undeclared "
+                              "quantitative_anchor entity/metric/period claims")
+            metric_refs = _content_core.dimension_field_refs(metric_entry).get(field, [])
+            evidence_metric = Counter()
+            for ref in _unique_evidence_refs_by_identity(metric_refs, allowed_evidence_packages):
+                for text in allowed_evidence_texts.get(ref, []):
+                    evidence_metric.update(metric_counter(text))
+            missing_metric = metric_added - evidence_metric
+            if missing_metric:
+                raise Blocked(f"{label} C06.RELATION.METRIC: field {field} entity/metric/period/quantity "
+                              f"claims are not grounded in referenced nearest-stage evidence: {dict(missing_metric)}")
+
 
 def _validate_claimed_dimension_text(density, row_06, label, true_dimensions):
     mapping=density.get("dimension_evidence")
@@ -2289,38 +2463,94 @@ def _validate_claimed_dimension_text(density, row_06, label, true_dimensions):
             )
 
 
+def _dimension_evidence_grounding_issues(
+    dimension, entry, row_06, allowed_evidence_texts, allowed_evidence_packages, *, no_change, retained_identity=True
+):
+    """One shared decision path for bound and standalone scoped grounding.
+
+    Every observed signal remains grounded, including unchanged facts. Field maps
+    select authorized quotes for each field; the aggregate budget also prevents
+    one quote occurrence from supporting two distinct complete-field claims.
+    """
+    shape_issues = _content_core.field_evidence_ref_issues(entry)
+    if shape_issues:
+        return shape_issues
+    field_refs = _content_core.dimension_field_refs(entry)
+    fields = list(field_refs)
+    scoped = "field_evidence_refs" in entry
+    normalized = {f: _normalized_visible_value(f, row_06.get(f, _MISSING)) for f in fields}
+
+    def observed(field_names, refs, require_realized):
+        refs = _unique_evidence_refs_by_identity(refs, allowed_evidence_packages)
+        visible_counts, evidence_counts = Counter(), Counter()
+        visible_strengths, evidence_strengths = {}, {}
+        for field in field_names:
+            text = _visible_value_text(normalized[field])
+            visible_counts.update(_signal_counter(dimension, text))
+            if dimension == "changed_state":
+                for key, values in _state_subject_strength_occurrences(text).items():
+                    visible_strengths.setdefault(key, []).extend(values)
+        for ref in refs:
+            for text in allowed_evidence_texts.get(ref, []):
+                evidence_counts.update(_signal_counter(dimension, text))
+                if dimension == "changed_state":
+                    for key, values in _state_subject_strength_occurrences(text).items():
+                        evidence_strengths.setdefault(key, []).extend(values)
+        return _content_core.grounding_issues(
+            dimension, visible_counts, evidence_counts, visible_strengths, evidence_strengths,
+            require_realized=require_realized,
+        )
+
+    for field in fields:
+        if scoped:
+            issues = observed([field], field_refs[field], False)
+            if issues:
+                return issues
+        counters = []
+        if dimension == "quantitative_anchor":
+            # Preserve the existing opt-in local entity heuristic. Applying it
+            # indiscriminately to legacy multilingual copy mistakes technology
+            # labels for actors. Explicit metric roles below need no opt-in.
+            counters = ([(_factual_quantitative_pair_counter, "subject/signal")]
+                        if scoped else [])
+            if scoped or retained_identity:
+                counters.append((lambda text: _claim_relations.metric_quantity_relations(text, _claim_subjects_for_span),
+                                 "entity/metric/period/quantity"))
+        elif dimension == "boundary_or_uncertainty" and (scoped or retained_identity):
+            counters = [(_boundary_subject_counter, "subject/boundary")]
+        for pair_counter, relation_label in counters:
+            required = pair_counter(_visible_value_text(normalized[field]))
+            evidence_pairs = Counter()
+            for ref in _unique_evidence_refs_by_identity(field_refs[field], allowed_evidence_packages):
+                for text in allowed_evidence_texts.get(ref, []):
+                    evidence_pairs.update(pair_counter(text))
+            missing = required - evidence_pairs
+            if missing:
+                diagnostic = {str(key): value for key, value in missing.items()}
+                return [_content_core.ContractIssue(
+                    "C06.GROUNDING.FIELD_IDENTITY", field,
+                    f"same {relation_label} in this field's verified quotes", diagnostic,
+                    f"0.6 field {field} {dimension} {relation_label} claims are not grounded "
+                    f"in its assigned referenced evidence: {diagnostic}",
+                )]
+    if scoped:
+        fields = _content_core.distinct_visible_fields(normalized, fields)
+    refs = [ref.strip() for ref in entry.get("evidence_refs", [])]
+    return observed(fields, refs, no_change)
+
+
 def _validate_claimed_dimension_evidence_grounding(
     density,row_06,label,true_dimensions,
-    allowed_evidence_texts,allowed_evidence_packages,*,no_change
+    allowed_evidence_texts,allowed_evidence_packages,*,no_change,retained_identity=True
 ):
-    mapping=density.get("dimension_evidence") if isinstance(density,dict) else None
+    mapping = density.get("dimension_evidence") if isinstance(density, dict) else None
     for dimension in true_dimensions:
-        entry=mapping.get(dimension) if isinstance(mapping,dict) else None
-        if not isinstance(entry,dict):
+        entry = mapping.get(dimension) if isinstance(mapping, dict) else None
+        if not isinstance(entry, dict):
             continue
-        fields=entry.get("fields") if isinstance(entry.get("fields"),list) else []
-        refs=[ref.strip() for ref in entry.get("evidence_refs",[]) if _nonempty_text(ref)] \
-            if isinstance(entry.get("evidence_refs"),list) else []
-        refs=_unique_evidence_refs_by_identity(refs,allowed_evidence_packages)
-        visible_counts=Counter()
-        evidence_counts=Counter()
-        visible_strengths={}
-        evidence_strengths={}
-        for field in fields:
-            text=_visible_value_text(_normalized_visible_value(field,row_06.get(field,_MISSING)))
-            visible_counts.update(_signal_counter(dimension,text))
-            if dimension=="changed_state":
-                for key,values in _state_subject_strength_occurrences(text).items():
-                    visible_strengths.setdefault(key,[]).extend(values)
-        for ref in refs:
-            for text in allowed_evidence_texts.get(ref,[]):
-                evidence_counts.update(_signal_counter(dimension,text))
-                if dimension=="changed_state":
-                    for key,values in _state_subject_strength_occurrences(text).items():
-                        evidence_strengths.setdefault(key,[]).extend(values)
-        issues=_content_core.grounding_issues(
-            dimension,visible_counts,evidence_counts,visible_strengths,evidence_strengths,
-            require_realized=no_change,
+        issues = _dimension_evidence_grounding_issues(
+            dimension, entry, row_06, allowed_evidence_texts, allowed_evidence_packages,
+            no_change=no_change, retained_identity=retained_identity,
         )
         if issues:
             raise Blocked(f"{label} {issues[0].message}")
@@ -2336,17 +2566,35 @@ def _validate_substantive_dimension_delta(
         field:_normalized_visible_value(field,row_06.get(field,_MISSING))
         for field in VISIBLE_COPY_FIELDS
     }
+    previous_units = _claim_relations.exact_clause_set(
+        _visible_value_text(value) for value in upstream_normalized.values())
+    current_units = _claim_relations.exact_clause_set(
+        _visible_value_text(value) for value in current_normalized.values())
+    if current_units <= previous_units:
+        raise Blocked(f"{label} C06.NOVELTY.REPETITION: changed copy has no newly added/deepened "
+                      "claim relative to the whole upstream governed copy beyond exact repetition, relocation or removal")
     true_dimensions={
         name for name,value in density.get("dimensions",{}).items()
         if value is True
     }
 
+    def scoped_copy(dimension, values):
+        entry = mapping.get(dimension) if isinstance(mapping, dict) else None
+        if isinstance(entry, dict) and "field_evidence_refs" in entry:
+            # Only explicitly mapped fields can share one literal-copy budget.
+            # An unmapped destination must still declare its introduced signals.
+            mapped = entry["fields"]
+            distinct = set(_content_core.distinct_visible_fields(values, mapped))
+            return {field: value for field, value in values.items()
+                    if field not in mapped or field in distinct}
+        return values
+
     upstream_counts={
-        dimension:_governed_copy_dimension_signal_counts(dimension,upstream_normalized)
+        dimension:_governed_copy_dimension_signal_counts(dimension,scoped_copy(dimension, upstream_normalized))
         for dimension in DENSITY_DIMENSIONS
     }
     current_counts={
-        dimension:_governed_copy_dimension_signal_counts(dimension,current_normalized)
+        dimension:_governed_copy_dimension_signal_counts(dimension,scoped_copy(dimension, current_normalized))
         for dimension in DENSITY_DIMENSIONS
     }
     added_counts={
@@ -2359,10 +2607,10 @@ def _validate_substantive_dimension_delta(
     }
 
     upstream_strength_occurrences=_governed_copy_dimension_strength_occurrences(
-        "changed_state",upstream_normalized
+        "changed_state",scoped_copy("changed_state", upstream_normalized)
     )
     current_strength_occurrences=_governed_copy_dimension_strength_occurrences(
-        "changed_state",current_normalized
+        "changed_state",scoped_copy("changed_state", current_normalized)
     )
     deepened_changed_state=Counter({
         signal:_strength_deepening_count(
@@ -2377,8 +2625,8 @@ def _validate_substantive_dimension_delta(
     })
     remaining_deepened=Counter(deepened_changed_state)
     global_subject_advancements=_state_subject_advancements(
-        "; ".join(_visible_value_text(upstream_normalized.get(field)) for field in VISIBLE_COPY_FIELDS),
-        "; ".join(_visible_value_text(current_normalized.get(field)) for field in VISIBLE_COPY_FIELDS),
+        "; ".join(_visible_value_text(value) for value in scoped_copy("changed_state", upstream_normalized).values()),
+        "; ".join(_visible_value_text(value) for value in scoped_copy("changed_state", current_normalized).values()),
     )
 
     qualifying=[]
@@ -2440,10 +2688,7 @@ def _validate_substantive_dimension_delta(
                     f"{sorted(introduced)} but dimension_evidence does not map that field"
                 )
 
-            refs=[
-                ref.strip() for ref in entry.get("evidence_refs",[])
-                if _nonempty_text(ref)
-            ] if isinstance(entry.get("evidence_refs"),list) else []
+            refs = _content_core.dimension_field_refs(entry).get(field, [])
             refs=_unique_evidence_refs_by_identity(refs,allowed_evidence_packages)
             evidence_counts=Counter()
             evidence_strength_occurrences={}
@@ -2720,42 +2965,7 @@ def _validate_operation_visible_copy(row_06, operation_card, label):
 
 
 def _materialized_card_evidence_support(card):
-    support={}
-    excluded=set()
-    if not isinstance(card,dict):
-        return support
-    for source in card.get("fact_sources",[]) if isinstance(card.get("fact_sources"),list) else []:
-        if not isinstance(source,dict):
-            continue
-        fields=_source_supported_visible_fields(source)
-        tokens=_evidence_tokens(source)
-        if not fields:
-            excluded.update(tokens)
-            for token in tokens:
-                support.pop(token,None)
-            continue
-        for token in tokens:
-            if token not in excluded:
-                support.setdefault(token,set()).update(fields)
-    for entry in card.get("source_discovery_ledger",[]) if isinstance(card.get("source_discovery_ledger"),list) else []:
-        if not isinstance(entry,dict):
-            continue
-        fields=_source_supported_visible_fields(entry)
-        outcome=str(entry.get("outcome") or "").strip().lower()
-        if not any(
-            key in entry
-            for key in ("visible_claim_support","visible_fields_supported","visible_supports","supports")
-        ) and outcome not in {"used_in_fact_sources","used_for_visible_claims","accepted_visible_evidence"}:
-            fields=set()
-        tokens=_evidence_tokens(entry)
-        if not fields:
-            excluded.update(tokens)
-            for token in tokens:
-                support.pop(token,None)
-            continue
-        for token in tokens:
-            if token not in excluded:
-                support.setdefault(token,set()).update(fields)
+    support, _ = _row_evidence_token_state(card, include_claim_coverage=False)
     return support
 
 
@@ -2768,29 +2978,46 @@ def _package_preserves(required,actual):
 
 
 def _validate_materialized_operation_evidence(
-    density, operation_card, label, required_evidence_packages
+    density, operation_card, label, required_evidence_packages, *, required_source_records
 ):
     mapping=density.get("dimension_evidence") if isinstance(density,dict) else None
     if not isinstance(mapping,dict):
         return
     support=_materialized_card_evidence_support(operation_card)
     packages=_materialized_card_evidence_packages(operation_card)
-    authorized_tokens=set(required_evidence_packages)
-    actual_tokens=set(support)
-    unexpected_tokens=sorted(actual_tokens-authorized_tokens)
+    if not isinstance(required_source_records, list):
+        raise Blocked(f"{label} source preservation requires an explicit upstream source inventory")
+    actual_source_records = _row_source_records(operation_card)
+    def record_tokens(records):
+        return {token for record in records for token in _evidence_tokens(record["source"])}
+    authorized_tokens = record_tokens(required_source_records)
+    actual_tokens = record_tokens(actual_source_records)
+    unexpected_tokens = sorted(actual_tokens - authorized_tokens)
     if unexpected_tokens:
         raise Blocked(
             f"{label} materialized operation card introduces evidence source tokens "
             f"not present in the authoritative upstream evidence chain: {unexpected_tokens}"
         )
-    missing_tokens=sorted(authorized_tokens-actual_tokens)
+    missing_tokens = sorted(authorized_tokens - actual_tokens)
     if missing_tokens:
         raise Blocked(
             f"{label} materialized operation card drops authoritative upstream evidence "
             f"source tokens: {missing_tokens}"
         )
+    required_record_ids = {_source_record_identity(record) for record in required_source_records}
+    actual_record_ids = {_source_record_identity(record) for record in actual_source_records}
+    if required_record_ids != actual_record_ids:
+        raise Blocked(
+            f"{label} materialized operation source record inventory does not preserve "
+            f"authoritative source-token bindings, upstream quote/claim and verification-status "
+            f"metadata, or container roles: "
+            f"missing_records={len(required_record_ids - actual_record_ids)} "
+            f"unexpected_records={len(actual_record_ids - required_record_ids)}"
+        )
+    # Grounding packages are a strict subset of preserved records. Metadata-only
+    # sources are neither 'new' nor usable merely because they were retained.
     package_mismatches={}
-    for token in sorted(authorized_tokens):
+    for token in sorted(required_evidence_packages):
         required_ids={
             _evidence_package_identity(package)
             for package in required_evidence_packages.get(token,[])
@@ -2816,6 +3043,10 @@ def _validate_materialized_operation_evidence(
         if not isinstance(entry,dict):
             continue
         fields=set(entry.get("fields",[])) if isinstance(entry.get("fields"),list) else set()
+        shape_issues = _content_core.field_evidence_ref_issues(entry)
+        if shape_issues:
+            raise Blocked(f"{label} {shape_issues[0].message}")
+        field_refs = _content_core.dimension_field_refs(entry)
         refs=[
             ref.strip() for ref in entry.get("evidence_refs",[])
             if _nonempty_text(ref)
@@ -2826,7 +3057,8 @@ def _validate_materialized_operation_evidence(
                     f"{label} materialized operation card does not preserve bound evidence ref {ref} "
                     f"for dimension {dimension}"
                 )
-            missing=fields-support.get(ref,set())
+            required_fields = {field for field in fields if ref in field_refs.get(field, [])}
+            missing=required_fields-support.get(ref,set())
             if missing:
                 raise Blocked(
                     f"{label} materialized operation evidence ref {ref} no longer supports "
@@ -2984,6 +3216,7 @@ def _resolve_content_evidence_context(rows_by_stage, label):
     }
     return _content_core.ResolvedEvidenceContext.from_maps(
         scope="bound_upstream", support=support, texts=texts, packages=packages,
+        source_records=_upstream_source_records(rows_by_stage, label),
     )
 
 
@@ -3065,16 +3298,24 @@ def validate_content_enrichment_delta(rows_by_stage,label,operation_card=None,lo
     _validate_claimed_dimension_evidence_grounding(
         audit["density_audit"],row_06,label,true_dimensions,
         allowed_evidence_texts,allowed_evidence_packages,no_change=not actual_changed,
+        retained_identity=not actual_changed,
     )
     if actual_changed:
         _validate_substantive_dimension_delta(
             audit["density_audit"],row_06,label,actual_changed,upstream_normalized,
             allowed_evidence_texts,allowed_evidence_packages,
         )
+        # Preserve the established changed-fact diagnostics first; then apply
+        # identical retained subject constraints to legacy unscoped mappings.
+        _validate_claimed_dimension_evidence_grounding(
+            audit["density_audit"], row_06, label, true_dimensions,
+            allowed_evidence_texts, allowed_evidence_packages, no_change=False,
+        )
     if operation_card is not None:
         _validate_operation_visible_copy(row_06,operation_card,label)
         _validate_materialized_operation_evidence(
-            audit["density_audit"],operation_card,label,allowed_evidence_packages
+            audit["density_audit"],operation_card,label,allowed_evidence_packages,
+            required_source_records=evidence_context.source_records(),
         )
 
 
@@ -3149,6 +3390,9 @@ def validate_operations(run,governed):
             if missing: raise Blocked(f"{label} missing current-run candidate binding at stages {missing}")
             validate_governed_stage_a_operation(rows_by_stage,expected,strict_specs,label)
             validate_source_diversity_chain(rows_by_stage,label)
+            if not locked_prompt_version.startswith("PROMPT_0_6_V4_"):
+                for row_index,row_05 in enumerate(rows_by_stage.get("0.5",[])):
+                    validate_v5_stage_05_handoff_row(row_05,f"{label} stage 0.5 row {row_index}")
             operation_card=_materialized_operation_card(kind,op,expected,known,inserted,baseline_cards,insert_cards,updated_cards,label)
             validate_content_enrichment_delta(
                 rows_by_stage,label,operation_card=operation_card,

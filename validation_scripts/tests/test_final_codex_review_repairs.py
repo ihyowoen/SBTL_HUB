@@ -30,7 +30,7 @@ class FinalCodexReviewRepairs(unittest.TestCase):
         with self.assertRaises(binding.Blocked):
             self.validate(*args, **kwargs)
 
-    def standalone(self, prior, current, quote, dimensions=('quantitative_anchor',), *, fake_v4=False, remove_audit=False):
+    def standalone(self, prior, current, quote, dimensions=('quantitative_anchor',), *, fake_v4=False, row_fake_v4=False, remove_audit=False):
         chain = chain_for(prior, current, quote, dimensions)
         row = copy.deepcopy(chain['0.6'][0])
         row.update(
@@ -39,6 +39,8 @@ class FinalCodexReviewRepairs(unittest.TestCase):
             date_role={'representative_date':'2026-09-01'},
             source_diversity_status='PASS_MULTI_SOURCE',
         )
+        if row_fake_v4:
+            row['prompt_provenance_0_6']={'prompt_version':'PROMPT_0_6_V4_FAKE'}
         if remove_audit:
             row.pop('content_enrichment_audit', None)
         payload = {
@@ -63,6 +65,23 @@ class FinalCodexReviewRepairs(unittest.TestCase):
         good, result = self.standalone(
             'Capacity is 10 MW.', 'Capacity is 20 MW. Alpha sold coal.', 'Capacity is 20 MW. Alpha sold coal.')
         self.assertEqual(good.returncode, 0, good.stdout + good.stderr)
+
+    def test_standalone_changed_field_grounds_factual_relations(self):
+        prior = 'Capacity is 10 MW.'
+        current = 'Capacity is 20 MW. Alpha sold gas. Beta sold coal.'
+        wrong_quote = 'Capacity is 20 MW. Alpha sold coal. Beta sold gas.'
+        proc, result = self.standalone(prior, current, wrong_quote)
+        self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
+        self.assertIn('C06.GROUNDING.FIELD_RELATION', [x.get('rule_id') for x in result['findings']])
+        good, result = self.standalone(prior, current, current)
+        self.assertEqual(good.returncode, 0, good.stdout + good.stderr)
+
+    def test_unlocked_row_level_v4_declaration_cannot_disable_v5(self):
+        proc, result = self.standalone(
+            'Capacity is 10 MW.', 'Capacity is 20 MW.', 'Capacity is 20 MW.',
+            row_fake_v4=True, remove_audit=True)
+        self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
+        self.assertIn('content_enrichment_audit', [x.get('field') for x in result['findings']])
 
     def test_exported_recipient_swap_is_ordered(self):
         before = 'Capacity is 10 MW. Alpha exported coal to Beta. Alpha exported gas to Gamma.'

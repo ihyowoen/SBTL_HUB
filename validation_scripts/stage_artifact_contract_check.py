@@ -225,7 +225,10 @@ def _prompt_06_version(item):
 
 
 def _requires_v5_content_audit(item, locked_prompt_version=None):
-    version = locked_prompt_version if locked_prompt_version is not None else _prompt_06_version(item)
+    # Historical V4 exemptions are authoritative only when resolved from the
+    # locked base commit. Row/artifact self-declarations without that lock must
+    # remain on the current fail-closed V5 contract.
+    version = locked_prompt_version
     return not (isinstance(version, str) and version.startswith("PROMPT_0_6_V4_"))
 
 
@@ -452,15 +455,17 @@ def _standalone_changed_factual_findings(item, scope):
                     if _non_empty_string(ref) and ref.strip() not in refs:
                         refs.append(ref.strip())
         refs = _content_binding._unique_evidence_refs_by_identity(refs, evidence_packages)
-        visible = _content_binding._factual_claim_counter(
-            _visible_value_text(_normalized_visible_value(field, item.get(field)))
-        )
-        if not visible:
+        visible_text = _visible_value_text(_normalized_visible_value(field, item.get(field)))
+        visible = _content_binding._factual_claim_counter(visible_text)
+        visible_relations = _content_binding._factual_predicate_subject_counter(visible_text)
+        if not visible and not visible_relations:
             continue
         grounded = Counter()
+        grounded_relations = Counter()
         for ref in refs:
             for text in evidence_texts.get(ref, []):
                 grounded.update(_content_binding._factual_claim_counter(text))
+                grounded_relations.update(_content_binding._factual_predicate_subject_counter(text))
         missing = visible - grounded
         if missing:
             finding = _field_finding(
@@ -469,6 +474,16 @@ def _standalone_changed_factual_findings(item, scope):
                 "standalone 0.6 cannot certify a changed visible field containing factual claims absent from its assigned verified evidence",
             )
             finding["rule_id"] = "C06.GROUNDING.FIELD_IDENTITY"
+            findings.append(finding)
+        missing_relations = visible_relations - grounded_relations
+        if missing_relations:
+            diagnostic = {str(key): value for key, value in missing_relations.items()}
+            finding = _field_finding(
+                scope, field, "all factual subject/predicate/argument relations in a changed field grounded by its assigned verified evidence",
+                diagnostic,
+                "standalone 0.6 cannot certify a changed visible field whose factual relations are absent from its assigned verified evidence",
+            )
+            finding["rule_id"] = "C06.GROUNDING.FIELD_RELATION"
             findings.append(finding)
     return findings
 

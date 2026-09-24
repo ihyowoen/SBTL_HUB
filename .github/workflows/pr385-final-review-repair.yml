@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - docs/audits/pr385/final_review_stage/READY
+      - .github/workflows/pr385-final-review-repair.yml
 permissions:
   contents: write
 jobs:

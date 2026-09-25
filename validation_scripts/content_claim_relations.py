@@ -302,6 +302,11 @@ _GENERAL_IRREGULAR = {
     'grew','fell','rose','ran','went','came','sank','broke','burst','shut',
     'left','won','lost','drove','flew','stood','sat','lay','led','paid',
 }
+_GENERAL_STATE_VERBS = {
+    'approved','delayed','started','completed','resumed','restarted',
+    'suspended','cancelled','canceled','signed','launched','shipped',
+    'commenced','began','begun',
+}
 
 
 def _strip_leading_period(text: str):
@@ -403,6 +408,9 @@ def _emit_active_period_relations(out, segment, topic):
         if not parsed_general:
             return
         subject,aux,verb,tail=parsed_general
+        if verb in _GENERAL_STATE_VERBS:
+            # Changed-state chronology is owned by the dedicated state layer.
+            return
 
     local_arguments=_local_dated_arguments(tail)
     if local_arguments:
@@ -485,12 +493,26 @@ def _copular_segment_period_relations(segment: str, topic: str | None):
         subject=_resolved_action_subject(direct['subject'],topic)
         if subject is None:
             return out
+        observations=atoms.temporal_period_observations(direct['tail'])
         local_pairs=_local_dated_arguments(direct['tail'])
         if local_pairs:
-            for complement,period in local_pairs:
-                out[('relation:en:copular:period',subject,
-                     direct['copula'].casefold(),complement,period)]+=1
-            return out
+            pair_index=0
+            for start,end,period in observations:
+                after=direct['tail'][end:]
+                if _COPULAR_SUBJECT_AFTER_PERIOD.match(after):
+                    # This period is preposed for the following explicit
+                    # subject; do not attach it to the current copular subject.
+                    continue
+                if pair_index < len(local_pairs):
+                    complement,pair_period=local_pairs[pair_index]
+                    pair_index+=1
+                    if pair_period == period:
+                        out[('relation:en:copular:period',subject,
+                             direct['copula'].casefold(),complement,period)]+=1
+            if out:
+                return out
+            if observations:
+                return out
         if leading_period:
             complement=ordered_terms(direct['tail'])
             if complement:
@@ -567,7 +589,12 @@ def copular_subordinate_relations(text: str) -> Counter:
         if not finite:
             continue
         subject,aux,verb,tail=finite
-        out[('relation:en:subordinate',subject,aux,verb,ordered_terms(tail))]+=1
+        if aux:
+            out[('relation:en:subordinate',subject,aux,verb,ordered_terms(tail))]+=1
+        else:
+            # Preserve the established key shape for simple finite subordinate
+            # clauses; add aux only when it is semantically present.
+            out[('relation:en:subordinate',subject,verb,ordered_terms(tail))]+=1
     return out
 
 _COORDINATED_METRIC_PERIOD = re.compile(

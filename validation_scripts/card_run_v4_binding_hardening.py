@@ -1690,14 +1690,20 @@ def _copular_factual_polarized_tokens(tail):
         if not local:
             continue
         # "neither X nor Y" negates every coordinated complement in
-        # that construction. Keep it separate from additive "not only X but Y".
-        if re.match(r"^neither\b",local,re.IGNORECASE):
-            local=re.sub(r"^neither\b\s*","",local,count=1,flags=re.IGNORECASE)
-            pieces=[
+        # that construction, even when discourse/aspect modifiers precede
+        # "neither" (for example, "currently neither X nor Y").
+        neither_match=re.search(r"\bneither\b",local,re.IGNORECASE)
+        if neither_match:
+            before=local[:neither_match.start()].strip()
+            negated_tail=local[neither_match.end():].strip()
+            pieces=[]
+            if before:
+                pieces.append(("pos",before))
+            pieces.extend(
                 ("neg",piece.strip())
-                for piece in re.split(r"\bnor\b",local,flags=re.IGNORECASE)
+                for piece in re.split(r"\bnor\b",negated_tail,flags=re.IGNORECASE)
                 if piece.strip()
-            ]
+            )
         else:
             if re.match(r"^not\s+only\b",local,re.IGNORECASE):
                 local=re.sub(r"^not\s+only\b\s*","",local,count=1,flags=re.IGNORECASE)
@@ -2231,14 +2237,19 @@ def _claim_subject_for_span(text,start,end):
 _STATE_TEMPORAL_PERIOD_RE = re.compile(
     r"(?:\b(?:in|during|by|on|from|since|through|until|as\s+of)\s+"
     r"(?P<en_period>"
-    r"(?:19|20|21)\d{2}"
+    r"(?:19|20|21)\d{2}\s+(?:q[1-4]|(?:first|second|third|fourth)\s+quarter)"
     r"|q[1-4](?:\s+(?:19|20|21)\d{2})?"
     r"|(?:first|second|third|fourth)\s+quarter(?:\s+(?:19|20|21)\d{2})?"
     r"|(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
     r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
     r"(?:\s+(?:19|20|21)\d{2})?"
+    r"|(?:19|20|21)\d{2}"
     r")\b"
-    r"|(?P<ko_period>(?:19|20|21)\d{2}\s*년(?:도|에|부터|까지)?|[1-4]\s*분기))",
+    r"|(?P<ko_period>"
+    r"(?:19|20|21)\d{2}\s*년(?:도)?\s*[1-4]\s*분기"
+    r"|[1-4]\s*분기(?:\s*(?:19|20|21)\d{2}\s*년)?"
+    r"|(?:19|20|21)\d{2}\s*년(?:도|에|부터|까지)?"
+    r"))",
     re.IGNORECASE,
 )
 
@@ -2247,16 +2258,39 @@ _MONTH_ALIASES = {
     "jun":"june","jul":"july","aug":"august","sep":"september","sept":"september",
     "oct":"october","nov":"november","dec":"december",
 }
+_QUARTER_ORDINALS = {"first":"1","second":"2","third":"3","fourth":"4"}
 
 
 def _canonical_state_period(raw):
     value=re.sub(r"\s+"," ",str(raw or "").strip()).casefold()
     if not value:
         return ""
+
+    korean_quarter=re.fullmatch(
+        r"(?:(?P<year1>(?:19|20|21)\d{2})\s*년(?:도)?\s*)?"
+        r"(?P<quarter>[1-4])\s*분기"
+        r"(?:\s*(?P<year2>(?:19|20|21)\d{2})\s*년)?",
+        value,
+    )
+    if korean_quarter:
+        year=korean_quarter.group("year1") or korean_quarter.group("year2") or ""
+        quarter=f"q{korean_quarter.group('quarter')}"
+        return f"{year} {quarter}".strip()
+
+    english_quarter=re.fullmatch(
+        r"(?:(?P<year1>(?:19|20|21)\d{2})\s+)?"
+        r"(?:q(?P<qnum>[1-4])|(?P<ordinal>first|second|third|fourth)\s+quarter)"
+        r"(?:\s+(?P<year2>(?:19|20|21)\d{2}))?",
+        value,
+    )
+    if english_quarter:
+        quarter=english_quarter.group("qnum") or _QUARTER_ORDINALS[english_quarter.group("ordinal")]
+        year=english_quarter.group("year1") or english_quarter.group("year2") or ""
+        return f"{year} q{quarter}".strip()
+
     parts=value.split(" ",1)
     head=_MONTH_ALIASES.get(parts[0],parts[0])
     return head + ((" " + parts[1]) if len(parts)>1 else "")
-
 
 def _state_local_period_identity(text,start,end,previous_end=None,next_start=None):
     left,right=_claim_segment_bounds(text,start,end)

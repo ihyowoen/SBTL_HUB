@@ -722,39 +722,25 @@ def _masked_passive_period_objects(raw: str, passive):
 def _emit_passive_period_relation(out, segment):
     raw,leading_period=_strip_leading_period(segment)
     passive=_EN_PASSIVE.fullmatch(raw)
-    masked_passive=None
 
     if passive is None:
         masked_raw=_mask_periods(raw).strip()
         passive=_EN_PASSIVE.fullmatch(masked_raw)
         if passive is None:
             return
-        masked_passive=passive
 
     subject=passive['subject'].casefold()
     aux=passive['aux'].strip().casefold()
     verb=passive['verb'].casefold()
-    base_object=ordered_terms(_mask_periods(passive['object']))
+    object_start=passive.start('object')
+    object_end=passive.end('object')
+    base_object=ordered_terms(_mask_periods(raw[object_start:object_end]))
 
     if leading_period:
         out[('relation:en:passive:period',subject,aux,verb,base_object,leading_period)]+=1
 
-    if masked_passive is not None:
-        for object_terms,period in _masked_passive_period_objects(raw,passive):
-            out[('relation:en:passive:period',subject,aux,verb,object_terms,period)]+=1
-        return
-
-    local_objects=_passive_local_dated_objects(passive)
-    if local_objects:
-        for object_terms,period in local_objects:
-            out[('relation:en:passive:period',subject,aux,verb,object_terms,period)]+=1
-
-    tail_start=passive.start('tail') if passive.groupdict().get('tail') else len(raw)
-    for start,_,period in atoms.temporal_period_observations(raw):
-        if start < tail_start:
-            cleaned_object=ordered_terms(_mask_periods(passive['object']))
-            out[('relation:en:passive:period',subject,aux,verb,
-                 cleaned_object or base_object,period)]+=1
+    for object_terms,period in _masked_passive_period_objects(raw,passive):
+        out[('relation:en:passive:period',subject,aux,verb,object_terms,period)]+=1
 
 def english_factual_period_relations(text: str) -> Counter:
     out=Counter()

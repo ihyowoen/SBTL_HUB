@@ -55,6 +55,15 @@ TEMPORAL_EN_MONTH_VALUE = (
     r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
     r"(?:\s+(?:19|20|21)\d{2})?"
 )
+TEMPORAL_EN_MONTH_RANGE_VALUE = (
+    r"(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+    r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+    r"(?:\s+(?:19|20|21)\d{2})?"
+    r"\s+(?:to|through)\s+"
+    r"(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+    r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+    r"(?:\s+(?:19|20|21)\d{2})?"
+)
 TEMPORAL_EN_PERIOD_VALUE = (
     r"(?:" + TEMPORAL_EN_YEAR_QUARTER_VALUE + r"|" + TEMPORAL_EN_MONTH_VALUE + r")"
 )
@@ -63,15 +72,7 @@ TEMPORAL_PERIOD_SPAN_RE = re.compile(
     r"\b(?:in|during|by|on|since|through|until|as\s+of)\s+"
     r"(?P<en_period>" + TEMPORAL_EN_PERIOD_VALUE + r")\b"
     r"|\bfor\s+(?P<en_for_period>" + TEMPORAL_EN_YEAR_QUARTER_VALUE + r")\b"
-    r"|\bfrom\s+(?P<en_month_range>"
-    r"(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
-    r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
-    r"(?:\s+(?:19|20|21)\d{2})?"
-    r"\s+(?:to|through)\s+"
-    r"(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
-    r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
-    r"(?:\s+(?:19|20|21)\d{2})?"
-    r")\b"
+    r"|\bfrom\s+(?P<en_month_range>" + TEMPORAL_EN_MONTH_RANGE_VALUE + r")\b"
     r"|\bfrom\s+(?P<en_from_period>"
     r"(?:" + TEMPORAL_EN_YEAR_QUARTER_VALUE
     + r"|(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
@@ -114,6 +115,10 @@ def canonical_temporal_period(raw):
         end=_MONTH_ALIASES.get(month_range.group("end"),month_range.group("end"))
         start_year=month_range.group("start_year") or ""
         end_year=month_range.group("end_year") or ""
+        if bool(start_year) ^ bool(end_year):
+            shared_year=start_year or end_year
+            start_year=start_year or shared_year
+            end_year=end_year or shared_year
         left=start + (f" {start_year}" if start_year else "")
         right=end + (f" {end_year}" if end_year else "")
         return f"{left}-to-{right}"

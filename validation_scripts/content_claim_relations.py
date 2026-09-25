@@ -497,10 +497,15 @@ def _active_local_dated_pairs(tail: str, initial_verb: str):
     for index,(start,end,period) in enumerate(periods):
         next_start=periods[index+1][0] if index+1 < len(periods) else len(tail)
 
+        raw_local=tail[previous_end:start]
+        period_preposed_to_next=bool(
+            re.search(r"\b(?:and|or)\s*$",raw_local,re.I)
+        )
         after=tail[end:next_start]
         after_clean=re.sub(r'^\s*(?:,|and|or)?\s*','',after,flags=re.I)
         after_tokens=list(re.finditer(r"[A-Za-z][A-Za-z-]*",after_clean))
-        if after_tokens and _finite_coord_token(after_tokens[0].group(0)):
+        if (period_preposed_to_next and after_tokens
+                and _finite_coord_token(after_tokens[0].group(0))):
             verb_match=after_tokens[0]
             current_verb=verb_match.group(0).casefold()
             argument_text=after_clean[verb_match.end():]
@@ -512,7 +517,6 @@ def _active_local_dated_pairs(tail: str, initial_verb: str):
             previous_end=end
             continue
 
-        raw_local=tail[previous_end:start]
         connector_prefix=re.match(r'^\s*(?:and|or|,)\s+',raw_local,re.I)
         local=re.sub(r'^\s*(?:and|or|,)\s*','',raw_local,flags=re.I).strip()
         local=re.sub(r'\s*(?:and|or|,)\s*$','',local,flags=re.I).strip()

@@ -103,6 +103,11 @@ _KR_DESCRIPTION = re.compile(
     r'(?P<negation>\s*(?:는\s+)?(?:아니다|않다))?$'
 )
 
+_KR_COPULAR = re.compile(
+    r'^' + _KR_SUBJECT
+    + r'(?P<complement>[가-힣]+(?:\s+[가-힣]+){0,4}?)(?P<copula>이다|이었다|였다|아니다)$'
+)
+
 
 def korean_relations(text: str) -> Counter:
     """Subject-object-predicate retains intervening quantities, not a token bag."""
@@ -129,6 +134,10 @@ def korean_relations(text: str) -> Counter:
             out[('description:kr', match['subject'].casefold(), match['attribute'],
                  ' '.join((match['polarity'] or '').split()), match['predicate'],
                  ' '.join((match['negation'] or '').split()))] += 1
+        copular = _KR_COPULAR.fullmatch(clause.text)
+        if copular:
+            out[('copular:kr', copular['subject'].casefold(),
+                 ' '.join(copular['complement'].split()), copular['copula'])] += 1
     return out
 
 
@@ -140,6 +149,9 @@ def korean_description_tokens(text: str) -> list[str]:
         if match:
             out.extend(x for x in (match['subject'], match['attribute'],
                                    match['polarity'], match['predicate'], match['negation']) if x)
+        copular = _KR_COPULAR.fullmatch(clause.text)
+        if copular:
+            out.extend((copular['subject'], copular['complement'], copular['copula']))
     return out
 
 

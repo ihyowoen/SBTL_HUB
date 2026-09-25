@@ -21,7 +21,7 @@ QUANT_SIGNAL_RE = re.compile(
     r"(?P<bound><=|>=|≤|≥|<|>|≈|~)?\s*"
     r"(?:(?P<currency_code_prefix>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\s+)?"
     r"(?P<sign>[+−﹣－＋-])?\s*"
-    r"(?:(?P<country_dollar_prefix>A|C)\$|(?P<currency>[$€£¥₩]?))"
+    r"(?:(?P<country_dollar_prefix>A|C)\$\s*|(?P<currency>[$€£¥₩]?))"
     r"(?P<number>\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+,\d+|\d+(?:\.\d+)?)"
     r"(?:\s*(?P<korean_magnitude>백만|십|백|천|만|억|조)"
     r"(?=달러|유로|위안|원|엔|" + _KOREAN_QUANTITY_END + r"))?"
@@ -376,8 +376,23 @@ def state_observation(text, match):
     coordinated_subject = COORDINATING_NEW_SUBJECT_RE.search(conditional_suffix)
     if coordinated_subject:
         conditional_suffix = conditional_suffix[:coordinated_subject.start()]
-    if (_CONDITIONAL_EN.search(local_prefix) or _CONDITIONAL_EN.search(conditional_suffix)
-            or re.search(r"\bwhether\b", local_prefix, re.IGNORECASE)):
+
+    conditional_prefix = local_prefix
+    prefix_subjects = list(COORDINATING_NEW_SUBJECT_RE.finditer(conditional_prefix))
+    # A genuinely preposed condition scopes all of its coordinated conjuncts
+    # ("If Alpha ... and Beta ..."). Otherwise, once a later explicit subject
+    # begins, a postposed condition from the earlier conjunct must not leak
+    # into that later subject.
+    preposed_condition = re.match(
+        r"^\s*(?:if|unless|assuming|provided\s+that|providing\s+that|"
+        r"in\s+the\s+event\s+that|whether)\b",
+        conditional_prefix,re.IGNORECASE,
+    )
+    if prefix_subjects and not preposed_condition:
+        conditional_prefix = conditional_prefix[prefix_subjects[-1].end():]
+
+    if (_CONDITIONAL_EN.search(conditional_prefix) or _CONDITIONAL_EN.search(conditional_suffix)
+            or re.search(r"\bwhether\b", conditional_prefix, re.IGNORECASE)):
         return _state_observation(match, 0, "conditional", "english_conditional_scope")
     prefix=text[max(0,match.start()-96):match.start()]
     suffix=text[match.end():min(len(text),match.end()+64)]

@@ -31,6 +31,43 @@ class RelationBindingTests(unittest.TestCase):
         with self.assertRaises(binding.Blocked):
             self.check(*args, **kwargs)
 
+    def test_korean_copular_claim_cannot_hitchhike_on_quantity(self):
+        self.blocked('용량은 10 MW이다.', '용량은 20 MW이다. 알파는 선두 기업이다.', '용량은 20 MW이다.')
+
+    def test_grounded_korean_copular_claim_passes(self):
+        current = '용량은 20 MW이다. 알파는 선두 기업이다.'
+        self.check('용량은 10 MW이다.', current, current)
+
+    def test_modified_common_noun_state_swap_blocks(self):
+        before = 'The northern refinery may be approved. The southern refinery is approved. Capacity is 10 MW.'
+        after = 'The northern refinery is approved. The southern refinery may be approved. Capacity is 20 MW.'
+        self.blocked(before, after, before.replace('10 MW', '20 MW'), ('changed_state','quantitative_anchor'))
+
+    def test_grounded_modified_common_noun_state_swap_passes(self):
+        before = 'The northern refinery may be approved. The southern refinery is approved. Capacity is 10 MW.'
+        after = 'The northern refinery is approved. The southern refinery may be approved. Capacity is 20 MW.'
+        self.check(before, after, after, ('changed_state','quantitative_anchor'))
+
+    def test_possessive_proper_subject_addition_blocks(self):
+        before = 'Alpha project. Capacity is 10 MW.'
+        after = "Alpha's plant sells coal. Capacity is 20 MW."
+        self.blocked(before, after, 'Capacity is 20 MW.')
+
+    def test_grounded_possessive_proper_subject_addition_passes(self):
+        before = 'Alpha project. Capacity is 10 MW.'
+        after = "Alpha's plant sells coal. Capacity is 20 MW."
+        self.check(before, after, after)
+
+    def test_location_relation_change_blocks(self):
+        before = 'Alpha is in Texas. Capacity is 10 MW.'
+        after = 'Alpha is from Texas. Capacity is 20 MW.'
+        self.blocked(before, after, 'Alpha is in Texas. Capacity is 20 MW.')
+
+    def test_grounded_location_relation_change_passes(self):
+        before = 'Alpha is in Texas. Capacity is 10 MW.'
+        after = 'Alpha is from Texas. Capacity is 20 MW.'
+        self.check(before, after, after)
+
     def test_korean_description_cannot_hitchhike_on_quantity(self):
         self.blocked('용량은 10 MW이다.', '용량은 20 MW이다. 알파는 수익성이 높다.', '용량은 20 MW이다.')
 

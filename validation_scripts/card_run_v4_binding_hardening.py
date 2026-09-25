@@ -2332,7 +2332,8 @@ def _state_local_period_identity(text,start,end,previous_end=None,next_start=Non
         if next_start is not None:
             bridge=remainder[:max(0,next_start-end-match.end())]
             explicit_subject=re.fullmatch(
-                r"\s*(?:(?:the|a|an|this|that|these|those)\s+)?"
+                r"\s*(?!(?:and|or|but|yet)\b)"
+                r"(?:(?:the|a|an|this|that|these|those)\s+)?"
                 r"(?:[A-Za-z][A-Za-z0-9&._-]*"
                 r"(?:\s+[A-Za-z][A-Za-z0-9&._-]*){0,2})"
                 r"(?:\s+(?:is|are|was|were|has|have|had|will|shall|may|might|could))?\s*",

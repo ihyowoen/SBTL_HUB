@@ -242,10 +242,6 @@ FACTUAL_CONTENT_STOPWORDS = FACTUAL_IDENTITY_STOPWORDS | {
     "and","or","but","yet","with","from","into","onto","over","under","through",
     "for","per","via","in","on","at","to","by","of","as","if","up","no","so",
     "its","their","our","his","her","new","same","current",
-    # Temporal period spellings are governed by the state/metric period
-    # relation layers. Do not make equivalent Q1 / first-quarter wording fail
-    # the flat factual-token grounding budget before those bindings run.
-    "q1","q2","q3","q4","first","second","third","fourth","quarter","quarters",
     "planned","approved","started","delayed","completed","commercial","remains",
     "remain","will","would","could","may","might","uses","using","contains",
     "containing","includes","including","comprises","relies","sources","supplies",
@@ -1632,10 +1628,21 @@ def _governed_copy_dimension_signals(dimension, normalized_by_field):
 
 
 
+def _mask_temporal_period_spans(text):
+    if not isinstance(text,str):
+        return text
+    chars=list(text)
+    for start,end,_ in _semantic_atoms.temporal_period_spans(text):
+        for index in range(start,end):
+            chars[index]=" "
+    return "".join(chars)
+
+
 def _factual_identity_counter(text):
     counts=Counter()
     if not isinstance(text,str):
         return counts
+    text=_mask_temporal_period_spans(text)
     for match in FACTUAL_IDENTITY_TOKEN_RE.finditer(text):
         token=match.group(0).strip(".,;:()[]{}").casefold()
         if token and token not in FACTUAL_IDENTITY_STOPWORDS:
@@ -1687,10 +1694,21 @@ def _copular_factual_polarized_tokens(tail):
         for index in range(start,end):
             residual[index]=" "
     residual="".join(residual)
+    # Temporal syntax is governed by period bindings, not by copular content.
+    residual=_mask_temporal_period_spans(residual)
 
     polarized=[]
     for segment in re.split(r"\b(?:and|but|while|whereas)\b|,",residual,flags=re.IGNORECASE):
         local=segment.strip()
+        if not local:
+            continue
+        # Do not let negation inside a subordinate reason/condition become a
+        # complement of the main copular subject.
+        local=re.split(
+            r"\b(?:because|since|although|though|if|unless|when|where|which|who)\b"
+            r"|\bdue\s+to\b",
+            local,maxsplit=1,flags=re.IGNORECASE,
+        )[0].strip()
         if not local:
             continue
         # "neither X nor Y" negates every coordinated complement in
@@ -1777,6 +1795,7 @@ def _factual_predicate_content_counter(text):
     counts=Counter()
     if not isinstance(text,str):
         return counts
+    text=_mask_temporal_period_spans(text)
     for match in CONTRACTED_AUX_FACTUAL_RE.finditer(text):
         aux=match.group("contracted_aux").casefold()
         tail=match.group("contracted_tail") or ""
@@ -1941,6 +1960,7 @@ def _factual_predicate_subject_counter(text):
     counts=Counter()
     if not isinstance(text,str):
         return counts
+    text=_mask_temporal_period_spans(text)
     counts.update(_korean_factual_relation_counter(text))
     counts.update(_claim_relations.english_relations(text))
     for pattern in (
@@ -2116,6 +2136,7 @@ def _factual_claim_counter(text):
 def _factual_identity_spans(text):
     if not isinstance(text,str):
         return []
+    text=_mask_temporal_period_spans(text)
     spans=set()
     proper_spans=[]
     for match in MULTIWORD_PROPER_IDENTITY_RE.finditer(text):
@@ -2305,7 +2326,22 @@ def _state_local_period_identity(text,start,end,previous_end=None,next_start=Non
     after=text[end:min(right,end+72)]
     match=_STATE_TEMPORAL_PERIOD_RE.search(after)
     if match:
-        return _canonical_state_period(match.group("en_period") or match.group("ko_period") or "")
+        # A period preposed before the next explicit subject belongs to that
+        # following state, not retroactively to the current one.
+        remainder=after[match.end():]
+        if next_start is not None:
+            bridge=remainder[:max(0,next_start-end-match.end())]
+            explicit_subject=re.fullmatch(
+                r"\s*(?:(?:the|a|an|this|that|these|those)\s+)?"
+                r"(?:[A-Za-z][A-Za-z0-9&._-]*"
+                r"(?:\s+[A-Za-z][A-Za-z0-9&._-]*){0,2})"
+                r"(?:\s+(?:is|are|was|were|has|have|had|will|shall|may|might|could))?\s*",
+                bridge,re.IGNORECASE,
+            )
+            if explicit_subject:
+                match=None
+        if match:
+            return _canonical_state_period(match.group("en_period") or match.group("ko_period") or "")
     before=text[max(left,start-96):start]
     matches=list(_STATE_TEMPORAL_PERIOD_RE.finditer(before))
     if matches:
@@ -2361,6 +2397,7 @@ def _factual_location_pair_counter(text):
     counts=Counter()
     if not isinstance(text,str):
         return counts
+    text=_mask_temporal_period_spans(text)
     identities=_factual_identity_spans(text)
     for match in LOCATION_PHRASE_RE.finditer(text):
         location=match.group(1).strip(".,;:()[]{}").casefold()
@@ -2392,6 +2429,7 @@ def _factual_quantitative_pair_counter(text):
     counts=Counter()
     if not isinstance(text,str):
         return counts
+    text=_mask_temporal_period_spans(text)
     identities=_factual_identity_spans(text)
     for match in QUANT_SIGNAL_RE.finditer(text):
         signal=_quantitative_signal_from_match(match)

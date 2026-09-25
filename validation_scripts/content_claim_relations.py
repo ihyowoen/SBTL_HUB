@@ -740,7 +740,14 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
                         local_start=previous_quantity_end or 0
                         local_prefix=prefix[local_start:match.start()]
                         observations=atoms.temporal_period_observations(local_prefix)
-                        period=observations[-1][2] if observations else ''
+                        if observations:
+                            period=observations[-1][2]
+                        else:
+                            local_periods=list(_PERIOD.finditer(local_prefix))
+                            period=(
+                                _canonical_metric_period(local_periods[-1]['period'])
+                                if local_periods else ''
+                            )
                 context=(metric,tuple(subjects))
             else:
                 carry=_COORDINATED_METRIC_PERIOD.search(prefix)

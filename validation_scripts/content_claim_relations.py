@@ -321,23 +321,29 @@ def _parse_general_finite(segment: str, topic: str | None):
     subject=_resolved_action_subject(match['subject'],topic)
     if subject is None:
         return None
-    words=re.findall(r"[A-Za-z][A-Za-z-]*",match['body'])
-    if not words:
+    body=match['body']
+    tokens=list(re.finditer(r"[A-Za-z][A-Za-z-]*",body))
+    if not tokens:
         return None
     aux=[]
     index=0
-    while index < len(words) and (words[index].casefold() in _GENERAL_AUX or words[index].casefold() == 'not'):
-        aux.append(words[index].casefold())
-        index+=1
-    if index >= len(words):
+    while index < len(tokens):
+        token=tokens[index].group(0).casefold()
+        if token in _GENERAL_AUX or token == 'not':
+            aux.append(token)
+            index+=1
+            continue
+        break
+    if index >= len(tokens):
         return None
-    verb=words[index].casefold()
+    verb_match=tokens[index]
+    verb=verb_match.group(0).casefold()
     if not aux and not (
         re.fullmatch(r"[a-z][a-z-]*(?:s|ed|ing)",verb)
         or verb in _GENERAL_IRREGULAR
     ):
         return None
-    tail=' '.join(words[index+1:])
+    tail=body[verb_match.end():].strip()
     return subject,' '.join(aux),verb,tail
 
 

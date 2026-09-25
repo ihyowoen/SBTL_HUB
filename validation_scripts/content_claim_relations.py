@@ -147,26 +147,49 @@ def korean_period_relations(text: str) -> Counter:
     if not isinstance(text,str):
         return out
     for clause in clauses(text):
-        match=_KR_OBJECT.fullmatch(clause.text)
-        if match is None:
-            trailing=_KR_TRAILING_QUANTITY.fullmatch(clause.text)
-            if trailing and atoms.QUANT_SIGNAL_RE.match(trailing['context']):
-                match=trailing
-        if not match:
-            continue
-        context=match['context']
-        periods=atoms.temporal_period_observations(context)
+        periods=atoms.temporal_period_observations(clause.text)
         if not periods:
             continue
-        subject=match['subject'].casefold()
-        predicate=match['predicate']
-        negated=re.fullmatch(r"(.+?)하지\s+(?:않았다|않는다)",predicate)
-        predicate="neg:" + negated[1] if negated else predicate
-        obj=ordered_terms(match['object'])
-        for _,_,period in periods:
-            out[('relation:kr:period',subject,predicate,obj,period)]+=1
-    return out
 
+        object_match=_KR_OBJECT.fullmatch(clause.text)
+        if object_match is None:
+            trailing=_KR_TRAILING_QUANTITY.fullmatch(clause.text)
+            if trailing and atoms.QUANT_SIGNAL_RE.match(trailing['context']):
+                object_match=trailing
+        if object_match:
+            subject=object_match['subject'].casefold()
+            predicate=object_match['predicate']
+            negated=re.fullmatch(r"(.+?)하지\s+(?:않았다|않는다)",predicate)
+            predicate="neg:" + negated[1] if negated else predicate
+            obj=ordered_terms(_mask_periods(object_match['object']))
+            for _,_,period in periods:
+                out[('relation:kr:period',subject,predicate,obj,period)]+=1
+
+        masked_clause=_mask_periods(clause.text)
+        masked_clause=re.sub(r'\s+',' ',masked_clause).strip()
+
+        description=_KR_DESCRIPTION.fullmatch(masked_clause)
+        if description:
+            identity=(
+                description['subject'].casefold(),
+                description['attribute'],
+                ' '.join((description['polarity'] or '').split()),
+                description['predicate'],
+                ' '.join((description['negation'] or '').split()),
+            )
+            for _,_,period in periods:
+                out[('description:kr:period',)+identity+(period,)]+=1
+
+        copular=_KR_COPULAR.fullmatch(masked_clause)
+        if copular:
+            identity=(
+                copular['subject'].casefold(),
+                ' '.join(copular['complement'].split()),
+                copular['copula'],
+            )
+            for _,_,period in periods:
+                out[('copular:kr:period',)+identity+(period,)]+=1
+    return out
 
 def korean_description_tokens(text: str) -> list[str]:
     # Used by the legacy content inventory as well as the ordered relation guard.
@@ -471,7 +494,24 @@ def _active_local_dated_pairs(tail: str, initial_verb: str):
     out=[]
     previous_end=0
     current_verb=initial_verb
-    for start,end,period in periods:
+    for index,(start,end,period) in enumerate(periods):
+        next_start=periods[index+1][0] if index+1 < len(periods) else len(tail)
+
+        after=tail[end:next_start]
+        after_clean=re.sub(r'^\s*(?:,|and|or)?\s*','',after,flags=re.I)
+        after_tokens=list(re.finditer(r"[A-Za-z][A-Za-z-]*",after_clean))
+        if after_tokens and _finite_coord_token(after_tokens[0].group(0)):
+            verb_match=after_tokens[0]
+            current_verb=verb_match.group(0).casefold()
+            argument_text=after_clean[verb_match.end():]
+            argument_text=re.split(
+                r"\b(?:and|or|but|while|whereas)\b",
+                argument_text,maxsplit=1,flags=re.I,
+            )[0]
+            out.append((current_verb,ordered_terms(argument_text.strip(" ,")),period))
+            previous_end=end
+            continue
+
         raw_local=tail[previous_end:start]
         connector_prefix=re.match(r'^\s*(?:and|or|,)\s+',raw_local,re.I)
         local=re.sub(r'^\s*(?:and|or|,)\s*','',raw_local,flags=re.I).strip()
@@ -550,14 +590,38 @@ def _emit_active_period_relations(out, segment, topic):
         out[('relation:en:period',subject,aux,verb,object_terms,preposed_period)]+=1
 
 
+def _masked_passive_period_objects(raw: str, passive):
+    """Bind periods from an internally masked passive clause to local objects."""
+    periods=atoms.temporal_period_observations(raw)
+    if not periods:
+        return ()
+
+    base_object=ordered_terms(_mask_periods(passive['object']))
+    tail_start=passive.start('tail') if passive.groupdict().get('tail') else len(raw)
+    out=[]
+    tail_previous=tail_start
+
+    for start,end,period in periods:
+        if start < tail_start:
+            out.append((base_object,period))
+            continue
+
+        local=raw[tail_previous:start]
+        local=re.sub(r'^\s*(?:and|or|,)\s*','',local,flags=re.I).strip()
+        local=re.sub(r'\s*(?:and|or|,)\s*$','',local,flags=re.I).strip()
+        object_terms=ordered_terms(_mask_periods(local)) if local else ()
+        out.append((object_terms or base_object,period))
+        tail_previous=end
+    return tuple(out)
+
+
 def _emit_passive_period_relation(out, segment):
     raw,leading_period=_strip_leading_period(segment)
     passive=_EN_PASSIVE.fullmatch(raw)
     masked_passive=None
 
     if passive is None:
-        masked_raw=_mask_periods(raw)
-        masked_raw=re.sub(r'\s+',' ',masked_raw).strip()
+        masked_raw=_mask_periods(raw).strip()
         passive=_EN_PASSIVE.fullmatch(masked_raw)
         if passive is None:
             return
@@ -566,14 +630,14 @@ def _emit_passive_period_relation(out, segment):
     subject=passive['subject'].casefold()
     aux=passive['aux'].strip().casefold()
     verb=passive['verb'].casefold()
-    base_object=ordered_terms(passive['object'])
+    base_object=ordered_terms(_mask_periods(passive['object']))
 
     if leading_period:
         out[('relation:en:passive:period',subject,aux,verb,base_object,leading_period)]+=1
 
     if masked_passive is not None:
-        for _,_,period in atoms.temporal_period_observations(raw):
-            out[('relation:en:passive:period',subject,aux,verb,base_object,period)]+=1
+        for object_terms,period in _masked_passive_period_objects(raw,passive):
+            out[('relation:en:passive:period',subject,aux,verb,object_terms,period)]+=1
         return
 
     local_objects=_passive_local_dated_objects(passive)
@@ -581,15 +645,12 @@ def _emit_passive_period_relation(out, segment):
         for object_terms,period in local_objects:
             out[('relation:en:passive:period',subject,aux,verb,object_terms,period)]+=1
 
-    # Periods before the passive tail (for example object-period-copula or
-    # verb-period-agent forms) are not represented by local_objects.
     tail_start=passive.start('tail') if passive.groupdict().get('tail') else len(raw)
     for start,_,period in atoms.temporal_period_observations(raw):
         if start < tail_start:
             cleaned_object=ordered_terms(_mask_periods(passive['object']))
             out[('relation:en:passive:period',subject,aux,verb,
                  cleaned_object or base_object,period)]+=1
-
 
 def english_factual_period_relations(text: str) -> Counter:
     out=Counter()
@@ -637,6 +698,23 @@ def _copular_segment_period_relations(segment: str, topic: str | None):
         if subject is None:
             return out
         observations=atoms.temporal_period_observations(direct['tail'])
+        if observations:
+            first_start,first_end,first_period=observations[0]
+            if not direct['tail'][:first_start].strip(" ,"):
+                following=direct['tail'][first_end:]
+                next_start=(
+                    observations[1][0]-first_end
+                    if len(observations)>1 else len(following)
+                )
+                following=following[:next_start]
+                following=re.split(
+                    r"\b(?:and|or|but|while|whereas)\b",
+                    following,maxsplit=1,flags=re.I,
+                )[0]
+                complement=ordered_terms(following.strip(" ,"))
+                if complement:
+                    out[('relation:en:copular:period',subject,
+                         direct['copula'].casefold(),complement,first_period)]+=1
         local_pairs=list(_local_dated_arguments(direct['tail']))
         if local_pairs:
             if leading_period:

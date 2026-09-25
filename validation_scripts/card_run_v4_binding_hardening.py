@@ -115,9 +115,9 @@ COMMON_NOUN_COORDINATED_SUBJECT_RE = re.compile(
     re.IGNORECASE,
 )
 COMMON_NOUN_SUBJECT_RE = re.compile(
-    r"\b(?:the|a|an|this|that|these|those)\s+"
-    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2})"
-    r"(?P<head>[A-Za-z][A-Za-z0-9&._-]*)\s+"
+    r"\b(?P<subject>(?:the|a|an|this|that|these|those)\s+"
+    r"(?:(?:[A-Za-z][A-Za-z0-9&._-]*\s+){0,2}?)"
+    r"(?P<head>[A-Za-z][A-Za-z0-9&._-]*))\s+"
     r"(?=(?:may|might|could|can|will|shall|would|should|must|"
     r"is|are|was|were|has|have|had|does|do|did|"
     r"start(?:ed|ing)?|begin|began|begun|commence(?:d)?|approve(?:d)?|"
@@ -164,6 +164,7 @@ SENTENCE_PROPER_FACTUAL_RE = re.compile(
     r"(?P<sentence_proper_subject>"
     r"[A-Z][A-Za-z0-9&._-]{1,}"
     r"(?:\s+[A-Z][A-Za-z0-9&._-]{1,}){0,3}"
+    r"(?:(?:'s|’s)\s+[A-Za-z][A-Za-z0-9&._-]{1,})?"
     r")\s+"
     r"(?P<sentence_proper_verb>[A-Za-z][A-Za-z-]{1,})\b"
     r"(?:\s+(?P<sentence_proper_tail>[^.;:!?]{1,120}))?"
@@ -2109,20 +2110,19 @@ def _factual_identity_spans(text):
                 spans.add((group_start+local_start,group_start+local_start+len(head),token))
     for match in COMMON_NOUN_SUBJECT_RE.finditer(text):
         head=match.group("head")
-        start=match.start("head")
-        end=match.end("head")
-        token=head.casefold()
-        if token in FACTUAL_SUBJECT_FALSE_HEADS:
-            prefix=text[match.start():start]
-            previous=list(re.finditer(r"[A-Za-z][A-Za-z0-9&._-]*",prefix))
-            if previous:
-                prior=previous[-1]
-                head=prior.group(0)
-                start=match.start()+prior.start()
-                end=match.start()+prior.end()
-                token=head.casefold()
-        if token and token not in FACTUAL_IDENTITY_STOPWORDS and token not in FACTUAL_SUBJECT_FALSE_HEADS:
-            spans.add((start,end,token))
+        head_token=head.casefold()
+        if head_token in FACTUAL_SUBJECT_FALSE_HEADS:
+            continue
+        if head_token in FACTUAL_IDENTITY_STOPWORDS:
+            continue
+        subject=match.group("subject")
+        token=re.sub(
+            r"^(?:the|a|an|this|that|these|those)\s+","",
+            re.sub(r"\s+"," ",subject.strip()).casefold(),
+            count=1,flags=re.IGNORECASE,
+        )
+        if token:
+            spans.add((match.start("subject"),match.end("subject"),token))
     return sorted(spans)
 
 
@@ -2234,9 +2234,10 @@ def _factual_location_pair_counter(text):
         subjects=_claim_subjects_for_span(text,match.start(),match.end())
         if subjects==["__generic__"]:
             subjects=[max(preceding,key=lambda span:span[1])[2]]
+        relation=match.group(0).strip().split()[0].casefold()
         for subject in subjects:
             if subject!=location:
-                counts[f"{subject}=>{location}"]+=1
+                counts[f"{subject}=>{relation}=>{location}"]+=1
     return counts
 
 

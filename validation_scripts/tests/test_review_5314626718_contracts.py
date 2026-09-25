@@ -115,10 +115,12 @@ class Review5314626718Contracts(unittest.TestCase):
             "Alpha is profitable because neither Beta nor Gamma competes."
         )
         chain = chain_for(prior, current, wrong)
+        current_relations = binding._factual_predicate_subject_counter(current)
+        evidence_relations = binding._factual_predicate_subject_counter(wrong)
+        self.assertIn(("alpha", "neg:be", "beta"), current_relations)
+        self.assertNotIn(("alpha", "neg:be", "beta"), evidence_relations)
         self.blocked(prior, current, wrong)
         self.assertTrue(self.standalone_findings(chain))
-        evidence_relations = binding._factual_predicate_subject_counter(wrong)
-        self.assertNotIn(("alpha", "neg:be", "beta"), evidence_relations)
         good = self.validate(prior, current, current)
         self.assertFalse(self.standalone_findings(good))
 

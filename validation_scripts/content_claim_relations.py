@@ -240,15 +240,77 @@ def english_relations(text: str) -> Counter:
     return out
 
 
+_METRIC_PERIOD_VALUE = (
+    r"(?:" + atoms.TEMPORAL_EN_YEAR_QUARTER_VALUE + r"|"
+    r"(?:19|20|21)\d{2}\s*년(?:도)?\s*[1-4]\s*분기|"
+    r"[1-4]\s*분기(?:\s*(?:19|20|21)\d{2}\s*년)?|"
+    r"(?:19|20|21)\d{2}\s*년(?:도)?)"
+)
 _METRIC = re.compile(
     r'(?<![A-Za-z가-힣])(?P<metric>capacity|output|revenue|profit|sales|investment|cost|margin|'
     r'용량|출력|매출|이익|판매량|투자액|비용|마진)'
     r'(?:은|는|이|가)?\s*'
-    r'(?:(?:in|for|during)\s+(?P<post_period>20\d{2}(?:\s*(?:Q[1-4]|[1-4]분기))?|Q[1-4](?:\s+20\d{2})?)\s*)?'
+    r'(?:(?:in|for|during)\s+(?P<post_period>' + _METRIC_PERIOD_VALUE + r')\s*)?'
     r'(?:(?:is|was|are|were|of|at)\s+|[:=]\s*)?$', re.I
 )
-_PERIOD = re.compile(r'(?<!\w)(?:20\d{2}(?:년)?(?:\s*(?:Q[1-4]|[1-4]분기))?|Q[1-4](?:\s+20\d{2})?)(?!\w)', re.I)
+_PERIOD = re.compile(r'(?<!\w)(?P<period>' + _METRIC_PERIOD_VALUE + r')(?!\w)', re.I)
 
+
+def _canonical_metric_period(raw: str) -> str:
+    return atoms.canonical_temporal_period(raw)
+
+
+def _mask_periods(text: str) -> str:
+    if not isinstance(text, str):
+        return text
+    chars=list(text)
+    for start,end,_ in atoms.temporal_period_spans(text):
+        for index in range(start,end):
+            chars[index]=' '
+    return ''.join(chars)
+
+
+def english_factual_period_relations(text: str) -> Counter:
+    out=Counter()
+    for clause in clauses(text):
+        segments=[]
+        pos=0
+        for boundary in _NEW_ACTION.finditer(clause.text):
+            segments.append(clause.text[pos:boundary.start()])
+            pos=boundary.end()
+        segments.append(clause.text[pos:])
+        for segment in segments:
+            match=_EN_ACTION.fullmatch(segment.strip())
+            if not match:
+                continue
+            periods=atoms.temporal_period_observations(match['tail'])
+            if not periods:
+                continue
+            subject=re.sub(r'^(?:the|a|an)\s+','',match['subject'].casefold())
+            if subject in _PRONOUNS:
+                continue
+            masked_tail=_mask_periods(match['tail'])
+            object_terms=ordered_terms(masked_tail)
+            for _,_,period in periods:
+                out[('relation:en:period', subject, match['aux'].strip().casefold(),
+                     match['verb'].casefold(), object_terms, period)] += 1
+    return out
+
+
+_COPULAR_REASON_CLAUSE = re.compile(
+    r'\b(?:am|is|are|was|were|be|been|being)\b[^.;!?]{0,120}?'
+    r'\b(?:because|since|although|though)\s+(?P<clause>[^.;!?]+)',
+    re.I,
+)
+
+
+def copular_subordinate_relations(text: str) -> Counter:
+    out=Counter()
+    if not isinstance(text,str):
+        return out
+    for match in _COPULAR_REASON_CLAUSE.finditer(text):
+        out.update(english_relations(match['clause'].strip()))
+    return out
 
 def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter:
     """Explicit entity+metric+period+quantity, not a shared entity-number bag.
@@ -269,10 +331,10 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
                 # Bare "Capacity is 10 MW" is not an explicit entity binding.
                 continue
             if match.groupdict().get('post_period'):
-                period = re.sub(r'\s+', ' ', match['post_period'].casefold())
+                period = _canonical_metric_period(match['post_period'])
             else:
                 periods = list(_PERIOD.finditer(prefix[:match.start()]))
-                period = re.sub(r'\s+', ' ', periods[-1][0].casefold()) if periods else ''
+                period = _canonical_metric_period(periods[-1]['period']) if periods else ''
             for subject in subjects:
                 out[('metric:quantity', subject, metric, period, quantity.signal)] += 1
     return out

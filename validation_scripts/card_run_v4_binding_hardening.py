@@ -1677,6 +1677,13 @@ def _copular_factual_polarized_tokens(tail):
     """Return copular complement tokens with local polarity preserved."""
     if not isinstance(tail,str):
         return []
+    # Preserve subordinate-clause boundaries before semantic-span masking can
+    # erase causal markers such as "because".
+    tail=re.split(
+        r"\b(?:because|since|although|though|if|unless|when|where|which|who)\b"
+        r"|\bdue\s+to\b",
+        tail,maxsplit=1,flags=re.IGNORECASE,
+    )[0]
     residual=list(tail)
     spans=[]
     for match in QUANT_SIGNAL_RE.finditer(tail):

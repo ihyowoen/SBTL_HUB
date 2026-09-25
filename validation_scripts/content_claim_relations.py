@@ -455,6 +455,38 @@ def _active_local_dated_pairs(tail: str, initial_verb: str):
     return tuple(out)
 
 
+def _preposed_action_terms(tail: str):
+    periods=atoms.temporal_period_observations(tail)
+    if not periods:
+        return ordered_terms(tail)
+    before=tail[:periods[0][0]]
+    connectors=list(re.finditer(r"\b(?:and|or)\b",before,flags=re.I))
+    if connectors:
+        before=before[:connectors[-1].start()]
+    return ordered_terms(before.strip(" ,"))
+
+
+def _passive_local_dated_objects(passive):
+    tail=passive['tail'] or ''
+    periods=atoms.temporal_period_observations(tail)
+    if not periods:
+        return ()
+    out=[]
+    previous_end=0
+    base_object=ordered_terms(passive['object'])
+    for index,(start,end,period) in enumerate(periods):
+        local=tail[previous_end:start]
+        local=re.sub(r'^\s*(?:and|or|,)\s*','',local,flags=re.I).strip()
+        local=re.sub(r'\s*(?:and|or|,)\s*$','',local,flags=re.I).strip()
+        object_terms=ordered_terms(local) if local else ()
+        if index == 0 or not object_terms:
+            object_terms=base_object
+        out.append((object_terms,period))
+        previous_end=end
+    return tuple(out)
+
+
+def _emit_active_period_relations(out, segment, topic):
 def _emit_active_period_relations(out, segment, topic):
     raw,leading_period=_strip_leading_period(segment)
     subject_period=''
@@ -479,6 +511,10 @@ def _emit_active_period_relations(out, segment, topic):
 
     local_pairs=_active_local_dated_pairs(tail,verb)
     if local_pairs:
+        if preposed_period:
+            preposed_terms=_preposed_action_terms(tail)
+            if preposed_terms:
+                out[('relation:en:period',subject,aux,verb,preposed_terms,preposed_period)]+=1
         for local_verb,object_terms,period in local_pairs:
             out[('relation:en:period',subject,aux,local_verb,object_terms,period)]+=1
         return
@@ -493,12 +529,12 @@ def _emit_passive_period_relation(out, segment):
     passive=_EN_PASSIVE.fullmatch(raw)
     if not passive:
         return
-    periods=atoms.temporal_period_observations(passive['tail'] or '')
-    if periods:
-        for _,_,period in periods:
+    local_objects=_passive_local_dated_objects(passive)
+    if local_objects:
+        for object_terms,period in local_objects:
             out[('relation:en:passive:period',passive['subject'].casefold(),
                  passive['aux'].strip().casefold(),passive['verb'].casefold(),
-                 ordered_terms(passive['object']),period)]+=1
+                 object_terms,period)]+=1
     elif leading_period:
         out[('relation:en:passive:period',passive['subject'].casefold(),
              passive['aux'].strip().casefold(),passive['verb'].casefold(),
@@ -698,8 +734,14 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
                 if post_value:
                     period=_canonical_metric_period(post_value)
                 else:
-                    periods=list(_PERIOD.finditer(prefix[:match.start()]))
-                    period=_canonical_metric_period(periods[-1]['period']) if periods else ''
+                    suffix_period=_period_after_quantity(clause.text,quantity.end)
+                    if suffix_period:
+                        period=suffix_period
+                    else:
+                        local_start=previous_quantity_end or 0
+                        local_prefix=prefix[local_start:match.start()]
+                        observations=atoms.temporal_period_observations(local_prefix)
+                        period=observations[-1][2] if observations else ''
                 context=(metric,tuple(subjects))
             else:
                 carry=_COORDINATED_METRIC_PERIOD.search(prefix)

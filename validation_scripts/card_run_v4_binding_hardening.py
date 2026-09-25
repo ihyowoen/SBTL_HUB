@@ -242,6 +242,10 @@ FACTUAL_CONTENT_STOPWORDS = FACTUAL_IDENTITY_STOPWORDS | {
     "and","or","but","yet","with","from","into","onto","over","under","through",
     "for","per","via","in","on","at","to","by","of","as","if","up","no","so",
     "its","their","our","his","her","new","same","current",
+    # Temporal period spellings are governed by the state/metric period
+    # relation layers. Do not make equivalent Q1 / first-quarter wording fail
+    # the flat factual-token grounding budget before those bindings run.
+    "q1","q2","q3","q4","first","second","third","fourth","quarter","quarters",
     "planned","approved","started","delayed","completed","commercial","remains",
     "remain","will","would","could","may","might","uses","using","contains",
     "containing","includes","including","comprises","relies","sources","supplies",

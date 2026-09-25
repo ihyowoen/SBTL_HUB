@@ -1971,6 +1971,7 @@ def _factual_predicate_subject_counter(text):
     counts.update(_claim_relations.english_factual_period_relations(original_text))
     counts.update(_claim_relations.english_copular_period_relations(original_text))
     counts.update(_claim_relations.copular_subordinate_relations(original_text))
+    counts.update(_claim_relations.korean_period_relations(original_text))
     text=_mask_temporal_period_spans(text)
     counts.update(_korean_factual_relation_counter(text))
     counts.update(_claim_relations.english_relations(text))

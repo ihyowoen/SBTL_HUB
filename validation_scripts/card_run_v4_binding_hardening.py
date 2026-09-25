@@ -1967,6 +1967,9 @@ def _factual_predicate_subject_counter(text):
     counts=Counter()
     if not isinstance(text,str):
         return counts
+    original_text=text
+    counts.update(_claim_relations.english_factual_period_relations(original_text))
+    counts.update(_claim_relations.copular_subordinate_relations(original_text))
     text=_mask_temporal_period_spans(text)
     counts.update(_korean_factual_relation_counter(text))
     counts.update(_claim_relations.english_relations(text))
@@ -2266,63 +2269,11 @@ def _claim_subject_for_span(text,start,end):
     return _claim_subjects_for_span(text,start,end)[-1]
 
 
-_STATE_TEMPORAL_PERIOD_RE = re.compile(
-    r"(?:\b(?:in|during|by|on|from|since|through|until|as\s+of)\s+"
-    r"(?P<en_period>"
-    r"(?:19|20|21)\d{2}\s+(?:q[1-4]|(?:first|second|third|fourth)\s+quarter)"
-    r"|q[1-4](?:\s+(?:19|20|21)\d{2})?"
-    r"|(?:first|second|third|fourth)\s+quarter(?:\s+(?:19|20|21)\d{2})?"
-    r"|(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
-    r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
-    r"(?:\s+(?:19|20|21)\d{2})?"
-    r"|(?:19|20|21)\d{2}"
-    r")\b"
-    r"|(?P<ko_period>"
-    r"(?:19|20|21)\d{2}\s*년(?:도)?\s*[1-4]\s*분기"
-    r"|[1-4]\s*분기(?:\s*(?:19|20|21)\d{2}\s*년)?"
-    r"|(?:19|20|21)\d{2}\s*년(?:도|에|부터|까지)?"
-    r"))",
-    re.IGNORECASE,
-)
-
-_MONTH_ALIASES = {
-    "jan":"january","feb":"february","mar":"march","apr":"april",
-    "jun":"june","jul":"july","aug":"august","sep":"september","sept":"september",
-    "oct":"october","nov":"november","dec":"december",
-}
-_QUARTER_ORDINALS = {"first":"1","second":"2","third":"3","fourth":"4"}
+_STATE_TEMPORAL_PERIOD_RE = _semantic_atoms.TEMPORAL_PERIOD_SPAN_RE
 
 
 def _canonical_state_period(raw):
-    value=re.sub(r"\s+"," ",str(raw or "").strip()).casefold()
-    if not value:
-        return ""
-
-    korean_quarter=re.fullmatch(
-        r"(?:(?P<year1>(?:19|20|21)\d{2})\s*년(?:도)?\s*)?"
-        r"(?P<quarter>[1-4])\s*분기"
-        r"(?:\s*(?P<year2>(?:19|20|21)\d{2})\s*년)?",
-        value,
-    )
-    if korean_quarter:
-        year=korean_quarter.group("year1") or korean_quarter.group("year2") or ""
-        quarter=f"q{korean_quarter.group('quarter')}"
-        return f"{year} {quarter}".strip()
-
-    english_quarter=re.fullmatch(
-        r"(?:(?P<year1>(?:19|20|21)\d{2})\s+)?"
-        r"(?:q(?P<qnum>[1-4])|(?P<ordinal>first|second|third|fourth)\s+quarter)"
-        r"(?:\s+(?P<year2>(?:19|20|21)\d{2}))?",
-        value,
-    )
-    if english_quarter:
-        quarter=english_quarter.group("qnum") or _QUARTER_ORDINALS[english_quarter.group("ordinal")]
-        year=english_quarter.group("year1") or english_quarter.group("year2") or ""
-        return f"{year} q{quarter}".strip()
-
-    parts=value.split(" ",1)
-    head=_MONTH_ALIASES.get(parts[0],parts[0])
-    return head + ((" " + parts[1]) if len(parts)>1 else "")
+    return _semantic_atoms.canonical_temporal_period(raw)
 
 def _state_local_period_identity(text,start,end,previous_end=None,next_start=None):
     left,right=_claim_segment_bounds(text,start,end)
@@ -2339,7 +2290,7 @@ def _state_local_period_identity(text,start,end,previous_end=None,next_start=Non
         if next_start is not None:
             bridge=remainder[:max(0,next_start-end-match.end())]
             explicit_subject=re.fullmatch(
-                r"\s*(?!(?:and|or|but|yet)\b)"
+                r"\s*(?:,\s*)?(?!(?:and|or|but|yet)\b)"
                 r"(?:(?:the|a|an|this|that|these|those)\s+)?"
                 r"(?:[A-Za-z][A-Za-z0-9&._-]*"
                 r"(?:\s+[A-Za-z][A-Za-z0-9&._-]*){0,2})"
@@ -2349,12 +2300,12 @@ def _state_local_period_identity(text,start,end,previous_end=None,next_start=Non
             if explicit_subject:
                 match=None
         if match:
-            return _canonical_state_period(match.group("en_period") or match.group("ko_period") or "")
+            return _canonical_state_period(_semantic_atoms._period_group_value(match))
     before=text[max(left,start-96):start]
     matches=list(_STATE_TEMPORAL_PERIOD_RE.finditer(before))
     if matches:
         match=matches[-1]
-        return _canonical_state_period(match.group("en_period") or match.group("ko_period") or "")
+        return _canonical_state_period(_semantic_atoms._period_group_value(match))
     return ""
 
 

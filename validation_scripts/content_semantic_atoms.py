@@ -45,16 +45,30 @@ QUANT_SIGNAL_RE = re.compile(
     re.IGNORECASE,
 )
 
-_TEMPORAL_EN_PERIOD_VALUE = (
+TEMPORAL_EN_YEAR_QUARTER_VALUE = (
     r"(?:19|20|21)\d{2}(?:\s+(?:q[1-4]|(?:first|second|third|fourth)\s+quarter))?"
-    r"|(?:q[1-4]|(?:first|second|third|fourth)\s+quarter)(?:\s+(?:19|20|21)\d{2})?"
-    r"|(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+    r"|(?:the\s+)?(?:q[1-4]|(?:first|second|third|fourth)\s+quarter)"
+    r"(?:\s+(?:of\s+)?(?:19|20|21)\d{2})?"
+)
+TEMPORAL_EN_MONTH_VALUE = (
+    r"(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
     r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
     r"(?:\s+(?:19|20|21)\d{2})?"
 )
+TEMPORAL_EN_PERIOD_VALUE = (
+    r"(?:" + TEMPORAL_EN_YEAR_QUARTER_VALUE + r"|" + TEMPORAL_EN_MONTH_VALUE + r")"
+)
 TEMPORAL_PERIOD_SPAN_RE = re.compile(
-    r"(?:\b(?:in|during|by|on|from|since|through|until|as\s+of)\s+"
-    r"(?P<en_period>" + _TEMPORAL_EN_PERIOD_VALUE + r")\b"
+    r"(?:"
+    r"\b(?:in|during|by|on|since|through|until|as\s+of)\s+"
+    r"(?P<en_period>" + TEMPORAL_EN_PERIOD_VALUE + r")\b"
+    r"|\bfor\s+(?P<en_for_period>" + TEMPORAL_EN_YEAR_QUARTER_VALUE + r")\b"
+    r"|\bfrom\s+(?P<en_from_period>"
+    r"(?:" + TEMPORAL_EN_YEAR_QUARTER_VALUE
+    + r"|(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+      r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+      r"\s+(?:19|20|21)\d{2})"
+    r")\b"
     r"|(?P<ko_period>"
     r"(?:19|20|21)\d{2}\s*년(?:도)?\s*[1-4]\s*분기"
     r"|[1-4]\s*분기(?:\s*(?:19|20|21)\d{2}\s*년)?"
@@ -63,12 +77,62 @@ TEMPORAL_PERIOD_SPAN_RE = re.compile(
     re.IGNORECASE,
 )
 
+_MONTH_ALIASES = {
+    "jan":"january","feb":"february","mar":"march","apr":"april",
+    "jun":"june","jul":"july","aug":"august","sep":"september","sept":"september",
+    "oct":"october","nov":"november","dec":"december",
+}
+_QUARTER_ORDINALS = {"first":"1","second":"2","third":"3","fourth":"4"}
+
+
+def canonical_temporal_period(raw):
+    value=re.sub(r"\s+"," ",str(raw or "").strip()).casefold()
+    value=re.sub(r"^the\s+","",value)
+    if not value:
+        return ""
+    korean_quarter=re.fullmatch(
+        r"(?:(?P<year1>(?:19|20|21)\d{2})\s*년(?:도)?\s*)?"
+        r"(?P<quarter>[1-4])\s*분기"
+        r"(?:\s*(?P<year2>(?:19|20|21)\d{2})\s*년)?",
+        value,
+    )
+    if korean_quarter:
+        year=korean_quarter.group("year1") or korean_quarter.group("year2") or ""
+        return f"{year} q{korean_quarter.group('quarter')}".strip()
+    english_quarter=re.fullmatch(
+        r"(?:(?P<year1>(?:19|20|21)\d{2})\s+)?"
+        r"(?:q(?P<qnum>[1-4])|(?P<ordinal>first|second|third|fourth)\s+quarter)"
+        r"(?:\s+(?:of\s+)?(?P<year2>(?:19|20|21)\d{2}))?",
+        value,
+    )
+    if english_quarter:
+        quarter=english_quarter.group("qnum") or _QUARTER_ORDINALS[english_quarter.group("ordinal")]
+        year=english_quarter.group("year1") or english_quarter.group("year2") or ""
+        return f"{year} q{quarter}".strip()
+    parts=value.split(" ",1)
+    head=_MONTH_ALIASES.get(parts[0],parts[0])
+    return head + ((" " + parts[1]) if len(parts)>1 else "")
+
+
+def _period_group_value(match):
+    groups=match.groupdict()
+    return groups.get("en_period") or groups.get("en_for_period") or groups.get("en_from_period") or groups.get("ko_period") or ""
+
 
 def temporal_period_spans(text):
     if not isinstance(text, str):
         return ()
     return tuple((match.start(), match.end(), match.group(0))
                  for match in TEMPORAL_PERIOD_SPAN_RE.finditer(text))
+
+
+def temporal_period_observations(text):
+    if not isinstance(text, str):
+        return ()
+    return tuple(
+        (match.start(), match.end(), canonical_temporal_period(_period_group_value(match)))
+        for match in TEMPORAL_PERIOD_SPAN_RE.finditer(text)
+    )
 
 
 def _overlaps_any_span(start, end, spans):
@@ -422,7 +486,7 @@ def state_observation(text, match):
         r"^\s*(?:(?:previously|earlier|initially|historically|currently|"
         r"meanwhile|today|now|then|at\s+present|at\s+the\s+time)\s*,\s*"
         r"|(?:in|during|as\s+of|by)\s+"
-        r"(?:" + _TEMPORAL_EN_PERIOD_VALUE + r")"
+        r"(?:" + TEMPORAL_EN_PERIOD_VALUE + r")"
         r"\s*,\s*)*"
         r"(?:if|unless|assuming|provided\s+that|providing\s+that|"
         r"in\s+the\s+event\s+that|whether)\b",

@@ -430,7 +430,8 @@ def _local_dated_arguments(tail: str):
 def _finite_coord_token(token: str):
     value=str(token or '').casefold()
     return (
-        re.fullmatch(r"[a-z][a-z-]*(?:s|ed|ing)",value) is not None
+        re.fullmatch(r"(?:" + _ACTIONS + r")",value,re.IGNORECASE) is not None
+        or re.fullmatch(r"[a-z][a-z-]*(?:ed|ing)",value) is not None
         or value in _GENERAL_IRREGULAR
     )
 

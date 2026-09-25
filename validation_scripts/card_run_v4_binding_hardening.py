@@ -2265,9 +2265,14 @@ def _state_subject_strength_occurrences(text):
         )
         for subject in subjects:
             key=f"{subject}=>{occurrence['marker']}"
-            if period:
-                key+=f"=>period:{period}"
+            # Keep the broad state identity so period-bearing evidence can
+            # ground the same unperioded visible claim. When visible copy does
+            # assert a period, add a second role-bound identity that must also
+            # be covered by evidence; this blocks chronology permutations.
             occurrences.setdefault(key,[]).append(occurrence["strength"])
+            if period:
+                period_key=f"{key}=>period:{period}"
+                occurrences.setdefault(period_key,[]).append(occurrence["strength"])
     return {key:sorted(values) for key,values in occurrences.items()}
 
 

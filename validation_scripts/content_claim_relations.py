@@ -290,6 +290,79 @@ def _resolved_action_subject(raw_subject: str, topic: str | None):
     return None
 
 
+_GENERAL_FINITE = re.compile(
+    r'^' + _SUBJECT + r'\s+(?P<body>.+)$'
+)
+_GENERAL_AUX = {
+    'am','is','are','was','were','be','been','being',
+    'has','have','had','do','does','did',
+    'can','could','may','might','will','would','must','should','shall',
+}
+_GENERAL_IRREGULAR = {
+    'grew','fell','rose','ran','went','came','sank','broke','burst','shut',
+    'left','won','lost','drove','flew','stood','sat','lay','led','paid',
+}
+
+
+def _strip_leading_period(text: str):
+    value=str(text or '').strip()
+    observations=atoms.temporal_period_observations(value)
+    for start,end,period in observations:
+        if not value[:start].strip():
+            remainder=re.sub(r'^\s*,\s*','',value[end:],count=1)
+            return remainder.strip(),period
+    return value,''
+
+
+def _parse_general_finite(segment: str, topic: str | None):
+    match=_GENERAL_FINITE.fullmatch(segment.strip())
+    if not match:
+        return None
+    subject=_resolved_action_subject(match['subject'],topic)
+    if subject is None:
+        return None
+    words=re.findall(r"[A-Za-z][A-Za-z-]*",match['body'])
+    if not words:
+        return None
+    aux=[]
+    index=0
+    while index < len(words) and (words[index].casefold() in _GENERAL_AUX or words[index].casefold() == 'not'):
+        aux.append(words[index].casefold())
+        index+=1
+    if index >= len(words):
+        return None
+    verb=words[index].casefold()
+    if not aux and not (
+        re.fullmatch(r"[a-z][a-z-]*(?:s|ed|ing)",verb)
+        or verb in _GENERAL_IRREGULAR
+    ):
+        return None
+    tail=' '.join(words[index+1:])
+    return subject,' '.join(aux),verb,tail
+
+
+def _split_coordinated_passives(text: str):
+    parts=re.split(r'\s+(?:and|but|while|whereas)\s+',text,flags=re.I)
+    if len(parts) <= 1:
+        return (text,)
+    parsed=[]
+    for part in parts:
+        remainder,_=_strip_leading_period(part)
+        if not _EN_PASSIVE.fullmatch(remainder):
+            return (text,)
+        parsed.append(part)
+    return tuple(parsed)
+
+
+_COPULAR_COORDINATED_SUBJECT = re.compile(
+    r'\s+(?:and|but|while|whereas)\s+'
+    r'(?=(?:[A-Z][A-Za-z0-9&._-]*(?:\s+(?:[A-Z][A-Za-z0-9&._-]+|project|plant|facility|company)){0,3}'
+    r'|(?:[Tt]he|[Aa]n?)\s+[A-Za-z][A-Za-z0-9_-]+|[Ii]t|[Tt]hey|[Hh]e|[Ss]he)'
+    r'\s+(?:is|are|was|were)\b)',
+    re.I,
+)
+
+
 def _local_dated_arguments(tail: str):
     """Return object terms bound to each explicit local period in one action tail."""
     periods=atoms.temporal_period_observations(tail)
@@ -308,6 +381,59 @@ def _local_dated_arguments(tail: str):
     return tuple(out)
 
 
+def _emit_active_period_relations(out, segment, topic):
+    raw,leading_period=_strip_leading_period(segment)
+    match=_EN_ACTION.fullmatch(raw)
+    parsed_general=None
+    if match:
+        subject=_resolved_action_subject(match['subject'],topic)
+        if subject is None:
+            return
+        aux=match['aux'].strip().casefold()
+        verb=match['verb'].casefold()
+        tail=match['tail']
+    else:
+        parsed_general=_parse_general_finite(raw,topic)
+        if not parsed_general:
+            return
+        subject,aux,verb,tail=parsed_general
+
+    local_arguments=_local_dated_arguments(tail)
+    if local_arguments:
+        for object_terms,period in local_arguments:
+            out[('relation:en:period',subject,aux,verb,object_terms,period)]+=1
+        return
+
+    periods=atoms.temporal_period_observations(tail)
+    if periods:
+        masked_tail=_mask_periods(tail)
+        object_terms=ordered_terms(masked_tail)
+        for _,_,period in periods:
+            out[('relation:en:period',subject,aux,verb,object_terms,period)]+=1
+        return
+
+    if leading_period:
+        object_terms=ordered_terms(tail)
+        out[('relation:en:period',subject,aux,verb,object_terms,leading_period)]+=1
+
+
+def _emit_passive_period_relation(out, segment):
+    raw,leading_period=_strip_leading_period(segment)
+    passive=_EN_PASSIVE.fullmatch(raw)
+    if not passive:
+        return
+    periods=atoms.temporal_period_observations(passive['tail'] or '')
+    if periods:
+        for _,_,period in periods:
+            out[('relation:en:passive:period',passive['subject'].casefold(),
+                 passive['aux'].strip().casefold(),passive['verb'].casefold(),
+                 ordered_terms(passive['object']),period)]+=1
+    elif leading_period:
+        out[('relation:en:passive:period',passive['subject'].casefold(),
+             passive['aux'].strip().casefold(),passive['verb'].casefold(),
+             ordered_terms(passive['object']),leading_period)]+=1
+
+
 def english_factual_period_relations(text: str) -> Counter:
     out=Counter()
     parsed=clauses(text)
@@ -320,34 +446,9 @@ def english_factual_period_relations(text: str) -> Counter:
             pos=boundary.end()
         segments.append(clause.text[pos:])
         for segment in segments:
-            match=_EN_ACTION.fullmatch(segment.strip())
-            if not match:
-                continue
-            subject=_resolved_action_subject(match['subject'],topic)
-            if subject is None:
-                continue
-            local_arguments=_local_dated_arguments(match['tail'])
-            if local_arguments:
-                for object_terms,period in local_arguments:
-                    out[('relation:en:period', subject, match['aux'].strip().casefold(),
-                         match['verb'].casefold(), object_terms, period)] += 1
-                continue
-            periods=atoms.temporal_period_observations(match['tail'])
-            if periods:
-                masked_tail=_mask_periods(match['tail'])
-                object_terms=ordered_terms(masked_tail)
-                for _,_,period in periods:
-                    out[('relation:en:period', subject, match['aux'].strip().casefold(),
-                         match['verb'].casefold(), object_terms, period)] += 1
-
-        passive=_EN_PASSIVE.fullmatch(clause.text.strip())
-        if passive:
-            periods=atoms.temporal_period_observations(passive['tail'] or '')
-            if periods:
-                for _,_,period in periods:
-                    out[('relation:en:passive:period', passive['subject'].casefold(),
-                         passive['aux'].strip().casefold(), passive['verb'].casefold(),
-                         ordered_terms(passive['object']), period)] += 1
+            _emit_active_period_relations(out,segment,topic)
+        for passive_segment in _split_coordinated_passives(clause.text):
+            _emit_passive_period_relation(out,passive_segment)
     return out
 
 
@@ -368,36 +469,62 @@ _COPULAR_SUBJECT_AFTER_PERIOD = re.compile(
 )
 
 
+def _copular_segment_period_relations(segment: str, topic: str | None):
+    out=Counter()
+    raw,leading_period=_strip_leading_period(segment)
+    observations=atoms.temporal_period_observations(raw)
+    direct=_EN_COPULAR_PERIOD.fullmatch(raw)
+
+    if direct:
+        subject=_resolved_action_subject(direct['subject'],topic)
+        if subject is None:
+            return out
+        local_pairs=_local_dated_arguments(direct['tail'])
+        if local_pairs:
+            for complement,period in local_pairs:
+                out[('relation:en:copular:period',subject,
+                     direct['copula'].casefold(),complement,period)]+=1
+            return out
+        if leading_period:
+            complement=ordered_terms(direct['tail'])
+            if complement:
+                out[('relation:en:copular:period',subject,
+                     direct['copula'].casefold(),complement,leading_period)]+=1
+        return out
+
+    all_periods=atoms.temporal_period_observations(raw)
+    if leading_period:
+        all_periods=((0,0,leading_period),)+all_periods
+    if not all_periods:
+        return out
+    masked=_mask_periods(raw)
+    masked=re.sub(r'^\s*,\s*','',masked).strip()
+    parsed=_EN_COPULAR_PERIOD.fullmatch(masked)
+    if not parsed:
+        return out
+    subject=_resolved_action_subject(parsed['subject'],topic)
+    if subject is None:
+        return out
+    complement=ordered_terms(parsed['tail'])
+    if not complement:
+        return out
+    seen=set()
+    for _,_,period in all_periods:
+        if period and period not in seen:
+            seen.add(period)
+            out[('relation:en:copular:period',subject,
+                 parsed['copula'].casefold(),complement,period)]+=1
+    return out
+
+
 def english_copular_period_relations(text: str) -> Counter:
     out=Counter()
     parsed=clauses(text)
     for index,clause in enumerate(parsed):
-        match=_EN_COPULAR_PERIOD.fullmatch(clause.text.strip())
-        if not match:
-            continue
-        subject=_resolved_action_subject(match['subject'],_topic_before_clause(text,parsed,index))
-        if subject is None:
-            continue
-        periods=atoms.temporal_period_observations(match['tail'])
-        if not periods:
-            continue
-        local_periods=[]
-        for start,end,period in periods:
-            before=match['tail'][:start]
-            after=match['tail'][end:]
-            if (_COPULAR_NEW_SUBJECT_BEFORE_PERIOD.search(before)
-                    or _COPULAR_SUBJECT_AFTER_PERIOD.match(after)):
-                continue
-            local_periods.append((start,end,period))
-        if not local_periods:
-            continue
-        first_start=local_periods[0][0]
-        complement=ordered_terms(match['tail'][:first_start].strip())
-        if not complement:
-            continue
-        for _,_,period in local_periods:
-            out[('relation:en:copular:period', subject,
-                 match['copula'].casefold(), complement, period)] += 1
+        topic=_topic_before_clause(text,parsed,index)
+        segments=_COPULAR_COORDINATED_SUBJECT.split(clause.text)
+        for segment in segments:
+            out.update(_copular_segment_period_relations(segment,topic))
     return out
 
 
@@ -430,42 +557,64 @@ def copular_subordinate_relations(text: str) -> Counter:
         if parsed:
             out.update(parsed)
             continue
-        finite=_SUBORDINATE_FINITE.fullmatch(clause)
+        finite=_parse_general_finite(clause,None)
         if not finite:
             continue
-        verb=finite['verb'].casefold()
-        if verb in _SUBORDINATE_AUXILIARIES:
-            continue
-        subject=re.sub(r'^(?:the|a|an)\s+','',finite['subject'].casefold())
-        if subject in _PRONOUNS:
-            continue
-        out[('relation:en:subordinate', subject, verb,
-             ordered_terms(finite['tail'] or ''))] += 1
+        subject,aux,verb,tail=finite
+        out[('relation:en:subordinate',subject,aux,verb,ordered_terms(tail))]+=1
     return out
+
+_COORDINATED_METRIC_PERIOD = re.compile(
+    r'(?:^|(?:and|,))\s*(?:in|for|during)\s+'
+    r'(?P<period>' + _METRIC_PERIOD_VALUE + r')\s*'
+    r'(?:(?:is|was|are|were|of|at)\s+|[:=]\s*)?$',
+    re.I,
+)
+
+
+def _period_after_quantity(clause_text: str, quantity_end: int):
+    suffix=clause_text[quantity_end:]
+    observations=atoms.temporal_period_observations(suffix)
+    if not observations:
+        return ''
+    start,_,period=observations[0]
+    if suffix[:start].strip(' ,'):
+        return ''
+    return period
+
 
 def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter:
-    """Explicit entity+metric+period+quantity, not a shared entity-number bag.
-
-    Generic unlabelled numbers stay governed by the existing quantity contract.
-    No metric is inferred from the unit or from a different evidence field.
-    """
-    out = Counter()
+    """Explicit entity+metric+period+quantity with bounded coordinated carry."""
+    out=Counter()
     for clause in clauses(text):
+        context=None
         for quantity in atoms.quantitative_observations(clause.text):
-            prefix = clause.text[:quantity.start]
-            match = _METRIC.search(prefix)
-            if not match:
-                continue
-            metric = match['metric'].casefold()
-            subjects = subjects_for_span(text, clause.start + match.start(), clause.start + quantity.end)
-            if subjects == ['__generic__']:
-                # Bare "Capacity is 10 MW" is not an explicit entity binding.
-                continue
-            if match.groupdict().get('post_period'):
-                period = _canonical_metric_period(match['post_period'])
+            prefix=clause.text[:quantity.start]
+            match=_METRIC.search(prefix)
+            period=''
+            if match:
+                metric=match['metric'].casefold()
+                subjects=subjects_for_span(
+                    text,clause.start+match.start(),clause.start+quantity.end
+                )
+                if subjects == ['__generic__']:
+                    continue
+                if match.groupdict().get('post_period'):
+                    period=_canonical_metric_period(match['post_period'])
+                else:
+                    periods=list(_PERIOD.finditer(prefix[:match.start()]))
+                    period=_canonical_metric_period(periods[-1]['period']) if periods else ''
+                context=(metric,tuple(subjects))
             else:
-                periods = list(_PERIOD.finditer(prefix[:match.start()]))
-                period = _canonical_metric_period(periods[-1]['period']) if periods else ''
+                carry=_COORDINATED_METRIC_PERIOD.search(prefix)
+                if not carry or context is None:
+                    continue
+                metric,subjects=context
+                period=_canonical_metric_period(carry['period'])
+
+            if not period:
+                period=_period_after_quantity(clause.text,quantity.end)
             for subject in subjects:
-                out[('metric:quantity', subject, metric, period, quantity.signal)] += 1
+                out[('metric:quantity',subject,metric,period,quantity.signal)]+=1
     return out
+

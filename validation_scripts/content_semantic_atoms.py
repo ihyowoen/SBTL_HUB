@@ -384,7 +384,14 @@ def state_observation(text, match):
     # begins, a postposed condition from the earlier conjunct must not leak
     # into that later subject.
     preposed_condition = re.match(
-        r"^\s*(?:if|unless|assuming|provided\s+that|providing\s+that|"
+        r"^\s*(?:(?:previously|earlier|initially|historically|currently|"
+        r"meanwhile|today|now|then|at\s+present|at\s+the\s+time)\s*,\s*"
+        r"|(?:in|during|as\s+of|by)\s+"
+        r"(?:(?:19|20|21)\d{2}|q[1-4]|"
+        r"jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+        r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+        r"\s*,\s*)*"
+        r"(?:if|unless|assuming|provided\s+that|providing\s+that|"
         r"in\s+the\s+event\s+that|whether)\b",
         conditional_prefix,re.IGNORECASE,
     )

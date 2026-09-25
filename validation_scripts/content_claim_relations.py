@@ -352,7 +352,24 @@ def english_factual_period_relations(text: str) -> Counter:
 
 
 _EN_COPULAR_PERIOD = re.compile(
-    r'^' + _SUBJECT + r'\s+(?P<copula>(?i:is|are|was|were))\s+(?P<tail>.+)    out=Counter()
+    r'^' + _SUBJECT + r'\s+(?P<copula>(?i:is|are|was|were))\s+(?P<tail>.+)$'
+)
+_COPULAR_NEW_SUBJECT_BEFORE_PERIOD = re.compile(
+    r'\b(?:and|but|while|whereas)\s+'
+    r'(?:[A-Za-z][A-Za-z0-9&._-]*(?:\s+[A-Za-z][A-Za-z0-9&._-]*){0,3}|'
+    r'it|they|he|she)\s+(?:is|are|was|were)\b',
+    re.I,
+)
+_COPULAR_SUBJECT_AFTER_PERIOD = re.compile(
+    r'^\s*(?:,\s*)?'
+    r'(?:[A-Za-z][A-Za-z0-9&._-]*(?:\s+[A-Za-z][A-Za-z0-9&._-]*){0,3}|'
+    r'it|they|he|she)\s+(?:is|are|was|were)\b',
+    re.I,
+)
+
+
+def english_copular_period_relations(text: str) -> Counter:
+    out=Counter()
     parsed=clauses(text)
     for index,clause in enumerate(parsed):
         match=_EN_COPULAR_PERIOD.fullmatch(clause.text.strip())

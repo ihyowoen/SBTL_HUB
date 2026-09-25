@@ -124,21 +124,24 @@ class Review5315721014Contracts(unittest.TestCase):
     def test_contracted_subordinate_auxiliaries_are_normalized(self):
         prior = "Capacity is 10 MW."
         dims = ("quantitative_anchor", "transmission_path")
-        for current, wrong, expected_aux in (
+        for current, wrong, expected_aux, expected_verb in (
             (
                 "Capacity is 20 MW. Alpha is profitable because Beta hadn't collapsed.",
                 "Capacity is 20 MW. Alpha is profitable because Beta hadn't expanded.",
                 "had not",
+                "collapsed",
             ),
             (
                 "Capacity is 20 MW. Alpha is profitable because Beta didn't collapse.",
                 "Capacity is 20 MW. Alpha is profitable because Beta didn't expand.",
                 "did not",
+                "collapse",
             ),
             (
                 "Capacity is 20 MW. Alpha is profitable because Beta wouldn't collapse.",
                 "Capacity is 20 MW. Alpha is profitable because Beta wouldn't expand.",
                 "would not",
+                "collapse",
             ),
         ):
             with self.subTest(current=current):
@@ -150,7 +153,7 @@ class Review5315721014Contracts(unittest.TestCase):
                     key[0] == "relation:en:subordinate"
                     and key[1] == "beta"
                     and key[2] == expected_aux
-                    and key[3] == "collapsed" if "collapsed" in current else key[3] == "collapse"
+                    and key[3] == expected_verb
                     for key in rel
                 ))
 

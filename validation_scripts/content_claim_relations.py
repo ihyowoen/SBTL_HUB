@@ -217,7 +217,21 @@ def _korean_local_period_actions(clause_text: str, subject: str):
         before=clause_text[previous_end:start]
         after=clause_text[end:next_start]
 
-        before_match=_KR_OBJECT_BEFORE_PERIOD.search(before)
+        before_local=before
+        before_local=re.sub(
+            r'^\s*' + re.escape(subject) + r'(?:은|는|이|가)\s*',
+            '',
+            before_local,
+            count=1,
+        )
+        prior_connectors=list(re.finditer(
+            r'[가-힣]{1,}?(?:하고|하며|했고|하여)\s+|(?:그리고|및)\s+',
+            before_local,
+        ))
+        if prior_connectors:
+            before_local=before_local[prior_connectors[-1].end():]
+
+        before_match=_KR_OBJECT_BEFORE_PERIOD.search(before_local)
         after_verb=_KR_VERB_AFTER_PERIOD.search(after)
         if before_match and after_verb:
             out.append((
@@ -337,7 +351,8 @@ def english_relations(text: str) -> Counter:
         passive = _EN_PASSIVE.fullmatch(clause.text.strip())
         if passive:
             out[('relation:en:passive', passive['subject'].casefold(),
-                 passive['aux'].strip().casefold(), passive['verb'].casefold(),
+                 re.sub(r'\s+',' ',passive['aux'].strip()).casefold(),
+                 passive['verb'].casefold(),
                  ordered_terms(passive['object']), ordered_terms(passive['tail'] or ''))] += 1
         previous = clause
     return out
@@ -749,8 +764,7 @@ def _emit_passive_period_relation(out, segment):
     passive=_EN_PASSIVE.fullmatch(raw)
 
     if passive is None:
-        masked_raw=_mask_periods(raw)
-        masked_raw=re.sub(r'\s+',' ',masked_raw).strip()
+        masked_raw=_mask_periods(raw).strip()
         passive=_EN_PASSIVE.fullmatch(masked_raw)
         if passive is None:
             return

@@ -82,10 +82,8 @@ class Review5317503137Contracts(unittest.TestCase):
         prior = "Capacity is 10 MW."
         current = "Capacity is 20 MW. Coal in 2025 and gas in 2026 were sold by Alpha."
         wrong = "Capacity is 20 MW. Coal in 2026 and gas in 2025 were sold by Alpha."
-        self.blocked(prior, current, wrong)
-        good = self.validate(prior, current, current)
-        self.assertFalse(self.standalone_findings(good))
         rel = relations.english_factual_period_relations(current)
+        wrong_rel = relations.english_factual_period_relations(wrong)
         self.assertIn(
             ("relation:en:passive:period", "alpha", "were", "sold", ("coal",), "2025"),
             rel,
@@ -94,6 +92,15 @@ class Review5317503137Contracts(unittest.TestCase):
             ("relation:en:passive:period", "alpha", "were", "sold", ("gas",), "2026"),
             rel,
         )
+        self.assertNotEqual(rel, wrong_rel)
+
+        binding_rel = binding._factual_predicate_subject_counter(current)
+        wrong_binding_rel = binding._factual_predicate_subject_counter(wrong)
+        self.assertNotEqual(binding_rel, wrong_binding_rel)
+
+        self.blocked(prior, current, wrong)
+        good = self.validate(prior, current, current)
+        self.assertFalse(self.standalone_findings(good))
 
     def test_auxiliary_before_preverb_period_is_bound(self):
         prior = "Capacity is 10 MW."

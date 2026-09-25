@@ -83,11 +83,11 @@ CLAUSE_BOUNDARY_RE = _semantic_atoms.CLAUSE_BOUNDARY_RE
 COORDINATING_NEW_SUBJECT_RE = _semantic_atoms.COORDINATING_NEW_SUBJECT_RE
 CLAUSE_NEGATION_RE = _semantic_atoms.CLAUSE_NEGATION_RE
 FACTUAL_IDENTITY_TOKEN_RE = re.compile(
-    r"\b(?:[A-Z][A-Za-z0-9&._-]{2,}|[a-z][A-Z][A-Za-z0-9&._-]{1,}|[A-Z]{2,}[A-Z0-9&._-]*)\b"
+    r"\b(?:[A-Z][A-Za-z0-9&._-]{2,}|[a-z][A-Za-z0-9&._-]*[A-Z][A-Za-z0-9&._-]*|[A-Z]{2,}[A-Z0-9&._-]*)\b"
 )
 MULTIWORD_PROPER_IDENTITY_RE = re.compile(
     r"\b(?P<proper>"
-    r"(?:[A-Z][A-Za-z0-9&._-]{1,}|[a-z][A-Z][A-Za-z0-9&._-]{1,})\s+"
+    r"(?:[A-Z][A-Za-z0-9&._-]{1,}|[a-z][A-Za-z0-9&._-]*[A-Z][A-Za-z0-9&._-]*)\s+"
     r"(?:Corp(?:oration)?|Group|AG|Ltd|LLC|Inc|Co|PLC)"
     r")\b"
 )
@@ -148,12 +148,12 @@ GENERIC_FACTUAL_PREDICATE_RE = re.compile(
     r"\b(?:and|but|while|whereas)\s+"
     r"(?:(?P<subject_after_connector>"
     r"(?:it|they|he|she|we|you|this|that|these|those)"
-    r"|(?:the\s+)?(?:[A-Z][A-Za-z0-9&._-]{1,}|[a-z][A-Z][A-Za-z0-9&._-]{1,})"
+    r"|(?:the\s+)?(?:[A-Z][A-Za-z0-9&._-]{1,}|[a-z][A-Za-z0-9&._-]*[A-Z][A-Za-z0-9&._-]*)"
     r")\s+)?"
     r"(?P<verb_after_connector>[A-Za-z][A-Za-z-]{2,}(?:s|ed|ing))\b"
     r"\s+(?P<tail_after_connector>[^.;:!?]{1,120})"
     r"|(?:^|[.;:!?]\s*)"
-    r"(?P<subject>(?:[A-Z][A-Za-z0-9&._-]{2,}|[a-z][A-Z][A-Za-z0-9&._-]{1,}))\s+"
+    r"(?P<subject>(?:[A-Z][A-Za-z0-9&._-]{2,}|[a-z][A-Za-z0-9&._-]*[A-Z][A-Za-z0-9&._-]*))\s+"
     r"(?P<verb_after_subject>[A-Za-z][A-Za-z-]{2,}(?:s|ed|ing))\b"
     r"\s+(?P<tail_after_subject>[^.;:!?]{1,120})"
     r")",
@@ -162,7 +162,7 @@ SENTENCE_PROPER_FACTUAL_RE = re.compile(
     r"(?:^|[.;:!?]\s+)"
     r"(?!(?i:the|a|an|this|that|these|those)\b)"
     r"(?P<sentence_proper_subject>"
-    r"(?:[A-Z][A-Za-z0-9&._-]{1,}|[a-z][A-Z][A-Za-z0-9&._-]{1,})"
+    r"(?:[A-Z][A-Za-z0-9&._-]{1,}|[a-z][A-Za-z0-9&._-]*[A-Z][A-Za-z0-9&._-]*)"
     r"(?:\s+[A-Z][A-Za-z0-9&._-]{1,}){0,3}"
     r"(?:(?:'s|’s)\s+[A-Za-z][A-Za-z0-9&._-]{1,})?"
     r")\s+"
@@ -1689,21 +1689,30 @@ def _copular_factual_polarized_tokens(tail):
         local=segment.strip()
         if not local:
             continue
-        # "not only X but Y" is additive, not local negation.
-        if re.match(r"^not\s+only\b",local,re.IGNORECASE):
-            local=re.sub(r"^not\s+only\b\s*","",local,count=1,flags=re.IGNORECASE)
-            negation=None
+        # "neither X nor Y" negates every coordinated complement in
+        # that construction. Keep it separate from additive "not only X but Y".
+        if re.match(r"^neither\b",local,re.IGNORECASE):
+            local=re.sub(r"^neither\b\s*","",local,count=1,flags=re.IGNORECASE)
+            pieces=[
+                ("neg",piece.strip())
+                for piece in re.split(r"\bnor\b",local,flags=re.IGNORECASE)
+                if piece.strip()
+            ]
         else:
-            negation=re.search(r"\b(?:not|never|no)\b",local,re.IGNORECASE)
-        pieces=[("pos",local)]
-        if negation:
-            pieces=[]
-            before=local[:negation.start()].strip()
-            after=local[negation.end():].strip()
-            if before:
-                pieces.append(("pos",before))
-            if after:
-                pieces.append(("neg",after))
+            if re.match(r"^not\s+only\b",local,re.IGNORECASE):
+                local=re.sub(r"^not\s+only\b\s*","",local,count=1,flags=re.IGNORECASE)
+                negation=None
+            else:
+                negation=re.search(r"\b(?:not|never|no)\b",local,re.IGNORECASE)
+            pieces=[("pos",local)]
+            if negation:
+                pieces=[]
+                before=local[:negation.start()].strip()
+                after=local[negation.end():].strip()
+                if before:
+                    pieces.append(("pos",before))
+                if after:
+                    pieces.append(("neg",after))
         for polarity,piece in pieces:
             for word in FACTUAL_CONTENT_WORD_RE.findall(piece):
                 token=word.casefold()
@@ -2219,12 +2228,34 @@ def _claim_subject_for_span(text,start,end):
     return _claim_subjects_for_span(text,start,end)[-1]
 
 
-_STATE_TEMPORAL_YEAR_RE = re.compile(
+_STATE_TEMPORAL_PERIOD_RE = re.compile(
     r"(?:\b(?:in|during|by|on|from|since|through|until|as\s+of)\s+"
-    r"(?P<en_year>(?:19|20|21)\d{2})\b"
-    r"|(?P<ko_year>(?:19|20|21)\d{2})\s*년(?:도|에|부터|까지)?)",
+    r"(?P<en_period>"
+    r"(?:19|20|21)\d{2}"
+    r"|q[1-4](?:\s+(?:19|20|21)\d{2})?"
+    r"|(?:first|second|third|fourth)\s+quarter(?:\s+(?:19|20|21)\d{2})?"
+    r"|(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+    r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+    r"(?:\s+(?:19|20|21)\d{2})?"
+    r")\b"
+    r"|(?P<ko_period>(?:19|20|21)\d{2}\s*년(?:도|에|부터|까지)?|[1-4]\s*분기))",
     re.IGNORECASE,
 )
+
+_MONTH_ALIASES = {
+    "jan":"january","feb":"february","mar":"march","apr":"april",
+    "jun":"june","jul":"july","aug":"august","sep":"september","sept":"september",
+    "oct":"october","nov":"november","dec":"december",
+}
+
+
+def _canonical_state_period(raw):
+    value=re.sub(r"\s+"," ",str(raw or "").strip()).casefold()
+    if not value:
+        return ""
+    parts=value.split(" ",1)
+    head=_MONTH_ALIASES.get(parts[0],parts[0])
+    return head + ((" " + parts[1]) if len(parts)>1 else "")
 
 
 def _state_local_period_identity(text,start,end,previous_end=None,next_start=None):
@@ -2234,14 +2265,14 @@ def _state_local_period_identity(text,start,end,previous_end=None,next_start=Non
     if next_start is not None and end<=next_start<=right:
         right=min(right,next_start)
     after=text[end:min(right,end+72)]
-    match=_STATE_TEMPORAL_YEAR_RE.search(after)
+    match=_STATE_TEMPORAL_PERIOD_RE.search(after)
     if match:
-        return match.group("en_year") or match.group("ko_year") or ""
+        return _canonical_state_period(match.group("en_period") or match.group("ko_period") or "")
     before=text[max(left,start-96):start]
-    matches=list(_STATE_TEMPORAL_YEAR_RE.finditer(before))
+    matches=list(_STATE_TEMPORAL_PERIOD_RE.finditer(before))
     if matches:
         match=matches[-1]
-        return match.group("en_year") or match.group("ko_year") or ""
+        return _canonical_state_period(match.group("en_period") or match.group("ko_period") or "")
     return ""
 
 

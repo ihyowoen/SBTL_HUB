@@ -21,7 +21,7 @@ QUANT_SIGNAL_RE = re.compile(
     r"(?P<bound><=|>=|≤|≥|<|>|≈|~)?\s*"
     r"(?:(?P<currency_code_prefix>USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD)\s+)?"
     r"(?P<sign>[+−﹣－＋-])?\s*"
-    r"(?P<currency>[$€£¥₩]?)"
+    r"(?:(?P<country_dollar_prefix>A|C)\$|(?P<currency>[$€£¥₩]?))"
     r"(?P<number>\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+,\d+|\d+(?:\.\d+)?)"
     r"(?:\s*(?P<korean_magnitude>백만|십|백|천|만|억|조)"
     r"(?=달러|유로|위안|원|엔|" + _KOREAN_QUANTITY_END + r"))?"
@@ -73,6 +73,7 @@ MAGNITUDE_CANONICAL = {
 SIGN_CANONICAL = {"−": "-", "﹣": "-", "－": "-", "＋": "+"}
 KOREAN_SCALE = {"": 0, "십": 1, "백": 2, "천": 3, "만": 4, "백만": 6, "억": 8, "조": 12}
 KOREAN_CURRENCY = {"원": "krw", "달러": "dollar_unspecified", "유로": "eur", "위안": "cny", "엔": "jpy"}
+COUNTRY_DOLLAR_PREFIX = {"a": "aud", "c": "cad"}
 # A bare Korean "dollar" is not necessarily USD. Preserve that ambiguity.
 
 
@@ -123,7 +124,12 @@ def quantity_from_match(match) -> QuantityObservation:
     number = _canonical_numeric_text(get("number"))
     currency = get("currency").lower()
     prefix, suffix = get("currency_code_prefix").lower(), get("currency_code_suffix").lower()
-    currency_code = prefix + "/" + suffix if prefix and suffix and prefix != suffix else prefix or suffix
+    country_dollar = COUNTRY_DOLLAR_PREFIX.get(get("country_dollar_prefix").lower(), "")
+    codes = []
+    for code in (prefix, suffix, country_dollar):
+        if code and code not in codes:
+            codes.append(code)
+    currency_code = "/".join(codes)
     raw_magnitude = get("magnitude")
     unit = get("unit").lower()
     generic = get("generic_unit").lower()
@@ -363,7 +369,14 @@ def state_observation(text, match):
     # 'whether X was approved' queries X. A later 'and will decide whether ...'
     # does not make an already asserted approval conditional. True if/unless
     # conditions can be preposed or postposed and keep their enclosing scope.
-    if (_CONDITIONAL_EN.search(local_prefix) or _CONDITIONAL_EN.search(local_suffix)
+    # A postposed condition belongs only to this state until a coordinated
+    # explicit subject starts a new clause. Keep preposed conditions in the
+    # prefix so "If Alpha is approved and Beta is approved" remains scoped.
+    conditional_suffix = local_suffix
+    coordinated_subject = COORDINATING_NEW_SUBJECT_RE.search(conditional_suffix)
+    if coordinated_subject:
+        conditional_suffix = conditional_suffix[:coordinated_subject.start()]
+    if (_CONDITIONAL_EN.search(local_prefix) or _CONDITIONAL_EN.search(conditional_suffix)
             or re.search(r"\bwhether\b", local_prefix, re.IGNORECASE)):
         return _state_observation(match, 0, "conditional", "english_conditional_scope")
     prefix=text[max(0,match.start()-96):match.start()]

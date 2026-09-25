@@ -258,13 +258,13 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
     """
     out = Counter()
     for clause in clauses(text):
-        for quantity in atoms.QUANT_SIGNAL_RE.finditer(clause.text):
-            prefix = clause.text[:quantity.start()]
+        for quantity in atoms.quantitative_observations(clause.text):
+            prefix = clause.text[:quantity.start]
             match = _METRIC.search(prefix)
             if not match:
                 continue
             metric = match['metric'].casefold()
-            subjects = subjects_for_span(text, clause.start + match.start(), clause.start + quantity.end())
+            subjects = subjects_for_span(text, clause.start + match.start(), clause.start + quantity.end)
             if subjects == ['__generic__']:
                 # Bare "Capacity is 10 MW" is not an explicit entity binding.
                 continue
@@ -274,6 +274,5 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
                 periods = list(_PERIOD.finditer(prefix[:match.start()]))
                 period = re.sub(r'\s+', ' ', periods[-1][0].casefold()) if periods else ''
             for subject in subjects:
-                out[('metric:quantity', subject, metric, period,
-                     atoms.quantity_from_match(quantity).signal)] += 1
+                out[('metric:quantity', subject, metric, period, quantity.signal)] += 1
     return out

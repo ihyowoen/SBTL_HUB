@@ -2116,6 +2116,10 @@ def _factual_identity_spans(text):
         if head_token in FACTUAL_IDENTITY_STOPWORDS:
             continue
         subject=match.group("subject")
+        # Coordinated groups are handled by COMMON_NOUN_COORDINATED_SUBJECT_RE;
+        # do not collapse them back into one synthetic modified subject.
+        if re.search(r"\b(?:and|or)\b|&", subject, re.IGNORECASE):
+            continue
         token=re.sub(
             r"^(?:the|a|an|this|that|these|those)\s+","",
             re.sub(r"\s+"," ",subject.strip()).casefold(),
@@ -2237,6 +2241,10 @@ def _factual_location_pair_counter(text):
         relation=match.group(0).strip().split()[0].casefold()
         for subject in subjects:
             if subject!=location:
+                # Preserve the legacy subject=>location observation for existing
+                # callers, and add the relation-specific key used to detect
+                # in/from/to/etc. semantic changes.
+                counts[f"{subject}=>{location}"]+=1
                 counts[f"{subject}=>{relation}=>{location}"]+=1
     return counts
 

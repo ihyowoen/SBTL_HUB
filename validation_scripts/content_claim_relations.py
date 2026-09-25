@@ -737,16 +737,15 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
                     if suffix_period:
                         period=suffix_period
                     else:
-                        local_start=previous_quantity_end or 0
-                        local_prefix=prefix[local_start:match.start()]
-                        observations=atoms.temporal_period_observations(local_prefix)
+                        metric_prefix=prefix[:match.start()]
+                        observations=atoms.temporal_period_observations(metric_prefix)
                         if observations:
                             period=observations[-1][2]
                         else:
-                            local_periods=list(_PERIOD.finditer(local_prefix))
+                            prefix_periods=list(_PERIOD.finditer(metric_prefix))
                             period=(
-                                _canonical_metric_period(local_periods[-1]['period'])
-                                if local_periods else ''
+                                _canonical_metric_period(prefix_periods[-1]['period'])
+                                if prefix_periods else ''
                             )
                 context=(metric,tuple(subjects))
             else:

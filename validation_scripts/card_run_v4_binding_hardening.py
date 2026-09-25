@@ -83,11 +83,11 @@ CLAUSE_BOUNDARY_RE = _semantic_atoms.CLAUSE_BOUNDARY_RE
 COORDINATING_NEW_SUBJECT_RE = _semantic_atoms.COORDINATING_NEW_SUBJECT_RE
 CLAUSE_NEGATION_RE = _semantic_atoms.CLAUSE_NEGATION_RE
 FACTUAL_IDENTITY_TOKEN_RE = re.compile(
-    r"\b(?:[A-Z][A-Za-z0-9&._-]{2,}|[A-Z]{2,}[A-Z0-9&._-]*)\b"
+    r"\b(?:[A-Z][A-Za-z0-9&._-]{2,}|[a-z][A-Z][A-Za-z0-9&._-]{1,}|[A-Z]{2,}[A-Z0-9&._-]*)\b"
 )
 MULTIWORD_PROPER_IDENTITY_RE = re.compile(
     r"\b(?P<proper>"
-    r"[A-Z][A-Za-z0-9&._-]{1,}\s+"
+    r"(?:[A-Z][A-Za-z0-9&._-]{1,}|[a-z][A-Z][A-Za-z0-9&._-]{1,})\s+"
     r"(?:Corp(?:oration)?|Group|AG|Ltd|LLC|Inc|Co|PLC)"
     r")\b"
 )
@@ -148,12 +148,12 @@ GENERIC_FACTUAL_PREDICATE_RE = re.compile(
     r"\b(?:and|but|while|whereas)\s+"
     r"(?:(?P<subject_after_connector>"
     r"(?:it|they|he|she|we|you|this|that|these|those)"
-    r"|(?:the\s+)?[A-Z][A-Za-z0-9&._-]{1,}"
+    r"|(?:the\s+)?(?:[A-Z][A-Za-z0-9&._-]{1,}|[a-z][A-Z][A-Za-z0-9&._-]{1,})"
     r")\s+)?"
     r"(?P<verb_after_connector>[A-Za-z][A-Za-z-]{2,}(?:s|ed|ing))\b"
     r"\s+(?P<tail_after_connector>[^.;:!?]{1,120})"
     r"|(?:^|[.;:!?]\s*)"
-    r"(?P<subject>[A-Z][A-Za-z0-9&._-]{2,})\s+"
+    r"(?P<subject>(?:[A-Z][A-Za-z0-9&._-]{2,}|[a-z][A-Z][A-Za-z0-9&._-]{1,}))\s+"
     r"(?P<verb_after_subject>[A-Za-z][A-Za-z-]{2,}(?:s|ed|ing))\b"
     r"\s+(?P<tail_after_subject>[^.;:!?]{1,120})"
     r")",
@@ -162,7 +162,7 @@ SENTENCE_PROPER_FACTUAL_RE = re.compile(
     r"(?:^|[.;:!?]\s+)"
     r"(?!(?i:the|a|an|this|that|these|those)\b)"
     r"(?P<sentence_proper_subject>"
-    r"[A-Z][A-Za-z0-9&._-]{1,}"
+    r"(?:[A-Z][A-Za-z0-9&._-]{1,}|[a-z][A-Z][A-Za-z0-9&._-]{1,})"
     r"(?:\s+[A-Z][A-Za-z0-9&._-]{1,}){0,3}"
     r"(?:(?:'s|’s)\s+[A-Za-z][A-Za-z0-9&._-]{1,})?"
     r")\s+"
@@ -1662,7 +1662,8 @@ def _lexical_predicate_after_auxiliary(tail):
     return match.group("verb"),match.group("tail"),bool(match.group("negated"))
 
 
-def _copular_factual_tokens(tail):
+def _copular_factual_polarized_tokens(tail):
+    """Return copular complement tokens with local polarity preserved."""
     if not isinstance(tail,str):
         return []
     residual=list(tail)
@@ -1682,13 +1683,37 @@ def _copular_factual_tokens(tail):
         for index in range(start,end):
             residual[index]=" "
     residual="".join(residual)
-    return [
-        word.casefold()
-        for word in FACTUAL_CONTENT_WORD_RE.findall(residual)
-        if word.casefold() not in FACTUAL_CONTENT_STOPWORDS
-    ]
+
+    polarized=[]
+    for segment in re.split(r"\b(?:and|but|while|whereas)\b|,",residual,flags=re.IGNORECASE):
+        local=segment.strip()
+        if not local:
+            continue
+        # "not only X but Y" is additive, not local negation.
+        if re.match(r"^not\s+only\b",local,re.IGNORECASE):
+            local=re.sub(r"^not\s+only\b\s*","",local,count=1,flags=re.IGNORECASE)
+            negation=None
+        else:
+            negation=re.search(r"\b(?:not|never|no)\b",local,re.IGNORECASE)
+        pieces=[("pos",local)]
+        if negation:
+            pieces=[]
+            before=local[:negation.start()].strip()
+            after=local[negation.end():].strip()
+            if before:
+                pieces.append(("pos",before))
+            if after:
+                pieces.append(("neg",after))
+        for polarity,piece in pieces:
+            for word in FACTUAL_CONTENT_WORD_RE.findall(piece):
+                token=word.casefold()
+                if token not in FACTUAL_CONTENT_STOPWORDS:
+                    polarized.append((polarity,token))
+    return polarized
 
 
+def _copular_factual_tokens(tail):
+    return [token for _,token in _copular_factual_polarized_tokens(tail)]
 def _korean_factual_tokens(text):
     if not isinstance(text,str) or not re.search(r"[가-힣]",text):
         return []
@@ -1966,8 +1991,9 @@ def _factual_predicate_subject_counter(text):
                 verb=lexical_verb.casefold()
                 tail_value=lexical_tail or ""
             if verb in {"am","is","are","was","were","be","been","being"}:
-                for token in _copular_factual_tokens(tail_value):
-                    counts[(subject,"be",token)]+=1
+                for local_polarity,token in _copular_factual_polarized_tokens(tail_value):
+                    relation="neg:be" if local_polarity=="neg" else "be"
+                    counts[(subject,relation,token)]+=1
                 continue
             if verb in {"has","have","had","do","does","did"}:
                 lexical_verb,lexical_tail,negated=_lexical_predicate_after_auxiliary(tail_value)
@@ -2193,11 +2219,38 @@ def _claim_subject_for_span(text,start,end):
     return _claim_subjects_for_span(text,start,end)[-1]
 
 
+_STATE_TEMPORAL_YEAR_RE = re.compile(
+    r"(?:\b(?:in|during|by|on|from|since|through|until|as\s+of)\s+"
+    r"(?P<en_year>(?:19|20|21)\d{2})\b"
+    r"|(?P<ko_year>(?:19|20|21)\d{2})\s*년(?:도|에|부터|까지)?)",
+    re.IGNORECASE,
+)
+
+
+def _state_local_period_identity(text,start,end,previous_end=None,next_start=None):
+    left,right=_claim_segment_bounds(text,start,end)
+    if previous_end is not None and left<=previous_end<=start:
+        left=max(left,previous_end)
+    if next_start is not None and end<=next_start<=right:
+        right=min(right,next_start)
+    after=text[end:min(right,end+72)]
+    match=_STATE_TEMPORAL_YEAR_RE.search(after)
+    if match:
+        return match.group("en_year") or match.group("ko_year") or ""
+    before=text[max(left,start-96):start]
+    matches=list(_STATE_TEMPORAL_YEAR_RE.finditer(before))
+    if matches:
+        match=matches[-1]
+        return match.group("en_year") or match.group("ko_year") or ""
+    return ""
+
+
 def _state_subject_strength_occurrences(text):
     occurrences={}
     if not isinstance(text,str):
         return occurrences
-    for occurrence in _canonical_changed_state_occurrences(text):
+    state_occurrences=list(_canonical_changed_state_occurrences(text))
+    for index,occurrence in enumerate(state_occurrences):
         subjects=_claim_subjects_for_span(
             text,occurrence["start"],occurrence["end"]
         )
@@ -2205,8 +2258,15 @@ def _state_subject_strength_occurrences(text):
             topic = _claim_relations.immediate_pronoun_topic(text, occurrence["start"])
             if topic:
                 subjects = [topic]
+        previous_end=state_occurrences[index-1]["end"] if index else None
+        next_start=state_occurrences[index+1]["start"] if index+1<len(state_occurrences) else None
+        period=_state_local_period_identity(
+            text,occurrence["start"],occurrence["end"],previous_end,next_start
+        )
         for subject in subjects:
             key=f"{subject}=>{occurrence['marker']}"
+            if period:
+                key+=f"=>period:{period}"
             occurrences.setdefault(key,[]).append(occurrence["strength"])
     return {key:sorted(values) for key,values in occurrences.items()}
 

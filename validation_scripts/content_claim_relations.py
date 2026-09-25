@@ -475,8 +475,13 @@ def _active_local_dated_pairs(tail: str, initial_verb: str):
         raw_local=tail[previous_end:start]
         connector_prefix=re.match(r'^\s*(?:and|or|,)\s+',raw_local,re.I)
         local=re.sub(r'^\s*(?:and|or|,)\s*','',raw_local,flags=re.I).strip()
-        local=re.sub(r'\s*(?:and|or|,)\s*    return tuple(out)
-
+        local=re.sub(r'\s*(?:and|or|,)\s*$','',local,flags=re.I).strip()
+        terms=list(ordered_terms(local))
+        if (previous_end or connector_prefix) and terms and _finite_coord_token(terms[0]):
+            current_verb=terms.pop(0)
+        out.append((current_verb,tuple(terms),period))
+        previous_end=end
+    return tuple(out)
 
 def _preposed_action_terms(tail: str):
     periods=atoms.temporal_period_observations(tail)

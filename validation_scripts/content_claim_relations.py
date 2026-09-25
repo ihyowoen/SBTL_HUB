@@ -487,7 +487,6 @@ def _passive_local_dated_objects(passive):
 
 
 def _emit_active_period_relations(out, segment, topic):
-def _emit_active_period_relations(out, segment, topic):
     raw,leading_period=_strip_leading_period(segment)
     subject_period=''
     raw,subject_period=_strip_subject_preverb_period(raw)

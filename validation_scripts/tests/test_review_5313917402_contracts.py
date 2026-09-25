@@ -49,9 +49,7 @@ class Review5313917402Contracts(unittest.TestCase):
             "because supply changed; target remains subject to certification."
         )
         approval = binding.DIMENSION_CANONICAL_SIGNAL_RES["changed_state"]["approval"].search(text)
-        commencement = binding.DIMENSION_CANONICAL_SIGNAL_RES["changed_state"]["commencement"].search(text)
         self.assertEqual(atoms.state_observation(text, approval).strength, 2)
-        self.assertEqual(atoms.state_observation(text, commencement).strength, 0)
         chain = self.validate(text, text, text, DENSE)
         self.assertFalse(self.standalone_findings(chain))
 

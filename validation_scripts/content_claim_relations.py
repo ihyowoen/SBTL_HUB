@@ -250,7 +250,8 @@ _METRIC = re.compile(
     r'(?<![A-Za-z가-힣])(?P<metric>capacity|output|revenue|profit|sales|investment|cost|margin|'
     r'용량|출력|매출|이익|판매량|투자액|비용|마진)'
     r'(?:은|는|이|가)?\s*'
-    r'(?:(?:in|for|during)\s+(?P<post_period>' + _METRIC_PERIOD_VALUE + r')\s*)?'
+    r'(?:(?:in|for|during)\s+(?P<post_period>' + _METRIC_PERIOD_VALUE + r')\s*'
+    r'|from\s+(?P<post_range>' + atoms.TEMPORAL_EN_MONTH_RANGE_VALUE + r')\s*)?'
     r'(?:(?:is|was|are|were|of|at)\s+|[:=]\s*)?$', re.I
 )
 _PERIOD = re.compile(r'(?<!\w)(?P<period>' + _METRIC_PERIOD_VALUE + r')(?!\w)', re.I)
@@ -319,6 +320,37 @@ def _strip_leading_period(text: str):
     return value,''
 
 
+def _normalize_aux_contractions(text: str):
+    value=str(text or '')
+    value=re.sub(r"\bwon['’]t\b","will not",value,flags=re.I)
+    value=re.sub(r"\bcan['’]t\b","can not",value,flags=re.I)
+    value=re.sub(
+        r"\b(?P<aux>had|has|have|did|does|do|would|could|should|must|"
+        r"is|are|was|were|might)n['’]t\b",
+        r"\g<aux> not",value,flags=re.I,
+    )
+    return value
+
+
+_SUBJECT_PREFIX = re.compile(r'^' + _SUBJECT + r'\s+')
+
+
+def _strip_subject_preverb_period(text: str):
+    value=str(text or '').strip()
+    subject_match=_SUBJECT_PREFIX.match(value)
+    if not subject_match:
+        return value,''
+    for start,end,period in atoms.temporal_period_observations(value):
+        if start < subject_match.end():
+            continue
+        if value[subject_match.end():start].strip():
+            continue
+        masked=(value[:start] + ' ' + value[end:]).strip()
+        masked=re.sub(r'\s+',' ',masked)
+        return masked,period
+    return value,''
+
+
 def _parse_general_finite(segment: str, topic: str | None):
     match=_GENERAL_FINITE.fullmatch(segment.strip())
     if not match:
@@ -326,7 +358,7 @@ def _parse_general_finite(segment: str, topic: str | None):
     subject=_resolved_action_subject(match['subject'],topic)
     if subject is None:
         return None
-    body=match['body']
+    body=_normalize_aux_contractions(match['body'])
     tokens=list(re.finditer(r"[A-Za-z][A-Za-z-]*",body))
     if not tokens:
         return None
@@ -369,6 +401,9 @@ _COPULAR_COORDINATED_SUBJECT = re.compile(
     r'\s+(?:and|but|while|whereas)\s+'
     r'(?=(?:[A-Z][A-Za-z0-9&._-]*(?:\s+(?:[A-Z][A-Za-z0-9&._-]+|project|plant|facility|company)){0,3}'
     r'|(?:[Tt]he|[Aa]n?)\s+[A-Za-z][A-Za-z0-9_-]+|[Ii]t|[Tt]hey|[Hh]e|[Ss]he)'
+    r'(?:\s+(?:(?:in|during|for|by|on|since|through|until|as\s+of)\s+'
+    r'(?:' + atoms.TEMPORAL_EN_PERIOD_VALUE + r')'
+    r'|from\s+(?:' + atoms.TEMPORAL_EN_MONTH_RANGE_VALUE + r')))?'
     r'\s+(?:is|are|was|were)\b)',
     re.I,
 )
@@ -392,10 +427,40 @@ def _local_dated_arguments(tail: str):
     return tuple(out)
 
 
+def _finite_coord_token(token: str):
+    value=str(token or '').casefold()
+    return (
+        re.fullmatch(r"[a-z][a-z-]*(?:s|ed|ing)",value) is not None
+        or value in _GENERAL_IRREGULAR
+    )
+
+
+def _active_local_dated_pairs(tail: str, initial_verb: str):
+    periods=atoms.temporal_period_observations(tail)
+    if not periods:
+        return ()
+    out=[]
+    previous_end=0
+    current_verb=initial_verb
+    for start,end,period in periods:
+        local=tail[previous_end:start]
+        local=re.sub(r'^\s*(?:and|or|,)\s*','',local,flags=re.I).strip()
+        local=re.sub(r'\s*(?:and|or|,)\s*$','',local,flags=re.I).strip()
+        terms=list(ordered_terms(local))
+        if previous_end and terms and _finite_coord_token(terms[0]):
+            current_verb=terms.pop(0)
+        out.append((current_verb,tuple(terms),period))
+        previous_end=end
+    return tuple(out)
+
+
 def _emit_active_period_relations(out, segment, topic):
     raw,leading_period=_strip_leading_period(segment)
+    subject_period=''
+    raw,subject_period=_strip_subject_preverb_period(raw)
+    preposed_period=leading_period or subject_period
+
     match=_EN_ACTION.fullmatch(raw)
-    parsed_general=None
     if match:
         subject=_resolved_action_subject(match['subject'],topic)
         if subject is None:
@@ -409,26 +474,17 @@ def _emit_active_period_relations(out, segment, topic):
             return
         subject,aux,verb,tail=parsed_general
         if verb in _GENERAL_STATE_VERBS:
-            # Changed-state chronology is owned by the dedicated state layer.
             return
 
-    local_arguments=_local_dated_arguments(tail)
-    if local_arguments:
-        for object_terms,period in local_arguments:
-            out[('relation:en:period',subject,aux,verb,object_terms,period)]+=1
+    local_pairs=_active_local_dated_pairs(tail,verb)
+    if local_pairs:
+        for local_verb,object_terms,period in local_pairs:
+            out[('relation:en:period',subject,aux,local_verb,object_terms,period)]+=1
         return
 
-    periods=atoms.temporal_period_observations(tail)
-    if periods:
-        masked_tail=_mask_periods(tail)
-        object_terms=ordered_terms(masked_tail)
-        for _,_,period in periods:
-            out[('relation:en:period',subject,aux,verb,object_terms,period)]+=1
-        return
-
-    if leading_period:
+    if preposed_period:
         object_terms=ordered_terms(tail)
-        out[('relation:en:period',subject,aux,verb,object_terms,leading_period)]+=1
+        out[('relation:en:period',subject,aux,verb,object_terms,preposed_period)]+=1
 
 
 def _emit_passive_period_relation(out, segment):
@@ -621,6 +677,7 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
     out=Counter()
     for clause in clauses(text):
         context=None
+        previous_quantity_end=None
         for quantity in atoms.quantitative_observations(clause.text):
             prefix=clause.text[:quantity.start]
             match=_METRIC.search(prefix)
@@ -631,23 +688,39 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
                     text,clause.start+match.start(),clause.start+quantity.end
                 )
                 if subjects == ['__generic__']:
+                    previous_quantity_end=quantity.end
                     continue
-                if match.groupdict().get('post_period'):
-                    period=_canonical_metric_period(match['post_period'])
+                post_value=(
+                    match.groupdict().get('post_period')
+                    or match.groupdict().get('post_range')
+                )
+                if post_value:
+                    period=_canonical_metric_period(post_value)
                 else:
                     periods=list(_PERIOD.finditer(prefix[:match.start()]))
                     period=_canonical_metric_period(periods[-1]['period']) if periods else ''
                 context=(metric,tuple(subjects))
             else:
                 carry=_COORDINATED_METRIC_PERIOD.search(prefix)
-                if not carry or context is None:
+                if carry and context is not None:
+                    metric,subjects=context
+                    period=_canonical_metric_period(carry['period'])
+                elif context is not None and previous_quantity_end is not None:
+                    bridge=clause.text[previous_quantity_end:quantity.start]
+                    masked_bridge=_mask_periods(bridge)
+                    if not re.fullmatch(r'\s*(?:and|,)\s*',masked_bridge,re.I):
+                        previous_quantity_end=quantity.end
+                        continue
+                    metric,subjects=context
+                else:
+                    previous_quantity_end=quantity.end
                     continue
-                metric,subjects=context
-                period=_canonical_metric_period(carry['period'])
 
             if not period:
                 period=_period_after_quantity(clause.text,quantity.end)
             for subject in subjects:
                 out[('metric:quantity',subject,metric,period,quantity.signal)]+=1
+            previous_quantity_end=quantity.end
     return out
+
 

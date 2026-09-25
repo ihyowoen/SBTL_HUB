@@ -197,6 +197,13 @@ _KR_LOCAL_DATED_ACTION = re.compile(
     r"(?P<object>[가-힣A-Za-z][가-힣A-Za-z0-9& _-]*?)(?:을|를)\s+"
     r"(?P<verb>[가-힣]{1,}?)(?:하고|하며|했고|하여|했다|하였다|한다|된다|됐다|되었다)"
 )
+_KR_OBJECT_BEFORE_PERIOD = re.compile(
+    r"(?P<object>[가-힣A-Za-z][가-힣A-Za-z0-9&_-]*"
+    r"(?:\s+[가-힣A-Za-z][가-힣A-Za-z0-9&_-]*){0,3})(?:을|를)\s*$"
+)
+_KR_VERB_AFTER_PERIOD = re.compile(
+    r"^\s*(?P<verb>[가-힣]{1,}?)(?:하고|하며|했고|하여|했다|하였다|한다|된다|됐다|되었다)"
+)
 
 
 def _korean_local_period_actions(clause_text: str, subject: str):
@@ -204,22 +211,37 @@ def _korean_local_period_actions(clause_text: str, subject: str):
     if not periods:
         return ()
     out=[]
+    previous_end=0
     for index,(start,end,period) in enumerate(periods):
         next_start=periods[index+1][0] if index+1 < len(periods) else len(clause_text)
-        local=clause_text[end:next_start]
-        local=re.sub(r'^\s*(?:,|그리고|및|과|와)?\s*','',local)
-        match=_KR_LOCAL_DATED_ACTION.search(local)
-        if not match:
-            continue
-        out.append((
-            'relation:kr:local-period',
-            subject,
-            match['verb'],
-            ordered_terms(match['object']),
-            period,
-        ))
-    return tuple(out)
+        before=clause_text[previous_end:start]
+        after=clause_text[end:next_start]
 
+        before_match=_KR_OBJECT_BEFORE_PERIOD.search(before)
+        after_verb=_KR_VERB_AFTER_PERIOD.search(after)
+        if before_match and after_verb:
+            out.append((
+                'relation:kr:local-period',
+                subject,
+                after_verb['verb'],
+                ordered_terms(before_match['object']),
+                period,
+            ))
+            previous_end=end
+            continue
+
+        local=re.sub(r'^\s*(?:,|그리고|및|과|와)?\s*','',after)
+        match=_KR_LOCAL_DATED_ACTION.search(local)
+        if match:
+            out.append((
+                'relation:kr:local-period',
+                subject,
+                match['verb'],
+                ordered_terms(match['object']),
+                period,
+            ))
+        previous_end=end
+    return tuple(out)
 
 def korean_description_tokens(text: str) -> list[str]:
     # Used by the legacy content inventory as well as the ordered relation guard.
@@ -425,13 +447,16 @@ def _strip_subject_preverb_period(text: str):
         if start < subject_match.end():
             continue
         between=value[subject_match.end():start].strip()
+        between=re.sub(r",\s*$","",between).strip()
         if between and not re.fullmatch(
             r"(?:(?:am|is|are|was|were|be|been|being|has|have|had|do|does|did|"
             r"can|could|may|might|will|would|must|should|shall|not)\s*)+",
             between,re.I,
         ):
             continue
-        masked=(value[:start] + ' ' + value[end:]).strip()
+        prefix=re.sub(r",\s*$"," ",value[:start])
+        suffix=re.sub(r"^\s*,"," ",value[end:])
+        masked=(prefix + ' ' + suffix).strip()
         masked=re.sub(r'\s+',' ',masked)
         return masked,period
     return value,''
@@ -724,13 +749,14 @@ def _emit_passive_period_relation(out, segment):
     passive=_EN_PASSIVE.fullmatch(raw)
 
     if passive is None:
-        masked_raw=_mask_periods(raw).strip()
+        masked_raw=_mask_periods(raw)
+        masked_raw=re.sub(r'\s+',' ',masked_raw).strip()
         passive=_EN_PASSIVE.fullmatch(masked_raw)
         if passive is None:
             return
 
     subject=passive['subject'].casefold()
-    aux=passive['aux'].strip().casefold()
+    aux=re.sub(r'\s+',' ',passive['aux'].strip()).casefold()
     verb=passive['verb'].casefold()
     object_start=passive.start('object')
     object_end=passive.end('object')
@@ -849,6 +875,8 @@ def _copular_segment_period_relations(segment: str, topic: str | None):
     if not all_periods:
         return out
     masked=_mask_periods(raw)
+    masked=re.sub(r',\s*,',' ',masked)
+    masked=re.sub(r'\s+',' ',masked).strip()
     masked=re.sub(r'^\s*,\s*','',masked).strip()
     parsed=_EN_COPULAR_PERIOD.fullmatch(masked)
     if not parsed:

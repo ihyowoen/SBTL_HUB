@@ -66,6 +66,7 @@ TEMPORAL_PERIOD_SPAN_RE = re.compile(
     r"|\bfrom\s+(?P<en_month_range>"
     r"(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
     r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+    r"(?:\s+(?:19|20|21)\d{2})?"
     r"\s+(?:to|through)\s+"
     r"(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
     r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
@@ -101,17 +102,21 @@ def canonical_temporal_period(raw):
     month_range=re.fullmatch(
         r"(?P<start>jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
         r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+        r"(?:\s+(?P<start_year>(?:19|20|21)\d{2}))?"
         r"\s+(?:to|through)\s+"
         r"(?P<end>jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
         r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
-        r"(?:\s+(?P<year>(?:19|20|21)\d{2}))?",
+        r"(?:\s+(?P<end_year>(?:19|20|21)\d{2}))?",
         value,
     )
     if month_range:
         start=_MONTH_ALIASES.get(month_range.group("start"),month_range.group("start"))
         end=_MONTH_ALIASES.get(month_range.group("end"),month_range.group("end"))
-        year=month_range.group("year") or ""
-        return f"{start}-to-{end}" + (f" {year}" if year else "")
+        start_year=month_range.group("start_year") or ""
+        end_year=month_range.group("end_year") or ""
+        left=start + (f" {start_year}" if start_year else "")
+        right=end + (f" {end_year}" if end_year else "")
+        return f"{left}-to-{right}"
     korean_quarter=re.fullmatch(
         r"(?:(?P<year1>(?:19|20|21)\d{2})\s*년(?:도)?\s*)?"
         r"(?P<quarter>[1-4])\s*분기"

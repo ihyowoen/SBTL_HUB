@@ -63,6 +63,14 @@ TEMPORAL_PERIOD_SPAN_RE = re.compile(
     r"\b(?:in|during|by|on|since|through|until|as\s+of)\s+"
     r"(?P<en_period>" + TEMPORAL_EN_PERIOD_VALUE + r")\b"
     r"|\bfor\s+(?P<en_for_period>" + TEMPORAL_EN_YEAR_QUARTER_VALUE + r")\b"
+    r"|\bfrom\s+(?P<en_month_range>"
+    r"(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+    r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+    r"\s+(?:to|through)\s+"
+    r"(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+    r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+    r"(?:\s+(?:19|20|21)\d{2})?"
+    r")\b"
     r"|\bfrom\s+(?P<en_from_period>"
     r"(?:" + TEMPORAL_EN_YEAR_QUARTER_VALUE
     + r"|(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
@@ -90,6 +98,20 @@ def canonical_temporal_period(raw):
     value=re.sub(r"^the\s+","",value)
     if not value:
         return ""
+    month_range=re.fullmatch(
+        r"(?P<start>jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+        r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+        r"\s+(?:to|through)\s+"
+        r"(?P<end>jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+        r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+        r"(?:\s+(?P<year>(?:19|20|21)\d{2}))?",
+        value,
+    )
+    if month_range:
+        start=_MONTH_ALIASES.get(month_range.group("start"),month_range.group("start"))
+        end=_MONTH_ALIASES.get(month_range.group("end"),month_range.group("end"))
+        year=month_range.group("year") or ""
+        return f"{start}-to-{end}" + (f" {year}" if year else "")
     korean_quarter=re.fullmatch(
         r"(?:(?P<year1>(?:19|20|21)\d{2})\s*년(?:도)?\s*)?"
         r"(?P<quarter>[1-4])\s*분기"
@@ -116,7 +138,14 @@ def canonical_temporal_period(raw):
 
 def _period_group_value(match):
     groups=match.groupdict()
-    return groups.get("en_period") or groups.get("en_for_period") or groups.get("en_from_period") or groups.get("ko_period") or ""
+    return (
+        groups.get("en_period")
+        or groups.get("en_for_period")
+        or groups.get("en_month_range")
+        or groups.get("en_from_period")
+        or groups.get("ko_period")
+        or ""
+    )
 
 
 def temporal_period_spans(text):
@@ -487,7 +516,8 @@ def state_observation(text, match):
         r"meanwhile|today|now|then|at\s+present|at\s+the\s+time)\s*,\s*"
         r"|(?:in|during|as\s+of|by)\s+"
         r"(?:" + TEMPORAL_EN_PERIOD_VALUE + r")"
-        r"\s*,\s*)*"
+        r"\s*,\s*"
+        r"|for\s+(?:" + TEMPORAL_EN_YEAR_QUARTER_VALUE + r")\s*,\s*)*"
         r"(?:if|unless|assuming|provided\s+that|providing\s+that|"
         r"in\s+the\s+event\s+that|whether)\b",
         conditional_prefix,re.IGNORECASE,

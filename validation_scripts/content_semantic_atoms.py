@@ -45,6 +45,37 @@ QUANT_SIGNAL_RE = re.compile(
     re.IGNORECASE,
 )
 
+_TEMPORAL_EN_PERIOD_VALUE = (
+    r"(?:19|20|21)\d{2}(?:\s+(?:q[1-4]|(?:first|second|third|fourth)\s+quarter))?"
+    r"|(?:q[1-4]|(?:first|second|third|fourth)\s+quarter)(?:\s+(?:19|20|21)\d{2})?"
+    r"|(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+    r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+    r"(?:\s+(?:19|20|21)\d{2})?"
+)
+TEMPORAL_PERIOD_SPAN_RE = re.compile(
+    r"(?:\b(?:in|during|by|on|from|since|through|until|as\s+of)\s+"
+    r"(?P<en_period>" + _TEMPORAL_EN_PERIOD_VALUE + r")\b"
+    r"|(?P<ko_period>"
+    r"(?:19|20|21)\d{2}\s*년(?:도)?\s*[1-4]\s*분기"
+    r"|[1-4]\s*분기(?:\s*(?:19|20|21)\d{2}\s*년)?"
+    r"|(?:19|20|21)\d{2}\s*년(?:도|에|부터|까지)?"
+    r"))",
+    re.IGNORECASE,
+)
+
+
+def temporal_period_spans(text):
+    if not isinstance(text, str):
+        return ()
+    return tuple((match.start(), match.end(), match.group(0))
+                 for match in TEMPORAL_PERIOD_SPAN_RE.finditer(text))
+
+
+def _overlaps_any_span(start, end, spans):
+    return any(start < span_end and end > span_start
+               for span_start, span_end, _ in spans)
+
+
 
 def _canonical_numeric_text(raw):
     value=raw
@@ -187,9 +218,13 @@ def unsupported_quantity_spans(text):
 
 def quantitative_observations(text):
     unsupported = unsupported_quantity_spans(text)
-    return tuple(quantity_from_match(match) for match in QUANT_SIGNAL_RE.finditer(text)
-                 if not any(match.start() < end and match.end() > start
-                            for start, end, _ in unsupported))
+    temporal = temporal_period_spans(text)
+    return tuple(
+        quantity_from_match(match)
+        for match in QUANT_SIGNAL_RE.finditer(text)
+        if not _overlaps_any_span(match.start(), match.end(), unsupported)
+        and not _overlaps_any_span(match.start(), match.end(), temporal)
+    )
 
 
 def quantitative_signals(text):
@@ -387,9 +422,7 @@ def state_observation(text, match):
         r"^\s*(?:(?:previously|earlier|initially|historically|currently|"
         r"meanwhile|today|now|then|at\s+present|at\s+the\s+time)\s*,\s*"
         r"|(?:in|during|as\s+of|by)\s+"
-        r"(?:(?:19|20|21)\d{2}|q[1-4]|"
-        r"jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
-        r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+        r"(?:" + _TEMPORAL_EN_PERIOD_VALUE + r")"
         r"\s*,\s*)*"
         r"(?:if|unless|assuming|provided\s+that|providing\s+that|"
         r"in\s+the\s+event\s+that|whether)\b",

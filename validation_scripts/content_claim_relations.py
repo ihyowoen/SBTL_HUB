@@ -241,7 +241,7 @@ def english_relations(text: str) -> Counter:
 
 
 _METRIC_PERIOD_VALUE = (
-    r"(?:" + atoms.TEMPORAL_EN_YEAR_QUARTER_VALUE + r"|"
+    r"(?:" + atoms.TEMPORAL_EN_PERIOD_VALUE + r"|"
     r"(?:19|20|21)\d{2}\s*년(?:도)?\s*[1-4]\s*분기|"
     r"[1-4]\s*분기(?:\s*(?:19|20|21)\d{2}\s*년)?|"
     r"(?:19|20|21)\d{2}\s*년(?:도)?)"
@@ -270,9 +270,49 @@ def _mask_periods(text: str) -> str:
     return ''.join(chars)
 
 
+def _topic_before_clause(text: str, parsed: tuple[Clause, ...], index: int) -> str | None:
+    if index <= 0:
+        return None
+    previous=parsed[index-1]
+    current=parsed[index]
+    if text[previous.end:current.start].strip() != '.':
+        return None
+    match=_TOPIC.fullmatch(previous.text)
+    return match['topic'].casefold() if match else None
+
+
+def _resolved_action_subject(raw_subject: str, topic: str | None):
+    subject=re.sub(r'^(?:the|a|an)\s+','',raw_subject.casefold())
+    if subject not in _PRONOUNS:
+        return subject
+    if subject == 'it' and topic:
+        return topic
+    return None
+
+
+def _local_dated_arguments(tail: str):
+    """Return object terms bound to each explicit local period in one action tail."""
+    periods=atoms.temporal_period_observations(tail)
+    if not periods:
+        return ()
+    out=[]
+    previous_end=0
+    for start,end,period in periods:
+        local=tail[previous_end:start]
+        local=re.sub(r'^\s*(?:and|or|,)\s*','',local,flags=re.I)
+        local=re.sub(r'\s*(?:and|or|,)\s*$','',local,flags=re.I)
+        terms=ordered_terms(local)
+        if terms:
+            out.append((terms,period))
+        previous_end=end
+    return tuple(out)
+
+
 def english_factual_period_relations(text: str) -> Counter:
     out=Counter()
-    for clause in clauses(text):
+    parsed=clauses(text)
+    for index,clause in enumerate(parsed):
+        topic=_topic_before_clause(text,parsed,index)
         segments=[]
         pos=0
         for boundary in _NEW_ACTION.finditer(clause.text):
@@ -283,17 +323,59 @@ def english_factual_period_relations(text: str) -> Counter:
             match=_EN_ACTION.fullmatch(segment.strip())
             if not match:
                 continue
+            subject=_resolved_action_subject(match['subject'],topic)
+            if subject is None:
+                continue
+            local_arguments=_local_dated_arguments(match['tail'])
+            if local_arguments:
+                for object_terms,period in local_arguments:
+                    out[('relation:en:period', subject, match['aux'].strip().casefold(),
+                         match['verb'].casefold(), object_terms, period)] += 1
+                continue
             periods=atoms.temporal_period_observations(match['tail'])
-            if not periods:
-                continue
-            subject=re.sub(r'^(?:the|a|an)\s+','',match['subject'].casefold())
-            if subject in _PRONOUNS:
-                continue
-            masked_tail=_mask_periods(match['tail'])
-            object_terms=ordered_terms(masked_tail)
-            for _,_,period in periods:
-                out[('relation:en:period', subject, match['aux'].strip().casefold(),
-                     match['verb'].casefold(), object_terms, period)] += 1
+            if periods:
+                masked_tail=_mask_periods(match['tail'])
+                object_terms=ordered_terms(masked_tail)
+                for _,_,period in periods:
+                    out[('relation:en:period', subject, match['aux'].strip().casefold(),
+                         match['verb'].casefold(), object_terms, period)] += 1
+
+        passive=_EN_PASSIVE.fullmatch(clause.text.strip())
+        if passive:
+            periods=atoms.temporal_period_observations(passive['tail'] or '')
+            if periods:
+                for _,_,period in periods:
+                    out[('relation:en:passive:period', passive['subject'].casefold(),
+                         passive['aux'].strip().casefold(), passive['verb'].casefold(),
+                         ordered_terms(passive['object']), period)] += 1
+    return out
+
+
+_EN_COPULAR_PERIOD = re.compile(
+    r'^' + _SUBJECT + r'\s+(?P<copula>(?i:is|are|was|were))\s+(?P<tail>.+)$'
+)
+
+
+def english_copular_period_relations(text: str) -> Counter:
+    out=Counter()
+    parsed=clauses(text)
+    for index,clause in enumerate(parsed):
+        match=_EN_COPULAR_PERIOD.fullmatch(clause.text.strip())
+        if not match:
+            continue
+        subject=_resolved_action_subject(match['subject'],_topic_before_clause(text,parsed,index))
+        if subject is None:
+            continue
+        periods=atoms.temporal_period_observations(match['tail'])
+        if not periods:
+            continue
+        first_start=periods[0][0]
+        complement=ordered_terms(match['tail'][:first_start].strip())
+        if not complement:
+            continue
+        for _,_,period in periods:
+            out[('relation:en:copular:period', subject,
+                 match['copula'].casefold(), complement, period)] += 1
     return out
 
 
@@ -304,12 +386,39 @@ _COPULAR_REASON_CLAUSE = re.compile(
 )
 
 
+_SUBORDINATE_FINITE = re.compile(
+    r'^' + _SUBJECT + r'\s+'
+    r'(?P<verb>(?i:[A-Za-z][A-Za-z-]{1,}))'
+    r'(?:\s+(?P<tail>.*))?$'
+)
+_SUBORDINATE_AUXILIARIES = {
+    'am','is','are','was','were','be','been','being',
+    'has','have','had','do','does','did',
+    'can','could','may','might','will','would','must','should','shall',
+}
+
+
 def copular_subordinate_relations(text: str) -> Counter:
     out=Counter()
     if not isinstance(text,str):
         return out
     for match in _COPULAR_REASON_CLAUSE.finditer(text):
-        out.update(english_relations(match['clause'].strip()))
+        clause=match['clause'].strip()
+        parsed=english_relations(clause)
+        if parsed:
+            out.update(parsed)
+            continue
+        finite=_SUBORDINATE_FINITE.fullmatch(clause)
+        if not finite:
+            continue
+        verb=finite['verb'].casefold()
+        if verb in _SUBORDINATE_AUXILIARIES:
+            continue
+        subject=re.sub(r'^(?:the|a|an)\s+','',finite['subject'].casefold())
+        if subject in _PRONOUNS:
+            continue
+        out[('relation:en:subordinate', subject, verb,
+             ordered_terms(finite['tail'] or ''))] += 1
     return out
 
 def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter:

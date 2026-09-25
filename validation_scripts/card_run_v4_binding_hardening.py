@@ -2091,9 +2091,11 @@ def _factual_identity_spans(text):
         token=match.group(1)
         if token:
             spans.add((match.start(1),match.end(1),token))
+    coordinated_subject_ranges=[]
     for match in COMMON_NOUN_COORDINATED_SUBJECT_RE.finditer(text):
         group=match.group("group")
         group_start=match.start("group")
+        coordinated_subject_ranges.append((match.start("group"),match.end("group")))
         for segment in re.split(r"\s*(?:,|\band\b|\bor\b|&)\s*",group,flags=re.IGNORECASE):
             segment=segment.strip()
             if not segment:
@@ -2109,6 +2111,9 @@ def _factual_identity_spans(text):
             if local_start>=0:
                 spans.add((group_start+local_start,group_start+local_start+len(head),token))
     for match in COMMON_NOUN_SUBJECT_RE.finditer(text):
+        if any(start<=match.start("subject") and match.end("subject")<=end
+               for start,end in coordinated_subject_ranges):
+            continue
         head=match.group("head")
         head_token=head.casefold()
         if head_token in FACTUAL_SUBJECT_FALSE_HEADS:

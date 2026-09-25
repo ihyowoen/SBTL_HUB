@@ -141,6 +141,33 @@ def korean_relations(text: str) -> Counter:
     return out
 
 
+def korean_period_relations(text: str) -> Counter:
+    """Preserve explicit Korean period identity before temporal masking."""
+    out=Counter()
+    if not isinstance(text,str):
+        return out
+    for clause in clauses(text):
+        match=_KR_OBJECT.fullmatch(clause.text)
+        if match is None:
+            trailing=_KR_TRAILING_QUANTITY.fullmatch(clause.text)
+            if trailing and atoms.QUANT_SIGNAL_RE.match(trailing['context']):
+                match=trailing
+        if not match:
+            continue
+        context=match['context']
+        periods=atoms.temporal_period_observations(context)
+        if not periods:
+            continue
+        subject=match['subject'].casefold()
+        predicate=match['predicate']
+        negated=re.fullmatch(r"(.+?)하지\s+(?:않았다|않는다)",predicate)
+        predicate="neg:" + negated[1] if negated else predicate
+        obj=ordered_terms(match['object'])
+        for _,_,period in periods:
+            out[('relation:kr:period',subject,predicate,obj,period)]+=1
+    return out
+
+
 def korean_description_tokens(text: str) -> list[str]:
     # Used by the legacy content inventory as well as the ordered relation guard.
     out = []
@@ -155,7 +182,8 @@ def korean_description_tokens(text: str) -> list[str]:
     return out
 
 
-_PROPER = r'[A-Z][A-Za-z0-9&._-]+(?:\s+(?:[A-Z][A-Za-z0-9&._-]+|project|plant|facility|company)){0,3}'
+_PROPER = (r"[A-Z][A-Za-z0-9&._-]+(?:(?:'s|’s)\s+[A-Za-z][A-Za-z0-9&._-]+)?"
+           r"(?:\s+(?:[A-Z][A-Za-z0-9&._-]+|project|plant|facility|company)){0,3}")
 _SUBJECT = (r'(?P<subject>' + _PROPER + r'|(?:[Tt]he|[Aa]n?)\s+[A-Za-z][A-Za-z0-9_-]+'
             r'|[Ii]t|[Tt]hey|[Hh]e|[Ss]he)')
 _ACTIONS = (r'sold|sells?|acquired|acquires?|bought|buys?|used|uses?|burned|burns?|burnt'
@@ -479,7 +507,7 @@ def _passive_local_dated_objects(passive):
         local=re.sub(r'^\s*(?:and|or|,)\s*','',local,flags=re.I).strip()
         local=re.sub(r'\s*(?:and|or|,)\s*$','',local,flags=re.I).strip()
         object_terms=ordered_terms(local) if local else ()
-        if index == 0 or not object_terms:
+        if not object_terms:
             object_terms=base_object
         out.append((object_terms,period))
         previous_end=end
@@ -512,8 +540,7 @@ def _emit_active_period_relations(out, segment, topic):
     if local_pairs:
         if preposed_period:
             preposed_terms=_preposed_action_terms(tail)
-            if preposed_terms:
-                out[('relation:en:period',subject,aux,verb,preposed_terms,preposed_period)]+=1
+            out[('relation:en:period',subject,aux,verb,preposed_terms,preposed_period)]+=1
         for local_verb,object_terms,period in local_pairs:
             out[('relation:en:period',subject,aux,local_verb,object_terms,period)]+=1
         return
@@ -526,18 +553,42 @@ def _emit_active_period_relations(out, segment, topic):
 def _emit_passive_period_relation(out, segment):
     raw,leading_period=_strip_leading_period(segment)
     passive=_EN_PASSIVE.fullmatch(raw)
-    if not passive:
+    masked_passive=None
+
+    if passive is None:
+        masked_raw=_mask_periods(raw)
+        masked_raw=re.sub(r'\s+',' ',masked_raw).strip()
+        passive=_EN_PASSIVE.fullmatch(masked_raw)
+        if passive is None:
+            return
+        masked_passive=passive
+
+    subject=passive['subject'].casefold()
+    aux=passive['aux'].strip().casefold()
+    verb=passive['verb'].casefold()
+    base_object=ordered_terms(passive['object'])
+
+    if leading_period:
+        out[('relation:en:passive:period',subject,aux,verb,base_object,leading_period)]+=1
+
+    if masked_passive is not None:
+        for _,_,period in atoms.temporal_period_observations(raw):
+            out[('relation:en:passive:period',subject,aux,verb,base_object,period)]+=1
         return
+
     local_objects=_passive_local_dated_objects(passive)
     if local_objects:
         for object_terms,period in local_objects:
-            out[('relation:en:passive:period',passive['subject'].casefold(),
-                 passive['aux'].strip().casefold(),passive['verb'].casefold(),
-                 object_terms,period)]+=1
-    elif leading_period:
-        out[('relation:en:passive:period',passive['subject'].casefold(),
-             passive['aux'].strip().casefold(),passive['verb'].casefold(),
-             ordered_terms(passive['object']),leading_period)]+=1
+            out[('relation:en:passive:period',subject,aux,verb,object_terms,period)]+=1
+
+    # Periods before the passive tail (for example object-period-copula or
+    # verb-period-agent forms) are not represented by local_objects.
+    tail_start=passive.start('tail') if passive.groupdict().get('tail') else len(raw)
+    for start,_,period in atoms.temporal_period_observations(raw):
+        if start < tail_start:
+            cleaned_object=ordered_terms(_mask_periods(passive['object']))
+            out[('relation:en:passive:period',subject,aux,verb,
+                 cleaned_object or base_object,period)]+=1
 
 
 def english_factual_period_relations(text: str) -> Counter:
@@ -586,8 +637,20 @@ def _copular_segment_period_relations(segment: str, topic: str | None):
         if subject is None:
             return out
         observations=atoms.temporal_period_observations(direct['tail'])
-        local_pairs=_local_dated_arguments(direct['tail'])
+        local_pairs=list(_local_dated_arguments(direct['tail']))
         if local_pairs:
+            if leading_period:
+                first_start=observations[0][0] if observations else len(direct['tail'])
+                before_first=direct['tail'][:first_start].strip()
+                pieces=re.split(r"\b(?:and|or)\b",before_first,flags=re.I)
+                leading_complement=ordered_terms(pieces[0].strip(" ,"))
+                if leading_complement:
+                    out[('relation:en:copular:period',subject,
+                         direct['copula'].casefold(),leading_complement,leading_period)]+=1
+                if len(pieces)>1:
+                    remainder=ordered_terms(pieces[-1].strip(" ,"))
+                    if remainder:
+                        local_pairs[0]=(remainder,local_pairs[0][1])
             pair_index=0
             for start,end,period in observations:
                 after=direct['tail'][end:]

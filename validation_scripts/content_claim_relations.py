@@ -473,6 +473,7 @@ _METRIC = re.compile(
 )
 _PERIOD = re.compile(r'(?<!\w)(?P<period>' + _METRIC_PERIOD_VALUE + r')(?!\w)', re.I)
 _KOREAN_METRIC_SUBJECT_PREFIX = re.compile(
+    r"(?:^|[,;]\s*)"
     r"(?P<subject>[가-힣]{2,}(?:\s+[가-힣]{2,}){0,2})\s*$"
 )
 

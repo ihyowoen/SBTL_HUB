@@ -104,8 +104,9 @@ class Review5324887322Contracts(unittest.TestCase):
         prior = "Capacity is 10 MW."
         current = "Capacity is 20 MW. Alpha suspended operations since 2025."
         wrong = "Capacity is 20 MW. Alpha suspended operations until 2025."
-        self.blocked(prior, current, wrong)
-        good = self.validate(prior, current, current)
+        dimensions = ("quantitative_anchor", "changed_state")
+        self.blocked(prior, current, wrong, dimensions)
+        good = self.validate(prior, current, current, dimensions)
         self.assertFalse(self.standalone_findings(good))
         identities = binding._state_subject_strength_occurrences(current)
         self.assertTrue(any(key.endswith("=>period:since:2025") for key in identities))

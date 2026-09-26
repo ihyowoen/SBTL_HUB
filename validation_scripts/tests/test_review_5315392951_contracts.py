@@ -110,7 +110,7 @@ class Review5315392951Contracts(unittest.TestCase):
             (
                 "Capacity is 20 MW. Alpha is profitable since 2025.",
                 "Capacity is 20 MW. Alpha is profitable since 2026.",
-                "2025",
+                "since:2025",
             ),
         ):
             with self.subTest(current=current):

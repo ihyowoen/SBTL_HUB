@@ -1185,6 +1185,7 @@ _KOREAN_METRIC_CLAUSE_SUBJECT = re.compile(
 
 def _emit_bounded_korean_metric_relations(out, clause_text: str):
     current_subject=None
+    bounded=Counter()
     for match in _KOREAN_METRIC_RELATION_RE.finditer(clause_text):
         subject_prefix=clause_text[:match.start()]
         local_subject=_KOREAN_METRIC_SUBJECT_PREFIX.search(subject_prefix)
@@ -1203,8 +1204,13 @@ def _emit_bounded_korean_metric_relations(out, clause_text: str):
             period,
             atoms.quantity_from_match(quantity_match).signal,
         )
-        if key not in out:
-            out[key]+=1
+        bounded[key]+=1
+    # The bounded Korean path may overlap the generic metric extractor for the
+    # same occurrence. Preserve the greater observed multiplicity instead of
+    # summing duplicate parser paths or collapsing repeated source facts.
+    for key,count in bounded.items():
+        if out[key] < count:
+            out[key]=count
 
 def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter:
     """Explicit entity+metric+period+quantity with bounded coordinated carry."""

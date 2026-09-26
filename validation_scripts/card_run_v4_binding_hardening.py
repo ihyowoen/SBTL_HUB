@@ -98,6 +98,15 @@ LOCATION_PHRASE_RE = re.compile(
 KOREAN_IDENTITY_RE = re.compile(
     r"(?<![가-힣])([가-힣]{2,}(?:공장|시설|법인|시|도|군|구|읍|면|리))(?![가-힣])"
 )
+DIGIT_LEADING_NAMED_SUBJECT_RE = re.compile(
+    r"(?<![A-Za-z0-9])(?P<subject>[0-9]+[A-Z][A-Za-z0-9&._-]*)\s+"
+    r"(?=(?:may|might|could|can|will|shall|would|should|must|"
+    r"is|are|was|were|has|have|had|does|do|did|"
+    r"start(?:ed|ing)?|begin|began|begun|commence(?:d)?|approve(?:d)?|"
+    r"delay(?:ed)?|complete(?:d)?|resume(?:d)?|restart(?:ed)?|"
+    r"suspend(?:ed)?|cancel(?:led|ed)?|sign(?:ed)?|launch(?:ed)?|ship(?:ped|ping)?|"
+    r"capacity|output|revenue|profit|sales|investment|cost|margin)\b)"
+)
 COMMON_NOUN_COORDINATED_SUBJECT_RE = re.compile(
     r"\b(?P<group>"
     r"(?:the|a|an|this|that|these|those)\s+"
@@ -2181,6 +2190,10 @@ def _factual_identity_spans(text):
         token=match.group(1)
         if token:
             spans.add((match.start(1),match.end(1),token))
+    for match in DIGIT_LEADING_NAMED_SUBJECT_RE.finditer(text):
+        token=match.group("subject").casefold()
+        if token:
+            spans.add((match.start("subject"),match.end("subject"),token))
     coordinated_subject_ranges=[]
     for match in COMMON_NOUN_COORDINATED_SUBJECT_RE.finditer(text):
         group=match.group("group")

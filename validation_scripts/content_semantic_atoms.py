@@ -82,7 +82,7 @@ TEMPORAL_PERIOD_SPAN_RE = re.compile(
     r"|(?P<ko_period>"
     r"(?:19|20|21)\d{2}\s*년(?:도)?\s*[1-4]\s*분기"
     r"|[1-4]\s*분기(?:\s*(?:19|20|21)\d{2}\s*년)?"
-    r"|(?:19|20|21)\d{2}\s*년(?:도|에|부터|까지)?"
+    r"|(?:19|20|21)\d{2}\s*년(?:도)?(?:에|부터|까지)?"
     r"))",
     re.IGNORECASE,
 )
@@ -101,14 +101,16 @@ def canonical_temporal_period(raw):
     if not value:
         return ""
     korean_year=re.fullmatch(
-        r"(?P<year>(?:19|20|21)\d{2})\s*년(?P<suffix>도|에|부터|까지)?",
+        r"(?P<year>(?:19|20|21)\d{2})\s*년(?P<year_form>도)?"
+        r"(?P<suffix>에|부터|까지)?",
         value,
     )
     if korean_year:
         suffix=korean_year.group("suffix") or ""
-        if suffix in {"에", "도"}:
+        if suffix == "에":
             suffix=""
         return f"{korean_year.group('year')}년{suffix}"
+
     month_range=re.fullmatch(
         r"(?P<start>jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
         r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
@@ -467,7 +469,7 @@ _KOREAN_CONDITIONAL_SUFFIX = re.compile(
 )
 _KOREAN_INTERRUPTED_EVENT = re.compile(r"^(?:[을를]\s*)?\s*(?:중단|중지)")
 _KOREAN_FUTURE_CONTEXT = re.compile(r"(?:내년|향후|앞으로|오는\s*(?:[0-9]+년|[0-9]+월))")
-_KOREAN_DATED_CONTEXT = re.compile(r"[0-9]{4}년(?:도|에|부터|까지)?")
+_KOREAN_DATED_CONTEXT = re.compile(r"[0-9]{4}년(?:도)?(?:에|부터|까지)?")
 _KOREAN_NONPAST_PREDICATE = re.compile(r"^(?:한다|된다|[을를]\s*(?:시작한다|개시한다))")
 _KOREAN_ONGOING_SUFFIX = r"중(?=$|[^가-힣]|이다|이며|이고|인|에|으로)"
 

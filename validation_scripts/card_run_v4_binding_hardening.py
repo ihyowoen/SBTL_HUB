@@ -1644,7 +1644,7 @@ def _mask_temporal_period_structure(text):
     if not isinstance(masked,str):
         return masked
     return re.sub(
-        r",(?P<gap>\\s*),",
+        r",(?P<gap>\s*),",
         lambda match: " " + match["gap"] + " ",
         masked,
     )

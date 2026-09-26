@@ -994,7 +994,16 @@ _COPULAR_SUBJECT_AFTER_PERIOD = re.compile(
 def _copular_segment_period_relations(segment: str, topic: str | None):
     out=Counter()
     raw,leading_period=_strip_leading_period(segment)
+    copular_raw=raw
     raw,subject_period=_strip_subject_preverb_period(raw)
+    direct_unstripped=_EN_COPULAR_PERIOD.fullmatch(copular_raw)
+    if (
+        subject_period
+        and direct_unstripped is not None
+        and atoms.temporal_period_observations(direct_unstripped['tail'])
+    ):
+        raw=copular_raw
+        subject_period=''
     preposed_periods=tuple(dict.fromkeys(
         period for period in (leading_period,subject_period) if period
     ))
@@ -1162,6 +1171,42 @@ def _period_after_quantity(clause_text: str, quantity_end: int):
     return period
 
 
+_KOREAN_METRIC_RELATION_RE = re.compile(
+    r"(?P<metric>용량|출력|매출|이익|판매량|투자액|비용|마진)"
+    r"(?:은|는|이|가)?\s*"
+    r"(?P<period>" + _METRIC_KOREAN_PERIOD_VALUE + r")\s+"
+    r"(?P<quantity>[+−﹣－＋-]?\s*\d+(?:[.,]\d+)?\s*"
+    r"(?:USD|EUR|GBP|KRW|CNY|RMB|JPY|AUD|CAD|CHF|HKD|SGD|"
+    r"%|GWh|MWh|kWh|GW|MW))",
+    re.IGNORECASE,
+)
+_KOREAN_METRIC_CLAUSE_SUBJECT = re.compile(
+    r"^\s*(?P<subject>[가-힣]{2,}(?:\s+[가-힣]{2,}){0,2})\s+"
+    r"(?=(?:용량|출력|매출|이익|판매량|투자액|비용|마진)(?:은|는|이|가)?\b)"
+)
+
+
+def _emit_bounded_korean_metric_relations(out, clause_text: str):
+    subject_match=_KOREAN_METRIC_CLAUSE_SUBJECT.match(clause_text)
+    if not subject_match:
+        return
+    subject=subject_match['subject'].casefold()
+    for match in _KOREAN_METRIC_RELATION_RE.finditer(clause_text):
+        quantity_match=atoms.QUANT_SIGNAL_RE.fullmatch(match['quantity'].strip())
+        if quantity_match is None:
+            continue
+        period=_canonical_metric_observation('',match['period'])
+        key=(
+            'metric:quantity',
+            subject,
+            match['metric'].casefold(),
+            period,
+            atoms.quantity_from_match(quantity_match).signal,
+        )
+        if key not in out:
+            out[key]+=1
+
+
 def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter:
     """Explicit entity+metric+period+quantity with bounded coordinated carry."""
     out=Counter()
@@ -1237,4 +1282,5 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
             for subject in subjects:
                 out[('metric:quantity',subject,metric,period,quantity.signal)]+=1
             previous_quantity_end=quantity.end
+        _emit_bounded_korean_metric_relations(out,clause.text)
     return out

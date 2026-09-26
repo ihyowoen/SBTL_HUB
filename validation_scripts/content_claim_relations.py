@@ -300,6 +300,24 @@ _EN_PASSIVE = re.compile(
     r'(?P<verb>(?i:sold|acquired|bought|used|burned|burnt|supplied|selected|recycled|owned|employed|manufactured|exported|imported|shipped|delivered))\s+'
     r'by\s+(?P<subject>' + _PROPER + r')(?P<tail>\s+.+)?$'
 )
+
+
+def _passive_structure_text(text: str) -> str:
+    """Mask bounded periods and wrapper commas without changing string offsets."""
+    if not isinstance(text,str):
+        return text
+    chars=list(text)
+    for start,end,_ in atoms.temporal_period_spans(text):
+        for index in range(start,end):
+            chars[index]=' '
+    masked=''.join(chars)
+    return re.sub(
+        r',(?P<gap>\s*),',
+        lambda match: ' ' + match['gap'] + ' ',
+        masked,
+    )
+
+
 _TOPIC = re.compile(r'^(?P<topic>' + _PROPER + r')\s+(?:project|plant|facility|company)$')
 _NEW_ACTION = re.compile(r'\s+(?:and|but|while|whereas)\s+(?=' + _SUBJECT + r'\s+(?i:' + _ACTIONS + r')\b)')
 _PRONOUNS = {'it', 'they', 'he', 'she'}
@@ -358,7 +376,10 @@ def english_relations(text: str) -> Counter:
                     subject = (subject, previous.text if previous else '')
             out[(kind, subject, match['aux'].strip().casefold(),
                  match['verb'].casefold(), ordered_terms(match['tail']))] += 1
-        passive = _EN_PASSIVE.fullmatch(clause.text.strip())
+        passive_text=clause.text.strip()
+        passive=_EN_PASSIVE.fullmatch(passive_text)
+        if passive is None:
+            passive=_EN_PASSIVE.fullmatch(_passive_structure_text(passive_text))
         if passive:
             out[('relation:en:passive', passive['subject'].casefold(),
                  re.sub(r'\s+',' ',passive['aux'].strip()).casefold(),
@@ -774,15 +795,7 @@ def _emit_passive_period_relation(out, segment):
     passive=_EN_PASSIVE.fullmatch(raw)
 
     if passive is None:
-        masked_raw=_mask_periods(raw)
-        # Remove only comma pairs that wrapped a now-masked temporal span.
-        # Keep string length unchanged so passive match offsets still index raw.
-        masked_raw=re.sub(
-            r',(?P<gap>\s*),',
-            lambda match: ' ' + match['gap'] + ' ',
-            masked_raw,
-        )
-        passive=_EN_PASSIVE.fullmatch(masked_raw)
+        passive=_EN_PASSIVE.fullmatch(_passive_structure_text(raw))
         if passive is None:
             return
 

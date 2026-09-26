@@ -1183,9 +1183,10 @@ _KOREAN_METRIC_CLAUSE_SUBJECT = re.compile(
 )
 
 
-def _bounded_korean_metric_relations(clause_text: str) -> Counter:
+def _bounded_korean_metric_occurrences(clause_text: str, clause_start: int = 0):
     current_subject=None
-    bounded=Counter()
+    bounded={}
+    quantities=atoms.quantitative_observations(clause_text)
     for match in _KOREAN_METRIC_RELATION_RE.finditer(clause_text):
         subject_prefix=clause_text[:match.start()]
         local_subject=_KOREAN_METRIC_SUBJECT_PREFIX.search(subject_prefix)
@@ -1193,8 +1194,16 @@ def _bounded_korean_metric_relations(clause_text: str) -> Counter:
             current_subject=local_subject['subject'].casefold()
         if current_subject is None:
             continue
-        quantity_match=atoms.QUANT_SIGNAL_RE.fullmatch(match['quantity'].strip())
-        if quantity_match is None:
+        q_start=match.start('quantity')
+        q_end=match.end('quantity')
+        quantity=next(
+            (
+                item for item in quantities
+                if item.start < q_end and item.end > q_start
+            ),
+            None,
+        )
+        if quantity is None:
             continue
         period=_canonical_metric_observation('',match['period'])
         key=(
@@ -1202,15 +1211,17 @@ def _bounded_korean_metric_relations(clause_text: str) -> Counter:
             current_subject,
             match['metric'].casefold(),
             period,
-            atoms.quantity_from_match(quantity_match).signal,
+            quantity.signal,
         )
-        bounded[key]+=1
+        occurrence=(clause_start+quantity.start,clause_start+quantity.end)
+        bounded.setdefault(key,set()).add(occurrence)
     return bounded
 
 def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter:
     """Explicit entity+metric+period+quantity with bounded coordinated carry."""
     out=Counter()
-    bounded=Counter()
+    generic_occurrences={}
+    bounded_occurrences={}
     for clause in clauses(text):
         context=None
         previous_quantity_end=None
@@ -1281,12 +1292,25 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
             if not period:
                 period=_period_after_quantity(clause.text,quantity.end)
             for subject in subjects:
-                out[('metric:quantity',subject,metric,period,quantity.signal)]+=1
+                key=('metric:quantity',subject,metric,period,quantity.signal)
+                out[key]+=1
+                occurrence=(
+                    clause.start+quantity.start,
+                    clause.start+quantity.end,
+                )
+                generic_occurrences.setdefault(key,set()).add(occurrence)
             previous_quantity_end=quantity.end
-        bounded.update(_bounded_korean_metric_relations(clause.text))
-    # Reconcile parser overlap only after all clauses have contributed so
-    # repeated identical facts in separate sentences retain full multiplicity.
-    for key,count in bounded.items():
-        if out[key] < count:
-            out[key]=count
+        local_bounded=_bounded_korean_metric_occurrences(
+            clause.text,clause.start
+        )
+        for key,occurrences in local_bounded.items():
+            bounded_occurrences.setdefault(key,set()).update(occurrences)
+    # Reconcile by source occurrence, not by whole-key maxima. This preserves
+    # the union when generic and bounded parsers cover different occurrences,
+    # while still counting an overlapping occurrence only once.
+    for key,occurrences in bounded_occurrences.items():
+        union=set(occurrences)
+        union.update(generic_occurrences.get(key,set()))
+        if out[key] < len(union):
+            out[key]=len(union)
     return out

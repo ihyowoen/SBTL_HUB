@@ -120,7 +120,7 @@ class Review5316239913Contracts(unittest.TestCase):
         self.assertFalse(self.standalone_findings(good))
         rel = relations.korean_period_relations(current)
         self.assertIn(
-            ("relation:kr:period", "알파", "판매했다", ("석탄",), "2025년에"),
+            ("relation:kr:period", "알파", "판매했다", ("석탄",), "2025년"),
             rel,
         )
 

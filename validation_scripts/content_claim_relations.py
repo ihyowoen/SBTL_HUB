@@ -195,17 +195,18 @@ def korean_period_relations(text: str) -> Counter:
 
 _KR_LOCAL_DATED_ACTION = re.compile(
     r"(?P<object>[가-힣A-Za-z][가-힣A-Za-z0-9& _-]*?)(?:을|를)\s+"
-    r"(?:(?P<neg_verb>[가-힣]{1,}?)하지\s+(?:않고|않으며|않았고|않았다|않는다)"
-    r"|(?P<verb>[가-힣]{1,}?)(?:하고|하며|했고|하여|했다|하였다|한다|된다|됐다|되었다))"
+    r"(?:(?P<neg_verb>[가-힣]{1,}?)하지\s+(?:않고|않으며|않았고|않았으며|않았다|않는다)"
+    r"|(?P<verb>[가-힣]{1,}?)(?:하고|하며|했고|했으며|하여|하였으며|했다|하였다|한다|된다|됐다|되었다))"
 )
 _KR_OBJECT_BEFORE_PERIOD = re.compile(
     r"^\s*(?P<object>[가-힣A-Za-z][가-힣A-Za-z0-9&_-]*"
-    r"(?:\s+[가-힣A-Za-z][가-힣A-Za-z0-9&_-]*)*)(?:을|를)\s*$"
+    r"(?:\s+[가-힣A-Za-z][가-힣A-Za-z0-9&_-]*)*)(?:을|를)"
+    r"(?:\s+(?:주로|대체로|대부분|통상|보통))?\s*$"
 )
 _KR_VERB_AFTER_PERIOD = re.compile(
     r"^\s*,?\s*(?:(?P<neg_verb>[가-힣]{1,}?)하지\s+"
-    r"(?:않고|않으며|않았고|않았다|않는다)"
-    r"|(?P<verb>[가-힣]{1,}?)(?:하고|하며|했고|하여|했다|하였다|한다|된다|됐다|되었다))"
+    r"(?:않고|않으며|않았고|않았으며|않았다|않는다)"
+    r"|(?P<verb>[가-힣]{1,}?)(?:하고|하며|했고|했으며|하여|하였으며|했다|하였다|한다|된다|됐다|되었다))"
 )
 
 
@@ -233,8 +234,8 @@ def _korean_local_period_actions(clause_text: str, subject: str):
             flags=re.I,
         )
         prior_connectors=list(re.finditer(
-            r'[가-힣]{1,}?(?:하고|하며|했고|하여)\s+'
-            r'|[가-힣]{1,}?하지\s+(?:않고|않으며|않았고)\s+'
+            r'[가-힣]{1,}?(?:하고|하며|했고|했으며|하여|하였으며)\s+'
+            r'|[가-힣]{1,}?하지\s+(?:않고|않으며|않았고|않았으며)\s+'
             r'|(?:그리고|및)\s+',
             before_local,
         ))
@@ -492,16 +493,28 @@ def _strip_subject_preverb_period(text: str):
     for start,end,period in atoms.temporal_period_observations(value):
         if start < subject_match.end():
             continue
-        between=value[subject_match.end():start].strip()
-        between=re.sub(r",\s*$","",between).strip()
+        between_raw=value[subject_match.end():start]
+        paren_wrapped=(
+            between_raw.strip() == '('
+            and re.match(r'^\s*\)',value[end:]) is not None
+        )
+        between=between_raw.strip()
+        if paren_wrapped:
+            between=''
+        else:
+            between=re.sub(r",\s*$","",between).strip()
         if between and not re.fullmatch(
             r"(?:(?:am|is|are|was|were|be|been|being|has|have|had|do|does|did|"
             r"can|could|may|might|will|would|must|should|shall|not)\s*)+",
             between,re.I,
         ):
             continue
-        prefix=re.sub(r",\s*$"," ",value[:start])
-        suffix=re.sub(r"^\s*,"," ",value[end:])
+        if paren_wrapped:
+            prefix=re.sub(r"\(\s*$"," ",value[:start])
+            suffix=re.sub(r"^\s*\)"," ",value[end:],count=1)
+        else:
+            prefix=re.sub(r",\s*$"," ",value[:start])
+            suffix=re.sub(r"^\s*,"," ",value[end:])
         masked=(prefix + ' ' + suffix).strip()
         masked=re.sub(r'\s+',' ',masked)
         return masked,period
@@ -574,14 +587,16 @@ def _local_dated_arguments(tail: str):
     previous_end=0
     for start,end,period in periods:
         local=tail[previous_end:start]
-        local=re.sub(r'^\s*(?:and|or|,)\s*','',local,flags=re.I)
-        local=re.sub(r'\s*(?:and|or|,)\s*$','',local,flags=re.I)
+        contrastive=list(re.finditer(r"\b(?:but|while|whereas)\b",local,flags=re.I))
+        if contrastive:
+            local=local[contrastive[-1].end():]
+        local=re.sub(r'^\s*(?:and|or|but|while|whereas|,)\s*','',local,flags=re.I)
+        local=re.sub(r'\s*(?:and|or|but|while|whereas|,)\s*$','',local,flags=re.I)
         terms=ordered_terms(local)
         if terms:
             out.append((terms,period))
         previous_end=end
     return tuple(out)
-
 
 def _finite_coord_token(token: str):
     value=str(token or '').casefold()
@@ -650,10 +665,12 @@ def _active_local_dated_pairs(tail: str, initial_subject: str,
 
         raw_local=tail[previous_end:start]
         period_preposed_to_next=bool(
-            re.search(r"\b(?:and|or)\s*$",raw_local,re.I)
+            re.search(r"\b(?:and|or|but|while|whereas)\s*$",raw_local,re.I)
         )
         after=tail[end:next_start]
-        after_clean=re.sub(r'^\s*(?:,|and|or)?\s*','',after,flags=re.I)
+        after_clean=re.sub(
+            r'^\s*(?:,|and|or|but|while|whereas)?\s*','',after,flags=re.I
+        )
         if period_preposed_to_next:
             parsed=_parse_action_after_preposed_period(
                 after_clean,current_subject,current_aux,topic
@@ -674,9 +691,28 @@ def _active_local_dated_pairs(tail: str, initial_subject: str,
                 previous_end=end
                 continue
 
-        connector_prefix=re.match(r'^\s*(?:and|or|,)\s+',raw_local,re.I)
-        local=re.sub(r'^\s*(?:and|or|,)\s*','',raw_local,flags=re.I).strip()
-        local=re.sub(r'\s*(?:and|or|,)\s*$','',local,flags=re.I).strip()
+        connector_prefix=re.match(
+            r'^\s*(?:and|or|but|while|whereas|,)\s+',raw_local,re.I
+        )
+        local_source=raw_local
+        finite_boundary=None
+        for boundary in re.finditer(
+            r"\b(?:and|or|but|while|whereas)\b",raw_local,re.I
+        ):
+            candidate=raw_local[boundary.end():].strip(" ,")
+            candidate_terms=ordered_terms(candidate)
+            if candidate_terms and _finite_coord_token(candidate_terms[0]):
+                finite_boundary=boundary
+        if finite_boundary is not None:
+            local_source=raw_local[finite_boundary.end():]
+            connector_prefix=True
+
+        local=re.sub(
+            r'^\s*(?:and|or|but|while|whereas|,)\s*','',local_source,flags=re.I
+        ).strip()
+        local=re.sub(
+            r'\s*(?:and|or|but|while|whereas|,)\s*$','',local,flags=re.I
+        ).strip()
         terms=list(ordered_terms(local))
         if (previous_end or connector_prefix) and terms and _finite_coord_token(terms[0]):
             current_verb=terms.pop(0)
@@ -691,11 +727,12 @@ def _preposed_action_terms(tail: str):
     if not periods:
         return ordered_terms(tail)
     before=tail[:periods[0][0]]
-    connectors=list(re.finditer(r"\b(?:and|or)\b",before,flags=re.I))
+    connectors=list(re.finditer(
+        r"\b(?:and|or|but|while|whereas)\b",before,flags=re.I
+    ))
     if connectors:
         before=before[:connectors[-1].start()]
     return ordered_terms(before.strip(" ,"))
-
 
 def _passive_local_dated_objects(passive):
     tail=passive['tail'] or ''
@@ -707,15 +744,20 @@ def _passive_local_dated_objects(passive):
     base_object=ordered_terms(passive['object'])
     for index,(start,end,period) in enumerate(periods):
         local=tail[previous_end:start]
-        local=re.sub(r'^\s*(?:and|or|,)\s*','',local,flags=re.I).strip()
-        local=re.sub(r'\s*(?:and|or|,)\s*$','',local,flags=re.I).strip()
+        local=re.sub(
+            r'^\s*(?:,\s*)?(?:(?:and|or|but|while|whereas)\s+)?',
+            '',local,flags=re.I,
+        ).strip()
+        local=re.sub(
+            r'\s*(?:(?:and|or|but|while|whereas)\s*)?,?\s*$',
+            '',local,flags=re.I,
+        ).strip()
         object_terms=ordered_terms(local) if local else ()
         if not object_terms:
             object_terms=base_object
         out.append((object_terms,period))
         previous_end=end
     return tuple(out)
-
 
 def _emit_active_period_relations(out, segment, topic):
     raw,leading_period=_strip_leading_period(segment)
@@ -768,20 +810,27 @@ def _masked_passive_period_objects(raw: str, passive):
     object_previous=object_start
     tail_previous=tail_start
 
+    def clean_local(value):
+        value=re.sub(
+            r'^\s*(?:,\s*)?(?:(?:and|or|but|while|whereas)\s+)?',
+            '',value,flags=re.I,
+        ).strip()
+        value=re.sub(
+            r'\s*(?:(?:and|or|but|while|whereas)\s*)?,?\s*$',
+            '',value,flags=re.I,
+        ).strip()
+        return value
+
     for start,end,period in periods:
         if object_start <= start <= object_end:
-            local=raw[object_previous:start]
-            local=re.sub(r'^\s*(?:and|or|,)\s*','',local,flags=re.I).strip()
-            local=re.sub(r'\s*(?:and|or|,)\s*$','',local,flags=re.I).strip()
+            local=clean_local(raw[object_previous:start])
             object_terms=ordered_terms(_mask_periods(local)) if local else ()
             out.append((object_terms or base_object,period))
             object_previous=end
             continue
 
         if start >= tail_start:
-            local=raw[tail_previous:start]
-            local=re.sub(r'^\s*(?:and|or|,)\s*','',local,flags=re.I).strip()
-            local=re.sub(r'\s*(?:and|or|,)\s*$','',local,flags=re.I).strip()
+            local=clean_local(raw[tail_previous:start])
             object_terms=ordered_terms(_mask_periods(local)) if local else ()
             out.append((object_terms or base_object,period))
             tail_previous=end
@@ -884,7 +933,7 @@ def _copular_segment_period_relations(segment: str, topic: str | None):
             if preposed_periods:
                 first_start=observations[0][0] if observations else len(direct['tail'])
                 before_first=direct['tail'][:first_start].strip()
-                pieces=re.split(r"\b(?:and|or)\b",before_first,flags=re.I)
+                pieces=re.split(r"\b(?:and|or|but|while|whereas)\b",before_first,flags=re.I)
                 leading_complement=ordered_terms(pieces[0].strip(" ,"))
                 if leading_complement:
                     for preposed_period in preposed_periods:

@@ -82,11 +82,11 @@ class Review5318539093Contracts(unittest.TestCase):
         self.assertFalse(self.standalone_findings(good))
         rel = relations.korean_period_relations(current)
         self.assertIn(
-            ("relation:kr:local-period", "알파", "판매", ("석탄",), "2025년에"),
+            ("relation:kr:local-period", "알파", "판매", ("석탄",), "2025년"),
             rel,
         )
         self.assertIn(
-            ("relation:kr:local-period", "알파", "판매", ("가스",), "2026년에"),
+            ("relation:kr:local-period", "알파", "판매", ("가스",), "2026년"),
             rel,
         )
 
@@ -101,7 +101,7 @@ class Review5318539093Contracts(unittest.TestCase):
             relations.korean_period_relations(quote),
         )
         self.assertIn(
-            ("relation:kr:local-period", "alpha", "판매", ("석탄",), "2025년에"),
+            ("relation:kr:local-period", "alpha", "판매", ("석탄",), "2025년"),
             relations.korean_period_relations(current),
         )
 
@@ -145,14 +145,14 @@ class Review5318539093Contracts(unittest.TestCase):
         self.assertIn(
             (
                 "relation:kr:local-period", "알파", "판매",
-                ("고급", "호주산", "저유황", "발전용", "석탄"), "2025년에",
+                ("고급", "호주산", "저유황", "발전용", "석탄"), "2025년",
             ),
             rel,
         )
         self.assertIn(
             (
                 "relation:kr:local-period", "알파", "판매",
-                ("저급", "호주산", "저유황", "발전용", "석탄"), "2026년에",
+                ("저급", "호주산", "저유황", "발전용", "석탄"), "2026년",
             ),
             rel,
         )
@@ -174,11 +174,11 @@ class Review5318539093Contracts(unittest.TestCase):
         self.assertFalse(self.standalone_findings(good))
         rel = relations.korean_period_relations(current)
         self.assertIn(
-            ("relation:kr:local-period", "알파", "neg:판매", ("석탄",), "2025년에"),
+            ("relation:kr:local-period", "알파", "neg:판매", ("석탄",), "2025년"),
             rel,
         )
         self.assertIn(
-            ("relation:kr:local-period", "알파", "neg:사용", ("가스",), "2026년에"),
+            ("relation:kr:local-period", "알파", "neg:사용", ("가스",), "2026년"),
             rel,
         )
 

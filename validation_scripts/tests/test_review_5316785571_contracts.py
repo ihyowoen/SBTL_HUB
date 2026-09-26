@@ -68,7 +68,7 @@ class Review5316785571Contracts(unittest.TestCase):
             and key[1] == "알파"
             and key[2] == "판매했다"
             and key[3] == ("석탄",)
-            and key[-1] == "2025년에"
+            and key[-1] == "2025년"
             for key in rel
         ))
 
@@ -92,7 +92,7 @@ class Review5316785571Contracts(unittest.TestCase):
                 good = self.validate(prior, current, current)
                 self.assertFalse(self.standalone_findings(good))
                 rel = relations.korean_period_relations(current)
-                self.assertTrue(any(key[0] == kind and key[-1] == "2025년에" for key in rel))
+                self.assertTrue(any(key[0] == kind and key[-1] == "2025년" for key in rel))
 
     def test_period_immediately_after_copula_binds_following_complement(self):
         prior = "Capacity is 10 MW."

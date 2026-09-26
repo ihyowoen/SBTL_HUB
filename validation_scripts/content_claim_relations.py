@@ -144,7 +144,10 @@ def korean_relations(text: str) -> Counter:
 _KR_LOCAL_DESCRIPTION = re.compile(
     r"^\s*(?P<attribute>[가-힣]{2,}?)(?:이|가|은|는)\s+"
     r"(?P<polarity>안\s+|그다지\s+)?"
-    r"(?P<predicate>"
+    r"(?:"
+    r"(?P<neg_predicate>높|낮|크|작|많|적|있|없|좋|나쁘)지\s+"
+    r"(?P<neg_contrast>않지만|않으나|않았지만|않았으나)"
+    r"|(?P<predicate>"
     r"높고|낮고|크고|작고|많고|적고|있고|없고|좋고|나쁘고|"
     r"높지만|낮지만|크지만|작지만|많지만|적지만|있지만|없지만|좋지만|나쁘지만|"
     r"높았고|낮았고|컸고|작았고|많았고|적었고|있었고|없었고|"
@@ -152,8 +155,15 @@ _KR_LOCAL_DESCRIPTION = re.compile(
     r"높았으나|낮았으나|컸으나|작았으나|많았으나|적었으나|있었으나|없었으나|"
     r"높다|낮다|크다|작다|많다|적다|있다|없다|좋다|나쁘다|"
     r"높았다|낮았다|컸다|작았다|많았다|적었다|있었다|없었다)"
-    r"(?P<negation>\s*(?:는\s+)?(?:아니다|않다))?\s*$"
+    r"(?P<negation>\s*(?:는\s+)?(?:아니다|않다))?"
+    r")\s*$"
 )
+
+
+def _kr_local_description_predicate(match) -> str:
+    if match['neg_predicate']:
+        return "neg:" + match['neg_predicate']
+    return match['predicate']
 
 def _korean_local_period_descriptions(clause_text: str):
     periods=atoms.temporal_period_observations(clause_text)
@@ -176,8 +186,8 @@ def _korean_local_period_descriptions(clause_text: str):
             subject,
             match['attribute'],
             ' '.join((match['polarity'] or '').split()),
-            match['predicate'],
-            ' '.join((match['negation'] or '').split()),
+            _kr_local_description_predicate(match),
+            ' '.join((match['negation'] or match['neg_contrast'] or '').split()),
             period,
         ))
     return tuple(out)
@@ -1015,23 +1025,6 @@ def _copular_segment_period_relations(segment: str, topic: str | None):
         if subject is None:
             return out
         observations=atoms.temporal_period_observations(direct['tail'])
-        if observations:
-            first_start,first_end,first_period=observations[0]
-            if not direct['tail'][:first_start].strip(" ,"):
-                following=direct['tail'][first_end:]
-                next_start=(
-                    observations[1][0]-first_end
-                    if len(observations)>1 else len(following)
-                )
-                following=following[:next_start]
-                following=re.split(
-                    r"\b(?:and|or|but|while|whereas)\b",
-                    following,maxsplit=1,flags=re.I,
-                )[0]
-                complement=ordered_terms(following.strip(" ,"))
-                if complement:
-                    out[('relation:en:copular:period',subject,
-                         direct['copula'].casefold(),complement,first_period)]+=1
         local_pairs=list(_local_dated_arguments(direct['tail']))
         if local_pairs:
             if preposed_periods:
@@ -1171,8 +1164,10 @@ def _period_after_quantity(clause_text: str, quantity_end: int):
     return period
 
 
+_KOREAN_METRIC_BASE = r"(?:판매량|투자액|용량|출력|매출|이익|비용|마진)"
 _KOREAN_METRIC_RELATION_RE = re.compile(
-    r"(?P<metric>용량|출력|매출|이익|판매량|투자액|비용|마진)"
+    r"(?<![가-힣])"
+    r"(?P<metric>(?:[가-힣]{1,6})?" + _KOREAN_METRIC_BASE + r")"
     r"(?:은|는|이|가)?\s*"
     r"(?P<period>" + _METRIC_KOREAN_PERIOD_VALUE + r")\s+"
     r"(?P<quantity>[+−﹣－＋-]?\s*\d+(?:[.,]\d+)?\s*"
@@ -1180,6 +1175,7 @@ _KOREAN_METRIC_RELATION_RE = re.compile(
     r"%|GWh|MWh|kWh|GW|MW))",
     re.IGNORECASE,
 )
+
 _KOREAN_METRIC_CLAUSE_SUBJECT = re.compile(
     r"^\s*(?P<subject>[가-힣]{2,}(?:\s+[가-힣]{2,}){0,2})\s+"
     r"(?=(?:용량|출력|매출|이익|판매량|투자액|비용|마진)(?:은|는|이|가)?\b)"
@@ -1187,25 +1183,27 @@ _KOREAN_METRIC_CLAUSE_SUBJECT = re.compile(
 
 
 def _emit_bounded_korean_metric_relations(out, clause_text: str):
-    subject_match=_KOREAN_METRIC_CLAUSE_SUBJECT.match(clause_text)
-    if not subject_match:
-        return
-    subject=subject_match['subject'].casefold()
+    current_subject=None
     for match in _KOREAN_METRIC_RELATION_RE.finditer(clause_text):
+        subject_prefix=clause_text[:match.start()]
+        local_subject=_KOREAN_METRIC_SUBJECT_PREFIX.search(subject_prefix)
+        if local_subject:
+            current_subject=local_subject['subject'].casefold()
+        if current_subject is None:
+            continue
         quantity_match=atoms.QUANT_SIGNAL_RE.fullmatch(match['quantity'].strip())
         if quantity_match is None:
             continue
         period=_canonical_metric_observation('',match['period'])
         key=(
             'metric:quantity',
-            subject,
+            current_subject,
             match['metric'].casefold(),
             period,
             atoms.quantity_from_match(quantity_match).signal,
         )
         if key not in out:
             out[key]+=1
-
 
 def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter:
     """Explicit entity+metric+period+quantity with bounded coordinated carry."""

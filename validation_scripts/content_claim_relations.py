@@ -1183,7 +1183,7 @@ _KOREAN_METRIC_CLAUSE_SUBJECT = re.compile(
 )
 
 
-def _emit_bounded_korean_metric_relations(out, clause_text: str):
+def _bounded_korean_metric_relations(clause_text: str) -> Counter:
     current_subject=None
     bounded=Counter()
     for match in _KOREAN_METRIC_RELATION_RE.finditer(clause_text):
@@ -1205,16 +1205,12 @@ def _emit_bounded_korean_metric_relations(out, clause_text: str):
             atoms.quantity_from_match(quantity_match).signal,
         )
         bounded[key]+=1
-    # The bounded Korean path may overlap the generic metric extractor for the
-    # same occurrence. Preserve the greater observed multiplicity instead of
-    # summing duplicate parser paths or collapsing repeated source facts.
-    for key,count in bounded.items():
-        if out[key] < count:
-            out[key]=count
+    return bounded
 
 def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter:
     """Explicit entity+metric+period+quantity with bounded coordinated carry."""
     out=Counter()
+    bounded=Counter()
     for clause in clauses(text):
         context=None
         previous_quantity_end=None
@@ -1287,5 +1283,10 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
             for subject in subjects:
                 out[('metric:quantity',subject,metric,period,quantity.signal)]+=1
             previous_quantity_end=quantity.end
-        _emit_bounded_korean_metric_relations(out,clause.text)
+        bounded.update(_bounded_korean_metric_relations(clause.text))
+    # Reconcile parser overlap only after all clauses have contributed so
+    # repeated identical facts in separate sentences retain full multiplicity.
+    for key,count in bounded.items():
+        if out[key] < count:
+            out[key]=count
     return out

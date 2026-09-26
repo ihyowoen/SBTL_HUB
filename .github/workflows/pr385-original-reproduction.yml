@@ -1,0 +1,115 @@
+name: PR385 original-source reproduction
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'docs/audits/pr385/**'
+      - '.github/workflows/pr385-original-reproduction.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  original-source-reproduction:
+    if: github.event.pull_request.number == 385 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      REVIEWED_HEAD: bd7b7c835e45b70466ac599c5f7a17278e68eaa8
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Checkout diagnostic harness at the requested PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: harness
+          persist-credentials: false
+      - name: Checkout exact reviewed source, not a merge simulation
+        uses: actions/checkout@v4
+        with:
+          ref: bd7b7c835e45b70466ac599c5f7a17278e68eaa8
+          fetch-depth: 0
+          path: original
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Record original tracked source and runtime identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p proof
+          test "$(git -C original rev-parse HEAD)" = "$REVIEWED_HEAD"
+          git -C original archive --format=tar.gz --output="$GITHUB_WORKSPACE/proof/original-source.tar.gz" "$REVIEWED_HEAD"
+          git -C original rev-parse HEAD > proof/original-head.txt
+          git -C harness rev-parse HEAD > proof/harness-head.txt
+          python --version > proof/python-version.txt
+          node --version > proof/node-version.txt
+          sha256sum proof/original-source.tar.gz > proof/archive-sha256.txt
+      - name: Execute original-module safety and positive-control probes
+        id: probes
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          python harness/docs/audits/pr385/reproduce.py --repo original --expect-head "$REVIEWED_HEAD" --output proof/reproduction.json 2>&1 | tee proof/reproduction.log
+      - name: Execute original active regression suite
+        id: active
+        continue-on-error: true
+        working-directory: original
+        shell: bash
+        run: |
+          set -o pipefail
+          python validation_scripts/run_active_workflow_tests.py 2>&1 | tee ../proof/original-active-tests.log
+      - name: Execute original binding self-test
+        id: selftest
+        continue-on-error: true
+        working-directory: original
+        shell: bash
+        run: |
+          set -o pipefail
+          python validation_scripts/card_run_v4_binding_hardening.py --self-test 2>&1 | tee ../proof/original-self-test.log
+      - name: Record exact execution outcomes and limitations
+        if: always()
+        env:
+          PROBES_OUTCOME: ${{ steps.probes.outcome }}
+          ACTIVE_OUTCOME: ${{ steps.active.outcome }}
+          SELFTEST_OUTCOME: ${{ steps.selftest.outcome }}
+        run: |
+          mkdir -p proof
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          result = {
+              'probes': os.environ['PROBES_OUTCOME'],
+              'active_suite': os.environ['ACTIVE_OUTCOME'],
+              'binding_selftest': os.environ['SELFTEST_OUTCOME'],
+              'full_run_cli': 'NOT_EXECUTED',
+              'production_applier': 'NOT_EXECUTED',
+              'canonical_data_modified': False,
+              'reviewed_head': os.environ['REVIEWED_HEAD'],
+          }
+          Path('proof/execution-scope.json').write_text(json.dumps(result, indent=2) + '\n')
+          PY
+      - name: Upload evidence even when safety probes fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr385-original-proof-${{ github.run_id }}
+          path: proof/
+          if-no-files-found: error
+          retention-days: 7
+      - name: Do not disguise unresolved original defects as a passing gate
+        if: always()
+        env:
+          PROBES_OUTCOME: ${{ steps.probes.outcome }}
+          ACTIVE_OUTCOME: ${{ steps.active.outcome }}
+          SELFTEST_OUTCOME: ${{ steps.selftest.outcome }}
+        run: |
+          test "$PROBES_OUTCOME" = success
+          test "$ACTIVE_OUTCOME" = success
+          test "$SELFTEST_OUTCOME" = success

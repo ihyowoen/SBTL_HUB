@@ -66,6 +66,53 @@ class Review5078405029ContractsTest(unittest.TestCase):
                     "source_spec_id": "SPEC_1",
                     "content_enriched": True,
                     "language_terminology_polished": True,
+                    "fact": "Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.",
+                    "fact_sources": [
+                        {
+                            "source_id": "SRC_FIX",
+                            "source_url": "https://example.test/source",
+                            "source_quote": "Previously planned at 1 GWh; commercial production started in 2026 at 2 GWh; target remains subject to certification.",
+                            "source_quote_status": "body_quote_verified",
+                            "fetched": True
+                        }
+                    ],
+                    "content_enrichment_audit": {
+                        "baseline_strategy": "nearest_upstream_visible_copy_0.5_0.4_C",
+                        "changed_fields": ["fact"],
+                        "no_change_required": False,
+                        "no_change_reason": "",
+                        "density_audit": {
+                            "status": "PASS",
+                            "dimensions": {
+                                "prior_state": True,
+                                "changed_state": True,
+                                "quantitative_anchor": True,
+                                "boundary_or_uncertainty": True,
+                                "transmission_path": False,
+                                "next_watchpoint": False
+                            },
+                            "supported_dimension_count": 4,
+                            "evidence_notes": "Positive 0.6 fixture with a substantive evidence-bounded fact delta.",
+                            "dimension_evidence": {
+                                "prior_state": {
+                                    "fields": ["fact"],
+                                    "evidence_refs": ["SRC_FIX"]
+                                },
+                                "changed_state": {
+                                    "fields": ["fact"],
+                                    "evidence_refs": ["SRC_FIX"]
+                                },
+                                "quantitative_anchor": {
+                                    "fields": ["fact"],
+                                    "evidence_refs": ["SRC_FIX"]
+                                },
+                                "boundary_or_uncertainty": {
+                                    "fields": ["fact"],
+                                    "evidence_refs": ["SRC_FIX"]
+                                }
+                            }
+                        }
+                    },
                     "related_lineage": {
                         "status": "PASS",
                         "relation_type": "new_unrelated_event",

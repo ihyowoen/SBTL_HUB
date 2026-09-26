@@ -93,10 +93,17 @@ function requiredCoverageAxes() {
   }
 }
 
-function lifecycleSets(root) {
-  const registryPath = resolve(root, REGISTRY_PATH);
-  if (!existsSync(registryPath)) fail("BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", `current lifecycle registry missing: ${REGISTRY_PATH}`);
-  const registry = readJson(registryPath, "lifecycle registry");
+function lifecycleSets(root, baseMainCommitSha) {
+  if (!nonEmptyText(baseMainCommitSha) || !/^[0-9a-f]{40}$/i.test(baseMainCommitSha)) {
+    fail("BLOCKED_DOCUMENT_UNIVERSE_BINDING", "base_main_commit_sha must be a full commit SHA for lifecycle registry resolution");
+  }
+  const proc = spawnSync("git", ["-C", root, "show", `${baseMainCommitSha}:${REGISTRY_PATH}`], { encoding: "utf8" });
+  if (proc.status !== 0) {
+    fail("BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", `cannot read locked lifecycle registry at ${baseMainCommitSha}: ${(proc.stderr || proc.stdout || "git show failed").trim()}`);
+  }
+  let registry;
+  try { registry = JSON.parse(proc.stdout); }
+  catch (error) { fail("BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", `locked lifecycle registry is invalid JSON: ${error.message}`); }
   if (registry.status !== "ACTIVE_VALIDATOR_CONTRACT") {
     fail("BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", "lifecycle registry must be ACTIVE_VALIDATOR_CONTRACT");
   }
@@ -105,12 +112,39 @@ function lifecycleSets(root) {
     uniqueNonEmptyStrings(values, "BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", `lifecycle registry.${field}`);
     return values;
   };
+  const activeCanonicalRaw = get("active_canonical");
+  const activeNamedPrompts = get("active_named_prompts");
+  const activeValidators = get("active_validator_contracts");
+  const openRemediations = get("open_remediations");
+  const activationMigrations = get("activation_required_migrations");
+  const superseded = get("superseded");
+  const referenceOnly = get("reference_only");
+  const classLists = [activeCanonicalRaw, activeNamedPrompts, activeValidators, openRemediations, activationMigrations, superseded, referenceOnly];
+  const seen = new Set();
+  for (const values of classLists) {
+    for (const value of values) {
+      if (seen.has(value)) fail("BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", `lifecycle registry classifies path more than once: ${value}`);
+      seen.add(value);
+    }
+  }
   return {
-    activeCanonical: sortedUnique([...get("active_canonical"), ...get("active_named_prompts")]),
-    activeValidators: sortedUnique(get("active_validator_contracts")),
-    applicable: sortedUnique([...get("open_remediations"), ...get("activation_required_migrations")]),
-    supersededReference: sortedUnique([...get("superseded"), ...get("reference_only")]),
+    activeCanonical: sortedUnique([...activeCanonicalRaw, ...activeNamedPrompts]),
+    activeValidators: sortedUnique(activeValidators),
+    applicable: sortedUnique([...openRemediations, ...activationMigrations]),
+    supersededReference: sortedUnique([...superseded, ...referenceOnly]),
+    allClassified: sortedUnique([...seen]),
   };
+}
+
+function lockedDocsTreePaths(root, baseMainCommitSha) {
+  if (!nonEmptyText(baseMainCommitSha) || !/^[0-9a-f]{40}$/i.test(baseMainCommitSha)) {
+    fail("BLOCKED_DOCUMENT_UNIVERSE_BINDING", "base_main_commit_sha must be a full commit SHA for docs/** inventory validation");
+  }
+  const proc = spawnSync("git", ["-C", root, "ls-tree", "-r", "--name-only", baseMainCommitSha, "docs"], { encoding: "utf8" });
+  if (proc.status !== 0) {
+    fail("BLOCKED_DOCUMENT_UNIVERSE_BINDING", `cannot read locked docs/** tree at ${baseMainCommitSha}: ${(proc.stderr || proc.stdout || "git ls-tree failed").trim()}`);
+  }
+  return sortedUnique(proc.stdout.split(/\r?\n/).map((line) => line.trim()).filter(Boolean));
 }
 
 function validateDocumentUniverse(run, root) {
@@ -140,7 +174,16 @@ function validateDocumentUniverse(run, root) {
     fail("BLOCKED_DOCUMENT_UNIVERSE_DETAIL", "0.0D classified_count must equal docs_inventory_count on PASS");
   }
 
-  const registry = lifecycleSets(root);
+  const registry = lifecycleSets(root, run.base_main_commit_sha);
+  const treeDocs = lockedDocsTreePaths(root, run.base_main_commit_sha);
+  if (JSON.stringify(treeDocs) !== JSON.stringify(registry.allClassified)) {
+    const missing = treeDocs.filter((item) => !registry.allClassified.includes(item));
+    const stale = registry.allClassified.filter((item) => !treeDocs.includes(item));
+    fail("BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", `lifecycle registry must classify exact locked docs/** tree; unclassified=[${missing.join(",")}] stale=[${stale.join(",")}]`);
+  }
+  if (artifact.docs_inventory_count !== treeDocs.length || artifact.classified_count !== treeDocs.length) {
+    fail("BLOCKED_DOCUMENT_UNIVERSE_DETAIL", `0.0D docs_inventory_count/classified_count must equal locked docs/** tree count (${treeDocs.length})`);
+  }
   exactStringSet(artifact.active_canonical_paths, registry.activeCanonical, "BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", "0.0D active_canonical_paths");
   exactStringSet(artifact.active_validator_contract_paths, registry.activeValidators, "BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", "0.0D active_validator_contract_paths");
   exactStringSet(artifact.applicable_remediation_or_migration, registry.applicable, "BLOCKED_DOCUMENT_UNIVERSE_REGISTRY", "0.0D applicable_remediation_or_migration");
@@ -483,11 +526,24 @@ function selfTest() {
       superseded: ["docs/old.md"],
       reference_only: [],
     }, null, 2)}\n`);
+    writeFileSync(join(root, "docs/a.md"), "# active\n");
+    writeFileSync(join(root, "docs/prompt.md"), "# prompt\n");
+    writeFileSync(join(root, "docs/old.md"), "# reference\n");
     writeFileSync(join(root, "data/cards.full.json"), `${JSON.stringify({ cards: [] })}\n`);
+    const git = (args) => {
+      const proc = spawnSync("git", ["-C", root, ...args], { encoding: "utf8" });
+      if (proc.status !== 0) throw new Error(`self-test git ${args.join(" ")} failed: ${(proc.stderr || proc.stdout || "").trim()}`);
+      return proc.stdout.trim();
+    };
+    git(["init", "-q"]);
+    git(["config", "user.name", "card-run-self-test"]);
+    git(["config", "user.email", "card-run-self-test@invalid"]);
+    git(["add", "docs", "data/cards.full.json"]);
+    git(["commit", "-q", "-m", "self-test baseline"]);
 
     const runId = "run-self-test";
-    const baseMainCommitSha = "b".repeat(40);
-    const baseFullBlobSha = "a".repeat(40);
+    const baseMainCommitSha = git(["rev-parse", "HEAD"]);
+    const baseFullBlobSha = git(["rev-parse", "HEAD:data/cards.full.json"]);
     const documentUniverseRef = write("0.0d.json", {
       stage: "0.0D", status: "PASS",
       repository_head_sha: baseMainCommitSha,

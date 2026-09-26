@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
+import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -17,6 +20,8 @@ if _REPO_ROOT not in sys.path:
 
 from validation_scripts.stage_a_v4_contract import validate_stage_a_v4_spec
 from validation_scripts.stage_a_v4_hardening import validate_stage_a_v4_hardening
+from validation_scripts import card_run_v4_binding_hardening as _content_binding
+from validation_scripts import content_enrichment_core as _content_core
 
 STAGE_TOP_LEVEL = {
     "A": [
@@ -199,6 +204,398 @@ def _non_empty_string(value):
     return isinstance(value, str) and bool(value.strip())
 
 
+VISIBLE_COPY_FIELDS = _content_core.VISIBLE_COPY_FIELDS
+DENSITY_DIMENSIONS = _content_core.DENSITY_DIMENSIONS
+CONTENT_BASELINE_STRATEGY = _content_core.CONTENT_BASELINE_STRATEGY
+PROMPT_06_PATH = "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md"
+PRESENTATION_HTML_TAG_RE = _content_core.PRESENTATION_HTML_TAG_RE
+
+
+def _prompt_06_version(item):
+    if not isinstance(item, dict):
+        return None
+    for key in ("prompt_provenance_0_6", "prompt_provenance"):
+        provenance = item.get(key)
+        if not isinstance(provenance, dict):
+            continue
+        version = provenance.get("prompt_version")
+        if isinstance(version, str) and version.startswith("PROMPT_0_6_"):
+            return version
+    return None
+
+
+def _requires_v5_content_audit(item, locked_prompt_version=None):
+    # Historical V4 exemptions are authoritative only when resolved from the
+    # locked base commit. Row/artifact self-declarations without that lock must
+    # remain on the current fail-closed V5 contract.
+    version = locked_prompt_version
+    return not (isinstance(version, str) and version.startswith("PROMPT_0_6_V4_"))
+
+
+def _extract_prompt_06_version(text):
+    if not isinstance(text, str):
+        return None
+    match = re.search(r"\*\*Version:\*\*\s*`?([^\s`]+)", text)
+    return match.group(1).strip() if match else None
+
+
+def _artifact_locked_prompt_06_version(payload):
+    provenance = payload.get("prompt_provenance") if isinstance(payload, dict) else None
+    declared = provenance.get("prompt_version") if isinstance(provenance, dict) else None
+    if isinstance(payload, dict) and "base_main_commit_sha" in payload:
+        base = payload.get("base_main_commit_sha")
+        if not isinstance(base, str) or not re.fullmatch(r"[0-9a-fA-F]{40}", base):
+            return None, declared, f"locked Prompt 0.6 base_main_commit_sha is malformed: {base!r}"
+        proc = subprocess.run(
+            ["git", "-C", _REPO_ROOT, "show", f"{base}:{PROMPT_06_PATH}"],
+            text=True, capture_output=True,
+        )
+        if proc.returncode != 0:
+            detail = (proc.stderr or proc.stdout or "git show failed").strip()
+            return None, declared, f"locked Prompt 0.6 cannot be read at {base}: {detail[:240]}"
+        locked = _extract_prompt_06_version(proc.stdout)
+        if not locked:
+            return None, declared, f"locked Prompt 0.6 version marker missing at {base}:{PROMPT_06_PATH}"
+        return locked, declared, None
+    if isinstance(declared, str) and declared.startswith("PROMPT_0_6_V4_"):
+        return None, declared, "historical V4 exemption requires a readable locked base_main_commit_sha"
+    return None, declared, None
+
+
+_strip_paired_presentation_markup = _content_core._strip_paired_presentation_markup
+
+
+_normalize_text = _content_core._normalize_text
+
+
+_normalized_visible_value = _content_core._normalized_visible_value
+
+
+# Compatibility names share one local authority implementation.
+_source_supported_visible_fields = _content_binding._source_supported_visible_fields
+_evidence_tokens = _content_binding._evidence_tokens
+_add_evidence_support = _content_binding._add_evidence_tokens
+
+
+def _row_evidence_token_support(item):
+    # Row-local policy parity only; this does NOT attest to locked upstream
+    # authority, actual field delta or operation/source preservation.
+    return _content_binding._row_evidence_token_support(item)
+
+
+_visible_value_text = _content_core._visible_value_text
+
+
+def _mapped_dimension_signal_counts(item, dimension, fields):
+    counts = Counter()
+    for field in fields:
+        counts.update(
+            _content_binding._signal_counter(
+                dimension,
+                _visible_value_text(_normalized_visible_value(field, item.get(field))),
+            )
+        )
+    return counts
+
+
+def _mapped_dimension_signals(item, dimension, fields):
+    return set(_mapped_dimension_signal_counts(item, dimension, fields))
+
+
+def _dimension_evidence_findings(item, density, scope, true_dimensions):
+    findings = []
+    mapping = density.get("dimension_evidence")
+    if not isinstance(mapping, dict) or set(mapping) != set(true_dimensions):
+        findings.append(_field_finding(
+            scope,
+            "content_enrichment_audit.density_audit.dimension_evidence",
+            f"exact mapping for true dimensions {sorted(true_dimensions)}",
+            mapping,
+            "zero-delta exception must bind every claimed density dimension to visible copy and evidence",
+        ))
+        return findings
+
+    evidence_context = _content_core.ResolvedEvidenceContext.from_maps(
+        scope="local_row", support=_row_evidence_token_support(item),
+        texts=_content_binding._row_evidence_token_texts(item),
+        packages=_content_binding._row_evidence_token_packages(item),
+    )
+    evidence_support, evidence_texts, evidence_packages = evidence_context.legacy_maps()
+    if not evidence_support:
+        findings.append(_field_finding(
+            scope,
+            "content_enrichment_audit.density_audit.dimension_evidence",
+            "references resolvable against fact_sources/source_discovery/claim coverage",
+            mapping,
+            "zero-delta exception requires concrete upstream evidence tokens",
+        ))
+        return findings
+
+    for name in true_dimensions:
+        entry = mapping.get(name)
+        if not isinstance(entry, dict):
+            findings.append(_field_finding(
+                scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}",
+                "object", entry, "dimension evidence must be structured",
+            ))
+            continue
+        fields = entry.get("fields")
+        valid_field_entries = (
+            isinstance(fields, list)
+            and bool(fields)
+            and all(isinstance(field, str) for field in fields)
+        )
+        if not valid_field_entries or len(fields) != len(set(fields)) \
+                or any(field not in VISIBLE_COPY_FIELDS for field in fields):
+            findings.append(_field_finding(
+                scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.fields",
+                f"non-empty unique subset of {list(VISIBLE_COPY_FIELDS)}", fields,
+                "each claimed dimension must name the concrete visible field(s) that express it",
+            ))
+        else:
+            empty_refs = [field for field in fields if _normalized_visible_value(field, item.get(field)) is None]
+            if empty_refs:
+                findings.append(_field_finding(
+                    scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.fields",
+                    "only non-empty governed visible fields", fields,
+                    f"dimension evidence references empty/missing fields {empty_refs}",
+                ))
+            elif not _mapped_dimension_signals(item, name, fields):
+                findings.append(_field_finding(
+                    scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.fields",
+                    "mapped visible text expressing the claimed Deep Summary dimension", fields,
+                    "dimension is claimed but not expressed by any mapped governed field",
+                ))
+        refs = entry.get("evidence_refs")
+        if not isinstance(refs, list) or not refs or any(not _non_empty_string(x) for x in refs):
+            findings.append(_field_finding(
+                scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
+                "non-empty evidence refs", refs,
+                "each claimed dimension must bind to concrete upstream evidence",
+            ))
+        else:
+            normalized_refs = [x.strip() for x in refs]
+            if len(normalized_refs) != len(set(normalized_refs)):
+                findings.append(_field_finding(
+                    scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
+                    "unique normalized evidence refs", refs,
+                    "duplicate evidence refs can double-count the same quote/claim",
+                ))
+            alias_duplicates = _content_binding._duplicate_evidence_ref_aliases(
+                normalized_refs, evidence_packages
+            )
+            if alias_duplicates:
+                findings.append(_field_finding(
+                    scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
+                    "one reference per resolved source/evidence package", alias_duplicates,
+                    "source-id/URL aliases must not double-count one quote/claim package",
+                ))
+            unknown = [x for x in normalized_refs if x not in evidence_support]
+            if unknown:
+                findings.append(_field_finding(
+                    scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
+                    "refs present in fact_sources/source_discovery/claim coverage", unknown,
+                    "dimension evidence contains unbound references",
+                ))
+            if valid_field_entries and all(field in VISIBLE_COPY_FIELDS for field in fields):
+                shape_issues = _content_core.field_evidence_ref_issues(entry)
+                if shape_issues:
+                    findings.extend(issue.as_finding(scope) for issue in shape_issues)
+                    continue
+                field_refs = _content_core.dimension_field_refs(entry)
+                unsupported = {
+                    ref: sorted(field for field in fields if ref in field_refs[field]
+                                and field not in evidence_support.get(ref, set()))
+                    for ref in normalized_refs
+                    if ref in evidence_support and any(
+                        ref in field_refs[field] and field not in evidence_support.get(ref, set())
+                        for field in fields)
+                }
+                if unsupported:
+                    findings.append(_field_finding(
+                        scope, f"content_enrichment_audit.density_audit.dimension_evidence.{name}.evidence_refs",
+                        "refs authorized for every assigned mapped visible field", unsupported,
+                        "dimension evidence cites sources that do not support the mapped visible fields",
+                    ))
+                findings.extend(issue.as_finding(scope) for issue in
+                    _content_binding._dimension_evidence_grounding_issues(
+                        name, entry, item, evidence_texts, evidence_packages,
+                        no_change=item.get("content_enrichment_audit", {}).get("no_change_required") is True,
+                    ))
+    return findings
+
+
+def _standalone_changed_factual_findings(item, scope):
+    audit = item.get("content_enrichment_audit")
+    if not isinstance(audit, dict):
+        return []
+    changed = audit.get("changed_fields")
+    if not isinstance(changed, list) or not changed:
+        return []
+    density = audit.get("density_audit")
+    mapping = density.get("dimension_evidence") if isinstance(density, dict) else {}
+    evidence_context = _content_core.ResolvedEvidenceContext.from_maps(
+        scope="local_row", support=_row_evidence_token_support(item),
+        texts=_content_binding._row_evidence_token_texts(item),
+        packages=_content_binding._row_evidence_token_packages(item),
+    )
+    _, evidence_texts, evidence_packages = evidence_context.legacy_maps()
+    findings = []
+    for field in changed:
+        if field not in VISIBLE_COPY_FIELDS:
+            continue
+        refs = []
+        if isinstance(mapping, dict):
+            for entry in mapping.values():
+                if not isinstance(entry, dict) or field not in (entry.get("fields") or []):
+                    continue
+                if _content_core.field_evidence_ref_issues(entry):
+                    continue
+                for ref in _content_core.dimension_field_refs(entry).get(field, []):
+                    if _non_empty_string(ref) and ref.strip() not in refs:
+                        refs.append(ref.strip())
+        refs = _content_binding._unique_evidence_refs_by_identity(refs, evidence_packages)
+        visible_text = _visible_value_text(_normalized_visible_value(field, item.get(field)))
+        visible = _content_binding._factual_claim_counter(visible_text)
+        visible_relations = _content_binding._factual_predicate_subject_counter(visible_text)
+        if not visible and not visible_relations:
+            continue
+        grounded = Counter()
+        grounded_relations = Counter()
+        for ref in refs:
+            for text in evidence_texts.get(ref, []):
+                grounded.update(_content_binding._factual_claim_counter(text))
+                grounded_relations.update(_content_binding._factual_predicate_subject_counter(text))
+        missing = visible - grounded
+        if missing:
+            finding = _field_finding(
+                scope, field, "all factual identity/predicate tokens in a changed field grounded by its assigned verified evidence",
+                dict(missing),
+                "standalone 0.6 cannot certify a changed visible field containing factual claims absent from its assigned verified evidence",
+            )
+            finding["rule_id"] = "C06.GROUNDING.FIELD_IDENTITY"
+            findings.append(finding)
+        missing_relations = visible_relations - grounded_relations
+        if missing_relations:
+            diagnostic = {str(key): value for key, value in missing_relations.items()}
+            finding = _field_finding(
+                scope, field, "all factual subject/predicate/argument relations in a changed field grounded by its assigned verified evidence",
+                diagnostic,
+                "standalone 0.6 cannot certify a changed visible field whose factual relations are absent from its assigned verified evidence",
+            )
+            finding["rule_id"] = "C06.GROUNDING.FIELD_RELATION"
+            findings.append(finding)
+    return findings
+
+
+def _content_enrichment_audit_findings(item, scope):
+    findings = [issue.as_finding(scope) for issue in _content_core.quantity_coverage_issues(item)]
+    audit = item.get("content_enrichment_audit")
+    if not _non_empty_object(audit):
+        return [_field_finding(
+            scope, "content_enrichment_audit", "non-empty structured audit", audit,
+            "0.6 V5+ content_enriched=true requires a machine-checkable enrichment audit",
+        )]
+
+    if audit.get("baseline_strategy") != CONTENT_BASELINE_STRATEGY:
+        findings.append(_field_finding(
+            scope, "content_enrichment_audit.baseline_strategy", CONTENT_BASELINE_STRATEGY,
+            audit.get("baseline_strategy"),
+            "0.6 must use the governed nearest-upstream visible-copy baseline",
+        ))
+
+    changed = audit.get("changed_fields")
+    changed_valid = isinstance(changed, list) and all(field in VISIBLE_COPY_FIELDS for field in changed) \
+        and len(changed) == len(set(changed))
+    if not changed_valid:
+        findings.append(_field_finding(
+            scope, "content_enrichment_audit.changed_fields",
+            f"unique subset of {list(VISIBLE_COPY_FIELDS)}", changed,
+            "declared visible-copy changes must use only governed content fields",
+        ))
+
+    if changed_valid and changed:
+        empty_changed = [
+            field for field in changed
+            if _normalized_visible_value(field, item.get(field)) is None
+        ]
+        if empty_changed:
+            findings.append(_field_finding(
+                scope, "content_enrichment_audit.changed_fields",
+                "declared changed fields with non-empty normalized visible copy",
+                empty_changed,
+                "removal/null/empty/format-only values cannot be certified as changed content",
+            ))
+
+    no_change = audit.get("no_change_required")
+    if not isinstance(no_change, bool):
+        findings.append(_field_finding(
+            scope, "content_enrichment_audit.no_change_required", "boolean", no_change,
+            "0.6 must explicitly attest whether an unchanged-copy exception is being used",
+        ))
+    elif changed_valid:
+        if not changed and no_change is not True:
+            findings.append(_field_finding(
+                scope, "content_enrichment_audit.no_change_required", True, no_change,
+                "an empty declared delta must use the explicit no-change exception",
+            ))
+        if changed and no_change is not False:
+            findings.append(_field_finding(
+                scope, "content_enrichment_audit.no_change_required", False, no_change,
+                "a declared visible-copy delta cannot simultaneously claim no_change_required",
+            ))
+
+    density = audit.get("density_audit")
+    if not _non_empty_object(density):
+        findings.append(_field_finding(
+            scope, "content_enrichment_audit.density_audit", "non-empty structured audit", density,
+            "0.6 passing content requires a Deep Summary density audit",
+        ))
+        return findings
+
+    findings.extend(issue.as_finding(scope) for issue in _content_core.density_policy_issues(
+        density, no_change=changed_valid and not changed and no_change is True,
+    ))
+    dimensions = density.get("dimensions")
+    valid_dimensions = (
+        isinstance(dimensions, dict) and set(dimensions) == set(DENSITY_DIMENSIONS)
+        and all(isinstance(dimensions[name], bool) for name in DENSITY_DIMENSIONS)
+    )
+    true_dimensions = [name for name in DENSITY_DIMENSIONS if dimensions[name]] if valid_dimensions else []
+
+    if changed_valid and not changed and no_change is True:
+        if not _non_empty_string(audit.get("no_change_reason")):
+            findings.append(_field_finding(
+                scope, "content_enrichment_audit.no_change_reason",
+                "non-empty reason", audit.get("no_change_reason"),
+                "zero-delta exception requires an explicit reason",
+            ))
+        if valid_dimensions:
+            findings.extend(_dimension_evidence_findings(item, density, scope, true_dimensions))
+
+    if changed_valid and changed and no_change is False and valid_dimensions:
+        if true_dimensions:
+            findings.extend(_dimension_evidence_findings(item, density, scope, true_dimensions))
+            mapping = density.get("dimension_evidence")
+            if isinstance(mapping, dict):
+                bound_changed = {
+                    field
+                    for entry in mapping.values()
+                    if isinstance(entry, dict) and isinstance(entry.get("fields"), list)
+                    for field in entry.get("fields", [])
+                    if isinstance(field, str) and field in changed
+                }
+                if not bound_changed:
+                    findings.append(_field_finding(
+                        scope, "content_enrichment_audit.density_audit.dimension_evidence",
+                        "at least one true dimension bound to a declared changed field",
+                        mapping,
+                        "terminology/format-only string deltas cannot satisfy substantive content enrichment",
+                    ))
+    findings.extend(_standalone_changed_factual_findings(item, scope))
+    return findings
+
+
 def _top_level_gate_finding(stage, field, value):
     expected = STAGE_TOP_LEVEL_EXPECTED.get(stage, {}).get(field)
     if expected is not None:
@@ -282,7 +679,7 @@ def _related_lineage_findings(item, scope):
     return findings
 
 
-def _item_value_findings(stage, item, scope):
+def _item_value_findings(stage, item, scope, locked_prompt_version=None):
     findings = []
     if stage != "A" and not _non_empty_string(item.get("source_spec_id")):
         findings.append(_field_finding(scope, "source_spec_id", "non-empty string", item.get("source_spec_id"),
@@ -334,6 +731,16 @@ def _item_value_findings(stage, item, scope):
             if item.get(field) is not True:
                 findings.append(_field_finding(scope, field, True, item.get(field),
                                                "combined 0.6 passing bucket requires both component attestations=true"))
+        declared_prompt_version = _prompt_06_version(item)
+        if locked_prompt_version is not None and declared_prompt_version is not None \
+                and declared_prompt_version != locked_prompt_version:
+            findings.append(_field_finding(
+                scope, "prompt_provenance_0_6.prompt_version", locked_prompt_version,
+                declared_prompt_version,
+                "item-level Prompt 0.6 version must match the locked artifact/base contract",
+            ))
+        if _requires_v5_content_audit(item, locked_prompt_version=locked_prompt_version):
+            findings.extend(_content_enrichment_audit_findings(item, scope))
 
     if stage == "0.7":
         gates = item.get("final_qc_gates")
@@ -394,6 +801,25 @@ def main() -> int:
         if gate_finding:
             findings.append(gate_finding)
 
+    locked_prompt_version = None
+    if args.stage in {"0.5", "0.6"}:
+        locked_prompt_version, declared_artifact_prompt_version, prompt_resolution_error = _artifact_locked_prompt_06_version(payload)
+        if prompt_resolution_error:
+            findings.append(_field_finding(
+                "top_level", "base_main_commit_sha",
+                "readable locked Prompt 0.6 with version marker",
+                payload.get("base_main_commit_sha"),
+                prompt_resolution_error,
+            ))
+            locked_prompt_version = "UNRESOLVED_LOCKED_PROMPT_FAIL_CLOSED"
+        if args.stage == "0.6" and locked_prompt_version is not None and isinstance(declared_artifact_prompt_version, str) \
+                and declared_artifact_prompt_version != locked_prompt_version:
+            findings.append(_field_finding(
+                "top_level", "prompt_provenance.prompt_version", locked_prompt_version,
+                declared_artifact_prompt_version,
+                "artifact Prompt 0.6 version must match the prompt stored at the locked base when that commit is available",
+            ))
+
     items = collect_items(payload, args.stage)
     marker_counts = {}
     for item in items:
@@ -447,7 +873,19 @@ def main() -> int:
         # accepted_fact_safe is a passing bucket; every other stage bucket here
         # is itself the passing bucket consumed by the formal chain.
         if args.stage != "A" and (args.stage != "C" or item_marker(item) in accepted_c_markers):
-            findings.extend(_item_value_findings(args.stage, item, item_id))
+            findings.extend(_item_value_findings(
+                args.stage, item, item_id, locked_prompt_version=locked_prompt_version
+            ))
+            if args.stage == "0.5" and locked_prompt_version is not None \
+                    and not locked_prompt_version.startswith("PROMPT_0_6_V4_"):
+                try:
+                    _content_binding.validate_v5_stage_05_handoff_row(item, str(item_id or "0.5 item"))
+                except _content_binding.Blocked as exc:
+                    findings.append({
+                        "scope": item_id,
+                        "contract": "v5_0_5_evidence_handoff",
+                        "message": str(exc),
+                    })
 
     result = {
         "status": "PASS" if not findings else "BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT",
@@ -456,6 +894,11 @@ def main() -> int:
         "missing_count": len(findings),
         "findings": findings,
     }
+    if args.stage == "0.6":
+        result["validation_scope"] = {
+            "mode": "stage_artifact_only",
+            "not_verified": ["upstream_evidence_authority", "actual_visible_copy_delta", "materialized_operation"],
+        }
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 1 if findings else 0
 

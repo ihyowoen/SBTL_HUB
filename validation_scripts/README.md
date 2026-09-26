@@ -14,6 +14,7 @@ These scripts are optional validators for JSON artifacts produced by the prompt 
 | `stage_b_evidence_gate.py` | Checks Stage B evidence-before-draft and no-silent-skip accounting. |
 | `evidence_qc_v8_check.py` | Checks Prompt 0.5 evidence/source-diversity artifacts. |
 | `content_audit_check.py` | Checks Prompt 0.6/0.7 per-card content audit coverage. |
+| `card_run_v4_binding_hardening.py` | Binds formal operations to the complete ordinary-stage chain; resolves the applicable Prompt 0.6 contract from the locked baseline commit; for V5+ it enforces substantive effective-upstream visible-copy delta, operation-copy materialization, and evidence-bound no-change density rules while preserving genuine historical V4 artifacts. |
 | `run_fixture_smoke_tests.sh` | Runs representative PASS/FAIL fixtures. |
 
 ## Run

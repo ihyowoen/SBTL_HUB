@@ -1638,6 +1638,18 @@ def _mask_temporal_period_spans(text):
     return "".join(chars)
 
 
+def _mask_temporal_period_structure(text):
+    """Mask periods and their paired wrapper commas for structural parsing."""
+    masked=_mask_temporal_period_spans(text)
+    if not isinstance(masked,str):
+        return masked
+    return re.sub(
+        r",(?P<gap>\\s*),",
+        lambda match: " " + match["gap"] + " ",
+        masked,
+    )
+
+
 def _factual_identity_counter(text):
     counts=Counter()
     if not isinstance(text,str):
@@ -1802,7 +1814,7 @@ def _factual_predicate_content_counter(text):
     counts=Counter()
     if not isinstance(text,str):
         return counts
-    text=_mask_temporal_period_spans(text)
+    text=_mask_temporal_period_structure(text)
     for match in CONTRACTED_AUX_FACTUAL_RE.finditer(text):
         aux=match.group("contracted_aux").casefold()
         tail=match.group("contracted_tail") or ""
@@ -1972,7 +1984,7 @@ def _factual_predicate_subject_counter(text):
     counts.update(_claim_relations.english_copular_period_relations(original_text))
     counts.update(_claim_relations.copular_subordinate_relations(original_text))
     counts.update(_claim_relations.korean_period_relations(original_text))
-    text=_mask_temporal_period_spans(text)
+    text=_mask_temporal_period_structure(text)
     counts.update(_korean_factual_relation_counter(text))
     counts.update(_claim_relations.english_relations(text))
     for pattern in (

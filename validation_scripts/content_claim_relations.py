@@ -195,15 +195,22 @@ def korean_period_relations(text: str) -> Counter:
 
 _KR_LOCAL_DATED_ACTION = re.compile(
     r"(?P<object>[가-힣A-Za-z][가-힣A-Za-z0-9& _-]*?)(?:을|를)\s+"
-    r"(?P<verb>[가-힣]{1,}?)(?:하고|하며|했고|하여|했다|하였다|한다|된다|됐다|되었다)"
+    r"(?:(?P<neg_verb>[가-힣]{1,}?)하지\s+(?:않고|않으며|않았고|않았다|않는다)"
+    r"|(?P<verb>[가-힣]{1,}?)(?:하고|하며|했고|하여|했다|하였다|한다|된다|됐다|되었다))"
 )
 _KR_OBJECT_BEFORE_PERIOD = re.compile(
-    r"(?P<object>[가-힣A-Za-z][가-힣A-Za-z0-9&_-]*"
-    r"(?:\s+[가-힣A-Za-z][가-힣A-Za-z0-9&_-]*){0,3})(?:을|를)\s*$"
+    r"^\s*(?P<object>[가-힣A-Za-z][가-힣A-Za-z0-9&_-]*"
+    r"(?:\s+[가-힣A-Za-z][가-힣A-Za-z0-9&_-]*)*)(?:을|를)\s*$"
 )
 _KR_VERB_AFTER_PERIOD = re.compile(
-    r"^\s*(?P<verb>[가-힣]{1,}?)(?:하고|하며|했고|하여|했다|하였다|한다|된다|됐다|되었다)"
+    r"^\s*,?\s*(?:(?P<neg_verb>[가-힣]{1,}?)하지\s+"
+    r"(?:않고|않으며|않았고|않았다|않는다)"
+    r"|(?P<verb>[가-힣]{1,}?)(?:하고|하며|했고|하여|했다|하였다|한다|된다|됐다|되었다))"
 )
+
+
+def _kr_local_verb(match) -> str:
+    return "neg:" + match["neg_verb"] if match["neg_verb"] else match["verb"]
 
 
 def _korean_local_period_actions(clause_text: str, subject: str):
@@ -223,21 +230,24 @@ def _korean_local_period_actions(clause_text: str, subject: str):
             '',
             before_local,
             count=1,
+            flags=re.I,
         )
         prior_connectors=list(re.finditer(
-            r'[가-힣]{1,}?(?:하고|하며|했고|하여)\s+|(?:그리고|및)\s+',
+            r'[가-힣]{1,}?(?:하고|하며|했고|하여)\s+'
+            r'|[가-힣]{1,}?하지\s+(?:않고|않으며|않았고)\s+'
+            r'|(?:그리고|및)\s+',
             before_local,
         ))
         if prior_connectors:
             before_local=before_local[prior_connectors[-1].end():]
 
-        before_match=_KR_OBJECT_BEFORE_PERIOD.search(before_local)
+        before_match=_KR_OBJECT_BEFORE_PERIOD.fullmatch(before_local)
         after_verb=_KR_VERB_AFTER_PERIOD.search(after)
         if before_match and after_verb:
             out.append((
                 'relation:kr:local-period',
                 subject,
-                after_verb['verb'],
+                _kr_local_verb(after_verb),
                 ordered_terms(before_match['object']),
                 period,
             ))
@@ -250,7 +260,7 @@ def _korean_local_period_actions(clause_text: str, subject: str):
             out.append((
                 'relation:kr:local-period',
                 subject,
-                match['verb'],
+                _kr_local_verb(match),
                 ordered_terms(match['object']),
                 period,
             ))
@@ -450,7 +460,7 @@ def _normalize_aux_contractions(text: str):
     return value
 
 
-_SUBJECT_PREFIX = re.compile(r'^' + _SUBJECT + r'\s+')
+_SUBJECT_PREFIX = re.compile(r'^' + _SUBJECT + r'(?:\s*,)?\s+')
 
 
 def _strip_subject_preverb_period(text: str):
@@ -764,7 +774,14 @@ def _emit_passive_period_relation(out, segment):
     passive=_EN_PASSIVE.fullmatch(raw)
 
     if passive is None:
-        masked_raw=_mask_periods(raw).strip()
+        masked_raw=_mask_periods(raw)
+        # Remove only comma pairs that wrapped a now-masked temporal span.
+        # Keep string length unchanged so passive match offsets still index raw.
+        masked_raw=re.sub(
+            r',(?P<gap>\s*),',
+            lambda match: ' ' + match['gap'] + ' ',
+            masked_raw,
+        )
         passive=_EN_PASSIVE.fullmatch(masked_raw)
         if passive is None:
             return
@@ -820,6 +837,10 @@ _COPULAR_SUBJECT_AFTER_PERIOD = re.compile(
 def _copular_segment_period_relations(segment: str, topic: str | None):
     out=Counter()
     raw,leading_period=_strip_leading_period(segment)
+    raw,subject_period=_strip_subject_preverb_period(raw)
+    preposed_periods=tuple(dict.fromkeys(
+        period for period in (leading_period,subject_period) if period
+    ))
     observations=atoms.temporal_period_observations(raw)
     direct=_EN_COPULAR_PERIOD.fullmatch(raw)
 
@@ -847,14 +868,16 @@ def _copular_segment_period_relations(segment: str, topic: str | None):
                          direct['copula'].casefold(),complement,first_period)]+=1
         local_pairs=list(_local_dated_arguments(direct['tail']))
         if local_pairs:
-            if leading_period:
+            if preposed_periods:
                 first_start=observations[0][0] if observations else len(direct['tail'])
                 before_first=direct['tail'][:first_start].strip()
                 pieces=re.split(r"\b(?:and|or)\b",before_first,flags=re.I)
                 leading_complement=ordered_terms(pieces[0].strip(" ,"))
                 if leading_complement:
-                    out[('relation:en:copular:period',subject,
-                         direct['copula'].casefold(),leading_complement,leading_period)]+=1
+                    for preposed_period in preposed_periods:
+                        out[('relation:en:copular:period',subject,
+                             direct['copula'].casefold(),leading_complement,
+                             preposed_period)]+=1
                 if len(pieces)>1:
                     remainder=ordered_terms(pieces[-1].strip(" ,"))
                     if remainder:
@@ -876,16 +899,18 @@ def _copular_segment_period_relations(segment: str, topic: str | None):
                 return out
             if observations:
                 return out
-        if leading_period:
+        if preposed_periods:
             complement=ordered_terms(direct['tail'])
             if complement:
-                out[('relation:en:copular:period',subject,
-                     direct['copula'].casefold(),complement,leading_period)]+=1
+                for preposed_period in preposed_periods:
+                    out[('relation:en:copular:period',subject,
+                         direct['copula'].casefold(),complement,
+                         preposed_period)]+=1
         return out
 
     all_periods=atoms.temporal_period_observations(raw)
-    if leading_period:
-        all_periods=((0,0,leading_period),)+all_periods
+    if preposed_periods:
+        all_periods=tuple((0,0,period) for period in preposed_periods)+all_periods
     if not all_periods:
         return out
     masked=_mask_periods(raw)
@@ -908,7 +933,6 @@ def _copular_segment_period_relations(segment: str, topic: str | None):
             out[('relation:en:copular:period',subject,
                  parsed['copula'].casefold(),complement,period)]+=1
     return out
-
 
 def english_copular_period_relations(text: str) -> Counter:
     out=Counter()

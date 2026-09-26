@@ -111,6 +111,10 @@ class Review5318539093Contracts(unittest.TestCase):
         quote = "Capacity is 20 MW. Coal had, in 2025, been sold by Alpha."
         good = self.validate(prior, current, quote)
         self.assertFalse(self.standalone_findings(good))
+        self.assertEqual(
+            binding._factual_claim_counter(current),
+            binding._factual_claim_counter(quote),
+        )
         current_rel = relations.english_factual_period_relations(current)
         quote_rel = relations.english_factual_period_relations(quote)
         self.assertEqual(current_rel, quote_rel)

@@ -141,6 +141,46 @@ def korean_relations(text: str) -> Counter:
     return out
 
 
+_KR_LOCAL_DESCRIPTION = re.compile(
+    r"^\s*(?P<attribute>[가-힣]{2,}?)(?:이|가|은|는)\s+"
+    r"(?P<polarity>안\s+|그다지\s+)?"
+    r"(?P<predicate>"
+    r"높고|낮고|크고|작고|많고|적고|있고|없고|좋고|나쁘고|"
+    r"높았고|낮았고|컸고|작았고|많았고|적었고|있었고|없었고|"
+    r"높다|낮다|크다|작다|많다|적다|있다|없다|좋다|나쁘다|"
+    r"높았다|낮았다|컸다|작았다|많았다|적었다|있었다|없었다)"
+    r"(?P<negation>\s*(?:는\s+)?(?:아니다|않다))?\s*$"
+)
+
+
+def _korean_local_period_descriptions(clause_text: str):
+    periods=atoms.temporal_period_observations(clause_text)
+    if len(periods) < 2:
+        return ()
+    subject_match=re.match(r'^' + _KR_SUBJECT,clause_text)
+    if not subject_match:
+        return ()
+    subject=subject_match['subject'].casefold()
+    out=[]
+    for index,(start,end,period) in enumerate(periods):
+        next_start=periods[index+1][0] if index+1 < len(periods) else len(clause_text)
+        local=clause_text[end:next_start]
+        local=re.sub(r'^\s*(?:,|그리고|및|과|와)?\s*','',local)
+        match=_KR_LOCAL_DESCRIPTION.fullmatch(local)
+        if not match:
+            continue
+        out.append((
+            'description:kr:period',
+            subject,
+            match['attribute'],
+            ' '.join((match['polarity'] or '').split()),
+            match['predicate'],
+            ' '.join((match['negation'] or '').split()),
+            period,
+        ))
+    return tuple(out)
+
+
 def korean_period_relations(text: str) -> Counter:
     """Preserve explicit Korean period identity before temporal masking."""
     out=Counter()
@@ -150,6 +190,9 @@ def korean_period_relations(text: str) -> Counter:
         periods=atoms.temporal_period_observations(clause.text)
         if not periods:
             continue
+
+        for local_key in _korean_local_period_descriptions(clause.text):
+            out[local_key]+=1
 
         object_match=_KR_OBJECT.fullmatch(clause.text)
         if object_match is None:
@@ -195,8 +238,11 @@ def korean_period_relations(text: str) -> Counter:
 
 _KR_LOCAL_DATED_ACTION = re.compile(
     r"(?P<object>[가-힣A-Za-z][가-힣A-Za-z0-9& _-]*?)(?:을|를)\s+"
-    r"(?:(?P<neg_verb>[가-힣]{1,}?)하지\s+(?:않고|않으며|않았고|않았으며|않았다|않는다)"
-    r"|(?P<verb>[가-힣]{1,}?)(?:하고|하며|했고|했으며|하여|하였으며|했다|하였다|한다|된다|됐다|되었다))"
+    r"(?:(?P<neg_verb>[가-힣]{1,}?)하지\s+"
+    r"(?:않고|않으며|않았고|않았으며|않았지만|않았으나|않았다|않는다)"
+    r"|(?P<verb>[가-힣]{1,}?)(?:"
+    r"하고|하며|했고|했으며|했지만|했으나|하여|하였으며|하였지만|하였으나|"
+    r"했다|하였다|한다|된다|됐다|되었다))"
 )
 _KR_OBJECT_BEFORE_PERIOD = re.compile(
     r"^\s*(?P<object>[가-힣A-Za-z][가-힣A-Za-z0-9&_-]*"
@@ -205,10 +251,11 @@ _KR_OBJECT_BEFORE_PERIOD = re.compile(
 )
 _KR_VERB_AFTER_PERIOD = re.compile(
     r"^\s*,?\s*(?:(?P<neg_verb>[가-힣]{1,}?)하지\s+"
-    r"(?:않고|않으며|않았고|않았으며|않았다|않는다)"
-    r"|(?P<verb>[가-힣]{1,}?)(?:하고|하며|했고|했으며|하여|하였으며|했다|하였다|한다|된다|됐다|되었다))"
+    r"(?:않고|않으며|않았고|않았으며|않았지만|않았으나|않았다|않는다)"
+    r"|(?P<verb>[가-힣]{1,}?)(?:"
+    r"하고|하며|했고|했으며|했지만|했으나|하여|하였으며|하였지만|하였으나|"
+    r"했다|하였다|한다|된다|됐다|되었다))"
 )
-
 
 def _kr_local_verb(match) -> str:
     return "neg:" + match["neg_verb"] if match["neg_verb"] else match["verb"]
@@ -234,8 +281,8 @@ def _korean_local_period_actions(clause_text: str, subject: str):
             flags=re.I,
         )
         prior_connectors=list(re.finditer(
-            r'[가-힣]{1,}?(?:하고|하며|했고|했으며|하여|하였으며)\s+'
-            r'|[가-힣]{1,}?하지\s+(?:않고|않으며|않았고|않았으며)\s+'
+            r'[가-힣]{1,}?(?:하고|하며|했고|했으며|했지만|했으나|하여|하였으며|하였지만|하였으나)\s+'
+            r'|[가-힣]{1,}?하지\s+(?:않고|않으며|않았고|않았으며|않았지만|않았으나)\s+'
             r'|(?:그리고|및)\s+',
             before_local,
         ))
@@ -282,10 +329,12 @@ def korean_description_tokens(text: str) -> list[str]:
     return out
 
 
-_PROPER = (r"[A-Z][A-Za-z0-9&._-]+(?:(?:'s|’s)\s+[A-Za-z][A-Za-z0-9&._-]+)?"
+_PROPER = (r"(?:[A-Z][A-Za-z0-9&._-]+|[0-9]+[A-Za-z][A-Za-z0-9&._-]*)"
+           r"(?:(?:'s|’s)\s+[A-Za-z][A-Za-z0-9&._-]+)?"
            r"(?:\s+(?:[A-Z][A-Za-z0-9&._-]+|project|plant|facility|company)){0,3}")
 _SUBJECT = (r'(?P<subject>' + _PROPER + r'|(?:[Tt]he|[Aa]n?)\s+[A-Za-z][A-Za-z0-9_-]+'
             r'|[Ii]t|[Tt]hey|[Hh]e|[Ss]he)')
+
 _ACTIONS = (r'sold|sells?|acquired|acquires?|bought|buys?|used|uses?|burned|burns?|burnt'
             r'|supplied|supplies|supply|selected|selects?|recycled|recycles?'
             r'|owned|owns?|employed|employs?|manufactured|manufactures?|exported|exports?|imported|imports?|shipped|ships?|delivered|delivers?')
@@ -396,11 +445,13 @@ _METRIC_PERIOD_VALUE = (
     r"[1-4]\s*분기(?:\s*(?:19|20|21)\d{2}\s*년)?|"
     r"(?:19|20|21)\d{2}\s*년(?:도)?)"
 )
+_METRIC_TEMPORAL_OPERATOR = r'in|for|during|since|until|by|through|as\s+of|from'
 _METRIC = re.compile(
     r'(?<![A-Za-z가-힣])(?P<metric>capacity|output|revenue|profit|sales|investment|cost|margin|'
     r'용량|출력|매출|이익|판매량|투자액|비용|마진)'
     r'(?:은|는|이|가)?\s*'
-    r'(?:(?:in|for|during)\s+(?P<post_period>' + _METRIC_PERIOD_VALUE + r')\s*'
+    r'(?:(?P<post_operator>' + _METRIC_TEMPORAL_OPERATOR + r')\s+'
+    r'(?P<post_period>' + _METRIC_PERIOD_VALUE + r')\s*'
     r'|from\s+(?P<post_range>' + atoms.TEMPORAL_EN_MONTH_RANGE_VALUE + r')\s*)?'
     r'(?:(?:is|was|are|were|of|at)\s+|[:=]\s*)?$', re.I
 )
@@ -410,6 +461,13 @@ _PERIOD = re.compile(r'(?<!\w)(?P<period>' + _METRIC_PERIOD_VALUE + r')(?!\w)', 
 def _canonical_metric_period(raw: str) -> str:
     return atoms.canonical_temporal_period(raw)
 
+
+def _canonical_metric_observation(operator: str, raw: str) -> str:
+    phrase=((operator or '').strip() + ' ' + str(raw or '').strip()).strip()
+    observations=atoms.temporal_period_observations(phrase)
+    if observations:
+        return observations[0][2]
+    return _canonical_metric_period(raw)
 
 def _mask_periods(text: str) -> str:
     if not isinstance(text, str):
@@ -490,22 +548,29 @@ def _strip_subject_preverb_period(text: str):
     subject_match=_SUBJECT_PREFIX.match(value)
     if not subject_match:
         return value,''
+    aux_pattern=(
+        r"(?:am|is|are|was|were|be|been|being|has|have|had|do|does|did|"
+        r"can|could|may|might|will|would|must|should|shall|not)"
+    )
     for start,end,period in atoms.temporal_period_observations(value):
         if start < subject_match.end():
             continue
         between_raw=value[subject_match.end():start]
+        paren_bridge=re.fullmatch(
+            r"(?P<between>(?:(?:" + aux_pattern + r")\s+)*)\(\s*",
+            between_raw,
+            re.I,
+        )
         paren_wrapped=(
-            between_raw.strip() == '('
+            paren_bridge is not None
             and re.match(r'^\s*\)',value[end:]) is not None
         )
-        between=between_raw.strip()
         if paren_wrapped:
-            between=''
+            between=(paren_bridge['between'] or '').strip()
         else:
-            between=re.sub(r",\s*$","",between).strip()
+            between=re.sub(r",\s*$","",between_raw.strip()).strip()
         if between and not re.fullmatch(
-            r"(?:(?:am|is|are|was|were|be|been|being|has|have|had|do|does|did|"
-            r"can|could|may|might|will|would|must|should|shall|not)\s*)+",
+            r"(?:(?:" + aux_pattern + r")\s*)+",
             between,re.I,
         ):
             continue
@@ -579,19 +644,34 @@ _COPULAR_COORDINATED_SUBJECT = re.compile(
 
 
 def _local_dated_arguments(tail: str):
-    """Return object terms bound to each explicit local period in one action tail."""
+    """Return copular complement terms bound to each explicit local period."""
     periods=atoms.temporal_period_observations(tail)
     if not periods:
         return ()
     out=[]
     previous_end=0
-    for start,end,period in periods:
-        local=tail[previous_end:start]
-        contrastive=list(re.finditer(r"\b(?:but|while|whereas)\b",local,flags=re.I))
-        if contrastive:
-            local=local[contrastive[-1].end():]
-        local=re.sub(r'^\s*(?:and|or|but|while|whereas|,)\s*','',local,flags=re.I)
-        local=re.sub(r'\s*(?:and|or|but|while|whereas|,)\s*$','',local,flags=re.I)
+    connector_re=r"\b(?:and|or|but|while|whereas)\b"
+    for index,(start,end,period) in enumerate(periods):
+        next_start=periods[index+1][0] if index+1 < len(periods) else len(tail)
+        before=tail[previous_end:start]
+        after=tail[end:next_start]
+        preposed=(
+            not before.strip(" ,")
+            or re.search(connector_re + r"\s*,?\s*$",before,re.I) is not None
+        )
+        if preposed:
+            local=re.split(connector_re,after,maxsplit=1,flags=re.I)[0]
+        else:
+            local=before
+            boundaries=list(re.finditer(connector_re,local,flags=re.I))
+            if boundaries:
+                local=local[boundaries[-1].end():]
+        local=re.sub(
+            r'^\s*(?:(?:and|or|but|while|whereas)\s+|,)','',local,flags=re.I
+        )
+        local=re.sub(
+            r'\s*(?:(?:and|or|but|while|whereas)|,)\s*$','',local,flags=re.I
+        )
         terms=ordered_terms(local)
         if terms:
             out.append((terms,period))
@@ -1049,7 +1129,7 @@ def copular_subordinate_relations(text: str) -> Counter:
     return out
 
 _COORDINATED_METRIC_PERIOD = re.compile(
-    r'(?:^|(?:and|,))\s*(?:in|for|during)\s+'
+    r'(?:^|(?:and|,))\s*(?P<operator>' + _METRIC_TEMPORAL_OPERATOR + r')\s+'
     r'(?P<period>' + _METRIC_PERIOD_VALUE + r')\s*'
     r'(?:(?:is|was|are|were|of|at)\s+|[:=]\s*)?$',
     re.I,
@@ -1085,12 +1165,14 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
                 if subjects == ['__generic__']:
                     previous_quantity_end=quantity.end
                     continue
-                post_value=(
-                    match.groupdict().get('post_period')
-                    or match.groupdict().get('post_range')
-                )
-                if post_value:
-                    period=_canonical_metric_period(post_value)
+                post_period=match.groupdict().get('post_period')
+                post_range=match.groupdict().get('post_range')
+                if post_period:
+                    period=_canonical_metric_observation(
+                        match.groupdict().get('post_operator') or '',post_period
+                    )
+                elif post_range:
+                    period=_canonical_metric_period(post_range)
                 else:
                     suffix_period=_period_after_quantity(clause.text,quantity.end)
                     if suffix_period:
@@ -1111,7 +1193,9 @@ def metric_quantity_relations(text: str, subjects_for_span: Callable) -> Counter
                 carry=_COORDINATED_METRIC_PERIOD.search(prefix)
                 if carry and context is not None:
                     metric,subjects=context
-                    period=_canonical_metric_period(carry['period'])
+                    period=_canonical_metric_observation(
+                        carry.groupdict().get('operator') or '',carry['period']
+                    )
                 elif context is not None and previous_quantity_end is not None:
                     bridge=clause.text[previous_quantity_end:quantity.start]
                     masked_bridge=_mask_periods(bridge)

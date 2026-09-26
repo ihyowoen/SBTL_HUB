@@ -106,7 +106,7 @@ def canonical_temporal_period(raw):
     )
     if korean_year:
         suffix=korean_year.group("suffix") or ""
-        if suffix == "에":
+        if suffix in {"에", "도"}:
             suffix=""
         return f"{korean_year.group('year')}년{suffix}"
     month_range=re.fullmatch(
@@ -175,7 +175,7 @@ def temporal_period_spans(text):
 
 
 _BOUNDARY_TEMPORAL_OPERATOR_RE = re.compile(
-    r"^(?P<operator>since|until|by|through|as\s+of)\b",
+    r"^(?P<operator>since|until|by|through|as\s+of|from)\b",
     re.IGNORECASE,
 )
 
@@ -188,8 +188,9 @@ def _canonical_temporal_observation(match):
     canonical_operator=re.sub(
         r"\s+"," ",operator.group("operator").casefold()
     )
+    if canonical_operator == "from" and match.groupdict().get("en_month_range"):
+        return period
     return f"{canonical_operator}:{period}"
-
 
 def temporal_period_observations(text):
     if not isinstance(text, str):

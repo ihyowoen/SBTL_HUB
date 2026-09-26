@@ -2314,14 +2314,12 @@ def _state_local_period_identity(text,start,end,previous_end=None,next_start=Non
             if explicit_subject:
                 match=None
         if match:
-            return _canonical_state_period(_semantic_atoms._period_group_value(match))
+            return _semantic_atoms._canonical_temporal_observation(match)
     before=text[max(left,start-96):start]
     matches=list(_STATE_TEMPORAL_PERIOD_RE.finditer(before))
     if matches:
-        match=matches[-1]
-        return _canonical_state_period(_semantic_atoms._period_group_value(match))
+        return _semantic_atoms._canonical_temporal_observation(matches[-1])
     return ""
-
 
 def _state_subject_strength_occurrences(text):
     occurrences={}

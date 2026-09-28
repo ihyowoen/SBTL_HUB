@@ -1,0 +1,163 @@
+{
+  "schema": "raw_input_audit_v4",
+  "stage": "RAW_INPUT_AUDIT",
+  "run_id": "SBTL_V4_20260831_143419",
+  "input_identity": {
+    "original_filename": "final_news_llm_input_newsletter_expanded_20260831_143419.json",
+    "source_run_tag": "20260831_143419",
+    "sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+    "byte_count": 7265646,
+    "source_bytes_committed_to_repo": false
+  },
+  "baseline": {
+    "base_main_commit_sha": "f2792958a85470c11030211642012865c69f56ab",
+    "base_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+    "base_full_count": 1514,
+    "document_universe_manifest_ref": "runs/2026-09-02/stage_0_0d_v4_document_universe_20260902_MAIN_f279295.json",
+    "document_universe_status": "PASS"
+  },
+  "metadata_audit": {
+    "input_schema": "final_news_llm_input_v4_newsletter_expanded",
+    "run_label": "2026-08-31 14:34 KST",
+    "generated_kst": "2026-08-31T16:29:26+09:00",
+    "story_count": 264,
+    "keep_story_count": 209,
+    "review_story_count": 1,
+    "triage_filtered_count": 54,
+    "count_consistency_pass": true,
+    "story_id_unique_count": 264,
+    "story_id_duplicate_count": 0,
+    "primary_url_exact_duplicate_groups": 0,
+    "primary_url_canonical_duplicate_groups": 0,
+    "source_count_packet_mismatch_count": 0,
+    "source_url_packet_mismatch_count": 0,
+    "usable_text_empty_count": 0,
+    "usable_text_under_200_char_count": 17
+  },
+  "distribution": {
+    "region_counts": {
+      "US": 19,
+      "KR": 121,
+      "GL": 41,
+      "CN": 43,
+      "JP": 18,
+      "EU": 22
+    },
+    "ledger_state_counts": {
+      "FIRST": 168,
+      "REPEAT": 96
+    },
+    "primary_text_source_counts": {
+      "article": 208,
+      "rss": 39,
+      "list": 17
+    },
+    "text_coverage_state_counts": {
+      "article_hydrated": 208,
+      "rss_rich": 39,
+      "list_context_only": 17
+    },
+    "published_date_min": "2026-08-19",
+    "published_date_max": "2026-08-31",
+    "age_buckets_vs_generated_run_date": {
+      "0-1d": 159,
+      "2-7d": 101,
+      "8-30d": 4
+    },
+    "future_date_count": 0
+  },
+  "hard_findings": {
+    "malformed_integrity_group_count": 5,
+    "malformed_integrity_affected_story_count": 14,
+    "malformed_integrity_groups": [
+      {
+        "integrity_group_id": "grp_0001",
+        "story_ids": ["KR_2026-08-30_C20", "KR_2026-08-30_C22", "KR_2026-08-31_C50"],
+        "finding": "UNRELATED_EVENTS_GROUPED_TOGETHER",
+        "disposition": "IGNORE_UPSTREAM_GROUP_AND_RECLUSTER_BY_EVENT"
+      },
+      {
+        "integrity_group_id": "grp_0002",
+        "story_ids": ["KR_2026-08-31_C15", "KR_2026-08-31_C73"],
+        "finding": "UNRELATED_EVENTS_GROUPED_TOGETHER",
+        "disposition": "IGNORE_UPSTREAM_GROUP_AND_RECLUSTER_BY_EVENT"
+      },
+      {
+        "integrity_group_id": "grp_0003",
+        "story_ids": ["KR_2026-08-31_C35", "KR_2026-08-31_C37", "KR_2026-08-31_C85", "KR_2026-08-31_C130"],
+        "finding": "UNRELATED_EVENTS_GROUPED_TOGETHER",
+        "disposition": "IGNORE_UPSTREAM_GROUP_AND_RECLUSTER_BY_EVENT"
+      },
+      {
+        "integrity_group_id": "grp_0004",
+        "story_ids": ["JP_2026-08-31_C08", "JP_2026-08-31_C16"],
+        "finding": "UNRELATED_EVENTS_GROUPED_TOGETHER",
+        "disposition": "IGNORE_UPSTREAM_GROUP_AND_RECLUSTER_BY_EVENT"
+      },
+      {
+        "integrity_group_id": "grp_0005",
+        "story_ids": ["JP_2026-08-31_C09", "JP_2026-08-31_C17", "JP_2026-08-31_C18"],
+        "finding": "UNRELATED_EVENTS_GROUPED_TOGETHER",
+        "disposition": "IGNORE_UPSTREAM_GROUP_AND_RECLUSTER_BY_EVENT"
+      }
+    ],
+    "integrity_excluded_rows_requiring_rescue_review": [
+      {
+        "story_id": "KR_2026-08-31_C37",
+        "headline": "KT의 ‘모두의 AI’ 청사진, “국민의 모든 일상에 함께하는 AI” KT가 국내 대표 AI 기업들과 함께 대한민국의 다양한 AI 기술과 서비스를 국민의 일상으로 확산하는 새로운 대국민 AI 모델을 제시했다. 업체 측에 따르면, ‘모두의 AI’ 범용 서비스는 앱과 웹으로 출시되며, 이용자의 질문과 목적을 이해하는 범용 AI Agent를 중심으로 공공 AI Agent와 교육·금융·쇼핑·주거 등 분야별 전문 AI 서비스를 하나로 연결한다. 2026-08-28",
+        "reason": "EXCLUDED_AS_LOWER_BINDING_INSIDE_MALFORMED_GROUP",
+        "disposition": "RESTORE_TO_0_0C_TREASURE_RESCUE_REVIEW"
+      },
+      {
+        "story_id": "KR_2026-08-31_C85",
+        "headline": "‘SK호라이즌’ 출범하며 ‘아시아 AI 인프라 허브’ 향한 진용 구축해 SK텔레콤이 AI 데이터센터 인프라 전문 기업을 세우고, ‘아시아 AI 인프라 허브’ 도약을 위한 체제를 강화한다고 밝혔다. SK텔레콤은 100% 자회사인 SK브로드밴드를 존속회사와 신설회사로 인적분할을 추진한다고 8월 27일 발표했다. 이와 함께 SKT는 글로벌 투자사 KKR 및 IMM인베스트먼트-스톤브릿지 컨소시엄으로부터 신설회사에 대한 3조 800억 원 규모의 투자를 유치했다는 설명이다. 2026-08-28",
+        "reason": "EXCLUDED_AS_LOWER_BINDING_INSIDE_MALFORMED_GROUP",
+        "disposition": "RESTORE_TO_0_0C_TREASURE_RESCUE_REVIEW"
+      }
+    ],
+    "source_body_mismatches": [
+      {
+        "story_id": "US_2026-08-28_C02",
+        "headline": "A new solution for flame-retardant tapes in EVs and energy storage applications: CleanTape® FR (Webinar)",
+        "finding": "description_article belongs to a Henkel LOCTITE SOLVE item while article context/content belong to the Mactac CleanTape FR webinar",
+        "disposition": "QUARANTINE_MISMATCHED_DESCRIPTION_FIELD_AND_RETAIN_MATCHING_ARTICLE_CONTEXT_FOR_REVIEW"
+      }
+    ],
+    "publication_date_role_mismatches": [],
+    "cross_run_reconciliation_with_20260901": {
+      "common_story_id_count": 73,
+      "common_story_id_same_canonical_url_count": 7,
+      "common_story_id_different_canonical_url_count": 66,
+      "exact_or_canonical_url_overlap_count": 96,
+      "rule": "story_id is collector-run scoped only; cross-run reconciliation must use event identity/fingerprint plus URL/source/date evidence",
+      "confirmed_different_event_examples": [
+        {
+          "story_id": "KR_2026-08-31_C48",
+          "run_20260831_event": "SK온, 美서 1.5조 규모 9GWh 대형 배터리 셀 공급계약 체결",
+          "run_20260901_event": "광해광업공단, 국민 시각 감사에 담는다…8개 분야 63명 참여",
+          "finding": "SAME_STORY_ID_DIFFERENT_EVENT"
+        },
+        {
+          "story_id": "CN_2026-08-31_C04",
+          "run_20260831_event": "France's Passenger Car Market in July 2026: Chinese Brands Gain Ground as BEV Share Hits Record High",
+          "run_20260901_event": "70GWh！楚能襄阳基地投产，日供40万颗电芯",
+          "finding": "SAME_STORY_ID_DIFFERENT_EVENT"
+        }
+      ]
+    }
+  },
+  "soft_findings": {
+    "ledger_repeat_count": 96,
+    "ledger_repeat_policy": "RETAIN_AS_PRIOR_OBSERVATION_SIGNAL_ONLY_NOT_FINAL_DUPLICATE_DECISION",
+    "short_usable_text_count": 17,
+    "short_text_policy": "RETAIN_FOR_0_0C_OR_EVENT_RECONCILIATION_BUT_REQUIRE_SOURCE_ADEQUACY_REVIEW_BEFORE_EVIDENCE_DRAFTING"
+  },
+  "audit_disposition": {
+    "raw_input_audit_status": "PASS_WITH_QUARANTINES",
+    "stage_0_0c_authorized": true,
+    "stage_a_authorized": false,
+    "quarantine_story_ids": ["US_2026-08-28_C02"],
+    "treasure_rescue_story_ids": ["KR_2026-08-31_C37", "KR_2026-08-31_C85"],
+    "next_required_stage": "0.0C_COVERAGE_DISCOVERY_THEN_CROSS_RUN_AUTHORITATIVE_EVENT_RECONCILIATION"
+  }
+}

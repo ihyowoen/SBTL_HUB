@@ -1,0 +1,3937 @@
+{
+  "schema": "coverage_discovery_v4",
+  "stage": "0.0C",
+  "status": "PASS",
+  "run_id": "SBTL_V4_20260831_143419",
+  "raw_input_audit_ref": "runs/2026-09-02/raw_input_audit_20260831_143419_V4.json",
+  "document_universe_manifest_ref": "runs/2026-09-02/stage_0_0d_v4_document_universe_20260902_MAIN_f279295.json",
+  "base_main_commit_sha": "f2792958a85470c11030211642012865c69f56ab",
+  "base_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "original_input_accounted": true,
+  "original_input_ledger": [
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-29_C02",
+      "story_id": "US_2026-08-29_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C16",
+      "story_id": "US_2026-08-28_C16",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C03",
+      "story_id": "US_2026-08-28_C03",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C19",
+      "story_id": "US_2026-08-28_C19",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C09",
+      "story_id": "US_2026-08-28_C09",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C02",
+      "story_id": "US_2026-08-28_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C06",
+      "story_id": "US_2026-08-28_C06",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C11",
+      "story_id": "US_2026-08-28_C11",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C15",
+      "story_id": "US_2026-08-28_C15",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C01",
+      "story_id": "US_2026-08-28_C01",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C08",
+      "story_id": "US_2026-08-28_C08",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C17",
+      "story_id": "US_2026-08-28_C17",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C07",
+      "story_id": "US_2026-08-28_C07",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C05",
+      "story_id": "US_2026-08-28_C05",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C12",
+      "story_id": "US_2026-08-28_C12",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C178",
+      "story_id": "KR_2026-08-31_C178",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C177",
+      "story_id": "KR_2026-08-31_C177",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C223",
+      "story_id": "KR_2026-08-31_C223",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C189",
+      "story_id": "KR_2026-08-31_C189",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C25",
+      "story_id": "KR_2026-08-31_C25",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C222",
+      "story_id": "KR_2026-08-31_C222",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C82",
+      "story_id": "KR_2026-08-31_C82",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C51",
+      "story_id": "KR_2026-08-31_C51",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C49",
+      "story_id": "KR_2026-08-31_C49",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C48",
+      "story_id": "KR_2026-08-31_C48",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C46",
+      "story_id": "KR_2026-08-31_C46",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C45",
+      "story_id": "KR_2026-08-31_C45",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C44",
+      "story_id": "KR_2026-08-31_C44",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C43",
+      "story_id": "KR_2026-08-31_C43",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C93",
+      "story_id": "KR_2026-08-31_C93",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C215",
+      "story_id": "KR_2026-08-31_C215",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C171",
+      "story_id": "KR_2026-08-31_C171",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C168",
+      "story_id": "KR_2026-08-31_C168",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C167",
+      "story_id": "KR_2026-08-31_C167",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C166",
+      "story_id": "KR_2026-08-31_C166",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C160",
+      "story_id": "KR_2026-08-31_C160",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C115",
+      "story_id": "KR_2026-08-31_C115",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C67",
+      "story_id": "KR_2026-08-31_C67",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C66",
+      "story_id": "KR_2026-08-31_C66",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C47",
+      "story_id": "KR_2026-08-31_C47",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C106",
+      "story_id": "KR_2026-08-31_C106",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C90",
+      "story_id": "KR_2026-08-31_C90",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C162",
+      "story_id": "KR_2026-08-31_C162",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C111",
+      "story_id": "KR_2026-08-31_C111",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C40",
+      "story_id": "KR_2026-08-31_C40",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C221",
+      "story_id": "KR_2026-08-31_C221",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C213",
+      "story_id": "KR_2026-08-31_C213",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C138",
+      "story_id": "KR_2026-08-31_C138",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C60",
+      "story_id": "KR_2026-08-31_C60",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C52",
+      "story_id": "KR_2026-08-31_C52",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C50",
+      "story_id": "KR_2026-08-31_C50",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C180",
+      "story_id": "KR_2026-08-31_C180",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C128",
+      "story_id": "KR_2026-08-31_C128",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C119",
+      "story_id": "KR_2026-08-31_C119",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C116",
+      "story_id": "KR_2026-08-31_C116",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C53",
+      "story_id": "KR_2026-08-31_C53",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C205",
+      "story_id": "KR_2026-08-31_C205",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C176",
+      "story_id": "KR_2026-08-31_C176",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C41",
+      "story_id": "KR_2026-08-31_C41",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C117",
+      "story_id": "KR_2026-08-31_C117",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C36",
+      "story_id": "KR_2026-08-31_C36",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C211",
+      "story_id": "KR_2026-08-31_C211",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C207",
+      "story_id": "KR_2026-08-31_C207",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C188",
+      "story_id": "KR_2026-08-31_C188",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C164",
+      "story_id": "KR_2026-08-31_C164",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C140",
+      "story_id": "KR_2026-08-31_C140",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C218",
+      "story_id": "KR_2026-08-31_C218",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C161",
+      "story_id": "KR_2026-08-31_C161",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C157",
+      "story_id": "KR_2026-08-31_C157",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C54",
+      "story_id": "KR_2026-08-31_C54",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C217",
+      "story_id": "KR_2026-08-31_C217",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C206",
+      "story_id": "KR_2026-08-31_C206",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C204",
+      "story_id": "KR_2026-08-31_C204",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C135",
+      "story_id": "KR_2026-08-31_C135",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C108",
+      "story_id": "KR_2026-08-31_C108",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C78",
+      "story_id": "KR_2026-08-31_C78",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C169",
+      "story_id": "KR_2026-08-31_C169",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C114",
+      "story_id": "KR_2026-08-31_C114",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C71",
+      "story_id": "KR_2026-08-31_C71",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C69",
+      "story_id": "KR_2026-08-31_C69",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C195",
+      "story_id": "KR_2026-08-31_C195",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C104",
+      "story_id": "KR_2026-08-31_C104",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C103",
+      "story_id": "KR_2026-08-31_C103",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C102",
+      "story_id": "KR_2026-08-31_C102",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C87",
+      "story_id": "KR_2026-08-31_C87",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C199",
+      "story_id": "KR_2026-08-31_C199",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C179",
+      "story_id": "KR_2026-08-31_C179",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C146",
+      "story_id": "KR_2026-08-31_C146",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C110",
+      "story_id": "KR_2026-08-31_C110",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C91",
+      "story_id": "KR_2026-08-31_C91",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C59",
+      "story_id": "KR_2026-08-31_C59",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C04",
+      "story_id": "KR_2026-08-31_C04",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C203",
+      "story_id": "KR_2026-08-31_C203",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:REVIEW_1",
+      "story_id": "REVIEW_1",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C80",
+      "story_id": "KR_2026-08-31_C80",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C214",
+      "story_id": "KR_2026-08-31_C214",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C79",
+      "story_id": "KR_2026-08-31_C79",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C65",
+      "story_id": "KR_2026-08-31_C65",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C57",
+      "story_id": "KR_2026-08-31_C57",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C183",
+      "story_id": "KR_2026-08-31_C183",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C13",
+      "story_id": "KR_2026-08-30_C13",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C05",
+      "story_id": "KR_2026-08-30_C05",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C06",
+      "story_id": "KR_2026-08-30_C06",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C02",
+      "story_id": "KR_2026-08-30_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C12",
+      "story_id": "KR_2026-08-30_C12",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C28",
+      "story_id": "KR_2026-08-30_C28",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C23",
+      "story_id": "KR_2026-08-30_C23",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C18",
+      "story_id": "KR_2026-08-30_C18",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-29_C02",
+      "story_id": "KR_2026-08-29_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-29_C03",
+      "story_id": "KR_2026-08-29_C03",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-29_C05",
+      "story_id": "KR_2026-08-29_C05",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-28_C01",
+      "story_id": "KR_2026-08-28_C01",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C22",
+      "story_id": "JP_2026-08-31_C22",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C01",
+      "story_id": "JP_2026-08-31_C01",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C21",
+      "story_id": "JP_2026-08-31_C21",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C20",
+      "story_id": "JP_2026-08-31_C20",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C16",
+      "story_id": "JP_2026-08-31_C16",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C08",
+      "story_id": "JP_2026-08-31_C08",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C24",
+      "story_id": "JP_2026-08-31_C24",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C03",
+      "story_id": "JP_2026-08-31_C03",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C14",
+      "story_id": "JP_2026-08-31_C14",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C02",
+      "story_id": "JP_2026-08-31_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-28_C01",
+      "story_id": "JP_2026-08-28_C01",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-28_C02",
+      "story_id": "JP_2026-08-28_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-28_C03",
+      "story_id": "JP_2026-08-28_C03",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C07",
+      "story_id": "GL_2026-08-31_C07",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C01",
+      "story_id": "GL_2026-08-31_C01",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C04",
+      "story_id": "GL_2026-08-31_C04",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C08",
+      "story_id": "GL_2026-08-31_C08",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C02",
+      "story_id": "GL_2026-08-31_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C02",
+      "story_id": "GL_2026-08-30_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C07",
+      "story_id": "GL_2026-08-30_C07",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C06",
+      "story_id": "GL_2026-08-30_C06",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C05",
+      "story_id": "GL_2026-08-30_C05",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C01",
+      "story_id": "GL_2026-08-30_C01",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-29_C03",
+      "story_id": "GL_2026-08-29_C03",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-29_C02",
+      "story_id": "GL_2026-08-29_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-29_C04",
+      "story_id": "GL_2026-08-29_C04",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C13",
+      "story_id": "GL_2026-08-28_C13",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C06",
+      "story_id": "GL_2026-08-28_C06",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C30",
+      "story_id": "GL_2026-08-28_C30",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C18",
+      "story_id": "GL_2026-08-28_C18",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C01",
+      "story_id": "GL_2026-08-28_C01",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C15",
+      "story_id": "GL_2026-08-28_C15",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C26",
+      "story_id": "GL_2026-08-28_C26",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C21",
+      "story_id": "GL_2026-08-28_C21",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C31",
+      "story_id": "GL_2026-08-28_C31",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C22",
+      "story_id": "GL_2026-08-28_C22",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C19",
+      "story_id": "GL_2026-08-28_C19",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C14",
+      "story_id": "GL_2026-08-28_C14",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C16",
+      "story_id": "GL_2026-08-28_C16",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C09",
+      "story_id": "GL_2026-08-28_C09",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C20",
+      "story_id": "GL_2026-08-28_C20",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C03",
+      "story_id": "GL_2026-08-28_C03",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C23",
+      "story_id": "GL_2026-08-28_C23",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C11",
+      "story_id": "GL_2026-08-28_C11",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C07",
+      "story_id": "GL_2026-08-28_C07",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C05",
+      "story_id": "GL_2026-08-28_C05",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C02",
+      "story_id": "GL_2026-08-28_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C28",
+      "story_id": "GL_2026-08-28_C28",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C24",
+      "story_id": "GL_2026-08-28_C24",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C17",
+      "story_id": "GL_2026-08-28_C17",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C04",
+      "story_id": "GL_2026-08-28_C04",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C25",
+      "story_id": "EU_2026-08-28_C25",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C23",
+      "story_id": "EU_2026-08-28_C23",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C18",
+      "story_id": "EU_2026-08-28_C18",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C04",
+      "story_id": "EU_2026-08-28_C04",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C01",
+      "story_id": "EU_2026-08-28_C01",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C26",
+      "story_id": "EU_2026-08-28_C26",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C20",
+      "story_id": "EU_2026-08-28_C20",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C14",
+      "story_id": "EU_2026-08-28_C14",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C09",
+      "story_id": "EU_2026-08-28_C09",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C29",
+      "story_id": "EU_2026-08-28_C29",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C22",
+      "story_id": "EU_2026-08-28_C22",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C17",
+      "story_id": "EU_2026-08-28_C17",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C07",
+      "story_id": "EU_2026-08-28_C07",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C10",
+      "story_id": "EU_2026-08-28_C10",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C03",
+      "story_id": "EU_2026-08-28_C03",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C24",
+      "story_id": "EU_2026-08-28_C24",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C13",
+      "story_id": "EU_2026-08-28_C13",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C02",
+      "story_id": "EU_2026-08-28_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C12",
+      "story_id": "EU_2026-08-28_C12",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C08",
+      "story_id": "EU_2026-08-28_C08",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C18",
+      "story_id": "CN_2026-08-31_C18",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C21",
+      "story_id": "CN_2026-08-31_C21",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C17",
+      "story_id": "CN_2026-08-31_C17",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C11",
+      "story_id": "CN_2026-08-31_C11",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C22",
+      "story_id": "CN_2026-08-31_C22",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C20",
+      "story_id": "CN_2026-08-31_C20",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C19",
+      "story_id": "CN_2026-08-31_C19",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C15",
+      "story_id": "CN_2026-08-31_C15",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C03",
+      "story_id": "CN_2026-08-31_C03",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C09",
+      "story_id": "CN_2026-08-31_C09",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C12",
+      "story_id": "CN_2026-08-31_C12",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C25",
+      "story_id": "CN_2026-08-31_C25",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C13",
+      "story_id": "CN_2026-08-31_C13",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C04",
+      "story_id": "CN_2026-08-31_C04",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C10",
+      "story_id": "CN_2026-08-31_C10",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C14",
+      "story_id": "CN_2026-08-31_C14",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-30_C03",
+      "story_id": "CN_2026-08-30_C03",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-30_C01",
+      "story_id": "CN_2026-08-30_C01",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-29_C01",
+      "story_id": "CN_2026-08-29_C01",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-29_C02",
+      "story_id": "CN_2026-08-29_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C03",
+      "story_id": "CN_2026-08-28_C03",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C05",
+      "story_id": "CN_2026-08-28_C05",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C04",
+      "story_id": "CN_2026-08-28_C04",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C07",
+      "story_id": "CN_2026-08-28_C07",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C08",
+      "story_id": "CN_2026-08-28_C08",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C06",
+      "story_id": "CN_2026-08-28_C06",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C02",
+      "story_id": "CN_2026-08-28_C02",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0151",
+      "story_id": "TF_0151",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0149",
+      "story_id": "TF_0149",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0143",
+      "story_id": "TF_0143",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0147",
+      "story_id": "TF_0147",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0074",
+      "story_id": "TF_0074",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0124",
+      "story_id": "TF_0124",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0112",
+      "story_id": "TF_0112",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0123",
+      "story_id": "TF_0123",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0104",
+      "story_id": "TF_0104",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0093",
+      "story_id": "TF_0093",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0071",
+      "story_id": "TF_0071",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0135",
+      "story_id": "TF_0135",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0091",
+      "story_id": "TF_0091",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0085",
+      "story_id": "TF_0085",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0120",
+      "story_id": "TF_0120",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0133",
+      "story_id": "TF_0133",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0100",
+      "story_id": "TF_0100",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0098",
+      "story_id": "TF_0098",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0090",
+      "story_id": "TF_0090",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0130",
+      "story_id": "TF_0130",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0068",
+      "story_id": "TF_0068",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0083",
+      "story_id": "TF_0083",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0108",
+      "story_id": "TF_0108",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0117",
+      "story_id": "TF_0117",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0109",
+      "story_id": "TF_0109",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0054",
+      "story_id": "TF_0054",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0050",
+      "story_id": "TF_0050",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0048",
+      "story_id": "TF_0048",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0047",
+      "story_id": "TF_0047",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0045",
+      "story_id": "TF_0045",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0044",
+      "story_id": "TF_0044",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0043",
+      "story_id": "TF_0043",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0042",
+      "story_id": "TF_0042",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0041",
+      "story_id": "TF_0041",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0039",
+      "story_id": "TF_0039",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0038",
+      "story_id": "TF_0038",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0033",
+      "story_id": "TF_0033",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0032",
+      "story_id": "TF_0032",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0031",
+      "story_id": "TF_0031",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0015",
+      "story_id": "TF_0015",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0014",
+      "story_id": "TF_0014",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0017",
+      "story_id": "TF_0017",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0003",
+      "story_id": "TF_0003",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0007",
+      "story_id": "TF_0007",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0011",
+      "story_id": "TF_0011",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0012",
+      "story_id": "TF_0012",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0010",
+      "story_id": "TF_0010",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0009",
+      "story_id": "TF_0009",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0008",
+      "story_id": "TF_0008",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0005",
+      "story_id": "TF_0005",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0006",
+      "story_id": "TF_0006",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0004",
+      "story_id": "TF_0004",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0001",
+      "story_id": "TF_0001",
+      "discovery_origin": "original_input"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0002",
+      "story_id": "TF_0002",
+      "discovery_origin": "original_input"
+    }
+  ],
+  "discovered_missing_candidates": [
+    {
+      "candidate_id": "disc:20260831:lg-es-smackover-lithium-offtake",
+      "title": "LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake",
+      "event_date": "2026-08-31",
+      "source_url": "https://lgcorp.com/media/release/30523?emptySubMenu=false&hostEn=www.lgcorp.com&hostKo=www.lg.co.kr&nav=LG&nav=Media&nav=Press+Release",
+      "baseline_relation": "potential_program_lineage_with_2026-04-22_US_04; relation not yet asserted"
+    },
+    {
+      "candidate_id": "disc:20260831:japan-balancing-market-cap-10-yen",
+      "title": "Japan EPRX lowers primary/secondary-1/composite ΔkW price cap to 10 yen from Sep. 1 delivery",
+      "event_date": "2026-07-30",
+      "source_url": "https://www.eprx.or.jp/information/post.php",
+      "baseline_relation": "no_exact_canonical_match_found"
+    }
+  ],
+  "baseline_follow_up_candidates": [
+    {
+      "candidate_id": "disc:20260831:eu-battery-passport-71-data-points",
+      "title": "European Commission publishes updated Battery Passport guidance covering 71 data points",
+      "event_date": "2026-08-21",
+      "source_url": "https://single-market-economy.ec.europa.eu/news/guidance-support-preparations-digital-batteries-passport-2026-08-21_en",
+      "baseline_relation": "follow_up_candidate_to_2026-07-20_EU_06"
+    },
+    {
+      "candidate_id": "disc:20260831:china-battery-consumption-tax-qa",
+      "title": "China tax authority clarifies battery consumption-tax scope for ESS clusters and semi-solid batteries",
+      "event_date": "2026-08-27",
+      "source_url": "https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html",
+      "baseline_relation": "follow_up_candidate_to_2026-07-16_CN_01"
+    }
+  ],
+  "existing_card_reinforcements": [],
+  "existing_card_update_candidates": [],
+  "correction_or_reversal_candidates": [],
+  "treasure_rescue_candidates": [
+    {
+      "candidate_id": "rescue:20260831:KR_2026-08-31_C85",
+      "story_id": "KR_2026-08-31_C85",
+      "title": "SK Horizon AI data-center infrastructure company with KRW 3.08tn KKR/IMM investment",
+      "event_date": "2026-08-27",
+      "source_url": "https://www.sktelecom.com/en/press/press_detail.do?currentPage=1&idx=1675&keyword=&type=",
+      "baseline_relation": "no_exact_canonical_match_found"
+    },
+    {
+      "candidate_id": "rescue:20260831:KR_2026-08-31_C37",
+      "story_id": "KR_2026-08-31_C37",
+      "title": "KT Everyone's AI service blueprint",
+      "event_date": "2026-08-28",
+      "source_url": null,
+      "baseline_relation": "none"
+    }
+  ],
+  "regional_coverage_matrix": {
+    "korea": {
+      "status": "searched"
+    },
+    "north_america": {
+      "status": "searched"
+    },
+    "china": {
+      "status": "searched"
+    },
+    "japan": {
+      "status": "searched"
+    },
+    "europe": {
+      "status": "searched"
+    },
+    "material_global_markets": {
+      "status": "searched"
+    }
+  },
+  "topic_coverage_matrix": {
+    "cells_chemistries": {
+      "status": "searched"
+    },
+    "materials_components": {
+      "status": "searched"
+    },
+    "pouch_pouch_film_demand": {
+      "status": "searched"
+    },
+    "ess_bess": {
+      "status": "searched"
+    },
+    "ev_charging": {
+      "status": "searched"
+    },
+    "manufacturing_capacity_utilisation": {
+      "status": "searched"
+    },
+    "grid_ai_data_centre_power": {
+      "status": "searched"
+    },
+    "critical_minerals_refining": {
+      "status": "searched"
+    },
+    "recycling": {
+      "status": "searched"
+    },
+    "policy_trade_sanctions_subsidies_localisation": {
+      "status": "searched"
+    },
+    "competitors_customers": {
+      "status": "searched"
+    },
+    "prices_costs_margins": {
+      "status": "searched"
+    },
+    "financing": {
+      "status": "searched"
+    },
+    "safety_recall_commissioning_operation": {
+      "status": "searched"
+    }
+  },
+  "searched_but_no_material_event_ledger": [
+    {
+      "axis": "korea",
+      "note": "no additional external candidate beyond retained raw/rescue items after challenge"
+    },
+    {
+      "axis": "material_global_markets",
+      "note": "no additional candidate retained beyond listed discoveries"
+    }
+  ],
+  "source_universe_expansion_ledger": [
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-29_C02",
+      "origin": "original_input",
+      "story_id": "US_2026-08-29_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C16",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C16"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C03",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C03"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C19",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C19"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C09",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C09"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C02",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C06",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C06"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C11",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C11"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C15",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C15"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C01",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C01"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C08",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C08"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C17",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C17"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C07",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C07"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C05",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C05"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C12",
+      "origin": "original_input",
+      "story_id": "US_2026-08-28_C12"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C178",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C178"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C177",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C177"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C223",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C223"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C189",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C189"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C25",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C25"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C222",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C222"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C82",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C82"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C51",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C51"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C49",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C49"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C48",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C48"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C46",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C46"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C45",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C45"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C44",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C44"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C43",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C43"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C93",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C93"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C215",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C215"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C171",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C171"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C168",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C168"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C167",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C167"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C166",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C166"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C160",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C160"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C115",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C115"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C67",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C67"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C66",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C66"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C47",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C47"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C106",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C106"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C90",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C90"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C162",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C162"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C111",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C111"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C40",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C40"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C221",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C221"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C213",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C213"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C138",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C138"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C60",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C60"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C52",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C52"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C50",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C50"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C180",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C180"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C128",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C128"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C119",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C119"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C116",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C116"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C53",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C53"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C205",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C205"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C176",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C176"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C41",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C41"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C117",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C117"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C36",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C36"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C211",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C211"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C207",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C207"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C188",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C188"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C164",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C164"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C140",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C140"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C218",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C218"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C161",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C161"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C157",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C157"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C54",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C54"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C217",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C217"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C206",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C206"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C204",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C204"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C135",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C135"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C108",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C108"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C78",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C78"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C169",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C169"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C114",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C114"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C71",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C71"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C69",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C69"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C195",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C195"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C104",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C104"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C103",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C103"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C102",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C102"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C87",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C87"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C199",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C199"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C179",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C179"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C146",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C146"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C110",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C110"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C91",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C91"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C59",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C59"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C04",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C04"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C203",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C203"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:REVIEW_1",
+      "origin": "original_input",
+      "story_id": "REVIEW_1"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C80",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C80"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C214",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C214"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C79",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C79"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C65",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C65"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C57",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C57"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C183",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-31_C183"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C13",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-30_C13"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C05",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-30_C05"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C06",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-30_C06"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C02",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-30_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C12",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-30_C12"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C28",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-30_C28"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C23",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-30_C23"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C18",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-30_C18"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-29_C02",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-29_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-29_C03",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-29_C03"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-29_C05",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-29_C05"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-28_C01",
+      "origin": "original_input",
+      "story_id": "KR_2026-08-28_C01"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C22",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-31_C22"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C01",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-31_C01"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C21",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-31_C21"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C20",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-31_C20"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C16",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-31_C16"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C08",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-31_C08"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C24",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-31_C24"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C03",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-31_C03"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C14",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-31_C14"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C02",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-31_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-28_C01",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-28_C01"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-28_C02",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-28_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-28_C03",
+      "origin": "original_input",
+      "story_id": "JP_2026-08-28_C03"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C07",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-31_C07"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C01",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-31_C01"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C04",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-31_C04"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C08",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-31_C08"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C02",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-31_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C02",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-30_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C07",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-30_C07"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C06",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-30_C06"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C05",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-30_C05"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C01",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-30_C01"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-29_C03",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-29_C03"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-29_C02",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-29_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-29_C04",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-29_C04"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C13",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C13"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C06",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C06"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C30",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C30"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C18",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C18"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C01",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C01"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C15",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C15"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C26",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C26"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C21",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C21"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C31",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C31"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C22",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C22"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C19",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C19"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C14",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C14"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C16",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C16"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C09",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C09"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C20",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C20"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C03",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C03"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C23",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C23"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C11",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C11"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C07",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C07"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C05",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C05"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C02",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C28",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C28"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C24",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C24"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C17",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C17"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C04",
+      "origin": "original_input",
+      "story_id": "GL_2026-08-28_C04"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C25",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C25"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C23",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C23"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C18",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C18"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C04",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C04"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C01",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C01"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C26",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C26"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C20",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C20"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C14",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C14"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C09",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C09"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C29",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C29"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C22",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C22"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C17",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C17"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C07",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C07"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C10",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C10"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C03",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C03"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C24",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C24"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C13",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C13"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C02",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C12",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C12"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C08",
+      "origin": "original_input",
+      "story_id": "EU_2026-08-28_C08"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C18",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C18"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C21",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C21"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C17",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C17"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C11",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C11"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C22",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C22"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C20",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C20"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C19",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C19"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C15",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C15"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C03",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C03"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C09",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C09"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C12",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C12"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C25",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C25"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C13",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C13"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C04",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C04"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C10",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C10"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C14",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-31_C14"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-30_C03",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-30_C03"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-30_C01",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-30_C01"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-29_C01",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-29_C01"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-29_C02",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-29_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C03",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-28_C03"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C05",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-28_C05"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C04",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-28_C04"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C07",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-28_C07"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C08",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-28_C08"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C06",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-28_C06"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C02",
+      "origin": "original_input",
+      "story_id": "CN_2026-08-28_C02"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0151",
+      "origin": "original_input",
+      "story_id": "TF_0151"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0149",
+      "origin": "original_input",
+      "story_id": "TF_0149"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0143",
+      "origin": "original_input",
+      "story_id": "TF_0143"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0147",
+      "origin": "original_input",
+      "story_id": "TF_0147"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0074",
+      "origin": "original_input",
+      "story_id": "TF_0074"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0124",
+      "origin": "original_input",
+      "story_id": "TF_0124"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0112",
+      "origin": "original_input",
+      "story_id": "TF_0112"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0123",
+      "origin": "original_input",
+      "story_id": "TF_0123"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0104",
+      "origin": "original_input",
+      "story_id": "TF_0104"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0093",
+      "origin": "original_input",
+      "story_id": "TF_0093"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0071",
+      "origin": "original_input",
+      "story_id": "TF_0071"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0135",
+      "origin": "original_input",
+      "story_id": "TF_0135"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0091",
+      "origin": "original_input",
+      "story_id": "TF_0091"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0085",
+      "origin": "original_input",
+      "story_id": "TF_0085"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0120",
+      "origin": "original_input",
+      "story_id": "TF_0120"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0133",
+      "origin": "original_input",
+      "story_id": "TF_0133"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0100",
+      "origin": "original_input",
+      "story_id": "TF_0100"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0098",
+      "origin": "original_input",
+      "story_id": "TF_0098"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0090",
+      "origin": "original_input",
+      "story_id": "TF_0090"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0130",
+      "origin": "original_input",
+      "story_id": "TF_0130"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0068",
+      "origin": "original_input",
+      "story_id": "TF_0068"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0083",
+      "origin": "original_input",
+      "story_id": "TF_0083"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0108",
+      "origin": "original_input",
+      "story_id": "TF_0108"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0117",
+      "origin": "original_input",
+      "story_id": "TF_0117"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0109",
+      "origin": "original_input",
+      "story_id": "TF_0109"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0054",
+      "origin": "original_input",
+      "story_id": "TF_0054"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0050",
+      "origin": "original_input",
+      "story_id": "TF_0050"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0048",
+      "origin": "original_input",
+      "story_id": "TF_0048"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0047",
+      "origin": "original_input",
+      "story_id": "TF_0047"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0045",
+      "origin": "original_input",
+      "story_id": "TF_0045"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0044",
+      "origin": "original_input",
+      "story_id": "TF_0044"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0043",
+      "origin": "original_input",
+      "story_id": "TF_0043"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0042",
+      "origin": "original_input",
+      "story_id": "TF_0042"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0041",
+      "origin": "original_input",
+      "story_id": "TF_0041"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0039",
+      "origin": "original_input",
+      "story_id": "TF_0039"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0038",
+      "origin": "original_input",
+      "story_id": "TF_0038"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0033",
+      "origin": "original_input",
+      "story_id": "TF_0033"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0032",
+      "origin": "original_input",
+      "story_id": "TF_0032"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0031",
+      "origin": "original_input",
+      "story_id": "TF_0031"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0015",
+      "origin": "original_input",
+      "story_id": "TF_0015"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0014",
+      "origin": "original_input",
+      "story_id": "TF_0014"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0017",
+      "origin": "original_input",
+      "story_id": "TF_0017"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0003",
+      "origin": "original_input",
+      "story_id": "TF_0003"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0007",
+      "origin": "original_input",
+      "story_id": "TF_0007"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0011",
+      "origin": "original_input",
+      "story_id": "TF_0011"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0012",
+      "origin": "original_input",
+      "story_id": "TF_0012"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0010",
+      "origin": "original_input",
+      "story_id": "TF_0010"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0009",
+      "origin": "original_input",
+      "story_id": "TF_0009"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0008",
+      "origin": "original_input",
+      "story_id": "TF_0008"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0005",
+      "origin": "original_input",
+      "story_id": "TF_0005"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0006",
+      "origin": "original_input",
+      "story_id": "TF_0006"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0004",
+      "origin": "original_input",
+      "story_id": "TF_0004"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0001",
+      "origin": "original_input",
+      "story_id": "TF_0001"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0002",
+      "origin": "original_input",
+      "story_id": "TF_0002"
+    },
+    {
+      "candidate_id": "disc:20260831:lg-es-smackover-lithium-offtake",
+      "origin": "discovered",
+      "story_id": null,
+      "title": "LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake",
+      "source_url": "https://lgcorp.com/media/release/30523?emptySubMenu=false&hostEn=www.lgcorp.com&hostKo=www.lg.co.kr&nav=LG&nav=Media&nav=Press+Release"
+    },
+    {
+      "candidate_id": "disc:20260831:eu-battery-passport-71-data-points",
+      "origin": "discovered",
+      "story_id": null,
+      "title": "European Commission publishes updated Battery Passport guidance covering 71 data points",
+      "source_url": "https://single-market-economy.ec.europa.eu/news/guidance-support-preparations-digital-batteries-passport-2026-08-21_en"
+    },
+    {
+      "candidate_id": "disc:20260831:china-battery-consumption-tax-qa",
+      "origin": "discovered",
+      "story_id": null,
+      "title": "China tax authority clarifies battery consumption-tax scope for ESS clusters and semi-solid batteries",
+      "source_url": "https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html"
+    },
+    {
+      "candidate_id": "disc:20260831:japan-balancing-market-cap-10-yen",
+      "origin": "discovered",
+      "story_id": null,
+      "title": "Japan EPRX lowers primary/secondary-1/composite ΔkW price cap to 10 yen from Sep. 1 delivery",
+      "source_url": "https://www.eprx.or.jp/information/post.php"
+    },
+    {
+      "candidate_id": "rescue:20260831:KR_2026-08-31_C85",
+      "origin": "discovered",
+      "story_id": "KR_2026-08-31_C85",
+      "title": "SK Horizon AI data-center infrastructure company with KRW 3.08tn KKR/IMM investment",
+      "source_url": "https://www.sktelecom.com/en/press/press_detail.do?currentPage=1&idx=1675&keyword=&type="
+    },
+    {
+      "candidate_id": "rescue:20260831:KR_2026-08-31_C37",
+      "origin": "discovered",
+      "story_id": "KR_2026-08-31_C37",
+      "title": "KT Everyone's AI service blueprint",
+      "source_url": null
+    }
+  ],
+  "must_report_candidate_ledger": [
+    {
+      "candidate_id": "disc:20260831:lg-es-smackover-lithium-offtake",
+      "reason": "material discovery or rescue requiring event-level reconciliation"
+    },
+    {
+      "candidate_id": "disc:20260831:eu-battery-passport-71-data-points",
+      "reason": "material discovery or rescue requiring event-level reconciliation"
+    },
+    {
+      "candidate_id": "disc:20260831:china-battery-consumption-tax-qa",
+      "reason": "material discovery or rescue requiring event-level reconciliation"
+    },
+    {
+      "candidate_id": "disc:20260831:japan-balancing-market-cap-10-yen",
+      "reason": "material discovery or rescue requiring event-level reconciliation"
+    },
+    {
+      "candidate_id": "rescue:20260831:KR_2026-08-31_C85",
+      "reason": "material discovery or rescue requiring event-level reconciliation"
+    }
+  ],
+  "known_unknowns": [
+    "upstream integrity groups are non-authoritative and must be reclustered by event",
+    "collector story_id is run-scoped and cannot be used as cross-run event identity"
+  ],
+  "residual_coverage_risks": [
+    "cross-run duplicate/follow-up determination remains for authoritative event reconciliation",
+    "quarantined source-packet fields must not be used as evidence before repair"
+  ],
+  "terminal_discovery_disposition_ledger": [
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-29_C02",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C16",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C03",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C19",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C09",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C02",
+      "disposition": "quarantine_source_packet_retain_event_for_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C06",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C11",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C15",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C01",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C08",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C17",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C07",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C05",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:US_2026-08-28_C12",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C178",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C177",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C223",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C189",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C25",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C222",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C82",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C51",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C49",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C48",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C46",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C45",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C44",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C43",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C93",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C215",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C171",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C168",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C167",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C166",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C160",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C115",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C67",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C66",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C47",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C106",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C90",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C162",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C111",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C40",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C221",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C213",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C138",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C60",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C52",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C50",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C180",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C128",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C119",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C116",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C53",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C205",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C176",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C41",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C117",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C36",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C211",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C207",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C188",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C164",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C140",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C218",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C161",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C157",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C54",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C217",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C206",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C204",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C135",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C108",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C78",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C169",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C114",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C71",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C69",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C195",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C104",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C103",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C102",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C87",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C199",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C179",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C146",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C110",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C91",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C59",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C04",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C203",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:REVIEW_1",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C80",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C214",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C79",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C65",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C57",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-31_C183",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C13",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C05",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C06",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C02",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C12",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C28",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C23",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-30_C18",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-29_C02",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-29_C03",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-29_C05",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:KR_2026-08-28_C01",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C22",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C01",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C21",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C20",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C16",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C08",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C24",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C03",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C14",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-31_C02",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-28_C01",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-28_C02",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:JP_2026-08-28_C03",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C07",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C01",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C04",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C08",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-31_C02",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C02",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C07",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C06",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C05",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-30_C01",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-29_C03",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-29_C02",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-29_C04",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C13",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C06",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C30",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C18",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C01",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C15",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C26",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C21",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C31",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C22",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C19",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C14",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C16",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C09",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C20",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C03",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C23",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C11",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C07",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C05",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C02",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C28",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C24",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C17",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:GL_2026-08-28_C04",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C25",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C23",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C18",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C04",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C01",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C26",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C20",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C14",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C09",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C29",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C22",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C17",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C07",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C10",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C03",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C24",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C13",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C02",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C12",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:EU_2026-08-28_C08",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C18",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C21",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C17",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C11",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C22",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C20",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C19",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C15",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C03",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C09",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C12",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C25",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C13",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C04",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C10",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-31_C14",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-30_C03",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-30_C01",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-29_C01",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-29_C02",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C03",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C05",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C04",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C07",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C08",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C06",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:CN_2026-08-28_C02",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0151",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0149",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0143",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0147",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0074",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0124",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0112",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0123",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0104",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0093",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0071",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0135",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0091",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0085",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0120",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0133",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0100",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0098",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0090",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0130",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0068",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0083",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0108",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0117",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0109",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0054",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0050",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0048",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0047",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0045",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0044",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0043",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0042",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0041",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0039",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0038",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0033",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0032",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0031",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0015",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0014",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0017",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0003",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0007",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0011",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0012",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0010",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0009",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0008",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0005",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0006",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0004",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0001",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "orig:20260831_143419:TF_0002",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "disc:20260831:lg-es-smackover-lithium-offtake",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "disc:20260831:eu-battery-passport-71-data-points",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "disc:20260831:china-battery-consumption-tax-qa",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "disc:20260831:japan-balancing-market-cap-10-yen",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "rescue:20260831:KR_2026-08-31_C85",
+      "disposition": "retain_for_authoritative_event_reconciliation"
+    },
+    {
+      "candidate_id": "rescue:20260831:KR_2026-08-31_C37",
+      "disposition": "retain_for_stage_a_review_pool_non_materiality_check"
+    }
+  ],
+  "stage_a_authorized": true
+}

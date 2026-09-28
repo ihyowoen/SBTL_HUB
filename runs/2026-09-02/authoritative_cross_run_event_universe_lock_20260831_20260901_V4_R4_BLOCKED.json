@@ -1,0 +1,34 @@
+{
+  "schema": "authoritative_cross_run_event_universe_lock_v4",
+  "stage": "EVENT_UNIVERSE_RECONCILIATION",
+  "status": "BLOCKED_HISTORICAL_CARRY_FORWARD_RECONCILIATION",
+  "run_id": "SBTL_V4_XRUN_20260831_143419__20260901_123511_R4_BLOCKED",
+  "base_main_commit_sha_at_current_r3": "f2792958a85470c11030211642012865c69f56ab",
+  "current_main_commit_sha": "5c1e4886e1799a8ac1e2f4befc706b9e564a3aa7",
+  "base_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "base_full_count": 1514,
+  "supersedes_for_stage_a_handoff": "runs/2026-09-02/authoritative_cross_run_event_universe_lock_20260831_20260901_V4_R3.json",
+  "current_only_r3": {
+    "event_count": 425,
+    "observation_count": 632,
+    "validity": "VALID_CURRENT_ONLY_RECONCILIATION",
+    "stage_a_authorization": "WITHDRAWN_PENDING_HISTORICAL_UNION"
+  },
+  "historical_gap": {
+    "ledger_ref": "runs/2026-09-02/current_governed_carry_forward_ledger_20260902_R1.json",
+    "auditable_historical_gross": 290,
+    "residual_44_item_reclassification_pending": true,
+    "active_20260825_exact": 246,
+    "historical_vs_current_event_dedupe_complete": false
+  },
+  "replayability_gap": {
+    "r3_full_event_ledger_committed": false,
+    "r3_full_local_artifact_sha256": "90719eb1067241df6b201c2722cca5280f89ea69d0e3fd3e7865b9e91d9e8c13",
+    "finding": "R3 commits count/hash/merge groups but not a full item-level 425-event ledger; historical-vs-current dedupe must materialize a replayable union ledger before R4 PASS."
+  },
+  "stage_a_handoff": {
+    "authorized": false,
+    "formal_stage_a_must_not_start": true,
+    "next_gate": "HISTORICAL_CARRY_FORWARD_ITEM_RECONCILIATION_AND_REPLAYABLE_R4_EVENT_UNIVERSE"
+  }
+}

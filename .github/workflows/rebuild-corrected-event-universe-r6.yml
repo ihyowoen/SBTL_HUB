@@ -1,0 +1,157 @@
+name: Rebuild corrected event universe R6
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/rebuild-r6/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild-r6:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Rebuild corrected membership from audited merge groups
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, hashlib, copy
+          from pathlib import Path
+          MAIN='df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4'
+          BLOB='53219907cdb435c3822c41d097b23e475662aa8a'
+          old_path=Path('runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json')
+          src_path=Path('runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json')
+          old=json.loads(old_path.read_text())
+          src=json.loads(src_path.read_text())
+          assert len(old['events'])==425
+          assert len(src['observations'])==632
+          def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+          def dump(o): return json.dumps(o,ensure_ascii=False,indent=2)+'\n'
+          groups=[
+            ['E0098','E0269'],['E0156','E0375'],['E0018','E0041'],['E0034','E0405'],
+            ['E0036','E0047'],['E0337','E0407'],['E0021','E0053'],['E0017','E0032'],
+            ['E0072','E0310'],['E0062','E0386','E0400'],['E0260','E0289'],['E0247','E0402'],
+            ['E0249','E0253'],['E0024','E0029','E0044'],['E0159','E0359'],
+            ['E0148','E0168','E0376'],['E0131','E0143'],['E0042','E0063'],['E0086','E0146'],
+            ['E0028','E0082','E0298'],['E0254','E0277'],['E0256','E0266','E0286'],
+            ['E0338','E0345'],['E0235','E0319'],['E0144','E0231']
+          ]
+          basis={
+            'E0098|E0269':['same CIP/Windlab Gawara Baya project','same 408MW wind + 104MW grid-forming BESS','same acquisition/financial-close/construction event'],
+            'E0156|E0375':['same Chusheng Xiangyang lithium-battery park','same 70GWh capacity','same commissioning/production start and ~400,000 cells/day'],
+            'E0018|E0041':['same Jeonbuk TP sodium-battery R&D group kickoff','same Aug 31 Jeonju Lahan meeting'],
+            'E0034|E0405':['same Volvo ES90 Korea announcement','same 520km range, 3,000 preorders and October delivery'],
+            'E0036|E0047':['same Yuna/association BioLNG action','same Shanghai Wenji visit and Aug 25-28 meetings'],
+            'E0337|E0407':['same Nova Minerals DOE roundtable/briefing','same Estelle antimony supply-chain agenda'],
+            'E0021|E0053':['same Korea-US energy-security meeting','same Lee Ho-hyun/Curt Coccodrilli, grid/ESS/supply-chain/G20 agenda'],
+            'E0017|E0032':['same Hyundai Motor Group appointment of Hong Eun-hee','same Energy & Hydrogen Business Division leadership action'],
+            'E0072|E0310':['same Lee Cheol-gyu Mining Act amendment','same Korea Mining Association legal basis and mutual-aid provision'],
+            'E0062|E0386|E0400':['same Kia PV7 teaser/first-look','same IAA Transportation 2026 debut confirmation'],
+            'E0260|E0289':['same 2027 economic-security budget package','same ~KRW2.5tn, Northern Sea/Arctic route, oil stockpile and critical-minerals measures'],
+            'E0247|E0402':['same Strategic Materials Export/Import Notice revision','same 80+ item package and AI-chip/semiconductor-equipment scope'],
+            'E0249|E0253':['same Climate Ministry mobile-phone recycling package','same collection campaign and safe collection measures'],
+            'E0024|E0029|E0044':['same Korea Automotive Technology Institute emerging-market EV report','same six-country analytical scope'],
+            'E0159|E0359':['same Sungrow H1 2026 earnings','same storage revenue and 25GWh shipment figures'],
+            'E0148|E0168|E0376':['same Sunwoda H1 2026 earnings','same revenue/net-income/cash-flow figures'],
+            'E0131|E0143':['same Safeloop/HHL Leipzig battery-recycling economics study','same ~EUR1.90/kg loss finding'],
+            'E0042|E0063':['same Korea-UK FTA improved-agreement draft/public-comment action','same 55% to 25% auto threshold and battery-origin relaxation'],
+            'E0086|E0146':['same Hubject-Plugo Plug&Charge Japan partnership','cross-language coverage of one partnership'],
+            'E0028|E0082|E0298':['same US large-grid national-emergency/foreign power-equipment executive action','different reporting angles, no independent second action'],
+            'E0254|E0277':['same Climate/Energy/Environment Ministry 2027 budget','same KRW25.7319tn and +18.3% package'],
+            'E0256|E0266|E0286':['same Industry Ministry 2027 budget','same KRW13.2573tn/+40.5% package with different topical slices'],
+            'E0338|E0345':['same CATL-Moura Brazil partnership','same LRCAP 2026 participation/localization objective'],
+            'E0235|E0319':['same US Q2 2026 battery-storage record report','same record-quarter/20.2GWh reporting cluster'],
+            'E0144|E0231':['same Intertek CEA Section 232 market-analysis event','same module-price/import-economics analysis']
+          }
+          # deterministic union-find, with lexical minimum root
+          shorts=[e['event_id'].rsplit('_',1)[-1] for e in old['events']]
+          parent={x:x for x in shorts}
+          def find(x):
+              if parent[x]!=x: parent[x]=find(parent[x])
+              return parent[x]
+          def union(a,b):
+              a,b=find(a),find(b)
+              if a==b:return
+              if b<a:a,b=b,a
+              parent[b]=a
+          for g in groups:
+              for x in g[1:]: union(g[0],x)
+          comps={}
+          for x in shorts: comps.setdefault(find(x),[]).append(x)
+          comps=sorted((sorted(v) for v in comps.values()),key=lambda v:v[0])
+          assert len(comps)==395
+          assert sum(len(g)-1 for g in groups)==30
+          old_by={e['event_id'].rsplit('_',1)[-1]:e for e in old['events']}
+          src_by={o['observation_key']:o for o in src['observations']}
+          old_to_new={}; events=[]
+          for i,comp in enumerate(comps,1):
+              nid=f'XRUN_REPLAY_20260903_R6_E{i:04d}'
+              oks=sorted({ok for sid in comp for ok in old_by[sid]['observation_keys']})
+              runs=sorted({src_by[ok]['source_run'] for ok in oks})
+              for sid in comp: old_to_new[f'XRUN_REPLAY_20260903_{sid}']=nid
+              # deterministic representative: representative of lexical-minimum old event
+              rep=copy.deepcopy(old_by[comp[0]]['representative'])
+              if len(comp)==1:
+                  mb=copy.deepcopy(old_by[comp[0]].get('merge_basis',{}))
+                  mb['r6_source_event_ids']=[f'XRUN_REPLAY_20260903_{comp[0]}']
+                  mb['r6_classification']='carried_forward_no_cross_event_merge'
+              else:
+                  key='|'.join(comp)
+                  mb={'classification':'cross_event_duplicate_merge_r6','r6_source_event_ids':[f'XRUN_REPLAY_20260903_{x}' for x in comp],'same_event_basis':basis[key],'old_component_count':len(comp)}
+              events.append({'event_id':nid,'observation_count':len(oks),'observation_keys':oks,'source_runs':runs,'cross_run':len(runs)>1,'representative':rep,'merge_basis':mb})
+          flat=[ok for e in events for ok in e['observation_keys']]
+          assert len(flat)==632 and len(set(flat))==632
+          assert set(flat)==set(src_by)
+          membership_material=[{'event_id':e['event_id'],'observation_keys':e['observation_keys']} for e in events]
+          mhash=hashlib.sha256(json.dumps(membership_material,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+          audit={
+            'schema':'all_425_cross_event_duplicate_audit_r6_v2','stage':'EVENT_UNIVERSE_RECONCILIATION','status':'PASS_ALL_PAIR_SCREEN_AND_FLAGGED_PAIR_ADJUDICATION',
+            'generated_date':'2026-09-03','current_main_sha':MAIN,'canonical_blob_sha':BLOB,
+            'input_event_membership':{'path':str(old_path),'sha256':sha(old_path),'event_count':425},
+            'source_identity_index':{'path':str(src_path),'sha256':sha(src_path),'observation_count':632},
+            'audit_provenance':{'exported_artifact_id':9871518832,'exported_artifact_sha256':'cb44c612050f91e77106d40928a219a6fae944c6578ddf8ce736f8a08864d44c','local_raw_inputs_rejoined':True},
+            'method':{'all_cross_event_pairs_scored':True,'total_pairs_scored':90100,'high_risk_union_flagged_pairs':98,'flagged_pairs_adjudicated':98,'unresolved_flagged_pairs':0,'features':['word 1-2gram TF-IDF cosine','character 3-5gram TF-IDF cosine','title similarity','rare-token/distinctive-number/proper-name sweeps','raw-body and source-run manual adjudication'],'story_id_guardrail':'story_id alone is never cross-run identity','event_count_target_forbidden':True},
+            'result':{'confirmed_merge_group_count':25,'event_reduction':30,'corrected_event_count':395,'forced_target_count':False},
+            'confirmed_merge_groups':[{'old_event_ids':[f'XRUN_REPLAY_20260903_{x}' for x in g],'same_event_basis':basis['|'.join(g)],'disposition':'MUST_MERGE_R6'} for g in groups],
+            'keep_separate_guardrails':['Vale job postings remain distinct by job','LPG monthly-price decisions remain distinct by company','underlying corporate event remains distinct from market-price reaction','tax effective action remains distinct from later scope clarification','budget package remains distinct from independently actionable submeasure/official follow-up when source action is separate','site/template boilerplate is never sufficient evidence of same-event identity'],
+            'formal_stage_a_authorized':False,'next_gate':'R6_CANONICAL_RELATION_REANCHOR_AND_PRESELECTION_REGEN'
+          }
+          audit_path=Path('runs/2026-09-03/all_425_cross_event_duplicate_audit_20260903_R6.json')
+          audit_path.write_text(dump(audit))
+          membership={
+            'schema':'current_crossrun_event_membership_replay_corrected_r6_v1','status':'PASS_CORRECTED_CURRENT_EVENT_UNIVERSE_SOURCE_INDEX_BOUND','generated_date':'2026-09-03','run_id':'SBTL_V4_XRUN_REPLAY_20260831_20260901_20260903_R6','current_main_sha':MAIN,'canonical_blob_sha':BLOB,'canonical_card_count':1514,
+            'source_identity_index':{'path':str(src_path),'sha256':sha(src_path)},
+            'duplicate_audit':{'path':str(audit_path),'sha256':sha(audit_path),'input_event_count':425,'confirmed_merge_group_count':25,'event_reduction':30},
+            'accounting':{'observation_count':632,'event_count':395,'multi_observation_event_count':sum(e['observation_count']>1 for e in events),'cross_run_event_count':sum(e['cross_run'] for e in events),'single_run_event_count':sum(not e['cross_run'] for e in events),'unique_observation_keys':632,'raw_input_observations':621,'coverage_discovery_or_rescue_observations':11,'all_observations_accounted':True,'unassigned_observation_count':0,'duplicate_observation_membership_count':0},
+            'membership_sha256':mhash,'old_to_new_event_mapping':old_to_new,'events':events,
+            'authorization':{'event_reconciliation_authorized':True,'canonical_relation_recompute_required':True,'preselection_recompute_required':True,'formal_stage_a_authorized':False,'next_gate':'REGENERATE_CANONICAL_RELATIONS_AND_V4_PRESELECTION_FROM_R6'}
+          }
+          mp=Path('runs/2026-09-03/current_crossrun_event_membership_replay_corrected_395_20260903_R6.json'); mp.write_text(dump(membership))
+          gate={
+            'schema':'current_event_universe_replay_gate_r6_v1','stage':'EVENT_UNIVERSE_RECONCILIATION','status':'PASS_CORRECTED_632_TO_395_RELATION_PRESELECTION_REGEN_REQUIRED','generated_date':'2026-09-03','current_main_sha':MAIN,'canonical_blob_sha':BLOB,
+            'audit_ref':{'path':str(audit_path),'sha256':sha(audit_path)},'membership_ref':{'path':str(mp),'sha256':sha(mp)},'accounting':membership['accounting'],
+            'correction':{'prior_event_count':425,'corrected_event_count':395,'confirmed_same_event_merge_groups':25,'event_count_reduction':30,'event_count_was_not_forced':True,'r4_425_is_authoritative':False},
+            'checks':{'all_90100_old_cross_event_pairs_screened':True,'flagged_high_risk_pairs_adjudicated':True,'unresolved_flagged_pairs_zero':True,'all_632_observations_assigned_exactly_once':True,'duplicate_observation_membership_zero':True,'unassigned_observation_zero':True},
+            'supersession':{'r5_hold_resolved_by_this_gate':True,'superseded_artifacts':['runs/2026-09-03/current_event_universe_replay_gate_20260903_R4.json','runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json','runs/2026-09-03/canonical_relation_replay_closure_425_20260903_R3.json','runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R2.json']},
+            'formal_stage_a':{'decision_batches_committed':0,'authorized':False,'reason':'R6 event universe passes; relation closure and V4 preselection must be regenerated against R6 first.'},'next_gate':'R6_CANONICAL_RELATION_REANCHOR_AND_PRESELECTION_REGEN'
+          }
+          Path('runs/2026-09-03/current_event_universe_replay_gate_20260903_R6.json').write_text(dump(gate))
+          print(json.dumps({'status':gate['status'],'events':395,'observations':632,'merge_groups':25,'reduction':30,'membership_sha256':mhash,'audit_sha256':sha(audit_path),'membership_file_sha256':sha(mp)},ensure_ascii=False))
+          PY
+      - name: Commit R6 outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/all_425_cross_event_duplicate_audit_20260903_R6.json runs/2026-09-03/current_crossrun_event_membership_replay_corrected_395_20260903_R6.json runs/2026-09-03/current_event_universe_replay_gate_20260903_R6.json
+          git rm -r .tmp/rebuild-r6
+          git commit -m 'audit: rebuild corrected 395-event universe R6'
+          git push

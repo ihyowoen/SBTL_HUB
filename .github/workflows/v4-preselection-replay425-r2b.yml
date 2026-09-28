@@ -1,0 +1,114 @@
+name: Regenerate fail-safe V4 preselection R2b for replayable 425
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/preselection425r2b/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  preselection-r2b:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reclassify and verify sanity probes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,re,unicodedata
+          from pathlib import Path
+
+          r1=json.loads(Path('runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R1.json').read_text())
+          membership=json.loads(Path('runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json').read_text())
+          source=json.loads(Path('runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json').read_text())
+          assert len(r1['events'])==425 and len(membership['events'])==425 and len(source['observations'])==632
+          src={o['observation_key']:o for o in source['observations']}
+          mev={e['event_id']:e for e in membership['events']}
+
+          def norm(s):
+              return re.sub(r'\s+',' ',unicodedata.normalize('NFKC',str(s or '')).lower())
+
+          support_patterns=[r'\[특징주\]',r'주가',r'급등',r'급락',r'증권가',r'애널리스트',r'analyst',r'shares? (?:jump|rise|fall|drop)',r'stock (?:jump|rise|fall|drop)']
+          noise_patterns=[r'podcast',r'webinar',r'채용',r'job opening',r'hiring',r'giveaway',r'promotion',r'discount',r'전시회',r'exhibition',r'conference']
+          probes={
+            'deltax_series_b':[r'deltax',r'델타엑스'],
+            'us_storage_20_2gwh':[r'20\.2\s*gwh'],
+            'metlen_bess':[r'metlen',r'mytilineos'],
+            'chusheng_70gwh':[r'楚能.*70\s*gwh',r'70\s*gwh.*楚能',r'xiangyang.*70\s*gwh'],
+            'samsung_sdi_lfp':[r'samsung sdi.*lfp',r'삼성sdi.*lfp',r'삼성 sdi.*lfp'],
+            'wonjun_silvatex':[r'wonjun.*silvatex',r'원준.*silvatex',r'원준.*실바텍스'],
+            'ecopro_solid_state':[r'ecopro.*solid.state',r'에코프로.*전고체',r'에코프로비엠.*전고체'],
+            'california_sb913':[r'sb\s*913',r'senate bill 913',r'california.*resource adequacy',r'california passes bill allowing customer-owned clean energy',r'customer-owned clean energy.*grid reliability']
+          }
+
+          rows=[]
+          for x in r1['events']:
+              eid=x['event_id']; f=x.get('matched_features') or {}; rel=x.get('relation'); old=x['preselection_bucket']; score=x.get('routing_hint_score')
+              all_titles=' | '.join(norm(src[k].get('title')) for k in mev[eid]['observation_keys'])
+              rep_title=norm(x.get('representative',{}).get('title'))
+              has_scope=bool(f.get('scope')); has_policy=bool(f.get('policy'))
+              material_axes=sum(bool(f.get(k)) for k in ('execution','policy','data_financial','scale','technology','strategic'))
+              is_support=any(re.search(p,rep_title) for p in support_patterns)
+              is_noise=any(re.search(p,rep_title) for p in noise_patterns)
+              probe_hits=[name for name,pats in probes.items() if any(re.search(p,all_titles) for p in pats)]
+
+              if old=='existing_reinforcement':
+                  bucket='existing_reinforcement'; reason='authoritative same-event reinforcement; outside new-card queue'
+              elif is_support:
+                  bucket='reject_or_support_only'; reason='explicit market-reaction/analyst support-source pattern'
+              elif probe_hits:
+                  bucket='candidate_review'; reason='missed-candidate sanity rescue into bounded review; old judgment not reused'
+              elif isinstance(score,int) and score>=7:
+                  bucket='high_potential_review'; reason='multiple current-run material routing signals'
+              elif rel and rel.get('relation_type') in ('distinct_follow_up','program_lineage'):
+                  bucket='candidate_review'; reason='re-anchored follow-up/program-lineage requires incremental-value review'
+              elif isinstance(score,int) and score>=4 and (material_axes>=1 or has_scope or has_policy):
+                  bucket='candidate_review'; reason='material current-run routing signal'
+              elif has_scope or has_policy or bool(f.get('technology')) or bool(f.get('strategic')):
+                  bucket='watchlist_context'; reason='scope-positive ambiguity retained under rescue-before-delete'
+              elif is_noise and material_axes==0:
+                  bucket='reject_or_support_only'; reason='clear noise/promotion with no material anchor signal'
+              elif isinstance(score,int) and score>=1:
+                  bucket='watchlist_context'; reason='weak ambiguity retained upward'
+              else:
+                  bucket='reject_or_support_only'; reason='no in-scope/policy/technology/strategic anchor or positive material routing signal'
+
+              rows.append({**x,'r1_preselection_bucket':old,'preselection_bucket':bucket,'r2_routing_reason':reason,'explicit_support_only_pattern':is_support,'explicit_noise_pattern':is_noise,'material_axis_count':material_axes,'sanity_probe_hits':probe_hits,'formal_stage_a_judgment':False})
+
+          order={'high_potential_review':0,'candidate_review':1,'watchlist_context':2,'reject_or_support_only':3,'existing_reinforcement':4}
+          rows.sort(key=lambda x:(order[x['preselection_bucket']],-(x['routing_hint_score'] if isinstance(x.get('routing_hint_score'),int) else -999),-int(x.get('observation_count') or 0),x['event_id']))
+          counts={k:sum(1 for x in rows if x['preselection_bucket']==k) for k in order}
+          assert sum(counts.values())==425 and counts['existing_reinforcement']==4 and len({x['event_id'] for x in rows})==425
+
+          probe_report=[]
+          for name in probes:
+              matches=[x for x in rows if name in x['sanity_probe_hits']]
+              probe_report.append({'probe':name,'match_count':len(matches),'matches':[{'event_id':x['event_id'],'title':x['representative'].get('title'),'bucket':x['preselection_bucket'],'score':x.get('routing_hint_score')} for x in matches[:10]],'all_matches_outside_reject':bool(matches) and all(x['preselection_bucket']!='reject_or_support_only' for x in matches)})
+          missing=[p['probe'] for p in probe_report if p['match_count']==0]
+          reject_probes=[p['probe'] for p in probe_report if p['match_count'] and not p['all_matches_outside_reject']]
+          status='PASS_FAIL_SAFE_ITEM_LEVEL_PRESELECTION_FORMAL_STAGE_A_NOT_YET_RUN' if not missing and not reject_probes else 'HOLD_SANITY_PROBE_GAP'
+
+          result={'schema':'stage_a_v4_preselection_replay_v2','status':status,'generated_date':'2026-09-03','current_main_sha':'df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4','canonical_blob_sha':'53219907cdb435c3822c41d097b23e475662aa8a','selection_policy_version':'EMBEDDED_NEWS_VALUE_SELECTION_V4','supersedes_preselection_ref':'runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R1.json','event_membership_ref':'runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json','relation_closure_ref':'runs/2026-09-03/canonical_relation_replay_closure_425_20260903_R3.json','policy':{'preselection_only_not_formal_stage_a':True,'routing_hint_score_is_not_decision_news_value_score':True,'rescue_before_delete':True,'scope_positive_ambiguous_minimum_watchlist':True,'historical_priority_snapshot_used_only_as_non_authoritative_missed_candidate_probe':True,'historical_partition_counts_not_targeted':True,'same_event_reinforcement_excluded_from_new_card_queue':True},'accounting':{'event_count':425,'bucket_counts':counts,'formal_stage_a_authorized':False},'sanity_probes':probe_report,'sanity_missing_probes':missing,'sanity_reject_probes':reject_probes,'events':rows}
+          Path('runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R2.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          summary={'schema':'stage_a_v4_preselection_replay_summary_v2','status':status,'generated_date':'2026-09-03','event_count':425,'bucket_counts':counts,'sanity_probes':probe_report,'sanity_missing_probes':missing,'sanity_reject_probes':reject_probes,'top_high_potential':[{'event_id':x['event_id'],'title':x['representative'].get('title'),'score':x.get('routing_hint_score'),'relation':x.get('relation')} for x in rows if x['preselection_bucket']=='high_potential_review'][:60],'top_candidate_review':[{'event_id':x['event_id'],'title':x['representative'].get('title'),'score':x.get('routing_hint_score'),'relation':x.get('relation'),'probe_hits':x['sanity_probe_hits']} for x in rows if x['preselection_bucket']=='candidate_review'][:80],'explicit_support_only_count':sum(1 for x in rows if x['explicit_support_only_pattern']),'formal_stage_a_authorized':False,'next_gate':'VERIFY_CURRENT_MAIN_0_0D_THEN_RUN_FORMAL_STAGE_A_V4_ALL_425' if status.startswith('PASS_') else 'RESOLVE_SANITY_PROBE_GAPS_BEFORE_FORMAL_STAGE_A'}
+          Path('runs/2026-09-03/stage_a_v4_preselection_replay_summary_20260903_R2.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(summary,ensure_ascii=False))
+          if missing or reject_probes: raise SystemExit('HOLD_SANITY_PROBE_GAP missing='+repr(missing)+' reject='+repr(reject_probes))
+          PY
+      - name: Commit R2 outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R2.json runs/2026-09-03/stage_a_v4_preselection_replay_summary_20260903_R2.json
+          git rm -r .tmp/preselection425r2b
+          git commit -m 'audit: regenerate fail-safe V4 preselection R2 on replayable 425'
+          git push

@@ -1,0 +1,812 @@
+{
+  "schema": "stage_a_compact_review_packet_r6_v1",
+  "batch": 12,
+  "ordinal_start": 276,
+  "ordinal_end": 300,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 276,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0183",
+      "title": "[칼럼] 철강 체질 개선이 곧 대한민국 제조업 생태계의 안보",
+      "date": "2026-08-31",
+      "site": "이투뉴스",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "[칼럼] 철강 체질 개선이 곧 대한민국 제조업 생태계의 안보"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0194"
+      ]
+    },
+    {
+      "ordinal": 277,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0184",
+      "title": "석유공사, 거제 집중호우 피해복구 성금 3000만원 전달",
+      "date": "2026-08-31",
+      "site": "에너지신문",
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "석유공사, 거제 집중호우 피해복구 성금 3000만원 전달",
+        "석유공사, 거제 집중호우 피해복구 성금 3000만원 전달",
+        "석유공사 임직원, 수해지역 지원에 3000만원 기부"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0195"
+      ]
+    },
+    {
+      "ordinal": 278,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0186",
+      "title": "송석언 JDC 이사장 \"제주 AI 데이터센터 추진…SK·KT와 협의\"",
+      "date": "2026-08-31",
+      "site": "파이낸셜뉴스 RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "송석언 JDC 이사장 \"제주 AI 데이터센터 추진…SK·KT와 협의\""
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0197"
+      ]
+    },
+    {
+      "ordinal": 279,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0187",
+      "title": "경기도, '노후청사 복합개발' 법제화...청년·신혼부부 도심 임대주택 늘어난다",
+      "date": "2026-08-30",
+      "site": "아주경제",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "경기도, '노후청사 복합개발' 법제화...청년·신혼부부 도심 임대주택 늘어난다"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0198"
+      ]
+    },
+    {
+      "ordinal": 280,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0188",
+      "title": "[K뷰티 성공 공식 바뀐다] '각자도생' 끝낸 K-뷰티… 올리브영·무신사가 이끄는 해외 진출",
+      "date": "2026-08-30",
+      "site": "아주경제",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "[K뷰티 성공 공식 바뀐다] '각자도생' 끝낸 K-뷰티… 올리브영·무신사가 이끄는 해외 진출",
+        "[K뷰티 성공 공식 바뀐다] '각자도생' 끝낸 K-뷰티… 올리브영·무신사가 이끄는 해외 진출"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0199"
+      ]
+    },
+    {
+      "ordinal": 281,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0190",
+      "title": "地域の需要、高精度に予測／電中研がツール改良、計算時間５秒に 8/31(1面) 8/31(1面) 電力中央研究所は「町」や「丁目」といった細かな行政区画レベルの電力需要を想定するツールを改良して精度を高めた。住宅の電力需要の想定値をスマートメーターの実測値と機械学習で補正する新手法を構築。この…",
+      "date": "2026-08-31",
+      "site": "Denki Shimbun (電気新聞)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "地域の需要、高精度に予測／電中研がツール改良、計算時間５秒に 8/31(1面) 8/31(1面) 電力中央研究所は「町」や「丁目」といった細かな行政区画レベルの電力需要を想定するツールを改良して精度を高めた。住宅の電力需要の想定値をスマートメーターの実測値と機械学習で補正する新手法を構築。この…",
+        "地域の需要、高精度に予測／電中研がツール改良、計算時間５秒に 8/31(1面) 8/31(1面) 電力中央研究所は「町」や「丁目」といった細かな行政区画レベルの電力需要を想定するツールを改良して精度を高めた。住宅の電力需要の想定値をスマートメーターの実測値と機械学習で補正する新手法を構築。この…"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0201"
+      ]
+    },
+    {
+      "ordinal": 282,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0191",
+      "title": "2026年8月27日 大日本印刷 JCCLに出資しCO₂分離回収の事業化を加速 (別ウィンドウで開く) ニュースリリース 研究開発 企業情報",
+      "date": "2026-08-27",
+      "site": "DNP Japan News",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "2026年8月27日 大日本印刷 JCCLに出資しCO₂分離回収の事業化を加速 (別ウィンドウで開く) ニュースリリース 研究開発 企業情報",
+        "2026年8月27日 大日本印刷 JCCLに出資しCO₂分離回収の事業化を加速 (別ウィンドウで開く) ニュースリリース 研究開発 企業情報"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0202"
+      ]
+    },
+    {
+      "ordinal": 283,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0194",
+      "title": "NMC announces Kicks ROCK CREEK for the Japanese Market",
+      "date": "2026-08-20",
+      "site": "Nissan",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "NMC announces Kicks ROCK CREEK for the Japanese Market",
+        "NMC announces Kicks ROCK CREEK for the Japanese Market"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0205"
+      ]
+    },
+    {
+      "ordinal": 284,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0195",
+      "title": "ClearVue announces coating breakthrough for energy-generating solar glass",
+      "date": "2026-08-31",
+      "site": "PV Magazine RSS (Global)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "ClearVue announces coating breakthrough for energy-generating solar glass"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0206"
+      ]
+    },
+    {
+      "ordinal": 285,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0196",
+      "title": "UK asks banks for feelgood stories about keeping out dirty money",
+      "date": "2026-08-30",
+      "site": "The Guardian UK News RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "UK asks banks for feelgood stories about keeping out dirty money"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0207"
+      ]
+    },
+    {
+      "ordinal": 286,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0200",
+      "title": "造车2.0，供应链走到台前 | 《造车2.0：软件定义汽车下的供应链革命》出版上市",
+      "date": "2026-08-31",
+      "site": "第一电动 市场",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "造车2.0，供应链走到台前 | 《造车2.0：软件定义汽车下的供应链革命》出版上市"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0211"
+      ]
+    },
+    {
+      "ordinal": 287,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0201",
+      "title": "PATEO Secures Dual-Brand Project Nomination From Leading Global Automaker",
+      "date": "2026-08-28",
+      "site": "Gasgoo RSS - Class 11",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "PATEO Secures Dual-Brand Project Nomination From Leading Global Automaker"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0212"
+      ]
+    },
+    {
+      "ordinal": 288,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0202",
+      "title": "Foreign-Funded Suppliers Race to Secure Overseas Footholds Within Two-to-Three-Year Window",
+      "date": "2026-08-28",
+      "site": "Gasgoo RSS - Class 2",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "Foreign-Funded Suppliers Race to Secure Overseas Footholds Within Two-to-Three-Year Window"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0213"
+      ]
+    },
+    {
+      "ordinal": 289,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0203",
+      "title": "扭亏为盈，德方纳米上半年盈利4.55亿元",
+      "date": "2026-08-28",
+      "site": "OFweek Li-Battery",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "扭亏为盈，德方纳米上半年盈利4.55亿元",
+        "扭亏为盈，德方纳米上半年盈利4.55亿元"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0214"
+      ]
+    },
+    {
+      "ordinal": 290,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0204",
+      "title": "光伏行业整体亏损超百亿, 横店东磁凭三张王炸牌在下行周期依然在赚钱",
+      "date": "2026-08-27",
+      "site": "OFweek Li-Battery",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "光伏行业整体亏损超百亿, 横店东磁凭三张王炸牌在下行周期依然在赚钱"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0215"
+      ]
+    },
+    {
+      "ordinal": 291,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0208",
+      "title": "比克电池携手京东打造标准化电池，亮相2026世界机器人大会",
+      "date": "2026-08-27",
+      "site": "OFweek Li-Battery",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "比克电池携手京东打造标准化电池，亮相2026世界机器人大会"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0219"
+      ]
+    },
+    {
+      "ordinal": 292,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0209",
+      "title": "比亚迪电池与蒙古国达成重磅合作",
+      "date": "2026-08-27",
+      "site": "OFweek Li-Battery",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "比亚迪电池与蒙古国达成重磅合作"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0220"
+      ]
+    },
+    {
+      "ordinal": 293,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0211",
+      "title": "回收/保养/修复",
+      "date": "2026-08-27",
+      "site": "OFweek Li-Battery",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "回收/保养/修复"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0222"
+      ]
+    },
+    {
+      "ordinal": 294,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0212",
+      "title": "国轩高科“冰火两重天”",
+      "date": "2026-08-27",
+      "site": "OFweek Li-Battery",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "国轩高科“冰火两重天”"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0223"
+      ]
+    },
+    {
+      "ordinal": 295,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0213",
+      "title": "半年净赚7.78亿，瑞浦兰钧2026H1超预期财报彰显冠军内核",
+      "date": "2026-08-27",
+      "site": "OFweek Li-Battery",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "半年净赚7.78亿，瑞浦兰钧2026H1超预期财报彰显冠军内核"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0224"
+      ]
+    },
+    {
+      "ordinal": 296,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0214",
+      "title": "打通中欧绿色物流通道 国轩高科电池首次陆路直发欧洲 2026-08-20 2026-08-20",
+      "date": "2026-08-20",
+      "site": "Gotion High-Tech News",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "打通中欧绿色物流通道 国轩高科电池首次陆路直发欧洲 2026-08-20 2026-08-20",
+        "打通中欧绿色物流通道 国轩高科电池首次陆路直发欧洲 2026-08-20 2026-08-20"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0225"
+      ]
+    },
+    {
+      "ordinal": 297,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0215",
+      "title": "零跑送清凉 携手创共赢|零跑团队慰问柳州国轩一线员工 2026-08-20 2026-08-20",
+      "date": "2026-08-20",
+      "site": "Gotion High-Tech News",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "零跑送清凉 携手创共赢|零跑团队慰问柳州国轩一线员工 2026-08-20 2026-08-20",
+        "零跑送清凉 携手创共赢|零跑团队慰问柳州国轩一线员工 2026-08-20 2026-08-20"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0226"
+      ]
+    },
+    {
+      "ordinal": 298,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0218",
+      "title": "PowerFlex acquires The Mobility House North America",
+      "date": "2026-08-31",
+      "site": "Charged EVs RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "PowerFlex acquires The Mobility House North America"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "acquire"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0229"
+      ]
+    },
+    {
+      "ordinal": 299,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0222",
+      "title": "Chroma adds GB/T 27930 charge playback to its PowerPro 5 platform",
+      "date": "2026-08-31",
+      "site": "Charged EVs RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Chroma adds GB/T 27930 charge playback to its PowerPro 5 platform"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0234"
+      ]
+    },
+    {
+      "ordinal": 300,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0224",
+      "title": "Scalable Measurement At Your Desk: Centralized And Flexible (Webinar)",
+      "date": "2026-08-31",
+      "site": "Charged EVs RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Scalable Measurement At Your Desk: Centralized And Flexible (Webinar)"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -5,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "webinar"
+        ],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0236"
+      ]
+    }
+  ]
+}

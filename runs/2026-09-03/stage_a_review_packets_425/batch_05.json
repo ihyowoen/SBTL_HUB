@@ -1,0 +1,1860 @@
+{
+  "schema": "stage_a_review_packet_v1",
+  "batch": 5,
+  "ordinal_start": 101,
+  "ordinal_end": 125,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "events": [
+    {
+      "ordinal": 101,
+      "event_id": "XRUN_REPLAY_20260903_E0123",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C11",
+        "story_id": "GL_2026-08-31_C11",
+        "date": "2026-08-31",
+        "title": "Chinese-backed nickel smelters in Indonesia consider output cuts - Mining.com.au",
+        "site": "Indonesia Nickel Supply (via Google News)",
+        "url": "https://mining.com.au/chinese-backed-nickel-smelters-in-indonesia-consider-output-cuts",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "57336b9437abd9cdb3dfad1069a8d6eafaeaa09654143cbe82b776511819a3bd"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C05",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C11"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C05",
+          "source_run": "20260831",
+          "source_index": 158,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C05",
+          "story_id": "GL_2026-08-28_C05",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Chinese nickel firms in Indonesia mull output cuts on low prices - The Business Times",
+          "site": "Indonesia Nickel Supply (via Google News)",
+          "source_url": "https://www.businesstimes.com.sg/international/chinese-nickel-firms-indonesia-mull-output-cuts-low-prices",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "a4018257e151bd23e141f7d2bddb1b03eef6374ab611532004cacbfd71f291b7"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C11",
+          "source_run": "20260901",
+          "source_index": 207,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C11",
+          "story_id": "GL_2026-08-31_C11",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Chinese-backed nickel smelters in Indonesia consider output cuts - Mining.com.au",
+          "site": "Indonesia Nickel Supply (via Google News)",
+          "source_url": "https://mining.com.au/chinese-backed-nickel-smelters-in-indonesia-consider-output-cuts",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "57336b9437abd9cdb3dfad1069a8d6eafaeaa09654143cbe82b776511819a3bd"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "nickel"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 102,
+      "event_id": "XRUN_REPLAY_20260903_E0149",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C21",
+        "story_id": "CN_2026-08-31_C21",
+        "date": "2026-08-31",
+        "title": "资本 | 宝马汽车翻牌亿纬锂能，这只是冰山一角……",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36002-8420-30700677.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "2bba72c0ad30ffbe16a7f2ee5e8116aabe9842f1612dfe0f7c52f7bfcc2ecb32"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-31_C21",
+        "20260901::orig:20260901_123511:CN_2026-08-31_C31"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C21",
+          "source_run": "20260831",
+          "source_index": 185,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-31_C21",
+          "story_id": "CN_2026-08-31_C21",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "资本 | 宝马汽车翻牌亿纬锂能，这只是冰山一角……",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36002-8420-30700677.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "2bba72c0ad30ffbe16a7f2ee5e8116aabe9842f1612dfe0f7c52f7bfcc2ecb32"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C31",
+          "source_run": "20260901",
+          "source_index": 265,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C31",
+          "story_id": "CN_2026-08-31_C31",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "资本 | 宝马汽车翻牌亿纬锂能，这只是冰山一角……",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36002-8420-30700677.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "25c9f62c31b93e8f7c73659e0e01a23ec45cae58b3be66257c1ca39603dd519f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 103,
+      "event_id": "XRUN_REPLAY_20260903_E0154",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C19",
+        "story_id": "CN_2026-08-31_C19",
+        "date": "2026-08-31",
+        "title": "虚拟电厂进场：分布式储能不能只等峰谷差",
+        "site": "OFweek储能网",
+        "url": "https://chuneng.ofweek.com/news/2026-08/ART-180222-8420-30700748.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "a356eee7749ace72b444c5e6426eae158244e2ed6b51aef7abcd732274cfe593"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-31_C19",
+        "20260901::orig:20260901_123511:CN_2026-08-31_C29"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C19",
+          "source_run": "20260831",
+          "source_index": 190,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-31_C19",
+          "story_id": "CN_2026-08-31_C19",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "虚拟电厂进场：分布式储能不能只等峰谷差",
+          "site": "OFweek储能网",
+          "source_url": "https://chuneng.ofweek.com/news/2026-08/ART-180222-8420-30700748.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "a356eee7749ace72b444c5e6426eae158244e2ed6b51aef7abcd732274cfe593"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C29",
+          "source_run": "20260901",
+          "source_index": 271,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C29",
+          "story_id": "CN_2026-08-31_C29",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "虚拟电厂进场：分布式储能不能只等峰谷差",
+          "site": "OFweek储能网",
+          "source_url": "https://chuneng.ofweek.com/news/2026-08/ART-180222-8420-30700748.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "9bd45a7ee2be1111cbf41d9ad3284132347cb8590d4c675f5f16b6550cc50209"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 104,
+      "event_id": "XRUN_REPLAY_20260903_E0155",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C15",
+        "story_id": "CN_2026-08-31_C15",
+        "date": "2026-08-31",
+        "title": "浙江独立储能进现货+调频：先排好一张运行表",
+        "site": "OFweek储能网",
+        "url": "https://chuneng.ofweek.com/news/2026-08/ART-180222-8420-30700735.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "4153467a3ba965e434c28e382825f6fead93b2c2b5f58b5e16b76460bc5577f5"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-31_C15",
+        "20260901::orig:20260901_123511:CN_2026-08-31_C25"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C15",
+          "source_run": "20260831",
+          "source_index": 191,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-31_C15",
+          "story_id": "CN_2026-08-31_C15",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "浙江独立储能进现货+调频：先排好一张运行表",
+          "site": "OFweek储能网",
+          "source_url": "https://chuneng.ofweek.com/news/2026-08/ART-180222-8420-30700735.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "4153467a3ba965e434c28e382825f6fead93b2c2b5f58b5e16b76460bc5577f5"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C25",
+          "source_run": "20260901",
+          "source_index": 272,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C25",
+          "story_id": "CN_2026-08-31_C25",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "浙江独立储能进现货+调频：先排好一张运行表",
+          "site": "OFweek储能网",
+          "source_url": "https://chuneng.ofweek.com/news/2026-08/ART-180222-8420-30700735.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "81ee5d8fcd1ee183a396d7d2d76665d2024caa9627ec2823e2506ee76ccbf4f2"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 105,
+      "event_id": "XRUN_REPLAY_20260903_E0157",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C09",
+        "story_id": "CN_2026-08-31_C09",
+        "date": "2026-08-31",
+        "title": "储能、逆变器、电芯：美国正在逐个关上大门",
+        "site": "OFweek储能网",
+        "url": "https://chuneng.ofweek.com/news/2026-08/ART-180225-8130-30700779.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "2dbd24ed62d941f6616110268cc9819df074949178a3bdae91ac9257d0f4229b"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-31_C09",
+        "20260901::orig:20260901_123511:CN_2026-08-31_C12"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C09",
+          "source_run": "20260831",
+          "source_index": 193,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-31_C09",
+          "story_id": "CN_2026-08-31_C09",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "储能、逆变器、电芯：美国正在逐个关上大门",
+          "site": "OFweek储能网",
+          "source_url": "https://chuneng.ofweek.com/news/2026-08/ART-180225-8130-30700779.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "2dbd24ed62d941f6616110268cc9819df074949178a3bdae91ac9257d0f4229b"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C12",
+          "source_run": "20260901",
+          "source_index": 275,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C12",
+          "story_id": "CN_2026-08-31_C12",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "储能、逆变器、电芯：美国正在逐个关上大门",
+          "site": "OFweek储能网",
+          "source_url": "https://chuneng.ofweek.com/news/2026-08/ART-180225-8130-30700779.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "eae4c36c5cd5acb135705413b82455b53c2823a3b99f629b9216b61cedcfe534"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 106,
+      "event_id": "XRUN_REPLAY_20260903_E0158",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C12",
+        "story_id": "CN_2026-08-31_C12",
+        "date": "2026-08-31",
+        "title": "宁德时代+国资减持磷酸铁锂巨头！",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36008-8120-30700670.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "bef1401bcde834a8038898f6fc68c3c3316bdd4ebedc8ec9beb59f1d91658645"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-31_C12",
+        "20260901::orig:20260901_123511:CN_2026-08-31_C17"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C12",
+          "source_run": "20260831",
+          "source_index": 194,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-31_C12",
+          "story_id": "CN_2026-08-31_C12",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "宁德时代+国资减持磷酸铁锂巨头！",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36008-8120-30700670.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "bef1401bcde834a8038898f6fc68c3c3316bdd4ebedc8ec9beb59f1d91658645"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C17",
+          "source_run": "20260901",
+          "source_index": 277,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C17",
+          "story_id": "CN_2026-08-31_C17",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "宁德时代+国资减持磷酸铁锂巨头！",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36008-8120-30700670.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "c2fd4c9d4d26892d75d2b05f7b64f11c62c4d00f591033a055315ca9233bfe31"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 107,
+      "event_id": "XRUN_REPLAY_20260903_E0171",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C07",
+        "story_id": "CN_2026-08-28_C07",
+        "date": "2026-08-28",
+        "title": "连签四单！楚能加速构建拉美储能合作新生态！",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36001-8130-30700608.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "6e005e400468bd88949c0b1cd6add19d04932b2d3cd94d9073cad71b62ae34dd"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-28_C07",
+        "20260901::orig:20260901_123511:TF_0006"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C07",
+          "source_run": "20260831",
+          "source_index": 207,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-28_C07",
+          "story_id": "CN_2026-08-28_C07",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "连签四单！楚能加速构建拉美储能合作新生态！",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36001-8130-30700608.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "6e005e400468bd88949c0b1cd6add19d04932b2d3cd94d9073cad71b62ae34dd"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0006",
+          "source_run": "20260901",
+          "source_index": 352,
+          "candidate_id": "orig:20260901_123511:TF_0006",
+          "story_id": "TF_0006",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "连签四单！楚能加速构建拉美储能合作新生态！",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36001-8130-30700608.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "3b7dcaaccf7d036fb7be87870816a413248a166587b58d6ee1c9222b93e0bae7"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 108,
+      "event_id": "XRUN_REPLAY_20260903_E0180",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0123",
+        "story_id": "TF_0123",
+        "date": "2026-08-31",
+        "title": "중국의 차세대 전지 산업화 전략 2026.08.31",
+        "site": "SNE Research",
+        "url": "https://www.sneresearch.com/kr/insight/special_view/999/page/0",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "e7d7f8e7dd23700aec0c65ddafaef6ac5f9b500076055b3e8239b2281ae06237"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0123",
+        "20260901::orig:20260901_123511:TF_0102"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0123",
+          "source_run": "20260831",
+          "source_index": 218,
+          "candidate_id": "orig:20260831_143419:TF_0123",
+          "story_id": "TF_0123",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "중국의 차세대 전지 산업화 전략 2026.08.31",
+          "site": "SNE Research",
+          "source_url": "https://www.sneresearch.com/kr/insight/special_view/999/page/0",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "e7d7f8e7dd23700aec0c65ddafaef6ac5f9b500076055b3e8239b2281ae06237"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0102",
+          "source_run": "20260901",
+          "source_index": 314,
+          "candidate_id": "orig:20260901_123511:TF_0102",
+          "story_id": "TF_0102",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "중국의 차세대 전지 산업화 전략 2026.08.31",
+          "site": "SNE Research",
+          "source_url": "https://www.sneresearch.com/kr/insight/special_view/999/page/0",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b94d780b07b1e6cc48bcbf29ee818f1705fc4a6cc5a6db57939b979a28df0681"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전지"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 109,
+      "event_id": "XRUN_REPLAY_20260903_E0203",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0044",
+        "story_id": "TF_0044",
+        "date": "2026-08-25",
+        "title": "One of the World's Largest Superconducting Toroidal Field Coils Successfully Passes Excitation Test",
+        "site": "Toshiba",
+        "url": "https://www.global.toshiba/ww/news/energy/2026/08/news-20260825-01.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "4decb76a58ae0a31458b69618d92b7a5a7e1d730185080a15eaf834bf6898483"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0044",
+        "20260901::orig:20260901_123511:TF_0046"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0044",
+          "source_run": "20260831",
+          "source_index": 241,
+          "candidate_id": "orig:20260831_143419:TF_0044",
+          "story_id": "TF_0044",
+          "origin": "original_input",
+          "event_date": "2026-08-25",
+          "title": "One of the World's Largest Superconducting Toroidal Field Coils Successfully Passes Excitation Test",
+          "site": "Toshiba",
+          "source_url": "https://www.global.toshiba/ww/news/energy/2026/08/news-20260825-01.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "4decb76a58ae0a31458b69618d92b7a5a7e1d730185080a15eaf834bf6898483"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0046",
+          "source_run": "20260901",
+          "source_index": 332,
+          "candidate_id": "orig:20260901_123511:TF_0046",
+          "story_id": "TF_0046",
+          "origin": "original_input",
+          "event_date": "2026-08-25",
+          "title": "One of the World's Largest Superconducting Toroidal Field Coils Successfully Passes Excitation Test",
+          "site": "Toshiba",
+          "source_url": "https://www.global.toshiba/ww/news/energy/2026/08/news-20260825-01.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "73add0e0dbfd15adfa45d2d83b7d21cc7f7101e6da06e07024971688bfb8967d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 110,
+      "event_id": "XRUN_REPLAY_20260903_E0204",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0043",
+        "story_id": "TF_0043",
+        "date": "2026-08-24",
+        "title": "大容量11.5kWhクラウド蓄電池システム「Eeeストレージ」の新製品を発売",
+        "site": "PR TIMES 二次電池",
+        "url": "https://prtimes.jp/main/html/rd/p/000001587.000012900.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "41defcc601286afa2e1e35d5c8e2f06a7612b4d4c0401e7ed970e7571ce294a9"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0043",
+        "20260901::orig:20260901_123511:TF_0045"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0043",
+          "source_run": "20260831",
+          "source_index": 242,
+          "candidate_id": "orig:20260831_143419:TF_0043",
+          "story_id": "TF_0043",
+          "origin": "original_input",
+          "event_date": "2026-08-24",
+          "title": "大容量11.5kWhクラウド蓄電池システム「Eeeストレージ」の新製品を発売",
+          "site": "PR TIMES 二次電池",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000001587.000012900.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "41defcc601286afa2e1e35d5c8e2f06a7612b4d4c0401e7ed970e7571ce294a9"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0045",
+          "source_run": "20260901",
+          "source_index": 333,
+          "candidate_id": "orig:20260901_123511:TF_0045",
+          "story_id": "TF_0045",
+          "origin": "original_input",
+          "event_date": "2026-08-24",
+          "title": "大容量11.5kWhクラウド蓄電池システム「Eeeストレージ」の新製品を発売",
+          "site": "PR TIMES 二次電池",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000001587.000012900.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "fa6ea6c6c0fc232d0513a001b9cc21d8cd2b2ffecd75a18225fcfa8513cfd4f3"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 111,
+      "event_id": "XRUN_REPLAY_20260903_E0209",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0033",
+        "story_id": "TF_0033",
+        "date": "2026-08-26",
+        "title": "Cornish Lithium taps Halliburton for Cross Lanes geothermal project - Enlit World",
+        "site": "Enlit World (via Google News)",
+        "url": "https://www.enlit.world/library/cornish-lithium-taps-halliburton-for-geothermal-project",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "8f8292b3287dd5adfe46283ab1a25523ce14d424afe48e2d1bcf8deab9fec98e"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0033",
+        "20260901::orig:20260901_123511:TF_0033"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0033",
+          "source_run": "20260831",
+          "source_index": 247,
+          "candidate_id": "orig:20260831_143419:TF_0033",
+          "story_id": "TF_0033",
+          "origin": "original_input",
+          "event_date": "2026-08-26",
+          "title": "Cornish Lithium taps Halliburton for Cross Lanes geothermal project - Enlit World",
+          "site": "Enlit World (via Google News)",
+          "source_url": "https://www.enlit.world/library/cornish-lithium-taps-halliburton-for-geothermal-project",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "8f8292b3287dd5adfe46283ab1a25523ce14d424afe48e2d1bcf8deab9fec98e"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0033",
+          "source_run": "20260901",
+          "source_index": 342,
+          "candidate_id": "orig:20260901_123511:TF_0033",
+          "story_id": "TF_0033",
+          "origin": "original_input",
+          "event_date": "2026-08-26",
+          "title": "Cornish Lithium taps Halliburton for Cross Lanes geothermal project - enlit.world",
+          "site": "Enlit World (via Google News)",
+          "source_url": "https://www.enlit.world/library/cornish-lithium-taps-halliburton-for-geothermal-project",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "94a4d68b32d3d6a3bed4a396e19754332b2940b87d6fbf07ed76abf760483752"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "lithium"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 112,
+      "event_id": "XRUN_REPLAY_20260903_E0322",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0042",
+        "story_id": "TF_0042",
+        "date": "2026-09-01",
+        "title": "Astron lands US REE export licence - The Australian",
+        "site": "Australia Critical Minerals (via Google News)",
+        "url": "https://www.theaustralian.com.au/business/stockhead/content/astron-granted-us-export-licence-for-donald-rare-earths-concentrate/news-story/2a81578a90a35f7961624df9546540dd?amp=",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "f04a74c48705b8bd18f764c6da8c89759a94b9e65b379a97c413bf5fcf60be82"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-09-01_C01",
+        "20260901::orig:20260901_123511:TF_0042"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C01",
+          "source_run": "20260901",
+          "source_index": 186,
+          "candidate_id": "orig:20260901_123511:GL_2026-09-01_C01",
+          "story_id": "GL_2026-09-01_C01",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "Astron secures export licence as Australian rare earths take off - Mining.com.au",
+          "site": "Australia Critical Minerals (via Google News)",
+          "source_url": "https://mining.com.au/astron-secures-export-licence-as-australian-rare-earths-take-off",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "d7c4ecd63bd4fe1399f299a64314658a521eb9b5f9ac8bef386d4e18ae4e6038"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0042",
+          "source_run": "20260901",
+          "source_index": 335,
+          "candidate_id": "orig:20260901_123511:TF_0042",
+          "story_id": "TF_0042",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "Astron lands US REE export licence - The Australian",
+          "site": "Australia Critical Minerals (via Google News)",
+          "source_url": "https://www.theaustralian.com.au/business/stockhead/content/astron-granted-us-export-licence-for-donald-rare-earths-concentrate/news-story/2a81578a90a35f7961624df9546540dd?amp=",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "f04a74c48705b8bd18f764c6da8c89759a94b9e65b379a97c413bf5fcf60be82"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 113,
+      "event_id": "XRUN_REPLAY_20260903_E0013",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C07",
+        "story_id": "US_2026-08-28_C07",
+        "date": "2026-08-28",
+        "title": "Canada and Chile advance critical minerals partnership to diversify trade, grow our economy and create jobs",
+        "site": "Canada.ca News API (National News)",
+        "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/08/canada-and-chile-advance-critical-minerals-partnership-to-diversify-trade-grow-our-economy-and-create-jobs.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "ff606b868c9a3fd073ca6cf965187c481f37ff05833adda935b00a5810e6879e"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C07"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C07",
+          "source_run": "20260831",
+          "source_index": 13,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C07",
+          "story_id": "US_2026-08-28_C07",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Canada and Chile advance critical minerals partnership to diversify trade, grow our economy and create jobs",
+          "site": "Canada.ca News API (National News)",
+          "source_url": "https://www.canada.ca/en/natural-resources-canada/news/2026/08/canada-and-chile-advance-critical-minerals-partnership-to-diversify-trade-grow-our-economy-and-create-jobs.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "ff606b868c9a3fd073ca6cf965187c481f37ff05833adda935b00a5810e6879e"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 114,
+      "event_id": "XRUN_REPLAY_20260903_E0044",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C161",
+        "story_id": "KR_2026-08-31_C161",
+        "date": "2026-08-31",
+        "title": "신흥국 ‘자체 전기차’ 키운다…K-부품사엔 새 공급망 기회",
+        "site": "E Today RSS",
+        "url": "https://www.etoday.co.kr/news/view/2620052",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "7c87d3b4ccf8a6fa3d3f061ae78034742e6acaf9b07d1e5862984e339d414f58"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C161"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C161",
+          "source_run": "20260831",
+          "source_index": 68,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C161",
+          "story_id": "KR_2026-08-31_C161",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "신흥국 ‘자체 전기차’ 키운다…K-부품사엔 새 공급망 기회",
+          "site": "E Today RSS",
+          "source_url": "https://www.etoday.co.kr/news/view/2620052",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "7c87d3b4ccf8a6fa3d3f061ae78034742e6acaf9b07d1e5862984e339d414f58"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전기차"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 115,
+      "event_id": "XRUN_REPLAY_20260903_E0077",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C12",
+        "story_id": "KR_2026-08-30_C12",
+        "date": "2026-08-30",
+        "title": "美 매체, 고려아연 경영 분쟁 조명...반도체 핵심광물 공급망 안보로 거론 - 지디넷코리아",
+        "site": "핵심광물 다자·G7 (via Google News)",
+        "url": "https://zdnet.co.kr/view?no=20260830010443",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "f9937c69e61ecf259a618a1621549d1584c91803066c8015b0a1b3b6a79286af"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-30_C12"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C12",
+          "source_run": "20260831",
+          "source_index": 105,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-30_C12",
+          "story_id": "KR_2026-08-30_C12",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "美 매체, 고려아연 경영 분쟁 조명...반도체 핵심광물 공급망 안보로 거론 - 지디넷코리아",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "source_url": "https://zdnet.co.kr/view?no=20260830010443",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "f9937c69e61ecf259a618a1621549d1584c91803066c8015b0a1b3b6a79286af"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "핵심광물"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망",
+          "핵심광물"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 116,
+      "event_id": "XRUN_REPLAY_20260903_E0081",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-29_C02",
+        "story_id": "KR_2026-08-29_C02",
+        "date": "2026-08-29",
+        "title": "'희토류' 공급망 중요성 커진다…핵심 광물 확보 속도전 - 아시아타임즈",
+        "site": "핵심광물 다자·G7 (via Google News)",
+        "url": "https://www.asiatime.co.kr/article/20260828500360",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "e5c6135b0d23fc5250b5f1e84f2410af5447fea6aed527dd00ca84ac6f75d8bc"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-29_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-29_C02",
+          "source_run": "20260831",
+          "source_index": 109,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-29_C02",
+          "story_id": "KR_2026-08-29_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-29",
+          "title": "'희토류' 공급망 중요성 커진다…핵심 광물 확보 속도전 - 아시아타임즈",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "source_url": "https://www.asiatime.co.kr/article/20260828500360",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "e5c6135b0d23fc5250b5f1e84f2410af5447fea6aed527dd00ca84ac6f75d8bc"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "희토류"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 117,
+      "event_id": "XRUN_REPLAY_20260903_E0113",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C15",
+        "story_id": "GL_2026-08-28_C15",
+        "date": "2026-08-28",
+        "title": "KIER Develops Novel Solution-Based Process to Overcome Key Challenge in Direct Recycling of Spent Batteries",
+        "site": "Newswise SciNews",
+        "url": "https://www.newswise.com/articles/kier-develops-novel-solution-based-process-to-overcome-key-challenge-in-direct-recycling-of-spent-batteries?sc=rssn",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "90376e58d165c176a24d032dc40b4aadfc0135e4e70b704eb3d8a51a11458933"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C15"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C15",
+          "source_run": "20260831",
+          "source_index": 144,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C15",
+          "story_id": "GL_2026-08-28_C15",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "KIER Develops Novel Solution-Based Process to Overcome Key Challenge in Direct Recycling of Spent Batteries",
+          "site": "Newswise SciNews",
+          "source_url": "https://www.newswise.com/articles/kier-develops-novel-solution-based-process-to-overcome-key-challenge-in-direct-recycling-of-spent-batteries?sc=rssn",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "90376e58d165c176a24d032dc40b4aadfc0135e4e70b704eb3d8a51a11458933"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "batteries",
+          "ess",
+          "recycling"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "recycling"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 118,
+      "event_id": "XRUN_REPLAY_20260903_E0116",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C19",
+        "story_id": "GL_2026-08-28_C19",
+        "date": "2026-08-28",
+        "title": "Opinion: Battery Passport 2027 – the EU rule that reaches back to the mine - The Northern Miner",
+        "site": "Northern Miner (via Google News)",
+        "url": "https://secure.northernminer.com/news/opinion-battery-passport-2027-the-eu-rule-that-reaches-back-to-the-mine/1003894356",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "e117d0ae5c8f4f0ff34a9f003ada23fa15ecab0dca74ce2efd83056e85f37988"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C19"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C19",
+          "source_run": "20260831",
+          "source_index": 149,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C19",
+          "story_id": "GL_2026-08-28_C19",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Opinion: Battery Passport 2027 – the EU rule that reaches back to the mine - The Northern Miner",
+          "site": "Northern Miner (via Google News)",
+          "source_url": "https://secure.northernminer.com/news/opinion-battery-passport-2027-the-eu-rule-that-reaches-back-to-the-mine/1003894356",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "e117d0ae5c8f4f0ff34a9f003ada23fa15ecab0dca74ce2efd83056e85f37988"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [
+          "passport",
+          "rule"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "opinion"
+        ],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 119,
+      "event_id": "XRUN_REPLAY_20260903_E0121",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C11",
+        "story_id": "GL_2026-08-28_C11",
+        "date": "2026-08-28",
+        "title": "Governments become ‘deal participants’ as critical minerals race accelerates - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/governments-become-deal-participants-as-critical-minerals-race-accelerates",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "86b7abeccb017a0bd4d8503cc85b6a5529082830a52177f0f0242db5fff6d9cf"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C11"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C11",
+          "source_run": "20260831",
+          "source_index": 156,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C11",
+          "story_id": "GL_2026-08-28_C11",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Governments become ‘deal participants’ as critical minerals race accelerates - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/governments-become-deal-participants-as-critical-minerals-race-accelerates",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "86b7abeccb017a0bd4d8503cc85b6a5529082830a52177f0f0242db5fff6d9cf"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 120,
+      "event_id": "XRUN_REPLAY_20260903_E0124",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C02",
+        "story_id": "GL_2026-08-28_C02",
+        "date": "2026-08-28",
+        "title": "Andrada records strong year as it transition to critical minerals company - Mining Weekly",
+        "site": "Mining Weekly (via Google News)",
+        "url": "https://www.miningweekly.com/article/andrada-records-strong-year-as-it-transition-to-critical-minerals-company-2026-08-28",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "7524cd7383f0376df396e61c8e2081cc97cb1a28391157181b634f1bf142376c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C02",
+          "source_run": "20260831",
+          "source_index": 159,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C02",
+          "story_id": "GL_2026-08-28_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Andrada records strong year as it transition to critical minerals company - Mining Weekly",
+          "site": "Mining Weekly (via Google News)",
+          "source_url": "https://www.miningweekly.com/article/andrada-records-strong-year-as-it-transition-to-critical-minerals-company-2026-08-28",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "7524cd7383f0376df396e61c8e2081cc97cb1a28391157181b634f1bf142376c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 121,
+      "event_id": "XRUN_REPLAY_20260903_E0129",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C23",
+        "story_id": "EU_2026-08-28_C23",
+        "date": "2026-08-28",
+        "title": "Sodium-ion: Time to prove its worth",
+        "site": "ESS News RSS",
+        "url": "https://www.ess-news.com/2026/08/28/sodium-ion-cathode-race-stays-open-as-layered-oxide-takes-lead",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "d4f26a400be9a25729b592b49228c870ff486093b7442b9c4f5853292357ccb8"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C23"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C23",
+          "source_run": "20260831",
+          "source_index": 165,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C23",
+          "story_id": "EU_2026-08-28_C23",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Sodium-ion: Time to prove its worth",
+          "site": "ESS News RSS",
+          "source_url": "https://www.ess-news.com/2026/08/28/sodium-ion-cathode-race-stays-open-as-layered-oxide-takes-lead",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "d4f26a400be9a25729b592b49228c870ff486093b7442b9c4f5853292357ccb8"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "sodium-ion"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [
+          "sodium-ion"
+        ],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 122,
+      "event_id": "XRUN_REPLAY_20260903_E0131",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C04",
+        "story_id": "EU_2026-08-28_C04",
+        "date": "2026-08-28",
+        "title": "Battery recycling remains uneconomic in Europe",
+        "site": "ESS News RSS",
+        "url": "https://www.ess-news.com/2026/08/28/battery-recycling-remains-uneconomic-in-europe",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "d9c31dad937b105f5a1be6f09016452c89abfbec82ff4659d7bb2aed2104ec7f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C04"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C04",
+          "source_run": "20260831",
+          "source_index": 167,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C04",
+          "story_id": "EU_2026-08-28_C04",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Battery recycling remains uneconomic in Europe",
+          "site": "ESS News RSS",
+          "source_url": "https://www.ess-news.com/2026/08/28/battery-recycling-remains-uneconomic-in-europe",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "d9c31dad937b105f5a1be6f09016452c89abfbec82ff4659d7bb2aed2104ec7f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "battery",
+          "recycling"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "recycling"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 123,
+      "event_id": "XRUN_REPLAY_20260903_E0133",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C26",
+        "story_id": "EU_2026-08-28_C26",
+        "date": "2026-08-28",
+        "title": "UK opens GBP 28 million challenge for multi‑day renewable storage",
+        "site": "ESS News RSS",
+        "url": "https://www.ess-news.com/2026/08/28/uk-opens-28m-challenge-for-multi-day-renewable-storage",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "5c6776735752886bfd8fbc4cf6f86038e97ef70f1f57b41ac6ad96c9f5880075"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C26"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C26",
+          "source_run": "20260831",
+          "source_index": 169,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C26",
+          "story_id": "EU_2026-08-28_C26",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "UK opens GBP 28 million challenge for multi‑day renewable storage",
+          "site": "ESS News RSS",
+          "source_url": "https://www.ess-news.com/2026/08/28/uk-opens-28m-challenge-for-multi-day-renewable-storage",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "5c6776735752886bfd8fbc4cf6f86038e97ef70f1f57b41ac6ad96c9f5880075"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "opens "
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "million"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "weak ambiguity retained upward",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 124,
+      "event_id": "XRUN_REPLAY_20260903_E0230",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C27",
+        "story_id": "US_2026-08-31_C27",
+        "date": "2026-08-31",
+        "title": "U.S. battery storage boom is driven by data centers and interconnection backlogs",
+        "site": "PV Magazine USA RSS",
+        "url": "https://pv-magazine-usa.com/2026/08/31/u-s-battery-storage-boom-is-driven-by-data-centers-and-interconnection-backlogs",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "cc68577f77b7f085fa6b0eaf86f94bc9f53aa7e94a1c938fcd221eca6dbaa5ff"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C27"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C27",
+          "source_run": "20260901",
+          "source_index": 4,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C27",
+          "story_id": "US_2026-08-31_C27",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "U.S. battery storage boom is driven by data centers and interconnection backlogs",
+          "site": "PV Magazine USA RSS",
+          "source_url": "https://pv-magazine-usa.com/2026/08/31/u-s-battery-storage-boom-is-driven-by-data-centers-and-interconnection-backlogs",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "cc68577f77b7f085fa6b0eaf86f94bc9f53aa7e94a1c938fcd221eca6dbaa5ff"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "data center"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 125,
+      "event_id": "XRUN_REPLAY_20260903_E0244",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C12",
+        "story_id": "US_2026-08-31_C12",
+        "date": "2026-08-31",
+        "title": "Minister Hodgson to make critical minerals announcement",
+        "site": "Canada.ca News API (National News)",
+        "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/08/minister-hodgson-to-make-critical-minerals-announcement.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "e521f26998a49f3408080590062a326952abae68e69610bd6f707e1b17f6c20f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C12"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C12",
+          "source_run": "20260901",
+          "source_index": 20,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C12",
+          "story_id": "US_2026-08-31_C12",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Minister Hodgson to make critical minerals announcement",
+          "site": "Canada.ca News API (National News)",
+          "source_url": "https://www.canada.ca/en/natural-resources-canada/news/2026/08/minister-hodgson-to-make-critical-minerals-announcement.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "e521f26998a49f3408080590062a326952abae68e69610bd6f707e1b17f6c20f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

@@ -1,0 +1,855 @@
+{
+  "schema": "stage_a_compact_review_packet_r6_v1",
+  "batch": 11,
+  "ordinal_start": 251,
+  "ordinal_end": 275,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 251,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0119",
+      "title": "Calix selects Perdaman as hydrogen partner for Zesty Green Iron project",
+      "date": "2026-08-28",
+      "site": "Energy Monitor",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "Calix selects Perdaman as hydrogen partner for Zesty Green Iron project"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0127"
+      ]
+    },
+    {
+      "ordinal": 252,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0120",
+      "title": "The UK doesn’t need more home energy technology – it needs better integration",
+      "date": "2026-08-28",
+      "site": "The Energyst RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "The UK doesn’t need more home energy technology – it needs better integration"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0128"
+      ]
+    },
+    {
+      "ordinal": 253,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0129",
+      "title": "Wood Mackenzie raises Latin America storage forecast to 34 GW by 2035",
+      "date": "2026-08-28",
+      "site": "ESS News RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "Wood Mackenzie raises Latin America storage forecast to 34 GW by 2035"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gw "
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "forecast"
+        ]
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0137"
+      ]
+    },
+    {
+      "ordinal": 254,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0130",
+      "title": "Shell sells Sonnen to Tiven",
+      "date": "2026-08-28",
+      "site": "ESS News RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "Shell sells Sonnen to Tiven"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0138"
+      ]
+    },
+    {
+      "ordinal": 255,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0133",
+      "title": "General Atomics Microreactor selected for US Army Janus Program",
+      "date": "2026-08-28",
+      "site": "European Defence Review RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "General Atomics Microreactor selected for US Army Janus Program"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "selected"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0141"
+      ]
+    },
+    {
+      "ordinal": 256,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0135",
+      "title": "Importing solar modules to US ‘no longer makes sense’ under Section 232 – Intertek CEA",
+      "date": "2026-08-28",
+      "site": "PV Tech RSS",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "Importing solar modules to US ‘no longer makes sense’ under Section 232 – Intertek CEA",
+        "Section 232 tariffs push U.S. module prices to 2023 levels, but analysts see a path back to 30 cents per watt"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "tariff"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0144",
+        "XRUN_REPLAY_20260903_E0231"
+      ]
+    },
+    {
+      "ordinal": 257,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0138",
+      "title": "营收超381 亿！ 二线电池企业欣旺达半年报如何拆解？动储业务高增背后有三笔账需要细看",
+      "date": "2026-08-31",
+      "site": "OFweek Li-Battery",
+      "observation_count": 5,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "“亲儿子”连亏97亿, 还要举债烧535亿, 茂名首富没有退路",
+        "营收超381 亿！ 二线电池企业欣旺达半年报如何拆解？动储业务高增背后有三笔账需要细看",
+        "欣旺达的业绩，为什么会这么烂？",
+        "营收超381 亿！ 二线电池企业欣旺达半年报如何拆解？动储业务高增背后有三笔账需要细看",
+        "“亲儿子”连亏97亿, 还要举债烧535亿, 茂名首富没有退路"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "营收"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0148",
+        "XRUN_REPLAY_20260903_E0168",
+        "XRUN_REPLAY_20260903_E0376"
+      ]
+    },
+    {
+      "ordinal": 258,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0140",
+      "title": "签约深圳海事局，欣旺达发力绿色航运",
+      "date": "2026-08-31",
+      "site": "OFweek Li-Battery",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "签约深圳海事局，欣旺达发力绿色航运",
+        "签约深圳海事局，欣旺达发力绿色航运"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0150"
+      ]
+    },
+    {
+      "ordinal": 259,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0142",
+      "title": "这一局!全固态电池“被打败”",
+      "date": "2026-08-31",
+      "site": "中国能源网",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "这一局!全固态电池“被打败”",
+        "这一局!全固态电池“被打败”"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0152"
+      ]
+    },
+    {
+      "ordinal": 260,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0143",
+      "title": "谁在批量制造“全球第一”？鹏辉“户储王冠”是真金还是镀金？",
+      "date": "2026-08-31",
+      "site": "OFweek储能网",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "谁在批量制造“全球第一”？鹏辉“户储王冠”是真金还是镀金？",
+        "谁在批量制造“全球第一”？鹏辉“户储王冠”是真金还是镀金？"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0153"
+      ]
+    },
+    {
+      "ordinal": 261,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0158",
+      "title": "比亚迪: 重新站起来的巨人",
+      "date": "2026-08-28",
+      "site": "OFweek Li-Battery",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "比亚迪: 重新站起来的巨人",
+        "比亚迪: 重新站起来的巨人"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0169"
+      ]
+    },
+    {
+      "ordinal": 262,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0159",
+      "title": "宁德时代跳过中间商，推出线上直销！",
+      "date": "2026-08-28",
+      "site": "OFweek Li-Battery",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "宁德时代跳过中间商，推出线上直销！"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0170"
+      ]
+    },
+    {
+      "ordinal": 263,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0164",
+      "title": "Amazon’s massive 2026 Labor Day sale now live! Thousands of deals: Apple, Android, TVs, tech under $100, more from under $5",
+      "date": "2026-08-30",
+      "site": "Electrek RSS",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "Amazon’s massive 2026 Labor Day sale now live! Thousands of deals: Apple, Android, TVs, tech under $100, more from under $5",
+        "Amazon’s massive 2026 Labor Day sale now live! Thousands of deals: Apple, Android, TVs, tech under $100, more from under $5"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "$"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0175"
+      ]
+    },
+    {
+      "ordinal": 264,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0165",
+      "title": "666 – il marchio della Spiaggia Lucciola Elettrica con un ricarico del 13 percento",
+      "date": "2026-08-29",
+      "site": "Electrek RSS",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "666 – il marchio della Spiaggia Lucciola Elettrica con un ricarico del 13 percento",
+        "666 – il marchio della Spiaggia Lucciola Elettrica con un ricarico del 13 percento"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0176"
+      ]
+    },
+    {
+      "ordinal": 265,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0170",
+      "title": "삼성전자, 최대 1100Hz 구현한 2027년형 ‘오디세이’ 공개해 삼성전자가 독일 쾰른에서 열린 세계 최대 게임 행사 ’게임스컴 2026’에서 2027년형 오디세이 게이밍 모니터 신제품을 공개했다. 삼성전자는 8월 27일 게임스컴 삼성전자 부스에서 ‘#PlaySamsung: 게이밍 디스플레이의 새로운 시대’ 행사를 열고 오디세이 게이밍 모니터 신제품 4종을 선보였다고 밝혔다. 2026-08-28",
+      "date": "2026-08-31",
+      "site": "일렉포",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "삼성전자, 최대 1100Hz 구현한 2027년형 ‘오디세이’ 공개해 삼성전자가 독일 쾰른에서 열린 세계 최대 게임 행사 ’게임스컴 2026’에서 2027년형 오디세이 게이밍 모니터 신제품을 공개했다. 삼성전자는 8월 27일 게임스컴 삼성전자 부스에서 ‘#PlaySamsung: 게이밍 디스플레이의 새로운 시대’ 행사를 열고 오디세이 게이밍 모니터 신제품 4종을 선보였다고 밝혔다. 2026-08-28"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -7,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "부스",
+          "행사"
+        ],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0181"
+      ]
+    },
+    {
+      "ordinal": 266,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0172",
+      "title": "LG전자 류재철 CEO “기술 전문성 갖춘 인재가 미래 핵심 리더로 성장할 수 있는 회사” LG전자 류재철 CEO가 美 캘리포니아주 샌프란시스코에서 열린 R&D 인재 채용행사 ‘북미 테크 콘퍼런스’를 주관했다. LG전자는 현지시간 29일 미국 샌프란시스코에서 해외 인재 초청 행사인 ‘북미 테크 콘퍼런스’를 열었다. 행사는 현지 R&D 경력 인재 및 박사급 전문인력을 초청해 LG전자가 추진중인 미래 사업의 비전과 기술 경쟁력을 소개하는 채용 연계형 프로그램으로 진행됐다. 2026-08-31",
+      "date": "2026-08-31",
+      "site": "일렉포",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "LG전자 류재철 CEO “기술 전문성 갖춘 인재가 미래 핵심 리더로 성장할 수 있는 회사” LG전자 류재철 CEO가 美 캘리포니아주 샌프란시스코에서 열린 R&D 인재 채용행사 ‘북미 테크 콘퍼런스’를 주관했다. LG전자는 현지시간 29일 미국 샌프란시스코에서 해외 인재 초청 행사인 ‘북미 테크 콘퍼런스’를 열었다. 행사는 현지 R&D 경력 인재 및 박사급 전문인력을 초청해 LG전자가 추진중인 미래 사업의 비전과 기술 경쟁력을 소개하는 채용 연계형 프로그램으로 진행됐다. 2026-08-31"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -7,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "채용",
+          "행사"
+        ],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0183"
+      ]
+    },
+    {
+      "ordinal": 267,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0173",
+      "title": "트럼프 정책에 美 청정전력 최대 540GW 감소 전망…캘리포니아, 풍력 취소 소송",
+      "date": "2026-08-31",
+      "site": "임팩트온",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "트럼프 정책에 美 청정전력 최대 540GW 감소 전망…캘리포니아, 풍력 취소 소송",
+        "트럼프 정책에 美 청정전력 최대 540GW 감소 전망…캘리포니아, 풍력 취소 소송"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gw "
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "전망"
+        ]
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0184"
+      ]
+    },
+    {
+      "ordinal": 268,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0174",
+      "title": "덕산하이메탈, 반도체 패키징 소재 ‘국가전략기술’ 인정…R&D·설비 투자 확대",
+      "date": "2026-08-31",
+      "site": "디지털데일리",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "덕산하이메탈, 반도체 패키징 소재 ‘국가전략기술’ 인정…R&D·설비 투자 확대"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "투자"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0185"
+      ]
+    },
+    {
+      "ordinal": 269,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0175",
+      "title": "日 주부전력, 하마오카 원전 해체 데이터 조작… 재가동 추진에 '찬물'",
+      "date": "2026-08-31",
+      "site": "임팩트온",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "日 주부전력, 하마오카 원전 해체 데이터 조작… 재가동 추진에 '찬물'",
+        "日 주부전력, 하마오카 원전 해체 데이터 조작… 재가동 추진에 '찬물'"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0186"
+      ]
+    },
+    {
+      "ordinal": 270,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0176",
+      "title": "자이스 코리아, 'KPCA 2026'서 첨단 PCB·패키징 품질 솔루션 공개",
+      "date": "2026-08-31",
+      "site": "디지털데일리",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "자이스 코리아, 'KPCA 2026'서 첨단 PCB·패키징 품질 솔루션 공개"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0187"
+      ]
+    },
+    {
+      "ordinal": 271,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0177",
+      "title": "코오롱글로벌 청주 공사현장서 근로자 추락 사망…일부 작업중지",
+      "date": "2026-08-31",
+      "site": "아주경제",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "코오롱글로벌 청주 공사현장서 근로자 추락 사망…일부 작업중지",
+        "코오롱글로벌 청주 공사현장서 근로자 추락 사망…일부 작업중지"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0188"
+      ]
+    },
+    {
+      "ordinal": 272,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0178",
+      "title": "삐걱대는 대미 투자 1호 발표…정부, 사업비 증액 요구에 고민↑",
+      "date": "2026-08-31",
+      "site": "뉴시스 RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "삐걱대는 대미 투자 1호 발표…정부, 사업비 증액 요구에 고민↑"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "투자"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0189"
+      ]
+    },
+    {
+      "ordinal": 273,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0179",
+      "title": "부산환경공단, ‘자원순환의 날’ 기념행사 개최",
+      "date": "2026-08-31",
+      "site": "투데이에너지",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "부산환경공단, ‘자원순환의 날’ 기념행사 개최",
+        "부산환경공단, ‘자원순환의 날’ 기념행사 개최"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -4,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "행사"
+        ],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0190"
+      ]
+    },
+    {
+      "ordinal": 274,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0180",
+      "title": "대한테니스협회, 국가 상대 30억 손배소…“육사코트 투자금 돌려달라”",
+      "date": "2026-08-31",
+      "site": "E Today RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "대한테니스협회, 국가 상대 30억 손배소…“육사코트 투자금 돌려달라”"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "투자"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0191"
+      ]
+    },
+    {
+      "ordinal": 275,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0181",
+      "title": "지역 첨단산업 인재 키운다…산업부, 특성화대학원 6곳에 최대 900억 지원",
+      "date": "2026-08-31",
+      "site": "아주경제",
+      "observation_count": 4,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "지역 산업 맞춰 석·박사 키운다…첨단산업 대학원 6곳 가동",
+        "지역 첨단산업 인재 키운다…산업부, 특성화대학원 6곳에 최대 900억 지원",
+        "지역 산업 맞춰 석·박사 키운다…첨단산업 대학원 6곳 가동",
+        "지역 첨단산업 키울 특성화대학원 6곳 신규 지정"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0192"
+      ]
+    }
+  ]
+}

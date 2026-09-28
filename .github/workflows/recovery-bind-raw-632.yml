@@ -1,0 +1,229 @@
+name: Bind exact raw inputs and materialize 632
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - 'recovery_inputs/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bind-and-materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch locked source branches and main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main chatgpt/v4-run-20260831 chatgpt/v4-run-20260901
+
+      - name: Verify exact raw bytes and materialize 632 source-bound observations
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+
+          EXPECTED_MAIN='df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4'
+          EXPECTED_CANONICAL_BLOB='53219907cdb435c3822c41d097b23e475662aa8a'
+          EXPECTED_CANONICAL_COUNT=1514
+
+          specs={
+            '20260831': {
+              'sha256':'40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8',
+              'bytes':7265646,
+              'story_count':264,
+              'coverage_ref':'origin/chatgpt/v4-run-20260831',
+              'coverage_path':'runs/2026-09-02/stage_0_0c_coverage_discovery_20260831_143419_V4.json',
+            },
+            '20260901': {
+              'sha256':'28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452',
+              'bytes':9604884,
+              'story_count':357,
+              'coverage_ref':'origin/chatgpt/v4-run-20260901',
+              'coverage_path':'runs/2026-09-02/stage_0_0c_coverage_discovery_20260901_123511_V4.json',
+            },
+          }
+
+          main_sha=subprocess.check_output(['git','rev-parse','origin/main'],text=True).strip()
+          if main_sha != EXPECTED_MAIN:
+            raise SystemExit(f'BLOCKED_MAIN_MOVED expected={EXPECTED_MAIN} actual={main_sha}')
+          canonical_blob=subprocess.check_output(['git','rev-parse','origin/main:data/cards.full.json'],text=True).strip()
+          if canonical_blob != EXPECTED_CANONICAL_BLOB:
+            raise SystemExit(f'BLOCKED_CANONICAL_BLOB_MOVED expected={EXPECTED_CANONICAL_BLOB} actual={canonical_blob}')
+          canonical=json.loads(subprocess.check_output(['git','show','origin/main:data/cards.full.json']).decode('utf-8-sig'))
+          if not isinstance(canonical,list) or len(canonical)!=EXPECTED_CANONICAL_COUNT:
+            raise SystemExit(f'BLOCKED_CANONICAL_COUNT actual={len(canonical) if isinstance(canonical,list) else type(canonical).__name__}')
+
+          files=[p for p in Path('recovery_inputs').glob('*.json') if p.is_file()]
+          if not files:
+            raise SystemExit('BLOCKED_NO_RECOVERY_INPUT_JSON_FILES')
+
+          by_hash={}
+          for p in files:
+            raw=p.read_bytes()
+            by_hash.setdefault(hashlib.sha256(raw).hexdigest(),[]).append((p,raw))
+
+          bound={}
+          for run,s in specs.items():
+            matches=by_hash.get(s['sha256'],[])
+            if len(matches)!=1:
+              raise SystemExit(f'BLOCKED_EXACT_RAW_MATCH_COUNT run={run} matches={len(matches)}')
+            p,raw=matches[0]
+            if len(raw)!=s['bytes']:
+              raise SystemExit(f'BLOCKED_RAW_BYTE_COUNT run={run} expected={s["bytes"]} actual={len(raw)}')
+            obj=json.loads(raw.decode('utf-8-sig'))
+            coverage=json.loads(subprocess.check_output(['git','show',f"{s['coverage_ref']}:{s['coverage_path']}"]).decode('utf-8-sig'))
+            original=coverage['original_input_ledger']
+            expected_ids=[x['story_id'] for x in original]
+            if len(expected_ids)!=s['story_count'] or len(set(expected_ids))!=s['story_count']:
+              raise SystemExit(f'BLOCKED_0_0C_ORIGINAL_LEDGER run={run}')
+            expected_set=set(expected_ids)
+
+            candidates=[]
+            def walk(x,path='$'):
+              if isinstance(x,list):
+                if len(x)==s['story_count'] and all(isinstance(v,dict) for v in x):
+                  ids=[v.get('story_id') for v in x]
+                  if all(isinstance(i,str) for i in ids) and len(set(ids))==s['story_count'] and set(ids)==expected_set:
+                    candidates.append((path,x))
+                for i,v in enumerate(x):
+                  if isinstance(v,(dict,list)): walk(v,f'{path}[{i}]')
+              elif isinstance(x,dict):
+                for k,v in x.items():
+                  if isinstance(v,(dict,list)): walk(v,f'{path}.{k}')
+            walk(obj)
+            if len(candidates)!=1:
+              raise SystemExit(f'BLOCKED_AMBIGUOUS_RAW_STORY_ARRAY run={run} candidates={[p for p,_ in candidates]}')
+            story_path,stories=candidates[0]
+            story_by_id={x['story_id']:x for x in stories}
+            if set(story_by_id)!=expected_set:
+              raise SystemExit(f'BLOCKED_RAW_STORY_ID_MEMBERSHIP run={run}')
+            bound[run]={
+              'path':str(p),
+              'sha256':s['sha256'],
+              'byte_count':len(raw),
+              'story_count':len(stories),
+              'story_array_json_path':story_path,
+              'story_by_id':story_by_id,
+            }
+
+          replay_path=Path('runs/2026-09-03/current_authoritative_632_replay_manifest_R1.json')
+          replay=json.loads(replay_path.read_text(encoding='utf-8'))
+          entries=replay['observations']
+          if len(entries)!=632:
+            raise SystemExit(f'BLOCKED_REPLAY_MANIFEST_COUNT actual={len(entries)}')
+
+          materialized=[]
+          for entry in entries:
+            run=entry['source_run']
+            out={
+              'observation_key':entry['observation_key'],
+              'source_run':run,
+              'source_index':entry['source_index'],
+              'candidate_id':entry['candidate_id'],
+              'story_id':entry.get('story_id'),
+              'origin':entry.get('origin'),
+              'terminal_0_0c_disposition':entry.get('terminal_0_0c_disposition'),
+            }
+            if entry['is_original_raw_story']:
+              sid=entry.get('raw_input_lookup_story_id')
+              row=bound[run]['story_by_id'].get(sid)
+              if row is None:
+                raise SystemExit(f'BLOCKED_RAW_ROW_LOOKUP observation={entry["observation_key"]}')
+              out['source_payload_kind']='exact_raw_input_story'
+              out['source_payload']=row
+              out['source_binding']={
+                'raw_file':bound[run]['path'],
+                'raw_sha256':bound[run]['sha256'],
+                'raw_story_array_json_path':bound[run]['story_array_json_path'],
+                'story_id':sid,
+              }
+            else:
+              detail=entry.get('detail_occurrences') or []
+              if not detail:
+                raise SystemExit(f'BLOCKED_DISCOVERY_DETAIL_MISSING observation={entry["observation_key"]}')
+              out['source_payload_kind']='stage_0_0c_discovery_or_rescue_detail'
+              out['source_payload']=detail
+              out['source_binding']={
+                'replay_manifest':str(replay_path),
+                'candidate_id':entry['candidate_id'],
+              }
+            materialized.append(out)
+
+          keys=[x['observation_key'] for x in materialized]
+          if len(keys)!=632 or len(set(keys))!=632:
+            raise SystemExit('BLOCKED_MATERIALIZED_OBSERVATION_KEY_ACCOUNTING')
+          if sum(1 for x in materialized if x['source_payload_kind']=='exact_raw_input_story')!=621:
+            raise SystemExit('BLOCKED_RAW_MATERIALIZED_COUNT')
+          if sum(1 for x in materialized if x['source_payload_kind']=='stage_0_0c_discovery_or_rescue_detail')!=11:
+            raise SystemExit('BLOCKED_DISCOVERY_MATERIALIZED_COUNT')
+
+          out={
+            'schema':'current_authoritative_observations_632_source_bound_v2',
+            'status':'PASS_SOURCE_BOUND_632_MATERIALIZED',
+            'current_main_sha':EXPECTED_MAIN,
+            'canonical_blob_sha':EXPECTED_CANONICAL_BLOB,
+            'canonical_card_count':EXPECTED_CANONICAL_COUNT,
+            'raw_input_bindings':{
+              run:{k:v for k,v in b.items() if k!='story_by_id'} for run,b in bound.items()
+            },
+            'accounting':{
+              'raw_input_observations':621,
+              'coverage_discovery_or_rescue_observations':11,
+              'authoritative_observations_total':632,
+              'all_observation_keys_unique':True,
+            },
+            'observations':materialized,
+            'authorization':{
+              'event_reconciliation_authorized':True,
+              'formal_stage_a_authorized':False,
+              'next_gate':'REBUILD_CURRENT_EVENT_UNIVERSE_FROM_THIS_EXACT_632_PAYLOAD_UNDER_XRUN_EVENT_FINGERPRINT_V4_20260902_R2'
+            }
+          }
+          dest=Path('runs/2026-09-03/current_authoritative_observations_632_source_bound_R2.json')
+          text=json.dumps(out,ensure_ascii=False,indent=2)+'\n'
+          dest.write_text(text,encoding='utf-8')
+          out_sha=hashlib.sha256(text.encode()).hexdigest()
+
+          gate={
+            'schema':'raw_input_binding_gate_v1',
+            'status':'PASS',
+            'current_main_sha':EXPECTED_MAIN,
+            'canonical_blob_sha':EXPECTED_CANONICAL_BLOB,
+            'canonical_card_count':EXPECTED_CANONICAL_COUNT,
+            'raw_bindings':out['raw_input_bindings'],
+            'materialized_632_ref':str(dest),
+            'materialized_632_sha256':out_sha,
+            'observation_count':632,
+            'event_reconciliation_authorized':True,
+            'formal_stage_a_authorized':False
+          }
+          gate_path=Path('runs/2026-09-03/raw_input_binding_gate_R1.json')
+          gate_path.write_text(json.dumps(gate,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('PASS_SOURCE_BOUND_632_MATERIALIZED')
+          print('MATERIALIZED_SHA256=',out_sha)
+          print('RAW_20260831=',bound['20260831']['path'],bound['20260831']['sha256'],bound['20260831']['byte_count'])
+          print('RAW_20260901=',bound['20260901']['path'],bound['20260901']['sha256'],bound['20260901']['byte_count'])
+          PY
+
+      - name: Commit verified materialization
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/current_authoritative_observations_632_source_bound_R2.json runs/2026-09-03/raw_input_binding_gate_R1.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: bind exact raw inputs and materialize source-bound 632'
+            git push
+          fi

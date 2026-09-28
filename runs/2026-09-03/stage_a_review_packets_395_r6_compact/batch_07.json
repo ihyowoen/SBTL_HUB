@@ -1,0 +1,883 @@
+{
+  "schema": "stage_a_compact_review_packet_r6_v1",
+  "batch": 7,
+  "ordinal_start": 151,
+  "ordinal_end": 175,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 151,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0227",
+      "title": "Kempower data indicates that more charging plugs drive higher public EV charging site utilization",
+      "date": "2026-08-31",
+      "site": "Charged EVs RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Kempower data indicates that more charging plugs drive higher public EV charging site utilization"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "charging",
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "utilization"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0239"
+      ]
+    },
+    {
+      "ordinal": 152,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0228",
+      "title": "Jackery Adds Capability & Expandability To New HomePower 1000 Plus v2 Portable Battery",
+      "date": "2026-08-31",
+      "site": "CleanTechnica Reviews RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Jackery Adds Capability & Expandability To New HomePower 1000 Plus v2 Portable Battery"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0240"
+      ]
+    },
+    {
+      "ordinal": 153,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0232",
+      "title": "Minister Hodgson to make critical minerals announcement",
+      "date": "2026-08-31",
+      "site": "Canada.ca News API (National News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Minister Hodgson to make critical minerals announcement"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0244"
+      ]
+    },
+    {
+      "ordinal": 154,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0234",
+      "title": "알래스카 주지사 “美 핵심광물 중국 의존 줄여야…주내 자원 개발 확대 필요” - fntoday.co.kr",
+      "date": "2026-09-01",
+      "site": "핵심광물 다자·G7 (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "알래스카 주지사 “美 핵심광물 중국 의존 줄여야…주내 자원 개발 확대 필요” - fntoday.co.kr"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "핵심광물"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "핵심광물"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0246"
+      ]
+    },
+    {
+      "ordinal": 155,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0235",
+      "title": "고성능 AI칩·첨단 반도체 장비 수출허가 대상 포함…기업 서약서는 폐지",
+      "date": "2026-09-01",
+      "site": "아주경제",
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "고성능 AI칩·첨단 반도체 장비 수출허가 대상 포함…기업 서약서는 폐지",
+        "산업부, '전략물자 수출입고시' 개정안 시행…80여건 반영"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "시행",
+          "허가"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0247",
+        "XRUN_REPLAY_20260903_E0402"
+      ]
+    },
+    {
+      "ordinal": 156,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0239",
+      "title": "[단독] 삼성SDI, 분리막 핵심 파트너 WCP 지분 직접 소유…공급망 내재화 속도",
+      "date": "2026-09-01",
+      "site": "더구루",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "[단독] 삼성SDI, 분리막 핵심 파트너 WCP 지분 직접 소유…공급망 내재화 속도"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "분리막"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0251"
+      ]
+    },
+    {
+      "ordinal": 157,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0245",
+      "title": "제네시스, EV 구매 고객 대상 'E-pit 충전 감사 프로모션' 실시 뉴스 2026.09.01",
+      "date": "2026-09-01",
+      "site": "Hyundai Motor Group Newsroom",
+      "observation_count": 4,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "“최대 3개월 충전비 무료”…제네시스, 전기차 구매자 대상 프로모션",
+        "제네시스 EV 출고 고객, 3개월간 E-pit 충전 무료",
+        "제네시스, EV 구매 고객 대상 'E-pit 충전 감사 프로모션' 실시 뉴스 2026.09.01",
+        "제네시스, EV 구매 고객 대상 ‘E-pit 충전 감사 프로모션’ 실시"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "ev ",
+          "전기차",
+          "충전"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0258"
+      ]
+    },
+    {
+      "ordinal": 158,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0246",
+      "title": "\"EU, LG엔솔·삼성SDI·SK온 등 한국 배터리 3사와 손잡고 中 비중 낮춰야\"",
+      "date": "2026-09-01",
+      "site": "더구루",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "\"EU, LG엔솔·삼성SDI·SK온 등 한국 배터리 3사와 손잡고 中 비중 낮춰야\""
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0259"
+      ]
+    },
+    {
+      "ordinal": 159,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0247",
+      "title": "[2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자",
+      "date": "2026-09-01",
+      "site": "아시아경제",
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "[2027 예산안] 원유·핵심광물·북극항로에 2.5조 투입…경제안보 예산 4배 확대 - 뉴스핌",
+        "[2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "핵심광물"
+        ],
+        "execution": [
+          "투자"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망",
+          "핵심광물"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0260",
+        "XRUN_REPLAY_20260903_E0289"
+      ]
+    },
+    {
+      "ordinal": 160,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0252",
+      "title": "[2027 예산안] 정부, 한전에 8500억원 재정 지원…누적 적자 부담 던다",
+      "date": "2026-09-01",
+      "site": "아주경제",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "[2027 예산안] 정부, 한전에 8500억원 재정 지원…누적 적자 부담 던다"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "적자"
+        ],
+        "scale": [
+          "억원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0265"
+      ]
+    },
+    {
+      "ordinal": 161,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0253",
+      "title": "E1, LPG 신차 구매 고객 대상 충전지원금 지급…기아와 함께",
+      "date": "2026-09-01",
+      "site": "에너지신문",
+      "observation_count": 3,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "E1, \"기아 LPG 차량 충전비 절감\" 5만포인트 프로모션",
+        "E1, LPG 신차 구매 고객 대상 충전지원금 지급…기아와 함께",
+        "E1, 기아와 LPG 신차 고객 충전지원금 프로모션 진행"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전지",
+          "충전"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0267"
+      ]
+    },
+    {
+      "ordinal": 162,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0254",
+      "title": "한빛이노텍, 태양광에 ESS 입힌다...통합에너지 시장 공략",
+      "date": "2026-09-01",
+      "site": "전기신문",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "한빛이노텍, 태양광에 ESS 입힌다...통합에너지 시장 공략"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0268"
+      ]
+    },
+    {
+      "ordinal": 163,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0257",
+      "title": "“3년 물린 개미 드디어...” 美 ESS 시장 기대에 반등 노리는 2차전지株 - 와우넷 오늘장전략",
+      "date": "2026-09-01",
+      "site": "한국경제TV",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "“3년 물린 개미 드디어...” 美 ESS 시장 기대에 반등 노리는 2차전지株 - 와우넷 오늘장전략"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "전지"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0272"
+      ]
+    },
+    {
+      "ordinal": 164,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0260",
+      "title": "'K자형 양극화' 해소에 117조…지역·농어촌·취약계층 지원 늘린다 [2027년 예산안]",
+      "date": "2026-09-01",
+      "site": "한국경제",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "'K자형 양극화' 해소에 117조…지역·농어촌·취약계층 지원 늘린다 [2027년 예산안]"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "양극"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0275"
+      ]
+    },
+    {
+      "ordinal": 165,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0267",
+      "title": "슈퍼브에이아이, 소방연구원과 지하주차장 전기차 화재 조기 감지 AI 모델 개발",
+      "date": "2026-09-01",
+      "site": "전자신문",
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "슈퍼브에이아이, 소방연구원과 지하주차장 전기차 화재 조기 감지 AI 모델 개발",
+        "슈퍼브에이아이, 전기차 화재 AI로 잡는다…\"오경보 80%↓\""
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "전기차"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "연구"
+        ]
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0283"
+      ]
+    },
+    {
+      "ordinal": 166,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0274",
+      "title": "GIST, '페로브스카이트 태양전지 상용화 촉진 협의체' 발족…4개 분과위원장 위촉",
+      "date": "2026-09-01",
+      "site": "전자신문",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "GIST, '페로브스카이트 태양전지 상용화 촉진 협의체' 발족…4개 분과위원장 위촉"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전지"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [
+          "상용화"
+        ],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0292"
+      ]
+    },
+    {
+      "ordinal": 167,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0291",
+      "title": "イーレックス、系統用蓄電池のアグリゲーションサービス開始",
+      "date": "2026-09-01",
+      "site": "PR TIMES 蓄電池",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "イーレックス、系統用蓄電池のアグリゲーションサービス開始"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0311"
+      ]
+    },
+    {
+      "ordinal": 168,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0293",
+      "title": "DMM EV ON、全国2万8000箇所以上の他社充電器情報をアプリ内で一元表示",
+      "date": "2026-09-01",
+      "site": "Response.jp Battery Special",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "DMM EV ON、全国2万8000箇所以上の他社充電器情報をアプリ内で一元表示"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0313"
+      ]
+    },
+    {
+      "ordinal": 169,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0296",
+      "title": "[SMM Nickel Intermediate Product Daily Review] On August 31, MHP and high-grade nickel matte prices declined. - Shanghai Metals Market",
+      "date": "2026-09-01",
+      "site": "Indonesia Nickel Supply (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "[SMM Nickel Intermediate Product Daily Review] On August 31, MHP and high-grade nickel matte prices declined. - Shanghai Metals Market"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "nickel"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0316"
+      ]
+    },
+    {
+      "ordinal": 170,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0297",
+      "title": "Australia and Korea target critical minerals growth - australianmining.com.au",
+      "date": "2026-09-01",
+      "site": "Australia Critical Minerals (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Australia and Korea target critical minerals growth - australianmining.com.au"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0317"
+      ]
+    },
+    {
+      "ordinal": 171,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0298",
+      "title": "Shipping gigawatt-hours of battery storage",
+      "date": "2026-09-01",
+      "site": "PV Magazine RSS (Global)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Shipping gigawatt-hours of battery storage"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0318"
+      ]
+    },
+    {
+      "ordinal": 172,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0301",
+      "title": "Astron lands US REE export licence - The Australian",
+      "date": "2026-09-01",
+      "site": "Australia Critical Minerals (via Google News)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Astron secures export licence as Australian rare earths take off - Mining.com.au",
+        "Astron lands US REE export licence - The Australian"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0322"
+      ]
+    },
+    {
+      "ordinal": 173,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0302",
+      "title": "Chhattisgarh pitches itself as critical minerals hub, 5 blocks up for auction - The Times of India",
+      "date": "2026-08-31",
+      "site": "G7 Critical Minerals Multilateral (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Chhattisgarh pitches itself as critical minerals hub, 5 blocks up for auction - The Times of India"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0323"
+      ]
+    },
+    {
+      "ordinal": 174,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0303",
+      "title": "Brazil rare earth mine shows hurdles of breaking free from China - Mining.com",
+      "date": "2026-08-31",
+      "site": "Mining.com Battery Minerals (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Brazil rare earth mine shows hurdles of breaking free from China - Mining.com"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0324"
+      ]
+    },
+    {
+      "ordinal": 175,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0304",
+      "title": "South Korea seeks incentives to deepen nickel partnership with Indonesia - The Jakarta Post",
+      "date": "2026-08-31",
+      "site": "Indonesia Nickel Supply (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "South Korea seeks incentives to deepen nickel partnership with Indonesia - The Jakarta Post"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "nickel"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0325"
+      ]
+    }
+  ]
+}

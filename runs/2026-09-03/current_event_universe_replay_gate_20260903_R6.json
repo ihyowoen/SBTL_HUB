@@ -1,0 +1,60 @@
+{
+  "schema": "current_event_universe_replay_gate_r6_v1",
+  "stage": "EVENT_UNIVERSE_RECONCILIATION",
+  "status": "PASS_CORRECTED_632_TO_395_RELATION_PRESELECTION_REGEN_REQUIRED",
+  "generated_date": "2026-09-03",
+  "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "audit_ref": {
+    "path": "runs/2026-09-03/all_425_cross_event_duplicate_audit_20260903_R6.json",
+    "sha256": "85def1a60ff18e026626471076eef1124ca73dcb08756062d11bbf69d7741b69"
+  },
+  "membership_ref": {
+    "path": "runs/2026-09-03/current_crossrun_event_membership_replay_corrected_395_20260903_R6.json",
+    "sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702"
+  },
+  "accounting": {
+    "observation_count": 632,
+    "event_count": 395,
+    "multi_observation_event_count": 123,
+    "cross_run_event_count": 102,
+    "single_run_event_count": 293,
+    "unique_observation_keys": 632,
+    "raw_input_observations": 621,
+    "coverage_discovery_or_rescue_observations": 11,
+    "all_observations_accounted": true,
+    "unassigned_observation_count": 0,
+    "duplicate_observation_membership_count": 0
+  },
+  "correction": {
+    "prior_event_count": 425,
+    "corrected_event_count": 395,
+    "confirmed_same_event_merge_groups": 25,
+    "event_count_reduction": 30,
+    "event_count_was_not_forced": true,
+    "r4_425_is_authoritative": false
+  },
+  "checks": {
+    "all_90100_old_cross_event_pairs_screened": true,
+    "flagged_high_risk_pairs_adjudicated": true,
+    "unresolved_flagged_pairs_zero": true,
+    "all_632_observations_assigned_exactly_once": true,
+    "duplicate_observation_membership_zero": true,
+    "unassigned_observation_zero": true
+  },
+  "supersession": {
+    "r5_hold_resolved_by_this_gate": true,
+    "superseded_artifacts": [
+      "runs/2026-09-03/current_event_universe_replay_gate_20260903_R4.json",
+      "runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json",
+      "runs/2026-09-03/canonical_relation_replay_closure_425_20260903_R3.json",
+      "runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R2.json"
+    ]
+  },
+  "formal_stage_a": {
+    "decision_batches_committed": 0,
+    "authorized": false,
+    "reason": "R6 event universe passes; relation closure and V4 preselection must be regenerated against R6 first."
+  },
+  "next_gate": "R6_CANONICAL_RELATION_REANCHOR_AND_PRESELECTION_REGEN"
+}

@@ -1,0 +1,2144 @@
+{
+  "schema": "stage_a_review_packet_r6_v1",
+  "batch": 2,
+  "ordinal_start": 26,
+  "ordinal_end": 50,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 26,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0103",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C30",
+        "story_id": "GL_2026-08-28_C30",
+        "date": "2026-08-28",
+        "title": "US Agency Places Energy, Critical Minerals Among Priorities for Morocco Investment - Morocco World News",
+        "site": "G7 Critical Minerals Multilateral (via Google News)",
+        "url": "https://www.moroccoworldnews.com/2026/08/336408/us-agency-places-energy-critical-minerals-among-priorities-for-morocco-investment",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "920bd3664eb9e55afee4a1938b0d36f233d03e3b5fabd98958d017ff301940e8"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C30"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C30",
+          "source_run": "20260831",
+          "source_index": 141,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C30",
+          "story_id": "GL_2026-08-28_C30",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "US Agency Places Energy, Critical Minerals Among Priorities for Morocco Investment - Morocco World News",
+          "site": "G7 Critical Minerals Multilateral (via Google News)",
+          "source_url": "https://www.moroccoworldnews.com/2026/08/336408/us-agency-places-energy-critical-minerals-among-priorities-for-morocco-investment",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "920bd3664eb9e55afee4a1938b0d36f233d03e3b5fabd98958d017ff301940e8"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 5,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [
+          "investment"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0111"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 27,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0107",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C31",
+        "story_id": "GL_2026-08-28_C31",
+        "date": "2026-08-28",
+        "title": "US-focused rare earths recycler Cyclic Materials secures another $75m funding for plant rollout - Mining Weekly",
+        "site": "Mining Weekly (via Google News)",
+        "url": "https://www.miningweekly.com/article/us-focused-rare-earths-recycler-cyclic-materials-secures-another-75m-funding-for-plant-rollout-2026-08-28",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "052821fcc8eb82f20eff59960f995507391652f12f21b6ff917e71cc480eb119"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C31"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C31",
+          "source_run": "20260831",
+          "source_index": 147,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C31",
+          "story_id": "GL_2026-08-28_C31",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "US-focused rare earths recycler Cyclic Materials secures another $75m funding for plant rollout - Mining Weekly",
+          "site": "Mining Weekly (via Google News)",
+          "source_url": "https://www.miningweekly.com/article/us-focused-rare-earths-recycler-cyclic-materials-secures-another-75m-funding-for-plant-rollout-2026-08-28",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "052821fcc8eb82f20eff59960f995507391652f12f21b6ff917e71cc480eb119"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 6,
+      "matched_features": {
+        "scope": [
+          "rare earth"
+        ],
+        "execution": [
+          "funding",
+          "plant"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "$"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0115"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 28,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0118",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C17",
+        "story_id": "GL_2026-08-28_C17",
+        "date": "2026-08-28",
+        "title": "Mobile BESS provider Nomad begins life under new ownership with US DOE approval of Vermont pilot",
+        "site": "Energy-Storage.news RSS",
+        "url": "https://www.energy-storage.news/mobile-bess-provider-nomad-begins-life-under-new-ownership-with-us-doe-approval-of-vermont-pilot",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "0283a913361a5100ad42def261a6d8f9e2cd7a546f3d67e787d67a86602801b6"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C17"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C17",
+          "source_run": "20260831",
+          "source_index": 162,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C17",
+          "story_id": "GL_2026-08-28_C17",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Mobile BESS provider Nomad begins life under new ownership with US DOE approval of Vermont pilot",
+          "site": "Energy-Storage.news RSS",
+          "source_url": "https://www.energy-storage.news/mobile-bess-provider-nomad-begins-life-under-new-ownership-with-us-doe-approval-of-vermont-pilot",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "0283a913361a5100ad42def261a6d8f9e2cd7a546f3d67e787d67a86602801b6"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "bess",
+          "ess"
+        ],
+        "execution": [],
+        "policy": [
+          "approval"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0126"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 29,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0122",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C18",
+        "story_id": "EU_2026-08-28_C18",
+        "date": "2026-08-28",
+        "title": "Metlen scales BESS across UK, Italy, Greece and Central and Eastern Europe",
+        "site": "ESS News RSS",
+        "url": "https://www.ess-news.com/2026/08/28/metlen-scales-bess-across-uk-italy-greece-and-cee",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "faad9a32860628a7fb370807ef4656c65408bb917cf5177206bd7e63c0b8bf4c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C18"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C18",
+          "source_run": "20260831",
+          "source_index": 166,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C18",
+          "story_id": "EU_2026-08-28_C18",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Metlen scales BESS across UK, Italy, Greece and Central and Eastern Europe",
+          "site": "ESS News RSS",
+          "source_url": "https://www.ess-news.com/2026/08/28/metlen-scales-bess-across-uk-italy-greece-and-cee",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "faad9a32860628a7fb370807ef4656c65408bb917cf5177206bd7e63c0b8bf4c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "bess",
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0130"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 30,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0126",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C20",
+        "story_id": "EU_2026-08-28_C20",
+        "date": "2026-08-28",
+        "title": "Nickel exposure at CATL plant in Hungary",
+        "site": "Electrive RSS",
+        "url": "https://www.electrive.com/2026/08/28/nickel-exposure-at-catl-plant-in-hungary",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "161f58c1fa5c32db827819a685a7589d8f6c5e99f8a45984da92f2443576d62e"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C20"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C20",
+          "source_run": "20260831",
+          "source_index": 170,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C20",
+          "story_id": "EU_2026-08-28_C20",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Nickel exposure at CATL plant in Hungary",
+          "site": "Electrive RSS",
+          "source_url": "https://www.electrive.com/2026/08/28/nickel-exposure-at-catl-plant-in-hungary",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "161f58c1fa5c32db827819a685a7589d8f6c5e99f8a45984da92f2443576d62e"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "nickel"
+        ],
+        "execution": [
+          "plant"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0134"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 31,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0128",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C09",
+        "story_id": "EU_2026-08-28_C09",
+        "date": "2026-08-28",
+        "title": "FEOC restrictions are forcing operational maturity throughout the supply chain",
+        "site": "PV Tech RSS",
+        "url": "https://www.pv-tech.org/feoc-restrictions-are-forcing-operational-maturity-throughout-the-supply-chain",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "368c4776a252ed846fdf77e9836b307667a86c1cc0b76598f5a0055c4de0f688"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C09"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C09",
+          "source_run": "20260831",
+          "source_index": 172,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C09",
+          "story_id": "EU_2026-08-28_C09",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "FEOC restrictions are forcing operational maturity throughout the supply chain",
+          "site": "PV Tech RSS",
+          "source_url": "https://www.pv-tech.org/feoc-restrictions-are-forcing-operational-maturity-throughout-the-supply-chain",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "368c4776a252ed846fdf77e9836b307667a86c1cc0b76598f5a0055c4de0f688"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "feoc",
+          "restriction"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "supply chain"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0136"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 32,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0132",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C07",
+        "story_id": "EU_2026-08-28_C07",
+        "date": "2026-08-28",
+        "title": "China H1 2026: New-type energy storage additions fall 18%, overseas orders jump 83%",
+        "site": "ESS News RSS",
+        "url": "https://www.ess-news.com/2026/08/28/china-h1-2026-new-type-energy-storage-additions-fall-18-overseas-orders-jump-83",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "7199cda1622f1f29d311b6acb726bc250432fac72ae0505597487146983cd8cf"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C07"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C07",
+          "source_run": "20260831",
+          "source_index": 176,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C07",
+          "story_id": "EU_2026-08-28_C07",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "China H1 2026: New-type energy storage additions fall 18%, overseas orders jump 83%",
+          "site": "ESS News RSS",
+          "source_url": "https://www.ess-news.com/2026/08/28/china-h1-2026-new-type-energy-storage-additions-fall-18-overseas-orders-jump-83",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "7199cda1622f1f29d311b6acb726bc250432fac72ae0505597487146983cd8cf"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 6,
+      "matched_features": {
+        "scope": [
+          "energy storage"
+        ],
+        "execution": [
+          "order"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0140"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 33,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0137",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C08",
+        "story_id": "EU_2026-08-28_C08",
+        "date": "2026-08-28",
+        "title": "Energy Storage Awards 2026: One week left to enter the industry-leading celebration of excellence",
+        "site": "Energy-Storage.News Europe",
+        "url": "https://www.energy-storage.news/energy-storage-awards-2026-one-week-left-to-enter-the-industry-leading-celebration-of-excellence",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "5ae893a5aa7ae8599f4356ac0c7558e7995e77713af554814d45f3cd44330cbc"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C08"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C08",
+          "source_run": "20260831",
+          "source_index": 183,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C08",
+          "story_id": "EU_2026-08-28_C08",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Energy Storage Awards 2026: One week left to enter the industry-leading celebration of excellence",
+          "site": "Energy-Storage.News Europe",
+          "source_url": "https://www.energy-storage.news/energy-storage-awards-2026-one-week-left-to-enter-the-industry-leading-celebration-of-excellence",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "5ae893a5aa7ae8599f4356ac0c7558e7995e77713af554814d45f3cd44330cbc"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "energy storage"
+        ],
+        "execution": [
+          "award"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0147"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 34,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0141",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C11",
+        "story_id": "CN_2026-08-31_C11",
+        "date": "2026-08-31",
+        "title": "净利暴增1025%！鹏辉能源2026上半年储能业务全面开花，户储市占率登顶全球第一",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36008-8120-30700671.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "9fd5ab3bf543f29b196ef75eddc7921871e737dfc85a827124283c8105f01c7c"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-31_C11",
+        "20260901::orig:20260901_123511:CN_2026-08-31_C15"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C11",
+          "source_run": "20260831",
+          "source_index": 187,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-31_C11",
+          "story_id": "CN_2026-08-31_C11",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "净利暴增1025%！鹏辉能源2026上半年储能业务全面开花，户储市占率登顶全球第一",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36008-8120-30700671.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "9fd5ab3bf543f29b196ef75eddc7921871e737dfc85a827124283c8105f01c7c"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C15",
+          "source_run": "20260901",
+          "source_index": 267,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C15",
+          "story_id": "CN_2026-08-31_C15",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "净利暴增1025%！鹏辉能源2026上半年储能业务全面开花，户储市占率登顶全球第一",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36008-8120-30700671.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "1a110121312447478a026be30ddc975f905ce1ff71cbe53ddbc794e749b48c70"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 6,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "市占率"
+        ],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0151"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 35,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0146",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C03",
+        "story_id": "CN_2026-08-31_C03",
+        "date": "2026-08-31",
+        "title": "70GWh！楚能襄阳基地投产，日供40万颗电芯",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36001-8120-30700702.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "aedcf055412384eb12587898cd11abb5dc80e241cdd205d1b7af5916f909d507"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-31_C03",
+        "20260901::orig:20260901_123511:CN_2026-08-31_C04",
+        "20260901::orig:20260901_123511:CN_2026-08-31_C21"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C03",
+          "source_run": "20260831",
+          "source_index": 192,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-31_C03",
+          "story_id": "CN_2026-08-31_C03",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "70GWh！楚能襄阳基地投产，日供40万颗电芯",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36001-8120-30700702.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "aedcf055412384eb12587898cd11abb5dc80e241cdd205d1b7af5916f909d507"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C04",
+          "source_run": "20260901",
+          "source_index": 274,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C04",
+          "story_id": "CN_2026-08-31_C04",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "70GWh！楚能襄阳基地投产，日供40万颗电芯",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36001-8120-30700702.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4bdea3d3e5848540bb8c6c83655b3ce0a75f0776cd5829559726ba3bf9a235bc"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C21",
+          "source_run": "20260901",
+          "source_index": 273,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C21",
+          "story_id": "CN_2026-08-31_C21",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "年产70GWh，楚能新能源襄阳锂电池产业园项目投产",
+          "site": "第一电动 市场",
+          "source_url": "http://www.d1ev.com/news/shichang/311938",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "79525a5e1d0216d6f6ef3c6ac654e1c50026cac976ebb5e0329bf23621c37a2a"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 6,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [
+          "投产"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gwh"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0156",
+        "XRUN_REPLAY_20260903_E0375"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 36,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0149",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C25",
+        "story_id": "CN_2026-08-31_C25",
+        "date": "2026-08-31",
+        "title": "阳光电源2026年H1：储能发货25GWh、同比增长28%，储能收入154亿元!",
+        "site": "中国能源网",
+        "url": "https://www.china5e.com/news/news-1208499-1.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "76e093a64ff81cfadedb363a104b17e94161331fcdc7708d8267ae11a3388e8f"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-31_C25",
+        "20260901::orig:20260901_123511:CN_2026-08-31_C35",
+        "20260901::orig:20260901_123511:CN_2026-09-01_C26"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C25",
+          "source_run": "20260831",
+          "source_index": 195,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-31_C25",
+          "story_id": "CN_2026-08-31_C25",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "阳光电源2026年H1：储能发货25GWh、同比增长28%，储能收入154亿元!",
+          "site": "中国能源网",
+          "source_url": "https://www.china5e.com/news/news-1208499-1.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "76e093a64ff81cfadedb363a104b17e94161331fcdc7708d8267ae11a3388e8f"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C35",
+          "source_run": "20260901",
+          "source_index": 280,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C35",
+          "story_id": "CN_2026-08-31_C35",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "阳光电源2026年H1：储能发货25GWh、同比增长28%，储能收入154亿元!",
+          "site": "中国能源网",
+          "source_url": "https://www.china5e.com/news/news-1208499-1.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "44e7bad6f50111a79c6a0c282008bc7b74343a26448c0c79b6e4259b003128e6"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C26",
+          "source_run": "20260901",
+          "source_index": 249,
+          "candidate_id": "orig:20260901_123511:CN_2026-09-01_C26",
+          "story_id": "CN_2026-09-01_C26",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "爆赚超52亿，储能营收占比第一！千亿光储龙头中报出炉",
+          "site": "OFweek储能网",
+          "source_url": "https://chuneng.ofweek.com/news/2026-09/ART-180226-12000-30700934.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "ff60daba8a8557c7e18f80d38d0c6ac8405153c51396cc1160c4dc1ad2431f5a"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "营收"
+        ],
+        "scale": [
+          "%",
+          "gwh"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0159",
+        "XRUN_REPLAY_20260903_E0359"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 37,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0150",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C13",
+        "story_id": "CN_2026-08-31_C13",
+        "date": "2026-08-31",
+        "title": "忻城县200MW/400MWh共享储能项目成功并网!",
+        "site": "中国能源网",
+        "url": "https://www.china5e.com/news/news-1208493-1.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "b671b896c2c636d97cadd200322afc240b01a2a89b698b92c1e2d9939c1e47fe"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-31_C13",
+        "20260901::orig:20260901_123511:CN_2026-08-31_C22"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C13",
+          "source_run": "20260831",
+          "source_index": 196,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-31_C13",
+          "story_id": "CN_2026-08-31_C13",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "忻城县200MW/400MWh共享储能项目成功并网!",
+          "site": "中国能源网",
+          "source_url": "https://www.china5e.com/news/news-1208493-1.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "b671b896c2c636d97cadd200322afc240b01a2a89b698b92c1e2d9939c1e47fe"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C22",
+          "source_run": "20260901",
+          "source_index": 282,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C22",
+          "story_id": "CN_2026-08-31_C22",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "忻城县200MW/400MWh共享储能项目成功并网!",
+          "site": "中国能源网",
+          "source_url": "https://www.china5e.com/news/news-1208493-1.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "ac156c7b0fbe9cc73451ea2d9888490c5081e38ebac3f66f7eb06305a5dc97b8"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "mwh"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0160"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 38,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0151",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C04",
+        "story_id": "CN_2026-08-31_C04",
+        "date": "2026-08-31",
+        "title": "France's Passenger Car Market in July 2026: Chinese Brands Gain Ground as BEV Share Hits Record High",
+        "site": "Gasgoo RSS - Class 2",
+        "url": "https://autonews.gasgoo.com/articles/news/frances-passenger-car-market-in-july-2026-chinese-brands-gain-ground-as-bev-share-hits-record-high-2094270049094553601",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "2f8bbd9a7f441fe2877dc8843ab9fa7346c3ccf1bb3447279c69a68855a37eea"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-31_C04",
+        "20260901::orig:20260901_123511:CN_2026-08-31_C05"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C04",
+          "source_run": "20260831",
+          "source_index": 197,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-31_C04",
+          "story_id": "CN_2026-08-31_C04",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "France's Passenger Car Market in July 2026: Chinese Brands Gain Ground as BEV Share Hits Record High",
+          "site": "Gasgoo RSS - Class 2",
+          "source_url": "https://autonews.gasgoo.com/articles/news/frances-passenger-car-market-in-july-2026-chinese-brands-gain-ground-as-bev-share-hits-record-high-2094270049094553601",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "2f8bbd9a7f441fe2877dc8843ab9fa7346c3ccf1bb3447279c69a68855a37eea"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C05",
+          "source_run": "20260901",
+          "source_index": 284,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C05",
+          "story_id": "CN_2026-08-31_C05",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "France's Passenger Car Market in July 2026: Chinese Brands Gain Ground as BEV Share Hits Record High",
+          "site": "Gasgoo RSS - Class 2",
+          "source_url": "https://autonews.gasgoo.com/articles/news/frances-passenger-car-market-in-july-2026-chinese-brands-gain-ground-as-bev-share-hits-record-high-2094270049094553601",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "3b0b969eb905ea453690ac0131f324145a52fb47c193cc82b496ec3f92f47278"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "record "
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0161"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 39,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0153",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C14",
+        "story_id": "CN_2026-08-31_C14",
+        "date": "2026-08-31",
+        "title": "总投资3.57亿、19个储能充电站！山西三大零碳公路备案公示！",
+        "site": "北极星储能网",
+        "url": "https://news.bjx.com.cn/html/20260831/1510737.shtml",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "cf481b39ad510dd63a0265102f8241fbd517bc8c2d7965c294f0ccb2e280f835"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-31_C14",
+        "20260901::orig:20260901_123511:CN_2026-08-31_C23"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C14",
+          "source_run": "20260831",
+          "source_index": 199,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-31_C14",
+          "story_id": "CN_2026-08-31_C14",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "总投资3.57亿、19个储能充电站！山西三大零碳公路备案公示！",
+          "site": "北极星储能网",
+          "source_url": "https://news.bjx.com.cn/html/20260831/1510737.shtml",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "cf481b39ad510dd63a0265102f8241fbd517bc8c2d7965c294f0ccb2e280f835"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C23",
+          "source_run": "20260901",
+          "source_index": 286,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C23",
+          "story_id": "CN_2026-08-31_C23",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "总投资3.57亿、19个储能充电站！山西三大零碳公路备案公示！",
+          "site": "北极星储能网",
+          "source_url": "https://news.bjx.com.cn/html/20260831/1510737.shtml",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "07a109ef3b27ed1d5200ee5a4ebc9b59240dcb01b71197dc40d80aff7e7a9922"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 5,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [
+          "投资"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0163"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 40,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0154",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-30_C03",
+        "story_id": "CN_2026-08-30_C03",
+        "date": "2026-08-30",
+        "title": "盖世周报 | 长城汽车上半年营收破千亿；天齐锂业净利暴增4925%",
+        "site": "第一电动 市场",
+        "url": "http://www.d1ev.com/news/shichang/311795",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "05f0da5423a4fea27bf13d8c5bf8571b0bf6e37049922cefc849fe33feb869a3"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-30_C03"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-30_C03",
+          "source_run": "20260831",
+          "source_index": 200,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-30_C03",
+          "story_id": "CN_2026-08-30_C03",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "盖世周报 | 长城汽车上半年营收破千亿；天齐锂业净利暴增4925%",
+          "site": "第一电动 市场",
+          "source_url": "http://www.d1ev.com/news/shichang/311795",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "05f0da5423a4fea27bf13d8c5bf8571b0bf6e37049922cefc849fe33feb869a3"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 5,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "营收"
+        ],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0164"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 41,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0161",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C08",
+        "story_id": "CN_2026-08-28_C08",
+        "date": "2026-08-28",
+        "title": "首期投资4亿欧元，海辰储能西班牙基地投资架构敲定",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36008-8130-30700547.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "2c4ac136a95828e8f828b83b41fecc5946ee67038e7a60692be1e84733571146"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-28_C08",
+        "20260901::orig:20260901_123511:TF_0007"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C08",
+          "source_run": "20260831",
+          "source_index": 208,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-28_C08",
+          "story_id": "CN_2026-08-28_C08",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "首期投资4亿欧元，海辰储能西班牙基地投资架构敲定",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36008-8130-30700547.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "2c4ac136a95828e8f828b83b41fecc5946ee67038e7a60692be1e84733571146"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0007",
+          "source_run": "20260901",
+          "source_index": 351,
+          "candidate_id": "orig:20260901_123511:TF_0007",
+          "story_id": "TF_0007",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "首期投资4亿欧元，海辰储能西班牙基地投资架构敲定",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36008-8130-30700547.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "bcc22eac4d1292afaba7297cee89c5e851ceafaf0e303e9988ad104472021088"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 5,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [
+          "投资"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0172"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 42,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0205",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0007",
+        "story_id": "TF_0007",
+        "date": "2026-08-27",
+        "title": "投资收益占三成、应收账款逼近200亿：亿纬锂能陷入“规模陷阱”",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36001-12008-30700285.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "c110f0c255f2ce0921e3948f8739af1f9595d30712eee372d0bac6e677e12654"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0007"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0007",
+          "source_run": "20260831",
+          "source_index": 254,
+          "candidate_id": "orig:20260831_143419:TF_0007",
+          "story_id": "TF_0007",
+          "origin": "original_input",
+          "event_date": "2026-08-27",
+          "title": "投资收益占三成、应收账款逼近200亿：亿纬锂能陷入“规模陷阱”",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36001-12008-30700285.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "c110f0c255f2ce0921e3948f8739af1f9595d30712eee372d0bac6e677e12654"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [
+          "投资"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0216"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 43,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0221",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C15",
+        "story_id": "US_2026-08-31_C15",
+        "date": "2026-08-31",
+        "title": "PowerBank Corporation Announces Development Agreement for the Development of Battery Energy Storage Projects in Ontario - Nasdaq",
+        "site": "Nasdaq Original RSS",
+        "url": "https://www.nasdaq.com/press-release/powerbank-corporation-announces-development-agreement-development-battery-energy",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "592a1d28fe8a55cef53601eaa56890bf35e6b6379040ce5230fe833699f215fd"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C15"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C15",
+          "source_run": "20260901",
+          "source_index": 8,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C15",
+          "story_id": "US_2026-08-31_C15",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "PowerBank Corporation Announces Development Agreement for the Development of Battery Energy Storage Projects in Ontario - Nasdaq",
+          "site": "Nasdaq Original RSS",
+          "source_url": "https://www.nasdaq.com/press-release/powerbank-corporation-announces-development-agreement-development-battery-energy",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "592a1d28fe8a55cef53601eaa56890bf35e6b6379040ce5230fe833699f215fd"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "battery",
+          "energy storage"
+        ],
+        "execution": [
+          "agreement"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0233"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 44,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0223",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C25",
+        "story_id": "US_2026-08-31_C25",
+        "date": "2026-08-31",
+        "title": "The US added a record 20.2 GWh of battery storage in just 3 months",
+        "site": "Electrek RSS",
+        "url": "https://electrek.co/2026/08/31/the-us-added-a-record-20-2-gwh-of-battery-storage-in-just-3-months",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "955587341c37ea670b80a21980cb60086737aab06982e7365013b31ce3dc7336"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-09-01_C10",
+        "20260901::orig:20260901_123511:US_2026-08-31_C25"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C10",
+          "source_run": "20260901",
+          "source_index": 183,
+          "candidate_id": "orig:20260901_123511:GL_2026-09-01_C10",
+          "story_id": "GL_2026-09-01_C10",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "US Battery Installs to Hit Record in 2026, Industry Report Says",
+          "site": "Bloomberg Top News RSS",
+          "source_url": "https://www.bloomberg.com/news/articles/2026-09-01/us-battery-installs-to-hit-record-in-2026-industry-report-says",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "80818f5cabae3235118255b80596e0c53c39d9f67ab8099b0d789f7bfa6b4463"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C25",
+          "source_run": "20260901",
+          "source_index": 10,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C25",
+          "story_id": "US_2026-08-31_C25",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "The US added a record 20.2 GWh of battery storage in just 3 months",
+          "site": "Electrek RSS",
+          "source_url": "https://electrek.co/2026/08/31/the-us-added-a-record-20-2-gwh-of-battery-storage-in-just-3-months",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "955587341c37ea670b80a21980cb60086737aab06982e7365013b31ce3dc7336"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 5,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "record "
+        ],
+        "scale": [
+          "gwh"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "report says"
+        ]
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0235",
+        "XRUN_REPLAY_20260903_E0319"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 45,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0231",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C23",
+        "story_id": "US_2026-08-31_C23",
+        "date": "2026-08-31",
+        "title": "SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue",
+        "site": "GlobeNewswire Energy Industry",
+        "url": "https://www.globenewswire.com/news-release/2026/08/31/3353345/0/en/sunscout-signs-definitive-agreement-for-first-philippine-solar-plus-storage-project-expected-to-add-us-25-million-in-construction-revenue.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "04412362c4d3766dc09e89a83c2cbd89565375abf02b05d484d24664b8458684"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C23"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C23",
+          "source_run": "20260901",
+          "source_index": 19,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C23",
+          "story_id": "US_2026-08-31_C23",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue",
+          "site": "GlobeNewswire Energy Industry",
+          "source_url": "https://www.globenewswire.com/news-release/2026/08/31/3353345/0/en/sunscout-signs-definitive-agreement-for-first-philippine-solar-plus-storage-project-expected-to-add-us-25-million-in-construction-revenue.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "04412362c4d3766dc09e89a83c2cbd89565375abf02b05d484d24664b8458684"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "agreement",
+          "construction"
+        ],
+        "policy": [],
+        "data_financial": [
+          "revenue"
+        ],
+        "scale": [
+          "$",
+          "million"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0243"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 46,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0233",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C188",
+        "story_id": "KR_2026-09-01_C188",
+        "date": "2026-09-01",
+        "title": "정책 산업부, 배터리 삼각벨트 구축 속도…전고체·나트륨 인프라 검토 산업통상부가 충청·영남·호남을 잇는 ‘배터리 삼각벨트’ 구축을 위해 전고체 배터리 성능 평가와 나트륨 배터리 실증 등 지역별 신규 인프라 사업을 검토한다. 산업부는 1일 세종 메리어트 호텔에서 충청북도와 경상북도, 전라북도 등 주요 지자체 및 유관기관과 함께 ‘배터리 삼각벨트의 혁신 인프라 구축’을 위한 간담회를 연다고 밝혔다. 배터리 삼각벨트는 충청권의 셀과 영남권의 핵심소재, 호남권의 원료 제조 거점을 유기적으로 연결해 국내 배터리 공급망을 다변화하고 수급 안정화를 꾀하는 산업 생태계다. 이번 간담회는 지역별 타운홀 미팅과 삼각벨트 협의체 등을 통해 접수한 애로사항을 종합적으로 점검하고, 지역별 맞춤형 지원 정책을 통해 실효성 있는 인프라 구축 방안을 논의하기 위해 마련됐다. 산업부는 이를 바탕으로 각 지자체가 제출한 신규사업을 적극 검토해 추진하기로 했다. 검토 대상에는 전고체 배터리 성능 평가 인프라와 나트륨 배터리 상용화를 위한 실증 센터, 재활용 소재가 적용된 배터리 안전성 평가 인프라, 국가첨단전략산업 특화단지 내 전력 공급시설 구축 등이 포함됐다. 구체화가 필요한 사업은 올해 12월까지 세부 기획을 보완한 뒤 재검토할 예정이다. 산업부는 지방정 이동재 기자 2026-09-01 11:24",
+        "site": "헬로티",
+        "url": "https://www.hellot.net/news/article.html?no=114678",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "9e4723e00c71974f7cc66d8f502fff1e7ecb7f4c4c7c56ee51faa25b66ac2aa0"
+        }
+      },
+      "observation_count": 6,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C153",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C154",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C188",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C195",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C196",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C197"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C153",
+          "source_run": "20260901",
+          "source_index": 85,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C153",
+          "story_id": "KR_2026-09-01_C153",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "산업부, 충청-영남-호남 잇는 '배터리 삼각벨트' 구축...지자체 간담회",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371941",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4b98e8b3c77effe0e91b015374ece8e387e097904660318d33d8984aa3b1e139"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C154",
+          "source_run": "20260901",
+          "source_index": 62,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C154",
+          "story_id": "KR_2026-09-01_C154",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "산업부, 충청-영남-호남을 잇는 ‘배터리 삼각벨트’ 본격 가동",
+          "site": "산업통상자원부 (MOTIE)",
+          "source_url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172147/view",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "29e7a1baeb2d8a6f8edad712c534fbd03334e266686ac68f1a2a719b5bbb6796"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C188",
+          "source_run": "20260901",
+          "source_index": 61,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C188",
+          "story_id": "KR_2026-09-01_C188",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "정책 산업부, 배터리 삼각벨트 구축 속도…전고체·나트륨 인프라 검토 산업통상부가 충청·영남·호남을 잇는 ‘배터리 삼각벨트’ 구축을 위해 전고체 배터리 성능 평가와 나트륨 배터리 실증 등 지역별 신규 인프라 사업을 검토한다. 산업부는 1일 세종 메리어트 호텔에서 충청북도와 경상북도, 전라북도 등 주요 지자체 및 유관기관과 함께 ‘배터리 삼각벨트의 혁신 인프라 구축’을 위한 간담회를 연다고 밝혔다. 배터리 삼각벨트는 충청권의 셀과 영남권의 핵심소재, 호남권의 원료 제조 거점을 유기적으로 연결해 국내 배터리 공급망을 다변화하고 수급 안정화를 꾀하는 산업 생태계다. 이번 간담회는 지역별 타운홀 미팅과 삼각벨트 협의체 등을 통해 접수한 애로사항을 종합적으로 점검하고, 지역별 맞춤형 지원 정책을 통해 실효성 있는 인프라 구축 방안을 논의하기 위해 마련됐다. 산업부는 이를 바탕으로 각 지자체가 제출한 신규사업을 적극 검토해 추진하기로 했다. 검토 대상에는 전고체 배터리 성능 평가 인프라와 나트륨 배터리 상용화를 위한 실증 센터, 재활용 소재가 적용된 배터리 안전성 평가 인프라, 국가첨단전략산업 특화단지 내 전력 공급시설 구축 등이 포함됐다. 구체화가 필요한 사업은 올해 12월까지 세부 기획을 보완한 뒤 재검토할 예정이다. 산업부는 지방정 이동재 기자 2026-09-01 11:24",
+          "site": "헬로티",
+          "source_url": "https://www.hellot.net/news/article.html?no=114678",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "9e4723e00c71974f7cc66d8f502fff1e7ecb7f4c4c7c56ee51faa25b66ac2aa0"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C195",
+          "source_run": "20260901",
+          "source_index": 37,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C195",
+          "story_id": "KR_2026-09-01_C195",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "충청 셀·영남 소재·호남 원료 잇는다…산업부, 배터리 삼각벨트 가동",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260901104237501",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "aae1d8205a4458ba8bfa92089f45761d1eed6d82eef9237ac67794ea038058d5"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C196",
+          "source_run": "20260901",
+          "source_index": 74,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C196",
+          "story_id": "KR_2026-09-01_C196",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "충청·영호남 '배터리 삼각벨트' 인프라 구축…산업부 간담회",
+          "site": "연합뉴스 RSS (Industry)",
+          "source_url": "https://www.yna.co.kr/view/AKR20260901061000003",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "ac1f637df4a437871556efeb099b73c345ba9d30336dda0e5087806b2c03cbfb"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C197",
+          "source_run": "20260901",
+          "source_index": 36,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C197",
+          "story_id": "KR_2026-09-01_C197",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "충청은 셀·영남은 소재·호남은 원료…‘K-배터리 삼각축’ 세운다",
+          "site": "에너지신문",
+          "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227804",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "227b19a58a5f85a383aa5bd44b39bd38780dfe12c3fea567018f96ff11b8512c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 5,
+      "matched_features": {
+        "scope": [
+          "나트륨",
+          "배터리",
+          "재활용",
+          "전고체"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [
+          "나트륨",
+          "상용화",
+          "전고체"
+        ],
+        "strategic": [
+          "공급망",
+          "재활용"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0245"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 47,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0241",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C218",
+        "story_id": "KR_2026-09-01_C218",
+        "date": "2026-09-01",
+        "title": "호남 반도체 전력·용수에 1281억 투입…전기차 보조금 역대 최대",
+        "site": "ZDNet Korea RSS",
+        "url": "https://zdnet.co.kr/view?no=20260831102438",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "40362c5a67833752499ec58b223f11ee8489f6304f7764dd9e3c530af1677c09"
+        }
+      },
+      "observation_count": 4,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C117",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C118",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C15",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C218"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C117",
+          "source_run": "20260901",
+          "source_index": 86,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C117",
+          "story_id": "KR_2026-09-01_C117",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "기후부 내년 예산 25.7조 편성 ‘최대 규모’…첨단산업·E 대전환에 ‘집중’",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371875",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "1bb4613daabad11d33eff10a8c24f0699f5817c5390d2f47a5feacd6b97779b2"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C118",
+          "source_run": "20260901",
+          "source_index": 112,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C118",
+          "story_id": "KR_2026-09-01_C118",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "기후부, 내년 예산 역대 최대 25.7조 편성…'3대 메가' 전력·용수에 1.9조[2027 예산안]",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260831_0003770149",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "232810acdfd90ce89ffa0c0ba0bb723ca7aceb858b87b945cd0f272c16f48135"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C15",
+          "source_run": "20260901",
+          "source_index": 88,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C15",
+          "story_id": "KR_2026-09-01_C15",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "2027년 기후부 예산안 25조 7319억 원…역대 최대 규모 편성",
+          "site": "파이낸셜뉴스 RSS",
+          "source_url": "https://www.fnnews.com/news/202609010931383429",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "3654564e0268735e903b5caac8f013c0274bb86fb3bee240b69dd5e6df8ddb51"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C218",
+          "source_run": "20260901",
+          "source_index": 49,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C218",
+          "story_id": "KR_2026-09-01_C218",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "호남 반도체 전력·용수에 1281억 투입…전기차 보조금 역대 최대",
+          "site": "ZDNet Korea RSS",
+          "source_url": "https://zdnet.co.kr/view?no=20260831102438",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "40362c5a67833752499ec58b223f11ee8489f6304f7764dd9e3c530af1677c09"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "전기차"
+        ],
+        "execution": [],
+        "policy": [
+          "보조금"
+        ],
+        "data_financial": [],
+        "scale": [
+          "억 원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0254",
+        "XRUN_REPLAY_20260903_E0277"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 48,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0244",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C12",
+        "story_id": "KR_2026-09-01_C12",
+        "date": "2026-09-01",
+        "title": "'1회 충전 최대 792㎞' 벤츠 전기 CLA 사전계약…5290만원부터 메르세데스-벤츠 코리아가 '디 올-뉴 일렉트릭 CLA'의 국내 사전 계약을 시작한다고 1일 밝혔다. 1회 충전으로 최대 792㎞를 달리는 신형 전기 세단이다. 디 올-뉴 CLA는 벤츠의 차세대 모듈형 아키텍처인 MMA를 처음 적용한 모델이다. 순수전기차와 48볼트 마일드 하이브리드 모델을 함께 제공하며 전동화 효율과 디지털 경험, 공간 활용성을 강화했다. 국내에는 CLA 200 일렉트릭과 CLA 250+ 일렉트릭을 총 5개 트림으로 선보인다. 트림별 가격은 △CLA 200 일렉트릭 에센셜 5290만원 △CLA 200 일렉트릭 어드밴스드 5580만원 △CLA 200 일렉트릭 AMG 라인 론치 에디션 5890만원 △CLA 250+ 일렉트릭 6370만원 △CLA 250+ 일렉트릭 AMG 라인 론치 에디션 6770만원이다. 2026.09.01 09:23 강주헌 기자",
+        "site": "머니투데이",
+        "url": "https://www.mt.co.kr/industry/2026/09/01/2026090109062924332",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "4cc8f3bb8b87b6f785610b5cccfb25e0305dc5fbcf1f941c55fac99aef71d72f"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C12",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C139",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C145"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C12",
+          "source_run": "20260901",
+          "source_index": 56,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C12",
+          "story_id": "KR_2026-09-01_C12",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "'1회 충전 최대 792㎞' 벤츠 전기 CLA 사전계약…5290만원부터 메르세데스-벤츠 코리아가 '디 올-뉴 일렉트릭 CLA'의 국내 사전 계약을 시작한다고 1일 밝혔다. 1회 충전으로 최대 792㎞를 달리는 신형 전기 세단이다. 디 올-뉴 CLA는 벤츠의 차세대 모듈형 아키텍처인 MMA를 처음 적용한 모델이다. 순수전기차와 48볼트 마일드 하이브리드 모델을 함께 제공하며 전동화 효율과 디지털 경험, 공간 활용성을 강화했다. 국내에는 CLA 200 일렉트릭과 CLA 250+ 일렉트릭을 총 5개 트림으로 선보인다. 트림별 가격은 △CLA 200 일렉트릭 에센셜 5290만원 △CLA 200 일렉트릭 어드밴스드 5580만원 △CLA 200 일렉트릭 AMG 라인 론치 에디션 5890만원 △CLA 250+ 일렉트릭 6370만원 △CLA 250+ 일렉트릭 AMG 라인 론치 에디션 6770만원이다. 2026.09.01 09:23 강주헌 기자",
+          "site": "머니투데이",
+          "source_url": "https://www.mt.co.kr/industry/2026/09/01/2026090109062924332",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4cc8f3bb8b87b6f785610b5cccfb25e0305dc5fbcf1f941c55fac99aef71d72f"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C139",
+          "source_run": "20260901",
+          "source_index": 53,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C139",
+          "story_id": "KR_2026-09-01_C139",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "메르세데스-벤츠 코리아, CLA 사전 계약 실시…792㎞ 최대 주행",
+          "site": "아시아경제",
+          "source_url": "https://view.asiae.co.kr/article/2026090108463295820",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4329f161764cfb07ebf9bc75d51bb5162cb8e6907412704718d19cd35d4308e2"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C145",
+          "source_run": "20260901",
+          "source_index": 52,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C145",
+          "story_id": "KR_2026-09-01_C145",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "벤츠, 새 전기 아키텍처 첫 차종 'CLA' 국내 사전계약 시작...\"5290만원부터\"",
+          "site": "파이낸셜뉴스 RSS",
+          "source_url": "https://www.fnnews.com/news/202609010909139112",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "8c1897fa7db9c059dc194441c70ebaece26bce629163f3417a0f2aa1445e119d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 5,
+      "matched_features": {
+        "scope": [
+          "전기차",
+          "충전"
+        ],
+        "execution": [
+          "계약"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0257"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 49,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0272",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C03",
+        "story_id": "KR_2026-09-01_C03",
+        "date": "2026-09-01",
+        "title": "\"삼성전기 150만→200만원\" MLCC 판가 인상에 목표가 ↑… SK이노베이션, 美 ESS 첫 수주 [株토피아]",
+        "site": "파이낸셜뉴스 RSS",
+        "url": "https://www.fnnews.com/news/202609010940524555",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "6198ade445081fe2492f1d65bc1f676296942738f60edb43310f5bcf18f7c162"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C03"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C03",
+          "source_run": "20260901",
+          "source_index": 104,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C03",
+          "story_id": "KR_2026-09-01_C03",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "\"삼성전기 150만→200만원\" MLCC 판가 인상에 목표가 ↑… SK이노베이션, 美 ESS 첫 수주 [株토피아]",
+          "site": "파이낸셜뉴스 RSS",
+          "source_url": "https://www.fnnews.com/news/202609010940524555",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "6198ade445081fe2492f1d65bc1f676296942738f60edb43310f5bcf18f7c162"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [
+          "수주"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0290"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 50,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0273",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C132",
+        "story_id": "KR_2026-09-01_C132",
+        "date": "2026-09-01",
+        "title": "델타엑스, 320억 투자 유치 완료…美 ESS 생산기지 구축",
+        "site": "더일렉",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=61617",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "54ec345ef414af8b50120d477c9f605325bbd37c9e0934ca57563e1d77f47e7d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C132"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C132",
+          "source_run": "20260901",
+          "source_index": 106,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C132",
+          "story_id": "KR_2026-09-01_C132",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "델타엑스, 320억 투자 유치 완료…美 ESS 생산기지 구축",
+          "site": "더일렉",
+          "source_url": "https://www.thelec.kr/news/articleView.html?idxno=61617",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "54ec345ef414af8b50120d477c9f605325bbd37c9e0934ca57563e1d77f47e7d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [
+          "투자"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0291"
+      ],
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

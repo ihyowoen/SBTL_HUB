@@ -1,0 +1,100 @@
+name: Re-anchor historical canonical relations to replayable 425
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/relation425r2/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  reanchor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Re-anchor the 10 prior authoritative canonical relations
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,re,unicodedata
+          from pathlib import Path
+          from difflib import SequenceMatcher
+
+          membership=json.loads(Path('runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json').read_text())
+          source=json.loads(Path('runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json').read_text())
+          canon=json.loads(Path('data/cards.full.json').read_text())['cards']
+          assert len(membership['events'])==425 and len(source['observations'])==632 and len(canon)==1514
+          src={o['observation_key']:o for o in source['observations']}
+          canon_ids={c['id'] for c in canon}
+
+          anchors=[
+            {'legacy_event_id':'XRUN_20260831_20260901_E0092','relation_type':'program_lineage','target_ids':['2026-04-22_US_04'],'confidence':'medium','title':'LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake'},
+            {'legacy_event_id':'XRUN_20260831_20260901_E0103','relation_type':'distinct_follow_up','target_ids':['2026-07-16_CN_01'],'confidence':'high','title':'China 2% consumption tax on lithium-ion and specified batteries takes effect'},
+            {'legacy_event_id':'XRUN_20260831_20260901_E0217','relation_type':'same_event_reinforcement','target_ids':['2026-08-26_US_01'],'confidence':'high','title':'미국 대형 전력망 국가 비상 사태 선포 후속 보도'},
+            {'legacy_event_id':'XRUN_20260831_20260901_E0233','relation_type':'same_event_reinforcement','target_ids':['2026-08-26_US_01'],'confidence':'high','title':'U.S. inverter/BESS/transformer executive-order follow-up report'},
+            {'legacy_event_id':'XRUN_20260831_20260901_E0246','relation_type':'program_lineage','target_ids':['2026-06-22_US_04','2026-07-30_KR_02'],'confidence':'medium','title':'SK온 미국 9GWh ESS용 LFP 공급계약'},
+            {'legacy_event_id':'XRUN_20260831_20260901_E0263','relation_type':'same_event_reinforcement','target_ids':['2026-08-27_KR_01'],'confidence':'high','title':'LG전자 폐가전 희토류 영구자석 회수'},
+            {'legacy_event_id':'XRUN_20260831_20260901_E0399','relation_type':'distinct_follow_up','target_ids':['2026-05-01_JP_01','2026-04-27_US_03'],'confidence':'high','title':'Critical Metals–European Lithium acquisition scheme progress'},
+            {'legacy_event_id':'XRUN_20260831_20260901_E0427','relation_type':'distinct_follow_up','target_ids':['2026-07-16_CN_01'],'confidence':'high','title':'China battery consumption-tax scope clarification'},
+            {'legacy_event_id':'XRUN_20260831_20260901_E0433','relation_type':'distinct_follow_up','target_ids':['2026-07-20_EU_06'],'confidence':'high','title':'EU Battery Passport guidance covering 71 data points'},
+            {'legacy_event_id':'XRUN_20260831_20260901_E0437','relation_type':'same_event_reinforcement','target_ids':['2026-08-18_US_01'],'confidence':'high','title':'LG Energy Solution Lansing production start'}
+          ]
+          for a in anchors:
+              assert all(t in canon_ids for t in a['target_ids']), (a['legacy_event_id'],a['target_ids'])
+
+          stop={'the','a','an','and','or','of','to','in','on','for','with','at','by','from','as','is','are','be','new','says','said','will','its','it','this','that','대한','관련','및','위한','등','발표','뉴스','후속','보도'}
+          def norm(s):
+              s=unicodedata.normalize('NFKC',str(s or '')).lower()
+              s=re.sub(r'[^0-9a-z가-힣一-龥]+',' ',s)
+              return ' '.join(s.split())
+          def toks(s): return {x for x in norm(s).split() if len(x)>=2 and x not in stop}
+          def score(a,b):
+              na,nb=norm(a),norm(b)
+              seq=SequenceMatcher(None,na,nb).ratio() if na and nb else 0
+              ta,tb=toks(a),toks(b); u=ta|tb
+              jac=len(ta&tb)/len(u) if u else 0
+              contain=(len(ta&tb)/min(len(ta),len(tb))) if ta and tb else 0
+              return max(seq,jac,contain),seq,jac,contain
+
+          rows=[]
+          for a in anchors:
+              candidates=[]
+              for e in membership['events']:
+                  titles=[]
+                  for ok in e['observation_keys']:
+                      t=src[ok].get('title')
+                      if t: titles.append((ok,t))
+                  rt=e.get('representative',{}).get('title')
+                  if rt: titles.append((e['representative']['observation_key'],rt))
+                  best=(0,0,0,0,None,None)
+                  for ok,t in titles:
+                      sc,seq,jac,cont=score(a['title'],t)
+                      if sc>best[0]: best=(sc,seq,jac,cont,ok,t)
+                  candidates.append({'event_id':e['event_id'],'representative':e['representative'],'best_observation_key':best[4],'best_observation_title':best[5],'score':round(best[0],6),'sequence':round(best[1],6),'token_jaccard':round(best[2],6),'token_containment':round(best[3],6),'observation_count':e['observation_count']})
+              candidates.sort(key=lambda x:(x['score'],x['token_containment'],x['token_jaccard'],x['sequence']),reverse=True)
+              top=candidates[:8]
+              margin=round(top[0]['score']-top[1]['score'],6)
+              rows.append({**a,'all_targets_exist_current_canonical':True,'top_candidates':top,'top_margin':margin,'auto_reanchor_allowed':False})
+
+          result={'schema':'canonical_relation_historical_anchor_replay_r2','status':'PASS_CANDIDATE_MAPPING_MANUAL_CONFIRMATION_REQUIRED','generated_date':'2026-09-03','current_main_sha':'df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4','canonical_blob_sha':'53219907cdb435c3822c41d097b23e475662aa8a','canonical_card_count':1514,'replay_event_count':425,'historical_anchor_count':10,'policy':{'historical_relations_are_sanity_anchors_not_blindly_reused':True,'target_ids_must_exist_current_canonical':True,'mapping_uses_all_observation_titles_not_event_id_position':True,'automatic_relation_authorization':False,'formal_stage_a_authorized':False},'anchors':rows}
+          Path('runs/2026-09-03/canonical_relation_historical_anchor_replay_20260903_R2.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          compact={'schema':'canonical_relation_historical_anchor_summary_r2','status':'PASS','historical_anchor_count':10,'targets_all_exist':all(x['all_targets_exist_current_canonical'] for x in rows),'anchors':[{'legacy_event_id':x['legacy_event_id'],'relation_type':x['relation_type'],'target_ids':x['target_ids'],'historical_title':x['title'],'top_margin':x['top_margin'],'top_candidates':x['top_candidates'][:3]} for x in rows],'formal_stage_a_authorized':False}
+          Path('runs/2026-09-03/canonical_relation_historical_anchor_summary_20260903_R2.json').write_text(json.dumps(compact,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(compact,ensure_ascii=False))
+          PY
+      - name: Commit anchor outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/canonical_relation_historical_anchor_replay_20260903_R2.json runs/2026-09-03/canonical_relation_historical_anchor_summary_20260903_R2.json
+          git rm -r .tmp/relation425r2
+          git commit -m 'audit: re-anchor historical canonical relations to replayable 425'
+          git push

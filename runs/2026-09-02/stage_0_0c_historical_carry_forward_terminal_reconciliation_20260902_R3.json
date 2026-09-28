@@ -1,0 +1,2053 @@
+{
+  "schema": "stage_0_0c_historical_carry_forward_terminal_reconciliation_v3",
+  "stage": "0.0C-HISTORICAL-CARRY-FORWARD",
+  "status": "PASS_TERMINAL_HISTORICAL_ACCOUNTING_CURRENT_STAGE_A_UNBLOCKED",
+  "generated_date": "2026-09-02",
+  "document_universe_manifest_ref": "runs/2026-09-02/stage_0_0d_v4_document_universe_20260902_MAIN_df6fccc.json",
+  "repository_head_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "base_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "canonical_card_count": 1514,
+  "source_historical_246_ref": "runs/2026-09-02/historical_governed_carry_forward_20260825_active246_R1.json",
+  "source_historical_246_artifact_bindings": {
+    "historical_stage_a": {
+      "file": "stage_a_prompt_a_results_20260825_MULTI_INPUT_20260810_20260825_MERGED_slice7_main_revalidated.json",
+      "sha256": "4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae",
+      "recovered_location": "user_file_library",
+      "role": "historical identity/source metadata only; old V3 selection decisions are non-authoritative for current V4"
+    },
+    "historical_review_promotion": {
+      "file": "stage_a_prompt_01p_review_pool_promotion_20260825_MULTI_INPUT_20260810_20260825_batch5.json",
+      "sha256": "3ad9b135d2ac52ceee9b1c031fe3e191a20d5312831b26eb1a86167e114877ab",
+      "recovered_location": "user_file_library",
+      "role": "authoritative historical 384-item review-pool disposition and 264 needs-user-decision denominator"
+    }
+  },
+  "source_residual_44_ref": "runs/2026-09-02/historical_residual_44_terminal_reconciliation_20260902_R2.json",
+  "policy_boundary": {
+    "historical_v3_selection_reused": false,
+    "historical_identity_membership_reused": true,
+    "no_historical_item_silently_deleted": true,
+    "provenance_hold_is_not_reject": true,
+    "provenance_hold_is_reopenable": true,
+    "current_stage_a_may_process_only_source_bound_current_events": true
+  },
+  "historical_246_accounting": {
+    "input_total": 246,
+    "already_canonicalized_exact": 3,
+    "provenance_hold_not_stage_a_evaluable": 243,
+    "active_carry_forward_to_current_stage_a": 0,
+    "accounted_total": 246,
+    "accounting_pass": true
+  },
+  "residual_44_accounting": {
+    "input_total": 44,
+    "later_publish_ready_and_canonicalized": 4,
+    "intra_cohort_duplicate_collapse": 1,
+    "terminal_reject_or_stale": 4,
+    "old_anchor_contamination_rejected_and_rewritten_outside_residual_row": 1,
+    "conditional_hold_watchlist": 34,
+    "active_carry_forward_to_stage_a_from_this_residual_cohort": 0,
+    "accounted_total": 44,
+    "accounting_pass": true
+  },
+  "historical_gross_accounting": {
+    "historical_gross": 290,
+    "residual_44": 44,
+    "active_246": 246,
+    "historical_rows_terminally_accounted": 290,
+    "historical_rows_entering_current_stage_a": 0,
+    "accounting_pass": true
+  },
+  "terminal_historical_246_disposition_ledger": [
+    {
+      "candidate_id": "historical:20260825:U0979",
+      "story_id": "U0979",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0807",
+      "story_id": "U0807",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0423",
+      "story_id": "U0423",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1509",
+      "story_id": "U1509",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2006",
+      "story_id": "U2006",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1503",
+      "story_id": "U1503",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0593",
+      "story_id": "U0593",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0179",
+      "story_id": "U0179",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1810",
+      "story_id": "U1810",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0966",
+      "story_id": "U0966",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1012",
+      "story_id": "U1012",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1941",
+      "story_id": "U1941",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1797",
+      "story_id": "U1797",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1103",
+      "story_id": "U1103",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0793",
+      "story_id": "U0793",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1929",
+      "story_id": "U1929",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0705",
+      "story_id": "U0705",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0818",
+      "story_id": "U0818",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2046",
+      "story_id": "U2046",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0439",
+      "story_id": "U0439",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0332",
+      "story_id": "U0332",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1430",
+      "story_id": "U1430",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1499",
+      "story_id": "U1499",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1498",
+      "story_id": "U1498",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0417",
+      "story_id": "U0417",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0110",
+      "story_id": "U0110",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1629",
+      "story_id": "U1629",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0923",
+      "story_id": "U0923",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2016",
+      "story_id": "U2016",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1974",
+      "story_id": "U1974",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1002",
+      "story_id": "U1002",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0441",
+      "story_id": "U0441",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0447",
+      "story_id": "U0447",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2040",
+      "story_id": "U2040",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1224",
+      "story_id": "U1224",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1080",
+      "story_id": "U1080",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1225",
+      "story_id": "U1225",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1227",
+      "story_id": "U1227",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1552",
+      "story_id": "U1552",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0808",
+      "story_id": "U0808",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1543",
+      "story_id": "U1543",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1548",
+      "story_id": "U1548",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2052",
+      "story_id": "U2052",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2021",
+      "story_id": "U2021",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0467",
+      "story_id": "U0467",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0824",
+      "story_id": "U0824",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2042",
+      "story_id": "U2042",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0460",
+      "story_id": "U0460",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0840",
+      "story_id": "U0840",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1567",
+      "story_id": "U1567",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2017",
+      "story_id": "U2017",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1228",
+      "story_id": "U1228",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0484",
+      "story_id": "U0484",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2032",
+      "story_id": "U2032",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1749",
+      "story_id": "U1749",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2113",
+      "story_id": "U2113",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0631",
+      "story_id": "U0631",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1388",
+      "story_id": "U1388",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0868",
+      "story_id": "U0868",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1120",
+      "story_id": "U1120",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1847",
+      "story_id": "U1847",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2073",
+      "story_id": "U2073",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0101",
+      "story_id": "U0101",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0502",
+      "story_id": "U0502",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1254",
+      "story_id": "U1254",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2093",
+      "story_id": "U2093",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1314",
+      "story_id": "U1314",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0060",
+      "story_id": "U0060",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0024",
+      "story_id": "U0024",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0787",
+      "story_id": "U0787",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0589",
+      "story_id": "U0589",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0900",
+      "story_id": "U0900",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1274",
+      "story_id": "U1274",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1798",
+      "story_id": "U1798",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0135",
+      "story_id": "U0135",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0572",
+      "story_id": "U0572",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0574",
+      "story_id": "U0574",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0569",
+      "story_id": "U0569",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0144",
+      "story_id": "U0144",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1100",
+      "story_id": "U1100",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1089",
+      "story_id": "U1089",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0436",
+      "story_id": "U0436",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1531",
+      "story_id": "U1531",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1500",
+      "story_id": "U1500",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0429",
+      "story_id": "U0429",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1981",
+      "story_id": "U1981",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1995",
+      "story_id": "U1995",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1989",
+      "story_id": "U1989",
+      "disposition": "already_canonicalized_exact_provenance",
+      "production_card_id": "2026-08-20_GL_01",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1213",
+      "story_id": "U1213",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0434",
+      "story_id": "U0434",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1185",
+      "story_id": "U1185",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2106",
+      "story_id": "U2106",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1469",
+      "story_id": "U1469",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0368",
+      "story_id": "U0368",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2105",
+      "story_id": "U2105",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0988",
+      "story_id": "U0988",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0343",
+      "story_id": "U0343",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0388",
+      "story_id": "U0388",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0746",
+      "story_id": "U0746",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0773",
+      "story_id": "U0773",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1950",
+      "story_id": "U1950",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1459",
+      "story_id": "U1459",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0404",
+      "story_id": "U0404",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0542",
+      "story_id": "U0542",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0344",
+      "story_id": "U0344",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1476",
+      "story_id": "U1476",
+      "disposition": "already_canonicalized_exact_provenance",
+      "production_card_id": "2026-08-20_GL_02",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0587",
+      "story_id": "U0587",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1176",
+      "story_id": "U1176",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1416",
+      "story_id": "U1416",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1922",
+      "story_id": "U1922",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1926",
+      "story_id": "U1926",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1415",
+      "story_id": "U1415",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1915",
+      "story_id": "U1915",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1411",
+      "story_id": "U1411",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1170",
+      "story_id": "U1170",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0980",
+      "story_id": "U0980",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0520",
+      "story_id": "U0520",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0191",
+      "story_id": "U0191",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0666",
+      "story_id": "U0666",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1121",
+      "story_id": "U1121",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1660",
+      "story_id": "U1660",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1828",
+      "story_id": "U1828",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1627",
+      "story_id": "U1627",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1777",
+      "story_id": "U1777",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1779",
+      "story_id": "U1779",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1792",
+      "story_id": "U1792",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2065",
+      "story_id": "U2065",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1776",
+      "story_id": "U1776",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1275",
+      "story_id": "U1275",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1796",
+      "story_id": "U1796",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0357",
+      "story_id": "U0357",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0371",
+      "story_id": "U0371",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1428",
+      "story_id": "U1428",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0982",
+      "story_id": "U0982",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0981",
+      "story_id": "U0981",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1004",
+      "story_id": "U1004",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0530",
+      "story_id": "U0530",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0331",
+      "story_id": "U0331",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0335",
+      "story_id": "U0335",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1212",
+      "story_id": "U1212",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1511",
+      "story_id": "U1511",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0437",
+      "story_id": "U0437",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0427",
+      "story_id": "U0427",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1986",
+      "story_id": "U1986",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1494",
+      "story_id": "U1494",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1215",
+      "story_id": "U1215",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1219",
+      "story_id": "U1219",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0797",
+      "story_id": "U0797",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0890",
+      "story_id": "U0890",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0888",
+      "story_id": "U0888",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1016",
+      "story_id": "U1016",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2003",
+      "story_id": "U2003",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2001",
+      "story_id": "U2001",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1806",
+      "story_id": "U1806",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0493",
+      "story_id": "U0493",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1286",
+      "story_id": "U1286",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1585",
+      "story_id": "U1585",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2062",
+      "story_id": "U2062",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2070",
+      "story_id": "U2070",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0499",
+      "story_id": "U0499",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0586",
+      "story_id": "U0586",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0596",
+      "story_id": "U0596",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0595",
+      "story_id": "U0595",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0568",
+      "story_id": "U0568",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0570",
+      "story_id": "U0570",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1082",
+      "story_id": "U1082",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1084",
+      "story_id": "U1084",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1085",
+      "story_id": "U1085",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1293",
+      "story_id": "U1293",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1270",
+      "story_id": "U1270",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1271",
+      "story_id": "U1271",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1278",
+      "story_id": "U1278",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1279",
+      "story_id": "U1279",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1774",
+      "story_id": "U1774",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1775",
+      "story_id": "U1775",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0147",
+      "story_id": "U0147",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0909",
+      "story_id": "U0909",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0903",
+      "story_id": "U0903",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0904",
+      "story_id": "U0904",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1025",
+      "story_id": "U1025",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1026",
+      "story_id": "U1026",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1525",
+      "story_id": "U1525",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1512",
+      "story_id": "U1512",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1513",
+      "story_id": "U1513",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1502",
+      "story_id": "U1502",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1495",
+      "story_id": "U1495",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1731",
+      "story_id": "U1731",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1993",
+      "story_id": "U1993",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1516",
+      "story_id": "U1516",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0414",
+      "story_id": "U0414",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0426",
+      "story_id": "U0426",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0891",
+      "story_id": "U0891",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0418",
+      "story_id": "U0418",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0419",
+      "story_id": "U0419",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0410",
+      "story_id": "U0410",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0412",
+      "story_id": "U0412",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0784",
+      "story_id": "U0784",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0790",
+      "story_id": "U0790",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1999",
+      "story_id": "U1999",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2005",
+      "story_id": "U2005",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0919",
+      "story_id": "U0919",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0751",
+      "story_id": "U0751",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1190",
+      "story_id": "U1190",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1446",
+      "story_id": "U1446",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1971",
+      "story_id": "U1971",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1975",
+      "story_id": "U1975",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0559",
+      "story_id": "U0559",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0830",
+      "story_id": "U0830",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1238",
+      "story_id": "U1238",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1229",
+      "story_id": "U1229",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1556",
+      "story_id": "U1556",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1551",
+      "story_id": "U1551",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1739",
+      "story_id": "U1739",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1747",
+      "story_id": "U1747",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2045",
+      "story_id": "U2045",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2051",
+      "story_id": "U2051",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2026",
+      "story_id": "U2026",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1501",
+      "story_id": "U1501",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1066",
+      "story_id": "U1066",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1178",
+      "story_id": "U1178",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1921",
+      "story_id": "U1921",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1559",
+      "story_id": "U1559",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1562",
+      "story_id": "U1562",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1222",
+      "story_id": "U1222",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U2060",
+      "story_id": "U2060",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1237",
+      "story_id": "U1237",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0823",
+      "story_id": "U0823",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0469",
+      "story_id": "U0469",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1042",
+      "story_id": "U1042",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1269",
+      "story_id": "U1269",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1036",
+      "story_id": "U1036",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1746",
+      "story_id": "U1746",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0617",
+      "story_id": "U0617",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0920",
+      "story_id": "U0920",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0218",
+      "story_id": "U0218",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0675",
+      "story_id": "U0675",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1139",
+      "story_id": "U1139",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0626",
+      "story_id": "U0626",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0503",
+      "story_id": "U0503",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1350",
+      "story_id": "U1350",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0897",
+      "story_id": "U0897",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1047",
+      "story_id": "U1047",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1581",
+      "story_id": "U1581",
+      "disposition": "already_canonicalized_exact_provenance",
+      "production_card_id": "2026-08-21_GL_01",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1655",
+      "story_id": "U1655",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U0794",
+      "story_id": "U0794",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    },
+    {
+      "candidate_id": "historical:20260825:U1518",
+      "story_id": "U1518",
+      "disposition": "provenance_hold_not_stage_a_evaluable",
+      "reason": "Exact historical cohort membership is known, but per-row headline/URL/event metadata is not repository-bound on the current run branch. Current V4 Stage A evaluation would require fabrication, so this row is terminally held at discovery scope and remains reopenable.",
+      "reopen_condition": "Materialize the exact row from SHA-256 4b8cac6945977056728bf97ddacccf4ffc7596420396d6354f50fd4fd3d68fae (or the exact event-universe source row), then rerun current V4 0.0C/Stage A for this story.",
+      "stage_a_eligible_current_run": false
+    }
+  ],
+  "known_unknowns": [
+    {
+      "type": "HISTORICAL_SOURCE_ROWS_NOT_REPOSITORY_BOUND",
+      "count": 243,
+      "effect": "Rows are preserved as provenance holds outside current Stage A, not rejected."
+    }
+  ],
+  "current_event_universe": {
+    "run_id": "SBTL_V4_XRUN_20260831_143419__20260901_123511_R3",
+    "source_bound_event_count": 425,
+    "observation_count": 632,
+    "input_sha256": {
+      "20260831": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+      "20260901": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452"
+    },
+    "full_local_artifact_sha256": "90719eb1067241df6b201c2722cca5280f89ea69d0e3fd3e7865b9e91d9e8c13"
+  },
+  "formal_stage_a_handoff": {
+    "authorized": true,
+    "stage_a_input_scope": "current_source_bound_crossrun_events_only",
+    "stage_a_input_event_count": 425,
+    "historical_stage_a_input_count": 0,
+    "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "condition": "A repository-bound compact current-event handoff must be materialized from the SHA-locked 425-event universe before the formal Stage A artifact is emitted."
+  }
+}

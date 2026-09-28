@@ -1,0 +1,140 @@
+{
+  "schema": "historical_residual_44_terminal_reconciliation_v2",
+  "status": "PASS_TERMINAL_ACCOUNTING",
+  "generated_date": "2026-09-02",
+  "current_main_sha": "d631fccee308d7334095f843208517d5f3e11ef1",
+  "canonical_card_count": 1514,
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "source_cohort": "ENHANCED_RESCUE_R3_RESIDUAL_44",
+  "source_rebuild_ref": "runs/2026-09-02/historical_governed_residual_44_rebuild_20260902_R1.json",
+  "source_rebuild_git_blob_sha": "a48b74253c87c6f46eed7e5c8dbad76c8b9e5635",
+  "accounting": {
+    "input_total": 44,
+    "later_publish_ready_and_canonicalized": 4,
+    "intra_cohort_duplicate_collapse": 1,
+    "terminal_reject_or_stale": 4,
+    "old_anchor_contamination_rejected_and_rewritten_outside_residual_row": 1,
+    "conditional_hold_watchlist": 34,
+    "active_carry_forward_to_stage_a_from_this_residual_cohort": 0,
+    "accounted_total": 44,
+    "accounting_pass": true
+  },
+  "later_publish_ready_and_canonicalized": [
+    {
+      "source_spec_id": "REC26_A2_024",
+      "lineage": "EVGO_BRIXMOR",
+      "downstream_evidence": "runs/2026-08-25/publish-batch1-35/audit/independent-completeness-batch1-35.json",
+      "final_class": "already_canonicalized"
+    },
+    {
+      "source_spec_id": "REC26_A2_028",
+      "lineage": "FIRST_PHOSPHATE_FUND",
+      "downstream_evidence": "runs/2026-08-25/publish-batch1-35/audit/independent-completeness-batch1-35.json",
+      "final_class": "already_canonicalized"
+    },
+    {
+      "source_spec_id": "REC26_A2_049",
+      "lineage": "MASSACHUSETTS_BESS_RFP",
+      "downstream_evidence": "runs/2026-08-25/publish-batch1-35/audit/independent-completeness-batch1-35.json",
+      "final_class": "already_canonicalized"
+    },
+    {
+      "source_spec_id": "REC26_A2_050",
+      "lineage": "NOVAKY_BESS",
+      "downstream_evidence": "runs/2026-08-25/publish-batch1-35/audit/independent-completeness-batch1-35.json",
+      "final_class": "already_canonicalized"
+    }
+  ],
+  "intra_cohort_duplicate_collapse": [
+    {
+      "source_spec_id": "REC26_A2_011",
+      "lineage": "CANADA_QUEBEC_CRITICAL_MINERALS",
+      "collapsed_into": "REC26_A2_028",
+      "final_class": "duplicate_collapse_to_later_canonicalized_target"
+    }
+  ],
+  "terminal_reject_or_stale": [
+    {
+      "source_spec_id": "REC26_A2_010",
+      "lineage": "CANADA_NICKEL_CRAWFORD",
+      "final_class": "terminal_reject"
+    },
+    {
+      "source_spec_id": "REC26_A2_013",
+      "lineage": "CN_MIIT_ECHELON",
+      "final_class": "stale_republication"
+    },
+    {
+      "source_spec_id": "REC26_A2_019",
+      "lineage": "EMP_AURORA",
+      "final_class": "stale_or_no_new_milestone"
+    },
+    {
+      "source_spec_id": "LGES_HONDA_PRISMATIC",
+      "lineage": "LGES_HONDA_PRISMATIC",
+      "final_class": "terminal_reject_entity_event_contamination"
+    }
+  ],
+  "old_anchor_contamination_rejected_and_rewritten": [
+    {
+      "source_spec_id": "REC26_A2_065",
+      "lineage": "SPAIN_REPOWER_2GWH",
+      "final_class": "reject_old_anchor_contamination",
+      "reason": "The old row conflated the May 22 provisional 149-project/about-2GWh selection with the later July 24 budget expansion to EUR612m. The old residual identity is not carried forward; any separate July funding-program event must be judged as a separate candidate.",
+      "external_evidence_binding": {
+        "file": "stage_a_first_batch_results_20260812_STANDARD_NEW_RUN.json",
+        "sha256": "5ed706c6fdbcbb9dd51ac5d7c1d3a928afa89c0c3eb3b71230b279517b32cba4",
+        "evidence_class": "historical_checkpoint_exact_sha_bound"
+      }
+    }
+  ],
+  "conditional_hold_watchlist": [
+    "REC26_A2_001",
+    "REC26_A2_002",
+    "REC26_A2_003",
+    "REC26_A2_005",
+    "REC26_A2_012",
+    "REC26_A2_015",
+    "REC26_A2_016",
+    "REC26_A2_017",
+    "REC26_A2_018",
+    "REC26_A2_020",
+    "REC26_A2_026",
+    "REC26_A2_030",
+    "REC26_A2_031",
+    "REC26_A2_033",
+    "REC26_A2_035",
+    "REC26_A2_037",
+    "REC26_A2_038",
+    "REC26_A2_044",
+    "REC26_A2_047",
+    "REC26_A2_048",
+    "REC26_A2_052",
+    "REC26_A2_054",
+    "REC26_A2_055",
+    "REC26_A2_058",
+    "REC26_A2_064",
+    "REC26_A2_067",
+    "REC26_A2_068",
+    "REC26_A2_071",
+    "REC26_A2_073",
+    "REC26_A2_074",
+    "REC26_A2_076",
+    "LIDAO_WUHE_EIA",
+    "REC26_A2_066",
+    "REC26_A2_069"
+  ],
+  "downstream_crosscheck": {
+    "publish_batch_path": "runs/2026-08-25/publish-batch1-35/audit/independent-completeness-batch1-35.json",
+    "publish_batch_source_spec_count": 35,
+    "residual_44_intersection_count": 4,
+    "residual_44_intersection": [
+      "REC26_A2_024",
+      "REC26_A2_028",
+      "REC26_A2_049",
+      "REC26_A2_050"
+    ]
+  },
+  "reentry_rule": "conditional_hold_watchlist rows do not enter formal Stage A unless a fresh current-run event or exact source recovery independently reopens them; they remain discoverable in 0.0C watch/hold challenge scope.",
+  "formal_stage_a_effect": "This closes the residual-44 historical accounting only. It does not authorize formal Stage A while the separate historical active-246 reconciliation remains open."
+}

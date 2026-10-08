@@ -38,20 +38,23 @@ def load_base(path):
 full_before = load_base('data/cards.full.json')
 full_after = json.loads(json.dumps(full_before))
 index = next(i for i, c in enumerate(full_after['cards']) if c['id'] == patch['before_card']['id'])
-assert full_after['cards'][index] == patch['before_card'], 'Locked before-card mismatch'
+if full_after['cards'][index] != patch['before_card']:
+    raise ValueError('Locked before-card mismatch; no files written')
 full_after['cards'][index] = patch['after_card']
 full_after['updated'] = manifest['output_updated']
 brief_before = load_base('public/data/briefs.json')
 brief_after = json.loads(json.dumps(brief_before))
 for revision in patch['brief_revisions']:
     index = next(i for i, b in enumerate(brief_after['items']) if b['id'] == revision['id'])
-    assert brief_after['items'][index] == revision['before'], 'Locked before-brief mismatch'
+    if brief_after['items'][index] != revision['before']:
+        raise ValueError('Locked before-brief mismatch; no files written')
     brief_after['items'][index] = revision['after']
 brief_after['generated_at'] = '2026.10.08'
 # Check all inputs before any write; fail closed on any undeclared main/inventory drift.
 for path, before, after in [('data/cards.full.json', full_before, full_after), ('public/data/briefs.json', brief_before, brief_after)]:
     existing = json.loads((ROOT / path).read_text())
-    assert existing == before or existing == after, f'{path}: drift; relock and review before apply'
+    if existing != before and existing != after:
+        raise ValueError(f'{path}: drift; relock and review before apply; no files written')
 # Idempotent exact replay, preserving repository formatting.
 for path, after, indent in [('data/cards.full.json', full_after, 2), ('public/data/briefs.json', brief_after, 1)]:
     (ROOT / path).write_text(json.dumps(after, ensure_ascii=False, indent=indent) + '\n')

@@ -67,3 +67,8 @@ The prior packet/data-shape finding is resolved by #387's exact three-file scope
 PR #388 targets main and contains the corrected public briefs, complete correction evidence, replay tooling, template manifest and tests. It must land first after approval. It changes no canonical cards. PR #387 is stacked on #388 and changes only canonical full/lean and the active manifest. Its baseline lock is the prerequisite commit, whose canonical blob is unchanged. After #388 lands, retarget #387 to main and relock its active manifest to the actual main commit (squash/rebase merge hashes may differ), then rerun all gates before separate approval. Never merge #387 first. This ordering makes correction.json available before the canonical provenance pointer and removes stale brief claims before the card correction. No merge or production deployment is authorized.
 
 The original packet commit is the immutable replay base. A later governed manifest base is accepted only if it descends from that replay base and preserves the exact canonical blob, checked before writes. The inactive direct-add.template.json supports isolated prerequisite CI; it is not an active governed manifest.
+
+
+## Optimized Python review remediation — 5453335379
+
+All three materialization guards now use explicit ValueError checks before writes; Python -O and PYTHONOPTIMIZE cannot remove them. Four added subprocess regression tests each run normal Python, -O and PYTHONOPTIMIZE=1, corrupting before-card, before-brief, full inventory and brief inputs. Each verifies the specific guard rejects and full, lean and briefs remain byte-identical. Thirteen tests pass, including twelve new mode/case combinations. No card or brief content changed in this remediation.

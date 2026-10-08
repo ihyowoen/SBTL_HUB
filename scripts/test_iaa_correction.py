@@ -10,6 +10,7 @@ import unittest
 import tempfile
 import shutil
 import sys
+import os
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 PACKET = ROOT / 'direct-adds/2026-10-08-iaa-proposal-correction'
@@ -157,6 +158,65 @@ class IAACorrectionTests(unittest.TestCase):
 
     def test_apply_rejects_wrong_blob_lock_before_writes(self):
         self.assert_lock_failure_leaves_outputs_unchanged('base_full_blob_sha', '0' * 40)
+
+
+    def assert_replay_failure_before_writes_in_all_modes(self, failure):
+        for mode in ('normal', '-O', 'PYTHONOPTIMIZE'):
+            with self.subTest(failure=failure, mode=mode), tempfile.TemporaryDirectory() as directory:
+                root = pathlib.Path(directory)
+                (root / 'scripts').mkdir()
+                shutil.copyfile(ROOT / 'scripts/apply_iaa_correction.py', root / 'scripts/apply_iaa_correction.py')
+                packet = root / PACKET.relative_to(ROOT)
+                packet.mkdir(parents=True)
+                patch = copy.deepcopy(PATCH)
+                full = baseline('data/cards.full.json')
+                briefs = current('public/data/briefs.json')
+                if failure == 'before_card':
+                    patch['before_card']['title'] += ' wrong locked snapshot'
+                elif failure == 'before_brief':
+                    patch['brief_revisions'][0]['before']['narrative'] += ' wrong locked snapshot'
+                elif failure == 'full_drift':
+                    full['cards'][0]['title'] += ' unrelated drift'
+                elif failure == 'brief_drift':
+                    briefs['generated_at'] = 'unexpected drift'
+                else:
+                    self.fail('Unknown failure case')
+                (packet / 'correction.json').write_text(json.dumps(patch))
+                (packet / 'direct-add.json').write_text(json.dumps(MANIFEST))
+                gitdir = subprocess.check_output(['git', 'rev-parse', '--absolute-git-dir'], cwd=ROOT, text=True).strip()
+                (root / '.git').write_text(f'gitdir: {gitdir}\n')
+                values = {'data/cards.full.json': full, 'public/data/cards.json': {'sentinel': True}, 'public/data/briefs.json': briefs}
+                for path, value in values.items():
+                    file = root / path
+                    file.parent.mkdir(parents=True, exist_ok=True)
+                    file.write_text(json.dumps(value))
+                before = {path: (root / path).read_bytes() for path in values}
+                env = os.environ.copy()
+                env.pop('PYTHONOPTIMIZE', None)
+                command = [sys.executable]
+                if mode == '-O':
+                    command.append('-O')
+                elif mode == 'PYTHONOPTIMIZE':
+                    env['PYTHONOPTIMIZE'] = '1'
+                command.append(str(root / 'scripts/apply_iaa_correction.py'))
+                result = subprocess.run(command, cwd=root, env=env, capture_output=True, text=True)
+                self.assertNotEqual(result.returncode, 0)
+                expected = {'before_card': 'Locked before-card mismatch', 'before_brief': 'Locked before-brief mismatch', 'full_drift': 'data/cards.full.json: drift', 'brief_drift': 'public/data/briefs.json: drift'}[failure]
+                self.assertIn(expected, result.stderr)
+                self.assertIn('no files written', result.stderr)
+                self.assertEqual(before, {path: (root / path).read_bytes() for path in values})
+
+    def test_apply_rejects_before_card_in_all_python_modes(self):
+        self.assert_replay_failure_before_writes_in_all_modes('before_card')
+
+    def test_apply_rejects_before_brief_in_all_python_modes(self):
+        self.assert_replay_failure_before_writes_in_all_modes('before_brief')
+
+    def test_apply_rejects_full_drift_in_all_python_modes(self):
+        self.assert_replay_failure_before_writes_in_all_modes('full_drift')
+
+    def test_apply_rejects_brief_drift_in_all_python_modes(self):
+        self.assert_replay_failure_before_writes_in_all_modes('brief_drift')
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-# R2 append-only event bridge & risk triage (2026-10-08 KST)
+# R2 companion / R3 event-bridge addendum (2026-10-08 KST)
 
 > **HOLD: NO CARD APPLY, NO MERGE.** This is an additional diagnostic receipt for Draft PR #386, not Stage A or a production approval. All original source-archive rows and R1 evidence remain unchanged.
 
@@ -20,19 +20,21 @@
 ## Confirmed execution-stage bridge: POSCO Future M
 1. **2026-08-06**: existing `2026-08-06_KR_03` describes agreement with **unnamed** Korean buyer for over **190,000 t** of LFP cathode materials over 2027–2032, with formal contract then pending. [August POSCO newsroom](https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%93%A8%EC%B2%98%EC%97%A0-%EB%93%9C%EB%94%94%EC%96%B4-lfp-%EC%8B%9C%EC%9E%A5-%EB%9A%AB%EC%97%88%EB%8B%A4-%EB%B0%B0%ED%84%B0%EB%A6%AC%EC%82%AC%EC%99%80-%EB%8C%80/).
 2. **2026-09-22**: `RC26-001` is **distinct SK On** LFP cathode supply contract of about **KRW 1.1 trillion**, 2027–2029, extendable. The company's Sept 22 release explicitly says this is *in addition to* last month's agreement. [POSCO Sept release](https://www.poscofuturem.com/pr/view.do?num=1049).
-3. **Contract signed Oct 6, announced Oct 7**: `RC26-015` **Samsung SDI** approximately KRW **6 trillion** long-term materials contract; official source **explicitly identifies Samsung SDI as the August 190,000 t counterparty** and says quantities were increased more than twofold. This is the **stage-advancing follow-up to the August canonical card**, separate from SK On. [POSCO October release](https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%93%A8%EC%B2%98%EC%97%A0-%EC%82%BC%EC%84%B1sdi%EC%99%80-lfp-6%EC%A1%B0%EC%9B%90-%EA%B7%9C%EB%AA%A8-%EA%B3%B5%EA%B8%89%EA%B3%84%EC%95%BD-%EC%B2%B4%EA%B2%B0-non/).
+3. **Contract signed Oct 6, announced Oct 7**: `RC26-021` **Samsung SDI** approximately KRW **6 trillion** long-term materials contract; official source **explicitly identifies Samsung SDI as the August 190,000 t counterparty** and says quantities were increased more than twofold. This is the **stage-advancing follow-up to the August canonical card**, separate from SK On. [POSCO October release](https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%93%A8%EC%B2%98%EC%97%A0-%EC%82%BC%EC%84%B1sdi%EC%99%80-lfp-6%EC%A1%B0%EC%9B%90-%EA%B7%9C%EB%AA%A8-%EA%B3%B5%EA%B8%89%EA%B3%84%EC%95%BD-%EC%B2%B4%EA%B2%B0-non/).
 
 **Do not** merge the Samsung contract with the SK On contract. Do not describe August's nonbinding agreement as already signed. Do not imply the entire October 6-trillion commitment corresponds to precisely the August 190,000 t base quantity; the October announcement also describes other materials.
 
-## New / supplementary provisional event queue (not Stage A)
+## Existing R2 cross-check + three new R3 provisional events (not Stage A)
+
+**Canonical candidate-ID crosswalk:** The existing `R2_CONTINUATION.md` already owns RC26-013 through RC26-019. This companion **reuses RC26-014** for LGES–Elevra and **introduces only RC26-020** (LGES–indiGOtech), **RC26-021** (POSCO–Samsung SDI), and **RC26-022** (LGES–B2U). No provisional event ID is overwritten or counted twice. Existing R2 RC26-016 denotes the EU IAA meeting, not B2U.
 | ID | Event / announcement date | Stage | Primary evidence | Existing-card context |
 |---|---|---|---|---|
-| **RC26-013** | Oct 8 / Oct 8 | `SIGNED_BINDING_OFFTAKE` | [LGES–Elevra](https://www.lgcorp.com/media/release/30655): 240,000 dry metric tonnes of spodumene concentrate from Quebec over 4 years | `2026-08-21_GL_01` is Elevra–**Mangrove**, different counterparty; no same-contract merger |
-| **RC26-014** | Oct 1 / Oct 1 | `NONBINDING_MOU` | [LGES–indiGOtech](https://lgcorp.com/media/release/30626): explore 46-series NCM cylindrical cell supply 2027–2030 | No firm purchase order or volume proven |
-| **RC26-015** | Oct 6 / Oct 7 | `SIGNED_UPSIZED_SUPPLY_CONTRACT` | [POSCO–Samsung SDI](https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%93%A8%EC%B2%98%EC%97%A0-%EC%82%BC%EC%84%B1sdi%EC%99%80-lfp-6%EC%A1%B0%EC%9B%90-%EA%B7%9C%EB%AA%A8-%EA%B3%B5%EA%B8%89%EA%B3%84%EC%95%BD-%EC%B2%B4%EA%B2%B0-non/) | Same-counterparty/advanced-stage candidate Related to `2026-08-06_KR_03`; pending formal Related gate |
-| **RC26-016** | Sept 22 dateline / Sept 28 page | `PARTNERSHIP_PRIORITY_ACCESS` | [LGES–B2U](https://lgcorp.com/media/release/30606): battery repurposing/BESS collaboration | Collector UIDs `20260926_120143:KR_2026-09-24_C09`, `20260928_160143:TF_0057`; date-role conflict needs resolution |
+| **RC26-014** | Oct 8 / Oct 8 | `SIGNED_BINDING_OFFTAKE` | [LGES–Elevra](https://www.lgcorp.com/media/release/30655): 240,000 dry metric tonnes of spodumene concentrate from Quebec over 4 years | `2026-08-21_GL_01` is Elevra–**Mangrove**, different counterparty; no same-contract merger |
+| **RC26-020** | Oct 1 / Oct 1 | `NONBINDING_MOU` | [LGES–indiGOtech](https://lgcorp.com/media/release/30626): explore 46-series NCM cylindrical cell supply 2027–2030 | No firm purchase order or volume proven |
+| **RC26-021** | Oct 6 / Oct 7 | `SIGNED_UPSIZED_SUPPLY_CONTRACT` | [POSCO–Samsung SDI](https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%93%A8%EC%B2%98%EC%97%A0-%EC%82%BC%EC%84%B1sdi%EC%99%80-lfp-6%EC%A1%B0%EC%9B%90-%EA%B7%9C%EB%AA%A8-%EA%B3%B5%EA%B8%89%EA%B3%84%EC%95%BD-%EC%B2%B4%EA%B2%B0-non/) | Same-counterparty/advanced-stage candidate Related to `2026-08-06_KR_03`; pending formal Related gate |
+| **RC26-022** | Sept 22 dateline / Sept 28 page | `PARTNERSHIP_PRIORITY_ACCESS` | [LGES–B2U](https://lgcorp.com/media/release/30606): battery repurposing/BESS collaboration | Collector UIDs `20260926_120143:KR_2026-09-24_C09`, `20260928_160143:TF_0057`; date-role conflict needs resolution |
 
-**RC26-013/014/015 are post-Sep28 targeted source discoveries, not products of a completed 6 × 8 regional/lens crawl.** The 16 documented R1+R2 candidate events are a provisional shortlist only; not the 1,045-URL universe disposition.
+**RC26-014/014/015 are post-Sep28 targeted source discoveries, not products of a completed 6 × 8 regional/lens crawl.** The existing 19 R1/R2 events plus the three nonduplicate R3 additions are **22 provisional candidates**; not the 1,045-URL universe disposition. ID RC26-014 is a verified cross-reference, not a 23rd event.
 
 ## Existing published-card accuracy blocker — urgent separate UPDATE review
 Current canonical `2026-05-13_EU_01` headline: **"EU 산업가속법(IAA) 발효 진입 — 동력전지 본지화 강제 + 중국 자본 진입 제한 6 of 4 조건"**. Its body itself says the Commission's proposal was in Parliament/Council consideration, and it relies on a single secondary [OFweek piece](https://libattery.ofweek.com/2026-05/ART-36001-8480-30687365.html).

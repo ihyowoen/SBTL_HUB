@@ -53,9 +53,9 @@ Primary references:
 
 ## Unclosed gap and formal release blockers
 - 2026-09-29 to 10-08: targeted live news searches have been performed, **NOT** an authoritative complete native 6-region × 8-lens Collector coverage re-run.
-- **48 / 48** region-lens formal 0.0C terminals remain NOT PASS. Some axes have spot-check observations; these do not satisfy terminal search provenance.
+- Editorial 6-region × 8-lens intersections (**48**) are a **supplemental discovery view** and cannot substitute for the repository-native 0.0C machine contract. The formal V4 0.0C prompt requires **6 exact regional keys + 14 exact topic keys**; these **20 required machine-axis terminals have NOT BEEN RUN**. Targeted web spot-checks do not establish `searched`/`blocked` terminal provenance.
 - Cross-source same-event grouping, multilingual near-duplicates, canonical historical lineage and Related edges still require full review.
-- All 1,045 source URL records require explicit event identity or justified reserve/watch/drop; publication is prohibited until Stage 0.0D/0.0C → A/B/C → 0.4–0.8 and CI pass.
+- All 1,045 source URL records require explicit event identity or justified reserve/watch/drop; publication is prohibited until a passing 0.0D and exact machine-key 0.0C ledger → A/B/C → 0.4–0.8 and CI pass.
 - Draft PR #386 remains intentionally open/unmerged. Do **not** merge this audit PR as a substitute for a **separate** governed, card-only production PR.
 
 **Change safety:** zero canonical writes, zero public lean-card writes, zero experimental Revolution code changes, zero deployments from this checkpoint.

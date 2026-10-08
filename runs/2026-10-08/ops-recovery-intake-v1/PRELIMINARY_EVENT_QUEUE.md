@@ -1,0 +1,26 @@
+# Preliminary recovery event queue — NOT publish-ready
+
+> Human-reviewed public-evidence *shortlist*, not Stage A and not the full September 20–October 8 universe. **All 12 are provisional.** No canonical IDs, new Related edges, card write, or release approval is granted by this file.
+
+| ID | Event date | Region/lens | Bounded event | Execution stage | Company / government source | Outstanding review |
+|---|---|---|---|---|---|---|
+| RC26-001 | 2026-09-22 | KR / Materials | 포스코퓨처엠–SK온 약 1.07조원 LFP 공급계약 | `SIGNED_CONTRACT` | [Primary source](https://www.poscofuturem.com/pr/view.do?num=1049) | ZIP 09-23/26; 8/6 POSCO earlier LFP agreement is different contract. Verify counterparty, stage, and Related edge; no auto link. |
+| RC26-002 | 2026-09-23 | KR / Policy | 제1차 자원안보 기본계획: 핵심광물 38→51종 | `APPROVED_POLICY_PLAN` | [Primary source](https://admin.korea.kr/briefing/pressReleaseView.do?gubun=pressRelease&newsId=156783054&pageIndex=1&repCode=A00015) | ZIP 09-23/26; not a domestic-content mandate or immediate procurement rule; 4/24 law is contextual. |
+| RC26-003 | 2026-09-21 | Global / Power | NVIDIA DSX Ready 프로그램, 초기 BESS/CDU 범위 | `PROGRAM_LAUNCHED` | [Primary source](https://blogs.nvidia.com/blog/dsx-ready-ai-factories-power-cooling/) | ZIP 09-23/26; voluntary qualification, not mandatory UL or universal certification. |
+| RC26-004 | 2026-09-22 | KR / Cell | LGES BESS, NVIDIA DSX Ready qualification 발표 | `PRODUCT_QUALIFIED` | [Primary source](https://lgcorp.com/media/release/30596) | ZIP 09-23/26; separate actor action from RC26-003; follow-up edge requires formal review. |
+| RC26-005 | 2026-09-21 | EU / Power | RWE Moerdijk BESS 400MW/1100MWh FID | `FID_NOT_CONSTRUCTION` | [Primary source](https://www.rwe.com/en/press/rwe-generation/2026-09-21-rwe-to-build-400-mw-battery-to-ease-grid-congestion-in-noord-brabant/) | ZIP 09-23; FID is not construction or commercial operation. |
+| RC26-006 | 2026-09-17 | EU / Power | GIGA Green Turtle Belgium 700MW/2800MWh construction start | `CONSTRUCTION_STARTED` | [Primary source](https://giga-storage.com/en/Construction-starts-on-Green-Turtle--Belgium%27s-largest-energy-storage-facility/) | ZIP 09-23/28; Sept17 original date, not Sept25 syndicated follow-up: CARRY-IN. |
+| RC26-007 | 2026-09-28 | KR / Cell | Samsung SDI SBB 2.0 passes UL Solutions LSFT evaluation criteria | `TEST_PASS_NOT_FULL_CERTIFICATION` | [Primary source](https://news.samsungsdi.com/ko/click?seq=499) | ZIP 09-28; distinct from canonical 2026-07-14_KR_01 (UPS test); no automatic Related edge. |
+| RC26-008 | 2026-09-18 (follow-up 09-24) | CN / Cell | EVE–Fluence multi-year battery framework, reported 16/190GWh split | `FRAMEWORK_PARTLY_RESERVED` | [Primary source](https://fluenceenergy.gcs-web.com/news-releases/news-release-details/fluence-secures-long-term-battery-supply-through-multiyear) | ZIP 09-20; 206GWh NOT all committed; Fluence primary confirms multi-year cooperation but quantity split requires EVE primary document. |
+| RC26-009 | 2026-10-02 | EU / Power | GIGA Albatross 350MW/1400MWh Ready to Build | `READY_TO_BUILD_FID_PENDING` | [Primary source](https://giga-storage.com/en/Giga-Storage-takes-big-step-in-Germany%3B-Albatross-energy-storage-project-350-MW--14-GWh-in-Lower-Saxony-is-ready-to-build./) | Outside 09-28 ZIP; web spot-check; 2026 Q4 FID is planned, not granted. |
+| RC26-010 | 2026-10-08 | KR / Finance | LGES Q3 provisional sales 9.6434tn KRW / operating profit 756bn KRW | `PRELIMINARY_EARNINGS` | [Primary source](https://lg.co.kr/media/release/30650) | Outside 09-28 ZIP; verify 416.9bn credit and 339.1bn excluding credit; provisional, not audited. |
+| RC26-011 | 2026-10-07 | Global / Policy | South Africa proposed Section 34: 4.6GW BESS + 5.0GW gas | `PROPOSED_APPROACH_NOT_AWARDED` | [Primary source](https://www.gov.za/news/media-statements/minister-kgosientsho-ramokgopa-prioritises-battery-storage-and-gas-power) | Outside 09-28 ZIP; 9.6GW combined figure, not total BESS or awarded tender. |
+| RC26-012 | 2026-10-07 | Global / Policy | USTR plus 14 economies sign industrial overcapacity statement | `JOINT_STATEMENT_NOT_TARIFF` | [Primary source](https://www.ustr.gov/about/policy-offices/press-office/press-releases/2026/october/fourteen-economies-join-united-states-signing-joint-ministerial-statement-address-global-excess) | Outside 09-28 ZIP; joint statement is not new tariff or implemented battery rule. |
+
+## Required before source → operation promotion
+
+- Source provenance: reconcile 1,157 Collector rows against exactly 1,045 distinct article URLs, then identify full event identities and merge repeated reports without collapsing different counterparties/projects.
+- Confirm prior canonical event and `related` lineage on current main; earlier existing-card IDs in local binder are **contextual candidates only** and not authorized links.
+- 8 entries have matched Collector UID lineage; 4 post-09/28 entries are targeted spot-checks and do not satisfy 6-region × 8-lens completeness.
+- Perform primary evidence/date/announcement-state review per event, preserve unverified caveats, reconcile TRIAGE filtered/review, then run every governance stage and validators.
+- Do **not** release any event until accepted under the existing pipeline. This Draft PR is only a checkpoint, not production mutation.

@@ -1,0 +1,54 @@
+name: IAA correction regression
+on:
+  pull_request:
+    paths:
+      - 'data/cards.full.json'
+      - 'public/data/cards.json'
+      - 'public/data/briefs.json'
+      - 'direct-adds/2026-10-08-iaa-proposal-correction/**'
+      - 'scripts/test_iaa_correction.py'
+      - 'scripts/apply_iaa_correction.py'
+      - '.github/workflows/iaa-correction-regression.yml'
+permissions:
+  contents: read
+jobs:
+  correction:
+    # Pinned historical replay is scoped to this correction branch; future news updates use their own manifests.
+    if: github.head_ref == 'correction/iaa-evidence-briefs-20261008' || github.head_ref == 'correction/iaa-proposal-status-20261008'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Verify prerequisite evidence and published briefs before replay
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          root = pathlib.Path(".")
+          packet = json.loads((root / "direct-adds/2026-10-08-iaa-proposal-correction/correction.json").read_text())
+          briefs = json.loads((root / "public/data/briefs.json").read_text())
+          for revision in packet["brief_revisions"]:
+              assert next(b for b in briefs["items"] if b["id"] == revision["id"]) == revision["after"]
+          pointer = packet["after_card"]["correction_history"][-1]["before_card_ref"].split("#")[0]
+          assert (root / pointer).is_file()
+          PY
+      - name: Materialize canonical candidate only in ephemeral checkout
+        run: python scripts/apply_iaa_correction.py
+      - name: Replay and negative regressions
+        run: python scripts/test_iaa_correction.py
+      - name: Existing governed correction gates
+        run: |
+          git show c09c1bc5112216a617903a2d572662342bcd857c:data/cards.full.json > "$RUNNER_TEMP/iaa-base-full.json"
+          manifest=direct-adds/2026-10-08-iaa-proposal-correction/direct-add.json
+          test -f "$manifest" || manifest=direct-adds/2026-10-08-iaa-proposal-correction/direct-add.template.json
+          node scripts/validate_json_schema_subset.mjs --schema schemas/manual-direct-add.v2.schema.json --instance "$manifest"
+          node scripts/validate_manual_direct_add.mjs --manifest "$manifest" --base "$RUNNER_TEMP/iaa-base-full.json" --full data/cards.full.json
+          node scripts/validate_manual_direct_add_v4_hardening.mjs --manifest "$manifest" --base "$RUNNER_TEMP/iaa-base-full.json" --full data/cards.full.json
+          node scripts/lean_cards.mjs --check

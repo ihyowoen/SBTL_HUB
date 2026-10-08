@@ -1,0 +1,1303 @@
+{
+  "base_main_commit_sha": "c09c1bc5112216a617903a2d572662342bcd857c",
+  "before_card": {
+    "id": "2026-05-13_EU_01",
+    "date": "2026-05-13",
+    "region": "EU",
+    "cat": "Policy",
+    "sub_cat": "EU산업가속법",
+    "signal": "top",
+    "title": "EU 산업가속법(IAA) 발효 진입 — 동력전지 본지화 강제 + 중국 자본 진입 제한 6 of 4 조건",
+    "sub": "2035 제조업 GDP 20% 목표, 1억€ 이상 중국 투자 시 4개 합작·기술이전 조건 강제",
+    "gate": "유럽연합의 첫 명확한 중국 supply chain 격리 법안",
+    "fact": "EU 위원회가 2026년 3월 초 제출한 Industrial Accelerator Act (IAA) 가 유럽의회·이사회 심의 단계 진입. 36조 + 4 부속서, 6장. 2035년 EU GDP 의 20% 가 제조업이 되도록 목표. 동력전지 측 hard rule: ①현지화 함량 — EU 판매 EV (BEV/PHEV/FCEV) 가 공공조달·재정 자극 자격 받으려면 동력전지 최소 3개 핵심 부품이 EU 원산. 3년 과도기 후 5개 (셀, 양극 등) 로 상향. ②공공조달·보조금: EU 제조 EV/전지 우선 선택. ③외자 엄격 심사: 전지를 신흥 전략산업 list 추가. 중국 (글로벌 capacity 40% 이상 국가) 의 1억€ 이상 투자는 6 조건 중 4 (합작·기술이전·R&D·로컬 채용 등) 만족 필수. 영향: 저가 A·B 급 EV 가 중국 LFP 의존 못 함 — NCM 으로 강제 전환 비용 증가. S&P Global Mobility 전망: 보호주의 비용 발생 가능성 동시 존재.",
+    "implication": [
+      "EU 시장이 중국 LFP 셀 의존 막음 = 한국 셀 메이커 (LGES/SK on/삼성SDI) 의 EU 점유 확대 윈도우.",
+      "EU NCM 우선 정책은 한국 NCM (현재 의존도 높음) 메이커의 capacity 우위 — 단 EU 의 LFP 자체 capacity 부재 시 한국 LFP 의 EU 진출 기회.",
+      "중국 메이커의 EU 합작·기술이전 강제 = 중국-EU JV 형성 가속. 한국 셀 메이커의 stand-alone EU 양산 시설(LGES 폴란드, 삼성SDI 헝가리, SK on 헝가리) 의 경쟁 우위."
+    ],
+    "urls": [
+      "https://libattery.ofweek.com/2026-05/ART-36001-8480-30687365.html"
+    ],
+    "related": [],
+    "fact_sources": [
+      {
+        "claim": "EU IAA 동력전지 핵심부품 EU 원산 최소 3개 → 5개 (3년 후)",
+        "source_url": "https://libattery.ofweek.com/2026-05/ART-36001-8480-30687365.html",
+        "source_quote": "针对 电动汽车 电池单元及其关键部件，IAA引入严格'欧盟制造'要求... 其动力电池必须包含至少三个关键部件为欧盟原产（包括电池）。三年过渡期后，欧盟原产的门槛提高至至少五个核心组件",
+        "fetched_at": "2026-05-14T11:31:31.260288+09:00",
+        "source_published_date": "2026-05-13",
+        "source_published_date_basis": "card_news_date_fallback",
+        "visible_quote_date": "2026-05-13",
+        "visible_quote_date_type": "news_published_date",
+        "audit_fetched_at": "2026-05-14T11:31:31.260288+09:00"
+      },
+      {
+        "claim": "중국 1억€ 이상 투자 시 6 조건 중 4 만족 (합작·기술이전·R&D·채용)",
+        "source_url": "https://libattery.ofweek.com/2026-05/ART-36001-8480-30687365.html",
+        "source_quote": "来自电池产能占全球40%以上国家（主要是中国）的投资，若超过1亿欧元，必须满足合资、技术转让、研发投入、本地用工等六个条件中的至少四项，才能获批",
+        "fetched_at": "2026-05-14T11:31:31.260288+09:00",
+        "source_published_date": "2026-05-13",
+        "source_published_date_basis": "card_news_date_fallback",
+        "visible_quote_date": "2026-05-13",
+        "visible_quote_date_type": "news_published_date",
+        "audit_fetched_at": "2026-05-14T11:31:31.260288+09:00"
+      }
+    ],
+    "baseline_id_assignment": {
+      "assigned_id": "2026-05-13_EU_01",
+      "date_region_key": "2026-05-13_EU",
+      "assigned_at": "2026-05-14T11:31:31.260288+09:00",
+      "rationale": "sequence-correct within (date,region) per CARD_ID_STANDARD §2"
+    },
+    "related_lineage": {
+      "related_ids": []
+    }
+  },
+  "after_card": {
+    "id": "2026-05-13_EU_01",
+    "date": "2026-05-13",
+    "region": "EU",
+    "cat": "Policy",
+    "sub_cat": "EU산업가속법",
+    "signal": "top",
+    "title": "EU 산업가속법(IAA) 제안 심의 — EV 역내 원산·외국인투자 조건 추진",
+    "sub": "3월 4일 집행위원회 제안; 10월 8일 기준 위원회 결정 대기, IAA 요건 미시행",
+    "gate": "입법 제안 단계: 공공조달·지원제도 원산 요건과 특정 외국인직접투자 조건을 구분",
+    "fact": "집행위원회는 2026년 3월 4일 COM(2026)100을 제안했다. 유럽의회 절차 2026/0068(COD)는 10월 8일 기준 Awaiting committee decision 상태로, IAA는 채택·발효된 규정이 아니다. 제안은 2035년 제조업의 EU GDP 비중 20%를 목표로 한다. 부속서 III Part I은 특정 신규 전기차 공공조달에 EU 조립·비배터리 부품 역내 원산 비율과 배터리 셀을 포함한 최소 3개 핵심부품의 EU 원산 요건을 제안한다. 같은 Part I의 5개 요건은 셀·양극활물질·BMS를 포함하며 발효 후 3년을 기준으로 설계됐다. Part II의 공적 지원·기업차량 지원 및 Part III의 소형차 기준은 별도 범위·예외를 둔다. 이는 EU 판매 EV 전체의 일반 판매금지나 특정 배터리 화학계 의무가 아니다. 제안 제17조는 지정 신흥 전략 제조업에서 투자자 본국의 세계 제조능력 비중이 40%를 초과하고 투자액이 1억 유로를 초과하는 외국인직접투자를 대상으로 하며, 협정상 약속에 따른 제외 등 예외가 있다. 제18조는 발효 후 12개월부터 직접 투자자에 6개 조건 중 최소 4개를 적용하는 안이며, EU 근로자 최소 50% 조건은 필수로 제안한다. 합작·기술이전이 모든 대상 투자에 각각 필수라는 뜻은 아니다. 확정 시행일은 없으며 기존 EU 규정의 현행 의무와 IAA의 제안 요건을 구분해야 한다.",
+    "implication": [
+      "입법 추적: 의회·이사회 심의, 최종 채택문, 관보 게재와 조항별 적용일을 확인한다. 제안안의 상대기간을 확정 시행일로 사용하지 않는다.",
+      "사업 검토: 공공조달·지원제도별 원산 요건과 외국인직접투자 적용범위·예외를 나눠 확인한다. NCM 전환 의무나 한국 업체의 자동 경쟁 우위를 이 제안에서 도출하지 않는다."
+    ],
+    "urls": [
+      "https://single-market-economy.ec.europa.eu/publications/industrial-accelerator-act_en",
+      "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026%2F0068%28COD%29",
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52026PC0100",
+      "https://single-market-economy.ec.europa.eu/document/download/99174b0d-bcda-4039-9157-62725439d010_en?filename=Annexes+to+the+proposal.pdf",
+      "https://libattery.ofweek.com/2026-05/ART-36001-8480-30687365.html"
+    ],
+    "related": [],
+    "fact_sources": [
+      {
+        "claim": "IAA는 입법 제안이며 10월 8일 위원회 결정 대기",
+        "source_url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026%2F0068%28COD%29",
+        "source_document_support": "3월 4일 제안 공개, 4월 30일 위원회 회부. 10월 8일 확인 시 채택·발효 단계 아님.",
+        "source_locator": "Status; Key events; procedure 2026/0068(COD)",
+        "verification_status": "verified_official_document",
+        "fetched_at": "2026-10-08T06:35:17Z",
+        "audit_fetched_at": "2026-10-08T06:35:17Z",
+        "source_quote": "Awaiting committee decision"
+      },
+      {
+        "claim": "3월 4일 제안; 2035 제조업 GDP 20% 목표; 미래 발효 조건",
+        "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52026PC0100",
+        "source_document_support": "집행위원회 제안 문서. 제조업 목표와 미래 관보 게재를 기점으로 한 발효 조항은 채택된 법령의 시행 증거가 아님.",
+        "source_locator": "COM(2026)100 title page; Articles 2 and 36",
+        "verification_status": "verified_official_document",
+        "fetched_at": "2026-10-08T06:35:17Z",
+        "audit_fetched_at": "2026-10-08T06:35:17Z",
+        "source_published_date": "2026-03-04",
+        "source_published_date_basis": "official_document_date",
+        "source_quote": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL"
+      },
+      {
+        "claim": "EV 역내 원산 제안의 조달·지원 범위와 예외",
+        "source_url": "https://single-market-economy.ec.europa.eu/document/download/99174b0d-bcda-4039-9157-62725439d010_en?filename=Annexes+to+the+proposal.pdf",
+        "source_document_support": "Part I: 특정 신규 전기차 조달, EU 조립·비배터리 부품 70%, 셀 포함 3개 핵심부품; 발효 3년 후 5개에 셀·양극활물질·BMS 포함. M1E 등 예외. Part II의 지원제도와 Part III의 소형차 기준은 별개. 원산 기준은 화학계 전환 의무를 규정하지 않음.",
+        "source_locator": "Annex III Parts I–III; printed pp. 4–6",
+        "verification_status": "verified_official_document",
+        "fetched_at": "2026-10-08T06:35:17Z",
+        "audit_fetched_at": "2026-10-08T06:35:17Z",
+        "source_published_date": "2026-03-04",
+        "source_published_date_basis": "official_document_date"
+      },
+      {
+        "claim": "특정 외국인직접투자 범위와 최소 4개·필수 근로자 조건 제안",
+        "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52026PC0100",
+        "source_document_support": "투자액 1억 유로 초과, 투자자 본국 세계 제조능력 40% 초과; 지정 제조업 및 협정·서비스·포트폴리오 예외. 발효 12개월 후 직접 투자자 6개 중 최소 4개, EU 근로자 50% 조건 필수. 합작과 IP/노하우 라이선스 조건이 각각 항상 필수인 것은 아님.",
+        "source_locator": "Articles 17(1)–(3), 18(2)–(4); printed pp. 46–48",
+        "verification_status": "verified_official_document",
+        "fetched_at": "2026-10-08T06:35:17Z",
+        "audit_fetched_at": "2026-10-08T06:35:17Z",
+        "source_published_date": "2026-03-04",
+        "source_published_date_basis": "official_document_date"
+      }
+    ],
+    "baseline_id_assignment": {
+      "assigned_id": "2026-05-13_EU_01",
+      "date_region_key": "2026-05-13_EU",
+      "assigned_at": "2026-05-14T11:31:31.260288+09:00",
+      "rationale": "sequence-correct within (date,region) per CARD_ID_STANDARD §2"
+    },
+    "related_lineage": {
+      "related_ids": []
+    },
+    "source_tier": "primary",
+    "correction_history": [
+      {
+        "correction_id": "IAA_PROPOSAL_STATUS_20261008",
+        "checked_at": "2026-10-08T06:35:17Z",
+        "base_main_commit_sha": "c09c1bc5112216a617903a2d572662342bcd857c",
+        "reason": "입법 제안을 발효·시행 규정으로 기술한 오류와 근거 없는 화학계·수혜 단정 정정",
+        "prior_source_urls": [
+          "https://libattery.ofweek.com/2026-05/ART-36001-8480-30687365.html"
+        ],
+        "before_card_ref": "direct-adds/2026-10-08-iaa-proposal-correction/correction.json#/before_card"
+      }
+    ]
+  },
+  "brief_revisions": [
+    {
+      "id": "lib_2026-05_all",
+      "before": {
+        "id": "lib_2026-05_all",
+        "month": "2026-05",
+        "group": null,
+        "period": "monthly",
+        "generated_at": "2026.07.17",
+        "scope_label": "2026년 5월 전체",
+        "source_month_count": 214,
+        "narrative": "【AI·전력 인프라】 5월에는 AI 데이터센터 수요가 처음으로 대형 계약의 숫자로 계량화됐다 — 플루언스는 하이퍼스케일러 2곳과의 글로벌 MSA와 12GWh 데이터센터 파이프라인, 전년의 두 배인 누계 수주 20억 달러를 공시했고 [2], LG에너지솔루션은 오라클 AI 데이터센터를 포함한 DTE에너지 6GWh·약 2.4조원 공급계약을 미시간 현지생산 물량으로 체결했다 [6]. 금융 층위에서는 구글 PPA가 붙은 Sunraycer의 텍사스 태양광+저장 3건이 9억 100만 달러 금융종결에 도달해 데이터센터 수요가 조달력으로 전환되는 구조가 확인됐다 [5]. 계통 층위에서는 ENTSO-E가 데이터센터 수요를 관리하지 못하면 재생에너지 수용이 제약될 수 있다고 경고해 유연성 자원의 제도화 압력을 공식화했다 [4]. 병목의 반대편에서는 효성중공업·LS일렉트릭·HD현대일렉트릭의 1분기 이익 동반 확대와 신규 수주 7조원 돌파, HD현대일렉트릭의 미국 SPP 765kV 변압기 1,730억원 수주가 이어져 전력기기 슈퍼사이클이 지속됨을 보여줬다 [1, 3].\n\n【ESS 축 전환】 벤치마크는 2025년 BESS 셀 출하가 600GWh를 넘고 상위 10개사(전량 중국계)가 90%를 차지했다고 평가했으며, BNEF는 2025년 저장 신규 설치 112GW/307GWh로 사상 첫 연 100GW 돌파를 집계했다 [7, 8]. 중국의 4월 ESS 셀 판매는 55.2GWh로 전년 대비 75.5% 늘어 동력전지의 두 배 속도로 커졌고, CEEC 7GWh 입찰은 kWh당 47달러의 가격 하한 벤치마크를 세웠다 [10, 11]. 신규 공급자도 등장해 포드는 켄터키 공장을 연 20GWh BESS 기지로 전환하는 전담 자회사 '포드에너지'를 출범시켰다 [9]. 운영과 제도의 검증도 진행돼 호주 SWIS 계통에서 BESS가 피크의 37.2%를 공급하는 기록이 나왔고, 일본 OCCTO 용량경매는 6시간 미만을 배제한 채 비리튬(699MW)이 리튬(551MW)을 앞서는 1.25GW를 낙찰시켰다 [12, 13].\n\n【광물·통상 블록화】 배터리급 탄산리튬이 1월 12만 위안에서 4월 말 19만 위안으로 뛰며 중국 상류 기업 1분기 순이익이 1,000~1,700% 폭증했고, 니켈도 톤당 19,295달러로 최고가를 경신해 소재 가격 사이클의 반전이 확인됐다 [15, 14]. 유럽에서는 산업가속법(IAA)이 심의에 진입해 공공조달 자격에 동력전지 핵심부품의 역내 원산(3개→5개)을 요구하고 중국계 대형 투자에 합작·기술이전 조건을 부과하는 구조가 구체화됐다 [16]. 호주는 Northern Minerals의 중국계 주주에게 지분 매각을 명령해 광물 투자심사의 안보화를 실행에 옮겼고, 미중 정상회담은 '건설적 전략 안정'을 선언하면서도 희토류·핵심광물 수출통제의 입장 차를 남겼다 [18, 19]. 중국은 희토류 정제 약 90%·리튬 정련 약 60%의 공급망 지배력을 에너지 강국 전략의 축으로 공식화해, 광물이 에너지안보의 중심 의제가 됐음을 확인시켰다 [17].\n\n【차세대 셀 기술】 CATL은 4분기 나트륨이온 대규모 양산을 공식화하고 하이퍼스트롱과 3년 60GWh 공급을 확정해 2025년 글로벌 출하(9GWh)의 몇 배를 단일 계약으로 예약했으며 [23], IEA는 나트륨이온을 에너지밀도 175Wh/kg의 보완재로 평가하면서 제조능력이 리튬이온의 1% 남짓이라는 현실도 지적했다 [24]. 반고체는 보급가에 진입해 SAIC MG 4X가 99,800위안 사전예약을 개시했고, 반고체 출하 1위(2.0GWh·점유 33.6%) 칭타오에너지는 누적 적자 속에 IPO를 추진해 규모와 수익성의 격차를 드러냈다 [20, 22]. 신화학 실험도 넓어져 소프트뱅크는 한국 코스모스랩·델타엑스와 협업하는 수계 아연-할로겐 기가팩토리(2027년 양산)를 사카이시에 발표했다 [21]. 기존 화학의 공정 경쟁도 심화돼 SNE리서치는 중국 LFP의 90%를 차지하던 고상법이 고밀도 대응을 위해 액상법·2차소성법으로 전환 중이라고 분석했다 [25].\n\n【경쟁 지형】 SNE 집계에서 1분기 글로벌 EV 배터리 사용량은 244.6GWh(+9.1%)로 늘었지만 K-3사 합산 점유율은 15.6%로 2.1%p 하락했고 CATL은 99.5GWh로 독주했으며 [26], EV 인도량은 중국 -18.2%·북미 -28.2%·유럽 +26.7%로 지역 분화가 뚜렷해졌다 [27]. IEA는 2025년 LFP 비중 55% 돌파를 확인하면서 2035년에도 중국이 양극재 약 75%·음극재 90%를 공급하는 최대 허브로 남는다고 전망해, 다변화의 어려움을 정량화했다 [30, 31]. 이에 대응하는 K-진영의 분화도 선명해져 LG에너지솔루션은 R&D 확대·북미 ESS, 삼성SDI는 전고체·SBB, SK온은 서산 LFP 전환을 택했고 [29], 소재에서는 엘앤에프가 대구 LFP 공장을 준공하며 중국 의존도가 높은 인산철 전구체의 내재화를 병행하기로 했다 [28].",
+        "watch": [
+          "DTE형 AI 데이터센터 ESS 계약의 후속을 본다 — 삼성SDI·SK온의 대응 수주와 플루언스 MSA의 첫 구매주문 전환이 3분기 데이터센터 BESS 시장의 실체를 정한다 [6, 2].",
+          "EU 산업가속법 심의에서 현지화 부품 요건(3개→5개)과 중국 투자 조건이 유지되는지 확인한다 — K-3사 유럽 거점의 경쟁 우위가 이 조항에 달려 있다 [16].",
+          "CATL 4분기 나트륨이온 양산 단가를 CEEC가 세운 LFP kWh당 47달러와 비교한다 — 이 갭이 저장용 화학 구도 재편의 속도를 정한다 [23, 11].",
+          "K-3사의 2분기 점유율에 ESS 출하 확대가 반영되는지 본다 — EV 점유율 하락을 ESS 매출이 상쇄하는 구조 전환의 첫 검증대다 [26]."
+        ],
+        "refs": [
+          {
+            "n": 1,
+            "id": "2026-05-02_KR_01",
+            "title": "전력기기 3사 1Q 이익 동반 확대 — 변압기·케이블 슈퍼사이클이 전력망 병목을 숫자로 확인",
+            "date": "2026-05-02",
+            "url": "https://www.electimes.com/news/articleView.html?idxno=367601"
+          },
+          {
+            "n": 2,
+            "id": "2026-05-06_GL_05",
+            "title": "플루언스(Fluence), FY26 2분기 누계 수주 약 20억 달러·하이퍼스케일러 2곳과 MSA 체결",
+            "date": "2026-05-06",
+            "url": "https://www.sec.gov/Archives/edgar/data/0001868941/000186894126000014/flncq2fy26earningspressrel.htm"
+          },
+          {
+            "n": 3,
+            "id": "2026-05-07_US_01",
+            "title": "HD현대일렉트릭, 미국 1,730억원 765kV 설비 수주 보도 — SPP 송전망 프로젝트 연결",
+            "date": "2026-05-07",
+            "url": "https://www.electimes.com/news/articleView.html?idxno=367762"
+          },
+          {
+            "n": 4,
+            "id": "2026-05-08_EU_01",
+            "title": "ENTSO-E, 데이터센터 전력수요 경고…유연성 확보 없으면 재생에너지 수용 제약 가능",
+            "date": "2026-05-08",
+            "url": "https://www.entsoe.eu/news/2026/05/08/from-energy-demand-to-grid-support-entso-e-explores-data-centres-dual-role/"
+          },
+          {
+            "n": 5,
+            "id": "2026-05-14_US_01",
+            "title": "Sunraycer, 텍사스 태양광+저장 3개 프로젝트에 9억100만 달러 금융 종결",
+            "date": "2026-05-14",
+            "url": "https://pv-magazine-usa.com/2026/05/15/sunraycer-renewables-closes-901-million-financing-for-473-mwh-bess-portfolio-in-texas/"
+          },
+          {
+            "n": 6,
+            "id": "2026-05-27_KR_02",
+            "title": "LG에너지솔루션, 미국 DTE에너지와 약 2.4조원 ESS 공급계약…오라클 AI 데이터센터 지원",
+            "date": "2026-05-27",
+            "url": "https://www.insightkorea.co.kr/news/articleView.html?idxno=247158"
+          },
+          {
+            "n": 7,
+            "id": "2026-05-01_GL_09",
+            "title": "Benchmark, 2025년 BESS 셀 출하 600GWh 초과 평가 — 상위 10개사 90%·중국 집중",
+            "date": "2026-05-01",
+            "url": "https://source.benchmarkminerals.com/article/the-top-energy-storage-cell-suppliers-and-system-integrators-in-2025"
+          },
+          {
+            "n": 8,
+            "id": "2026-05-11_GL_02",
+            "title": "BNEF, 2025년 글로벌 에너지저장 연간 추가가 처음으로 100GW 돌파…112GW·307GWh 기록",
+            "date": "2026-05-11",
+            "url": "https://about.bnef.com/insights/clean-energy/energy-storage-enters-the-100-gigawatt-era-three-things-to-know/"
+          },
+          {
+            "n": 9,
+            "id": "2026-05-11_US_01",
+            "title": "포드, BESS 전담 자회사 '포드에너지' 공식 출범…2027년 말까지 연 20GWh 목표",
+            "date": "2026-05-11",
+            "url": "https://www.sec.gov/Archives/edgar/data/0000037996/000003799625000238/exhibit99todecember15202.htm"
+          },
+          {
+            "n": 10,
+            "id": "2026-05-12_CN_04",
+            "title": "중국 4월 ESS 셀 판매량 55.2GWh +75.5% YoY — 누적 +100% 동력 대비 2배 가속",
+            "date": "2026-05-12",
+            "url": "https://www.china5e.com/news/news-1203533-1.html"
+          },
+          {
+            "n": 11,
+            "id": "2026-05-12_CN_01",
+            "title": "CEEC 7GWh BESS 셀 입찰 낙찰, ≥314Ah/≥500Ah LFP 신규 가격 벤치마크",
+            "date": "2026-05-12",
+            "url": "https://www.ess-news.com/2026/05/12/ceecs-7-gwh-battery-storage-cell-procurement-sees-low-end-prices-at-47-kwh"
+          },
+          {
+            "n": 12,
+            "id": "2026-05-13_GL_03",
+            "title": "호주 SWIS grid, 5/9 피크 시 BESS 37.2% 공급 — 격리 grid 세계 최고급",
+            "date": "2026-05-13",
+            "url": "https://www.energy-storage.news/western-australias-battery-storage-supplies-record-37-2-of-peak-demand"
+          },
+          {
+            "n": 13,
+            "id": "2026-05-13_JP_01",
+            "title": "일본 OCCTO, 용량경매서 배터리저장 약 1.25GW 낙찰",
+            "date": "2026-05-13",
+            "url": "https://www.ess-news.com/2026/05/15/japan-awards-1-25-gw-of-battery-storage-in-capacity-market-auction/"
+          },
+          {
+            "n": 14,
+            "id": "2026-05-07_KR_01",
+            "title": "니켈 t당 1만9,295달러 — LFP 57% 확산 속 고니켈 양극재 원가 변수 부각",
+            "date": "2026-05-07",
+            "url": "https://www.fnnews.com/news/202605041242309430"
+          },
+          {
+            "n": 15,
+            "id": "2026-05-12_CN_02",
+            "title": "중국 리튬 사이클 반전, 2026 Q1 톱기업 순이익 1000~1700% 폭증",
+            "date": "2026-05-12",
+            "url": "https://libattery.ofweek.com/2026-05/ART-36001-8110-30687265.html"
+          },
+          {
+            "n": 16,
+            "id": "2026-05-13_EU_01",
+            "title": "EU 산업가속법(IAA) 발효 진입 — 동력전지 본지화 강제 + 중국 자본 진입 제한 6 of 4 조건",
+            "date": "2026-05-13",
+            "url": "https://libattery.ofweek.com/2026-05/ART-36001-8480-30687365.html"
+          },
+          {
+            "n": 17,
+            "id": "2026-05-15_CN_01",
+            "title": "중국 에너지안보, 석유 비축에서 핵심광물·재생에너지 공급망 지배로 확장",
+            "date": "2026-05-15",
+            "url": "https://www.reuters.com/technology/china-proposes-further-export-curbs-battery-critical-minerals-tech-2025-01-02/"
+          },
+          {
+            "n": 18,
+            "id": "2026-05-18_GL_02",
+            "title": "호주, Northern Minerals 중국계 지분 매각 명령 — 희토류가 투자심사 안보 이슈가 됐다",
+            "date": "2026-05-18",
+            "url": "https://www.reuters.com/business/australia-treasurer-orders-six-shareholders-divest-northern-minerals-2026-05-17/"
+          },
+          {
+            "n": 19,
+            "id": "2026-05-29_GL_02",
+            "title": "미중 정상회담, ‘전략 안정’ 선언에도 핵심광물 갈등은 남았다",
+            "date": "2026-05-29",
+            "url": "https://www.whitehouse.gov/fact-sheets/2026/05/fact-sheet-president-donald-j-trump-secures-historic-deals-with-china-delivering-for-american-workers-farmers-and-industry/"
+          },
+          {
+            "n": 20,
+            "id": "2026-05-11_CN_02",
+            "title": "SAIC MG 4X 반고체 배터리 EV SUV, 중국 99,800위안(~$14,700) 사전예약 개시",
+            "date": "2026-05-11",
+            "url": "https://electrek.co/2026/05/11/15000-electric-suv-has-semi-solid-state-battery"
+          },
+          {
+            "n": 21,
+            "id": "2026-05-11_JP_01",
+            "title": "소프트뱅크, 사카이시에 아연-할로겐 전지 기가팩토리…2027년 양산",
+            "date": "2026-05-11",
+            "url": "https://monoist.itmedia.co.jp/mn/articles/2605/13/news061.html"
+          },
+          {
+            "n": 22,
+            "id": "2026-05-12_CN_06",
+            "title": "QingTao Energy IPO 추진 — 2.0GWh 반고체 출하 글로벌 1위 (점유 33.6%) 인 가운데 누적 적자",
+            "date": "2026-05-12",
+            "url": "https://libattery.ofweek.com/2026-05/ART-36001-12003-30687260.html"
+          },
+          {
+            "n": 23,
+            "id": "2026-05-13_CN_01",
+            "title": "CATL 2026 Q4 나트륨이온 대규모 양산 + Hisai 3년 60GWh 발주, 산업 본격 진입",
+            "date": "2026-05-13",
+            "url": "https://libattery.ofweek.com/2026-05/ART-36001-8110-30687317.html"
+          },
+          {
+            "n": 24,
+            "id": "2026-05-20_GL_04",
+            "title": "IEA 차세대 배터리 — 나트륨이온은 보완재, 전고체는 아직 실증 전",
+            "date": "2026-05-20",
+            "url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries"
+          },
+          {
+            "n": 25,
+            "id": "2026-05-31_KR_01",
+            "title": "SNE리서치, LFP 제조공정 원가 비교 발표…중국 고상법 90% 속 고밀도 위한 액상·2차소성 양산 전환",
+            "date": "2026-05-31",
+            "url": "https://www.sneresearch.com/kr/insight/special_view/948/page/0"
+          },
+          {
+            "n": 26,
+            "id": "2026-05-06_GL_01",
+            "title": "SNE 1Q26 EV 배터리 244.6GWh — CATL 99.5GWh·LG엔솔 23.7GWh, K-3사 점유율 15.6%",
+            "date": "2026-05-06",
+            "url": "https://www.sneresearch.com/en/insight/release/132?s_cat=%7C&s_keyword="
+          },
+          {
+            "n": 27,
+            "id": "2026-05-07_GL_02",
+            "title": "SNE 1Q26 글로벌 EV 411.4만대 — 중국 -18.2%·북미 -28.2%, 유럽 +26.7%",
+            "date": "2026-05-07",
+            "url": "https://www.sneresearch.com/en/insight/release/168?s_cat=%7C&s_keyword="
+          },
+          {
+            "n": 28,
+            "id": "2026-05-18_KR_01",
+            "title": "엘앤에프, 대구 LFP 양극재 공장 준공 — 국내 LFP 전구체 내재화까지 간다",
+            "date": "2026-05-18",
+            "url": "https://www.thelec.kr/news/articleView.html?idxno=56809"
+          },
+          {
+            "n": 29,
+            "id": "2026-05-19_KR_02",
+            "title": "한국 배터리 3사, EV 캐즘 속 ESS·LFP·R&D로 갈라졌다",
+            "date": "2026-05-19",
+            "url": "https://www.newsis.com/view/NISX20260519_0003635617"
+          },
+          {
+            "n": 30,
+            "id": "2026-05-20_GL_02",
+            "title": "IEA 배터리 전망 — EV 배터리 1.2TWh, LFP 55% 돌파에도 공급망은 중국에 묶였다",
+            "date": "2026-05-20",
+            "url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries"
+          },
+          {
+            "n": 31,
+            "id": "2026-05-20_GL_08",
+            "title": "IEA 제조·무역 전망 — 중국은 줄지 않고, 미국·EU·EMDE는 현지화로 맞선다",
+            "date": "2026-05-20",
+            "url": "https://www.iea.org/reports/global-ev-outlook-2026"
+          }
+        ]
+      },
+      "after": {
+        "id": "lib_2026-05_all",
+        "month": "2026-05",
+        "group": null,
+        "period": "monthly",
+        "generated_at": "2026.10.08",
+        "scope_label": "2026년 5월 전체",
+        "source_month_count": 214,
+        "narrative": "【AI·전력 인프라】 5월에는 AI 데이터센터 수요가 처음으로 대형 계약의 숫자로 계량화됐다 — 플루언스는 하이퍼스케일러 2곳과의 글로벌 MSA와 12GWh 데이터센터 파이프라인, 전년의 두 배인 누계 수주 20억 달러를 공시했고 [2], LG에너지솔루션은 오라클 AI 데이터센터를 포함한 DTE에너지 6GWh·약 2.4조원 공급계약을 미시간 현지생산 물량으로 체결했다 [6]. 금융 층위에서는 구글 PPA가 붙은 Sunraycer의 텍사스 태양광+저장 3건이 9억 100만 달러 금융종결에 도달해 데이터센터 수요가 조달력으로 전환되는 구조가 확인됐다 [5]. 계통 층위에서는 ENTSO-E가 데이터센터 수요를 관리하지 못하면 재생에너지 수용이 제약될 수 있다고 경고해 유연성 자원의 제도화 압력을 공식화했다 [4]. 병목의 반대편에서는 효성중공업·LS일렉트릭·HD현대일렉트릭의 1분기 이익 동반 확대와 신규 수주 7조원 돌파, HD현대일렉트릭의 미국 SPP 765kV 변압기 1,730억원 수주가 이어져 전력기기 슈퍼사이클이 지속됨을 보여줬다 [1, 3].\n\n【ESS 축 전환】 벤치마크는 2025년 BESS 셀 출하가 600GWh를 넘고 상위 10개사(전량 중국계)가 90%를 차지했다고 평가했으며, BNEF는 2025년 저장 신규 설치 112GW/307GWh로 사상 첫 연 100GW 돌파를 집계했다 [7, 8]. 중국의 4월 ESS 셀 판매는 55.2GWh로 전년 대비 75.5% 늘어 동력전지의 두 배 속도로 커졌고, CEEC 7GWh 입찰은 kWh당 47달러의 가격 하한 벤치마크를 세웠다 [10, 11]. 신규 공급자도 등장해 포드는 켄터키 공장을 연 20GWh BESS 기지로 전환하는 전담 자회사 '포드에너지'를 출범시켰다 [9]. 운영과 제도의 검증도 진행돼 호주 SWIS 계통에서 BESS가 피크의 37.2%를 공급하는 기록이 나왔고, 일본 OCCTO 용량경매는 6시간 미만을 배제한 채 비리튬(699MW)이 리튬(551MW)을 앞서는 1.25GW를 낙찰시켰다 [12, 13].\n\n【광물·통상 블록화】 배터리급 탄산리튬이 1월 12만 위안에서 4월 말 19만 위안으로 뛰며 중국 상류 기업 1분기 순이익이 1,000~1,700% 폭증했고, 니켈도 톤당 19,295달러로 최고가를 경신해 소재 가격 사이클의 반전이 확인됐다 [15, 14]. EU 산업가속법(IAA)은 집행위원회의 3월 4일 입법 제안으로, 10월 8일 기준 유럽의회 위원회 결정 대기 상태다. EV 공공조달·지원제도 원산 요건과 특정 외국인직접투자 조건은 제안 내용이며 시행 중인 IAA 의무가 아니다 [16]. 호주는 Northern Minerals의 중국계 주주에게 지분 매각을 명령해 광물 투자심사의 안보화를 실행에 옮겼고, 미중 정상회담은 '건설적 전략 안정'을 선언하면서도 희토류·핵심광물 수출통제의 입장 차를 남겼다 [18, 19]. 중국은 희토류 정제 약 90%·리튬 정련 약 60%의 공급망 지배력을 에너지 강국 전략의 축으로 공식화해, 광물이 에너지안보의 중심 의제가 됐음을 확인시켰다 [17].\n\n【차세대 셀 기술】 CATL은 4분기 나트륨이온 대규모 양산을 공식화하고 하이퍼스트롱과 3년 60GWh 공급을 확정해 2025년 글로벌 출하(9GWh)의 몇 배를 단일 계약으로 예약했으며 [23], IEA는 나트륨이온을 에너지밀도 175Wh/kg의 보완재로 평가하면서 제조능력이 리튬이온의 1% 남짓이라는 현실도 지적했다 [24]. 반고체는 보급가에 진입해 SAIC MG 4X가 99,800위안 사전예약을 개시했고, 반고체 출하 1위(2.0GWh·점유 33.6%) 칭타오에너지는 누적 적자 속에 IPO를 추진해 규모와 수익성의 격차를 드러냈다 [20, 22]. 신화학 실험도 넓어져 소프트뱅크는 한국 코스모스랩·델타엑스와 협업하는 수계 아연-할로겐 기가팩토리(2027년 양산)를 사카이시에 발표했다 [21]. 기존 화학의 공정 경쟁도 심화돼 SNE리서치는 중국 LFP의 90%를 차지하던 고상법이 고밀도 대응을 위해 액상법·2차소성법으로 전환 중이라고 분석했다 [25].\n\n【경쟁 지형】 SNE 집계에서 1분기 글로벌 EV 배터리 사용량은 244.6GWh(+9.1%)로 늘었지만 K-3사 합산 점유율은 15.6%로 2.1%p 하락했고 CATL은 99.5GWh로 독주했으며 [26], EV 인도량은 중국 -18.2%·북미 -28.2%·유럽 +26.7%로 지역 분화가 뚜렷해졌다 [27]. IEA는 2025년 LFP 비중 55% 돌파를 확인하면서 2035년에도 중국이 양극재 약 75%·음극재 90%를 공급하는 최대 허브로 남는다고 전망해, 다변화의 어려움을 정량화했다 [30, 31]. 이에 대응하는 K-진영의 분화도 선명해져 LG에너지솔루션은 R&D 확대·북미 ESS, 삼성SDI는 전고체·SBB, SK온은 서산 LFP 전환을 택했고 [29], 소재에서는 엘앤에프가 대구 LFP 공장을 준공하며 중국 의존도가 높은 인산철 전구체의 내재화를 병행하기로 했다 [28].",
+        "watch": [
+          "DTE형 AI 데이터센터 ESS 계약의 후속을 본다 — 삼성SDI·SK온의 대응 수주와 플루언스 MSA의 첫 구매주문 전환이 3분기 데이터센터 BESS 시장의 실체를 정한다 [6, 2].",
+          "IAA 의회·이사회 심의, 최종 채택문과 조항별 적용일을 확인한다. 원산·투자 조건은 제안 단계이며 한국 업체 수혜를 단정하지 않는다 [16].",
+          "CATL 4분기 나트륨이온 양산 단가를 CEEC가 세운 LFP kWh당 47달러와 비교한다 — 이 갭이 저장용 화학 구도 재편의 속도를 정한다 [23, 11].",
+          "K-3사의 2분기 점유율에 ESS 출하 확대가 반영되는지 본다 — EV 점유율 하락을 ESS 매출이 상쇄하는 구조 전환의 첫 검증대다 [26]."
+        ],
+        "refs": [
+          {
+            "n": 1,
+            "id": "2026-05-02_KR_01",
+            "title": "전력기기 3사 1Q 이익 동반 확대 — 변압기·케이블 슈퍼사이클이 전력망 병목을 숫자로 확인",
+            "date": "2026-05-02",
+            "url": "https://www.electimes.com/news/articleView.html?idxno=367601"
+          },
+          {
+            "n": 2,
+            "id": "2026-05-06_GL_05",
+            "title": "플루언스(Fluence), FY26 2분기 누계 수주 약 20억 달러·하이퍼스케일러 2곳과 MSA 체결",
+            "date": "2026-05-06",
+            "url": "https://www.sec.gov/Archives/edgar/data/0001868941/000186894126000014/flncq2fy26earningspressrel.htm"
+          },
+          {
+            "n": 3,
+            "id": "2026-05-07_US_01",
+            "title": "HD현대일렉트릭, 미국 1,730억원 765kV 설비 수주 보도 — SPP 송전망 프로젝트 연결",
+            "date": "2026-05-07",
+            "url": "https://www.electimes.com/news/articleView.html?idxno=367762"
+          },
+          {
+            "n": 4,
+            "id": "2026-05-08_EU_01",
+            "title": "ENTSO-E, 데이터센터 전력수요 경고…유연성 확보 없으면 재생에너지 수용 제약 가능",
+            "date": "2026-05-08",
+            "url": "https://www.entsoe.eu/news/2026/05/08/from-energy-demand-to-grid-support-entso-e-explores-data-centres-dual-role/"
+          },
+          {
+            "n": 5,
+            "id": "2026-05-14_US_01",
+            "title": "Sunraycer, 텍사스 태양광+저장 3개 프로젝트에 9억100만 달러 금융 종결",
+            "date": "2026-05-14",
+            "url": "https://pv-magazine-usa.com/2026/05/15/sunraycer-renewables-closes-901-million-financing-for-473-mwh-bess-portfolio-in-texas/"
+          },
+          {
+            "n": 6,
+            "id": "2026-05-27_KR_02",
+            "title": "LG에너지솔루션, 미국 DTE에너지와 약 2.4조원 ESS 공급계약…오라클 AI 데이터센터 지원",
+            "date": "2026-05-27",
+            "url": "https://www.insightkorea.co.kr/news/articleView.html?idxno=247158"
+          },
+          {
+            "n": 7,
+            "id": "2026-05-01_GL_09",
+            "title": "Benchmark, 2025년 BESS 셀 출하 600GWh 초과 평가 — 상위 10개사 90%·중국 집중",
+            "date": "2026-05-01",
+            "url": "https://source.benchmarkminerals.com/article/the-top-energy-storage-cell-suppliers-and-system-integrators-in-2025"
+          },
+          {
+            "n": 8,
+            "id": "2026-05-11_GL_02",
+            "title": "BNEF, 2025년 글로벌 에너지저장 연간 추가가 처음으로 100GW 돌파…112GW·307GWh 기록",
+            "date": "2026-05-11",
+            "url": "https://about.bnef.com/insights/clean-energy/energy-storage-enters-the-100-gigawatt-era-three-things-to-know/"
+          },
+          {
+            "n": 9,
+            "id": "2026-05-11_US_01",
+            "title": "포드, BESS 전담 자회사 '포드에너지' 공식 출범…2027년 말까지 연 20GWh 목표",
+            "date": "2026-05-11",
+            "url": "https://www.sec.gov/Archives/edgar/data/0000037996/000003799625000238/exhibit99todecember15202.htm"
+          },
+          {
+            "n": 10,
+            "id": "2026-05-12_CN_04",
+            "title": "중국 4월 ESS 셀 판매량 55.2GWh +75.5% YoY — 누적 +100% 동력 대비 2배 가속",
+            "date": "2026-05-12",
+            "url": "https://www.china5e.com/news/news-1203533-1.html"
+          },
+          {
+            "n": 11,
+            "id": "2026-05-12_CN_01",
+            "title": "CEEC 7GWh BESS 셀 입찰 낙찰, ≥314Ah/≥500Ah LFP 신규 가격 벤치마크",
+            "date": "2026-05-12",
+            "url": "https://www.ess-news.com/2026/05/12/ceecs-7-gwh-battery-storage-cell-procurement-sees-low-end-prices-at-47-kwh"
+          },
+          {
+            "n": 12,
+            "id": "2026-05-13_GL_03",
+            "title": "호주 SWIS grid, 5/9 피크 시 BESS 37.2% 공급 — 격리 grid 세계 최고급",
+            "date": "2026-05-13",
+            "url": "https://www.energy-storage.news/western-australias-battery-storage-supplies-record-37-2-of-peak-demand"
+          },
+          {
+            "n": 13,
+            "id": "2026-05-13_JP_01",
+            "title": "일본 OCCTO, 용량경매서 배터리저장 약 1.25GW 낙찰",
+            "date": "2026-05-13",
+            "url": "https://www.ess-news.com/2026/05/15/japan-awards-1-25-gw-of-battery-storage-in-capacity-market-auction/"
+          },
+          {
+            "n": 14,
+            "id": "2026-05-07_KR_01",
+            "title": "니켈 t당 1만9,295달러 — LFP 57% 확산 속 고니켈 양극재 원가 변수 부각",
+            "date": "2026-05-07",
+            "url": "https://www.fnnews.com/news/202605041242309430"
+          },
+          {
+            "n": 15,
+            "id": "2026-05-12_CN_02",
+            "title": "중국 리튬 사이클 반전, 2026 Q1 톱기업 순이익 1000~1700% 폭증",
+            "date": "2026-05-12",
+            "url": "https://libattery.ofweek.com/2026-05/ART-36001-8110-30687265.html"
+          },
+          {
+            "n": 16,
+            "id": "2026-05-13_EU_01",
+            "title": "EU 산업가속법(IAA) 제안 심의 — EV 역내 원산·외국인투자 조건 추진",
+            "date": "2026-05-13",
+            "url": "https://single-market-economy.ec.europa.eu/publications/industrial-accelerator-act_en"
+          },
+          {
+            "n": 17,
+            "id": "2026-05-15_CN_01",
+            "title": "중국 에너지안보, 석유 비축에서 핵심광물·재생에너지 공급망 지배로 확장",
+            "date": "2026-05-15",
+            "url": "https://www.reuters.com/technology/china-proposes-further-export-curbs-battery-critical-minerals-tech-2025-01-02/"
+          },
+          {
+            "n": 18,
+            "id": "2026-05-18_GL_02",
+            "title": "호주, Northern Minerals 중국계 지분 매각 명령 — 희토류가 투자심사 안보 이슈가 됐다",
+            "date": "2026-05-18",
+            "url": "https://www.reuters.com/business/australia-treasurer-orders-six-shareholders-divest-northern-minerals-2026-05-17/"
+          },
+          {
+            "n": 19,
+            "id": "2026-05-29_GL_02",
+            "title": "미중 정상회담, ‘전략 안정’ 선언에도 핵심광물 갈등은 남았다",
+            "date": "2026-05-29",
+            "url": "https://www.whitehouse.gov/fact-sheets/2026/05/fact-sheet-president-donald-j-trump-secures-historic-deals-with-china-delivering-for-american-workers-farmers-and-industry/"
+          },
+          {
+            "n": 20,
+            "id": "2026-05-11_CN_02",
+            "title": "SAIC MG 4X 반고체 배터리 EV SUV, 중국 99,800위안(~$14,700) 사전예약 개시",
+            "date": "2026-05-11",
+            "url": "https://electrek.co/2026/05/11/15000-electric-suv-has-semi-solid-state-battery"
+          },
+          {
+            "n": 21,
+            "id": "2026-05-11_JP_01",
+            "title": "소프트뱅크, 사카이시에 아연-할로겐 전지 기가팩토리…2027년 양산",
+            "date": "2026-05-11",
+            "url": "https://monoist.itmedia.co.jp/mn/articles/2605/13/news061.html"
+          },
+          {
+            "n": 22,
+            "id": "2026-05-12_CN_06",
+            "title": "QingTao Energy IPO 추진 — 2.0GWh 반고체 출하 글로벌 1위 (점유 33.6%) 인 가운데 누적 적자",
+            "date": "2026-05-12",
+            "url": "https://libattery.ofweek.com/2026-05/ART-36001-12003-30687260.html"
+          },
+          {
+            "n": 23,
+            "id": "2026-05-13_CN_01",
+            "title": "CATL 2026 Q4 나트륨이온 대규모 양산 + Hisai 3년 60GWh 발주, 산업 본격 진입",
+            "date": "2026-05-13",
+            "url": "https://libattery.ofweek.com/2026-05/ART-36001-8110-30687317.html"
+          },
+          {
+            "n": 24,
+            "id": "2026-05-20_GL_04",
+            "title": "IEA 차세대 배터리 — 나트륨이온은 보완재, 전고체는 아직 실증 전",
+            "date": "2026-05-20",
+            "url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries"
+          },
+          {
+            "n": 25,
+            "id": "2026-05-31_KR_01",
+            "title": "SNE리서치, LFP 제조공정 원가 비교 발표…중국 고상법 90% 속 고밀도 위한 액상·2차소성 양산 전환",
+            "date": "2026-05-31",
+            "url": "https://www.sneresearch.com/kr/insight/special_view/948/page/0"
+          },
+          {
+            "n": 26,
+            "id": "2026-05-06_GL_01",
+            "title": "SNE 1Q26 EV 배터리 244.6GWh — CATL 99.5GWh·LG엔솔 23.7GWh, K-3사 점유율 15.6%",
+            "date": "2026-05-06",
+            "url": "https://www.sneresearch.com/en/insight/release/132?s_cat=%7C&s_keyword="
+          },
+          {
+            "n": 27,
+            "id": "2026-05-07_GL_02",
+            "title": "SNE 1Q26 글로벌 EV 411.4만대 — 중국 -18.2%·북미 -28.2%, 유럽 +26.7%",
+            "date": "2026-05-07",
+            "url": "https://www.sneresearch.com/en/insight/release/168?s_cat=%7C&s_keyword="
+          },
+          {
+            "n": 28,
+            "id": "2026-05-18_KR_01",
+            "title": "엘앤에프, 대구 LFP 양극재 공장 준공 — 국내 LFP 전구체 내재화까지 간다",
+            "date": "2026-05-18",
+            "url": "https://www.thelec.kr/news/articleView.html?idxno=56809"
+          },
+          {
+            "n": 29,
+            "id": "2026-05-19_KR_02",
+            "title": "한국 배터리 3사, EV 캐즘 속 ESS·LFP·R&D로 갈라졌다",
+            "date": "2026-05-19",
+            "url": "https://www.newsis.com/view/NISX20260519_0003635617"
+          },
+          {
+            "n": 30,
+            "id": "2026-05-20_GL_02",
+            "title": "IEA 배터리 전망 — EV 배터리 1.2TWh, LFP 55% 돌파에도 공급망은 중국에 묶였다",
+            "date": "2026-05-20",
+            "url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries"
+          },
+          {
+            "n": 31,
+            "id": "2026-05-20_GL_08",
+            "title": "IEA 제조·무역 전망 — 중국은 줄지 않고, 미국·EU·EMDE는 현지화로 맞선다",
+            "date": "2026-05-20",
+            "url": "https://www.iea.org/reports/global-ev-outlook-2026"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lib_2026-05_region",
+      "before": {
+        "id": "lib_2026-05_region",
+        "month": "2026-05",
+        "group": "region",
+        "period": "monthly",
+        "generated_at": "2026.07.17",
+        "scope_label": "2026년 5월 전체 · 지역별",
+        "source_month_count": 214,
+        "narrative": "【한국】 효성중공업·LS일렉트릭·HD현대일렉트릭의 1분기 영업이익이 각각 1,523억·1,266억·2,583억원으로 동반 확대되고 신규 수주가 7조원을 넘기며, 변압기·케이블 슈퍼사이클이 ESS 확산의 '뒤쪽 병목'을 숫자로 확인시켰다 [1]. 계통 측면에서는 5월 1일 낮 태양광이 국내 전력수요의 50.1%를 처음 충당해, 저장장치 없는 계통 운영의 한계가 실측으로 드러났다 [2]. 소재 진영은 엘앤에프 1,173억·에코프로 602억·포스코퓨처엠 117억원의 1분기 흑자로 바닥 신호를 만들었고, 엘앤에프는 대구 LFP 양극재 공장을 준공하며 중국 의존도가 높은 인산철 전구체 내재화까지 병행하겠다고 밝혔다 [3, 5]. 셀 3사의 전략은 갈라져 LG에너지솔루션은 R&D 확대와 북미 ESS, 삼성SDI는 전고체·SBB 2.0, SK온은 서산 라인의 LFP 전환(연 3GWh)을 택했고 [6], 월말 LG에너지솔루션은 미국 DTE에너지와 오라클 AI 데이터센터를 포함한 6GWh·약 2.4조원 ESS 공급계약을 미시간 현지생산 물량으로 체결했다 [8]. 시장 접근 전선에서는 지커의 5월 전시장 오픈과 BYD 보조금(131만~203만원)으로 중국 EV의 한국 공세가 확대됐고, LG에너지솔루션은 혼다·하노이시와 전기이륜차 배터리 교환 생태계 MOU로 동남아 플랫폼 시장에 진입했다 [4, 7].\n\n【중국】 4월 ESS 셀 판매는 55.2GWh로 전년 대비 75.5% 늘고 1~4월 누적은 200.4GWh로 100% 증가해, 동력전지(누적 +31.9%) 대비 두 배 이상 빠른 성장 축이 됐다 [12]. 동력전지에서는 4월 LFP 점유율이 81.5%로 벌어져 화학체계 재편이 사실상 종결 국면에 들어갔다 [16]. 가격에서는 CEEC의 7GWh 셀 입찰이 314Ah·500Ah급에서 kWh당 47달러의 새 하한 벤치마크를 세웠다 [11]. 공급 측은 Hisai 충칭 56GWh·CATL 푸딩 나트륨 40GWh·옌청 25GWh 등 229GWh 신증설이 겹쳤고, CATL은 탄산리튬 가격이 톤당 18만 위안대로 급등한 배경 위에서 4분기 나트륨이온 대규모 양산(175Wh/kg·1만 사이클)을 공식화했다 [13, 14]. 제품 전선에서는 SAIC MG 4X가 반고체 배터리 SUV를 99,800위안에 사전예약 개시해 반고체의 보급가 진입을 알렸고, 순워다는 5MWh 액체냉각 ESS의 UL 9540A 기준 대형화재시험으로 안전 경쟁을 시스템 단위로 끌어올렸다 [10, 9]. 해외에서는 필리핀 BESS 의무화·인도네시아 100GW 청사진을 배경으로 2026~2030년 누적 100GWh로 추산되는 동남아 ESS 시장에 중국 메이커의 진출이 가속됐다 [15].\n\n【미국】 CAISO의 확장 하루전시장(EDAM) 출범으로 서부 전력망이 재생에너지·ESS 조정 시장으로 통합돼, 배터리 수익모델이 피크 대응에서 에너지 차익·예비력·혼잡관리로 넓어졌다 [18]. 공급자 지형도 바뀌어 포드는 20억 달러를 들여 켄터키 공장을 연 20GWh BESS 기지로 전환하는 '포드에너지'를 출범시켰고, Cerberus 1억 달러와 Eos 1.5억 달러가 결합한 장주기 디벨로퍼 Frontier Power USA도 출범했다 [20, 22]. 소유권 재편에서는 진코솔라가 FEOC 감시 강화 속에 미국 2GW 모듈 공장 지분 75.1%를 사모펀드에 매각했고, 한화큐셀은 미시간에서 가정용 LFP BESS 국내 조립을 시작해 '도메스틱 콘텐트' 패키지 경쟁에 들어갔다 [21, 19]. 자금 조달에서는 구글 PPA가 붙은 Sunraycer의 텍사스 태양광+저장 3건이 9억 100만 달러 금융종결에 도달해, 데이터센터 수요가 조달력으로 전환되는 구조를 보여줬다 [23]. 소재에서는 6K에너지가 CRG디펜스와 7년 NMC811 방산 공급계약을 맺고 Monomyth가 NanoGraf를 인수해 실리콘 음극·합성흑연 플랫폼을 묶으며, 비중국 소재 체인이 방산·음극까지 확장됐다 [17, 24].\n\n【글로벌】 벤치마크는 2025년 BESS 셀 출하가 600GWh를 넘겼고 상위 10개사(전량 중국계)가 90%를 차지했다고 평가했으며, BNEF는 2025년 저장 신규 설치가 112GW/307GWh로 사상 처음 연 100GW를 돌파했다고 집계해 규모와 집중이 함께 확인됐다 [25, 28]. EV에서는 1분기 배터리 사용량 244.6GWh(+9.1%) 속에 K-3사 합산 점유율이 15.6%로 2.1%p 하락하고 CATL이 99.5GWh로 독주했으며, 인도량은 중국 -18.2%·북미 -28.2%·유럽 +26.7%로 지역 분화가 뚜렷해졌다 [26, 27]. IEA는 2025년 EV 배터리 1.2TWh·LFP 55% 돌파를 확인하면서도 2035년에도 중국이 양극재 약 75%·음극재 90%의 최대 허브로 남는다고 전망해, 가격 하락과 공급망 종속이 같은 방향임을 지적했다 [30, 31]. 통상에서는 트럼프-시진핑 정상회담이 '건설적 전략 안정'을 선언했지만 희토류·핵심광물 수출통제는 입장 차가 남았고, 호주는 Northern Minerals의 중국계 주주들에게 국익을 이유로 지분 매각을 명령해 광물 투자심사의 안보화가 실행 단계로 넘어갔다 [32, 29].\n\n【유럽】 EU 산업가속법(IAA)이 의회 심의에 진입해 공공조달 자격에 동력전지 핵심부품 3개(3년 후 5개)의 역내 원산을 요구하고 중국계 1억 유로 이상 투자에 합작·기술이전 등 6개 중 4개 조건을 부과하는 구조가 확정 수순에 들어, 폴란드·헝가리에 단독 거점을 가진 K-3사에 유리한 진입장벽이 형성되기 시작했다 [36]. 독일 BNetzA는 계통요금 개편 예비안에서 2029년 8월 이전 가동 BESS의 면제 유지와 소급 배제를 확정해 투자 불확실성을 걷어냈다 [37]. 프로젝트 단계에서는 핀란드·독일·이탈리아 등에서 1GWh급 BESS가 건설·금융·상업운전으로 동시에 진전됐고, Axpo와 R.Power는 폴란드 1.2GWh 설비에 최소수익 보장이 포함된 2038년까지의 최적화 계약을 맺어 수익 하방을 구조화했다 [33, 34]. ENTSO-E는 데이터센터 수요를 관리하지 못하면 재생에너지 수용이 제약될 수 있다고 경고해 유연성 자원의 제도화 압력을 높였다 [35]. 공급망 재건에서는 Eni와 FIB가 이탈리아 LFP 수직통합(2029년 연 8GWh)에 합의했고, 기아·현대는 바텐폴과 네덜란드 80가구 V2G 실증에 착수했다 [39, 38].\n\n【일본】 OCCTO 장기 탈탄소 전원경매에서 배터리 저장 19개 프로젝트가 1.25GW를 낙찰받았는데 리튬이온 551MW보다 비리튬 699MW가 많았고, 6시간 미만 저장의 참여가 배제돼 일본 용량시장이 장주기 중심으로 설계되고 있음이 드러났다 [43]. 소프트뱅크는 사카이시 옛 샤프 부지에 수계 아연-할로겐 전지 기가팩토리를 발표하고 2027년 양산을 예고했으며, 셀 기술은 한국 코스모스랩·BMS는 델타엑스와 협업해 한국 배터리 IP의 일본 양산화 사례가 됐다 [42]. 에너지볼트는 4월 발표한 850MW BESS 포트폴리오 인수를 완료해 자가보유 자산 1GW를 넘겼고 연 1.8억 달러 이상의 반복 EBITDA를 제시했다 [44]. 공급망 측면에서는 ULVAC이 희토류 자석용 진공용해로 수주 3배 확대에 대응해 중국 외 일본 생산체계를 구축하기로 했고, 무라타는 데이터센터 수요로 사상 최대 매출을 기록해 AI 부하의 부품 수요 전이를 확인시켰다 [41, 40].",
+        "watch": [
+          "LG에너지솔루션-DTE 계약이 미시간 8개 프로젝트 밖으로 확장되는지, 그리고 삼성SDI·SK온의 대응 수주가 이어지는지 본다 — AI 데이터센터향 ESS가 K-셀 3사의 새 수주 표준이 되는 분기점이다 [8].",
+          "CATL 4분기 나트륨이온 양산 개시와 실제 셀 단가를 확인한다 — CEEC 입찰이 세운 LFP kWh당 47달러 아래로 진입하면 글로벌 ESS 입찰 구도가 재편된다 [14, 11].",
+          "EU 산업가속법 심의에서 현지화 부품 요건과 중국 투자 조건이 원안대로 유지되는지 본다 — 이 조항의 강도가 K-3사 유럽 점유 회복 윈도우의 크기를 정한다 [36].",
+          "일본 OCCTO 낙찰 프로젝트의 FID·계통접속 진행을 점검한다 — FY2027 공급 개시까지 비리튬 699MW가 실제 집행되면 장주기 시장의 초기 기술 구도가 굳는다 [43]."
+        ],
+        "refs": [
+          {
+            "n": 1,
+            "id": "2026-05-02_KR_01",
+            "title": "전력기기 3사 1Q 이익 동반 확대 — 변압기·케이블 슈퍼사이클이 전력망 병목을 숫자로 확인",
+            "date": "2026-05-02",
+            "url": "https://www.electimes.com/news/articleView.html?idxno=367601"
+          },
+          {
+            "n": 2,
+            "id": "2026-05-02_KR_04",
+            "title": "한국 태양광, 낮 시간 전력수요 50.1% 첫 충당 — ESS·수요반응 없는 계통 운영은 더 어려워진다",
+            "date": "2026-05-02",
+            "url": "http://www.e2news.com/news/articleView.html?idxno=330084"
+          },
+          {
+            "n": 3,
+            "id": "2026-05-03_KR_07",
+            "title": "배터리 소재 3사 1Q 흑자 신호 — 엘앤에프 1,173억·에코프로 602억·포스코퓨처엠 117억",
+            "date": "2026-05-03",
+            "url": "https://www.sentv.co.kr/article/view/sentv202604300177"
+          },
+          {
+            "n": 4,
+            "id": "2026-05-03_KR_09",
+            "title": "중국 EV 한국 공세 확대 — 지커 5월 전시장·BYD 보조금 131만~203만원으로 가격 검증",
+            "date": "2026-05-03",
+            "url": "https://www.mt.co.kr/industry/2026/05/03/2026042914552799809"
+          },
+          {
+            "n": 5,
+            "id": "2026-05-18_KR_01",
+            "title": "엘앤에프, 대구 LFP 양극재 공장 준공 — 국내 LFP 전구체 내재화까지 간다",
+            "date": "2026-05-18",
+            "url": "https://www.thelec.kr/news/articleView.html?idxno=56809"
+          },
+          {
+            "n": 6,
+            "id": "2026-05-19_KR_02",
+            "title": "한국 배터리 3사, EV 캐즘 속 ESS·LFP·R&D로 갈라졌다",
+            "date": "2026-05-19",
+            "url": "https://www.newsis.com/view/NISX20260519_0003635617"
+          },
+          {
+            "n": 7,
+            "id": "2026-05-19_KR_03",
+            "title": "LG엔솔·하노이시·혼다, 전기이륜차 배터리 교환 생태계로 묶였다",
+            "date": "2026-05-19",
+            "url": "https://www.lgensol.com/kr/company/newsroom-detail?seq=8764"
+          },
+          {
+            "n": 8,
+            "id": "2026-05-27_KR_02",
+            "title": "LG에너지솔루션, 미국 DTE에너지와 약 2.4조원 ESS 공급계약…오라클 AI 데이터센터 지원",
+            "date": "2026-05-27",
+            "url": "https://www.insightkorea.co.kr/news/articleView.html?idxno=247158"
+          },
+          {
+            "n": 9,
+            "id": "2026-05-08_CN_01",
+            "title": "Sunwoda, 5MWh 액체냉각 ESS 대형화재시험 완료…UL 9540A 조건에서 인접 유닛 전이 억제 주장",
+            "date": "2026-05-08",
+            "url": "https://www.pv-magazine.com/press-releases/sunwoda-completes-large-scale-fire-test-for-5mwh-liquid-cooling-ess/"
+          },
+          {
+            "n": 10,
+            "id": "2026-05-11_CN_02",
+            "title": "SAIC MG 4X 반고체 배터리 EV SUV, 중국 99,800위안(~$14,700) 사전예약 개시",
+            "date": "2026-05-11",
+            "url": "https://electrek.co/2026/05/11/15000-electric-suv-has-semi-solid-state-battery"
+          },
+          {
+            "n": 11,
+            "id": "2026-05-12_CN_01",
+            "title": "CEEC 7GWh BESS 셀 입찰 낙찰, ≥314Ah/≥500Ah LFP 신규 가격 벤치마크",
+            "date": "2026-05-12",
+            "url": "https://www.ess-news.com/2026/05/12/ceecs-7-gwh-battery-storage-cell-procurement-sees-low-end-prices-at-47-kwh"
+          },
+          {
+            "n": 12,
+            "id": "2026-05-12_CN_04",
+            "title": "중국 4월 ESS 셀 판매량 55.2GWh +75.5% YoY — 누적 +100% 동력 대비 2배 가속",
+            "date": "2026-05-12",
+            "url": "https://www.china5e.com/news/news-1203533-1.html"
+          },
+          {
+            "n": 13,
+            "id": "2026-05-12_CN_07",
+            "title": "CATL·Hisai ESS 등 합계 229GWh 신증설 — 충칭 56GWh + 푸딩 나트륨 40GWh + 옌청 25GWh",
+            "date": "2026-05-12",
+            "url": "https://libattery.ofweek.com/2026-05/ART-36008-8120-30687237.html"
+          },
+          {
+            "n": 14,
+            "id": "2026-05-13_CN_01",
+            "title": "CATL 2026 Q4 나트륨이온 대규모 양산 + Hisai 3년 60GWh 발주, 산업 본격 진입",
+            "date": "2026-05-13",
+            "url": "https://libattery.ofweek.com/2026-05/ART-36001-8110-30687317.html"
+          },
+          {
+            "n": 15,
+            "id": "2026-05-13_CN_02",
+            "title": "동남아 ESS 시장 2026 본격 폭발 — 2026-30 누적 100GWh, 중국 거대 메이커 진출 가속",
+            "date": "2026-05-13",
+            "url": "https://www.china5e.com/news/news-1203584-1.html"
+          },
+          {
+            "n": 16,
+            "id": "2026-05-13_CN_03",
+            "title": "중국 4월 동력전지 62.4GWh +15.2% YoY, LFP 81.5% 점유로 NCM 격차 확대",
+            "date": "2026-05-13",
+            "url": "https://autonews.gasgoo.com/articles/news/china-april-power-battery-ranking-lfp-claims-815-share-catl-byd-hold-634-20544"
+          },
+          {
+            "n": 17,
+            "id": "2026-05-01_US_03",
+            "title": "6K Energy–CRG Defense 7년 NMC811 계약 — 미국 방산 배터리도 양극재 현지화를 요구한다",
+            "date": "2026-05-01",
+            "url": "https://chargedevs.com/newswire/6k-energy-and-crg-defense-sign-7-year-deal-for-domestic-nmc811-cathode-supply-for-defense-battery-systems-s"
+          },
+          {
+            "n": 18,
+            "id": "2026-05-01_US_08",
+            "title": "CAISO, Extended Day-Ahead Market 출범 — 서부 전력망이 하루 전 재생에너지·ESS 조정 시장으로 이동",
+            "date": "2026-05-01",
+            "url": "https://pv-magazine-usa.com/2026/05/01/western-grid-enters-new-era-as-caiso-launches-extended-day-ahead-market"
+          },
+          {
+            "n": 19,
+            "id": "2026-05-07_US_02",
+            "title": "한화 Qcells, 미시간 자빌(Jabil) 공장서 가정용 BESS 'Q.HOME CORE G3' 국내 조립 출시",
+            "date": "2026-05-07",
+            "url": "https://us.qcells.com/blog/qcells-announces-michigan-based-manufacturing-collaboration-with-jabil-for-domestic-content-eligible-residential-battery-storage/"
+          },
+          {
+            "n": 20,
+            "id": "2026-05-11_US_01",
+            "title": "포드, BESS 전담 자회사 '포드에너지' 공식 출범…2027년 말까지 연 20GWh 목표",
+            "date": "2026-05-11",
+            "url": "https://www.sec.gov/Archives/edgar/data/0000037996/000003799625000238/exhibit99todecember15202.htm"
+          },
+          {
+            "n": 21,
+            "id": "2026-05-11_US_03",
+            "title": "JinkoSolar, FH Capital 에 미국 2GW 솔라 모듈 공장 75.1% 매각",
+            "date": "2026-05-11",
+            "url": "https://www.pv-tech.org/jinkosolar-sells-majority-stake-in-us-manufacturing-business"
+          },
+          {
+            "n": 22,
+            "id": "2026-05-13_US_01",
+            "title": "Frontier Power USA 출범 — Cerberus $100M + Eos $150M, 미국 long-duration BESS 디벨로퍼",
+            "date": "2026-05-13",
+            "url": "https://www.globenewswire.com/news-release/2026/05/13/3293859/0/en/Frontier-Power-USA-Formed-to-Accelerate-Deployment-of"
+          },
+          {
+            "n": 23,
+            "id": "2026-05-14_US_01",
+            "title": "Sunraycer, 텍사스 태양광+저장 3개 프로젝트에 9억100만 달러 금융 종결",
+            "date": "2026-05-14",
+            "url": "https://pv-magazine-usa.com/2026/05/15/sunraycer-renewables-closes-901-million-financing-for-473-mwh-bess-portfolio-in-texas/"
+          },
+          {
+            "n": 24,
+            "id": "2026-05-18_US_01",
+            "title": "Monomyth, NanoGraf 인수 — SiOx 실리콘 음극과 미국 합성흑연 플랫폼을 묶었다",
+            "date": "2026-05-18",
+            "url": "https://chargedevs.com/newswire/monomyth-materials-acquires-nanograf-to-pair-siox-silicon-anodes-with-its-domestic-synthetic-graphite-platform/"
+          },
+          {
+            "n": 25,
+            "id": "2026-05-01_GL_09",
+            "title": "Benchmark, 2025년 BESS 셀 출하 600GWh 초과 평가 — 상위 10개사 90%·중국 집중",
+            "date": "2026-05-01",
+            "url": "https://source.benchmarkminerals.com/article/the-top-energy-storage-cell-suppliers-and-system-integrators-in-2025"
+          },
+          {
+            "n": 26,
+            "id": "2026-05-06_GL_01",
+            "title": "SNE 1Q26 EV 배터리 244.6GWh — CATL 99.5GWh·LG엔솔 23.7GWh, K-3사 점유율 15.6%",
+            "date": "2026-05-06",
+            "url": "https://www.sneresearch.com/en/insight/release/132?s_cat=%7C&s_keyword="
+          },
+          {
+            "n": 27,
+            "id": "2026-05-07_GL_02",
+            "title": "SNE 1Q26 글로벌 EV 411.4만대 — 중국 -18.2%·북미 -28.2%, 유럽 +26.7%",
+            "date": "2026-05-07",
+            "url": "https://www.sneresearch.com/en/insight/release/168?s_cat=%7C&s_keyword="
+          },
+          {
+            "n": 28,
+            "id": "2026-05-11_GL_02",
+            "title": "BNEF, 2025년 글로벌 에너지저장 연간 추가가 처음으로 100GW 돌파…112GW·307GWh 기록",
+            "date": "2026-05-11",
+            "url": "https://about.bnef.com/insights/clean-energy/energy-storage-enters-the-100-gigawatt-era-three-things-to-know/"
+          },
+          {
+            "n": 29,
+            "id": "2026-05-18_GL_02",
+            "title": "호주, Northern Minerals 중국계 지분 매각 명령 — 희토류가 투자심사 안보 이슈가 됐다",
+            "date": "2026-05-18",
+            "url": "https://www.reuters.com/business/australia-treasurer-orders-six-shareholders-divest-northern-minerals-2026-05-17/"
+          },
+          {
+            "n": 30,
+            "id": "2026-05-20_GL_02",
+            "title": "IEA 배터리 전망 — EV 배터리 1.2TWh, LFP 55% 돌파에도 공급망은 중국에 묶였다",
+            "date": "2026-05-20",
+            "url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries"
+          },
+          {
+            "n": 31,
+            "id": "2026-05-20_GL_08",
+            "title": "IEA 제조·무역 전망 — 중국은 줄지 않고, 미국·EU·EMDE는 현지화로 맞선다",
+            "date": "2026-05-20",
+            "url": "https://www.iea.org/reports/global-ev-outlook-2026"
+          },
+          {
+            "n": 32,
+            "id": "2026-05-29_GL_02",
+            "title": "미중 정상회담, ‘전략 안정’ 선언에도 핵심광물 갈등은 남았다",
+            "date": "2026-05-29",
+            "url": "https://www.whitehouse.gov/fact-sheets/2026/05/fact-sheet-president-donald-j-trump-secures-historic-deals-with-china-delivering-for-american-workers-farmers-and-industry/"
+          },
+          {
+            "n": 33,
+            "id": "2026-05-01_EU_01",
+            "title": "EU BESS 1GWh+ 프로젝트 진전 — 건설·금융·상업운전 단계 동시 확대",
+            "date": "2026-05-01",
+            "url": "https://www.energy-storage.news/1gwh-of-bess-progressed-across-eu-by-recap-flower-goldbeck-tavion-longi-teos-and-spp"
+          },
+          {
+            "n": 34,
+            "id": "2026-05-04_EU_01",
+            "title": "Axpo–R.Power 1.2GWh Poland BESS 최적화 계약 — minimum revenue floor 포함",
+            "date": "2026-05-04",
+            "url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-r-power-sign-the-largest-optimisation-bess-deal-in-cent.html"
+          },
+          {
+            "n": 35,
+            "id": "2026-05-08_EU_01",
+            "title": "ENTSO-E, 데이터센터 전력수요 경고…유연성 확보 없으면 재생에너지 수용 제약 가능",
+            "date": "2026-05-08",
+            "url": "https://www.entsoe.eu/news/2026/05/08/from-energy-demand-to-grid-support-entso-e-explores-data-centres-dual-role/"
+          },
+          {
+            "n": 36,
+            "id": "2026-05-13_EU_01",
+            "title": "EU 산업가속법(IAA) 발효 진입 — 동력전지 본지화 강제 + 중국 자본 진입 제한 6 of 4 조건",
+            "date": "2026-05-13",
+            "url": "https://libattery.ofweek.com/2026-05/ART-36001-8480-30687365.html"
+          },
+          {
+            "n": 37,
+            "id": "2026-05-27_EU_01",
+            "title": "독일 규제기관, 저장 계통요금 체계 예비안 공개…2029년 면제 유지·소급 배제",
+            "date": "2026-05-27",
+            "url": "https://modoenergy.com/research/germany-grid-fees-agnes-netzentgelte-bess-batteries-bnetza-update-capacity-fees-may-2026"
+          },
+          {
+            "n": 38,
+            "id": "2026-05-28_EU_01",
+            "title": "기아·현대·바텐폴, 네덜란드 V2G 양방향충전 실증 착수…최대 80가구",
+            "date": "2026-05-28",
+            "url": "https://group.vattenfall.com/press-and-media/pressreleases/2026/vattenfall-netherlands-launches-v2g-pilot-with-kia-and-hyundai/"
+          },
+          {
+            "n": 39,
+            "id": "2026-05-29_EU_01",
+            "title": "Eni·FIB, 이탈리아 LFP 배터리 통합 공급망 공동개발 합의",
+            "date": "2026-05-29",
+            "url": "https://www.ess-news.com/2026/05/29/eni-and-fib-reach-agreement-for-lfp-bess-supply-chain-in-italy/"
+          },
+          {
+            "n": 40,
+            "id": "2026-05-01_JP_02",
+            "title": "무라타, 데이터센터 수요로 FY2025 매출 사상 최대 — 산업 재편 신호",
+            "date": "2026-05-01",
+            "url": "https://eetimes.itmedia.co.jp/ee/articles/2605/01/news074.html"
+          },
+          {
+            "n": 41,
+            "id": "2026-05-07_JP_01",
+            "title": "ULVAC, 희토류 자석용 진공용해로 일본 생산체계 구축…중국 단일 공급 의존도 낮춘다",
+            "date": "2026-05-07",
+            "url": "https://www.ulvac.co.jp/en/news/20260507a/index.html"
+          },
+          {
+            "n": 42,
+            "id": "2026-05-11_JP_01",
+            "title": "소프트뱅크, 사카이시에 아연-할로겐 전지 기가팩토리…2027년 양산",
+            "date": "2026-05-11",
+            "url": "https://monoist.itmedia.co.jp/mn/articles/2605/13/news061.html"
+          },
+          {
+            "n": 43,
+            "id": "2026-05-13_JP_01",
+            "title": "일본 OCCTO, 용량경매서 배터리저장 약 1.25GW 낙찰",
+            "date": "2026-05-13",
+            "url": "https://www.ess-news.com/2026/05/15/japan-awards-1-25-gw-of-battery-storage-in-capacity-market-auction/"
+          },
+          {
+            "n": 44,
+            "id": "2026-05-27_JP_01",
+            "title": "에너지볼트, 일본 850MW BESS 포트폴리오 인수 완료",
+            "date": "2026-05-27",
+            "url": "https://sustainabilityonline.net/news/energy-vault-completes-acquisition-of-850mw-bess-development-portfolio-in-japan/"
+          }
+        ]
+      },
+      "after": {
+        "id": "lib_2026-05_region",
+        "month": "2026-05",
+        "group": "region",
+        "period": "monthly",
+        "generated_at": "2026.10.08",
+        "scope_label": "2026년 5월 전체 · 지역별",
+        "source_month_count": 214,
+        "narrative": "【한국】 효성중공업·LS일렉트릭·HD현대일렉트릭의 1분기 영업이익이 각각 1,523억·1,266억·2,583억원으로 동반 확대되고 신규 수주가 7조원을 넘기며, 변압기·케이블 슈퍼사이클이 ESS 확산의 '뒤쪽 병목'을 숫자로 확인시켰다 [1]. 계통 측면에서는 5월 1일 낮 태양광이 국내 전력수요의 50.1%를 처음 충당해, 저장장치 없는 계통 운영의 한계가 실측으로 드러났다 [2]. 소재 진영은 엘앤에프 1,173억·에코프로 602억·포스코퓨처엠 117억원의 1분기 흑자로 바닥 신호를 만들었고, 엘앤에프는 대구 LFP 양극재 공장을 준공하며 중국 의존도가 높은 인산철 전구체 내재화까지 병행하겠다고 밝혔다 [3, 5]. 셀 3사의 전략은 갈라져 LG에너지솔루션은 R&D 확대와 북미 ESS, 삼성SDI는 전고체·SBB 2.0, SK온은 서산 라인의 LFP 전환(연 3GWh)을 택했고 [6], 월말 LG에너지솔루션은 미국 DTE에너지와 오라클 AI 데이터센터를 포함한 6GWh·약 2.4조원 ESS 공급계약을 미시간 현지생산 물량으로 체결했다 [8]. 시장 접근 전선에서는 지커의 5월 전시장 오픈과 BYD 보조금(131만~203만원)으로 중국 EV의 한국 공세가 확대됐고, LG에너지솔루션은 혼다·하노이시와 전기이륜차 배터리 교환 생태계 MOU로 동남아 플랫폼 시장에 진입했다 [4, 7].\n\n【중국】 4월 ESS 셀 판매는 55.2GWh로 전년 대비 75.5% 늘고 1~4월 누적은 200.4GWh로 100% 증가해, 동력전지(누적 +31.9%) 대비 두 배 이상 빠른 성장 축이 됐다 [12]. 동력전지에서는 4월 LFP 점유율이 81.5%로 벌어져 화학체계 재편이 사실상 종결 국면에 들어갔다 [16]. 가격에서는 CEEC의 7GWh 셀 입찰이 314Ah·500Ah급에서 kWh당 47달러의 새 하한 벤치마크를 세웠다 [11]. 공급 측은 Hisai 충칭 56GWh·CATL 푸딩 나트륨 40GWh·옌청 25GWh 등 229GWh 신증설이 겹쳤고, CATL은 탄산리튬 가격이 톤당 18만 위안대로 급등한 배경 위에서 4분기 나트륨이온 대규모 양산(175Wh/kg·1만 사이클)을 공식화했다 [13, 14]. 제품 전선에서는 SAIC MG 4X가 반고체 배터리 SUV를 99,800위안에 사전예약 개시해 반고체의 보급가 진입을 알렸고, 순워다는 5MWh 액체냉각 ESS의 UL 9540A 기준 대형화재시험으로 안전 경쟁을 시스템 단위로 끌어올렸다 [10, 9]. 해외에서는 필리핀 BESS 의무화·인도네시아 100GW 청사진을 배경으로 2026~2030년 누적 100GWh로 추산되는 동남아 ESS 시장에 중국 메이커의 진출이 가속됐다 [15].\n\n【미국】 CAISO의 확장 하루전시장(EDAM) 출범으로 서부 전력망이 재생에너지·ESS 조정 시장으로 통합돼, 배터리 수익모델이 피크 대응에서 에너지 차익·예비력·혼잡관리로 넓어졌다 [18]. 공급자 지형도 바뀌어 포드는 20억 달러를 들여 켄터키 공장을 연 20GWh BESS 기지로 전환하는 '포드에너지'를 출범시켰고, Cerberus 1억 달러와 Eos 1.5억 달러가 결합한 장주기 디벨로퍼 Frontier Power USA도 출범했다 [20, 22]. 소유권 재편에서는 진코솔라가 FEOC 감시 강화 속에 미국 2GW 모듈 공장 지분 75.1%를 사모펀드에 매각했고, 한화큐셀은 미시간에서 가정용 LFP BESS 국내 조립을 시작해 '도메스틱 콘텐트' 패키지 경쟁에 들어갔다 [21, 19]. 자금 조달에서는 구글 PPA가 붙은 Sunraycer의 텍사스 태양광+저장 3건이 9억 100만 달러 금융종결에 도달해, 데이터센터 수요가 조달력으로 전환되는 구조를 보여줬다 [23]. 소재에서는 6K에너지가 CRG디펜스와 7년 NMC811 방산 공급계약을 맺고 Monomyth가 NanoGraf를 인수해 실리콘 음극·합성흑연 플랫폼을 묶으며, 비중국 소재 체인이 방산·음극까지 확장됐다 [17, 24].\n\n【글로벌】 벤치마크는 2025년 BESS 셀 출하가 600GWh를 넘겼고 상위 10개사(전량 중국계)가 90%를 차지했다고 평가했으며, BNEF는 2025년 저장 신규 설치가 112GW/307GWh로 사상 처음 연 100GW를 돌파했다고 집계해 규모와 집중이 함께 확인됐다 [25, 28]. EV에서는 1분기 배터리 사용량 244.6GWh(+9.1%) 속에 K-3사 합산 점유율이 15.6%로 2.1%p 하락하고 CATL이 99.5GWh로 독주했으며, 인도량은 중국 -18.2%·북미 -28.2%·유럽 +26.7%로 지역 분화가 뚜렷해졌다 [26, 27]. IEA는 2025년 EV 배터리 1.2TWh·LFP 55% 돌파를 확인하면서도 2035년에도 중국이 양극재 약 75%·음극재 90%의 최대 허브로 남는다고 전망해, 가격 하락과 공급망 종속이 같은 방향임을 지적했다 [30, 31]. 통상에서는 트럼프-시진핑 정상회담이 '건설적 전략 안정'을 선언했지만 희토류·핵심광물 수출통제는 입장 차가 남았고, 호주는 Northern Minerals의 중국계 주주들에게 국익을 이유로 지분 매각을 명령해 광물 투자심사의 안보화가 실행 단계로 넘어갔다 [32, 29].\n\n【유럽】 EU 산업가속법(IAA)은 집행위원회의 3월 4일 입법 제안으로, 10월 8일 기준 유럽의회 위원회 결정 대기 상태다. EV 공공조달·지원제도 원산 요건과 특정 외국인직접투자 조건은 제안 내용이며 시행 중인 IAA 의무가 아니다 [36]. 독일 BNetzA는 계통요금 개편 예비안에서 2029년 8월 이전 가동 BESS의 면제 유지와 소급 배제를 확정해 투자 불확실성을 걷어냈다 [37]. 프로젝트 단계에서는 핀란드·독일·이탈리아 등에서 1GWh급 BESS가 건설·금융·상업운전으로 동시에 진전됐고, Axpo와 R.Power는 폴란드 1.2GWh 설비에 최소수익 보장이 포함된 2038년까지의 최적화 계약을 맺어 수익 하방을 구조화했다 [33, 34]. ENTSO-E는 데이터센터 수요를 관리하지 못하면 재생에너지 수용이 제약될 수 있다고 경고해 유연성 자원의 제도화 압력을 높였다 [35]. 공급망 재건에서는 Eni와 FIB가 이탈리아 LFP 수직통합(2029년 연 8GWh)에 합의했고, 기아·현대는 바텐폴과 네덜란드 80가구 V2G 실증에 착수했다 [39, 38].\n\n【일본】 OCCTO 장기 탈탄소 전원경매에서 배터리 저장 19개 프로젝트가 1.25GW를 낙찰받았는데 리튬이온 551MW보다 비리튬 699MW가 많았고, 6시간 미만 저장의 참여가 배제돼 일본 용량시장이 장주기 중심으로 설계되고 있음이 드러났다 [43]. 소프트뱅크는 사카이시 옛 샤프 부지에 수계 아연-할로겐 전지 기가팩토리를 발표하고 2027년 양산을 예고했으며, 셀 기술은 한국 코스모스랩·BMS는 델타엑스와 협업해 한국 배터리 IP의 일본 양산화 사례가 됐다 [42]. 에너지볼트는 4월 발표한 850MW BESS 포트폴리오 인수를 완료해 자가보유 자산 1GW를 넘겼고 연 1.8억 달러 이상의 반복 EBITDA를 제시했다 [44]. 공급망 측면에서는 ULVAC이 희토류 자석용 진공용해로 수주 3배 확대에 대응해 중국 외 일본 생산체계를 구축하기로 했고, 무라타는 데이터센터 수요로 사상 최대 매출을 기록해 AI 부하의 부품 수요 전이를 확인시켰다 [41, 40].",
+        "watch": [
+          "LG에너지솔루션-DTE 계약이 미시간 8개 프로젝트 밖으로 확장되는지, 그리고 삼성SDI·SK온의 대응 수주가 이어지는지 본다 — AI 데이터센터향 ESS가 K-셀 3사의 새 수주 표준이 되는 분기점이다 [8].",
+          "CATL 4분기 나트륨이온 양산 개시와 실제 셀 단가를 확인한다 — CEEC 입찰이 세운 LFP kWh당 47달러 아래로 진입하면 글로벌 ESS 입찰 구도가 재편된다 [14, 11].",
+          "IAA 의회·이사회 심의, 최종 채택문과 조항별 적용일을 확인한다. 원산·투자 조건은 제안 단계이며 한국 업체 수혜를 단정하지 않는다 [36].",
+          "일본 OCCTO 낙찰 프로젝트의 FID·계통접속 진행을 점검한다 — FY2027 공급 개시까지 비리튬 699MW가 실제 집행되면 장주기 시장의 초기 기술 구도가 굳는다 [43]."
+        ],
+        "refs": [
+          {
+            "n": 1,
+            "id": "2026-05-02_KR_01",
+            "title": "전력기기 3사 1Q 이익 동반 확대 — 변압기·케이블 슈퍼사이클이 전력망 병목을 숫자로 확인",
+            "date": "2026-05-02",
+            "url": "https://www.electimes.com/news/articleView.html?idxno=367601"
+          },
+          {
+            "n": 2,
+            "id": "2026-05-02_KR_04",
+            "title": "한국 태양광, 낮 시간 전력수요 50.1% 첫 충당 — ESS·수요반응 없는 계통 운영은 더 어려워진다",
+            "date": "2026-05-02",
+            "url": "http://www.e2news.com/news/articleView.html?idxno=330084"
+          },
+          {
+            "n": 3,
+            "id": "2026-05-03_KR_07",
+            "title": "배터리 소재 3사 1Q 흑자 신호 — 엘앤에프 1,173억·에코프로 602억·포스코퓨처엠 117억",
+            "date": "2026-05-03",
+            "url": "https://www.sentv.co.kr/article/view/sentv202604300177"
+          },
+          {
+            "n": 4,
+            "id": "2026-05-03_KR_09",
+            "title": "중국 EV 한국 공세 확대 — 지커 5월 전시장·BYD 보조금 131만~203만원으로 가격 검증",
+            "date": "2026-05-03",
+            "url": "https://www.mt.co.kr/industry/2026/05/03/2026042914552799809"
+          },
+          {
+            "n": 5,
+            "id": "2026-05-18_KR_01",
+            "title": "엘앤에프, 대구 LFP 양극재 공장 준공 — 국내 LFP 전구체 내재화까지 간다",
+            "date": "2026-05-18",
+            "url": "https://www.thelec.kr/news/articleView.html?idxno=56809"
+          },
+          {
+            "n": 6,
+            "id": "2026-05-19_KR_02",
+            "title": "한국 배터리 3사, EV 캐즘 속 ESS·LFP·R&D로 갈라졌다",
+            "date": "2026-05-19",
+            "url": "https://www.newsis.com/view/NISX20260519_0003635617"
+          },
+          {
+            "n": 7,
+            "id": "2026-05-19_KR_03",
+            "title": "LG엔솔·하노이시·혼다, 전기이륜차 배터리 교환 생태계로 묶였다",
+            "date": "2026-05-19",
+            "url": "https://www.lgensol.com/kr/company/newsroom-detail?seq=8764"
+          },
+          {
+            "n": 8,
+            "id": "2026-05-27_KR_02",
+            "title": "LG에너지솔루션, 미국 DTE에너지와 약 2.4조원 ESS 공급계약…오라클 AI 데이터센터 지원",
+            "date": "2026-05-27",
+            "url": "https://www.insightkorea.co.kr/news/articleView.html?idxno=247158"
+          },
+          {
+            "n": 9,
+            "id": "2026-05-08_CN_01",
+            "title": "Sunwoda, 5MWh 액체냉각 ESS 대형화재시험 완료…UL 9540A 조건에서 인접 유닛 전이 억제 주장",
+            "date": "2026-05-08",
+            "url": "https://www.pv-magazine.com/press-releases/sunwoda-completes-large-scale-fire-test-for-5mwh-liquid-cooling-ess/"
+          },
+          {
+            "n": 10,
+            "id": "2026-05-11_CN_02",
+            "title": "SAIC MG 4X 반고체 배터리 EV SUV, 중국 99,800위안(~$14,700) 사전예약 개시",
+            "date": "2026-05-11",
+            "url": "https://electrek.co/2026/05/11/15000-electric-suv-has-semi-solid-state-battery"
+          },
+          {
+            "n": 11,
+            "id": "2026-05-12_CN_01",
+            "title": "CEEC 7GWh BESS 셀 입찰 낙찰, ≥314Ah/≥500Ah LFP 신규 가격 벤치마크",
+            "date": "2026-05-12",
+            "url": "https://www.ess-news.com/2026/05/12/ceecs-7-gwh-battery-storage-cell-procurement-sees-low-end-prices-at-47-kwh"
+          },
+          {
+            "n": 12,
+            "id": "2026-05-12_CN_04",
+            "title": "중국 4월 ESS 셀 판매량 55.2GWh +75.5% YoY — 누적 +100% 동력 대비 2배 가속",
+            "date": "2026-05-12",
+            "url": "https://www.china5e.com/news/news-1203533-1.html"
+          },
+          {
+            "n": 13,
+            "id": "2026-05-12_CN_07",
+            "title": "CATL·Hisai ESS 등 합계 229GWh 신증설 — 충칭 56GWh + 푸딩 나트륨 40GWh + 옌청 25GWh",
+            "date": "2026-05-12",
+            "url": "https://libattery.ofweek.com/2026-05/ART-36008-8120-30687237.html"
+          },
+          {
+            "n": 14,
+            "id": "2026-05-13_CN_01",
+            "title": "CATL 2026 Q4 나트륨이온 대규모 양산 + Hisai 3년 60GWh 발주, 산업 본격 진입",
+            "date": "2026-05-13",
+            "url": "https://libattery.ofweek.com/2026-05/ART-36001-8110-30687317.html"
+          },
+          {
+            "n": 15,
+            "id": "2026-05-13_CN_02",
+            "title": "동남아 ESS 시장 2026 본격 폭발 — 2026-30 누적 100GWh, 중국 거대 메이커 진출 가속",
+            "date": "2026-05-13",
+            "url": "https://www.china5e.com/news/news-1203584-1.html"
+          },
+          {
+            "n": 16,
+            "id": "2026-05-13_CN_03",
+            "title": "중국 4월 동력전지 62.4GWh +15.2% YoY, LFP 81.5% 점유로 NCM 격차 확대",
+            "date": "2026-05-13",
+            "url": "https://autonews.gasgoo.com/articles/news/china-april-power-battery-ranking-lfp-claims-815-share-catl-byd-hold-634-20544"
+          },
+          {
+            "n": 17,
+            "id": "2026-05-01_US_03",
+            "title": "6K Energy–CRG Defense 7년 NMC811 계약 — 미국 방산 배터리도 양극재 현지화를 요구한다",
+            "date": "2026-05-01",
+            "url": "https://chargedevs.com/newswire/6k-energy-and-crg-defense-sign-7-year-deal-for-domestic-nmc811-cathode-supply-for-defense-battery-systems-s"
+          },
+          {
+            "n": 18,
+            "id": "2026-05-01_US_08",
+            "title": "CAISO, Extended Day-Ahead Market 출범 — 서부 전력망이 하루 전 재생에너지·ESS 조정 시장으로 이동",
+            "date": "2026-05-01",
+            "url": "https://pv-magazine-usa.com/2026/05/01/western-grid-enters-new-era-as-caiso-launches-extended-day-ahead-market"
+          },
+          {
+            "n": 19,
+            "id": "2026-05-07_US_02",
+            "title": "한화 Qcells, 미시간 자빌(Jabil) 공장서 가정용 BESS 'Q.HOME CORE G3' 국내 조립 출시",
+            "date": "2026-05-07",
+            "url": "https://us.qcells.com/blog/qcells-announces-michigan-based-manufacturing-collaboration-with-jabil-for-domestic-content-eligible-residential-battery-storage/"
+          },
+          {
+            "n": 20,
+            "id": "2026-05-11_US_01",
+            "title": "포드, BESS 전담 자회사 '포드에너지' 공식 출범…2027년 말까지 연 20GWh 목표",
+            "date": "2026-05-11",
+            "url": "https://www.sec.gov/Archives/edgar/data/0000037996/000003799625000238/exhibit99todecember15202.htm"
+          },
+          {
+            "n": 21,
+            "id": "2026-05-11_US_03",
+            "title": "JinkoSolar, FH Capital 에 미국 2GW 솔라 모듈 공장 75.1% 매각",
+            "date": "2026-05-11",
+            "url": "https://www.pv-tech.org/jinkosolar-sells-majority-stake-in-us-manufacturing-business"
+          },
+          {
+            "n": 22,
+            "id": "2026-05-13_US_01",
+            "title": "Frontier Power USA 출범 — Cerberus $100M + Eos $150M, 미국 long-duration BESS 디벨로퍼",
+            "date": "2026-05-13",
+            "url": "https://www.globenewswire.com/news-release/2026/05/13/3293859/0/en/Frontier-Power-USA-Formed-to-Accelerate-Deployment-of"
+          },
+          {
+            "n": 23,
+            "id": "2026-05-14_US_01",
+            "title": "Sunraycer, 텍사스 태양광+저장 3개 프로젝트에 9억100만 달러 금융 종결",
+            "date": "2026-05-14",
+            "url": "https://pv-magazine-usa.com/2026/05/15/sunraycer-renewables-closes-901-million-financing-for-473-mwh-bess-portfolio-in-texas/"
+          },
+          {
+            "n": 24,
+            "id": "2026-05-18_US_01",
+            "title": "Monomyth, NanoGraf 인수 — SiOx 실리콘 음극과 미국 합성흑연 플랫폼을 묶었다",
+            "date": "2026-05-18",
+            "url": "https://chargedevs.com/newswire/monomyth-materials-acquires-nanograf-to-pair-siox-silicon-anodes-with-its-domestic-synthetic-graphite-platform/"
+          },
+          {
+            "n": 25,
+            "id": "2026-05-01_GL_09",
+            "title": "Benchmark, 2025년 BESS 셀 출하 600GWh 초과 평가 — 상위 10개사 90%·중국 집중",
+            "date": "2026-05-01",
+            "url": "https://source.benchmarkminerals.com/article/the-top-energy-storage-cell-suppliers-and-system-integrators-in-2025"
+          },
+          {
+            "n": 26,
+            "id": "2026-05-06_GL_01",
+            "title": "SNE 1Q26 EV 배터리 244.6GWh — CATL 99.5GWh·LG엔솔 23.7GWh, K-3사 점유율 15.6%",
+            "date": "2026-05-06",
+            "url": "https://www.sneresearch.com/en/insight/release/132?s_cat=%7C&s_keyword="
+          },
+          {
+            "n": 27,
+            "id": "2026-05-07_GL_02",
+            "title": "SNE 1Q26 글로벌 EV 411.4만대 — 중국 -18.2%·북미 -28.2%, 유럽 +26.7%",
+            "date": "2026-05-07",
+            "url": "https://www.sneresearch.com/en/insight/release/168?s_cat=%7C&s_keyword="
+          },
+          {
+            "n": 28,
+            "id": "2026-05-11_GL_02",
+            "title": "BNEF, 2025년 글로벌 에너지저장 연간 추가가 처음으로 100GW 돌파…112GW·307GWh 기록",
+            "date": "2026-05-11",
+            "url": "https://about.bnef.com/insights/clean-energy/energy-storage-enters-the-100-gigawatt-era-three-things-to-know/"
+          },
+          {
+            "n": 29,
+            "id": "2026-05-18_GL_02",
+            "title": "호주, Northern Minerals 중국계 지분 매각 명령 — 희토류가 투자심사 안보 이슈가 됐다",
+            "date": "2026-05-18",
+            "url": "https://www.reuters.com/business/australia-treasurer-orders-six-shareholders-divest-northern-minerals-2026-05-17/"
+          },
+          {
+            "n": 30,
+            "id": "2026-05-20_GL_02",
+            "title": "IEA 배터리 전망 — EV 배터리 1.2TWh, LFP 55% 돌파에도 공급망은 중국에 묶였다",
+            "date": "2026-05-20",
+            "url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries"
+          },
+          {
+            "n": 31,
+            "id": "2026-05-20_GL_08",
+            "title": "IEA 제조·무역 전망 — 중국은 줄지 않고, 미국·EU·EMDE는 현지화로 맞선다",
+            "date": "2026-05-20",
+            "url": "https://www.iea.org/reports/global-ev-outlook-2026"
+          },
+          {
+            "n": 32,
+            "id": "2026-05-29_GL_02",
+            "title": "미중 정상회담, ‘전략 안정’ 선언에도 핵심광물 갈등은 남았다",
+            "date": "2026-05-29",
+            "url": "https://www.whitehouse.gov/fact-sheets/2026/05/fact-sheet-president-donald-j-trump-secures-historic-deals-with-china-delivering-for-american-workers-farmers-and-industry/"
+          },
+          {
+            "n": 33,
+            "id": "2026-05-01_EU_01",
+            "title": "EU BESS 1GWh+ 프로젝트 진전 — 건설·금융·상업운전 단계 동시 확대",
+            "date": "2026-05-01",
+            "url": "https://www.energy-storage.news/1gwh-of-bess-progressed-across-eu-by-recap-flower-goldbeck-tavion-longi-teos-and-spp"
+          },
+          {
+            "n": 34,
+            "id": "2026-05-04_EU_01",
+            "title": "Axpo–R.Power 1.2GWh Poland BESS 최적화 계약 — minimum revenue floor 포함",
+            "date": "2026-05-04",
+            "url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-r-power-sign-the-largest-optimisation-bess-deal-in-cent.html"
+          },
+          {
+            "n": 35,
+            "id": "2026-05-08_EU_01",
+            "title": "ENTSO-E, 데이터센터 전력수요 경고…유연성 확보 없으면 재생에너지 수용 제약 가능",
+            "date": "2026-05-08",
+            "url": "https://www.entsoe.eu/news/2026/05/08/from-energy-demand-to-grid-support-entso-e-explores-data-centres-dual-role/"
+          },
+          {
+            "n": 36,
+            "id": "2026-05-13_EU_01",
+            "title": "EU 산업가속법(IAA) 제안 심의 — EV 역내 원산·외국인투자 조건 추진",
+            "date": "2026-05-13",
+            "url": "https://single-market-economy.ec.europa.eu/publications/industrial-accelerator-act_en"
+          },
+          {
+            "n": 37,
+            "id": "2026-05-27_EU_01",
+            "title": "독일 규제기관, 저장 계통요금 체계 예비안 공개…2029년 면제 유지·소급 배제",
+            "date": "2026-05-27",
+            "url": "https://modoenergy.com/research/germany-grid-fees-agnes-netzentgelte-bess-batteries-bnetza-update-capacity-fees-may-2026"
+          },
+          {
+            "n": 38,
+            "id": "2026-05-28_EU_01",
+            "title": "기아·현대·바텐폴, 네덜란드 V2G 양방향충전 실증 착수…최대 80가구",
+            "date": "2026-05-28",
+            "url": "https://group.vattenfall.com/press-and-media/pressreleases/2026/vattenfall-netherlands-launches-v2g-pilot-with-kia-and-hyundai/"
+          },
+          {
+            "n": 39,
+            "id": "2026-05-29_EU_01",
+            "title": "Eni·FIB, 이탈리아 LFP 배터리 통합 공급망 공동개발 합의",
+            "date": "2026-05-29",
+            "url": "https://www.ess-news.com/2026/05/29/eni-and-fib-reach-agreement-for-lfp-bess-supply-chain-in-italy/"
+          },
+          {
+            "n": 40,
+            "id": "2026-05-01_JP_02",
+            "title": "무라타, 데이터센터 수요로 FY2025 매출 사상 최대 — 산업 재편 신호",
+            "date": "2026-05-01",
+            "url": "https://eetimes.itmedia.co.jp/ee/articles/2605/01/news074.html"
+          },
+          {
+            "n": 41,
+            "id": "2026-05-07_JP_01",
+            "title": "ULVAC, 희토류 자석용 진공용해로 일본 생산체계 구축…중국 단일 공급 의존도 낮춘다",
+            "date": "2026-05-07",
+            "url": "https://www.ulvac.co.jp/en/news/20260507a/index.html"
+          },
+          {
+            "n": 42,
+            "id": "2026-05-11_JP_01",
+            "title": "소프트뱅크, 사카이시에 아연-할로겐 전지 기가팩토리…2027년 양산",
+            "date": "2026-05-11",
+            "url": "https://monoist.itmedia.co.jp/mn/articles/2605/13/news061.html"
+          },
+          {
+            "n": 43,
+            "id": "2026-05-13_JP_01",
+            "title": "일본 OCCTO, 용량경매서 배터리저장 약 1.25GW 낙찰",
+            "date": "2026-05-13",
+            "url": "https://www.ess-news.com/2026/05/15/japan-awards-1-25-gw-of-battery-storage-in-capacity-market-auction/"
+          },
+          {
+            "n": 44,
+            "id": "2026-05-27_JP_01",
+            "title": "에너지볼트, 일본 850MW BESS 포트폴리오 인수 완료",
+            "date": "2026-05-27",
+            "url": "https://sustainabilityonline.net/news/energy-vault-completes-acquisition-of-850mw-bess-development-portfolio-in-japan/"
+          }
+        ]
+      }
+    }
+  ],
+  "checked_at": "2026-10-08T06:35:17Z",
+  "official_sources": [
+    {
+      "url": "https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026%2F0068%28COD%29",
+      "locator": "Status; Key events",
+      "finding": "Awaiting committee decision; proposal published 2026-03-04; no enacted IAA claim"
+    },
+    {
+      "url": "https://single-market-economy.ec.europa.eu/publications/industrial-accelerator-act_en",
+      "locator": "Files / COM(2026)100",
+      "finding": "Proposal published 2026-03-04; final in COM reference is document version, not enacted-law status"
+    },
+    {
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A52026PC0100",
+      "locator": "Articles 17–18; 36",
+      "finding": "Proposed scope, conditions, future publication/application timing"
+    },
+    {
+      "url": "https://single-market-economy.ec.europa.eu/document/download/99174b0d-bcda-4039-9157-62725439d010_en?filename=Annexes+to+the+proposal.pdf",
+      "locator": "Annex III Parts I–III pp. 4–6",
+      "sha256": "b5d620130688954d2121e168db0144b8cd29ef6d165c04c3f719665126b94efe",
+      "finding": "Procurement/support criteria, not blanket EV sales or chemistry mandate; Part II has mismatched lettering in transition sentence, so do not silently repair it or assign a firm date"
+    }
+  ]
+}

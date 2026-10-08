@@ -1,0 +1,42 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "IAA_PROPOSAL_STATUS_CORRECTION_20261008",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "c09c1bc5112216a617903a2d572662342bcd857c",
+  "base_full_blob_sha": "d847e2d53bfe27a2b61bac023a82d2009c313356",
+  "expected_before": 1674,
+  "expected_after": 1674,
+  "output_updated": "2026-10-08T06:35:17Z",
+  "operations": {
+    "add": [],
+    "update": [
+      "2026-05-13_EU_01"
+    ],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [],
+    "updates": [
+      {
+        "id": "2026-05-13_EU_01",
+        "change_type": "correction",
+        "changed_fields": [
+          "correction_history",
+          "fact",
+          "fact_sources",
+          "gate",
+          "implication",
+          "source_tier",
+          "sub",
+          "title",
+          "urls"
+        ],
+        "reason": "Correct proposed-versus-enacted status and scope; remove unsupported NCM mandate and automatic beneficiary claims; preserve card identity and original OFweek source anchor.",
+        "evidence_review_summary": "Official OEIL checked 2026-10-08: Awaiting committee decision. COM(2026)100 dated 2026-03-04 is a proposal. Articles 17–18/36 and Annex III reviewed; public briefs narrative/watch/refs corrected in this user-authorized companion scope."
+      }
+    ]
+  }
+}

@@ -5,7 +5,7 @@
 ## Current observational baseline moved
 - Previous R3 `main` reference `c09c1bc5112216a617903a2d572662342bcd857c`, full blob `d847e2d53bfe27a2b61bac023a82d2009c313356` is stale.
 - Refreshed Oct 12 `main`: `b7847ca9885f6f27ae0566455b0a476ef1059d24`, `data/cards.full.json` blob `d0b472e4173e565284616bb7eec0e4b28e1a42b9`, `public/data/cards.json` blob `c39eac64afde20ff0ccacd920e12abbdab1b3d02`, both 1,674 cards. Re-lock again if HEAD moves.
-- Main introduced separately reviewed IAA correction. Existing `2026-05-13_EU_01` now says proposed/in consideration, not enacted, in **both full and lean**. R3 urgent old-card content correction is **code-level resolved**; a live Vercel readback is still outstanding. The remaining POSCO August card `2026-08-06_KR_03` has not been advanced to the October contract.
+- Main introduced separately reviewed IAA correction. Existing `2026-05-13_EU_01` now says proposed/in consideration, not enacted, in **both full and lean**. R3 urgent old-card content correction is **code-level resolved**; Vercel deployment metadata now verifies Production READY for deployment `dpl_Duj3iRcCHCC6oXEwEHd6Tjz7QMdk`, `githubCommitSha=b7847ca9885f6f27ae0566455b0a476ef1059d24`, alias `sbtl-hub.vercel.app`; browser-level rendered-card UI QC remains outstanding. The remaining POSCO August card `2026-08-06_KR_03` has not been advanced to the October contract.
 
 ## Four original Collector archives: independent checks
 - SHA256 checks independently match the original R3 checkpoint for all four source archives (09-20, 09-23, 09-26, 09-28).

@@ -79,6 +79,42 @@ def validate_surface(card, briefs):
                 assert ref['date'] == before['date']
 
 
+
+def validate_provenance(reference, expected, root=ROOT):
+    from urllib.parse import unquote
+    path, separator, fragment = reference.partition('#')
+    pointer = unquote(fragment)
+    if not separator or not pointer.startswith('/'):
+        raise ValueError('Evidence reference requires a JSON Pointer fragment')
+    file = (root / path).resolve()
+    if not file.is_relative_to(root.resolve()):
+        raise ValueError('Evidence path escapes repository')
+    value = json.loads(file.read_text())
+    try:
+        for token in pointer[1:].split('/'):
+            token = token.replace('~1', '/').replace('~0', '~')
+            if isinstance(value, list):
+                if not token.isdecimal():
+                    raise ValueError('Invalid array index')
+                value = value[int(token)]
+            elif isinstance(value, dict):
+                value = value[token]
+            else:
+                raise ValueError('Pointer traverses a scalar')
+    except (KeyError, IndexError, TypeError, ValueError) as exc:
+        raise ValueError('Evidence JSON Pointer target does not resolve') from exc
+    if value != expected:
+        raise ValueError('Evidence JSON Pointer target differs from locked before_card')
+
+
+def validate_prerequisite():
+    validate_provenance(PATCH['after_card']['correction_history'][-1]['before_card_ref'], PATCH['before_card'])
+    briefs = current('public/data/briefs.json')
+    for revision in PATCH['brief_revisions']:
+        item = next(b for b in briefs['items'] if b['id'] == revision['id'])
+        if item != revision['after']:
+            raise ValueError('Committed brief differs from reviewed correction')
+
 class IAACorrectionTests(unittest.TestCase):
     def test_exact_replay_and_unrelated_inventory_preservation(self):
         full, briefs = replay()
@@ -89,6 +125,14 @@ class IAACorrectionTests(unittest.TestCase):
         self.assertEqual(subprocess.check_output(['git', 'rev-parse', f"{MANIFEST['base_main_commit_sha']}:data/cards.full.json"], cwd=ROOT).strip(), subprocess.check_output(['git', 'rev-parse', f'{BASE}:data/cards.full.json'], cwd=ROOT).strip())
         blob = subprocess.check_output(['git','rev-parse',f'{BASE}:data/cards.full.json'],cwd=ROOT,text=True).strip()
         self.assertEqual(blob, MANIFEST['base_full_blob_sha'])
+
+    def test_provenance_pointer_resolves_exact_locked_before_card(self):
+        reference = PATCH['after_card']['correction_history'][-1]['before_card_ref']
+        validate_provenance(reference, PATCH['before_card'])
+        path = reference.partition('#')[0]
+        for bad in (path + '#/missing', path + '#/after_card', path):
+            with self.subTest(reference=bad), self.assertRaises(ValueError):
+                validate_provenance(bad, PATCH['before_card'])
 
     def test_all_public_surfaces(self):
         full = current('data/cards.full.json')
@@ -220,4 +264,8 @@ class IAACorrectionTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    if sys.argv[1:] == ['--preflight']:
+        validate_prerequisite()
+        print('PASS: committed briefs and exact provenance JSON Pointer target')
+    else:
+        unittest.main(verbosity=2)

@@ -29,16 +29,7 @@ jobs:
           node-version: '20'
       - name: Verify prerequisite evidence and published briefs before replay
         run: |
-          python - <<'PY'
-          import json, pathlib
-          root = pathlib.Path(".")
-          packet = json.loads((root / "direct-adds/2026-10-08-iaa-proposal-correction/correction.json").read_text())
-          briefs = json.loads((root / "public/data/briefs.json").read_text())
-          for revision in packet["brief_revisions"]:
-              assert next(b for b in briefs["items"] if b["id"] == revision["id"]) == revision["after"]
-          pointer = packet["after_card"]["correction_history"][-1]["before_card_ref"].split("#")[0]
-          assert (root / pointer).is_file()
-          PY
+          python scripts/test_iaa_correction.py --preflight
       - name: Materialize canonical candidate only in ephemeral checkout
         run: python scripts/apply_iaa_correction.py
       - name: Replay and negative regressions

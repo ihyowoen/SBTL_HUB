@@ -41,25 +41,28 @@ Other canonical keyword matches were 2026-05-28_KR_01, 2026-05-20_GL_08, 2026-05
 Run from repository root (materialization writes the three reviewed data files locally):
 
 ```sh
+python scripts/test_iaa_correction.py --preflight
 python scripts/apply_iaa_correction.py
 python scripts/test_iaa_correction.py
 node scripts/lean_cards.mjs --check
 git show c09c1bc5112216a617903a2d572662342bcd857c:data/cards.full.json > /tmp/iaa-base-full.json
-node scripts/validate_json_schema_subset.mjs --schema schemas/manual-direct-add.v2.schema.json --instance direct-adds/2026-10-08-iaa-proposal-correction/direct-add.json
-node scripts/validate_manual_direct_add.mjs --manifest direct-adds/2026-10-08-iaa-proposal-correction/direct-add.json --base /tmp/iaa-base-full.json --full data/cards.full.json
-node scripts/validate_manual_direct_add_v4_hardening.mjs --manifest direct-adds/2026-10-08-iaa-proposal-correction/direct-add.json --base /tmp/iaa-base-full.json --full data/cards.full.json
+manifest=direct-adds/2026-10-08-iaa-proposal-correction/direct-add.json
+test -f "$manifest" || manifest=direct-adds/2026-10-08-iaa-proposal-correction/direct-add.template.json
+node scripts/validate_json_schema_subset.mjs --schema schemas/manual-direct-add.v2.schema.json --instance "$manifest"
+node scripts/validate_manual_direct_add.mjs --manifest "$manifest" --base /tmp/iaa-base-full.json --full data/cards.full.json
+node scripts/validate_manual_direct_add_v4_hardening.mjs --manifest "$manifest" --base /tmp/iaa-base-full.json --full data/cards.full.json
 node scripts/validate_cards.mjs
 node scripts/validate_cards.mjs data/cards.full.json
 node scripts/validate.mjs
 ```
 
-Nine offline regression tests pass: pinned-base whole-inventory and brief replay; public projection alignment; negative controls for enacted headline, identity/lineage mutation, missing official evidence, stale brief narrative/watch/ref, and wrong threshold/mandatory workforce condition. Full replay rejects any undeclared unrelated mutation. It proves consistency with reviewed evidence, not future legal status; recheck official status before approval if time has elapsed.
+Fourteen offline regression tests cover: pinned-base whole-inventory and brief replay; public projection alignment; negative controls for enacted headline, identity/lineage mutation, missing official evidence, stale brief narrative/watch/ref, and wrong threshold/mandatory workforce condition. Full replay rejects any undeclared unrelated mutation. It proves consistency with reviewed evidence, not future legal status; recheck official status before approval if time has elapsed.
 
 Existing schema, bounded mutation, V4 hardening, lean, canonical/public card and tracker structural checks pass. Existing legacy warnings remain (14 dangling Related links, 3 ID/date mismatches, 7 composite regions; tracker 497 legacy warnings). Dedicated read-only CI is scoped to this branch to avoid pinning future legitimate corrections to this historical snapshot. Base/main drift requires relock and rerun before approval.
 
 ## Review remediation (2026-10-08)
 
-The prior packet/data-shape finding is resolved by #387's exact three-file scope plus stacked #388. The apply tool now validates packet/manifest commit equality and the pinned full blob SHA before loading output candidates or writing. Two subprocess negative tests inject each bad lock and confirm failure plus byte-identical canonical, lean and brief sentinel outputs. Nine tests pass locally; read-only CI reruns them. No merge or production deployment.
+The prior packet/data-shape finding is resolved by #387's exact three-file scope plus stacked #388. The apply tool now validates packet/manifest commit equality and the pinned full blob SHA before loading output candidates or writing. Two subprocess negative tests inject each bad lock and confirm failure plus byte-identical canonical, lean and brief sentinel outputs. Nine tests passed at that checkpoint; subsequent optimized-mode and provenance regressions bring the current suite to fourteen tests. No merge or production deployment.
 
 
 ## Revised landing order — review 5453167898
@@ -71,4 +74,9 @@ The original packet commit is the immutable replay base. A later governed manife
 
 ## Optimized Python review remediation — 5453335379
 
-All three materialization guards now use explicit ValueError checks before writes; Python -O and PYTHONOPTIMIZE cannot remove them. Four added subprocess regression tests each run normal Python, -O and PYTHONOPTIMIZE=1, corrupting before-card, before-brief, full inventory and brief inputs. Each verifies the specific guard rejects and full, lean and briefs remain byte-identical. Thirteen tests pass, including twelve new mode/case combinations. No card or brief content changed in this remediation.
+All three materialization guards now use explicit ValueError checks before writes; Python -O and PYTHONOPTIMIZE cannot remove them. Four added subprocess regression tests each run normal Python, -O and PYTHONOPTIMIZE=1, corrupting before-card, before-brief, full inventory and brief inputs. Each verifies the specific guard rejects and full, lean and briefs remain byte-identical. Thirteen tests passed at that checkpoint, including twelve new mode/case combinations. No card or brief content changed in this remediation.
+
+
+## Provenance and reproduction review remediation — 5486126153
+
+CI preflight now resolves the evidence JSON Pointer and requires the resolved value to equal the locked before_card before materialization. The added regression rejects a missing pointer target, a valid pointer to the wrong snapshot, and a missing fragment. Reproduction uses the active-manifest/template fallback on both PRs. The current suite has fourteen test methods; the prior nine/thirteen counts above are historical checkpoints. No canonical or brief contents change in this remediation.

@@ -67105,24 +67105,25 @@
       "cat": "Materials",
       "sub_cat": "리튬 투자·JV",
       "signal": "high",
-      "title": "Lithium Argentina·Ganfeng, PPG JV 최종계약·1.8억달러 전략투자",
-      "sub": "Ganfeng이 Lithium Argentina에 1.3억달러를 투자하고 JV에 5,000만달러를 투입하는 구조가 최종계약으로 확정됐다.",
-      "gate": "Lithium Argentina 공식자료가 주식인수·JV 투자 구조와 최종계약 체결을 직접 확인한다.",
-      "fact": "Lithium Argentina와 Ganfeng Lithium은 Pozuelos-Pastos Grandes 프로젝트 JV를 위한 최종계약을 체결했다. Ganfeng은 Lithium Argentina에 주당 C$5.85로 1.3억달러를 투자하고, JV에 5,000만달러를 추가 투자하기로 했다.",
+      "title": "Lithium Argentina–Ganfeng, PPG JV 최종계약·1.8억달러 전환사채 합의",
+      "sub": "8월 24일 PPG JV 지분 67:33 최종계약과 1.8억달러 무담보 전환사채 투자합의를 발표했다. 투자 자금은 9월 15일 종결됐으며 JV 종결은 별도다.",
+      "gate": "공식 8월 24일 발표의 투자수단은 6년 만기 연 4% 무담보 전환사채다. 기존 1.3억달러 신용공여와 JV에 5,000만달러를 투입하는 구조로 설명하는 것은 잘못이다.",
+      "fact": "Lithium Argentina와 Ganfeng은 8월 24일 Pozuelos-Pastos Grandes(PPG) 공동개발 JV 최종계약(지분 Ganfeng 67%·Lithium Argentina 33%)과 Ganfeng의 1.8억달러 무담보 전환사채 인수합의를 발표했다. 전환사채는 6년 만기·연 4% 이자·주당 12.50달러 전환 조건이다. 회사는 9월 15일 해당 투자의 실제 종결을 발표했다. PPG JV의 법적 종결 및 광산 가동과는 구분한다.",
       "implication": [
-        "아르헨티나 리튬 개발에서 프로젝트 지분구조와 자금조달이 동시에 재편되는 거래다.",
-        "다음 확인 지점은 거래 종결, JV 출범과 PPG의 개발·건설 의사결정이다."
+        "9월 투자종결로 기존 2027년 1월 만기 전환사채 2.59억달러를 재조달할 재원이 확보됐다. 신규 광산 생산이나 PPG JV의 종결을 확인한 것은 아니다.",
+        "JV 최종계약, 전환사채 투자종결, 장래 생산능력은 단계가 달라 각각 추적해야 한다."
       ],
       "urls": [
-        "https://www.lithium-argentina.com/news-and-insights/lithium-argentina-and-ganfeng-lithium-enter-definitive-agreements-to-form-new-joint-venture-and-strategic-investment"
+        "https://investors.lithium-argentina.com/news-releases/news-release-details/lithium-argentina-finalizes-ppg-joint-venture-announces-180m",
+        "https://investors.lithium-argentina.com/news-releases/news-release-details/lithium-argentina-announces-closing-180m-strategic-investment"
       ],
       "related": [],
       "fact_sources": [
         {
           "source_name": "Lithium Argentina",
-          "source_url": "https://www.lithium-argentina.com/news-and-insights/lithium-argentina-and-ganfeng-lithium-enter-definitive-agreements-to-form-new-joint-venture-and-strategic-investment",
+          "source_url": "https://investors.lithium-argentina.com/news-releases/news-release-details/lithium-argentina-finalizes-ppg-joint-venture-announces-180m",
           "source_owner": "Lithium Argentina",
-          "claim": "Lithium Argentina와 Ganfeng이 PPG JV와 전략투자에 대한 최종계약을 체결했음을 확인한다.",
+          "claim": "8월 24일 PPG JV 최종계약(지분 67:33)과 별도의 1.8억달러 전환사채 투자합의를 발표했다.",
           "source_quote": "entered into definitive agreements",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
@@ -67130,7 +67131,8 @@
             "title",
             "sub",
             "gate",
-            "fact"
+            "fact",
+            "implication"
           ],
           "source_published_date": "2026-08-24",
           "visible_quote_date": "2026-08-24",
@@ -67142,20 +67144,20 @@
         },
         {
           "source_name": "Lithium Argentina",
-          "source_url": "https://www.lithium-argentina.com/news-and-insights/lithium-argentina-and-ganfeng-lithium-enter-definitive-agreements-to-form-new-joint-venture-and-strategic-investment",
+          "source_url": "https://investors.lithium-argentina.com/news-releases/news-release-details/lithium-argentina-announces-closing-180m-strategic-investment",
           "source_owner": "Lithium Argentina",
-          "claim": "Ganfeng이 Lithium Argentina에 1.3억달러, JV에 5,000만달러를 투자하는 구조를 확인한다.",
-          "source_quote": "$130 million strategic investment",
+          "claim": "9월 15일 Ganfeng의 1.8억달러 6년 만기 무담보 전환사채 투자종결을 회사가 발표했다.",
+          "source_quote": "closing of the $180 million strategic investment",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
-            "title",
             "sub",
+            "gate",
             "fact",
             "implication"
           ],
-          "source_published_date": "2026-08-24",
-          "visible_quote_date": "2026-08-24",
+          "source_published_date": "2026-09-15",
+          "visible_quote_date": "2026-09-15",
           "source_origin_type": "official_or_source_owner_material",
           "fetch_method": "web_official_body_fetch",
           "source_url_canonical_complete": true,
@@ -67217,7 +67219,7 @@
       "execution_anchor_strength": "strong",
       "structural_value_override_applied": false,
       "source_evidence_entry_count": 2,
-      "source_unique_url_count": 1,
+      "source_unique_url_count": 2,
       "source_unique_domain_count": 1,
       "source_independent_owner_count": 1,
       "source_diversity_status": "PASS_PRIMARY_SOURCE_EXCEPTION",
@@ -67237,20 +67239,20 @@
       },
       "source_discovery_ledger": [
         {
-          "source_url": "https://www.lithium-argentina.com/news-and-insights/lithium-argentina-and-ganfeng-lithium-enter-definitive-agreements-to-form-new-joint-venture-and-strategic-investment",
+          "source_url": "https://investors.lithium-argentina.com/news-releases/news-release-details/lithium-argentina-finalizes-ppg-joint-venture-announces-180m",
           "source_name": "Lithium Argentina",
           "source_owner": "Lithium Argentina",
           "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "Lithium Argentina와 Ganfeng이 PPG JV와 전략투자에 대한 최종계약을 체결했음을 확인한다."
+          "unique_contribution": "8월 24일 PPG JV 최종계약(지분 67:33)과 별도의 1.8억달러 전환사채 투자합의를 발표했다."
         },
         {
-          "source_url": "https://www.lithium-argentina.com/news-and-insights/lithium-argentina-and-ganfeng-lithium-enter-definitive-agreements-to-form-new-joint-venture-and-strategic-investment",
+          "source_url": "https://investors.lithium-argentina.com/news-releases/news-release-details/lithium-argentina-announces-closing-180m-strategic-investment",
           "source_name": "Lithium Argentina",
           "source_owner": "Lithium Argentina",
           "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "Ganfeng이 Lithium Argentina에 1.3억달러, JV에 5,000만달러를 투자하는 구조를 확인한다."
+          "unique_contribution": "9월 15일 Ganfeng의 1.8억달러 6년 만기 무담보 전환사채 투자종결을 회사가 발표했다."
         }
       ],
       "source_synthesis_applied": true,
@@ -67263,19 +67265,20 @@
       ],
       "event_fingerprint": {
         "actor": "Lithium Argentina·Ganfeng",
-        "asset_or_policy": "Lithium Argentina·Ganfeng, PPG JV 최종계약·1.8억달러 전략투자",
+        "asset_or_policy": "Lithium Argentina–Ganfeng, PPG JV 최종계약·1.8억달러 전환사채 합의",
         "location": "GL",
         "event_type": "binding_contract",
         "event_date": "2026-08-24",
         "source_url_cluster": [
-          "https://www.lithium-argentina.com/news-and-insights/lithium-argentina-and-ganfeng-lithium-enter-definitive-agreements-to-form-new-joint-venture-and-strategic-investment"
+          "https://investors.lithium-argentina.com/news-releases/news-release-details/lithium-argentina-finalizes-ppg-joint-venture-announces-180m",
+          "https://investors.lithium-argentina.com/news-releases/news-release-details/lithium-argentina-announces-closing-180m-strategic-investment"
         ],
-        "factual_anchor": "Lithium Argentina·Ganfeng, PPG JV 최종계약·1.8억달러 전략투자"
+        "factual_anchor": "Lithium Argentina–Ganfeng, PPG JV 최종계약·1.8억달러 전환사채 합의"
       },
       "stage_b_only": false,
       "publish_ready": true,
       "evidence_package_status": "verified_for_stage_b_draft",
-      "writer_notes": "Single-source exception is bounded to issuer definitive transaction disclosure.",
+      "writer_notes": "2026-10-15 source-backed factual repair: 2026-08-24 investment was USD180m convertible note (not USD130m equity plus USD50m JV); 2026-09-15 closing is follow-up, not PPG JV completion.",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS_AUTHORITATIVE_0_1P_REENTRY",
         "source_stage_a_file": "stage_a_prompt_01p_review_pool_promotion_20260827_EVENT_UNIVERSE_PROMOTION_HOLDS_8_R3_REDTEAM_CORRECTED.json",
@@ -379885,15 +379888,17 @@
       "date": "2026-03-18",
       "cat": "Materials",
       "signal": "high",
-      "title": "Nth Cycle, 재활용 니켈·리튬 11억 달러 오프테이크 초대형 계약",
-      "sub": "전자폐기물 기반 생산급(Production-grade) 광물 회수 모델의 완벽한 상업화",
-      "gate": "리사이클링 벤처가 1조 원이 훌쩍 넘는 매머드급 구매 계약을 이끌어내며 폐배터리 순환 생태계가 실험 단계를 벗어나 완연한 주류 밸류체인으로 자리 잡음.",
-      "fact": "미국 Nth Cycle은 배터리 및 전자폐기물에서 추출한 초고순도 니켈 및 리튬에 대해 11억 달러에 달하는 사전 구매(Offtake) 계약을 맺음. 이는 폐기물 재생 방식이 채굴(Mining)을 실질적으로 대체할 수 있음을 시장 자본이 인정한 결정적 증거임.",
+      "title": "Nth Cycle–Trafigura, 재활용 니켈·리튬 11억달러 규모 조건합의",
+      "sub": "2026년 3월 발표한 10년 오프테이크는 구속력 있는 조건합의서다. 본계약 체결과 실제 인도는 별도 조건으로 남아 있다.",
+      "gate": "회사 발표는 예상 거래가치를 약 11억달러로 제시했지만, 9월 SEC 문서는 Trafigura 조건합의가 최종 구매계약 체결과 선행조건 충족을 필요로 한다고 명시한다.",
+      "fact": "Nth Cycle은 2026년 3월 16일 Trafigura와 재활용 MHP 내 니켈 2,000t 및 탄산리튬 1,500t의 장기 구매를 위한 구속력 있는 조건합의서를 발표했다. 약 11억달러는 장기 거래의 추정가치다. SEC 공개자료에 따르면 최종 원료구매계약 체결과 미국 정제 프로젝트 개발 등 조건이 남아 있으며, 계약 물량이 이미 인도·매출화됐다는 근거는 아니다.",
       "implication": [
-        "광산 개발에 동반되는 탄소 및 환경 리스크 없이도 내륙형 자원 안보를 달성할 수 있는 모델임. 한국 재활용 전문 벤더들의 향후 파이낸싱 기준점으로 작용할 것임."
+        "폐배터리 정제 기술의 잠재적 구매 수요를 보여주는 신호지만, 예상 계약가치가 곧 확정 매출이나 상업생산 실적을 의미하지 않는다. 실제 공급 능력·원료 확보·본계약 이행이 관건이다."
       ],
       "urls": [
-        "https://chargedevs.com/newswire/nth-cycle-secures-1-1-billion-offtake-agreement-for-its-recycled-nickel-and-lithium"
+        "https://chargedevs.com/newswire/nth-cycle-secures-1-1-billion-offtake-agreement-for-its-recycled-nickel-and-lithium",
+        "https://nthcycle.com/newsroom/nth-cycle-announces-landmark-1-1-billion-offtake-agreement-with-trafigura-expands-operations-in-us-and-europe",
+        "https://www.sec.gov/Archives/edgar/data/2102713/000119312526394814/kcac-20260918.htm"
       ],
       "related": [],
       "related_lineage": {

@@ -1,0 +1,30 @@
+# R4 operations recovery follow-up — 2026-10-12 KST
+
+> **AUDIT ONLY / Draft PR #386 / do not merge / not a card-run authorization.** This note documents new evidence against the actual current main. The four source ZIPs and offline 1,157-row, 1,045-URL ledgers remain held as independent evidence, not card writes.
+
+## Current observational baseline moved
+- Previous R3 `main` reference `c09c1bc5112216a617903a2d572662342bcd857c`, full blob `d847e2d53bfe27a2b61bac023a82d2009c313356` is stale.
+- Refreshed Oct 12 `main`: `b7847ca9885f6f27ae0566455b0a476ef1059d24`, `data/cards.full.json` blob `d0b472e4173e565284616bb7eec0e4b28e1a42b9`, `public/data/cards.json` blob `c39eac64afde20ff0ccacd920e12abbdab1b3d02`, both 1,674 cards. Re-lock again if HEAD moves.
+- Main introduced separately reviewed IAA correction. Existing `2026-05-13_EU_01` now says proposed/in consideration, not enacted, in **both full and lean**. R3 urgent old-card content correction is **code-level resolved**; Vercel deployment metadata now verifies Production READY for deployment `dpl_Duj3iRcCHCC6oXEwEHd6Tjz7QMdk`, `githubCommitSha=b7847ca9885f6f27ae0566455b0a476ef1059d24`, alias `sbtl-hub.vercel.app`; browser-level rendered-card UI QC remains outstanding. The remaining POSCO August card `2026-08-06_KR_03` has not been advanced to the October contract.
+
+## Four original Collector archives: independent checks
+- SHA256 checks independently match the original R3 checkpoint for all four source archives (09-20, 09-23, 09-26, 09-28).
+- Expanded output recalculation: **1,157 source rows** = 919 KEEP + 234 TRIAGE_FILTERED + 4 REVIEW; tracking-only URL normalization yields **1,045 unique primary URLs** and **112 repeat rows**. No original-row UIDs silently disappeared. These are article URLs, not unique event identities.
+- A separate title screen found **5 strict-normalized identical-title/multiple-URL groups** and **17 >=86 fuzzy pairs (9 >=95)**. This is a *different heuristic* from R3's 11 high-title and 6 ambiguous candidates; it must **not** be used to overwrite or count independent events.
+- Reconciliation discrepancy: direct row-level `published_date < 2026-09-19` = **125 rows**, **118 unique normalized URLs**, versus R3 checkpoint's **117 items** (definition/grain unconfirmed). Source text-state histogram: 908 `article_hydrated`, 204 `rss_rich`, 36 `list_context_only`, 8 `rss_context_only`, 1 `title_only`; do not silently equate R3's `38 list-only` to an unmatched state definition.
+- All 1,157 row-level event dispositions are still pending; `TRIAGE_FILTERED` and 4 REVIEW provisional dispositions are not final Stage 0.0C terminal outcomes. No new card or Related mutation.
+
+## Governance read-only precheck / stage hold
+- At current immutable HEAD, `docs/**` contains 96 files, **96/96 classified** by the active lifecycle registry, no missing or cross-classification paths; active/dependency closure exact size **43**, all 43 fully fetched/read. Stage A's embedded news-value selector V4 and Related pre-pass observed; no active override. **This is a read receipt, not formal executable 0.0D PASS**.
+- Repository's native 0.0C requires **6 exact region + 14 exact topic keys**, each with terminal status, and full source/event candidate-to-terminal-ledger reconciliation. The Sept 29–Oct 12 gap is not exhaustively searched; **0.0C BLOCKED, Stage A NOT AUTHORIZED**. Editorial 6x8 lens scan does not substitute for native 20 keys.
+
+## Targeted incident-level findings (not Stage A decisions)
+- `RC26-021` POSCO–Samsung SDI: binding long-term material supply contract **signed 2026-10-06**, updating August 19万 t LFP agreement with volume more than doubled. Sep 22 SK On KRW ~1.1T is separate. Oct 6 media articles already published; POSCO Group page date Oct 6 while POSCO Future M list displays Oct 7. Date roles require explicit lock; 'first announced Oct 7' cannot be assumed.
+- `RC26-022` LGES–B2U: LG first-party release dateline Sep 22, B2U first-party GlobeNewswire Sep 24, LG page stamp Sep 28. Preserve all three distinct date roles; no demonstrated award/shipment.
+- `RC26-014` LGES–Elevra: Oct 8 binding offtake 240,000 dry tonnes/4 years; not delivered tonnes and not the August Elevra–Mangrove contract.
+- `RC26-020` LGES–indiGOtech: Oct 1 **non-binding** MoU to explore 46-series NCM cells 2027–2030, not awarded cell sales.
+- **R4_DISC_001** (outside four ZIPs and 22 R3 IDs): on Oct 9 European Commission designated 46 more EU Critical Raw Materials Act strategic projects across 16 member states. Designation is **not** funded/operating production. New discovery remains provisional; reserve RC26 numeric IDs until no-collision reconciliation.
+
+Primary references: [EU Parliament IAA](https://oeil.europarl.europa.eu/oeil/en/procedure-file?reference=2026%2F0068%28COD%29), [POSCO Samsung](https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%93%A8%EC%B2%98%EC%97%A0-%EC%82%BC%EC%84%B1sdi%EC%99%80-lfp-6%EC%A1%B0%EC%9B%90-%EA%B7%9C%EB%AA%A8-%EA%B3%B5%EA%B8%89%EA%B3%84%EC%95%BD-%EC%B2%B4%EA%B2%B0-non/), [LGES B2U](https://www.lgcorp.com/media/release/30606), [B2U Sep 24](https://www.globenewswire.com/news-release/2026/09/24/3368343/0/en/b2u-storage-solutions-and-lg-energy-solution-collaborate-on-bess-business-opportunities-by-repurposing-batteries.html), [LGES Elevra](https://www.lgcorp.com/media/release/30655), [LGES indiGOtech](https://www.lgcorp.com/media/release/30626), [European Commission Oct 9](https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials/strategic-projects-under-crma_en).
+
+**Hard hold:** No PR #386 merge, no Stage A/B/C/0.4→0.8 claim, no canonical or lean modification, no Revolution master/downstream mutation. Maintain this PR as audit-only; a distinct governed production-card PR is necessary after all gates.

@@ -12,9 +12,15 @@
   - Aug24 issuer: https://investors.lithium-argentina.com/news-releases/news-release-details/lithium-argentina-finalizes-ppg-joint-venture-announces-180m
   - Sep15 issuer: https://investors.lithium-argentina.com/news-releases/news-release-details/lithium-argentina-announces-closing-180m-strategic-investment
 
+## Governed correction path (CI verified)
+- Bounded existing-card `manual_direct_add_v2` manifest: `direct-adds/2026-10-15-r23-existing-claims/direct-add.json`, **operations.update=2, add=0, ID migration=0**.
+- Both unchanged event identities are guaranteed: no `id`, `date`, `region`, `related` edits; the PPG `event_fingerprint` is preserved exactly to retain the prior economic-event anchor.
+- Actual native `validate_manual_direct_add.mjs` and `validate_manual_direct_add_v4_hardening.mjs` **PASS**, with no new dangling Related. The GitHub branch-only action committed the verified Full blob `1af792e2e80516e1ec1d7d9660c150b312168b21`, and exact Lean blob `41b51ca4fa4e4f40a92c18577ea0655483295be1`. These are proposed PR changes; main remains unchanged.
+- Broad HUB 0.0C remains blocked, but this update uses a **separate, explicitly governed factual-correction path**. Do not weaken the 0.0C/new-card publication gate.
+
 ## Programmatic execution and safety
 - The added Python script `scripts/remediation/r23_two_card_factual_correction.py` **never writes either live file**. It hard-checks the original SHA256 of both files and produces two preview outputs in `/tmp/r23_hotfix_preview/`; requires identical fixed output hashes.
 - The isolated GitHub Actions workflow only runs on this PR's exact branch (same repository) and generates a **proposed pair of Full/Lean changes into this draft branch only**. It checks unchanged main, exactly two card IDs, native `validate_cards.mjs` against main, and `lean_cards.mjs --check`, then commits **only** those two files back to this PR. If action token cannot write to PR, the branch remains a nonproduction proposal and the failure must be reported.
-- Preview computed SHA256 (git hash-object): Full `09ebf08385b1bfe0cfa5816ec49f93d23f0016dfe83f1fc37b9da164157bedbb` (`bf222decca5936d22f86e8f66610f259255b82d4`); Lean `df7b0c056554958fe4f75b96352d596b99d5b3b0ac52099c00a34e89044ea6ac` (`41b51ca4fa4e4f40a92c18577ea0655483295be1`).
+- Preview computed SHA256 (git hash-object): Full `855566c8bb724a8c88a6759e5318d952892493ecdef8db1c4870319288164ea6` (`1af792e2e80516e1ec1d7d9660c150b312168b21`); Lean `df7b0c056554958fe4f75b96352d596b99d5b3b0ac52099c00a34e89044ea6ac` (`41b51ca4fa4e4f40a92c18577ea0655483295be1`).
 - Native check run in isolated read-only sandbox: **1,674/1,674 IDs**, exact two-card Full/Lean projection, `validate_cards.mjs` PASS; `lean_cards.mjs --check` PASS. Baseline's 14 legacy broken Related refs and 3 legacy ID/date anomalies are unchanged.
 - **Do not merge before reviewing the branch's generated two-card diff, CI and relevant release/security gates.** Broad 0.0C stays **BLOCKED**; this narrow repair is explicitly proposed as a separate emergency accuracy correction and must not be mislabeled a new-news catch-up release.

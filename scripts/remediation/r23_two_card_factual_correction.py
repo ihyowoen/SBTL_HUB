@@ -6,7 +6,7 @@ Do not treat this factual correction as a 0.0C or Stage A release authorization.
 """
 from pathlib import Path
 import copy,json,hashlib,collections
-ROOT=Path(__file__).resolve().parents[1]; OUT=Path('/tmp/r23_hotfix_preview');OUT.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[2]; OUT=Path('/tmp/r23_hotfix_preview');OUT.mkdir(exist_ok=True)
 full_path=ROOT/'data/cards.full.json'
 lean_path=ROOT/'public/data/cards.json'
 assert hashlib.sha256(full_path.read_bytes()).hexdigest() == '15e202db02664e682890f1402d745ec71b2739274debc5c948e9567fa73582a1', 'SOURCE_BASE_FULL_CHANGED'

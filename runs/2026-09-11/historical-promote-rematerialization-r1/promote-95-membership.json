@@ -1,0 +1,64 @@
+{
+  "schema": "sbtl_historical_promote_rematerialization_membership_v1",
+  "status": "LOCKED",
+  "run_id": "historical-promote-rematerialization-20260911-r1",
+  "source_reconciliation_pr": 369,
+  "source_reconciliation_head_at_ready": "58f84c17a5df67d707a2f0ecbb0f0639eb2fab33",
+  "source_reconciliation_final_counts": {
+    "PROMOTE": 95,
+    "KEEP_CANDIDATE": 49,
+    "DOWNGRADE_WATCH": 37,
+    "CLOSE": 62
+  },
+  "baseline": {
+    "main_sha": "3bb929004ff8b547b86e5f1beab0efb3dac19d62",
+    "canonical_count": 1617,
+    "canonical_full_blob_sha": "beb2aa7615b583b4c9c0c269974601a0b26c2684"
+  },
+  "membership_count": 95,
+  "unique_membership_count": 95,
+  "duplicate_membership_count": 0,
+  "membership_authority": "PR #369 committed reconciliation checkpoints; final 0.1P review-pool membership authority with explicit later supersessions preserved",
+  "groups": [
+    {"range":"1-25","promote_count":6,"story_ids":["U0593","U1810","U1012","U0793","U0331","U0773"]},
+    {"range":"26-50","promote_count":9,"story_ids":["U1430","U1499","U0417","U0110","U2040","U1552","U1543","U2021","U0467"]},
+    {"range":"51-75","promote_count":11,"story_ids":["U1749","U1388","U0868","U2073","U0101","U1254","U2093","U1314","U0060","U0024","U0787"]},
+    {"range":"76-100","promote_count":13,"story_ids":["U0135","U0572","U0574","U0569","U1089","U0436","U1531","U1981","U1995","U0434","U1185","U0368","U2105"]},
+    {"range":"101-125","promote_count":11,"story_ids":["U0388","U0542","U1926","U1915","U1411","U1170","U0980","U0191","U1121","U1828","U1627"]},
+    {"range":"126-150","promote_count":15,"story_ids":["U1777","U1275","U1796","U0982","U1212","U1511","U0437","U0427","U1986","U1494","U0797","U1016","U2003","U2001","U1806"]},
+    {"range":"151-175","promote_count":13,"story_ids":["U1585","U2062","U1082","U1025","U1026","U0410","U0412","U0790","U1999","U2005","U0919","U0751","U1446"]},
+    {"range":"176-200","promote_count":9,"story_ids":["U1975","U1238","U1229","U1747","U2045","U2026","U1501","U1066","U1178"]},
+    {"range":"201-225","promote_count":6,"story_ids":["U1293","U1270","U1278","U0147","U1495","U1731"]},
+    {"range":"226-243","promote_count":2,"story_ids":["U1047","U1660"]}
+  ],
+  "all_story_ids": [
+    "U0593","U1810","U1012","U0793","U0331","U0773","U1430","U1499","U0417","U0110","U2040","U1552","U1543","U2021","U0467",
+    "U1749","U1388","U0868","U2073","U0101","U1254","U2093","U1314","U0060","U0024","U0787",
+    "U0135","U0572","U0574","U0569","U1089","U0436","U1531","U1981","U1995","U0434","U1185","U0368","U2105",
+    "U0388","U0542","U1926","U1915","U1411","U1170","U0980","U0191","U1121","U1828","U1627",
+    "U1777","U1275","U1796","U0982","U1212","U1511","U0437","U0427","U1986","U1494","U0797","U1016","U2003","U2001","U1806",
+    "U1585","U2062","U1082","U1025","U1026","U0410","U0412","U0790","U1999","U2005","U0919","U0751","U1446",
+    "U1975","U1238","U1229","U1747","U2045","U2026","U1501","U1066","U1178",
+    "U1293","U1270","U1278","U0147","U1495","U1731","U1047","U1660"
+  ],
+  "source_checkpoint_refs": [
+    "runs/2026-09-10/historical-candidate-reconciliation-r1/historical-candidate-243-progress-25.md",
+    "runs/2026-09-10/historical-candidate-reconciliation-r1/historical-candidate-243-progress-50.md",
+    "file_library:sbtl_historical_candidate_243_identity_master_20260910_PARTIAL_100.json",
+    "runs/2026-09-10/historical-candidate-reconciliation-r1/historical-candidate-243-progress-125.md",
+    "runs/2026-09-10/historical-candidate-reconciliation-r1/historical-candidate-243-progress-150.md",
+    "runs/2026-09-10/historical-candidate-reconciliation-r1/historical-candidate-243-progress-175.md",
+    "runs/2026-09-10/historical-candidate-reconciliation-r1/historical-candidate-243-progress-200.md",
+    "runs/2026-09-10/historical-candidate-reconciliation-r1/historical-candidate-243-progress-225.md",
+    "runs/2026-09-10/historical-candidate-reconciliation-r1/historical-candidate-243-progress-243.md",
+    "runs/2026-09-10/historical-candidate-reconciliation-r1/historical-candidate-1-50-final-1617-collision-relock.md"
+  ],
+  "production_boundary": {
+    "stage_a_required": true,
+    "stage_b_and_later_required": true,
+    "production_ids_authorized": false,
+    "canonical_mutation_authorized": false,
+    "delete_authorized": false,
+    "related_remove_authorized": false
+  }
+}

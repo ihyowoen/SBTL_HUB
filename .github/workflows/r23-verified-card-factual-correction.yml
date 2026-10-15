@@ -4,6 +4,7 @@ name: r23-verified-card-factual-correction
 # This is a factual correction of two existing cards, not a 0.0C/Stage A release.
 on:
   pull_request:
+    types: [opened]
     paths:
       - "scripts/remediation/r23_two_card_factual_correction.py"
       - ".github/workflows/r23-verified-card-factual-correction.yml"

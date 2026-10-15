@@ -51,10 +51,6 @@ def change(card):
     if 'source_unique_url_count' in card:
       card['source_unique_url_count']=2
       card['source_unique_domain_count']=1
-    if 'event_fingerprint' in card:
-      card['event_fingerprint']['asset_or_policy']=card['title']
-      card['event_fingerprint']['factual_anchor']=card['title']
-      card['event_fingerprint']['source_url_cluster']=[O8,O9]
     if 'writer_notes' in card:
       card['writer_notes']="2026-10-15 source-backed factual repair: 2026-08-24 investment was USD180m convertible note (not USD130m equity plus USD50m JV); 2026-09-15 closing is follow-up, not PPG JV completion."
     # Historical Stage B/C & baseline QC are immutable run evidence; do not rewrite or claim revalidation pass.
@@ -81,7 +77,7 @@ for id in ids:
  print('CARD_PAIRED_FULL_LEAN',id,'TITLE',a['title'])
 assert f.read_bytes()!=full_path.read_bytes()
 assert l.read_bytes()!=lean_path.read_bytes()
-assert hashlib.sha256(f.read_bytes()).hexdigest() == '09ebf08385b1bfe0cfa5816ec49f93d23f0016dfe83f1fc37b9da164157bedbb', 'FULL_PREVIEW_SHA_MISMATCH'
+assert hashlib.sha256(f.read_bytes()).hexdigest() == '855566c8bb724a8c88a6759e5318d952892493ecdef8db1c4870319288164ea6', 'FULL_PREVIEW_SHA_MISMATCH'
 assert hashlib.sha256(l.read_bytes()).hexdigest() == 'df7b0c056554958fe4f75b96352d596b99d5b3b0ac52099c00a34e89044ea6ac', 'LEAN_PREVIEW_SHA_MISMATCH'
 print('HOTFIX_DRY_RUN_PASS_CHANGED_EXACTLY_TWO')
 

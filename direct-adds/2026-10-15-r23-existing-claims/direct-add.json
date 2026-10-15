@@ -1,0 +1,58 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "R23_SOURCE_BACKED_TWO_CARD_EXISTING_CLAIM_CORRECTION_20261015",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "b7847ca9885f6f27ae0566455b0a476ef1059d24",
+  "base_full_blob_sha": "d0b472e4173e565284616bb7eec0e4b28e1a42b9",
+  "expected_before": 1674,
+  "expected_after": 1674,
+  "output_updated": "2026-10-08T06:35:17Z",
+  "operations": {
+    "add": [],
+    "update": [
+      "2026-08-24_GL_03",
+      "R3_07"
+    ],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [],
+    "updates": [
+      {
+        "id": "2026-08-24_GL_03",
+        "change_type": "correction",
+        "changed_fields": [
+          "fact",
+          "fact_sources",
+          "gate",
+          "implication",
+          "source_discovery_ledger",
+          "source_unique_url_count",
+          "sub",
+          "title",
+          "urls",
+          "writer_notes"
+        ],
+        "reason": "Correct a misleading transaction/economic-commercialisation claim using later official issuer and SEC evidence; retain card identity and relation edges.",
+        "evidence_review_summary": "Lithium Argentina issuer Aug24 and Sep15 2026: $180m unsecured 6-year 4% convertible note, 67/33 PPG JV agreement; investment closing confirmed Sep15, JV operating status not implied."
+      },
+      {
+        "id": "R3_07",
+        "change_type": "correction",
+        "changed_fields": [
+          "fact",
+          "gate",
+          "implication",
+          "sub",
+          "title",
+          "urls"
+        ],
+        "reason": "Correct a misleading transaction/economic-commercialisation claim using later official issuer and SEC evidence; retain card identity and relation edges.",
+        "evidence_review_summary": "Nth Cycle March16 issuer and Sept17 SEC S-4: 10-year ~$1.1bn term sheet contingent on definitive materials purchase agreement and U.S. anchor project conditions, not realized sales."
+      }
+    ]
+  }
+}

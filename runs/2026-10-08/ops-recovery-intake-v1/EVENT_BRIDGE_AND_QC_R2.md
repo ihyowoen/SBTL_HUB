@@ -7,7 +7,7 @@
 - Four original Collector ZIPs (2026-09-20/23/26/28): 1,157 expanded rows, 1,045 identity-safe normalized primary URLs, 112 URL-repeat rows. **1,045 is not the number of independent events.**
 - All original Triage statuses preserved: 919 KEEP / 234 TRIAGE_FILTERED / 4 REVIEW. No filtered candidate is silently deleted.
 - High-threshold near-title clustering found **11 tentative two-URL groups (22 URLs, 11 possible redundancies)**, plus **6 ambiguous title pairs**. This is **title similarity only**, not approved semantic identity or a new event count.
-- Collector `region` codes cannot alone prove place-of-event coverage (e.g., a 2026-09-20 story about an Argentinian solar train appeared under `US` via Euronews). No 6-region × 8-lens coverage PASS is claimed.
+- Collector `region` codes cannot alone prove place-of-event coverage (e.g., a 2026-09-20 story about an Argentinian solar train appeared under `US` via Euronews). No 6 regional +14 topic 0.0C machine-axis PASS, or separate 12 structural editorial-lens completion, is claimed.
 
 ## Four Collector REVIEW dispositions — proposed, with provenance retained
 | Original Collector UID | Proposed disposition | Reason |
@@ -34,7 +34,7 @@
 | **RC26-021** | Oct 6 / Oct 7 | `SIGNED_UPSIZED_SUPPLY_CONTRACT` | [POSCO–Samsung SDI](https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%93%A8%EC%B2%98%EC%97%A0-%EC%82%BC%EC%84%B1sdi%EC%99%80-lfp-6%EC%A1%B0%EC%9B%90-%EA%B7%9C%EB%AA%A8-%EA%B3%B5%EA%B8%89%EA%B3%84%EC%95%BD-%EC%B2%B4%EA%B2%B0-non/) | Same-counterparty/advanced-stage candidate Related to `2026-08-06_KR_03`; pending formal Related gate |
 | **RC26-022** | Sept 22 dateline / Sept 28 page | `PARTNERSHIP_PRIORITY_ACCESS` | [LGES–B2U](https://lgcorp.com/media/release/30606): battery repurposing/BESS collaboration | Collector UIDs `20260926_120143:KR_2026-09-24_C09`, `20260928_160143:TF_0057`; date-role conflict needs resolution |
 
-**RC26-014/014/015 are post-Sep28 targeted source discoveries, not products of a completed 6 × 8 regional/lens crawl.** The existing 19 R1/R2 events plus the three nonduplicate R3 additions are **22 provisional candidates**; not the 1,045-URL universe disposition. ID RC26-014 is a verified cross-reference, not a 23rd event.
+**RC26-020/021/022 are the three new targeted source discoveries; RC26-014 is an existing cross-reference, not a new ID. None resulted from a completed 6 regional +14 topic 0.0C machine-axis search or separate 12 structural editorial-lens review.** The existing 19 R1/R2 events plus the three nonduplicate R3 additions are **22 provisional candidates**; not the 1,045-URL universe disposition. ID RC26-014 is a verified cross-reference, not a 23rd event.
 
 ## Existing published-card accuracy blocker — urgent separate UPDATE review
 Current canonical `2026-05-13_EU_01` headline: **"EU 산업가속법(IAA) 발효 진입 — 동력전지 본지화 강제 + 중국 자본 진입 제한 6 of 4 조건"**. Its body itself says the Commission's proposal was in Parliament/Council consideration, and it relies on a single secondary [OFweek piece](https://libattery.ofweek.com/2026-05/ART-36001-8480-30687365.html).
@@ -43,8 +43,8 @@ Current canonical `2026-05-13_EU_01` headline: **"EU 산업가속법(IAA) 발효
 ## Formal blockers unchanged
 1. Event-level normalization and full 1,674-card semantic / Related reconciliation incomplete; name similarity and URL checks are insufficient.
 2. All 234 TRIAGE_FILTERED and all remaining archive candidates retain unresolved governed terminal statuses; above four REVIEW rows are only **proposed** dispositions.
-3. Full authoritative 2026-09-29→10-08 catch-up coverage across KR/CN/JP/EU/NA/Global and all eight lenses not completed.
-4. Formal Stage 0.0D/0.0C, Stage A/B/C, 0.4→0.8 have **not** passed.
+3. Full authoritative 2026-09-29→10-08 catch-up coverage across KR/CN/JP/EU/NA/Global and all 14 required 0.0C topic machine axes and 12 distinct structural editorial lenses not completed.
+4. R16 later established historical native 0.0D PASS only for exact `main=b7847ca` (now superseded by #391 current `main=6851fdbe`); 0.0C/Stage A/B/C/0.4→0.8 have **not** passed.
 5. This draft remains **unmerged**. This file changes no cards, validators, runtime, Vercel deployment, or Revolution master/downstream components.
 
 **Proposed next action:** prioritize PR-independent card correction gate for IAA, verify the POSCO Samsung stage bridge and Oct 8 LGES Elevra source; then continue exhaustive ledger reconciliation and scoped catch-up under current production validators.

@@ -4,7 +4,7 @@
 
 ## Locked observational baseline
 - GitHub `main`: `b7847ca9885f6f27ae0566455b0a476ef1059d24`.
-- Canonical full blob `d0b472e4173e565284616bb7eec0e4b28e1a42b9`; lean blob `c39eac64afde20ff0ccacd920e12abbd1b3d02`. Full card count 1,674.
+- Canonical full blob `d0b472e4173e565284616bb7eec0e4b28e1a42b9`; lean blob `c39eac64afde20ff0ccacd920e12abbdab1b3d02`. Full card count 1,674.
 - R4 Collector source ledger SHA256 `6fafdd2470cf33c6c58dcda6b7a5cd065faaef6ed5ece2c01302e504de619111`; 1,157 source row UIDs, KEEP 919 / TRIAGE_FILTERED 234 / REVIEW 4; 1,045 normalized primary URLs.
 
 ## Exact primary-URL crosswalk (not semantic event determination)
@@ -39,3 +39,6 @@ These are candidate identity/reinforcement/follow-up **questions**, not approved
 - The ZIP is evidence-only. No production card or lean writes. No Revolution master/downstream changes. This Draft PR **must not be merged** to release cards.
 
 Next: execute 0.0D native gate under exact immutable checkout, complete 0.0C terminal universe/canonical/Related review, then formally Stage A/B/C and downstream separately.
+### 2026-10-15 historical baseline clarification
+
+The 2026-10-12 0.0D "not yet natively executed" line above accurately describes the **R12 snapshot** but was superseded by the R16 2026-10-13 native 0.0D executable PASS on then-current `main=b7847ca`. PR #391 subsequently moved `main` to `6851fdbe` (two previously existing card corrections), so new baseline-bound 0.0D certification is **not** claimed here. All 0.0C coverage statuses still remain BLOCKED.

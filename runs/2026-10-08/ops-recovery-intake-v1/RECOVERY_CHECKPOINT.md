@@ -20,7 +20,7 @@ All are stored in [the provided source folder](https://drive.google.com/drive/fo
 | [09-26](https://drive.google.com/file/d/1Fko7WrJhGZibJsuodpNFp40pB3k7dl8M/view) `20260926_120143.zip` | 368 | `7cf080eef21310f267a08638dbcddf7085e51edfd8c12b641dd8f487b99f6ca5` | `86ea8023d8a1756d49d8810cf29bf2e8d5cf888085cb09dfe34b4262b2f38d56` |
 | [09-28](https://drive.google.com/file/d/1winFOuAVABNcQ0m0N35J2uZl-zRrQgDP/view) `20260928_160143.zip` | 291 | `e422883a286c84445987f65ad3e130c3527f21b16a580e0d4aaf64d77728c19f` | `57a07e1e9fe09d1c36f93ff1408ab034913fd94a813a9e87954731976a9b1e6d` |
 
-The four **expanded Collector/Triage** outputs total **1,157 article rows**. Dedup by *primary article URL* (retaining identity-bearing `?no`, `?idxno`, `?newsId`, removing only known tracking keys) yields **1,045 distinct URLs and 112 repeated URL rows**. These counts do **not** represent distinct events or publishable cards. Earlier 910-URL result was invalid due to dropping all URL query strings and was explicitly discarded.
+The four **expanded Collector/Triage** outputs total **1,157 article rows**. Dedup by *primary article URL* (retaining article-identity query keys; precise RSS/UTM tracking removal is reproduced by `R24_REPLAY_ARTICLE_URLS_V2.mjs` with a 1,157-row source URL manifest) yields **1,045 distinct URLs and 112 repeated URL rows**. These counts do **not** represent distinct events or publishable cards. Earlier 910-URL result was invalid due to dropping all URL query strings and was explicitly discarded.
 
 The unfiltered accounting remains **919 KEEP, 234 TRIAGE_FILTERED, 4 REVIEW** (1,157 total); 38 list-only items and 117 items dated before September 19 require individual resolution. Full row-level provenance and source references are preserved in offline `SBTL_HUB_RECOVERY_20261008/recovery_packet.zip`; the Drive source ZIPs remain authoritative.
 
@@ -32,8 +32,11 @@ The unfiltered accounting remains **919 KEEP, 234 TRIAGE_FILTERED, 4 REVIEW** (1
 | URL normalization and source-row lineage | COMPLETE for these four ZIPs |
 | Full semantic same-event, multi-source coalescing | **INCOMPLETE** |
 | Current canonical card collision, existing Related edge verification | **INCOMPLETE** |
-| Formal 6-region x 8-lens scan since 09-28 (72h → 7d → gap) | **NOT RUN** (spot-check only) |
-| Stage 0.0D/0.0C formal PASS | **NOT CLAIMED** |
+| 0.0C 6 regional + 14 topic machine axes since 09-28 (72h → 7d → gap) | **BLOCKED** (full source/window provenance incomplete) |
+| Separate 12 editorial structural lenses (not 0.0C machine axes) | **INCOMPLETE** |
+| Weekly 26 discovery lenses | **Independent recall methodology, not a substitute for either HUB gate** |
+| 0.0D native executable (historical 10/13, `main` `b7847ca`) | **PASS only for that exact historical baseline**; `main` advanced to `6851fdbe` on 10/15, so fresh current-main closure is required |
+| 0.0C formal PASS | **BLOCKED**; Stage A unauthorized |
 | Stage A/B/C and 0.4 → 0.5 → 0.6 → 0.7 → 0.7C → 0.8 | **NOT RUN** |
 | Canonical/lean mutation, production publish/deploy | **NONE** |
 
@@ -46,3 +49,7 @@ The unfiltered accounting remains **919 KEEP, 234 TRIAGE_FILTERED, 4 REVIEW** (1
 5. Produce a **separate** small production-card PR only for formally accepted operations. Reject unexplained `delete/related_remove`, validate full/lean sync, production UI, and Prompt 0.9 after merge.
 
 The accompanying provisional 12-event shortlist is in [PRELIMINARY_EVENT_QUEUE.md](./PRELIMINARY_EVENT_QUEUE.md); it must **not** be treated as Stage A acceptance or publication authorization. **No merger of this draft, no direct live updates, no mutation of Revolution branches.**
+
+## R24 pre-review correction and newer `main` (2026-10-15)
+
+This record's first October 8 `main` pointers are historical observations, **not** current baseline locks. The later authoritative GitHub `main` is `6851fdbe4a25b30b7204d07708a1238123c14910` after governed #391 corrections to two existing cards. No native 0.0D or 0.0C PASS is inferred for that newer main. Review of PR #386 does not authorize publication or card changes. The R24 normalized URL manifest, rules, reproducible replayer, and 3 RSS query corrections are the narrow additions needed to address preexisting review findings.

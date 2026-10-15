@@ -21,6 +21,6 @@
 
 - Source provenance: reconcile 1,157 Collector rows against exactly 1,045 distinct article URLs, then identify full event identities and merge repeated reports without collapsing different counterparties/projects.
 - Confirm prior canonical event and `related` lineage on current main; earlier existing-card IDs in local binder are **contextual candidates only** and not authorized links.
-- 8 entries have matched Collector UID lineage; 4 post-09/28 entries are targeted spot-checks and do not satisfy 6-region × 8-lens completeness.
+- 8 entries have matched Collector UID lineage; 4 post-09/28 entries are targeted spot-checks and do not satisfy 6 regional +14 topic 0.0C machine-axis completeness, plus the separate 12 structural editorial lenses (with 26 Weekly discovery pathways independently).
 - Perform primary evidence/date/announcement-state review per event, preserve unverified caveats, reconcile TRIAGE filtered/review, then run every governance stage and validators.
 - Do **not** release any event until accepted under the existing pipeline. This Draft PR is only a checkpoint, not production mutation.

@@ -1,99 +1,9 @@
 {
-  "updated": "2026-10-16T02:09:57Z",
-  "total": 1677,
+  "updated": "2026-10-16T10:03:17.375Z",
+  "total": 1675,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
   "cards": [
-    {
-      "id": "2026-09-29_KR_01",
-      "region": "KR",
-      "date": "2026-09-29",
-      "cat": "Power",
-      "sub_cat": "계통접속·ESS 수요",
-      "signal": "high",
-      "title": "한국 전력망 119→171GW 수용 계획…ESS 비증설 대안 추진",
-      "sub": "9월 29일 정부 대책은 계통 포화로 막혔던 재생에너지 접속을 유연접속·ESS로 확대하려는 계획이다. 송전 119→171GW는 2030년 수용능력 목표이며 현재 확보된 접속실적이 아니다.",
-      "gate": "ESS 비증설 대안(NWA)은 2030년 배전망 태양광 3GW·변전소 1.6GW 추가 접속을 목표로 한다. 정부의 10월 15일 후속 설명자료는 호남 계통관리변전소 164곳의 10월 1일 지정 해제를 확인했다. 신규사업 2027년 1월 접수와 ESS 실제 발주는 아직 별개다.",
-      "fact": "기후에너지환경부가 9월 29일 국무회의에 보고한 전력망 혁신대책은 2030년 재생에너지 수용능력 전망을 송전 119→171GW(+52GW), 배전 84→110GW(+26GW)로 제시했다. 정부는 자율·유연접속, ESS를 활용한 송배전망 비증설 대안(NWA), 지연사업의 접속권 조정을 추진한다. ESS 비증설 수단에 할당된 태양광 추가 접속 목표는 배전망 3GW와 변전소 1.6GW다. 정부는 10월 15일 후속 설명자료에서 호남 계통관리변전소 164곳을 실제로 10월 1일 지정 해제했으며 기존 대기 사업자 조기 접속을 접수 중이라고 밝혔다. 신규사업 접수는 2027년 1월 재개 계획이다. 목표치와 실제 ESS 설치·발주는 구분한다.",
-      "implication": [
-        "계통 접속권의 병목을 ESS·출력제어로 우회하려는 정책은 저장장치 수요의 발생 위치와 구매주체를 바꿀 수 있다. 다만 3GW·1.6GW는 배터리 설치용량이 아니라 추가 접속하려는 태양광 용량이다. NWA 조달공고·접속 승인·실제 ESS 구축을 따로 확인해야 한다."
-      ],
-      "urls": [
-        "https://www.mcee.go.kr/home/web/newsRead.do?boardId=1894910&boardMasterId=939&condition.boardId=1871510&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=105&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=0&searchKey=&searchValue=",
-        "https://www.korea.kr/news/policyNewsView.do?newsId=148972753&pWise=sub&pWiseSub=R2",
-        "https://m.korea.kr/briefing/actuallyView.do?newsId=148973552&pWiseMain=B3&pwise=mMain"
-      ],
-      "fact_sources": [
-        {
-          "source_name": "기후에너지환경부",
-          "source_url": "https://www.mcee.go.kr/home/web/newsRead.do?boardId=1894910&boardMasterId=939&condition.boardId=1871510&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=105&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=0&searchKey=&searchValue=",
-          "source_owner": "기후에너지환경부",
-          "claim": "전력망 혁신대책 발표, 10월 1일 호남 계통관리변전소 해제 및 2027년 1월 신규사업 접수 계획.",
-          "source_quote": "2030년 재생에너지 100GW",
-          "source_quote_status": "official_material_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "source_published_date": "2026-09-29",
-          "visible_quote_date": "2026-09-29",
-          "source_origin_type": "official_or_source_owner_material",
-          "fetch_method": "verified_published_source_readback",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true
-        },
-        {
-          "source_name": "대한민국 정책브리핑",
-          "source_url": "https://www.korea.kr/news/policyNewsView.do?newsId=148972753&pWise=sub&pWiseSub=R2",
-          "source_owner": "대한민국 정책브리핑",
-          "claim": "정책브리핑 원문은 송전 119→171GW, 배전 84→110GW의 2030년 수용능력 목표와 ESS 배전망 3GW·변전소 1.6GW 추가 접속 계획을 구분해 제시한다.",
-          "source_quote": "태양광 3GW를 추가 접속하고 변전소 에너지저장장치를 통해 태양광 1.6GW를 추가 접속",
-          "source_quote_status": "official_material_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "source_published_date": "2026-09-29",
-          "visible_quote_date": "2026-09-29",
-          "source_origin_type": "official_or_source_owner_material",
-          "fetch_method": "verified_published_source_readback",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true
-        },
-        {
-          "source_name": "대한민국 정책브리핑·기후에너지환경부",
-          "source_url": "https://m.korea.kr/briefing/actuallyView.do?newsId=148973552&pWiseMain=B3&pwise=mMain",
-          "source_owner": "기후에너지환경부",
-          "claim": "2026-10-15 정부 후속 공식 설명: 호남 계통관리변전소 164곳 지정 해제는 10월 1일 이미 시행됐고, 대기 사업자의 조기 접속을 접수 중이다. 2030년 수용능력 목표 및 ESS 조달 성과와 구분.",
-          "source_quote": "호남권 계통관리변전소 164개소를 지정 해제(10.1)했으며",
-          "source_quote_status": "official_material_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "source_published_date": "2026-10-15",
-          "visible_quote_date": "2026-10-15",
-          "source_origin_type": "official_or_source_owner_material",
-          "fetch_method": "web_official_body_fetch",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true
-        }
-      ],
-      "related": [],
-      "related_lineage": {
-        "related_ids": []
-      }
-    },
     {
       "id": "2026-09-28_GL_01",
       "region": "GL",
@@ -116,13 +26,36 @@
           "source_name": "Benchmark Mineral Intelligence",
           "source_url": "https://source.benchmarkminerals.com/article/export-interventions-and-payables-under-pressure-q3-2026-black-mass-price-review",
           "source_owner": "Benchmark Mineral Intelligence",
-          "claim": "Benchmark Q3 2026 블랙매스 가격평가: 중국 NCM 77.0→73.3%, 아시아 CIF 120.0→107.5%, 북미·유럽 EXW 13.6%·8.3% 하락, LCO 70.8%. 거래 실적 아닌 Benchmark 평가임.",
+          "claim": "China NCM EXW payables: Q2-end 77.0%, Q3 73.3%; subtraction gives -3.7 percentage points and division by 77.0 gives approximately -4.9% relative.",
           "source_quote": "from 77.0% to 73.3%",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
             "title",
             "sub",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-09-28",
+          "visible_quote_date": "2026-09-28",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_original_article_body_fetch",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "source_id": "BENCHMARK_Q3_2026_china-ncm",
+          "source_locator": "Opening body paragraph, first sentence: China NCM EXW, Q2-end to Q3.",
+          "checked_at": "2026-10-16T10:03:17.375Z",
+          "fetched_at": "2026-10-16T10:03:17.375Z"
+        },
+        {
+          "source_name": "Benchmark Mineral Intelligence",
+          "source_url": "https://source.benchmarkminerals.com/article/export-interventions-and-payables-under-pressure-q3-2026-black-mass-price-review",
+          "source_owner": "Benchmark Mineral Intelligence",
+          "claim": "Asia NCM CIF payables: Q2-end 120.0%, Q3 107.5%; subtraction gives -12.5 percentage points and division by 120.0 gives approximately -10.4% relative.",
+          "source_quote": "from 120% to 107.5%",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
             "gate",
             "fact",
             "implication"
@@ -130,9 +63,60 @@
           "source_published_date": "2026-09-28",
           "visible_quote_date": "2026-09-28",
           "source_origin_type": "official_or_source_owner_material",
-          "fetch_method": "verified_published_source_readback",
+          "fetch_method": "web_original_article_body_fetch",
           "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true
+          "resolved_article_matches_quote": true,
+          "source_id": "BENCHMARK_Q3_2026_asia-ncm",
+          "source_locator": "Second body paragraph, first clause: NCM CIF Asia quarter-on-quarter comparison.",
+          "checked_at": "2026-10-16T10:03:17.375Z",
+          "fetched_at": "2026-10-16T10:03:17.375Z"
+        },
+        {
+          "source_name": "Benchmark Mineral Intelligence",
+          "source_url": "https://source.benchmarkminerals.com/article/export-interventions-and-payables-under-pressure-q3-2026-black-mass-price-review",
+          "source_owner": "Benchmark Mineral Intelligence",
+          "claim": "NCM EXW payable assessments fell 13.6% in North America and 8.3% in Europe; these are relative falls, not percentage-point changes.",
+          "source_quote": "13.6% and 8.3% respectively.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-09-28",
+          "visible_quote_date": "2026-09-28",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_original_article_body_fetch",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "source_id": "BENCHMARK_Q3_2026_north-america-europe-ncm",
+          "source_locator": "Second body paragraph, second clause: NCM EXW North America followed by EXW Europe.",
+          "checked_at": "2026-10-16T10:03:17.375Z",
+          "fetched_at": "2026-10-16T10:03:17.375Z"
+        },
+        {
+          "source_name": "Benchmark Mineral Intelligence",
+          "source_url": "https://source.benchmarkminerals.com/article/export-interventions-and-payables-under-pressure-q3-2026-black-mass-price-review",
+          "source_owner": "Benchmark Mineral Intelligence",
+          "claim": "China LCO EXW payable assessments reached 70.8% for each of lithium carbonate and cobalt sulphate.",
+          "source_quote": "reaching 70.8% for both.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-09-28",
+          "visible_quote_date": "2026-09-28",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_original_article_body_fetch",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "source_id": "BENCHMARK_Q3_2026_china-lco",
+          "source_locator": "Opening body paragraph, second sentence: LCO EXW China, lithium carbonate and cobalt sulphate.",
+          "checked_at": "2026-10-16T10:03:17.375Z",
+          "fetched_at": "2026-10-16T10:03:17.375Z"
         }
       ],
       "related": [],
@@ -19608,75 +19592,6 @@
         "status": "PASS",
         "hold_reason": null,
         "return_reason": null
-      }
-    },
-    {
-      "id": "2026-09-07_CN_03",
-      "region": "CN",
-      "date": "2026-09-07",
-      "cat": "Policy",
-      "sub_cat": "완성차·공급업체 대금결제",
-      "signal": "high",
-      "title": "중국 자동차 부품 대금, 3일 검수·연속납품 90% 선지급 지침",
-      "sub": "공업정보화부·시장감독총국의 9월 7일 통지는 완성차 업체의 늦은 검수·가격협상 중 대금 지연을 겨냥했다. 2025년 6월 주요 완성차 업체 17곳의 '60일 지급 공약'보다 기산점과 지급방식에 초점을 맞췄다.",
-      "gate": "생산성 부품은 수령 후 3영업일 내 검수, 장착시험 필요품은 5영업일 내 차량 검사를 제시한다. 가격협상 중 선지급 기준은 연속납품 최근 계약가 90% 이상, 비연속납품 참조가격 70% 이상으로 구분된다.",
-      "fact": "중국 공업정보화부(MIIT)와 시장감독총국은 9월 7일 자동차 기업 공급업체 대금지급·결제기간 관리 통지(공신청연통장함〔2026〕424호)를 공표했다. 생산용 부품은 약정 납품시점부터 1영업일 안에 수령하고 수령 후 3영업일 안에 검수하도록 제시하며, 초과 시 검수한 것으로 간주한다. 장착검증 품목은 5영업일 내 차량 검사가 필요하다. 가격협상 중에는 연속납품에 최근 계약가격의 원칙적 90% 이상, 비연속납품에는 참조가격의 원칙적 70% 이상을 먼저 지급하고 나중에 정산하도록 했다. 중소 공급업체 대금은 30일 이내 지급을 장려하고 최장 60일을 제시했다. 통지의 권고·계약조건·기존 법률상 의무를 구별해야 한다.",
-      "implication": [
-        "OEM이 검수기간·가격협상을 통해 공급업체의 운전자본을 오래 묶는 관행을 제한하려는 조치다. 소재·부품 공급업체의 현금전환주기와 어음 비중이 개선되는지는 실제 지급기록과 시행을 확인해야 판단할 수 있다."
-      ],
-      "urls": [
-        "https://www.miit.gov.cn/jgsj/zbys/wjfb/art/2026/art_6043f55908f44a71a3e51236f663356b.html",
-        "https://wap.miit.gov.cn/jgsj/zbys/qcgy/art/2026/art_17513333f77d471da3e483464ba697c1.html"
-      ],
-      "fact_sources": [
-        {
-          "source_name": "중국 공업정보화부·시장감독총국",
-          "source_url": "https://www.miit.gov.cn/jgsj/zbys/wjfb/art/2026/art_6043f55908f44a71a3e51236f663356b.html",
-          "source_owner": "중국 공업정보화부·시장감독총국",
-          "claim": "2026년 9월 7일 자동차 OEM 공급업체 지급 통지: 약정납품 후 1영업일 내 수령, 3영업일 검수, 예외 5영업일 검사, 가격협상 선지급 범위와 중소기업 지급 가이드.",
-          "source_quote": "若为连续性合作，可参照双方最近一次生效合同价格先行支付一定比例（一般不低于90%）；若为非连续性合作，可参照行业平均价或开发定点单价的70%以上（含）先行支付",
-          "source_quote_status": "official_material_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "source_published_date": "2026-09-07",
-          "visible_quote_date": "2026-09-07",
-          "source_origin_type": "official_or_source_owner_material",
-          "fetch_method": "verified_published_source_readback",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true
-        },
-        {
-          "source_name": "중국 공업정보화부 정책 Q&A",
-          "source_url": "https://wap.miit.gov.cn/jgsj/zbys/qcgy/art/2026/art_17513333f77d471da3e483464ba697c1.html",
-          "source_owner": "중국 공업정보화부 정책 Q&A",
-          "claim": "MIIT Q&A: 연속납품 90%, 비연속납품 70% 선지급 구분, SME 대금 30일 권고·최장 60일, 통지 취지와 적용범위.",
-          "source_quote": "2025年6月，17家重点汽车企业公开作出“支付账期不超过60天”的承诺",
-          "source_quote_status": "official_material_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "source_published_date": "2026-09-07",
-          "visible_quote_date": "2026-09-07",
-          "source_origin_type": "official_or_source_owner_material",
-          "fetch_method": "verified_published_source_readback",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true
-        }
-      ],
-      "related": [],
-      "related_lineage": {
-        "related_ids": []
       }
     },
     {

@@ -49,12 +49,12 @@
         "novelty_cap_basis": "none",
         "systemic_scale_denominator": null,
         "denominator_gap": "원출처가 정책 영향 대상의 전체 시장 분모 또는 가격평가 커버리지 분모를 제시하지 않아 체계 규모 점수는 2/5로 보수적으로 제한한다.",
-        "prior_state": "기존 1,674장에는 2026년 9월 29일 한국 전력망 52GW 정책과 ESS 비증설 수요의 계통접속 개편을 다룬 별도 사건 카드가 없다.",
-        "new_verified_fact": "정부 9월29일 전력망 혁신대책 보고, 2030 송전 119→171GW(+52GW), 배전 84→110GW(+26GW), ESS/NWA 추진.",
-        "changed_judgment": "ESS의 경제적 역할이 단순 전력 저장에서 계통 수용능력 확보·송배전 투자 대체로 확장되는 정책 신호다. 실수요는 이후 접속권 배정과 NWA 조달로 검증해야 한다.",
-        "evidence_review_summary": "2026-10-16 소규모 원출처 대조 완료. 원문 게시·정책 단계/가격평가 범위·기존 Full 1,674개 ID/URL/문구 신규성 점검. Primary sources: https://www.mcee.go.kr/home/web/newsRead.do?boardId=1894910&boardMasterId=939&condition.boardId=1871510&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=105&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=0&searchKey=&searchValue= | https://www.korea.kr/news/policyNewsView.do?newsId=148972753&pWise=sub&pWiseSub=R2",
+        "prior_state": "기존 전력망 계통 제약으로 호남권 재생에너지 신규 접속이 제한되고, 2030년 송전 수용능력 전망치가 119GW였다. 1,674장 기존 카드에는 9월 29일 NWA 대책 별도 사건이 없었다.",
+        "new_verified_fact": "9월 29일 정부는 2030년 송전 수용능력 119→171GW(+52GW), 배전 84→110GW(+26GW)와 ESS NWA로 태양광 배전 3GW·변전소 1.6GW 추가 접속 목표를 발표했다.",
+        "changed_judgment": "계통 접속권의 병목을 ESS·출력제어로 우회하려는 정책은 저장장치 수요의 발생 위치와 구매주체를 바꿀 수 있다. 다만 3GW·1.6GW는 배터리 설치용량이 아니라 추가 접속하려는 태양광 용량이다. NWA 조달공고·접속 승인·실제 ESS 구축을 따로 확인해야 한다.",
+        "evidence_review_summary": "R26 six-dimension content QC: prior=기존 계통 제약·송전 119GW; changed=9/29 전력망 혁신대책·호남 단계적 해제; quantitative=2030 송전 +52GW, 배전 +26GW, ESS가 지원할 태양광 3GW/1.6GW; caveat=수용/접속목표는 배터리 용량·집행실적이 아님; transmission=NWA·출력제어→계통접속·ESS 조달; watchpoint=2027 접수 및 NWA 실제 발주. Policy article https://www.korea.kr/news/policyNewsView.do?newsId=148972753 ; issuer/government bulletin in card sources. Editorial verification only; no formal Prompt 0.6 PASS asserted.",
         "next_confirmation_points": [
-          "정부 세부 규정 시행·2027년 접속 신청 및 ESS 비증설 조달·수용능력 실제 개선"
+          "2027년 1월 신규사업 접수 여부와 접속권 배정; ESS NWA 실제 발주용량(MW/MWh), 계약 주체, 착공·COD 확인"
         ],
         "inclusion_decision": "standard_include",
         "owner_override_reason": null,
@@ -88,12 +88,12 @@
         "novelty_cap_basis": "none",
         "systemic_scale_denominator": null,
         "denominator_gap": "원출처가 정책 영향 대상의 전체 시장 분모 또는 가격평가 커버리지 분모를 제시하지 않아 체계 규모 점수는 2/5로 보수적으로 제한한다.",
-        "prior_state": "기존 1,674장에는 중국 7부처 2026~2030 신형배터리 산업계획의 수급·가격경쟁 규범화 사건이 없다.",
-        "new_verified_fact": "중국 MIIT 등 7부처 9월28일 공신부연규〔2026〕220호 공표, 생산능력 경고·조절과 가격경쟁 규범화 제시.",
-        "changed_judgment": "중국 배터리 경쟁의 평가축이 생산능력 확대에서 실제 수급·제품 안전·가격질서로 이동하는 정책 신호다. 기업별 가동률과 실제 집행 조치를 따로 확인해야 한다.",
-        "evidence_review_summary": "2026-10-16 소규모 원출처 대조 완료. 원문 게시·정책 단계/가격평가 범위·기존 Full 1,674개 ID/URL/문구 신규성 점검. Primary sources: https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_255ea93df118460fa105c46c2f546d9a.html | https://www.miit.gov.cn/zwgk/zcjd/art/2026/art_2d166bf3c90e45dfbdcd5fbaae9c9b17.html",
+        "prior_state": "기존 과잉설비·가격경쟁 압박은 지속됐으나, 1,674장 기존 카드에는 7부처 15·5 배터리 계획 자체가 산업정책으로 별도 정리되지 않았다.",
+        "new_verified_fact": "9/14 서명·9/28 공표한 7부처 2026~2030 계획이 리튬전지 수급구조 불균형, 설비경보·조정, 가격질서·품질감독을 명시했다.",
+        "changed_judgment": "중국 배터리 경쟁의 관찰 기준이 CAPA 증설에서 수급 균형·실가동률·가격 규범·기술 전환으로 이동하고 있다. 수급개선과 소재 업체 마진 회복은 계획 문구가 아니라 지방 집행·생산·가격 자료로 검증해야 한다.",
+        "evidence_review_summary": "R26 six-dimension content QC: prior=리튬전지 수급 불균형; changed=7부처 15·5 계획 공표; quantitative=7부처·2026~2030·문서 220호·서명 9/14→공표 9/28; caveat=중장기 계획≠법정 일률 감산/실제 폐쇄; transmission=capacity/price governance→가동률·ASP·소재마진; watchpoint=지방 집행·가격/생산 자료. MIIT plan and official interpretation in source URLs. Editorial verification only; no formal Prompt 0.6 PASS asserted.",
         "next_confirmation_points": [
-          "각 지방의 증설 규제 시행 여부, 실제 설비가동률·가격·품질 집행 결과"
+          "지방정부별 시행조치·설비경보 기준, 실제 공장 가동률, ASP·재고 및 규제 집행사례 확인"
         ],
         "inclusion_decision": "standard_include",
         "owner_override_reason": null,
@@ -126,12 +126,12 @@
         "novelty_cap_basis": "none",
         "systemic_scale_denominator": null,
         "denominator_gap": "원출처가 정책 영향 대상의 전체 시장 분모 또는 가격평가 커버리지 분모를 제시하지 않아 체계 규모 점수는 2/5로 보수적으로 제한한다.",
-        "prior_state": "기존 1,674장에는 Q3 블랙매스 NCM payable 지역별 하락 지표가 없다. 8월 미국 수출제한·9월 인도네시아 MHP는 별개 사건이다.",
-        "new_verified_fact": "Benchmark 9월28일 Q3 블랙매스 가격 리뷰: 중국 NCM EXW 77.0→73.3%, CIF 아시아 120→107.5%.",
-        "changed_judgment": "재활용 사업의 공급량보다 회수 원료의 정산 비율·지역 간 스프레드가 마진과 원료 이동 경로를 좌우한다는 구조 신호다. 금속가격 변동과 매입률 변화를 나눠 검증해야 한다.",
-        "evidence_review_summary": "2026-10-16 소규모 원출처 대조 완료. 원문 게시·정책 단계/가격평가 범위·기존 Full 1,674개 ID/URL/문구 신규성 점검. Primary sources: https://source.benchmarkminerals.com/article/export-interventions-and-payables-under-pressure-q3-2026-black-mass-price-review",
+        "prior_state": "2분기 말 Benchmark 중국 NCM EXW payable은 77.0%, NCM 아시아 CIF는 120.0%였다. 기존 1,674장에는 해당 Q3 재활용 원료 정산율 하락 사건이 없다.",
+        "new_verified_fact": "9/28 Benchmark Q3 리뷰: 중국 NCM EXW 73.3%(2분기 말 대비 -3.7%p, 상대 -4.9%), 아시아 NCM CIF 107.5%(-12.5%p, 상대 -10.4%), 북미·유럽 NCM EXW 각각 -13.6%·-8.3%.",
+        "changed_judgment": "회수금속 가격과 별개로 블랙매스 payable이 낮아지면 수거·전처리 공급자에게 돌아가는 금속가치 몫이 줄고 정제업체의 원료 조달 조건이 바뀔 수 있다. 다만 양쪽 업체의 마진 변화는 금속가격·회수율·수율·운송비를 함께 봐야 확정할 수 있다. 다음 분기 평가와 실제 계약 스프레드를 확인해야 한다.",
+        "evidence_review_summary": "R26 six-dimension content QC: prior=Q2말 중국 77.0%·아시아 120.0%; changed=Q3 73.3%·107.5%; quantitative=-3.7/-12.5 percentage points vs relative -4.9/-10.4 percent; caveat=EXW/CIF·금속·지역 평가기준과 계약가 구분; transmission=원료 정산률→재활용·정제 사업자 마진구조; watchpoint=Q4 평가·회수율·실거래 스프레드. Benchmark Sep28 source in card. Editorial verification only; no formal Prompt 0.6 PASS asserted.",
         "next_confirmation_points": [
-          "Benchmark 최신 분기 payable과 재활용 업체 매입원가/판매가 차이, 지역 간 이동량"
+          "4분기 Benchmark NCM/LCO payable 평가와 원료·회수금속 가격 스프레드, 기업 실거래·재활용 처리량 비교"
         ],
         "inclusion_decision": "standard_include",
         "owner_override_reason": null,
@@ -165,12 +165,12 @@
         "novelty_cap_basis": "none",
         "systemic_scale_denominator": null,
         "denominator_gap": "원출처가 정책 영향 대상의 전체 시장 분모 또는 가격평가 커버리지 분모를 제시하지 않아 체계 규모 점수는 2/5로 보수적으로 제한한다.",
-        "prior_state": "기존 6월 중국 공급업체 60일 지급 공동선언과 달리 9월 7일 MIIT·시장감독총국 공동 통지의 검수 기산·가격협상 지급 가이드가 신규 근거다.",
-        "new_verified_fact": "MIIT·시장감독총국 9월7일 자동차 공급업체 지급 통지: 일반부품 3영업일 검수, 가격협상 선지급 권고 등.",
-        "changed_judgment": "완성차 업체가 검수·가격협상을 이용해 공급업체 자금을 점유하는 관행에 대한 정책 개입이다. 실제 공급업체 현금전환주기는 향후 지급 실적·어음 비중으로 검증해야 한다.",
-        "evidence_review_summary": "2026-10-16 소규모 원출처 대조 완료. 원문 게시·정책 단계/가격평가 범위·기존 Full 1,674개 ID/URL/문구 신규성 점검. Primary sources: https://www.miit.gov.cn/jgsj/zbys/wjfb/art/2026/art_6043f55908f44a71a3e51236f663356b.html | https://wap.miit.gov.cn/jgsj/zbys/qcgy/art/2026/art_17513333f77d471da3e483464ba697c1.html",
+        "prior_state": "2026년 6월 중국 자동차·배터리 업계는 중소 공급업체 대금 60일 지급에 관한 자율공약을 발표했지만 실제 검수지연·가격협상 중 지급 유예 문제는 남아 있었다.",
+        "new_verified_fact": "9/7 MIIT·시장감독총국 통지: 생산용 부품 수령 1영업일, 검수 3영업일(장착시험 5일), 연속 공급가격협상시 90%·비연속시 70% 선지급, SME 지급 30일 권고·최장60일.",
+        "changed_judgment": "OEM이 검수기간·가격협상을 통해 공급업체의 운전자본을 오래 묶는 관행을 제한하려는 조치다. 소재·부품 공급업체의 현금전환주기와 어음 비중이 개선되는지는 실제 지급기록과 시행을 확인해야 판단할 수 있다.",
+        "evidence_review_summary": "R26 six-dimension content QC: prior=6월 공급업체 60일 자율공약; changed=9/7 MIIT 결제·검수 통지; quantitative=1·3·5영업일, 연속 90%/비연속 70%, SME 30/60일; caveat=권고·법정의무·업체 계약조건 구분; transmission=검수·협상관행→DSO/운전자본·마진; watchpoint=실제 결제현황·어음비중. MIIT notice and Q&A are source URLs. Editorial verification only; no formal Prompt 0.6 PASS asserted.",
         "next_confirmation_points": [
-          "중국 OEM 연·반기 지급 실적 공개, 3영업일 검수 준수 및 어음·미수채권 개선"
+          "완성차 업체의 실제 수령·검수 주기, 공급업체 현금결제 비중·연체이자 지급, 30/60일 지급현황과 규제 집행사례"
         ],
         "inclusion_decision": "standard_include",
         "owner_override_reason": null,

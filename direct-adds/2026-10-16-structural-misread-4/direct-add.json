@@ -7,12 +7,11 @@
   "base_main_commit_sha": "6851fdbe4a25b30b7204d07708a1238123c14910",
   "base_full_blob_sha": "1af792e2e80516e1ec1d7d9660c150b312168b21",
   "expected_before": 1674,
-  "expected_after": 1678,
+  "expected_after": 1677,
   "output_updated": "2026-10-16T02:09:57Z",
   "operations": {
     "add": [
       "2026-09-07_CN_03",
-      "2026-09-28_CN_01",
       "2026-09-28_GL_01",
       "2026-09-29_KR_01"
     ],
@@ -50,50 +49,11 @@
         "systemic_scale_denominator": null,
         "denominator_gap": "원출처가 정책 영향 대상의 전체 시장 분모 또는 가격평가 커버리지 분모를 제시하지 않아 체계 규모 점수는 2/5로 보수적으로 제한한다.",
         "prior_state": "기존 전력망 계통 제약으로 호남권 재생에너지 신규 접속이 제한되고, 2030년 송전 수용능력 전망치가 119GW였다. 1,674장 기존 카드에는 9월 29일 NWA 대책 별도 사건이 없었다.",
-        "new_verified_fact": "9월 29일 정부는 2030년 송전 수용능력 119→171GW(+52GW), 배전 84→110GW(+26GW)와 ESS NWA로 태양광 배전 3GW·변전소 1.6GW 추가 접속 목표를 발표했다.",
+        "new_verified_fact": "9월 29일 정부는 2030년 송전 수용능력 119→171GW(+52GW), 배전 84→110GW(+26GW)와 ESS NWA로 태양광 배전 3GW·변전소 1.6GW 추가 접속 목표를 발표했다. 10월 15일 정부 후속 설명에 따르면 호남 계통관리변전소 164곳을 10월 1일 실제로 지정 해제했고 대기 사업자의 접속 신청을 접수 중이다.",
         "changed_judgment": "계통 접속권의 병목을 ESS·출력제어로 우회하려는 정책은 저장장치 수요의 발생 위치와 구매주체를 바꿀 수 있다. 다만 3GW·1.6GW는 배터리 설치용량이 아니라 추가 접속하려는 태양광 용량이다. NWA 조달공고·접속 승인·실제 ESS 구축을 따로 확인해야 한다.",
-        "evidence_review_summary": "R26 six-dimension content QC: prior=기존 계통 제약·송전 119GW; changed=9/29 전력망 혁신대책·호남 단계적 해제; quantitative=2030 송전 +52GW, 배전 +26GW, ESS가 지원할 태양광 3GW/1.6GW; caveat=수용/접속목표는 배터리 용량·집행실적이 아님; transmission=NWA·출력제어→계통접속·ESS 조달; watchpoint=2027 접수 및 NWA 실제 발주. Policy article https://www.korea.kr/news/policyNewsView.do?newsId=148972753 ; issuer/government bulletin in card sources. Editorial verification only; no formal Prompt 0.6 PASS asserted. Reviewer note: six-dimensional manual editorial QC is independent of, and does not replace, a formal Stage C → Prompt 0.6 V5 artifact.",
+        "evidence_review_summary": "R26 six-dimension content QC: prior=기존 계통 제약·송전 119GW; changed=9/29 전력망 혁신대책·호남 단계적 해제; quantitative=2030 송전 +52GW, 배전 +26GW, ESS가 지원할 태양광 3GW/1.6GW; caveat=수용/접속목표는 배터리 용량·집행실적이 아님; transmission=NWA·출력제어→계통접속·ESS 조달; watchpoint=2027 접수 및 NWA 실제 발주. Policy article https://www.korea.kr/news/policyNewsView.do?newsId=148972753 ; issuer/government bulletin in card sources. Editorial verification only; no formal Prompt 0.6 PASS asserted. Reviewer note: six-dimensional manual editorial QC is independent of, and does not replace, a formal Stage C → Prompt 0.6 V5 artifact. R27 subsequent official 2026-10-15 statement separately verifies designation release (164 stations on 10/1), distinct from 2030 capacity targets or future actual ESS procurements: https://m.korea.kr/briefing/actuallyView.do?newsId=148973552&pWiseMain=B3&pwise=mMain",
         "next_confirmation_points": [
-          "2027년 1월 신규사업 접수 여부와 접속권 배정; ESS NWA 실제 발주용량(MW/MWh), 계약 주체, 착공·COD 확인"
-        ],
-        "inclusion_decision": "standard_include",
-        "owner_override_reason": null,
-        "structural_non_execution_reason": "물리적 공장착공·공급계약이 아니라 수요제약·가격평가·공급업체 지급조건의 구조 변화로 독립 산업뉴스 가치가 있다.",
-        "why_execution_event_not_required": "산업의 수요, 가격결정력 및 현금흐름 해석을 바꾸는 관측·공식정책이므로 개별 착공 사건 없이도 독립적인 구조적 의미가 있다."
-      },
-      {
-        "id": "2026-09-28_CN_01",
-        "execution_credibility_gate": "PASS",
-        "independent_cardability_gate": "PASS",
-        "anchor_classes": [
-          "policy_regulatory_anchor",
-          "strategic_behavior_anchor"
-        ],
-        "selection_route": "structural_non_execution_route",
-        "decision_news_value_score": 58,
-        "decision_value_breakdown": {
-          "market_structure_competition": 18,
-          "supply_demand_price_utilisation": 19,
-          "technology_performance_safety": 0,
-          "cashflow_asset_value": 4,
-          "law_policy_market_access": 10,
-          "systemic_scale": 2,
-          "persistence_irreversibility": 3,
-          "decision_urgency_actionability": 2
-        },
-        "decision_value_classification": "material_industry_signal",
-        "publication_urgency": "near_term",
-        "technology_evidence_level": "not_applicable",
-        "policy_stage": 4,
-        "novelty_cap_basis": "none",
-        "systemic_scale_denominator": null,
-        "denominator_gap": "원출처가 정책 영향 대상의 전체 시장 분모 또는 가격평가 커버리지 분모를 제시하지 않아 체계 규모 점수는 2/5로 보수적으로 제한한다.",
-        "prior_state": "기존 과잉설비·가격경쟁 압박은 지속됐으나, 1,674장 기존 카드에는 7부처 15·5 배터리 계획 자체가 산업정책으로 별도 정리되지 않았다.",
-        "new_verified_fact": "9/14 서명·9/28 공표한 7부처 2026~2030 계획이 리튬전지 수급구조 불균형, 설비경보·조정, 가격질서·품질감독을 명시했다.",
-        "changed_judgment": "중국 배터리 경쟁의 관찰 기준이 CAPA 증설에서 수급 균형·실가동률·가격 규범·기술 전환으로 이동하고 있다. 수급개선과 소재 업체 마진 회복은 계획 문구가 아니라 지방 집행·생산·가격 자료로 검증해야 한다.",
-        "evidence_review_summary": "R26 six-dimension content QC: prior=리튬전지 수급 불균형; changed=7부처 15·5 계획 공표; quantitative=7부처·2026~2030·문서 220호·서명 9/14→공표 9/28; caveat=중장기 계획≠법정 일률 감산/실제 폐쇄; transmission=capacity/price governance→가동률·ASP·소재마진; watchpoint=지방 집행·가격/생산 자료. MIIT plan and official interpretation in source URLs. Editorial verification only; no formal Prompt 0.6 PASS asserted.",
-        "next_confirmation_points": [
-          "지방정부별 시행조치·설비경보 기준, 실제 공장 가동률, ASP·재고 및 규제 집행사례 확인"
+          "2027년 신규 접속 접수 재개, 164개소 해제 이후 실제 접속 승인, NWA/ESS 별도 발주·가동을 각각 확인한다."
         ],
         "inclusion_decision": "standard_include",
         "owner_override_reason": null,
@@ -165,10 +125,10 @@
         "novelty_cap_basis": "none",
         "systemic_scale_denominator": null,
         "denominator_gap": "원출처가 정책 영향 대상의 전체 시장 분모 또는 가격평가 커버리지 분모를 제시하지 않아 체계 규모 점수는 2/5로 보수적으로 제한한다.",
-        "prior_state": "2026년 6월 중국 자동차·배터리 업계는 중소 공급업체 대금 60일 지급에 관한 자율공약을 발표했지만 실제 검수지연·가격협상 중 지급 유예 문제는 남아 있었다.",
+        "prior_state": "2025년 6월 중국 주요 완성차 업체 17곳이 부품 공급업체 지급기간을 60일 이내로 하겠다고 공개 약속했다. 2026년 6월 배터리 업계의 별도 공동선언과는 구분한다. 공약 이후에도 검수 지연과 지급 기산점의 불명확성은 남아 있었다.",
         "new_verified_fact": "9/7 MIIT·시장감독총국 통지: 생산용 부품 수령 1영업일, 검수 3영업일(장착시험 5일), 연속 공급가격협상시 90%·비연속시 70% 선지급, SME 지급 30일 권고·최장60일.",
         "changed_judgment": "OEM이 검수기간·가격협상을 통해 공급업체의 운전자본을 오래 묶는 관행을 제한하려는 조치다. 소재·부품 공급업체의 현금전환주기와 어음 비중이 개선되는지는 실제 지급기록과 시행을 확인해야 판단할 수 있다.",
-        "evidence_review_summary": "R26 six-dimension content QC: prior=6월 공급업체 60일 자율공약; changed=9/7 MIIT 결제·검수 통지; quantitative=1·3·5영업일, 연속 90%/비연속 70%, SME 30/60일; caveat=권고·법정의무·업체 계약조건 구분; transmission=검수·협상관행→DSO/운전자본·마진; watchpoint=실제 결제현황·어음비중. MIIT notice and Q&A are source URLs. Editorial verification only; no formal Prompt 0.6 PASS asserted.",
+        "evidence_review_summary": "R26 six-dimension content QC: prior=6월 공급업체 60일 자율공약; changed=9/7 MIIT 결제·검수 통지; quantitative=1·3·5영업일, 연속 90%/비연속 70%, SME 30/60일; caveat=권고·법정의무·업체 계약조건 구분; transmission=검수·협상관행→DSO/운전자본·마진; watchpoint=실제 결제현황·어음비중. MIIT notice and Q&A are source URLs. Editorial verification only; no formal Prompt 0.6 PASS asserted. R27 corrected 2025-06 17-OEM predecessor from official MIIT Q&A, separate from 2026-06 battery-industry pledge. OEM original wording 2025年6月 confirmed.",
         "next_confirmation_points": [
           "완성차 업체의 실제 수령·검수 주기, 공급업체 현금결제 비중·연체이자 지급, 30/60일 지급현황과 규제 집행사례"
         ],

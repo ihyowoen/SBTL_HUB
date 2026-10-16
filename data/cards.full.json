@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-16T02:09:57Z",
-  "total": 1678,
+  "total": 1677,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
   "cards": [
@@ -13,14 +13,15 @@
       "signal": "high",
       "title": "한국 전력망 119→171GW 수용 계획…ESS 비증설 대안 추진",
       "sub": "9월 29일 정부 대책은 계통 포화로 막혔던 재생에너지 접속을 유연접속·ESS로 확대하려는 계획이다. 송전 119→171GW는 2030년 수용능력 목표이며 현재 확보된 접속실적이 아니다.",
-      "gate": "ESS 비증설 대안(NWA)은 2030년 배전망 태양광 3GW·변전소 1.6GW 추가 접속을 목표로 한다. 호남 계통관리변전소 지정 10월 1일 해제와 신규사업 2027년 1월 접수는 서로 다른 단계다.",
-      "fact": "기후에너지환경부가 9월 29일 국무회의에 보고한 전력망 혁신대책은 2030년 재생에너지 수용능력 전망을 송전 119→171GW(+52GW), 배전 84→110GW(+26GW)로 제시했다. 정부는 자율·유연접속, ESS를 활용한 송배전망 비증설 대안(NWA), 지연사업의 접속권 조정을 추진한다. ESS 비증설 수단에 할당된 태양광 추가 접속 목표는 배전망 3GW와 변전소 1.6GW다. 호남 계통관리변전소 지정은 10월 1일 해제 방침이며, 신규사업 접수는 2027년 1월 재개 계획이다. 목표치와 실제 ESS 설치·발주는 구분한다.",
+      "gate": "ESS 비증설 대안(NWA)은 2030년 배전망 태양광 3GW·변전소 1.6GW 추가 접속을 목표로 한다. 정부의 10월 15일 후속 설명자료는 호남 계통관리변전소 164곳의 10월 1일 지정 해제를 확인했다. 신규사업 2027년 1월 접수와 ESS 실제 발주는 아직 별개다.",
+      "fact": "기후에너지환경부가 9월 29일 국무회의에 보고한 전력망 혁신대책은 2030년 재생에너지 수용능력 전망을 송전 119→171GW(+52GW), 배전 84→110GW(+26GW)로 제시했다. 정부는 자율·유연접속, ESS를 활용한 송배전망 비증설 대안(NWA), 지연사업의 접속권 조정을 추진한다. ESS 비증설 수단에 할당된 태양광 추가 접속 목표는 배전망 3GW와 변전소 1.6GW다. 정부는 10월 15일 후속 설명자료에서 호남 계통관리변전소 164곳을 실제로 10월 1일 지정 해제했으며 기존 대기 사업자 조기 접속을 접수 중이라고 밝혔다. 신규사업 접수는 2027년 1월 재개 계획이다. 목표치와 실제 ESS 설치·발주는 구분한다.",
       "implication": [
         "계통 접속권의 병목을 ESS·출력제어로 우회하려는 정책은 저장장치 수요의 발생 위치와 구매주체를 바꿀 수 있다. 다만 3GW·1.6GW는 배터리 설치용량이 아니라 추가 접속하려는 태양광 용량이다. NWA 조달공고·접속 승인·실제 ESS 구축을 따로 확인해야 한다."
       ],
       "urls": [
         "https://www.mcee.go.kr/home/web/newsRead.do?boardId=1894910&boardMasterId=939&condition.boardId=1871510&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=105&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=0&searchKey=&searchValue=",
-        "https://www.korea.kr/news/policyNewsView.do?newsId=148972753&pWise=sub&pWiseSub=R2"
+        "https://www.korea.kr/news/policyNewsView.do?newsId=148972753&pWise=sub&pWiseSub=R2",
+        "https://m.korea.kr/briefing/actuallyView.do?newsId=148973552&pWiseMain=B3&pwise=mMain"
       ],
       "fact_sources": [
         {
@@ -66,6 +67,26 @@
           "fetch_method": "verified_published_source_readback",
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true
+        },
+        {
+          "source_name": "대한민국 정책브리핑·기후에너지환경부",
+          "source_url": "https://m.korea.kr/briefing/actuallyView.do?newsId=148973552&pWiseMain=B3&pwise=mMain",
+          "source_owner": "기후에너지환경부",
+          "claim": "2026-10-15 정부 후속 공식 설명: 호남 계통관리변전소 164곳 지정 해제는 10월 1일 이미 시행됐고, 대기 사업자의 조기 접속을 접수 중이다. 2030년 수용능력 목표 및 ESS 조달 성과와 구분.",
+          "source_quote": "호남권 계통관리변전소 164개소를 지정 해제(10.1)했으며",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-10-15",
+          "visible_quote_date": "2026-10-15",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_official_body_fetch",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
         }
       ],
       "related": [],
@@ -97,75 +118,6 @@
           "source_owner": "Benchmark Mineral Intelligence",
           "claim": "Benchmark Q3 2026 블랙매스 가격평가: 중국 NCM 77.0→73.3%, 아시아 CIF 120.0→107.5%, 북미·유럽 EXW 13.6%·8.3% 하락, LCO 70.8%. 거래 실적 아닌 Benchmark 평가임.",
           "source_quote": "from 77.0% to 73.3%",
-          "source_quote_status": "official_material_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "source_published_date": "2026-09-28",
-          "visible_quote_date": "2026-09-28",
-          "source_origin_type": "official_or_source_owner_material",
-          "fetch_method": "verified_published_source_readback",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true
-        }
-      ],
-      "related": [],
-      "related_lineage": {
-        "related_ids": []
-      }
-    },
-    {
-      "id": "2026-09-28_CN_01",
-      "region": "CN",
-      "date": "2026-09-28",
-      "cat": "Policy",
-      "sub_cat": "공급능력·가격경쟁 관리",
-      "signal": "high",
-      "title": "중국 7부처, 배터리 과잉설비·가격경쟁 관리 '15·5 계획' 공표",
-      "sub": "중국 7부처가 9월 14일 서명·28일 공표한 2026~2030년 신형배터리 계획은 리튬전지의 구조적 수급 불균형과 가격경쟁을 정책 과제로 명시했다.",
-      "gate": "산업계획과 공식 해설은 생산능력 사전경보·조정, 품질 감독, 가격경쟁 규범화를 예고한다. 개별 셀업체의 공장 중단명령이나 일률적 증설 금지의 시행을 뜻하지 않는다.",
-      "fact": "중국 공업정보화부(MIIT), 국가발전개혁위원회 등 7개 부처는 '신형배터리 산업 발전 15·5 계획'(공신부연규〔2026〕220호)을 9월 14일 공동 서명하고 9월 28일 발표했다. 공업정보화부 해설은 리튬전지의 공급·수요 구조 불균형을 주요 현안으로 제시하고, 생산능력 경보·조정, 가격경쟁 질서화, 제품 품질 감독과 나트륨·액류전지 등 신기술 응용 확대를 예고했다. 이 문건은 2026~2030년 산업 방향에 관한 계획으로, 현재의 생산능력 감축량이나 개별 기업의 실제 가동 중단을 발표한 것은 아니다.",
-      "implication": [
-        "중국 배터리 경쟁의 관찰 기준이 CAPA 증설에서 수급 균형·실가동률·가격 규범·기술 전환으로 이동하고 있다. 수급개선과 소재 업체 마진 회복은 계획 문구가 아니라 지방 집행·생산·가격 자료로 검증해야 한다."
-      ],
-      "urls": [
-        "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_255ea93df118460fa105c46c2f546d9a.html",
-        "https://www.miit.gov.cn/zwgk/zcjd/art/2026/art_2d166bf3c90e45dfbdcd5fbaae9c9b17.html"
-      ],
-      "fact_sources": [
-        {
-          "source_name": "중국 공업정보화부",
-          "source_url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_255ea93df118460fa105c46c2f546d9a.html",
-          "source_owner": "중국 공업정보화부",
-          "claim": "2026년 9월 14일 제정, 9월 28일 공개된 중국 7부처의 신형배터리 15·5 계획 및 공식 문서번호를 확인한다.",
-          "source_quote": "工信部联规〔2026〕220号",
-          "source_quote_status": "official_material_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "source_published_date": "2026-09-28",
-          "visible_quote_date": "2026-09-28",
-          "source_origin_type": "official_or_source_owner_material",
-          "fetch_method": "verified_published_source_readback",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true
-        },
-        {
-          "source_name": "중국 공업정보화부 정책해설",
-          "source_url": "https://www.miit.gov.cn/zwgk/zcjd/art/2026/art_2d166bf3c90e45dfbdcd5fbaae9c9b17.html",
-          "source_owner": "중국 공업정보화부 정책해설",
-          "claim": "공식 해설은 리튬전지 공급수요 구조 불균형, 생산능력 경보·조정, 품질 감독, 가격경쟁 규범화, 응용 다각화를 제시한다.",
-          "source_quote": "落实产能预警调控，产品质量监督，规范价格竞争等工作",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -19666,7 +19618,7 @@
       "sub_cat": "완성차·공급업체 대금결제",
       "signal": "high",
       "title": "중국 자동차 부품 대금, 3일 검수·연속납품 90% 선지급 지침",
-      "sub": "공업정보화부·시장감독총국의 9월 7일 통지는 완성차 업체의 늦은 검수·가격협상 중 대금 지연을 겨냥했다. 지난 6월 업계의 60일 지급 공약보다 기산점과 지급방식에 초점을 맞췄다.",
+      "sub": "공업정보화부·시장감독총국의 9월 7일 통지는 완성차 업체의 늦은 검수·가격협상 중 대금 지연을 겨냥했다. 2025년 6월 주요 완성차 업체 17곳의 '60일 지급 공약'보다 기산점과 지급방식에 초점을 맞췄다.",
       "gate": "생산성 부품은 수령 후 3영업일 내 검수, 장착시험 필요품은 5영업일 내 차량 검사를 제시한다. 가격협상 중 선지급 기준은 연속납품 최근 계약가 90% 이상, 비연속납품 참조가격 70% 이상으로 구분된다.",
       "fact": "중국 공업정보화부(MIIT)와 시장감독총국은 9월 7일 자동차 기업 공급업체 대금지급·결제기간 관리 통지(공신청연통장함〔2026〕424호)를 공표했다. 생산용 부품은 약정 납품시점부터 1영업일 안에 수령하고 수령 후 3영업일 안에 검수하도록 제시하며, 초과 시 검수한 것으로 간주한다. 장착검증 품목은 5영업일 내 차량 검사가 필요하다. 가격협상 중에는 연속납품에 최근 계약가격의 원칙적 90% 이상, 비연속납품에는 참조가격의 원칙적 70% 이상을 먼저 지급하고 나중에 정산하도록 했다. 중소 공급업체 대금은 30일 이내 지급을 장려하고 최장 60일을 제시했다. 통지의 권고·계약조건·기존 법률상 의무를 구별해야 한다.",
       "implication": [
@@ -19682,7 +19634,7 @@
           "source_url": "https://www.miit.gov.cn/jgsj/zbys/wjfb/art/2026/art_6043f55908f44a71a3e51236f663356b.html",
           "source_owner": "중국 공업정보화부·시장감독총국",
           "claim": "2026년 9월 7일 자동차 OEM 공급업체 지급 통지: 약정납품 후 1영업일 내 수령, 3영업일 검수, 예외 5영업일 검사, 가격협상 선지급 범위와 중소기업 지급 가이드.",
-          "source_quote": "3个工作日内完成验收",
+          "source_quote": "若为连续性合作，可参照双方最近一次生效合同价格先行支付一定比例（一般不低于90%）；若为非连续性合作，可参照行业平均价或开发定点单价的70%以上（含）先行支付",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -19704,7 +19656,7 @@
           "source_url": "https://wap.miit.gov.cn/jgsj/zbys/qcgy/art/2026/art_17513333f77d471da3e483464ba697c1.html",
           "source_owner": "중국 공업정보화부 정책 Q&A",
           "claim": "MIIT Q&A: 연속납품 90%, 비연속납품 70% 선지급 구분, SME 대금 30일 권고·최장 60일, 통지 취지와 적용범위.",
-          "source_quote": "90%、非连续性供货的可按不低于参照行业平均价或开发定点单价的70%",
+          "source_quote": "2025年6月，17家重点汽车企业公开作出“支付账期不超过60天”的承诺",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [

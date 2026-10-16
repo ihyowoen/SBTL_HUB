@@ -1,9 +1,193 @@
 {
-  "updated": "2026-10-08T06:35:17Z",
-  "total": 1674,
+  "updated": "2026-10-16T02:09:57Z",
+  "total": 1678,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
   "cards": [
+    {
+      "id": "2026-09-29_KR_01",
+      "region": "KR",
+      "date": "2026-09-29",
+      "cat": "Power",
+      "sub_cat": "계통접속·ESS 수요",
+      "signal": "high",
+      "title": "한국 전력망, 송전 수용 119→171GW…ESS로 계통 병목 해소",
+      "sub": "정부가 9월 29일 국무회의에 전력망 혁신대책을 보고했다. 2030년 송전 재생에너지 수용능력 119→171GW, 배전 84→110GW는 정책 목표이지 이미 확보된 접속 실적이 아니다.",
+      "gate": "기후에너지환경부가 호남 계통관리변전소 지정 10월 1일 해제 및 2027년 1월 신규 사업접수 재개를 제시했다. 유연접속·출력제어·ESS 비증설 대안이 핵심 수단이다.",
+      "fact": "기후에너지환경부는 9월 29일 '전력망 혁신대책'을 발표했다. 2030년 재생에너지 수용능력 목표는 송전 119GW에서 171GW(+52GW), 배전 84GW에서 110GW(+26GW)다. 정부는 유연접속과 기존 설비 활용, ESS를 통한 비증설 대안(NWA), 접속권 정비를 추진한다. 호남 계통관리변전소 지정은 10월 1일 해제하고 신규 재생에너지 사업 접수는 2027년 1월 재개한다. 계획 수치와 실제 접속·ESS 발주·가동은 별도로 추적해야 한다.",
+      "implication": [
+        "ESS의 경제적 역할이 단순 전력 저장에서 계통 수용능력 확보·송배전 투자 대체로 확장되는 정책 신호다. 실수요는 이후 접속권 배정과 NWA 조달로 검증해야 한다."
+      ],
+      "urls": [
+        "https://www.mcee.go.kr/home/web/newsRead.do?boardId=1894910&boardMasterId=939&condition.boardId=1871510&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=105&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=0&searchKey=&searchValue=",
+        "https://www.korea.kr/news/policyNewsView.do?newsId=148972753&pWise=sub&pWiseSub=R2"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "기후에너지환경부",
+          "source_url": "https://www.mcee.go.kr/home/web/newsRead.do?boardId=1894910&boardMasterId=939&condition.boardId=1871510&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=105&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=0&searchKey=&searchValue=",
+          "source_owner": "기후에너지환경부",
+          "claim": "전력망 혁신대책 발표, 10월 1일 호남 계통관리변전소 해제 및 2027년 1월 신규사업 접수 계획.",
+          "source_quote": "2030년 재생에너지 100GW",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-09-29",
+          "visible_quote_date": "2026-09-29",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "verified_published_source_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
+        },
+        {
+          "source_name": "대한민국 정책브리핑",
+          "source_url": "https://www.korea.kr/news/policyNewsView.do?newsId=148972753&pWise=sub&pWiseSub=R2",
+          "source_owner": "대한민국 정책브리핑",
+          "claim": "송전 수용능력 +52GW, 배전 +26GW 수치 및 유연접속·ESS 정책의 구분 확인.",
+          "source_quote": "송전 수용량 52GW 확대",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-09-29",
+          "visible_quote_date": "2026-09-29",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "verified_published_source_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
+        }
+      ],
+      "related": [],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-09-28_GL_01",
+      "region": "GL",
+      "date": "2026-09-28",
+      "cat": "Materials",
+      "sub_cat": "재활용 원료가격·마진",
+      "signal": "high",
+      "title": "블랙매스 매입률 동반 하락…중국 NCM 77.0→73.3%",
+      "sub": "Benchmark Mineral Intelligence 3분기 가격 리뷰에서 NCM 블랙매스 중국 EXW payable은 2분기 말 77.0%에서 73.3%로 내려갔다.",
+      "gate": "중국 이외 지역도 같은 방향의 가격 압력이 관측됐다. Benchmark는 NCM CIF 아시아 120→107.5%, 북미 EXW -13.6%, 유럽 EXW -8.3%를 보고했다.",
+      "fact": "Benchmark Mineral Intelligence가 9월 28일 공개한 2026년 3분기 블랙매스 가격 리뷰에서 NCM 블랙매스 중국 EXW payable은 2분기 말 77.0%에서 73.3%로 3.7%포인트 낮아졌다. CIF 아시아 NCM payable도 120.0%에서 107.5%로 떨어졌으며, 북미 EXW와 유럽 EXW는 각각 13.6%, 8.3% 하락했다. 이는 Benchmark의 평가 기준별 수치로서 서로 다른 인코텀즈·지역의 절대가격을 직접 비교하거나 기업별 실제 매입계약 단가로 치환해서는 안 된다.",
+      "implication": [
+        "재활용 사업의 공급량보다 회수 원료의 정산 비율·지역 간 스프레드가 마진과 원료 이동 경로를 좌우한다는 구조 신호다. 금속가격 변동과 매입률 변화를 나눠 검증해야 한다."
+      ],
+      "urls": [
+        "https://source.benchmarkminerals.com/article/export-interventions-and-payables-under-pressure-q3-2026-black-mass-price-review"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "Benchmark Mineral Intelligence",
+          "source_url": "https://source.benchmarkminerals.com/article/export-interventions-and-payables-under-pressure-q3-2026-black-mass-price-review",
+          "source_owner": "Benchmark Mineral Intelligence",
+          "claim": "NCM 블랙매스 지역별 Q3 payables 하락 수치 확인; 서로 다른 가격 기준과 정산률의 범위를 한정한다.",
+          "source_quote": "from 77.0% to 73.3%",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-09-28",
+          "visible_quote_date": "2026-09-28",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "verified_published_source_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
+        }
+      ],
+      "related": [],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
+    {
+      "id": "2026-09-28_CN_01",
+      "region": "CN",
+      "date": "2026-09-28",
+      "cat": "Policy",
+      "sub_cat": "공급능력·가격경쟁 관리",
+      "signal": "high",
+      "title": "중국 7부처, 배터리 증설 경고·가격경쟁 관리를 15·5 계획에",
+      "sub": "9월 28일 공표된 2026~2030년 신형 배터리 산업계획은 리튬전지 수급 불균형을 산업 거버넌스 과제로 명시했다. 특정 공장 즉시 감산 명령은 아니다.",
+      "gate": "공신부 등 7개 부처의 산업계획 공표와 공식 해설은 생산능력 조기경보·조정, 가격경쟁 규범화 및 안전·품질 관리 강화를 제시했다.",
+      "fact": "중국 공업정보화부(MIIT)·국가발전개혁위 등 7개 부처는 9월 28일 '신형 배터리 산업 발전 15·5 계획'(공신부연규〔2026〕220호)을 공표했다. 공식 해설은 리튬전지의 구조적 수급 모순을 지적하고 생산능력 사전 경고·조절, 가격경쟁 규범화, 품질·안전 감독, 전고체·나트륨전지와 장주기 저장 적용 확장을 제시한다. 이는 중장기 산업정책이며 특정 제조사 생산 중단, 법정 가격 또는 이미 시행된 일률적 증설 금지를 의미하지 않는다.",
+      "implication": [
+        "중국 배터리 경쟁의 평가축이 생산능력 확대에서 실제 수급·제품 안전·가격질서로 이동하는 정책 신호다. 기업별 가동률과 실제 집행 조치를 따로 확인해야 한다."
+      ],
+      "urls": [
+        "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_255ea93df118460fa105c46c2f546d9a.html",
+        "https://www.miit.gov.cn/zwgk/zcjd/art/2026/art_2d166bf3c90e45dfbdcd5fbaae9c9b17.html"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "중국 공업정보화부",
+          "source_url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_255ea93df118460fa105c46c2f546d9a.html",
+          "source_owner": "중국 공업정보화부",
+          "claim": "7부처 신형 배터리 산업 발전 15·5 계획 공표와 문서번호 및 효력의 계획 단계 확인.",
+          "source_quote": "工信部联规〔2026〕220号",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-09-28",
+          "visible_quote_date": "2026-09-28",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "verified_published_source_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
+        },
+        {
+          "source_name": "중국 공업정보화부 정책해설",
+          "source_url": "https://www.miit.gov.cn/zwgk/zcjd/art/2026/art_2d166bf3c90e45dfbdcd5fbaae9c9b17.html",
+          "source_owner": "중국 공업정보화부 정책해설",
+          "claim": "리튬전지 수급 불균형, 생산능력 조기경보 조절, 가격경쟁 규범화 등 중장기 정책의 의미 확인.",
+          "source_quote": "产能预警调控",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-09-28",
+          "visible_quote_date": "2026-09-28",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "verified_published_source_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
+        }
+      ],
+      "related": [],
+      "related_lineage": {
+        "related_ids": []
+      }
+    },
     {
       "id": "2026-09-17_EU_01",
       "spec_id": "STD26_NR26_A_019",
@@ -19472,6 +19656,75 @@
         "status": "PASS",
         "hold_reason": null,
         "return_reason": null
+      }
+    },
+    {
+      "id": "2026-09-07_CN_03",
+      "region": "CN",
+      "date": "2026-09-07",
+      "cat": "Policy",
+      "sub_cat": "완성차·공급업체 대금결제",
+      "signal": "high",
+      "title": "중국, 자동차 부품 검수 3일·가격협상 중 90% 선지급 지침",
+      "sub": "공업정보화부·시장감독총국이 9월 7일 공동 통지를 공표했다. 과도한 OEM 지급기간과 검수 지연, 공급업체 현금흐름을 겨냥한 산업 규범화 조치다.",
+      "gate": "일반 생산부품의 접수 후 3영업일 검수(초과 시 간주승인), 계속거래 가격 협상 기간 종전 계약가의 원칙적 90% 이상 선지급을 포함한다. 중소기업 지급 30일 권고·최장 60일 지침도 담겼다.",
+      "fact": "중국 MIIT·시장감독총국은 9월 7일 자동차 완성차 업체의 공급업체 대금결제·지급기간 관리 통지(공신청연통장함〔2026〕424호)를 발표했다. 생산용 부품은 수령 후 3영업일 내 검수하고 이를 넘기면 검수 통과로 간주하도록 제시했다. 계속 거래의 가격 협상 중에는 최근 계약 단가의 통상 90% 이상을 선지급하고, 중소기업 공급업체 지급은 검수 후 30일 이내를 권고하며 최대 60일을 제시했다. 지침의 권고 조항과 법률상 강행의무는 구분해야 한다.",
+      "implication": [
+        "완성차 업체가 검수·가격협상을 이용해 공급업체 자금을 점유하는 관행에 대한 정책 개입이다. 실제 공급업체 현금전환주기는 향후 지급 실적·어음 비중으로 검증해야 한다."
+      ],
+      "urls": [
+        "https://www.miit.gov.cn/jgsj/zbys/wjfb/art/2026/art_6043f55908f44a71a3e51236f663356b.html",
+        "https://wap.miit.gov.cn/jgsj/zbys/qcgy/art/2026/art_17513333f77d471da3e483464ba697c1.html"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "중국 공업정보화부·시장감독총국",
+          "source_url": "https://www.miit.gov.cn/jgsj/zbys/wjfb/art/2026/art_6043f55908f44a71a3e51236f663356b.html",
+          "source_owner": "중국 공업정보화부·시장감독총국",
+          "claim": "지급기산점, 검수 3영업일, 가격협상시 선지급, 중소기업 지급 30/60일 규정 및 권고 단계 확인.",
+          "source_quote": "3个工作日内完成验收",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-09-07",
+          "visible_quote_date": "2026-09-07",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "verified_published_source_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
+        },
+        {
+          "source_name": "중국 공업정보화부 정책 Q&A",
+          "source_url": "https://wap.miit.gov.cn/jgsj/zbys/qcgy/art/2026/art_17513333f77d471da3e483464ba697c1.html",
+          "source_owner": "중국 공업정보화부 정책 Q&A",
+          "claim": "2025년 OEM 60일 지급 공약과 2026년 검수·선지급 규범화의 신규성 비교.",
+          "source_quote": "90%",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-09-07",
+          "visible_quote_date": "2026-09-07",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "verified_published_source_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
+        }
+      ],
+      "related": [],
+      "related_lineage": {
+        "related_ids": []
       }
     },
     {

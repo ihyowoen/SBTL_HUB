@@ -1,0 +1,183 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "R25_STRUCTURAL_INDUSTRY_FIRST_FOUR_CARD_INTAKE_20261016",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "6851fdbe4a25b30b7204d07708a1238123c14910",
+  "base_full_blob_sha": "1af792e2e80516e1ec1d7d9660c150b312168b21",
+  "expected_before": 1674,
+  "expected_after": 1678,
+  "output_updated": "2026-10-16T02:09:57Z",
+  "operations": {
+    "add": [
+      "2026-09-07_CN_03",
+      "2026-09-28_CN_01",
+      "2026-09-28_GL_01",
+      "2026-09-29_KR_01"
+    ],
+    "update": [],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [
+      {
+        "id": "2026-09-29_KR_01",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "policy_regulatory_anchor",
+          "strategic_behavior_anchor"
+        ],
+        "selection_route": "structural_non_execution_route",
+        "decision_news_value_score": 60,
+        "decision_value_breakdown": {
+          "market_structure_competition": 19,
+          "supply_demand_price_utilisation": 19,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 5,
+          "law_policy_market_access": 10,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": 3,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "원출처가 정책 영향 대상의 전체 시장 분모 또는 가격평가 커버리지 분모를 제시하지 않아 체계 규모 점수는 2/5로 보수적으로 제한한다.",
+        "prior_state": "기존 1,674장에는 2026년 9월 29일 한국 전력망 52GW 정책과 ESS 비증설 수요의 계통접속 개편을 다룬 별도 사건 카드가 없다.",
+        "new_verified_fact": "정부 9월29일 전력망 혁신대책 보고, 2030 송전 119→171GW(+52GW), 배전 84→110GW(+26GW), ESS/NWA 추진.",
+        "changed_judgment": "ESS의 경제적 역할이 단순 전력 저장에서 계통 수용능력 확보·송배전 투자 대체로 확장되는 정책 신호다. 실수요는 이후 접속권 배정과 NWA 조달로 검증해야 한다.",
+        "evidence_review_summary": "2026-10-16 소규모 원출처 대조 완료. 원문 게시·정책 단계/가격평가 범위·기존 Full 1,674개 ID/URL/문구 신규성 점검. Primary sources: https://www.mcee.go.kr/home/web/newsRead.do?boardId=1894910&boardMasterId=939&condition.boardId=1871510&condition.code=null&condition.createDeptName=null&condition.deleteYn=N&condition.fromDate=null&condition.inactiveYn=N&condition.pageIndex=null&condition.rnSeq=105&condition.toDate=null&maxIndexPages=10&maxPageItems=10&menuId=10607&orgCd=&pagerOffset=0&searchKey=&searchValue= | https://www.korea.kr/news/policyNewsView.do?newsId=148972753&pWise=sub&pWiseSub=R2",
+        "next_confirmation_points": [
+          "정부 세부 규정 시행·2027년 접속 신청 및 ESS 비증설 조달·수용능력 실제 개선"
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": "물리적 공장착공·공급계약이 아니라 수요제약·가격평가·공급업체 지급조건의 구조 변화로 독립 산업뉴스 가치가 있다.",
+        "why_execution_event_not_required": "산업의 수요, 가격결정력 및 현금흐름 해석을 바꾸는 관측·공식정책이므로 개별 착공 사건 없이도 독립적인 구조적 의미가 있다."
+      },
+      {
+        "id": "2026-09-28_CN_01",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "policy_regulatory_anchor",
+          "strategic_behavior_anchor"
+        ],
+        "selection_route": "structural_non_execution_route",
+        "decision_news_value_score": 58,
+        "decision_value_breakdown": {
+          "market_structure_competition": 18,
+          "supply_demand_price_utilisation": 19,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 4,
+          "law_policy_market_access": 10,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": 4,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "원출처가 정책 영향 대상의 전체 시장 분모 또는 가격평가 커버리지 분모를 제시하지 않아 체계 규모 점수는 2/5로 보수적으로 제한한다.",
+        "prior_state": "기존 1,674장에는 중국 7부처 2026~2030 신형배터리 산업계획의 수급·가격경쟁 규범화 사건이 없다.",
+        "new_verified_fact": "중국 MIIT 등 7부처 9월28일 공신부연규〔2026〕220호 공표, 생산능력 경고·조절과 가격경쟁 규범화 제시.",
+        "changed_judgment": "중국 배터리 경쟁의 평가축이 생산능력 확대에서 실제 수급·제품 안전·가격질서로 이동하는 정책 신호다. 기업별 가동률과 실제 집행 조치를 따로 확인해야 한다.",
+        "evidence_review_summary": "2026-10-16 소규모 원출처 대조 완료. 원문 게시·정책 단계/가격평가 범위·기존 Full 1,674개 ID/URL/문구 신규성 점검. Primary sources: https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_255ea93df118460fa105c46c2f546d9a.html | https://www.miit.gov.cn/zwgk/zcjd/art/2026/art_2d166bf3c90e45dfbdcd5fbaae9c9b17.html",
+        "next_confirmation_points": [
+          "각 지방의 증설 규제 시행 여부, 실제 설비가동률·가격·품질 집행 결과"
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": "물리적 공장착공·공급계약이 아니라 수요제약·가격평가·공급업체 지급조건의 구조 변화로 독립 산업뉴스 가치가 있다.",
+        "why_execution_event_not_required": "산업의 수요, 가격결정력 및 현금흐름 해석을 바꾸는 관측·공식정책이므로 개별 착공 사건 없이도 독립적인 구조적 의미가 있다."
+      },
+      {
+        "id": "2026-09-28_GL_01",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "data_financial_anchor"
+        ],
+        "selection_route": "structural_non_execution_route",
+        "decision_news_value_score": 59,
+        "decision_value_breakdown": {
+          "market_structure_competition": 20,
+          "supply_demand_price_utilisation": 22,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 8,
+          "law_policy_market_access": 3,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 2,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": null,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "원출처가 정책 영향 대상의 전체 시장 분모 또는 가격평가 커버리지 분모를 제시하지 않아 체계 규모 점수는 2/5로 보수적으로 제한한다.",
+        "prior_state": "기존 1,674장에는 Q3 블랙매스 NCM payable 지역별 하락 지표가 없다. 8월 미국 수출제한·9월 인도네시아 MHP는 별개 사건이다.",
+        "new_verified_fact": "Benchmark 9월28일 Q3 블랙매스 가격 리뷰: 중국 NCM EXW 77.0→73.3%, CIF 아시아 120→107.5%.",
+        "changed_judgment": "재활용 사업의 공급량보다 회수 원료의 정산 비율·지역 간 스프레드가 마진과 원료 이동 경로를 좌우한다는 구조 신호다. 금속가격 변동과 매입률 변화를 나눠 검증해야 한다.",
+        "evidence_review_summary": "2026-10-16 소규모 원출처 대조 완료. 원문 게시·정책 단계/가격평가 범위·기존 Full 1,674개 ID/URL/문구 신규성 점검. Primary sources: https://source.benchmarkminerals.com/article/export-interventions-and-payables-under-pressure-q3-2026-black-mass-price-review",
+        "next_confirmation_points": [
+          "Benchmark 최신 분기 payable과 재활용 업체 매입원가/판매가 차이, 지역 간 이동량"
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": "물리적 공장착공·공급계약이 아니라 수요제약·가격평가·공급업체 지급조건의 구조 변화로 독립 산업뉴스 가치가 있다.",
+        "why_execution_event_not_required": "산업의 수요, 가격결정력 및 현금흐름 해석을 바꾸는 관측·공식정책이므로 개별 착공 사건 없이도 독립적인 구조적 의미가 있다."
+      },
+      {
+        "id": "2026-09-07_CN_03",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "policy_regulatory_anchor",
+          "data_financial_anchor"
+        ],
+        "selection_route": "structural_non_execution_route",
+        "decision_news_value_score": 62,
+        "decision_value_breakdown": {
+          "market_structure_competition": 20,
+          "supply_demand_price_utilisation": 15,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 10,
+          "law_policy_market_access": 10,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": 4,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "원출처가 정책 영향 대상의 전체 시장 분모 또는 가격평가 커버리지 분모를 제시하지 않아 체계 규모 점수는 2/5로 보수적으로 제한한다.",
+        "prior_state": "기존 6월 중국 공급업체 60일 지급 공동선언과 달리 9월 7일 MIIT·시장감독총국 공동 통지의 검수 기산·가격협상 지급 가이드가 신규 근거다.",
+        "new_verified_fact": "MIIT·시장감독총국 9월7일 자동차 공급업체 지급 통지: 일반부품 3영업일 검수, 가격협상 선지급 권고 등.",
+        "changed_judgment": "완성차 업체가 검수·가격협상을 이용해 공급업체 자금을 점유하는 관행에 대한 정책 개입이다. 실제 공급업체 현금전환주기는 향후 지급 실적·어음 비중으로 검증해야 한다.",
+        "evidence_review_summary": "2026-10-16 소규모 원출처 대조 완료. 원문 게시·정책 단계/가격평가 범위·기존 Full 1,674개 ID/URL/문구 신규성 점검. Primary sources: https://www.miit.gov.cn/jgsj/zbys/wjfb/art/2026/art_6043f55908f44a71a3e51236f663356b.html | https://wap.miit.gov.cn/jgsj/zbys/qcgy/art/2026/art_17513333f77d471da3e483464ba697c1.html",
+        "next_confirmation_points": [
+          "중국 OEM 연·반기 지급 실적 공개, 3영업일 검수 준수 및 어음·미수채권 개선"
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": "물리적 공장착공·공급계약이 아니라 수요제약·가격평가·공급업체 지급조건의 구조 변화로 독립 산업뉴스 가치가 있다.",
+        "why_execution_event_not_required": "산업의 수요, 가격결정력 및 현금흐름 해석을 바꾸는 관측·공식정책이므로 개별 착공 사건 없이도 독립적인 구조적 의미가 있다."
+      }
+    ],
+    "updates": []
+  }
+}

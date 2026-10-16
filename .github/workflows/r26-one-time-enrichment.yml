@@ -1,0 +1,92 @@
+name: R26 Deep Summary editorial remediation (no merge)
+
+on:
+  push:
+    branches:
+      - news/structural-misread-r25-4-cards-20261016
+    paths:
+      - scripts/.r26_structural_enrichment.py.gz.b64
+      - .github/workflows/r26-one-time-enrichment.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply-reviewed-editorial-delta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Verify original content patch and locked PR392 parent
+        shell: bash
+        run: |
+          set -euo pipefail
+          git merge-base --is-ancestor 9432a8916237535bbf6455c446e42f7f323a70cc HEAD
+          python3 - <<'PY'
+          from pathlib import Path
+          import gzip,hashlib,base64
+          raw=base64.b64decode(Path('scripts/.r26_structural_enrichment.py.gz.b64').read_text().strip(),validate=True)
+          assert hashlib.sha256(raw).hexdigest()=='b82ae7073870209bbb0f07a92f6933fbfc9eb3ecd68f884f9d6d7936a7d29e6b'
+          script=gzip.decompress(raw)
+          assert hashlib.sha256(script).hexdigest()=='8e50cd8ed09f8299279faa99bbdb96cde42a8701988751d75ce874c1ca1e65d4'
+          Path('scripts/.r26_reviewed_enrichment.py').write_bytes(script)
+          print('PASS: script integrity and locked R25 predecessor')
+          PY
+      - name: Apply source-verified four-card Deep Summary copy improvements
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/.r26_reviewed_enrichment.py
+          node scripts/lean_cards.mjs
+          node scripts/lean_cards.mjs --check
+          git show 6851fdbe4a25b30b7204d07708a1238123c14910:data/cards.full.json > "$RUNNER_TEMP/base.full.json"
+          node scripts/validate_json_schema_subset.mjs --schema schemas/manual-direct-add.v2.schema.json --instance direct-adds/2026-10-16-structural-misread-4/direct-add.json
+          node scripts/validate_manual_direct_add.mjs --manifest direct-adds/2026-10-16-structural-misread-4/direct-add.json --base "$RUNNER_TEMP/base.full.json" --full data/cards.full.json
+          node scripts/validate_manual_direct_add_v4_hardening.mjs --manifest direct-adds/2026-10-16-structural-misread-4/direct-add.json --base "$RUNNER_TEMP/base.full.json" --full data/cards.full.json
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          printf '%s  %s\n' \
+            4636647510944c70c9cef1ae37ae49605108b79dd2c3afa82ab95c4011f25bd9 data/cards.full.json \
+            d80a230b4a6700bd0fd88923715f882336040bddc377e70adb7ed6132ca16e7c public/data/cards.json \
+            235518819e90a3b62c8a35b02e554094f27db714267a52967bddf6b8f39bf239 direct-adds/2026-10-16-structural-misread-4/direct-add.json | sha256sum -c -
+      - name: Unit tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm test
+      - name: Commit only three governed data files; delete one-shot bootstrap
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm scripts/.r26_reviewed_enrichment.py
+          rm scripts/.r26_structural_enrichment.py.gz.b64
+          rm .github/workflows/r26-one-time-enrichment.yml
+          git add -A
+          actual="$(git diff --cached --name-only | LC_ALL=C sort)"
+          expected="$(printf '%s\n' \
+             .github/workflows/r26-one-time-enrichment.yml \
+             data/cards.full.json \
+             direct-adds/2026-10-16-structural-misread-4/direct-add.json \
+             public/data/cards.json \
+             scripts/.r26_structural_enrichment.py.gz.b64 | LC_ALL=C sort)"
+          if [[ "$actual" != "$expected" ]]; then
+            echo "FAIL: unexpected path in editorial patch" >&2
+            git diff --cached --name-only >&2
+            exit 1
+          fi
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix(cards): enrich four structural news bodies with bounded six-dimension evidence"
+          git push origin "HEAD:refs/heads/${GITHUB_REF_NAME}"
+          echo "PASS: bounded R26 editorial enrichment staged; PR still needs human review; NO merge."

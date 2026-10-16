@@ -1,0 +1,1870 @@
+{
+  "schema": "stage_a_review_packet_r6_v1",
+  "batch": 7,
+  "ordinal_start": 151,
+  "ordinal_end": 175,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 151,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0227",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C10",
+        "story_id": "US_2026-08-31_C10",
+        "date": "2026-08-31",
+        "title": "Kempower data indicates that more charging plugs drive higher public EV charging site utilization",
+        "site": "Charged EVs RSS",
+        "url": "https://chargedevs.com/newswire/kempower-data-indicates-that-more-charging-plugs-drive-higher-public-ev-charging-site-utilization",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "55cc6e1d54c5f233a55cef4818b78d6b1812a65c8b694305ecf40c89824086ae"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C10"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C10",
+          "source_run": "20260901",
+          "source_index": 14,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C10",
+          "story_id": "US_2026-08-31_C10",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Kempower data indicates that more charging plugs drive higher public EV charging site utilization",
+          "site": "Charged EVs RSS",
+          "source_url": "https://chargedevs.com/newswire/kempower-data-indicates-that-more-charging-plugs-drive-higher-public-ev-charging-site-utilization",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "55cc6e1d54c5f233a55cef4818b78d6b1812a65c8b694305ecf40c89824086ae"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "charging",
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "utilization"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0239"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 152,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0228",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C08",
+        "story_id": "US_2026-08-31_C08",
+        "date": "2026-08-31",
+        "title": "Jackery Adds Capability & Expandability To New HomePower 1000 Plus v2 Portable Battery",
+        "site": "CleanTechnica Reviews RSS",
+        "url": "https://cleantechnica.com/2026/08/31/jackery-adds-capability-expandability-to-new-homepower-1000-plus-v2",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "5fe4d3693271789b19ce3227f070e407df4a4f31faa6fc8455c976f6d764e2b3"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C08"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C08",
+          "source_run": "20260901",
+          "source_index": 15,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C08",
+          "story_id": "US_2026-08-31_C08",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Jackery Adds Capability & Expandability To New HomePower 1000 Plus v2 Portable Battery",
+          "site": "CleanTechnica Reviews RSS",
+          "source_url": "https://cleantechnica.com/2026/08/31/jackery-adds-capability-expandability-to-new-homepower-1000-plus-v2",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "5fe4d3693271789b19ce3227f070e407df4a4f31faa6fc8455c976f6d764e2b3"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0240"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 153,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0232",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C12",
+        "story_id": "US_2026-08-31_C12",
+        "date": "2026-08-31",
+        "title": "Minister Hodgson to make critical minerals announcement",
+        "site": "Canada.ca News API (National News)",
+        "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/08/minister-hodgson-to-make-critical-minerals-announcement.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "e521f26998a49f3408080590062a326952abae68e69610bd6f707e1b17f6c20f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C12"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C12",
+          "source_run": "20260901",
+          "source_index": 20,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C12",
+          "story_id": "US_2026-08-31_C12",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Minister Hodgson to make critical minerals announcement",
+          "site": "Canada.ca News API (National News)",
+          "source_url": "https://www.canada.ca/en/natural-resources-canada/news/2026/08/minister-hodgson-to-make-critical-minerals-announcement.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "e521f26998a49f3408080590062a326952abae68e69610bd6f707e1b17f6c20f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0244"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 154,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0234",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C168",
+        "story_id": "KR_2026-09-01_C168",
+        "date": "2026-09-01",
+        "title": "알래스카 주지사 “美 핵심광물 중국 의존 줄여야…주내 자원 개발 확대 필요” - fntoday.co.kr",
+        "site": "핵심광물 다자·G7 (via Google News)",
+        "url": "https://www.fntoday.co.kr/news/articleView.html?idxno=391685",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "7145fe01eee6de29714029e997b29e4bdd3f4073ed42d1270b75b1c783fded21"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C168"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C168",
+          "source_run": "20260901",
+          "source_index": 39,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C168",
+          "story_id": "KR_2026-09-01_C168",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "알래스카 주지사 “美 핵심광물 중국 의존 줄여야…주내 자원 개발 확대 필요” - fntoday.co.kr",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "source_url": "https://www.fntoday.co.kr/news/articleView.html?idxno=391685",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "7145fe01eee6de29714029e997b29e4bdd3f4073ed42d1270b75b1c783fded21"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "핵심광물"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "핵심광물"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0246"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 155,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0235",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C110",
+        "story_id": "KR_2026-09-01_C110",
+        "date": "2026-09-01",
+        "title": "고성능 AI칩·첨단 반도체 장비 수출허가 대상 포함…기업 서약서는 폐지",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831221101729",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "fc2be07792144938cbf0e3f700d8424bb3086613f7bf152e633909e1eb4c4b1b"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C110",
+        "20260901::orig:20260901_123511:TF_0151"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C110",
+          "source_run": "20260901",
+          "source_index": 40,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C110",
+          "story_id": "KR_2026-09-01_C110",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "고성능 AI칩·첨단 반도체 장비 수출허가 대상 포함…기업 서약서는 폐지",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831221101729",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "fc2be07792144938cbf0e3f700d8424bb3086613f7bf152e633909e1eb4c4b1b"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0151",
+          "source_run": "20260901",
+          "source_index": 312,
+          "candidate_id": "orig:20260901_123511:TF_0151",
+          "story_id": "TF_0151",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "산업부, '전략물자 수출입고시' 개정안 시행…80여건 반영",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371943",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "15c178973e77d824000fe6c58870b3d5125fe20857671c30580fcd3ba5ee33ec"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "시행",
+          "허가"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0247",
+        "XRUN_REPLAY_20260903_E0402"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 156,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0239",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C80",
+        "story_id": "KR_2026-09-01_C80",
+        "date": "2026-09-01",
+        "title": "[단독] 삼성SDI, 분리막 핵심 파트너 WCP 지분 직접 소유…공급망 내재화 속도",
+        "site": "더구루",
+        "url": "https://www.theguru.co.kr/news/article.html?no=106496",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "2f3896a79e0e86b7784ad9b4c5e3768fa77572ca38725386558adb41c3c96c45"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C80"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C80",
+          "source_run": "20260901",
+          "source_index": 45,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C80",
+          "story_id": "KR_2026-09-01_C80",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[단독] 삼성SDI, 분리막 핵심 파트너 WCP 지분 직접 소유…공급망 내재화 속도",
+          "site": "더구루",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=106496",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "2f3896a79e0e86b7784ad9b4c5e3768fa77572ca38725386558adb41c3c96c45"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "분리막"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0251"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 157,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0245",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C190",
+        "story_id": "KR_2026-09-01_C190",
+        "date": "2026-09-01",
+        "title": "제네시스, EV 구매 고객 대상 'E-pit 충전 감사 프로모션' 실시 뉴스 2026.09.01",
+        "site": "Hyundai Motor Group Newsroom",
+        "url": "https://www.hyundaimotorgroup.com/ko/news/genesis-ev-e-pit-charging-thank-you-promotion",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "6a36195b91e8d098ad2b2d7b2a34110aa9243de1c2a04a3ccf461f0ae4ba302b"
+        }
+      },
+      "observation_count": 4,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C100",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C189",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C190",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C191"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C100",
+          "source_run": "20260901",
+          "source_index": 63,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C100",
+          "story_id": "KR_2026-09-01_C100",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "“최대 3개월 충전비 무료”…제네시스, 전기차 구매자 대상 프로모션",
+          "site": "전자신문",
+          "source_url": "https://www.etnews.com/20260901000094",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "6ad92074a4db0b67bd85d5d3e50fee9c3d1c2b45b1d1d2a5dede0a135de30cab"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C189",
+          "source_run": "20260901",
+          "source_index": 58,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C189",
+          "story_id": "KR_2026-09-01_C189",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "제네시스 EV 출고 고객, 3개월간 E-pit 충전 무료",
+          "site": "프레스나인",
+          "source_url": "http://www.press9.kr/news/articleView.html?idxno=81922",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4faf300bbfb96eae4fb062e7a72b30ed6e196cb0a751ddf82f918118446a547e"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C190",
+          "source_run": "20260901",
+          "source_index": 60,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C190",
+          "story_id": "KR_2026-09-01_C190",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "제네시스, EV 구매 고객 대상 'E-pit 충전 감사 프로모션' 실시 뉴스 2026.09.01",
+          "site": "Hyundai Motor Group Newsroom",
+          "source_url": "https://www.hyundaimotorgroup.com/ko/news/genesis-ev-e-pit-charging-thank-you-promotion",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "6a36195b91e8d098ad2b2d7b2a34110aa9243de1c2a04a3ccf461f0ae4ba302b"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C191",
+          "source_run": "20260901",
+          "source_index": 57,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C191",
+          "story_id": "KR_2026-09-01_C191",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "제네시스, EV 구매 고객 대상 ‘E-pit 충전 감사 프로모션’ 실시",
+          "site": "서울경제TV",
+          "source_url": "https://www.sentv.co.kr/article/view/sentv202609010025",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "8d2b3be76a3039fcf40cf2fea323b2d98d98634d84c678fe5e09fa6d97ab0465"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "ev ",
+          "전기차",
+          "충전"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0258"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 158,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0246",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C02",
+        "story_id": "KR_2026-09-01_C02",
+        "date": "2026-09-01",
+        "title": "\"EU, LG엔솔·삼성SDI·SK온 등 한국 배터리 3사와 손잡고 中 비중 낮춰야\"",
+        "site": "더구루",
+        "url": "https://www.theguru.co.kr/news/article.html?no=106501",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "2ac20ea1d8018853dd34282215162f4ab0db10dc1bdb4365fd2ba21374e758cd"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C02",
+          "source_run": "20260901",
+          "source_index": 59,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C02",
+          "story_id": "KR_2026-09-01_C02",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "\"EU, LG엔솔·삼성SDI·SK온 등 한국 배터리 3사와 손잡고 中 비중 낮춰야\"",
+          "site": "더구루",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=106501",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "2ac20ea1d8018853dd34282215162f4ab0db10dc1bdb4365fd2ba21374e758cd"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0259"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 159,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0247",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C75",
+        "story_id": "KR_2026-09-01_C75",
+        "date": "2026-09-01",
+        "title": "[2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자",
+        "site": "아시아경제",
+        "url": "https://view.asiae.co.kr/article/2026083117352114101",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b7139d820b4f8328f0da05ecd46b194ff9176173593779afa7d17bbce6c4c2e1"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C73",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C75"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C73",
+          "source_run": "20260901",
+          "source_index": 102,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C73",
+          "story_id": "KR_2026-09-01_C73",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[2027 예산안] 원유·핵심광물·북극항로에 2.5조 투입…경제안보 예산 4배 확대 - 뉴스핌",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "source_url": "https://www.newspim.com/news/view/20260831000709",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "ed5c8e74ebdb6d29248cccc7201311835dff9d44d8240e2c1edac0b2c57eb352"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C75",
+          "source_run": "20260901",
+          "source_index": 64,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C75",
+          "story_id": "KR_2026-09-01_C75",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자",
+          "site": "아시아경제",
+          "source_url": "https://view.asiae.co.kr/article/2026083117352114101",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b7139d820b4f8328f0da05ecd46b194ff9176173593779afa7d17bbce6c4c2e1"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "핵심광물"
+        ],
+        "execution": [
+          "투자"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망",
+          "핵심광물"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0260",
+        "XRUN_REPLAY_20260903_E0289"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 160,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0252",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C74",
+        "story_id": "KR_2026-09-01_C74",
+        "date": "2026-09-01",
+        "title": "[2027 예산안] 정부, 한전에 8500억원 재정 지원…누적 적자 부담 던다",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260901084732044",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "e0bcb29354b03e7b335c18b440847194aaa8209982f8a8f44c7be796c06f9e15"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C74"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C74",
+          "source_run": "20260901",
+          "source_index": 69,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C74",
+          "story_id": "KR_2026-09-01_C74",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[2027 예산안] 정부, 한전에 8500억원 재정 지원…누적 적자 부담 던다",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260901084732044",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "e0bcb29354b03e7b335c18b440847194aaa8209982f8a8f44c7be796c06f9e15"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "적자"
+        ],
+        "scale": [
+          "억원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0265"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 161,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0253",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C27",
+        "story_id": "KR_2026-09-01_C27",
+        "date": "2026-09-01",
+        "title": "E1, LPG 신차 구매 고객 대상 충전지원금 지급…기아와 함께",
+        "site": "에너지신문",
+        "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227801",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "ea3e877c3065f7044f8488ba90330d280991f29415bd812ee946b1c82c3d525c"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C26",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C27",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C28"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C26",
+          "source_run": "20260901",
+          "source_index": 72,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C26",
+          "story_id": "KR_2026-09-01_C26",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "E1, \"기아 LPG 차량 충전비 절감\" 5만포인트 프로모션",
+          "site": "파이낸셜뉴스 RSS",
+          "source_url": "https://www.fnnews.com/news/202609011120376148",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "062dd2052376ae1c2ffccb482406b957c81f74fd480d424cc5235db29b75040f"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C27",
+          "source_run": "20260901",
+          "source_index": 71,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C27",
+          "story_id": "KR_2026-09-01_C27",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "E1, LPG 신차 구매 고객 대상 충전지원금 지급…기아와 함께",
+          "site": "에너지신문",
+          "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227801",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "ea3e877c3065f7044f8488ba90330d280991f29415bd812ee946b1c82c3d525c"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C28",
+          "source_run": "20260901",
+          "source_index": 105,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C28",
+          "story_id": "KR_2026-09-01_C28",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "E1, 기아와 LPG 신차 고객 충전지원금 프로모션 진행",
+          "site": "아시아경제",
+          "source_url": "https://view.asiae.co.kr/article/2026090111020579944",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "c2b0549392f3d2893eb2067c3479cd256e44254f12cea5cf0952521ebaa1eaa3"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전지",
+          "충전"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0267"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 162,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0254",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C209",
+        "story_id": "KR_2026-09-01_C209",
+        "date": "2026-09-01",
+        "title": "한빛이노텍, 태양광에 ESS 입힌다...통합에너지 시장 공략",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371821",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "03ceb618d54c21a5f7de14836b6fb192bad905336dd88ef9088de04331f2062a"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C209"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C209",
+          "source_run": "20260901",
+          "source_index": 73,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C209",
+          "story_id": "KR_2026-09-01_C209",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "한빛이노텍, 태양광에 ESS 입힌다...통합에너지 시장 공략",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371821",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "03ceb618d54c21a5f7de14836b6fb192bad905336dd88ef9088de04331f2062a"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0268"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 163,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0257",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C97",
+        "story_id": "KR_2026-09-01_C97",
+        "date": "2026-09-01",
+        "title": "“3년 물린 개미 드디어...” 美 ESS 시장 기대에 반등 노리는 2차전지株 - 와우넷 오늘장전략",
+        "site": "한국경제TV",
+        "url": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609010356",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "4fe2be72661296d78d106130007f273b331fbc95f4c20b21d4d61333a0ebf015"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C97"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C97",
+          "source_run": "20260901",
+          "source_index": 78,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C97",
+          "story_id": "KR_2026-09-01_C97",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "“3년 물린 개미 드디어...” 美 ESS 시장 기대에 반등 노리는 2차전지株 - 와우넷 오늘장전략",
+          "site": "한국경제TV",
+          "source_url": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609010356",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4fe2be72661296d78d106130007f273b331fbc95f4c20b21d4d61333a0ebf015"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "전지"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0272"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 164,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0260",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C13",
+        "story_id": "KR_2026-09-01_C13",
+        "date": "2026-09-01",
+        "title": "'K자형 양극화' 해소에 117조…지역·농어촌·취약계층 지원 늘린다 [2027년 예산안]",
+        "site": "한국경제",
+        "url": "https://www.hankyung.com/article/202609016030i",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "44596a8f000cdc7e82bf69a4c1a13a49f6b237be4821abb3448ef42075a5e491"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C13"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C13",
+          "source_run": "20260901",
+          "source_index": 83,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C13",
+          "story_id": "KR_2026-09-01_C13",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "'K자형 양극화' 해소에 117조…지역·농어촌·취약계층 지원 늘린다 [2027년 예산안]",
+          "site": "한국경제",
+          "source_url": "https://www.hankyung.com/article/202609016030i",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "44596a8f000cdc7e82bf69a4c1a13a49f6b237be4821abb3448ef42075a5e491"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "양극"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0275"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 165,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0267",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C163",
+        "story_id": "KR_2026-09-01_C163",
+        "date": "2026-09-01",
+        "title": "슈퍼브에이아이, 소방연구원과 지하주차장 전기차 화재 조기 감지 AI 모델 개발",
+        "site": "전자신문",
+        "url": "https://www.etnews.com/20260901000161",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "4a9b555268ee67fa367836fefbc3bf0335e0b723cdd25bb37baf70c35dea5f2c"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C163",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C164"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C163",
+          "source_run": "20260901",
+          "source_index": 95,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C163",
+          "story_id": "KR_2026-09-01_C163",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "슈퍼브에이아이, 소방연구원과 지하주차장 전기차 화재 조기 감지 AI 모델 개발",
+          "site": "전자신문",
+          "source_url": "https://www.etnews.com/20260901000161",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4a9b555268ee67fa367836fefbc3bf0335e0b723cdd25bb37baf70c35dea5f2c"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C164",
+          "source_run": "20260901",
+          "source_index": 94,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C164",
+          "story_id": "KR_2026-09-01_C164",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "슈퍼브에이아이, 전기차 화재 AI로 잡는다…\"오경보 80%↓\"",
+          "site": "ZDNet Korea RSS",
+          "source_url": "https://zdnet.co.kr/view?no=20260901121714",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "7762d99d3ada702daf189440a923186a13f468547b8d084d1359d8309f41858f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "전기차"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "연구"
+        ]
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0283"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 166,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0274",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C30",
+        "story_id": "KR_2026-09-01_C30",
+        "date": "2026-09-01",
+        "title": "GIST, '페로브스카이트 태양전지 상용화 촉진 협의체' 발족…4개 분과위원장 위촉",
+        "site": "전자신문",
+        "url": "https://www.etnews.com/20260901000060",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "1bf0d3ce329c2fab21eabf304db11460f5d998010840435ab84c118f62be2507"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C30"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C30",
+          "source_run": "20260901",
+          "source_index": 107,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C30",
+          "story_id": "KR_2026-09-01_C30",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "GIST, '페로브스카이트 태양전지 상용화 촉진 협의체' 발족…4개 분과위원장 위촉",
+          "site": "전자신문",
+          "source_url": "https://www.etnews.com/20260901000060",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "1bf0d3ce329c2fab21eabf304db11460f5d998010840435ab84c118f62be2507"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전지"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [
+          "상용화"
+        ],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0292"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 167,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0291",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C06",
+        "story_id": "JP_2026-09-01_C06",
+        "date": "2026-09-01",
+        "title": "イーレックス、系統用蓄電池のアグリゲーションサービス開始",
+        "site": "PR TIMES 蓄電池",
+        "url": "https://prtimes.jp/main/html/rd/p/000000175.000029914.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "5407659d43d70949c09aa7fd2e44b49ba43a6aa41b6d3961ecb1781cd40b0959"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:JP_2026-09-01_C06"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C06",
+          "source_run": "20260901",
+          "source_index": 169,
+          "candidate_id": "orig:20260901_123511:JP_2026-09-01_C06",
+          "story_id": "JP_2026-09-01_C06",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "イーレックス、系統用蓄電池のアグリゲーションサービス開始",
+          "site": "PR TIMES 蓄電池",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000175.000029914.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "5407659d43d70949c09aa7fd2e44b49ba43a6aa41b6d3961ecb1781cd40b0959"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0311"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 168,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0293",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C02",
+        "story_id": "JP_2026-09-01_C02",
+        "date": "2026-09-01",
+        "title": "DMM EV ON、全国2万8000箇所以上の他社充電器情報をアプリ内で一元表示",
+        "site": "Response.jp Battery Special",
+        "url": "https://response.jp/article/2026/09/01/415972.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "70994383e0fc9f558ffb05a5c67d3e800bdddf2dffe4bf451da966c9f2049d79"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:JP_2026-09-01_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C02",
+          "source_run": "20260901",
+          "source_index": 171,
+          "candidate_id": "orig:20260901_123511:JP_2026-09-01_C02",
+          "story_id": "JP_2026-09-01_C02",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "DMM EV ON、全国2万8000箇所以上の他社充電器情報をアプリ内で一元表示",
+          "site": "Response.jp Battery Special",
+          "source_url": "https://response.jp/article/2026/09/01/415972.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "70994383e0fc9f558ffb05a5c67d3e800bdddf2dffe4bf451da966c9f2049d79"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0313"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 169,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0296",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C12",
+        "story_id": "GL_2026-09-01_C12",
+        "date": "2026-09-01",
+        "title": "[SMM Nickel Intermediate Product Daily Review] On August 31, MHP and high-grade nickel matte prices declined. - Shanghai Metals Market",
+        "site": "Indonesia Nickel Supply (via Google News)",
+        "url": "https://news.metal.com/en/newscontent/104088369-smm-nickel-intermediate-product-daily-review-on-august-31-mhp-and-high-grade-nickel-matte-prices-declined",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "225778f42e9cc5d06b37a25cffdbcdf2b1b396cf4e49b723c28f5748261267ba"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-09-01_C12"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C12",
+          "source_run": "20260901",
+          "source_index": 180,
+          "candidate_id": "orig:20260901_123511:GL_2026-09-01_C12",
+          "story_id": "GL_2026-09-01_C12",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[SMM Nickel Intermediate Product Daily Review] On August 31, MHP and high-grade nickel matte prices declined. - Shanghai Metals Market",
+          "site": "Indonesia Nickel Supply (via Google News)",
+          "source_url": "https://news.metal.com/en/newscontent/104088369-smm-nickel-intermediate-product-daily-review-on-august-31-mhp-and-high-grade-nickel-matte-prices-declined",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "225778f42e9cc5d06b37a25cffdbcdf2b1b396cf4e49b723c28f5748261267ba"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "nickel"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0316"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 170,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0297",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C02",
+        "story_id": "GL_2026-09-01_C02",
+        "date": "2026-09-01",
+        "title": "Australia and Korea target critical minerals growth - australianmining.com.au",
+        "site": "Australia Critical Minerals (via Google News)",
+        "url": "https://www.australianmining.com.au/australia-and-korea-target-critical-minerals-growth",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "50e94efb0e6e4a633486d823a7edb2d11279fa394be19513bcfe23090e1e175d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-09-01_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C02",
+          "source_run": "20260901",
+          "source_index": 181,
+          "candidate_id": "orig:20260901_123511:GL_2026-09-01_C02",
+          "story_id": "GL_2026-09-01_C02",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "Australia and Korea target critical minerals growth - australianmining.com.au",
+          "site": "Australia Critical Minerals (via Google News)",
+          "source_url": "https://www.australianmining.com.au/australia-and-korea-target-critical-minerals-growth",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "50e94efb0e6e4a633486d823a7edb2d11279fa394be19513bcfe23090e1e175d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0317"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 171,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0298",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C09",
+        "story_id": "GL_2026-09-01_C09",
+        "date": "2026-09-01",
+        "title": "Shipping gigawatt-hours of battery storage",
+        "site": "PV Magazine RSS (Global)",
+        "url": "https://www.pv-magazine.com/2026/09/01/shipping-gigawatt-hours-of-battery-storage",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "d066d6679ec3dc1633cba8dd18deece50c3a3ce2ad77c39e50f6e89773892170"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-09-01_C09"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C09",
+          "source_run": "20260901",
+          "source_index": 182,
+          "candidate_id": "orig:20260901_123511:GL_2026-09-01_C09",
+          "story_id": "GL_2026-09-01_C09",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "Shipping gigawatt-hours of battery storage",
+          "site": "PV Magazine RSS (Global)",
+          "source_url": "https://www.pv-magazine.com/2026/09/01/shipping-gigawatt-hours-of-battery-storage",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "d066d6679ec3dc1633cba8dd18deece50c3a3ce2ad77c39e50f6e89773892170"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0318"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 172,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0301",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0042",
+        "story_id": "TF_0042",
+        "date": "2026-09-01",
+        "title": "Astron lands US REE export licence - The Australian",
+        "site": "Australia Critical Minerals (via Google News)",
+        "url": "https://www.theaustralian.com.au/business/stockhead/content/astron-granted-us-export-licence-for-donald-rare-earths-concentrate/news-story/2a81578a90a35f7961624df9546540dd?amp=",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "f04a74c48705b8bd18f764c6da8c89759a94b9e65b379a97c413bf5fcf60be82"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-09-01_C01",
+        "20260901::orig:20260901_123511:TF_0042"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C01",
+          "source_run": "20260901",
+          "source_index": 186,
+          "candidate_id": "orig:20260901_123511:GL_2026-09-01_C01",
+          "story_id": "GL_2026-09-01_C01",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "Astron secures export licence as Australian rare earths take off - Mining.com.au",
+          "site": "Australia Critical Minerals (via Google News)",
+          "source_url": "https://mining.com.au/astron-secures-export-licence-as-australian-rare-earths-take-off",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "d7c4ecd63bd4fe1399f299a64314658a521eb9b5f9ac8bef386d4e18ae4e6038"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0042",
+          "source_run": "20260901",
+          "source_index": 335,
+          "candidate_id": "orig:20260901_123511:TF_0042",
+          "story_id": "TF_0042",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "Astron lands US REE export licence - The Australian",
+          "site": "Australia Critical Minerals (via Google News)",
+          "source_url": "https://www.theaustralian.com.au/business/stockhead/content/astron-granted-us-export-licence-for-donald-rare-earths-concentrate/news-story/2a81578a90a35f7961624df9546540dd?amp=",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "f04a74c48705b8bd18f764c6da8c89759a94b9e65b379a97c413bf5fcf60be82"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0322"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 173,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0302",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C10",
+        "story_id": "GL_2026-08-31_C10",
+        "date": "2026-08-31",
+        "title": "Chhattisgarh pitches itself as critical minerals hub, 5 blocks up for auction - The Times of India",
+        "site": "G7 Critical Minerals Multilateral (via Google News)",
+        "url": "https://timesofindia.indiatimes.com/city/raipur/chhattisgarh-pitches-itself-as-critical-minerals-hub-5-blocks-up-for-auction/articleshow/133659318.cms",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "5cb423e5b995ce4fb84ae107a5cbca8b62167629b65a556ef0e8e3bd18e428a3"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C10"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C10",
+          "source_run": "20260901",
+          "source_index": 191,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C10",
+          "story_id": "GL_2026-08-31_C10",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Chhattisgarh pitches itself as critical minerals hub, 5 blocks up for auction - The Times of India",
+          "site": "G7 Critical Minerals Multilateral (via Google News)",
+          "source_url": "https://timesofindia.indiatimes.com/city/raipur/chhattisgarh-pitches-itself-as-critical-minerals-hub-5-blocks-up-for-auction/articleshow/133659318.cms",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "5cb423e5b995ce4fb84ae107a5cbca8b62167629b65a556ef0e8e3bd18e428a3"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0323"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 174,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0303",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C05",
+        "story_id": "GL_2026-08-31_C05",
+        "date": "2026-08-31",
+        "title": "Brazil rare earth mine shows hurdles of breaking free from China - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/web/brazil-rare-earth-mine-shows-hurdles-of-breaking-free-from-china",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "4d886b3652793afc3edbbf211e886b9b9d37d114a689f89c29f648ba6efd5624"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C05"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C05",
+          "source_run": "20260901",
+          "source_index": 192,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C05",
+          "story_id": "GL_2026-08-31_C05",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Brazil rare earth mine shows hurdles of breaking free from China - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/web/brazil-rare-earth-mine-shows-hurdles-of-breaking-free-from-china",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4d886b3652793afc3edbbf211e886b9b9d37d114a689f89c29f648ba6efd5624"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0324"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 175,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0304",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C28",
+        "story_id": "GL_2026-08-31_C28",
+        "date": "2026-08-31",
+        "title": "South Korea seeks incentives to deepen nickel partnership with Indonesia - The Jakarta Post",
+        "site": "Indonesia Nickel Supply (via Google News)",
+        "url": "https://www.thejakartapost.com/world/2026/08/31/south-korea-seeks-incentives-to-deepen-nickel-partnership-with-indonesia",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "582c2d1ecc6e0be97005523a4b814d2f5e02cb339b71291f08e303069889e8c9"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C28"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C28",
+          "source_run": "20260901",
+          "source_index": 194,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C28",
+          "story_id": "GL_2026-08-31_C28",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "South Korea seeks incentives to deepen nickel partnership with Indonesia - The Jakarta Post",
+          "site": "Indonesia Nickel Supply (via Google News)",
+          "source_url": "https://www.thejakartapost.com/world/2026/08/31/south-korea-seeks-incentives-to-deepen-nickel-partnership-with-indonesia",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "582c2d1ecc6e0be97005523a4b814d2f5e02cb339b71291f08e303069889e8c9"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "nickel"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0325"
+      ],
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

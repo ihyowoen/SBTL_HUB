@@ -1,0 +1,43 @@
+name: prompt-0-1p-r6-candidates16
+
+on:
+  push:
+    branches: [chatgpt/recover-exact-425-artifacts-20260903]
+    paths:
+      - '.tmp/promotion-r6/TRIGGER'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  promotion:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build validator-bound Prompt 0.1P promotion artifact
+        run: python3 scripts/prompt_0_1p_r6_promotion_fixup.py
+      - name: Production Stage A contract
+        run: python3 validation_scripts/stage_artifact_contract_check.py A runs/2026-09-03/stage_a_prompt_0_1p_r6_promotion16_20260903_R1.json
+      - name: Production Stage A lineage contract
+        run: python3 validation_scripts/stage_lineage_contract_check.py stage_a runs/2026-09-03/stage_a_prompt_0_1p_r6_promotion16_20260903_R1.json
+      - name: Commit only validated promotion outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          p='runs/2026-09-03/stage_a_prompt_0_1p_r6_promotion16_validation_20260903_R1.json'
+          r=json.load(open(p,encoding='utf-8'))
+          assert r['status']=='PASS', r
+          assert r['candidate_count']==16 and r['promoted_count']==2 and r['retained_count']==14
+          assert r['lineage_check_rc']==0
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/stage_a_prompt_0_1p_r6_promotion16_20260903_R1.json \
+                  runs/2026-09-03/stage_a_prompt_0_1p_r6_promotion16_validation_20260903_R1.json
+          git commit -m 'audit: complete Prompt 0.1P R6 candidate promotion review'
+          git push

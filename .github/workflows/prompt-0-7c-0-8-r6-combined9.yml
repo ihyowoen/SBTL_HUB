@@ -1,0 +1,140 @@
+name: Prompt 0.7C and 0.8 R6 Combined 9
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/prompt-0-7c-0-8-r6-combined9/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  validate-operation-bound-production-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lock exact main and canonical baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4"
+          test "$(git rev-parse origin/main:data/cards.full.json)" = "53219907cdb435c3822c41d097b23e475662aa8a"
+
+      - name: Prepare operation-bound 0.7C, 0.8 and card-run package
+        run: python3 scripts/prompt_0_7c_0_8_r6_combined9_v10.py prepare
+
+      - name: Validate exact ordinary stage bridges
+        shell: bash
+        run: |
+          set -euo pipefail
+          D='runs/2026-09-04/r6-combined9-production-r1/stages'
+          python3 validation_scripts/stage_artifact_contract_check.py A "$D/stage-a-strict7.json"
+          python3 validation_scripts/stage_lineage_contract_check.py stage_a "$D/stage-a-strict7.json"
+          python3 validation_scripts/stage_artifact_contract_check.py A "$D/stage-a-promotion2.json"
+          python3 validation_scripts/stage_lineage_contract_check.py stage_a "$D/stage-a-promotion2.json"
+          python3 validation_scripts/stage_artifact_contract_check.py B "$D/stage-b-strict7.json"
+          python3 validation_scripts/stage_artifact_contract_check.py B "$D/stage-b-promotion2.json"
+          python3 validation_scripts/stage_artifact_contract_check.py C "$D/stage-c-strict7.json"
+          python3 validation_scripts/stage_artifact_contract_check.py C "$D/stage-c-promotion2.json"
+          python3 validation_scripts/stage_artifact_contract_check.py 0.4 "$D/stage-0-4-combined9.json"
+          python3 validation_scripts/stage_artifact_contract_check.py 0.5 "$D/stage-0-5-combined9.json"
+          python3 validation_scripts/stage_artifact_contract_check.py 0.6 "$D/stage-0-6-combined9.json"
+          python3 validation_scripts/stage_artifact_contract_check.py 0.7 "$D/stage-0-7-combined9.json"
+
+      - name: Validate formal card-run structure and V4 binding
+        shell: bash
+        run: |
+          set -euo pipefail
+          RUN='runs/2026-09-04/r6-combined9-production-r1/card-run.json'
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
+          node scripts/validate_card_run_relations.mjs --run "$RUN"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN" --canonical data/cards.full.json
+
+      - name: Materialize candidate full and lean without mutating canonical
+        shell: bash
+        run: |
+          set -euo pipefail
+          D='runs/2026-09-04/r6-combined9-production-r1'
+          node scripts/apply_card_run.mjs \
+            --run "$D/card-run.json" \
+            --baseline data/cards.full.json \
+            --canonical-path data/cards.full.json \
+            --output "$D/candidate.cards.full.json" \
+            --report "$D/candidate-apply-report.json" \
+            --lean-path "$D/candidate.cards.json" \
+            --base-main-sha df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4 \
+            --apply
+          python3 scripts/prompt_0_7c_0_8_r6_combined9_v10.py finalize-audit
+
+      - name: Validate independent audit and exact Prompt 0.8 operation set
+        shell: bash
+        run: |
+          set -euo pipefail
+          D='runs/2026-09-04/r6-combined9-production-r1'
+          node scripts/validate_card_run_audits_dispatch.mjs \
+            --run "$D/card-run.json" \
+            --full "$D/candidate.cards.full.json" \
+            --lean "$D/candidate.cards.json"
+          MERGE_PREP_REF="$(node scripts/validate_prompt_0_8_semantic_gate.mjs \
+            --run "$D/card-run.json" \
+            --full "$D/candidate.cards.full.json" \
+            --ledger "$D/prompt-0-8-id-ledger.json")"
+          test "$MERGE_PREP_REF" = "$D/stage-0-8.json"
+          python3 validation_scripts/stage_artifact_contract_check.py 0.8 "$D/stage-0-8.json"
+
+      - name: Run post-resolution strict semantic QC
+        shell: bash
+        run: |
+          set -euo pipefail
+          D='runs/2026-09-04/r6-combined9-production-r1'
+          python3 validation_scripts/related_lifecycle_check.py \
+            "$D/candidate.cards.full.json" --require-contract --new-id-file "$D/prompt-0-8-id-ledger.json"
+          python3 validation_scripts/evidence_qc_v8_check.py \
+            "$D/candidate.cards.full.json" --new-id-file "$D/prompt-0-8-id-ledger.json"
+          python3 validation_scripts/date_role_freshness_check.py \
+            "$D/candidate.cards.full.json" --require-date-role --new-id-file "$D/prompt-0-8-id-ledger.json"
+          node scripts/validate_cards.mjs "$D/candidate.cards.full.json"
+          node scripts/validate_cards.mjs "$D/candidate.cards.json"
+          CARDS_FULL_PATH="$D/candidate.cards.full.json" CARDS_PUBLIC_PATH="$D/candidate.cards.json" node scripts/lean_cards.mjs --check
+
+      - name: Verify byte-exact candidate replay
+        shell: bash
+        run: |
+          set -euo pipefail
+          D='runs/2026-09-04/r6-combined9-production-r1'
+          node scripts/apply_card_run.mjs \
+            --run "$D/card-run.json" \
+            --baseline "$D/candidate.cards.full.json" \
+            --canonical-path data/cards.full.json \
+            --output "$D/candidate.cards.full.json" \
+            --report "$D/candidate-verify-report.json" \
+            --lean-path "$D/candidate.cards.json" \
+            --base-main-sha df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4 \
+            --verify
+
+      - name: Commit validated recovery-side production package
+        shell: bash
+        run: |
+          set -euo pipefail
+          D='runs/2026-09-04/r6-combined9-production-r1'
+          rm -f "$D/candidate.cards.full.json" "$D/candidate.cards.json" \
+                "$D/candidate-apply-report.json" "$D/candidate-verify-report.json"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$D"
+          git rm -r .tmp/prompt-0-7c-0-8-r6-combined9
+          git diff --cached --check
+          git commit -m 'audit: bind combined9 0.7C and 0.8 exact production operations'
+          git push

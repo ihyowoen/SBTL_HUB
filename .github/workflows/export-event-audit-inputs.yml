@@ -1,0 +1,30 @@
+name: Export replay event audit inputs
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/export-event-audit/TRIGGER'
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pack audit inputs
+        run: |
+          mkdir -p /tmp/event-audit-inputs
+          cp runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json /tmp/event-audit-inputs/
+          cp runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json /tmp/event-audit-inputs/
+          cp runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R2.json /tmp/event-audit-inputs/
+          cp runs/2026-09-03/canonical_relation_replay_closure_425_20260903_R3.json /tmp/event-audit-inputs/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: replay-event-audit-inputs-20260903
+          path: /tmp/event-audit-inputs
+          if-no-files-found: error
+          retention-days: 7

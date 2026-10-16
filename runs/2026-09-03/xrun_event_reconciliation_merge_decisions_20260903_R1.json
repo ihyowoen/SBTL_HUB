@@ -1,0 +1,596 @@
+{
+  "schema": "xrun_event_reconciliation_merge_decisions_v1",
+  "status": "PASS_REPLAYABLE_MERGE_DECISIONS",
+  "generated_date": "2026-09-03",
+  "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "canonical_card_count": 1514,
+  "source_accounting": {
+    "raw_20260831": 264,
+    "raw_20260901": 357,
+    "coverage_discovery_or_rescue": 11,
+    "total": 632
+  },
+  "contract": {
+    "version": "XRUN_EVENT_FINGERPRINT_V4_20260902_R2_REPLAY_20260903",
+    "story_id_cross_run_identity_forbidden": true,
+    "article_query_preserved": true,
+    "rules": [
+      "canonicalize URL while preserving article-id/query parameters and removing tracking parameters only",
+      "merge exact canonical URL or exact normalized headline",
+      "merge only explicit high-confidence same-event fingerprints supported by shared actors/action/date/project/unique quantities",
+      "separate market-reaction or analytical consequences from underlying corporate events",
+      "leave ambiguous topical similarity separate"
+    ]
+  },
+  "phase_accounting": {
+    "authoritative_observations": 632,
+    "exact_url_or_normalized_headline_event_count": 532,
+    "first_pass_fingerprint_event_count": 437,
+    "first_pass_reduction": 95,
+    "second_pass_event_count": 425,
+    "second_pass_reduction": 12,
+    "final_event_count": 425
+  },
+  "first_pass_decisions": [
+    {
+      "fingerprint_id": "lges_smackover",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 24,
+      "observation_count": 24,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C22",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C56",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C54",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C46",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C59",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C53",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C52",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C50",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C49",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C48",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C45",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C44",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C43",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C14",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C58",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C47",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C51",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C42",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C55",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C57",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C16",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C27",
+        "20260901::orig:20260901_123511:TF_0131",
+        "20260831::disc:20260831:lg-es-smackover-lithium-offtake"
+      ],
+      "reason": "Same binding LG Energy Solution–Smackover/South West Arkansas lithium-carbonate offtake; shared 8,000 t/y, 10-year/80,000 t, Arkansas project and counterparties; multilingual/direct-report variants."
+    },
+    {
+      "fingerprint_id": "skon_neovolta_underlying",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 18,
+      "observation_count": 22,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C25",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C51",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C49",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C48",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C46",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C45",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C44",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C43",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C47",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C52",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C50",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C41",
+        "20260831::orig:20260831_143419:TF_0074",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C29",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C24",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C23",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C22",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C21",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C25",
+        "20260901::orig:20260901_123511:GL_2026-08-30_C08",
+        "20260901::orig:20260901_123511:EU_2026-08-31_C16",
+        "20260901::orig:20260901_123511:EU_2026-08-31_C17"
+      ],
+      "reason": "Same SK On–NeoVolta Power U.S. ESS LFP supply agreement; shared 9 GWh, 2027–2031, Georgia production and counterparties. Market-reaction articles excluded."
+    },
+    {
+      "fingerprint_id": "skon_market_reaction_20260901",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 3,
+      "observation_count": 3,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C76",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C11",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C17"
+      ],
+      "reason": "Same 2026-09-01 SK Innovation share-price reaction to the SK On–NeoVolta order; kept separate from the underlying supply agreement."
+    },
+    {
+      "fingerprint_id": "ecopro_solid_state",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 8,
+      "observation_count": 8,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C171",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C168",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C167",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C166",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C169",
+        "20260831::orig:20260831_143419:TF_0112",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C69",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C70"
+      ],
+      "reason": "Same EcoPro BM all-solid-state “one team”/Super-Eul project kickoff; same company, consortium purpose and commercialization roadmap."
+    },
+    {
+      "fingerprint_id": "battery_triangle",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 6,
+      "observation_count": 6,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C197",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C195",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C188",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C154",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C196",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C153"
+      ],
+      "reason": "Same Ministry of Trade/Industry battery-triangle initiative linking Chungcheong cells, Yeongnam materials and Honam raw materials; same 2026-09-01 briefing."
+    },
+    {
+      "fingerprint_id": "posco_argentina_financing",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 8,
+      "observation_count": 9,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-30_C06",
+        "20260831::orig:20260831_143419:GL_2026-08-28_C13",
+        "20260831::orig:20260831_143419:GL_2026-08-28_C01",
+        "20260831::orig:20260831_143419:GL_2026-08-28_C21",
+        "20260831::orig:20260831_143419:GL_2026-08-28_C22",
+        "20260831::orig:20260831_143419:GL_2026-08-28_C20",
+        "20260831::orig:20260831_143419:GL_2026-08-28_C23",
+        "20260831::orig:20260831_143419:GL_2026-08-28_C24",
+        "20260901::orig:20260901_123511:GL_2026-08-30_C07"
+      ],
+      "reason": "Same POSCO Holdings Argentina lithium financing/IDB Invest facility; shared approximately US$700m facility and project."
+    },
+    {
+      "fingerprint_id": "ferry_battery_rule",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 5,
+      "observation_count": 5,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C215",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C115",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C116",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C117",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C04"
+      ],
+      "reason": "Same Korean Ministry of Oceans passenger-ferry lithium-battery carry-on rule; shared 160 Wh threshold and next-year implementation."
+    },
+    {
+      "fingerprint_id": "wonjun",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 3,
+      "observation_count": 4,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C178",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C177",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C176",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C72"
+      ],
+      "reason": "Same Wonjun–Silvatex U.S. LFP cathode-production partnership announcement."
+    },
+    {
+      "fingerprint_id": "auditors",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 3,
+      "observation_count": 4,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C104",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C103",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C102",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C48"
+      ],
+      "reason": "Same KOMIR citizen-participation auditor launch; same 63 appointees, eight fields and Wonju launch event."
+    },
+    {
+      "fingerprint_id": "lithium_miners",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 3,
+      "observation_count": 3,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-31_C04",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C21",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C22"
+      ],
+      "reason": "Same syndicated lithium-miner profitability/battery-storage-demand report."
+    },
+    {
+      "fingerprint_id": "grad_schools",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 3,
+      "observation_count": 4,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0130",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C79",
+        "20260901::orig:20260901_123511:TF_0109",
+        "20260901::orig:20260901_123511:TF_0108"
+      ],
+      "reason": "Same ministry designation/support of six regional advanced-industry graduate schools."
+    },
+    {
+      "fingerprint_id": "genesis_epit",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 3,
+      "observation_count": 3,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C191",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C189",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C190"
+      ],
+      "reason": "Same Genesis E-pit charging-thank-you promotion; same eligible models, Sep–Oct deliveries and up-to-three-month free charging."
+    },
+    {
+      "fingerprint_id": "e1_kia",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 3,
+      "observation_count": 3,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C27",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C26",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C28"
+      ],
+      "reason": "Same E1–Kia LPG new-vehicle charging-support promotion."
+    },
+    {
+      "fingerprint_id": "australia_record",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 2,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:EU_2026-09-01_C01",
+        "20260901::orig:20260901_123511:EU_2026-08-31_C02"
+      ],
+      "reason": "Same Australian Clean Energy Regulator Q2 record-data release/coverage; battery-installation record is part of the same release."
+    },
+    {
+      "fingerprint_id": "asahi",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 2,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C03",
+        "20260901::orig:20260901_123511:EU_2026-08-31_C01"
+      ],
+      "reason": "Same Asahi Kasei lithium pre-doping technology announcement for silicon-rich cells."
+    },
+    {
+      "fingerprint_id": "hmg_hydrogen",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 3,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C223",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C222",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C98"
+      ],
+      "reason": "Same Hyundai Motor Group appointment of Hong Eun-hee to lead HMG Energy/Hydrogen business."
+    },
+    {
+      "fingerprint_id": "kr_jp_chambers",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 2,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C213",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C93"
+      ],
+      "reason": "Same Korea–Japan chambers cooperation announcement covering critical minerals/energy supply chains and AI/semiconductors."
+    },
+    {
+      "fingerprint_id": "kr_us_energy",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 3,
+      "observation_count": 6,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C205",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C211",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C207",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C88",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C92",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C90"
+      ],
+      "reason": "Same Korea–U.S. energy-security meeting between Vice Minister Lee Ho-hyun and U.S. DOE Acting Assistant Secretary Curt Coccodrilli at Dalgaebi on 2026-08-31."
+    },
+    {
+      "fingerprint_id": "kumho_weihai",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 3,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C108",
+        "20260831::orig:20260831_143419:REVIEW_1",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C49"
+      ],
+      "reason": "Same Kumho Petrochemical Group–Weihai municipal meeting/partnership discussion."
+    },
+    {
+      "fingerprint_id": "nickel_cuts",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 2,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C05",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C11"
+      ],
+      "reason": "Same report that Chinese-backed nickel producers in Indonesia were considering output cuts amid low prices."
+    },
+    {
+      "fingerprint_id": "phone_pickup",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 3,
+      "observation_count": 3,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C201",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C157",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C144"
+      ],
+      "reason": "Same planned Korea Post doorstep collection service for discarded mobile phones."
+    },
+    {
+      "fingerprint_id": "phone_campaign",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 2,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C04",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C102"
+      ],
+      "reason": "Same climate ministry month-long safe-disposal/collection campaign for unused mobile phones."
+    },
+    {
+      "fingerprint_id": "ev_fire_ai",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 2,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C164",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C163"
+      ],
+      "reason": "Same Superb AI–National Fire Research Institute underground-parking EV-fire early-detection model announcement."
+    },
+    {
+      "fingerprint_id": "defense_metals",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 2,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C15",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C14"
+      ],
+      "reason": "Same Defense Metals Wicheeda drilling result reporting about 6% rare-earth grades."
+    },
+    {
+      "fingerprint_id": "nova",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 2,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C24",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C23"
+      ],
+      "reason": "Same Nova Minerals CEO briefing to the U.S. Department of Energy on Estelle antimony supply-chain progress."
+    },
+    {
+      "fingerprint_id": "k12_solar",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 2,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C01",
+        "20260901::orig:20260901_123511:US_2026-08-31_C09"
+      ],
+      "reason": "Same U.S. K-12 solar adoption report citing more than 10,800 schools / one in seven students and limited battery storage."
+    },
+    {
+      "fingerprint_id": "lg_rare",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 2,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C40",
+        "20260831::orig:20260831_143419:KR_2026-08-29_C03"
+      ],
+      "reason": "Same LG Electronics discarded-appliance rare-earth permanent-magnet recovery announcement."
+    },
+    {
+      "fingerprint_id": "liontown",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 2,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C20",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C19"
+      ],
+      "reason": "Same Liontown–NEXT Lithium Centenario Argentina lithium-brine farm-in agreement."
+    },
+    {
+      "fingerprint_id": "astron",
+      "phase": "first_pass_high_confidence_event_fingerprint",
+      "premerge_exact_component_count": 2,
+      "observation_count": 2,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-09-01_C01",
+        "20260901::orig:20260901_123511:TF_0042"
+      ],
+      "reason": "Same Astron U.S. rare-earth export-licence announcement."
+    }
+  ],
+  "second_pass_decisions": [
+    {
+      "fingerprint_id": "kr_us_energy_meeting",
+      "phase": "second_pass_direct_report_same_event_reconciliation",
+      "premerge_first_pass_event_count": 3,
+      "premerge_first_pass_event_ids": [
+        "XRUN_REPLAY_20260903_FP_E0021",
+        "XRUN_REPLAY_20260903_FP_E0040",
+        "XRUN_REPLAY_20260903_FP_E0043"
+      ],
+      "observation_count": 9,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C93",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C205",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C211",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C207",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C164",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C45",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C88",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C92",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C90"
+      ],
+      "reason": "Second-pass direct-report consolidation: the remaining headline variant names the same Lee Ho-hyun–Curt Coccodrilli meeting, same date/location and policy agenda."
+    },
+    {
+      "fingerprint_id": "genesis_epit",
+      "phase": "second_pass_direct_report_same_event_reconciliation",
+      "premerge_first_pass_event_count": 2,
+      "premerge_first_pass_event_ids": [
+        "XRUN_REPLAY_20260903_FP_E0262",
+        "XRUN_REPLAY_20260903_FP_E0264"
+      ],
+      "observation_count": 4,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C191",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C189",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C190",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C100"
+      ],
+      "reason": "Second-pass direct-report consolidation: same E-pit promotion, eligible models, Sep–Oct delivery window and free-charging period."
+    },
+    {
+      "fingerprint_id": "liontown_farm_in",
+      "phase": "second_pass_direct_report_same_event_reconciliation",
+      "premerge_first_pass_event_count": 4,
+      "premerge_first_pass_event_ids": [
+        "XRUN_REPLAY_20260903_FP_E0329",
+        "XRUN_REPLAY_20260903_FP_E0331",
+        "XRUN_REPLAY_20260903_FP_E0332",
+        "XRUN_REPLAY_20260903_FP_E0350"
+      ],
+      "observation_count": 5,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-09-01_C08",
+        "20260901::orig:20260901_123511:GL_2026-09-01_C07",
+        "20260901::orig:20260901_123511:GL_2026-09-01_C05",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C20",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C19"
+      ],
+      "reason": "Second-pass cross-source consolidation: all reports describe the same binding Liontown–NEXT Lithium Centenario farm-in, including earn-up-to-100% terms."
+    },
+    {
+      "fingerprint_id": "korea_oil_flood_donation",
+      "phase": "second_pass_direct_report_same_event_reconciliation",
+      "premerge_first_pass_event_count": 2,
+      "premerge_first_pass_event_ids": [
+        "XRUN_REPLAY_20260903_FP_E0197",
+        "XRUN_REPLAY_20260903_FP_E0413"
+      ],
+      "observation_count": 3,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0108",
+        "20260901::orig:20260901_123511:TF_0155",
+        "20260901::orig:20260901_123511:TF_0093"
+      ],
+      "reason": "Second-pass direct-report consolidation: same Korea National Oil Corporation Geoje flood-recovery donation, KRW 30m to the same relief channel."
+    },
+    {
+      "fingerprint_id": "komir_auditors",
+      "phase": "second_pass_direct_report_same_event_reconciliation",
+      "premerge_first_pass_event_count": 2,
+      "premerge_first_pass_event_ids": [
+        "XRUN_REPLAY_20260903_FP_E0059",
+        "XRUN_REPLAY_20260903_FP_E0312"
+      ],
+      "observation_count": 5,
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C104",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C103",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C102",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C76",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C48"
+      ],
+      "reason": "Second-pass direct-report consolidation: same KOMIR citizen-auditor launch, 63 people across eight fields."
+    },
+    {
+      "fingerprint_id": "climate_budget",
+      "phase": "second_pass_direct_report_same_event_reconciliation",
+      "premerge_first_pass_event_count": 3,
+      "premerge_first_pass_event_ids": [
+        "XRUN_REPLAY_20260903_FP_E0282",
+        "XRUN_REPLAY_20260903_FP_E0284",
+        "XRUN_REPLAY_20260903_FP_E0303"
+      ],
+      "observation_count": 3,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C117",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C15",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C118"
+      ],
+      "reason": "Second-pass direct-report consolidation: same 2027 Climate/Energy/Environment Ministry budget; shared KRW 25.7319tn total, +18.3%, and KRW 1.9351tn power/water infrastructure."
+    },
+    {
+      "fingerprint_id": "mercedes_cla_preorder",
+      "phase": "second_pass_direct_report_same_event_reconciliation",
+      "premerge_first_pass_event_count": 3,
+      "premerge_first_pass_event_ids": [
+        "XRUN_REPLAY_20260903_FP_E0259",
+        "XRUN_REPLAY_20260903_FP_E0260",
+        "XRUN_REPLAY_20260903_FP_E0261"
+      ],
+      "observation_count": 3,
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C145",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C139",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C12"
+      ],
+      "reason": "Second-pass direct-report consolidation: same Mercedes-Benz Korea all-new electric CLA preorder; shared MMA architecture, KRW 52.9–67.7m prices and up-to-792 km WLTP range."
+    }
+  ],
+  "explicit_non_merge_guardrails": [
+    {
+      "case": "Vale job postings",
+      "decision": "KEEP_SEPARATE",
+      "reason": "Different job roles despite same employer/source/date."
+    },
+    {
+      "case": "September LPG prices across GS Caltex/E1/SK Gas/SK Energy",
+      "decision": "KEEP_SEPARATE_BY_COMPANY_DECISION",
+      "reason": "Related market pricing but separate company decisions unless exact article duplicates."
+    },
+    {
+      "case": "SK On–NeoVolta supply agreement vs SK Innovation share-price reaction",
+      "decision": "KEEP_SEPARATE_CAUSAL_CONSEQUENCE",
+      "reason": "Market reaction is a consequence, not the underlying supply event."
+    },
+    {
+      "case": "different ENTECH exhibitors / different National Assembly audit topics / unrelated art exhibitions",
+      "decision": "KEEP_SEPARATE",
+      "reason": "Topical/template similarity is not event identity."
+    }
+  ],
+  "historical_comparison": {
+    "historical_first_pass_reported_event_count": 437,
+    "historical_second_pass_reported_event_count": 425,
+    "new_replay_first_pass_event_count": 437,
+    "new_replay_final_event_count": 425,
+    "count_match": true,
+    "membership_hash_match_claimed": false,
+    "note": "The old 425 membership artifact is unavailable. This replay independently derives 425 from the exact 621 uploaded raw rows plus 11 committed 0.0C discovery/rescue observations; old hashes are not being reconstructed or asserted."
+  }
+}

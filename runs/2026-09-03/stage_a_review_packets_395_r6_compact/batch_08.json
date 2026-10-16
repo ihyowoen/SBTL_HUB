@@ -1,0 +1,874 @@
+{
+  "schema": "stage_a_compact_review_packet_r6_v1",
+  "batch": 8,
+  "ordinal_start": 176,
+  "ordinal_end": 200,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 176,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0309",
+      "title": "US critical minerals proposals to Brazil go unanswered as China looms - The Star",
+      "date": "2026-08-31",
+      "site": "G7 Critical Minerals Multilateral (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "US critical minerals proposals to Brazil go unanswered as China looms - The Star"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0330"
+      ]
+    },
+    {
+      "ordinal": 177,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0311",
+      "title": "“Doing what we built it to do:” Rinehart-backed lithium mine runs on 80 pct renewables for second year ... - Renew Economy",
+      "date": "2026-08-31",
+      "site": "Australia Critical Minerals (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "“Doing what we built it to do:” Rinehart-backed lithium mine runs on 80 pct renewables for second year ... - Renew Economy"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "lithium"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0332"
+      ]
+    },
+    {
+      "ordinal": 178,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0313",
+      "title": "Resolving spatial mismatches unlocks six billion tons of China's climate gains from retired EV batteries by 2050",
+      "date": "2026-08-31",
+      "site": "Newswise SciNews",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Resolving spatial mismatches unlocks six billion tons of China's climate gains from retired EV batteries by 2050"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "batteries",
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "billion",
+          "tons"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0334"
+      ]
+    },
+    {
+      "ordinal": 179,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0314",
+      "title": "Bluejay stock holds value as critical minerals theme strengthens - AD HOC NEWS",
+      "date": "2026-08-31",
+      "site": "G7 Critical Minerals Multilateral (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Bluejay stock holds value as critical minerals theme strengthens - AD HOC NEWS"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0335"
+      ]
+    },
+    {
+      "ordinal": 180,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0316",
+      "title": "Nova Minerals CEO Updates U.S. Department of Energy on Progress of Estelle Antimony Supply Chain - Kalkine Media",
+      "date": "2026-08-31",
+      "site": "G7 Critical Minerals Multilateral (via Google News)",
+      "observation_count": 3,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Nova Minerals CEO Briefs U.S. Department of Energy on Estelle Antimony Supply Chain Progress - Kalkine",
+        "Nova Minerals CEO Updates U.S. Department of Energy on Progress of Estelle Antimony Supply Chain - Kalkine Media",
+        "Nova Minerals Attends Roundtable with U.S. Department of Energy - markets.businessinsider.com"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "supply chain"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0337",
+        "XRUN_REPLAY_20260903_E0407"
+      ]
+    },
+    {
+      "ordinal": 181,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0317",
+      "title": "CATL targets opportunities in Brazil’s capacity reserve auction, as regulator receives nearly 300GW of bids",
+      "date": "2026-08-31",
+      "site": "Energy-Storage.news RSS",
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "CATL announces Moura partnership for Brazil battery auction",
+        "CATL targets opportunities in Brazil’s capacity reserve auction, as regulator receives nearly 300GW of bids"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [
+          "capacity"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gw "
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0338",
+        "XRUN_REPLAY_20260903_E0345"
+      ]
+    },
+    {
+      "ordinal": 182,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0318",
+      "title": "Brazilian Critical Minerals' Ema project advances to FEED stage - miningweekly.com",
+      "date": "2026-08-31",
+      "site": "Mining Weekly (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Brazilian Critical Minerals' Ema project advances to FEED stage - miningweekly.com"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0339"
+      ]
+    },
+    {
+      "ordinal": 183,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0319",
+      "title": "Albemarle's Chile workers vote to strike at lithium operations (ALB:NYSE) - Seeking Alpha",
+      "date": "2026-08-31",
+      "site": "Chile/Argentina Lithium (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Albemarle's Chile workers vote to strike at lithium operations (ALB:NYSE) - Seeking Alpha"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "lithium"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0340"
+      ]
+    },
+    {
+      "ordinal": 184,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0324",
+      "title": "Storing renewables with firebrick thermal batteries",
+      "date": "2026-08-31",
+      "site": "ESS News RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Storing renewables with firebrick thermal batteries"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "batteries"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0346"
+      ]
+    },
+    {
+      "ordinal": 185,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0325",
+      "title": "Portugal opens consultation on strategy targeting 6.9 GW storage by 2030",
+      "date": "2026-08-31",
+      "site": "ESS News RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Portugal opens consultation on strategy targeting 6.9 GW storage by 2030"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "opens "
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gw "
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0347"
+      ]
+    },
+    {
+      "ordinal": 186,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0326",
+      "title": "Jinko ESS partners with UCB Power to localize BESS production in Brazil",
+      "date": "2026-08-31",
+      "site": "ESS News RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Jinko ESS partners with UCB Power to localize BESS production in Brazil"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "bess",
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0348"
+      ]
+    },
+    {
+      "ordinal": 187,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0331",
+      "title": "New aluminium housing for commercial EV batteries",
+      "date": "2026-08-31",
+      "site": "Electrive RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "New aluminium housing for commercial EV batteries"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "batteries",
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0353"
+      ]
+    },
+    {
+      "ordinal": 188,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0332",
+      "title": "Chaevi to expand fast-charging network on South Korean motorways",
+      "date": "2026-08-31",
+      "site": "Electrive RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Chaevi to expand fast-charging network on South Korean motorways"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "charging"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0354"
+      ]
+    },
+    {
+      "ordinal": 189,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0334",
+      "title": "四大推力！储能按下“快进键”",
+      "date": "2026-09-01",
+      "site": "OFweek储能网",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "四大推力！储能按下“快进键”"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0356"
+      ]
+    },
+    {
+      "ordinal": 190,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0337",
+      "title": "E Weekly Highlights | Leapmotor and FAW Deepen Cooperation; Dreame Addresses Business Changes",
+      "date": "2026-09-01",
+      "site": "Gasgoo RSS - Class 2",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "E Weekly Highlights | Leapmotor and FAW Deepen Cooperation; Dreame Addresses Business Changes"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0360"
+      ]
+    },
+    {
+      "ordinal": 191,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0340",
+      "title": "国综绿能大石桥虎官200MW/800MWh电网侧独立储能电站项目开工",
+      "date": "2026-09-01",
+      "site": "中国能源网",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "国综绿能大石桥虎官200MW/800MWh电网侧独立储能电站项目开工"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "mwh"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0363"
+      ]
+    },
+    {
+      "ordinal": 192,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0341",
+      "title": "免税红利没了, 电车要涨价了吗？",
+      "date": "2026-09-01",
+      "site": "OFweek Li-Battery",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "免税红利没了, 电车要涨价了吗？"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "税"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0364"
+      ]
+    },
+    {
+      "ordinal": 193,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0342",
+      "title": "逸飞激光斩获2.22亿元锂电设备订单",
+      "date": "2026-09-01",
+      "site": "OFweek Li-Battery",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "逸飞激光斩获2.22亿元锂电设备订单"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0365"
+      ]
+    },
+    {
+      "ordinal": 194,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0343",
+      "title": "松原长岭100MW/200MWh构网型储能电站顺利并网",
+      "date": "2026-09-01",
+      "site": "中国能源网",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "松原长岭100MW/200MWh构网型储能电站顺利并网"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "mwh"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0366"
+      ]
+    },
+    {
+      "ordinal": 195,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0345",
+      "title": "“小农场”撬动“大储能”，海安储能电站项目顺利签约",
+      "date": "2026-09-01",
+      "site": "中国能源网",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "“小农场”撬动“大储能”，海安储能电站项目顺利签约"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0368"
+      ]
+    },
+    {
+      "ordinal": 196,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0356",
+      "title": "博主再谈磷酸铁锂技术路线可能第一个被淘汰：我有逻辑支撑",
+      "date": "2026-08-31",
+      "site": "第一电动 企业",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "博主再谈磷酸铁锂技术路线可能第一个被淘汰：我有逻辑支撑"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0381"
+      ]
+    },
+    {
+      "ordinal": 197,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0357",
+      "title": "年产3GWh电芯和1GWh PACK！云南普洱一钠电池项目投产",
+      "date": "2026-08-31",
+      "site": "北极星储能网",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "年产3GWh电芯和1GWh PACK！云南普洱一钠电池项目投产"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "投产"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gwh"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0382"
+      ]
+    },
+    {
+      "ordinal": 198,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0360",
+      "title": "60 years of Notting Hill Carnival: 10 essential songs chosen by its veterans",
+      "date": "2026-08-31",
+      "site": "Euronews RSS",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "60 years of Notting Hill Carnival: 10 essential songs chosen by its veterans"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0385"
+      ]
+    },
+    {
+      "ordinal": 199,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0380",
+      "title": "Nickel Archives - Page 164 of 164 - The Northern Miner",
+      "date": "2026-08-31",
+      "site": "Northern Miner (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Nickel Archives - Page 164 of 164 - The Northern Miner"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "nickel"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0410"
+      ]
+    },
+    {
+      "ordinal": 200,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0381",
+      "title": "Can REITs become a capital-recycling engine for renewables?",
+      "date": "2026-08-31",
+      "site": "PV Magazine RSS (Global)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_titles": [
+        "Can REITs become a capital-recycling engine for renewables?"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "recycling"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "recycling"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0411"
+      ]
+    }
+  ]
+}

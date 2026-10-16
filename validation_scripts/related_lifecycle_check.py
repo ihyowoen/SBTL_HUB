@@ -59,11 +59,17 @@ _CHANGE_PREDICATE_TERMS = set(
 
 
 def item_specific_lineage_assertion(value):
-    """Preserve concrete single-letter/number class IDs without reopening metric bypasses."""
+    """Preserve concrete class IDs while failing closed on absent/non-text assertions."""
+    # A missing assertion is a contract failure, not a validator exception.
+    # Returning False lets related_lifecycle_core emit the ordinary precise
+    # field-level finding instead of crashing inside text normalization.
+    if not isinstance(value, str) or not value.strip():
+        return False
+
     if _impl_item_specific_lineage_assertion(value):
         return True
 
-    if not _CLASS_BOUND_SINGLE_IDENTIFIER_RE.search(str(value)):
+    if not _CLASS_BOUND_SINGLE_IDENTIFIER_RE.search(value):
         return False
 
     _, role_tokens, _, _, _ = _impl._assertion_parts(value)

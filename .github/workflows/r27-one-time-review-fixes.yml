@@ -59,7 +59,7 @@ jobs:
           manifest={
           "data/cards.full.json":"c85c1ee8dcae09b0b17689b3b37a6355ef646cad19307602434102797a44a798",
           "public/data/cards.json":"4a394c312cd1e5fd331a58870e29c97f1fba64bec023c6eba5a194571a758e39",
-          "direct-adds/2026-10-16-structural-misread-4/direct-add.json":"a6980ec79b93e6566942af4218b1e2fe4fafd3a482b1b74eaf8c19b8c377"
+          "direct-adds/2026-10-16-structural-misread-4/direct-add.json":"a6980ec79b93e6566942af4218b1e2fe8f2fe4afd3a482b1b74eaf8c19b8c377"
           }
           for path,expected in manifest.items():
             actual=hashlib.sha256(Path(path).read_bytes()).hexdigest()

@@ -1,0 +1,106 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "R28_STRUCTURAL_SIGNED_LFP_EXECUTION_20261017",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "6851fdbe4a25b30b7204d07708a1238123c14910",
+  "base_full_blob_sha": "1af792e2e80516e1ec1d7d9660c150b312168b21",
+  "expected_before": 1674,
+  "expected_after": 1676,
+  "output_updated": "2026-10-16T17:49:31Z",
+  "operations": {
+    "add": [
+      "2026-09-22_KR_01",
+      "2026-10-06_KR_01"
+    ],
+    "update": [],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [
+      {
+        "id": "2026-09-22_KR_01",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "execution_event_anchor",
+          "strategic_behavior_anchor",
+          "data_financial_anchor"
+        ],
+        "selection_route": "execution_anchor_route",
+        "decision_news_value_score": 57,
+        "decision_value_breakdown": {
+          "market_structure_competition": 20,
+          "supply_demand_price_utilisation": 21,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 9,
+          "law_policy_market_access": 0,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": null,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "한국 3대 셀 업체 고객 포괄 범위는 확인되나 글로벌 양극재 수요/전체 시장 대비 점유율 분모는 없어 systemic 2/5로 상한 적용",
+        "prior_state": "SK온과의 종전 음극재 납품; 8월 익명 구매자 19만t LFP 합의는 별건",
+        "new_verified_fact": "2026-09-22 SK온 LFP 양극재 정식 3년 계약; 약 1.1조원, 2027~2029년, 최대 2년 추가 연장은 조건부",
+        "changed_judgment": "NCM 중심 소재업체가 LFP로 고객·화학계열을 확대하는 계약으로, 국산 LFP 조달경쟁의 실제 계약 기반이 강화됐다. 다음 확인 지점은 포항 LFP 양산, SK온 납품 개시, 수주액의 매출 인식 및 2030~31년 연장 여부다.",
+        "evidence_review_summary": "2026-10-17: POSCO Future M 원문과 연합뉴스 보도 교차확인, 계약 체결과 공표일, 실제 출하·매출의 구분. Deep Summary six-point editorial review only (formal Prompt 0.6 NOT run): prior_state=SK온과의 종전 음극재 납품; 8월 익명 구매자 19만t LFP 합의는 별건 | changed_state=2026-09-22 SK온 LFP 양극재 정식 3년 계약 | quantitative_anchor=약 1.1조원, 2027~2029년, 최대 2년 추가 연장은 조건부 | boundary_uncertainty=현재 매출·양산·납품이 아닌 계약; 포항 LFP 전환은 완료됐으나 연말 양산 계획 | industry_transmission=고객사 3사로 소재·화학계열 확장, 국산 LFP 구매대안 확보 | next_confirmation=2026년 말 LFP 생산, 2027년 SK온 실제 공급, 대금 인식; scoring distinct A=customer/supplier scope, B=volume+chemistry mix, D=future contract cash terms. Official source: https://www.poscofuturem.com/pr/view.do?num=1049 | independent publisher: https://www.yna.co.kr/amp/view/AKR20260922178700003",
+        "next_confirmation_points": [
+          "2026년 말 LFP 생산, 2027년 SK온 실제 공급, 대금 인식"
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": null,
+        "why_execution_event_not_required": null
+      },
+      {
+        "id": "2026-10-06_KR_01",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "execution_event_anchor",
+          "strategic_behavior_anchor",
+          "data_financial_anchor"
+        ],
+        "selection_route": "execution_anchor_route",
+        "decision_news_value_score": 60,
+        "decision_value_breakdown": {
+          "market_structure_competition": 20,
+          "supply_demand_price_utilisation": 23,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 10,
+          "law_policy_market_access": 0,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": null,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "한국 3대 셀 업체 고객 포괄 범위는 확인되나 글로벌 양극재 수요/전체 시장 대비 점유율 분모는 없어 systemic 2/5로 상한 적용",
+        "prior_state": "2026-08-06 고객명 비공개 19만t 장기공급 합의 (기존 카드 2026-08-06_KR_03)",
+        "new_verified_fact": "2026-10-06 삼성SDI와 실명·규모 확대된 본계약 체결, 10/7 홈페이지 공표; 약 6조원, 2027~2032 기존 합의, 19만t 대비 물량 2배 이상",
+        "changed_judgment": "익명 수요처의 계획성 합의가 이름·규모·법적 거래단계를 갖춘 계약으로 진전됐다. 삼성SDI의 양극재 조달 다변화 및 비(非)PFE 소재 확보 구상과 연결되지만 실제 공급망 적격성은 별도 규정·조달 증빙이 필요하다. 다음 확인 지점은 고객별 계약분 공급량, 포항 LFP 출하, 원료 조달 및 실현 매출이다.",
+        "evidence_review_summary": "2026-10-17: POSCO Future M 원문과 연합뉴스 보도 교차확인, 계약 체결과 공표일, 실제 출하·매출의 구분. Deep Summary six-point editorial review only (formal Prompt 0.6 NOT run): prior_state=2026-08-06 고객명 비공개 19만t 장기공급 합의 (기존 카드 2026-08-06_KR_03) | changed_state=2026-10-06 삼성SDI와 실명·규모 확대된 본계약 체결, 10/7 홈페이지 공표 | quantitative_anchor=약 6조원, 2027~2032 기존 합의, 19만t 대비 물량 2배 이상 | boundary_uncertainty=LMO·인조흑연은 확대 예정, 출하/실현매출과 별도 | industry_transmission=NCA에서 LFP로 소재 공급 확대, 비PFE 조달 대안 및 소재 포트폴리오 확장 | next_confirmation=품목별 확정 물량, 생산 전환·납품 및 이익/원료 조달 실현; scoring distinct A=customer/supplier scope, B=volume+chemistry mix, D=future contract cash terms. Official source: https://www.poscofuturem.com/pr/view.do?num=1051 | independent publisher: https://www.yna.co.kr/view/AKR20261006171200003",
+        "next_confirmation_points": [
+          "품목별 확정 물량, 생산 전환·납품 및 이익/원료 조달 실현"
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": null,
+        "why_execution_event_not_required": null
+      }
+    ],
+    "updates": []
+  }
+}

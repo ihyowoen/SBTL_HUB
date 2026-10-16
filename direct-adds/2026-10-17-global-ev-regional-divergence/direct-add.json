@@ -1,0 +1,66 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "R29_20261017_INDEPENDENT_EV_DEMAND_EXPORT_DIVERGENCE",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "6851fdbe4a25b30b7204d07708a1238123c14910",
+  "base_full_blob_sha": "1af792e2e80516e1ec1d7d9660c150b312168b21",
+  "expected_before": 1674,
+  "expected_after": 1675,
+  "output_updated": "2026-10-16T16:35:28Z",
+  "operations": {
+    "add": [
+      "2026-10-16_GL_01"
+    ],
+    "update": [],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [
+      {
+        "id": "2026-10-16_GL_01",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "data_financial_anchor",
+          "strategic_behavior_anchor"
+        ],
+        "selection_route": "structural_non_execution_route",
+        "decision_news_value_score": 58,
+        "decision_value_breakdown": {
+          "market_structure_competition": 20,
+          "supply_demand_price_utilisation": 25,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 3,
+          "law_policy_market_access": 0,
+          "systemic_scale": 5,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": null,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": "Benchmark 2026년 9월 세계 EV 215만 대; 중국 승용 NEV 소매 108.4만 대·수출 55.8만 대; 각 분모는 별도 지표로만 사용",
+        "denominator_gap": null,
+        "prior_state": "Benchmark의 2026년 8월 세계 EV 판매 증가율은 전년 대비 +2%였고 중국 내수 감소율은 −11%였다. 세계 지표만 보면 지역별 역학이 상쇄될 수 있었다.",
+        "new_verified_fact": "9월 세계 EV 판매 215만대(전년 대비 −2%, 전월 대비 +17%). 유럽 +39%, 북미 −44%, 중국 승용 NEV 국내 소매 −16.7%/수출 +163.5%, MIIT 전체 NEV 판매 +13.6%는 서로 다른 통계모집단이다.",
+        "changed_judgment": "글로벌 성장률 한 숫자로 중국 셀·소재 수요 회복을 판단하는 것은 부적절하다. 내수 EV 소매 위축과 수출 채널 확대, 유럽 성장·북미 기저효과를 분리해 해석해야 한다.",
+        "evidence_review_summary": "Deep Summary 여섯 차원 개별 QC(정식 Prompt 0.6 단계 PASS 주장 아님): ① 과거=8월 세계 YoY +2%, 중국 YoY −11%; ② 변화=9월 세계 −2%, 유럽 +39%, 북미 −44%; ③ 수치=세계 215만대/중국 승용 NEV 소매 108.4만 −16.7%·수출 55.8만 +163.5%/중국 MIIT 전체 NEV 판매 182.3만 +13.6%; ④ 경계=승용 내수 소매/승용 수출/전체 NEV 출하/글로벌 Benchmark가 서로 다른 분모이고 북미는 전년 구매세액공제 종료 직전의 높은 기저; ⑤ 경로=해외수출 비중 증가·판매 지역 변화→셀·소재 조달·가격구조 판단; ⑥ 재확인=10월 각 통계·재고·가동률·수출가격·분기 영업이익. Benchmark original article 2026-10-16, CADA CPCA 2026-10-12, MIIT 2026-10-12 indexed body paragraphs with exact short quotations, dates and support fields checked; independent owners and differing scopes preserved. No original site direct-HTTP receipt; fetch_method explicitly records web-indexed article text, not fabricated full file read. Structural value score B25 = observed sales & trade flows, A20 = separate growth shift in export channel geography/share (NEV exports as 60.8% of all passenger exports, 21pp rise), D3 = bounded possible supplier economics (not proven margin); no duplicate credit for a policy announcement. A formal Stage C→0.6 evidence chain is not claimed and must not be fabricated.",
+        "next_confirmation_points": [
+          "10월 중국 NEV 승용 내수 소매·전체 도매판매·승용 수출의 각각의 성장률과 분모 재확인",
+          "유럽과 북미 10월의 계절성·2025년 미국 구매세액공제 만료 기저효과 제거 후 실수요 확인",
+          "배터리 셀·파우치필름 소재 업체의 지역별 실제 출하·ASP·재고·마진 변동과 연계 여부 확인"
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": "실제 지역별 신차 판매·승용 수출·도매 출하의 검증된 수치가 상충되는 수요 해석을 교정하는 사건이다. 물리적 투자/계약 발표 없이도 독립적인 구조 정보가 있다.",
+        "why_execution_event_not_required": "산업 수급 및 수출시장 채널 구성을 바꾸는 월간 실적 데이터이므로 개별 프로젝트 착공 사건은 가치 판단의 선결 조건이 아니다."
+      }
+    ],
+    "updates": []
+  }
+}

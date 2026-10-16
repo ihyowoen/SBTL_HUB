@@ -1,0 +1,46 @@
+{
+  "schema": "current_governed_carry_forward_ledger_v1",
+  "status": "HISTORICAL_RECONCILIATION_OPEN_STAGE_A_BLOCKED",
+  "run_id": "SBTL_V4_XRUN_20260831_143419__20260901_123511_HIST_RECON_R1",
+  "baseline": {
+    "original_run_base_main_sha": "f2792958a85470c11030211642012865c69f56ab",
+    "current_main_sha_after_pr315": "5c1e4886e1799a8ac1e2f4befc706b9e564a3aa7",
+    "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+    "canonical_card_count": 1514,
+    "canonical_blob_unchanged_after_pr315": true
+  },
+  "current_universe": {
+    "r3_event_count": 425,
+    "r3_observation_count": 632,
+    "scope": "2026-08-31 + 2026-09-01 current inputs/discovery only",
+    "historical_governed_carry_forward_included": false
+  },
+  "historical_sources": {
+    "residual_44_ref": "runs/2026-09-02/historical_governed_residual_44_rebuild_20260902_R1.json",
+    "active_246_ref": "runs/2026-09-02/historical_governed_carry_forward_20260825_active246_R1.json"
+  },
+  "accounting": {
+    "residual_44_gross": 44,
+    "active_20260825_exact": 246,
+    "auditable_historical_gross": 290,
+    "previously_reported_reduced_historical_gross": 283,
+    "previously_reported_reduced_gross_status": "NOT_YET_ITEM_LEVEL_AUDITABLE",
+    "reason_283_not_locked": "The later 44->37/5/2 split is known by count but the five reinforcement and two stale rows have not been recovered at item level.",
+    "current_event_universe_r3": 425,
+    "gross_union_before_event_dedupe_upper_bound": 715,
+    "gross_union_before_event_dedupe_is_final_stage_a_denominator": false
+  },
+  "required_reconciliation_order": [
+    "rebuild or recover item-level 44->37/5/2 mapping",
+    "compare all historical rows against canonical 1514 using event identity, URL/source/date evidence, not collector story_id",
+    "compare surviving historical rows against current R3 425 event universe",
+    "route already canonicalized/current duplicates/reinforcements/stale/watchlist to terminal or conditional ledgers",
+    "retain only still-active independent historical events as carry_forward_to_stage_a",
+    "materialize a full replayable current+historical authoritative event ledger",
+    "emit R4 PASS and only then authorize formal Stage A"
+  ],
+  "stage_a_handoff": {
+    "authorized": false,
+    "blocker": "HISTORICAL_GOVERNED_CARRY_FORWARD_NOT_YET_UNIONED_AND_DEDUPED"
+  }
+}

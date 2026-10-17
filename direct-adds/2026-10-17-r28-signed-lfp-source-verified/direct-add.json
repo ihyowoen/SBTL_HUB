@@ -1,0 +1,106 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "R28_STRUCTURAL_SIGNED_LFP_EXECUTION_20261017",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "6851fdbe4a25b30b7204d07708a1238123c14910",
+  "base_full_blob_sha": "1af792e2e80516e1ec1d7d9660c150b312168b21",
+  "expected_before": 1674,
+  "expected_after": 1676,
+  "output_updated": "2026-10-17T12:20:29Z",
+  "operations": {
+    "add": [
+      "2026-09-22_KR_01",
+      "2026-10-06_KR_01"
+    ],
+    "update": [],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [
+      {
+        "id": "2026-09-22_KR_01",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "execution_event_anchor",
+          "strategic_behavior_anchor",
+          "data_financial_anchor"
+        ],
+        "selection_route": "execution_anchor_route",
+        "decision_news_value_score": 57,
+        "decision_value_breakdown": {
+          "market_structure_competition": 20,
+          "supply_demand_price_utilisation": 21,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 9,
+          "law_policy_market_access": 0,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": null,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "한국 3대 셀 업체 고객 포괄 범위는 확인되나 글로벌 양극재 수요/전체 시장 대비 점유율 분모는 없어 systemic 2/5로 상한 적용",
+        "prior_state": "SK온과의 종전 음극재 납품; 8월 익명 구매자 19만t LFP 합의는 별건",
+        "new_verified_fact": "2026-09-22 SK온 LFP 양극재 정식 3년 계약; 약 1.1조원, 2027~2029년, 최대 2년 추가 연장은 조건부",
+        "changed_judgment": "NCM 중심 소재업체가 LFP로 고객·화학계열을 확대하는 계약으로, 국산 LFP 조달경쟁의 실제 계약 기반이 강화됐다. 다음 확인 지점은 포항 LFP 양산, SK온 납품 개시, 수주액의 매출 인식 및 2030~31년 연장 여부다.",
+        "evidence_review_summary": "2026-10-17: POSCO Future M 원문과 연합뉴스 보도 교차확인, 계약 체결과 공표일, 실제 출하·매출의 구분. Deep Summary six-point editorial review only (formal Prompt 0.6 NOT run): prior_state=SK온과의 종전 음극재 납품; 8월 익명 구매자 19만t LFP 합의는 별건 | changed_state=2026-09-22 SK온 LFP 양극재 정식 3년 계약 | quantitative_anchor=약 1.1조원, 2027~2029년, 최대 2년 추가 연장은 조건부 | boundary_uncertainty=현재 매출·양산·납품이 아닌 계약; 포항 LFP 전환은 완료됐으나 연말 양산 계획 | industry_transmission=고객사 3사로 소재·화학계열 확장, 국산 LFP 구매대안 확보 | next_confirmation=2026년 말 LFP 생산, 2027년 SK온 실제 공급, 대금 인식; scoring distinct A=customer/supplier scope, B=volume+chemistry mix, D=future contract cash terms. Official source: https://www.poscofuturem.com/pr/view.do?num=1049 | independent publisher: https://www.yna.co.kr/amp/view/AKR20260922178700003 | R30 independent 2026-10-17 source-to-visible-field readback: the POSCO Future M primary literal quote expressly supports KRW 1.1tn and 2027–2029; an earlier anode relation, September signed LFP cathode stage, 3-year quantitative contract, optional 2030–31 extension, supplier/cell chemistry shift and first-shipment/revenue follow-up all appear as evidence-bounded Deep Summary dimensions. This is manual editorial six-dimension verification, not the formal Prompt 0.6 V5 transition. | R31 2026-10-17 issuer exact-literal extension now includes the mutual-agreement 2-year renewal condition after the 2027–2029 KRW 1.1tn term; do not assert automatic 2030–31 extension or shipments. Manual source-claim coverage and 6-dimension preflight only; not formal Prompt 0.6 V5. R32: 포스코퓨처엠 9/22 원문에서 조건부 2년 연장, 기존 SK온 음극재 공급에서 첫 양극재 계약, 포항 라인전환 완료/연말 양산계획, 국내 3사 양·음극재 공급 문구를 각각 짧은 literal source_quote로 보존했다. 검색색인으로 확보한 공식 보도자료 본문과 대조했으며 원문 사이트 HTTP 직접 수신 성공을 주장하지 않는다.",
+        "next_confirmation_points": [
+          "2026년 말 LFP 생산, 2027년 SK온 실제 공급, 대금 인식"
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": null,
+        "why_execution_event_not_required": null
+      },
+      {
+        "id": "2026-10-06_KR_01",
+        "execution_credibility_gate": "PASS",
+        "independent_cardability_gate": "PASS",
+        "anchor_classes": [
+          "execution_event_anchor",
+          "strategic_behavior_anchor",
+          "data_financial_anchor"
+        ],
+        "selection_route": "execution_anchor_route",
+        "decision_news_value_score": 60,
+        "decision_value_breakdown": {
+          "market_structure_competition": 20,
+          "supply_demand_price_utilisation": 23,
+          "technology_performance_safety": 0,
+          "cashflow_asset_value": 10,
+          "law_policy_market_access": 0,
+          "systemic_scale": 2,
+          "persistence_irreversibility": 3,
+          "decision_urgency_actionability": 2
+        },
+        "decision_value_classification": "material_industry_signal",
+        "publication_urgency": "near_term",
+        "technology_evidence_level": "not_applicable",
+        "policy_stage": null,
+        "novelty_cap_basis": "none",
+        "systemic_scale_denominator": null,
+        "denominator_gap": "한국 3대 셀 업체 고객 포괄 범위는 확인되나 글로벌 양극재 수요/전체 시장 대비 점유율 분모는 없어 systemic 2/5로 상한 적용",
+        "prior_state": "2026-08-06 고객명 비공개 19만t 장기공급 합의 (기존 카드 2026-08-06_KR_03)",
+        "new_verified_fact": "2026-10-06 삼성SDI와 실명·규모 확대된 본계약 체결, 10/7 홈페이지 공표; 약 6조원, 2027~2032 기존 합의, 19만t 대비 물량 2배 이상",
+        "changed_judgment": "포스코퓨처엠은 이번 계약으로 삼성SDI가 Non-PFE 양·음극재를 확보해 소재 공급망 안정성을 높일 것으로 설명했다. 이는 발행사의 향후 조달 방향에 관한 설명이며, 개별 공급품의 규제 적격성·실제 납품을 이 계약만으로 확정할 수는 없다. 계약 물량 확대가 가동률과 매출로 이어지는지는 품목별 발주, 첫 출하 및 실제 공급 실적으로 확인해야 한다.",
+        "evidence_review_summary": "2026-10-17: POSCO Future M 원문과 연합뉴스 보도 교차확인, 계약 체결과 공표일, 실제 출하·매출의 구분. Deep Summary six-point editorial review only (formal Prompt 0.6 NOT run): prior_state=2026-08-06 고객명 비공개 19만t 장기공급 합의 (기존 카드 2026-08-06_KR_03) | changed_state=2026-10-06 삼성SDI와 실명·규모 확대된 본계약 체결, 10/7 홈페이지 공표 | quantitative_anchor=약 6조원, 2027~2032 기존 합의, 19만t 대비 물량 2배 이상 | boundary_uncertainty=LMO·인조흑연은 확대 예정, 출하/실현매출과 별도 | industry_transmission=NCA에서 LFP로 소재 공급 확대, 비PFE 조달 대안 및 소재 포트폴리오 확장 | next_confirmation=품목별 확정 물량, 생산 전환·납품 및 이익/원료 조달 실현; scoring distinct A=customer/supplier scope, B=volume+chemistry mix, D=future contract cash terms. Official source: https://www.poscofuturem.com/pr/view.do?num=1051 | independent publisher: https://www.yna.co.kr/view/AKR20261006171200003 | R30 2026-10-17 independent body-level source-quote remediation: exact issuer quote “포스코퓨처엠(대표이사 엄기천)이 삼성SDI에 6조원 규모의 LFP(리튬·인산·철)용 양극재를 장기 공급한다.” supports six-trillion contractual headline/amount; separate exact issuer quote “앞으로 삼성SDI는 Non-PFE(非금지외국기관, Non-Prohibited Foreign Entity) 양·음극재를 확보해 소재 조달 공급망의 안정성을 높이고” supports issuer-attributed *future procurement* implication, not legally certified eligibility. Manual six Deep Summary dimension inspection: prior state=August 190kt non-final agreement; changed state=Oct6 named-party signed LFP cathode-material supply contract, with LMO and synthetic graphite explicitly left in prospective cooperation scope; quantitative=6tn, >2x prior, 2027-32; boundary=per-product deliveries, legal non-PFE status and realized sales unproven; industry transmission=non-China entity supply-chain diversification and higher contracted LFP volume; next watchpoint=first delivery, itemized supply, utilization and recognized revenue. This is manual direct-add editorial QC, NOT a formal Prompt 0.6 V5 / Stage A–0.8 PASS. | R31 2026-10-17 critical review remediations: literal POSCO Future M quote ties 2023 Samsung SDI NCA supply contract amendment to added LFP, while a separate earlier quote supports 6tn and another supports issuer-attributed prospective Non-PFE sourcing; prospective LMO and synthetic graphite cooperation is NOT committed delivery in the signed LFP deal. Correct output generation timestamp supersedes R30. Full formal 0.6 V5 transition remains UNRUN. | R31 reviewer-preflight record: verified claim-to-quote coverage separately for (a) SK On conditional two-year option, (b) Samsung SDI's amended 2023 NCA supplier relationship, (c) Samsung 6tn contracted future LFP value, and (d) Samsung prospective Non-PFE sourcing attribution. Signed scope does not imply future LMO/graphite delivery; exact Full/Lean/manifest output_updated is synchronized; final review re-approval remains pending. R32: 기존 fact_sources[4]는 6조원, [5]는 발행사의 Non-PFE 향후 효과, [6]은 2023년 NCA 계약 개정 문구를 보존한다. LMO·인조흑연을 이미 확정된 품목별 공급으로 확대해 해석하지 않는다. 공식 출처별 visible_fields_supported/checked_at 보강.",
+        "next_confirmation_points": [
+          "품목별 확정 물량, 생산 전환·납품 및 이익/원료 조달 실현"
+        ],
+        "inclusion_decision": "standard_include",
+        "owner_override_reason": null,
+        "structural_non_execution_reason": null,
+        "why_execution_event_not_required": null
+      }
+    ],
+    "updates": []
+  }
+}

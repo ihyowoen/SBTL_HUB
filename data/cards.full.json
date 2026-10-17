@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-17T11:12:49Z",
+  "updated": "2026-10-17T12:20:29Z",
   "total": 1676,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
@@ -195,7 +195,15 @@
           "source_owner": "포스코퓨처엠",
           "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "6조원 LFP 장기계약액, 삼성SDI Non-PFE 공급망 조달 기대효과, 2023 NCA 계약의 LFP 확장 및 10월 6일 체결을 직접 설명한 10월 7일 포스코퓨처엠 1차 자료"
+          "unique_contribution": "6조원 LFP 장기계약액, 삼성SDI Non-PFE 공급망 조달 기대효과, 2023 NCA 계약의 LFP 확장 및 10월 6일 체결을 직접 설명한 10월 7일 포스코퓨처엠 1차 자료",
+          "visible_fields_supported": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ],
+          "checked_at": "2026-10-17T12:20:29Z"
         },
         {
           "source_url": "https://www.yna.co.kr/view/AKR20261006171200003",
@@ -203,7 +211,15 @@
           "source_owner": "연합뉴스",
           "source_role": "secondary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "발표일 교차대조 및 별도 거래/협력 단계 구분"
+          "unique_contribution": "발표일 교차대조 및 별도 거래/협력 단계 구분",
+          "visible_fields_supported": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ],
+          "checked_at": "2026-10-17T12:20:29Z"
         }
       ],
       "source_synthesis_applied": true,
@@ -292,8 +308,8 @@
           "source_name": "포스코퓨처엠",
           "source_url": "https://www.poscofuturem.com/pr/view.do?num=1049",
           "source_owner": "포스코퓨처엠",
-          "claim": "SK온에 종전 음극재 공급에서 처음 양극재 공급으로 범위 확대; 포항 하이니켈 일부 LFP 전환 완료, 연말 양산 계획",
-          "source_quote": "포항 공장 하이니켈 양극재 생산라인 일부를 LFP 양극재 생산라인으로 전환 완료했고",
+          "claim": "포항 기존 라인 일부 LFP 전환 완료·연말 양산공급은 회사의 예정으로서 실적이 아니다.",
+          "source_quote": "최근 포항 공장 하이니켈 양극재 생산라인 일부를 LFP 양극재 생산라인으로 전환 완료했고 올해 말부터 양산공급을 개시할 예정이다.",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -307,7 +323,7 @@
           "fetch_method": "web_article_body_readback",
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
-          "checked_at": "2026-10-16T17:49:31Z"
+          "checked_at": "2026-10-17T12:20:29Z"
         },
         {
           "source_name": "연합뉴스",
@@ -330,9 +346,54 @@
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
           "checked_at": "2026-10-16T17:49:31Z"
+        },
+        {
+          "source_name": "포스코퓨처엠",
+          "source_url": "https://www.poscofuturem.com/pr/view.do?num=1049",
+          "source_owner": "포스코퓨처엠",
+          "claim": "SK온과의 이전 음극재 공급 관계가 이번 첫 양극재 공급계약으로 확장됐다고 회사가 발표했다.",
+          "source_quote": "포스코퓨처엠은 그간 SK온에 음극재를 공급하며 협력을 지속해왔으며, 이번에 처음으로 양극재 공급계약까지 체결",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-09-22",
+          "visible_quote_date": "2026-09-22",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "indexed_official_issuer_full_article_text",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-10-17T12:20:29Z"
+        },
+        {
+          "source_name": "포스코퓨처엠",
+          "source_url": "https://www.poscofuturem.com/pr/view.do?num=1049",
+          "source_owner": "포스코퓨처엠",
+          "claim": "국내 배터리 세 회사에 양·음극재를 모두 공급하게 됐다는 발행사 확인을 인용한다.",
+          "source_quote": "이번 계약 체결을 통해 포스코퓨처엠은 국내 배터리 3사 모두에 양·음극재를 공급하게 되어",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-09-22",
+          "visible_quote_date": "2026-09-22",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "indexed_official_issuer_full_article_text",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-10-17T12:20:29Z"
         }
       ],
-      "source_evidence_entry_count": 3,
+      "source_evidence_entry_count": 5,
       "source_unique_url_count": 2,
       "source_unique_domain_count": 2,
       "source_independent_owner_count": 2,
@@ -343,7 +404,7 @@
         "reason": "포스코퓨처엠 1차 발표 + 별도 언론사 연합뉴스 당일 취재보도. 같은 발표의 복제는 별도 거래사실로 간주하지 않는다."
       },
       "source_diversity_measure": {
-        "source_evidence_entry_count": 3,
+        "source_evidence_entry_count": 5,
         "source_unique_url_count": 2,
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2
@@ -355,7 +416,15 @@
           "source_owner": "포스코퓨처엠",
           "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "계약 체결·규모·시점 원문"
+          "unique_contribution": "계약 체결·규모·시점 원문",
+          "visible_fields_supported": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ],
+          "checked_at": "2026-10-17T12:20:29Z"
         },
         {
           "source_url": "https://www.yna.co.kr/amp/view/AKR20260922178700003",
@@ -363,7 +432,14 @@
           "source_owner": "연합뉴스",
           "source_role": "secondary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "발표일 교차대조 및 별도 거래/협력 단계 구분"
+          "unique_contribution": "발표일 교차대조 및 별도 거래/협력 단계 구분",
+          "visible_fields_supported": [
+            "fact",
+            "gate",
+            "implication",
+            "sub"
+          ],
+          "checked_at": "2026-10-17T12:20:29Z"
         }
       ],
       "source_synthesis_applied": true,

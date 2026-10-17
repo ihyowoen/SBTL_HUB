@@ -157,6 +157,49 @@
           "checked_at": "2026-10-16T16:35:28Z",
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true
+        },
+        {
+          "source_name": "Benchmark Mineral Intelligence",
+          "source_owner": "Benchmark Mineral Intelligence",
+          "source_url": "https://source.benchmarkminerals.com/article/global-ev-sales-reach-2-15-million-units-in-september-2026",
+          "source_published_date": "2026-10-16",
+          "visible_quote_date": "2026-10-16",
+          "claim": "9월 글로벌 EV 전월 대비 17% 회복과 전년 대비 2% 감소를 구분한다.",
+          "source_quote": "EV sales increased by 17% month-on-month and decreased by -2% year-on-year.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "source_origin_type": "first_party_market_data",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "fetch_method": "retrieved_search_index_body_text",
+          "checked_at": "2026-10-17T11:07:08Z",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
+        },
+        {
+          "source_name": "중국 자동차유통협회 승용차시장정보연석분회",
+          "source_owner": "중국 자동차유통협회 승용차시장정보연석분회",
+          "source_url": "https://www.cada.cn/Trends/info_91_10580.html",
+          "source_published_date": "2026-10-12",
+          "visible_quote_date": "2026-10-12",
+          "claim": "중국 승용차 수출 중 NEV 비율 60.8%, 전년 동월 대비 21%포인트 상승은 단순 55.8만대 수출 증가와 별도 시장구성 지표다.",
+          "source_quote": "9月新能源车占出口总量的60.8%，较同期大幅增加21个百分点。",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "source_origin_type": "first_party_passenger_market_data",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetch_method": "retrieved_search_index_body_text",
+          "checked_at": "2026-10-17T11:07:08Z",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
         }
       ],
       "source_diversity_status": "INDEPENDENT_THREE_DATA_OWNERS_DISTINCT_SCOPES",
@@ -171,13 +214,13 @@
           "source_url": "https://source.benchmarkminerals.com/article/global-ev-sales-reach-2-15-million-units-in-september-2026",
           "source_owner": "Benchmark Mineral Intelligence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "Global / Europe / North America 9월 EV 판매 YoY/MoM·발표일"
+          "unique_contribution": "9월 글로벌 EV 215만대, 전월 +17%, 전년 -2%; 유럽 +39%와 북미 -44% 지역별 비교·공개일"
         },
         {
           "source_url": "https://www.cada.cn/Trends/info_91_10580.html",
           "source_owner": "중국 승용차시장정보연석분회",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "중국 국내 승용 NEV 소매/수출/수출구조"
+          "unique_contribution": "중국 승용 NEV 내수 소매와 수출량 구분, 승용차 전체 수출에서 NEV 비율 60.8%(전년 +21%p)로 수출 통로의 구조적 변화 직접 증명"
         },
         {
           "source_url": "https://www.miit.gov.cn/gxsj/tjfx/zbgy/qc/art/2026/art_8a878aeeb8a34a5b88975c5bbe94f7bf.html",

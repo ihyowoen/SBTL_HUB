@@ -8,7 +8,7 @@
   "base_full_blob_sha": "1af792e2e80516e1ec1d7d9660c150b312168b21",
   "expected_before": 1674,
   "expected_after": 1675,
-  "output_updated": "2026-10-16T16:35:28Z",
+  "output_updated": "2026-10-17T11:18:34Z",
   "operations": {
     "add": [
       "2026-10-16_GL_01"
@@ -28,7 +28,7 @@
           "strategic_behavior_anchor"
         ],
         "selection_route": "structural_non_execution_route",
-        "decision_news_value_score": 58,
+        "decision_news_value_score": 56,
         "decision_value_breakdown": {
           "market_structure_competition": 20,
           "supply_demand_price_utilisation": 25,
@@ -36,7 +36,7 @@
           "cashflow_asset_value": 3,
           "law_policy_market_access": 0,
           "systemic_scale": 5,
-          "persistence_irreversibility": 3,
+          "persistence_irreversibility": 1,
           "decision_urgency_actionability": 2
         },
         "decision_value_classification": "material_industry_signal",
@@ -46,10 +46,10 @@
         "novelty_cap_basis": "none",
         "systemic_scale_denominator": "Benchmark 2026년 9월 세계 EV 215만 대; 중국 승용 NEV 소매 108.4만 대·수출 55.8만 대; 각 분모는 별도 지표로만 사용",
         "denominator_gap": null,
-        "prior_state": "Benchmark의 2026년 8월 세계 EV 판매 증가율은 전년 대비 +2%였고 중국 내수 감소율은 −11%였다. 세계 지표만 보면 지역별 역학이 상쇄될 수 있었다.",
-        "new_verified_fact": "9월 세계 EV 판매 215만대(전년 대비 −2%, 전월 대비 +17%). 유럽 +39%, 북미 −44%, 중국 승용 NEV 국내 소매 −16.7%/수출 +163.5%, MIIT 전체 NEV 판매 +13.6%는 서로 다른 통계모집단이다.",
-        "changed_judgment": "글로벌 성장률 한 숫자로 중국 셀·소재 수요 회복을 판단하는 것은 부적절하다. 내수 EV 소매 위축과 수출 채널 확대, 유럽 성장·북미 기저효과를 분리해 해석해야 한다.",
-        "evidence_review_summary": "Deep Summary 여섯 차원 개별 QC(정식 Prompt 0.6 단계 PASS 주장 아님): ① 과거=8월 세계 YoY +2%, 중국 YoY −11%; ② 변화=9월 세계 −2%, 유럽 +39%, 북미 −44%; ③ 수치=세계 215만대/중국 승용 NEV 소매 108.4만 −16.7%·수출 55.8만 +163.5%/중국 MIIT 전체 NEV 판매 182.3만 +13.6%; ④ 경계=승용 내수 소매/승용 수출/전체 NEV 출하/글로벌 Benchmark가 서로 다른 분모이고 북미는 전년 구매세액공제 종료 직전의 높은 기저; ⑤ 경로=해외수출 비중 증가·판매 지역 변화→셀·소재 조달·가격구조 판단; ⑥ 재확인=10월 각 통계·재고·가동률·수출가격·분기 영업이익. Benchmark original article 2026-10-16, CADA CPCA 2026-10-12, MIIT 2026-10-12 indexed body paragraphs with exact short quotations, dates and support fields checked; independent owners and differing scopes preserved. No original site direct-HTTP receipt; fetch_method explicitly records web-indexed article text, not fabricated full file read. Structural value score B25 = observed sales & trade flows, A20 = separate growth shift in export channel geography/share (NEV exports as 60.8% of all passenger exports, 21pp rise), D3 = bounded possible supplier economics (not proven margin); no duplicate credit for a policy announcement. A formal Stage C→0.6 evidence chain is not claimed and must not be fabricated. | R30 2026-10-17 exact-quote Deep Summary provenance improvement: original global assessor body now explicitly grounds September +17% MoM / -2% YoY in an additional quote; original CADA passenger-sales source now explicitly grounds the 60.8% share and +21pp change separately from +163.5% NEV export volume. The 20 market-structure points concern EV composition within all passenger exports and cross-region direction; 25 supply-demand points concern monthly EV sales volumes and growth rates. These are distinct numerators/denominators, and should not be blended with CAAM wholesale statistics. Independently audited editorial six dimensions remain manual-direct-add evidence preflight ONLY; formal Prompt 0.6 V5 was not executed. | Additional R30 final-head source-scope attestation: 60.8% means NEV passenger vehicles as a share of *all exported passenger cars* in September, not NEV as a share of total Chinese vehicle output, domestic retail or Benchmark world EV sales. The +21 percentage-point change has that exact same export-share denominator. Source-verified export mix A20 and distinct observed unit flows B25 are separately justified; prospective battery/material demand and future margins are not counted as realized results.",
+        "prior_state": "2025년 9월 중국 승용차 제조사 판매량 가운데 수출 비중은 19%였고, 북미 전기차 시장에는 2025년 9월 미국 구매세액공제 종료 직전의 높은 구매기준이 있었다. 2026년 9월과 동일한 집계 범위의 비교다.",
+        "new_verified_fact": "2026년 9월 세계 EV 판매 215만대(−2% YoY, +17% MoM), 유럽 60만대(+39%)·북미 −44%, 중국 승용 NEV 소매 108.4만대(−16.7%)·수출 55.8만대(+163.5%); 승용차 제조사 판매 대비 전체 수출 비중 36%(전년 19%)와 승용차 수출 내 NEV 비중 60.8%(+21%p) 구분, MIIT 전체 자동차 NEV 판매 182.3만대(+13.6%).",
+        "changed_judgment": "2026년 9월 중국 승용차 제조사 판매 중 전체 승용차 수출 비율 36%(전년 19%)와 승용차 수출 내부 NEV 비중 60.8%(+21%포인트)는 서로 다른 지표지만 모두 해외 판매 채널의 변화에 관한 근거다. 반면 승용 NEV 국내 소매는 −16.7%다. 중국 내수·수출·전체 자동차 NEV 판매를 구분해 배터리 셀·소재 수요를 해석해야 하며 실제 조달·가동률·판매단가·마진 영향은 후속 출하·재고·기업 실적으로 확인해야 한다.",
+        "evidence_review_summary": "R32 2026-10-17 original-source audit; manual six-dimensional Deep Summary editorial review (NOT formal Prompt 0.6 V5). ① prior state: September 2025 China passenger-car manufacturer export/sales share 19%, 2025 US federal EV credit expiry pre-deadline North American comparison; removed earlier unsupported August +2%/-11% baselines. ② changed state: September 2026 China overall passenger-car export/sales share 36% and passenger export NEV composition 60.8% (+21pp), separately from global EV -2% and China passenger NEV domestic retail -16.7%. ③ quantitative: Benchmark 2.15m global Sept EV (-2% YoY, +17% MoM), 15.5m YTD (+3%), Europe nearly 600k (+39%), NA -44%; CADA passenger NEV domestic retail 1.084m (-16.7%) and export 558k (+163.5%), MIIT all-auto NEV 1.823m (+13.6%). ④ boundary: Chinese domestic passenger retail, passenger manufacturer exports, all passenger-car exports, passenger maker total sales, national all-auto NEV sales and global EV sales have DIFFERENT denominators, and NA -44% reflects 2025 credit-expiry high base; no realized cell margins claimed. ⑤ transmission: exporter channel share and NEV mix shift can alter supply allocation, cell/material sourcing and cost competition, but actual contracts and profits remain conditional. ⑥ watchpoint: following month's China passenger domestic retail/export/share, whole-auto NEV, geographic EV growth, cell utilization and real supplier financials. Claim-to-quote readback: Benchmark literal YTD+3%, record Europe ~600k, North America 2025 US credit baseline; CADA literal passenger export 917k and manufacturer export 36% (2025:19%), passenger export NEV composition 60.8% (+21pp); MIIT literal national total cars and passenger+commercial breakdown. Materiality distinct: A20 = two documented export-channel structural-share measures (19→36% maker export penetration and NEV composition 60.8%/+21pp) WITHOUT re-crediting Europe/NA/China unit growth; B25 = observed sales/exports volumes and YoY rates; D3 = source-attributed qualitative export-support effect without claiming company margin; persistence1 = a one-month data observation, follow-through unproven. No owner override or fabricated source quote; official first-party source URLs and timestamps retained. This direct-add V2 editorial scoring preflight is NOT formal Stage A/B/C→Prompt 0.6/0.8 certification.",
         "next_confirmation_points": [
           "10월 중국 NEV 승용 내수 소매·전체 도매판매·승용 수출의 각각의 성장률과 분모 재확인",
           "유럽과 북미 10월의 계절성·2025년 미국 구매세액공제 만료 기저효과 제거 후 실수요 확인",

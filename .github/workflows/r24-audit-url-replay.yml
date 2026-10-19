@@ -36,13 +36,13 @@ jobs:
           git -C "$work" config user.name "Audit regression"
           git -C "$work" config user.email "audit-regression@example.invalid"
           mkdir -p "$work/data" "$work/runs/2026-10-08/ops-recovery-intake-v1"
-          printf 'baseline production data\\n' > "$work/data/cards.full.json"
+          printf 'baseline production data\n' > "$work/data/cards.full.json"
           git -C "$work" add data/cards.full.json
           git -C "$work" commit -qm baseline
           git -C "$work" mv data/cards.full.json runs/2026-10-08/ops-recovery-intake-v1/moved.json
           paths="$(git -C "$work" diff --cached --no-renames --name-only)"
-          printf '%s\\n' "$paths" | grep -Fxq 'data/cards.full.json'
-          printf '%s\\n' "$paths" | grep -Fxq 'runs/2026-10-08/ops-recovery-intake-v1/moved.json'
+          printf '%s\n' "$paths" | grep -Fxq 'data/cards.full.json'
+          printf '%s\n' "$paths" | grep -Fxq 'runs/2026-10-08/ops-recovery-intake-v1/moved.json'
           echo "PASS: both rename endpoints visible"
       - name: Reject production files in audit-only PR
         shell: bash

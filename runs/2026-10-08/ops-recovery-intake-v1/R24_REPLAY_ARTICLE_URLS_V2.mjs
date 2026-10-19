@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * PR #386 review-only R24 URL normalisation replay.
- * Replays the exact historical pre-remediation R12 CSV from Git (not today's
+ * Replays a tracked byte-identical original R12 fixture (not today's
  * changing production main) and verifies the corrected R12 + all 1,157
  * rows of the checked-in manifest. Does NOT assert unique economic events.
  *
@@ -14,10 +14,11 @@ import { execFileSync } from "node:child_process";
 import assert from "node:assert/strict";
 
 const dir = "runs/2026-10-08/ops-recovery-intake-v1/";
-const originalRef = "4bce4b1f3e7bd454538e718df7666f03c5310aa0";
+const originalSourceRef = "4bce4b1f3e7bd454538e718df7666f03c5310aa0"; // provenance only
 const originalBlob = "63b092bb1e6938c8fdbd0a31e98142c198e1e368";
 const correctedBlob = "b418ba95a17505e3344afabfc255f67be128243d";
 const manifestBlob = "61de9d5a104821040504124014fa3f7116285dd1";
+const originalPath = dir+"R24_ORIGINAL_R12_INPUT_1157.csv";
 const oldPath = dir+"R12_FULL_CANONICAL_URL_CROSSWALK_1157.csv";
 const manifestPath = dir+"R24_NORMALIZED_URL_REPLAY_MANIFEST_1157.csv";
 const normVersion = "PR386_R24_ARTICLE_URL_NORM_V2_20261015";
@@ -49,8 +50,8 @@ assert.equal(normalize("https://example.org/entry?no=5&sourceType=rss").url,"htt
 assert.equal(normalize("https://example.org/entry?sc=article&idxno=3").url,"https://example.org/entry?sc=article&idxno=3");
 assert.equal(normalize("https://example.org/entry?utm_source=abc&newsId=x").url,"https://example.org/entry?newsId=x");
 
-const old=execFileSync("git",["show",originalRef+":"+oldPath],{encoding:"utf8"});
-assert.equal(blob(old),originalBlob,"historical R12 Git artifact has changed");
+const old=readFileSync(originalPath,"utf8");
+assert.equal(blob(old),originalBlob,"historical fixture differs from "+originalSourceRef);
 const lines=old.trimEnd().split(/\r?\n/);
 assert.equal(lines.length,1158,"1 header + 1,157 observations required");
 const h=parse(lines[0]);

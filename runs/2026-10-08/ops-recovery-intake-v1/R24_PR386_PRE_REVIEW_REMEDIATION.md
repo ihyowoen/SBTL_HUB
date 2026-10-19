@@ -22,3 +22,8 @@
 - The current **0.0C full-universe coverage, 6+14 machine axes, 12 structural editorial lenses**, candidate event terminal statuses and new-baseline 0.0D recertification are **not complete**. The *industry* 26 discovery lenses broaden recall, not a formal replacement for any gate.
 - Stage A/0.4–0.8 and production release remain unauthorized. **PR #386 changes audit files only; merging it would NOT publish news**. Original Collector ZIPs, Full/Lean, Related, production, Revolution Masterfile/Downstream remain unchanged.
 - All preexisting Copilot review threads remain for **human and reviewer re-review**, not silently marked resolved. This R24 is prepared for inspection, **not merged**.
+
+
+## R25 tracked original replay and safety hardening
+
+Added a hash-identical immutable original R12 fixture (`R24_ORIGINAL_R12_INPUT_1157.csv`; original Git blob `63b092bb1e6938c8fdbd0a31e98142c198e1e368`) so the R24 replay does not depend on a PR-only historical commit. Hardened workflow allowlist with `--no-renames` and NUL paths plus rename-bypass regression. See [R25 audit report](./R25_REPLAY_FIXTURE_AND_RENAME_GUARD_20261020.md). R16 isolated 0.0D PASS was historical `b7847ca`; `main=6851fdbe` requires new 0.0D validation, and formal 0.0C remains BLOCKED. New head CI still needs its own check.

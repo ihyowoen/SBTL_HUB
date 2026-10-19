@@ -1,0 +1,68 @@
+name: R33 bounded evidence-to-claim remediation (NO MERGE)
+on:
+  push:
+    branches:
+      - news/r28-20261017-source-verified-lfp
+    paths:
+      - "scripts/.r33_temp_review_patch.mjs"
+      - ".github/workflows/r33-one-time-claim-coverage.yml"
+permissions:
+  contents: write
+jobs:
+  r33-qc-remediation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Lock main and untouched governed pre-image
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "news/r28-20261017-source-verified-lfp"
+          git fetch origin main --no-tags
+          test "$(git rev-parse origin/main)" = "6851fdbe4a25b30b7204d07708a1238123c14910"
+          test "$(git rev-parse HEAD:data/cards.full.json)" = "65f549a6d192702d9e842423a97060031ebd8d13"
+          test "$(git rev-parse HEAD:public/data/cards.json)" = "6c7c4a8f2d3aea7c9132051c6382d4a0a438c61c"
+          test "$(git rev-parse HEAD:direct-adds/2026-10-17-r28-signed-lfp-source-verified/direct-add.json)" = "82fc8a58c37d0e73bf886938fc7011917357f61a"
+      - name: Apply R33 to exactly two existing proposed cards
+        run: node scripts/.r33_temp_review_patch.mjs
+      - name: Verify canonical governance and source-card consistency
+        shell: bash
+        run: |
+          set -euo pipefail
+          git show 6851fdbe4a25b30b7204d07708a1238123c14910:data/cards.full.json > "$RUNNER_TEMP/base.full.json"
+          node scripts/validate_json_schema_subset.mjs --schema schemas/manual-direct-add.v2.schema.json --instance direct-adds/2026-10-17-r28-signed-lfp-source-verified/direct-add.json
+          node scripts/validate_manual_direct_add.mjs --manifest direct-adds/2026-10-17-r28-signed-lfp-source-verified/direct-add.json --base "$RUNNER_TEMP/base.full.json" --full data/cards.full.json
+          node scripts/validate_manual_direct_add_v4_hardening.mjs --manifest direct-adds/2026-10-17-r28-signed-lfp-source-verified/direct-add.json --base "$RUNNER_TEMP/base.full.json" --full data/cards.full.json
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/validate.mjs
+          node scripts/lean_cards.mjs --check
+          git diff --check
+      - name: Run repository unit test suite
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm test
+      - name: Self-remove staging, commit three governed data files only
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm scripts/.r33_temp_review_patch.mjs
+          rm .github/workflows/r33-one-time-claim-coverage.yml
+          git add -A
+          actual="$(git diff --cached --name-only | LC_ALL=C sort)"
+          expected="$(printf '%s\n' .github/workflows/r33-one-time-claim-coverage.yml data/cards.full.json direct-adds/2026-10-17-r28-signed-lfp-source-verified/direct-add.json public/data/cards.json scripts/.r33_temp_review_patch.mjs | LC_ALL=C sort)"
+          if [[ "$actual" != "$expected" ]]; then
+            printf 'BLOCK: outside three-file plus temp-cleanup scope:\n%s\n' "$actual" >&2
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix(cards): R33 correct source field coverage and integrated LFP contract boundaries (NO MERGE)"
+          git push origin HEAD:news/r28-20261017-source-verified-lfp

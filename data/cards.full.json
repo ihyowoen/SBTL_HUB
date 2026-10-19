@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-17T12:20:29Z",
+  "updated": "2026-10-19T07:44:48Z",
   "total": 1676,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
@@ -13,8 +13,8 @@
       "signal": "high",
       "title": "포스코퓨처엠–삼성SDI, 6조원 LFP 본계약…8월 합의 물량 2배 이상",
       "sub": "8월 양사 간 2027~2032년 LFP 양극재 19만t 공급 합의가 10월 6일 본계약으로 전환됐다. 공급 물량은 기존 합의보다 2배 이상 커졌고 고객사가 삼성SDI임이 공식 확인됐다.",
-      "gate": "포스코퓨처엠이 발표한 계약 규모는 약 6조원이다. 2023년 NCA 중심 기존 협력에서 LFP까지 품목이 넓어졌으며, LMO·인조흑연 확대는 향후 협력 방향이지 전량 확정 납품이 아니다.",
-      "fact": "포스코퓨처엠과 삼성SDI는 10월 6일 배터리 소재 장기 공급 본계약을 체결했다고 발표했다(포스코퓨처엠 홈페이지 게시 10월 7일). 8월 익명 국내 고객사에 대해 합의한 2027~2032년 LFP 양극재 19만t은 삼성SDI 건으로 확인됐고 이번 본계약에서 물량이 2배 이상 확대됐다. LFP 중심 약 6조원 계약은 미래 공급 약정이며 구체적 연도별 출하·실현매출과 구분해야 한다. NCA 외 LFP로 관계가 넓어지고 LMO·인조흑연 음극재는 추가 협력 대상으로 논의됐다.",
+      "gate": "포스코퓨처엠이 발표한 장기 LFP 양극재 계약액은 약 6조원이다. 양사는 2023년 NCA 공급계약을 개정해 LFP를 추가하고 기존 주요 품목별 계약을 묶는 포괄적 공급 협약도 체결했다. 그러나 LMO·인조흑연 확대는 향후 협력 방향이며, 품목별 확정 발주·실제 납품 및 실현매출과 구분해야 한다.",
+      "fact": "포스코퓨처엠과 삼성SDI는 10월 6일 배터리 소재 장기 공급 본계약을 체결했다고 발표했다(포스코퓨처엠 홈페이지 게시 10월 7일). 8월 익명 국내 고객사에 대해 합의한 2027~2032년 LFP 양극재 19만t은 삼성SDI 건으로 확인됐고 이번 본계약에서 물량이 2배 이상 확대됐다. 약 6조원은 LFP 장기 공급 계약액이지 연도별 확정 출하·실현매출이 아니다. 기존 2023년 NCA 계약은 LFP까지 확대되고 주요 제품의 개별 계약은 포괄적 공급 협약으로 묶였지만, LMO·인조흑연은 향후 협력 대상으로 남는다. 회사가 발표한 '예상 공급물량 기존 대비 약 45% 증가'와 8월 LFP 합의물량의 '2배 이상 증량'은 서로 다른 비교 기준이다.",
       "implication": [
         "포스코퓨처엠은 이번 계약으로 삼성SDI가 Non-PFE 양·음극재를 확보해 소재 공급망 안정성을 높일 것으로 설명했다. 이는 발행사의 향후 조달 방향에 관한 설명이며, 개별 공급품의 규제 적격성·실제 납품을 이 계약만으로 확정할 수는 없다. 계약 물량 확대가 가동률과 매출로 이어지는지는 품목별 발주, 첫 출하 및 실제 공급 실적으로 확인해야 한다."
       ],
@@ -32,11 +32,8 @@
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
-            "title",
             "sub",
-            "gate",
-            "fact",
-            "implication"
+            "fact"
           ],
           "source_published_date": "2026-10-07",
           "visible_quote_date": "2026-10-07",
@@ -56,9 +53,7 @@
           "evidence_role": "primary_event_evidence",
           "supports": [
             "sub",
-            "gate",
-            "fact",
-            "implication"
+            "fact"
           ],
           "source_published_date": "2026-10-07",
           "visible_quote_date": "2026-10-07",
@@ -78,8 +73,7 @@
           "evidence_role": "secondary_event_evidence",
           "supports": [
             "gate",
-            "fact",
-            "implication"
+            "fact"
           ],
           "source_published_date": "2026-10-06",
           "visible_quote_date": "2026-10-06",
@@ -160,8 +154,7 @@
           "evidence_role": "primary_event_evidence",
           "supports": [
             "gate",
-            "fact",
-            "implication"
+            "fact"
           ],
           "source_published_date": "2026-10-07",
           "visible_quote_date": "2026-10-07",
@@ -170,9 +163,69 @@
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
           "checked_at": "2026-10-17T11:12:49Z"
+        },
+        {
+          "source_name": "포스코퓨처엠",
+          "source_url": "https://www.poscofuturem.com/pr/view.do?num=1051",
+          "source_owner": "포스코퓨처엠",
+          "claim": "삼성SDI 계약은 주요 개별 제품계약을 묶는 포괄적 협약이라는 발행사 원문",
+          "source_quote": "이날 삼성SDI와 체결한 계약은 포스코퓨처엠이 공급하는 주요 제품의 개별 계약을 하나로 묶은 포괄적 협약으로",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "source_published_date": "2026-10-07",
+          "visible_quote_date": "2026-10-07",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_article_body_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-10-19T07:44:48Z"
+        },
+        {
+          "source_name": "포스코퓨처엠",
+          "source_url": "https://www.poscofuturem.com/pr/view.do?num=1051",
+          "source_owner": "포스코퓨처엠",
+          "claim": "발행사 예상 공급물량 약45%와 LFP 19만t 기존 합의 대비 2배는 다른 모집단",
+          "source_quote": "예상 공급물량이 기존 대비 약 45% 증가하며",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "source_published_date": "2026-10-07",
+          "visible_quote_date": "2026-10-07",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_article_body_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-10-19T07:44:48Z"
+        },
+        {
+          "source_name": "연합뉴스",
+          "source_url": "https://www.yna.co.kr/view/AKR20261006171200003",
+          "source_owner": "연합뉴스",
+          "claim": "연합뉴스 당일 보도에서 LFP 6조원 계약액 확인",
+          "source_quote": "포스코퓨처엠이 삼성SDI에 6조원 규모의 리튬·인산·철(LFP) 양극재를 장기 공급한다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "gate",
+            "fact"
+          ],
+          "source_published_date": "2026-10-06",
+          "visible_quote_date": "2026-10-06",
+          "source_origin_type": "independently_published_reporting",
+          "fetch_method": "web_article_body_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-10-19T07:44:48Z"
         }
       ],
-      "source_evidence_entry_count": 7,
+      "source_evidence_entry_count": 10,
       "source_unique_url_count": 2,
       "source_unique_domain_count": 2,
       "source_independent_owner_count": 2,
@@ -183,7 +236,7 @@
         "reason": "포스코퓨처엠 1차 발표 + 별도 언론사 연합뉴스 당일 취재보도. 같은 발표의 복제는 별도 거래사실로 간주하지 않는다."
       },
       "source_diversity_measure": {
-        "source_evidence_entry_count": 7,
+        "source_evidence_entry_count": 10,
         "source_unique_url_count": 2,
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2
@@ -195,7 +248,7 @@
           "source_owner": "포스코퓨처엠",
           "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "6조원 LFP 장기계약액, 삼성SDI Non-PFE 공급망 조달 기대효과, 2023 NCA 계약의 LFP 확장 및 10월 6일 체결을 직접 설명한 10월 7일 포스코퓨처엠 1차 자료",
+          "unique_contribution": "6조원 LFP 계약액·19만t 8월 합의 대비 2배 이상, NCA 계약 개정·포괄 협약, 예상공급량 +45%, Non-PFE 기대 및 LMO/흑연 협력 단계 구분",
           "visible_fields_supported": [
             "fact",
             "gate",
@@ -203,7 +256,9 @@
             "sub",
             "title"
           ],
-          "checked_at": "2026-10-17T12:20:29Z"
+          "checked_at": "2026-10-19T07:44:48Z",
+          "source_domain": "poscofuturem.com",
+          "source_origin_type": "official_or_source_owner_material"
         },
         {
           "source_url": "https://www.yna.co.kr/view/AKR20261006171200003",
@@ -211,15 +266,16 @@
           "source_owner": "연합뉴스",
           "source_role": "secondary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "발표일 교차대조 및 별도 거래/협력 단계 구분",
+          "unique_contribution": "당일 6조원 LFP 계약 및 8월 합의 물량 증량 독립보도; 향후 LMO·인조흑연 구분",
           "visible_fields_supported": [
             "fact",
             "gate",
-            "implication",
             "sub",
             "title"
           ],
-          "checked_at": "2026-10-17T12:20:29Z"
+          "checked_at": "2026-10-19T07:44:48Z",
+          "source_domain": "yna.co.kr",
+          "source_origin_type": "independently_published_reporting"
         }
       ],
       "source_synthesis_applied": true,
@@ -313,7 +369,6 @@
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
-            "sub",
             "fact",
             "implication"
           ],
@@ -334,10 +389,7 @@
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
-            "sub",
-            "gate",
-            "fact",
-            "implication"
+            "sub"
           ],
           "source_published_date": "2026-09-22",
           "visible_quote_date": "2026-09-22",
@@ -358,17 +410,16 @@
           "supports": [
             "title",
             "sub",
-            "gate",
             "fact",
             "implication"
           ],
           "source_published_date": "2026-09-22",
           "visible_quote_date": "2026-09-22",
           "source_origin_type": "official_or_source_owner_material",
-          "fetch_method": "indexed_official_issuer_full_article_text",
+          "fetch_method": "web_article_body_readback",
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
-          "checked_at": "2026-10-17T12:20:29Z"
+          "checked_at": "2026-10-19T07:44:48Z"
         },
         {
           "source_name": "포스코퓨처엠",
@@ -379,21 +430,41 @@
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
-            "sub",
-            "gate",
             "fact",
             "implication"
           ],
           "source_published_date": "2026-09-22",
           "visible_quote_date": "2026-09-22",
           "source_origin_type": "official_or_source_owner_material",
-          "fetch_method": "indexed_official_issuer_full_article_text",
+          "fetch_method": "web_article_body_readback",
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
-          "checked_at": "2026-10-17T12:20:29Z"
+          "checked_at": "2026-10-19T07:44:48Z"
+        },
+        {
+          "source_name": "연합뉴스",
+          "source_url": "https://www.yna.co.kr/amp/view/AKR20260922178700003",
+          "source_owner": "연합뉴스",
+          "claim": "9월 22일 SK온 1조1천억원 LFP 양극재 계약 독립 보도",
+          "source_quote": "포스코퓨처엠이 SK온과 1조1천억원 규모 리튬인산철(LFP) 양극재 대규모 공급계약을 체결했다고 22일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "source_published_date": "2026-09-22",
+          "visible_quote_date": "2026-09-22",
+          "source_origin_type": "independently_published_reporting",
+          "fetch_method": "web_article_body_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-10-19T07:44:48Z"
         }
       ],
-      "source_evidence_entry_count": 5,
+      "source_evidence_entry_count": 6,
       "source_unique_url_count": 2,
       "source_unique_domain_count": 2,
       "source_independent_owner_count": 2,
@@ -404,7 +475,7 @@
         "reason": "포스코퓨처엠 1차 발표 + 별도 언론사 연합뉴스 당일 취재보도. 같은 발표의 복제는 별도 거래사실로 간주하지 않는다."
       },
       "source_diversity_measure": {
-        "source_evidence_entry_count": 5,
+        "source_evidence_entry_count": 6,
         "source_unique_url_count": 2,
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2
@@ -416,7 +487,7 @@
           "source_owner": "포스코퓨처엠",
           "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "계약 체결·규모·시점 원문",
+          "unique_contribution": "1.1조원 계약·2027~29 기간·상호합의 연장, 기존 SK온 음극재→첫 양극재 거래, 3사 고객 및 포항 전환/생산 예정 원출처",
           "visible_fields_supported": [
             "fact",
             "gate",
@@ -424,7 +495,9 @@
             "sub",
             "title"
           ],
-          "checked_at": "2026-10-17T12:20:29Z"
+          "checked_at": "2026-10-19T07:44:48Z",
+          "source_domain": "poscofuturem.com",
+          "source_origin_type": "official_or_source_owner_material"
         },
         {
           "source_url": "https://www.yna.co.kr/amp/view/AKR20260922178700003",
@@ -432,14 +505,16 @@
           "source_owner": "연합뉴스",
           "source_role": "secondary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "발표일 교차대조 및 별도 거래/협력 단계 구분",
+          "unique_contribution": "당일 독립 기사로 SK온 LFP 1.1조원 계약 확인; 8월 19만t 타 고객사 합의와 별건임을 설명",
           "visible_fields_supported": [
             "fact",
             "gate",
-            "implication",
-            "sub"
+            "sub",
+            "title"
           ],
-          "checked_at": "2026-10-17T12:20:29Z"
+          "checked_at": "2026-10-19T07:44:48Z",
+          "source_domain": "yna.co.kr",
+          "source_origin_type": "independently_published_reporting"
         }
       ],
       "source_synthesis_applied": true,

@@ -1,0 +1,39 @@
+{
+  "schema": "sbtl_persistent_artifact_manifest_v1",
+  "workspace_id": "backlog-reconciliation-20260819",
+  "updated_kst": "2026-08-19T11:45:00+09:00",
+  "storage_policy": {
+    "state_and_small_manifests": "github_state_branch",
+    "large_checkpoint_artifacts": "google_drive_vault",
+    "new_chat_restore_order": [
+      "RUN_STATE.json",
+      "CHECKPOINT.md",
+      "RUN_LEDGER.json",
+      "ARTIFACT_MANIFEST.json",
+      "Google Drive checkpoint bundle by fixed file_id"
+    ]
+  },
+  "google_drive_vault": {
+    "folder_id": "1cJi7XFtgIzHqpsHUqd5L8Y7-27VpC_aD",
+    "folder_name": "SBTL_HUB_RUN_STATE_backlog-reconciliation-20260819",
+    "checkpoint_bundle": {
+      "file_id": "191z0Zm_bR7nfyI8zW8pVcBZDuon1KdSb",
+      "filename": "accepted21_checkpoint_bundle_20260819_R1.tar.gz",
+      "mime_type": "application/gzip",
+      "sha256": "b68747aebdf4aa3f2ec8b738a8ad2ca035ca5e3273e23095bf45cd9c583bc57b",
+      "contents": [
+        "evidence_qc_repaired_20260819_CURRENT_MAIN_ACCEPTED21_R1.json",
+        "content_polish_rerun_20260819_CURRENT_MAIN_ACCEPTED21_R1.json",
+        "final_qc_prevalidator_20260819_CURRENT_MAIN_ACCEPTED21_R1.json",
+        "final_qc_validator_candidate_20260819_CURRENT_MAIN_ACCEPTED21_R1.json",
+        "accepted21_repaired_validator_scope_ids_20260819_R1.json",
+        "accepted21_evidence_repair_validation_20260819_R1.json",
+        "accepted21_evidence_repair_report_20260819_R1.md",
+        "accepted21_evidence_repair_artifact_manifest_20260819_R1.json"
+      ]
+    }
+  },
+  "restore_rule": "Do not search chat history for these artifacts first. Fetch this manifest from the state branch and use the fixed Google Drive file_id.",
+  "main_canonical_mutated": false,
+  "pr_created": false
+}

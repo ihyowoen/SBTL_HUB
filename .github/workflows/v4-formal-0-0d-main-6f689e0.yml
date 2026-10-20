@@ -1,0 +1,145 @@
+name: Generate V4 0.0D for main 6f689e0
+
+on:
+  push:
+    branches:
+      - chatgpt/v4-run-baseline-20260831-20260901-r3
+    paths:
+      - '.github/workflows/v4-formal-0-0d-main-6f689e0.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  preflight:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reconcile and relock V4 0.0D
+        shell: bash
+        run: |
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "6f689e0e01e3c7829cfcd99af26b4deea9b61e4e"
+          python3 - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+
+          OLD='5c1e4886e1799a8ac1e2f4befc706b9e564a3aa7'
+          LOCKED='6f689e0e01e3c7829cfcd99af26b4deea9b61e4e'
+          PREV_COMMIT='619402bcbd8ccf6e17b55072b296833ee7fc0d0e'
+          PREV_PATH='runs/2026-09-02/stage_0_0d_v4_document_universe_20260902_MAIN_5c1e488.json'
+          OUT=Path('runs/2026-09-02/stage_0_0d_v4_document_universe_20260902_MAIN_6f689e0.json')
+          CHANGED_VALIDATOR='validation_scripts/stage_a_full_v3_completeness_review4945668766.py'
+          EXPECTED_CHANGED={
+              CHANGED_VALIDATOR,
+              'validation_scripts/tests/test_stage_a_v4_source_prompt_version_compat.py',
+          }
+
+          def git_bytes(ref,path):
+              return subprocess.check_output(['git','show',f'{ref}:{path}'])
+          def git_blob(ref,path):
+              return subprocess.check_output(['git','rev-parse',f'{ref}:{path}'],text=True).strip()
+          def sha256(b): return hashlib.sha256(b).hexdigest()
+
+          changed={p.strip() for p in subprocess.check_output(
+              ['git','diff','--name-only',f'{OLD}..{LOCKED}'],text=True
+          ).splitlines() if p.strip()}
+          assert changed == EXPECTED_CHANGED, {'unexpected_main_diff':sorted(changed)}
+          assert not any(p.startswith('docs/') for p in changed)
+          assert 'data/cards.full.json' not in changed
+
+          prev=json.loads(git_bytes(PREV_COMMIT,PREV_PATH).decode('utf-8-sig'))
+          assert prev['status']=='PASS'
+          assert prev['repository_head_sha']==OLD
+          assert prev['canonical_full_blob_sha']=='53219907cdb435c3822c41d097b23e475662aa8a'
+          assert prev['canonical_card_count']==1514
+          assert prev['docs_inventory_count']==90
+          assert prev['classified_count']==90
+          assert prev['active_full_read_count']==43
+          assert prev['stage_0_0c_authorized'] is True
+          assert not prev['incomplete_universe_defects']
+
+          # Governance documents did not change. Prove every prior document lock is still byte-identical.
+          for entry in prev['documents_inventory']:
+              p=entry['path']; b=git_bytes(LOCKED,p)
+              assert git_blob(LOCKED,p)==entry['git_blob_sha'], ('doc_blob_drift',p)
+              assert sha256(b)==entry['sha256'], ('doc_sha256_drift',p)
+          for entry in prev['full_read_evidence']:
+              p=entry['path']; b=git_bytes(LOCKED,p)
+              assert git_blob(LOCKED,p)==entry['git_blob_sha'], ('full_read_blob_drift',p)
+              assert sha256(b)==entry['sha256'], ('full_read_sha256_drift',p)
+              assert len(b)==entry['byte_count'], ('full_read_byte_drift',p)
+
+          runtime_paths=prev['runtime_dependency_paths_from_machine_manifest']
+          assert CHANGED_VALIDATOR in runtime_paths, 'changed Stage A validator is not registered as a runtime dependency'
+          runtime=[]
+          for p in runtime_paths:
+              b=git_bytes(LOCKED,p)
+              runtime.append({
+                  'path':p,
+                  'read_status':'READ_FULL_LOCKED_MAIN',
+                  'byte_count':len(b),
+                  'git_blob_sha':git_blob(LOCKED,p),
+                  'sha256':sha256(b),
+              })
+
+          # Canonical remains exactly unchanged.
+          cards_b=git_bytes(LOCKED,'data/cards.full.json')
+          cards=json.loads(cards_b.decode('utf-8-sig'))
+          card_count=len(cards if isinstance(cards,list) else cards.get('cards',[]))
+          assert card_count==1514
+          assert git_blob(LOCKED,'data/cards.full.json')=='53219907cdb435c3822c41d097b23e475662aa8a'
+
+          artifact=dict(prev)
+          artifact['repository_head_sha']=LOCKED
+          artifact['runtime_dependency_evidence']=runtime
+          artifact['provenance']=dict(prev.get('provenance',{}))
+          artifact['provenance'].update({
+              'reconciles_prior_baseline':OLD,
+              'prior_stage_0_0d_artifact':PREV_PATH,
+              'main_change_reason':'#317 V4 Stage A source-prompt provenance compatibility fix',
+              'main_diff_verified':sorted(changed),
+              'relock_method':'all docs/full-read evidence byte-identical; all registered runtime dependencies freshly rehashed on locked main',
+              'intended_reuse':'shared governance baseline for 2026-08-31 and 2026-09-01 cross-run Stage A',
+          })
+          artifact['status']='PASS'
+          artifact['stage_0_0c_authorized']=True
+          artifact['all_docs_files_read_or_parsed']=True
+          artifact['unresolved_dependencies']=[]
+          artifact['unresolved_conflicts']=[]
+          artifact['unresolved_rule_conflicts']=[]
+          artifact['incomplete_universe_defects']=[]
+
+          assert artifact['repository_head_sha']==LOCKED
+          assert artifact['docs_inventory_count']==artifact['classified_count']==90
+          assert artifact['active_full_read_count']==43
+          assert artifact['canonical_card_count']==1514
+          assert artifact['canonical_full_blob_sha']=='53219907cdb435c3822c41d097b23e475662aa8a'
+          assert artifact['stage_0_0c_authorized'] is True
+          assert not artifact['incomplete_universe_defects']
+
+          OUT.parent.mkdir(parents=True,exist_ok=True)
+          OUT.write_text(json.dumps(artifact,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({
+              'status':'PASS','head':LOCKED,'main_diff':sorted(changed),
+              'docs_verified':len(prev['documents_inventory']),
+              'full_reads_verified':len(prev['full_read_evidence']),
+              'runtime_dependencies_rehashed':len(runtime_paths),
+              'changed_validator_registered':True,
+              'canonical_count':card_count,
+              'stage_0_0c_authorized':True,
+          },indent=2))
+          PY
+          python3 validation_scripts/workflow_v4_architecture_check.py
+      - name: Commit relock and remove workflow
+        shell: bash
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add runs/2026-09-02/stage_0_0d_v4_document_universe_20260902_MAIN_6f689e0.json
+          git rm .github/workflows/v4-formal-0-0d-main-6f689e0.yml
+          git commit -m 'audit: relock V4 Stage 0.0D after #317'
+          git push origin HEAD:chatgpt/v4-run-baseline-20260831-20260901-r3

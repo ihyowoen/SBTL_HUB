@@ -1,0 +1,87 @@
+name: Governance lock validation
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "runs/**/card-run.json"
+      - "scripts/governance_lock_v4.mjs"
+      - "validation_scripts/workflow_v4_architecture_check.py"
+      - "validation_scripts/tests/test_governance_lock_jit_preflight.py"
+      - ".github/workflows/governance-lock-validation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "runs/**/card-run.json"
+      - "scripts/governance_lock_v4.mjs"
+      - "validation_scripts/workflow_v4_architecture_check.py"
+      - "validation_scripts/tests/test_governance_lock_jit_preflight.py"
+      - ".github/workflows/governance-lock-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full git history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate deterministic governance-lock helper
+        run: |
+          set -euo pipefail
+          node --check scripts/governance_lock_v4.mjs
+          node scripts/governance_lock_v4.mjs --self-test
+
+      - name: Replay submitted formal-run governance lock
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          set -euo pipefail
+          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
+          mapfile -t runs < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)runs/**/card-run.json')
+          if [[ ${#runs[@]} -eq 0 ]]; then
+            echo "No formal card-run manifest changed; helper self-test is sufficient for this PR."
+            exit 0
+          fi
+          if [[ ${#runs[@]} -ne 1 ]]; then
+            echo "FAIL: expected at most one changed formal card-run manifest, found ${#runs[@]}" >&2
+            exit 1
+          fi
+
+          run_path="${runs[0]}"
+          readarray -t binding < <(node - "$run_path" <<'NODE'
+          const fs = require('fs');
+          const path = process.argv[2];
+          const run = JSON.parse(fs.readFileSync(path, 'utf8'));
+          for (const key of ['base_main_commit_sha', 'base_full_blob_sha', 'document_universe_manifest_ref']) {
+            if (typeof run[key] !== 'string' || !run[key].trim()) {
+              console.error(`FAIL: ${path}.${key} is required`);
+              process.exit(1);
+            }
+            console.log(run[key].trim());
+          }
+          NODE
+          )
+          base_main_sha="${binding[0]}"
+          base_full_blob_sha="${binding[1]}"
+          artifact_ref="${binding[2]}"
+
+          test -f "$artifact_ref" || { echo "FAIL: missing 0.0D artifact $artifact_ref" >&2; exit 1; }
+          node scripts/governance_lock_v4.mjs \
+            --verify \
+            --base-main-sha "$base_main_sha" \
+            --base-full-blob-sha "$base_full_blob_sha" \
+            --artifact "$artifact_ref"

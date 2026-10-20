@@ -1,0 +1,1909 @@
+{
+  "schema": "stage_a_review_packet_r6_v1",
+  "batch": 3,
+  "ordinal_start": 51,
+  "ordinal_end": 75,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 51,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0280",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C62",
+        "story_id": "KR_2026-08-31_C62",
+        "date": "2026-08-31",
+        "title": "삼성SDI, 글로벌 톱티어 ESS기업에 LFP 배터리 공급",
+        "site": "더일렉",
+        "url": "https://www.thelec.kr/news/articleView.html?idxno=61568",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "13f35f939227eec8ecd8060a3b7d7fc9f78f0839745de54eb3defd50e2118f66"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-08-31_C62"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C62",
+          "source_run": "20260901",
+          "source_index": 118,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C62",
+          "story_id": "KR_2026-08-31_C62",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "삼성SDI, 글로벌 톱티어 ESS기업에 LFP 배터리 공급",
+          "site": "더일렉",
+          "source_url": "https://www.thelec.kr/news/articleView.html?idxno=61568",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "13f35f939227eec8ecd8060a3b7d7fc9f78f0839745de54eb3defd50e2118f66"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "lfp",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0299"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 52,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0310",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C15",
+        "story_id": "GL_2026-08-31_C15",
+        "date": "2026-08-31",
+        "title": "Defense Metals drills 6% rare earths in British Columbia - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/defense-metals-drills-6-rare-earths-in-bc",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "59c0daec3ded036fb3d0aa028629095646d6e0c734c7dbefb622e547ea35887d"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C14",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C15"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C14",
+          "source_run": "20260901",
+          "source_index": 213,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C14",
+          "story_id": "GL_2026-08-31_C14",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Defense Metals drills 6% rare earths in BC - The Northern Miner",
+          "site": "Northern Miner (via Google News)",
+          "source_url": "https://secure.northernminer.com/news/defense-metals-drills-6-rare-earths-in-bc/1003894441",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "d77dee61d98e04b16e2e720b3e7667f7bd94625274f879cc0529ba5ae8ae9bc6"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C15",
+          "source_run": "20260901",
+          "source_index": 203,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C15",
+          "story_id": "GL_2026-08-31_C15",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Defense Metals drills 6% rare earths in British Columbia - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/defense-metals-drills-6-rare-earths-in-bc",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "59c0daec3ded036fb3d0aa028629095646d6e0c734c7dbefb622e547ea35887d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0331"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 53,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0322",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:EU_2026-09-01_C01",
+        "story_id": "EU_2026-09-01_C01",
+        "date": "2026-09-01",
+        "title": "Clean Energy Regulator: Australia’s clean energy transition ‘accelerating’ as Q2 records tumble",
+        "site": "PV Tech RSS",
+        "url": "https://www.pv-tech.org/clean-energy-regulator-australias-clean-energy-transition-accelerating-as-q2-records-tumble",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "cc357411a3a318ab72cd7de1f10dd96ef8df2cef33444c410e28ea09380e5ee9"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:EU_2026-08-31_C02",
+        "20260901::orig:20260901_123511:EU_2026-09-01_C01"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C02",
+          "source_run": "20260901",
+          "source_index": 238,
+          "candidate_id": "orig:20260901_123511:EU_2026-08-31_C02",
+          "story_id": "EU_2026-08-31_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Battery installations hit record as Australia’s clean energy shift accelerates",
+          "site": "ESS News RSS",
+          "source_url": "https://www.ess-news.com/2026/08/31/battery-installations-hit-record-as-australias-clean-energy-shift-accelerates",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "977e9538b61088e59addfe9532b57ed41e8907526b0847624af009dd4ebfc884"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:EU_2026-09-01_C01",
+          "source_run": "20260901",
+          "source_index": 229,
+          "candidate_id": "orig:20260901_123511:EU_2026-09-01_C01",
+          "story_id": "EU_2026-09-01_C01",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "Clean Energy Regulator: Australia’s clean energy transition ‘accelerating’ as Q2 records tumble",
+          "site": "PV Tech RSS",
+          "source_url": "https://www.pv-tech.org/clean-energy-regulator-australias-clean-energy-transition-accelerating-as-q2-records-tumble",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "cc357411a3a318ab72cd7de1f10dd96ef8df2cef33444c410e28ea09380e5ee9"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "installations",
+          "q2",
+          "record "
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0343"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 54,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0323",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C08",
+        "story_id": "EU_2026-08-31_C08",
+        "date": "2026-08-31",
+        "title": "Grenergy plans 516.9 MWp solar plant with 3.01 GWh BESS in Chile",
+        "site": "ESS News RSS",
+        "url": "https://www.ess-news.com/2026/08/31/grenergy-plans-516-9-mwp-solar-plant-with-3-01-gwh-bess-in-chile",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "4a970e5c610142383c20298b480e82a7c03837c78c8eee1f73382367f23fc7e5"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:EU_2026-08-31_C08"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C08",
+          "source_run": "20260901",
+          "source_index": 232,
+          "candidate_id": "orig:20260901_123511:EU_2026-08-31_C08",
+          "story_id": "EU_2026-08-31_C08",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Grenergy plans 516.9 MWp solar plant with 3.01 GWh BESS in Chile",
+          "site": "ESS News RSS",
+          "source_url": "https://www.ess-news.com/2026/08/31/grenergy-plans-516-9-mwp-solar-plant-with-3-01-gwh-bess-in-chile",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4a970e5c610142383c20298b480e82a7c03837c78c8eee1f73382367f23fc7e5"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 6,
+      "matched_features": {
+        "scope": [
+          "bess",
+          "ess"
+        ],
+        "execution": [
+          "plant"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "gwh"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0344"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 55,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0346",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C07",
+        "story_id": "CN_2026-09-01_C07",
+        "date": "2026-09-01",
+        "title": "IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新",
+        "site": "中国能源网",
+        "url": "https://www.china5e.com/news/news-1208582-1.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "5142517e0c165424a98d35b07759a7185638f5a2c16f07551d753513dccdcc43"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C07"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C07",
+          "source_run": "20260901",
+          "source_index": 259,
+          "candidate_id": "orig:20260901_123511:CN_2026-09-01_C07",
+          "story_id": "CN_2026-09-01_C07",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新",
+          "site": "中国能源网",
+          "source_url": "https://www.china5e.com/news/news-1208582-1.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "5142517e0c165424a98d35b07759a7185638f5a2c16f07551d753513dccdcc43"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 6,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "量产"
+        ],
+        "policy": [
+          "税"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0369"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 56,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0348",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C20",
+        "story_id": "CN_2026-09-01_C20",
+        "date": "2026-09-01",
+        "title": "总投资35.5亿！贵州一年产20万吨锂电负极材料项目环评公示",
+        "site": "北极星储能网",
+        "url": "https://news.bjx.com.cn/html/20260901/1510908.shtml",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "19df158b5a374d6b1ef16fe4269e950c1fde6f3f545eee2a25464e5ef0e04a23"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C20"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C20",
+          "source_run": "20260901",
+          "source_index": 261,
+          "candidate_id": "orig:20260901_123511:CN_2026-09-01_C20",
+          "story_id": "CN_2026-09-01_C20",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "总投资35.5亿！贵州一年产20万吨锂电负极材料项目环评公示",
+          "site": "北极星储能网",
+          "source_url": "https://news.bjx.com.cn/html/20260901/1510908.shtml",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "19df158b5a374d6b1ef16fe4269e950c1fde6f3f545eee2a25464e5ef0e04a23"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 6,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [
+          "投资"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "万吨"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0371"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 57,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0352",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C07",
+        "story_id": "CN_2026-08-31_C07",
+        "date": "2026-08-31",
+        "title": "Q2净利环比增509%、储能收入同增超200%，林洋能源半年报交出逆周期答卷！",
+        "site": "OFweek储能网",
+        "url": "https://chuneng.ofweek.com/news/2026-08/ART-180221-8420-30700830.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "62d393638a5590a45e8cd6b4780cc714a93cc4a124bfb2627ade6253520b2343"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-08-31_C07"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C07",
+          "source_run": "20260901",
+          "source_index": 278,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C07",
+          "story_id": "CN_2026-08-31_C07",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Q2净利环比增509%、储能收入同增超200%，林洋能源半年报交出逆周期答卷！",
+          "site": "OFweek储能网",
+          "source_url": "https://chuneng.ofweek.com/news/2026-08/ART-180221-8420-30700830.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "62d393638a5590a45e8cd6b4780cc714a93cc4a124bfb2627ade6253520b2343"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 5,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "q2"
+        ],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0377"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 58,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0362",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0168",
+        "story_id": "TF_0168",
+        "date": "2026-09-01",
+        "title": "정제마진 확대·배터리 수주 쌍끌이…질주하는 SK이노",
+        "site": "매일경제",
+        "url": "https://www.mk.co.kr/news/stock/12141149",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "c5ad98948ec30d12f9360916b64912b2865ea59b21a88d223fc396e220669577"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0168"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0168",
+          "source_run": "20260901",
+          "source_index": 297,
+          "candidate_id": "orig:20260901_123511:TF_0168",
+          "story_id": "TF_0168",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "정제마진 확대·배터리 수주 쌍끌이…질주하는 SK이노",
+          "site": "매일경제",
+          "source_url": "https://www.mk.co.kr/news/stock/12141149",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "c5ad98948ec30d12f9360916b64912b2865ea59b21a88d223fc396e220669577"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [
+          "수주"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0388"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 59,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0379",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0041",
+        "story_id": "TF_0041",
+        "date": "2026-08-31",
+        "title": "Rare earths miner Mont Royal inks joint study agreement with refiner to form value chain - miningweekly.com",
+        "site": "Mining Weekly (via Google News)",
+        "url": "https://www.miningweekly.com/article/rare-earths-miner-mont-royal-inks-joint-study-agreement-with-refiner-to-form-value-chain-2026-08-31",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "a7e41d01f397684d6a5b1da1d667911d22f990f809f5b71869f89f1ceb531c8e"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0041"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0041",
+          "source_run": "20260901",
+          "source_index": 339,
+          "candidate_id": "orig:20260901_123511:TF_0041",
+          "story_id": "TF_0041",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Rare earths miner Mont Royal inks joint study agreement with refiner to form value chain - miningweekly.com",
+          "site": "Mining Weekly (via Google News)",
+          "source_url": "https://www.miningweekly.com/article/rare-earths-miner-mont-royal-inks-joint-study-agreement-with-refiner-to-form-value-chain-2026-08-31",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "a7e41d01f397684d6a5b1da1d667911d22f990f809f5b71869f89f1ceb531c8e"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "rare earth"
+        ],
+        "execution": [
+          "agreement"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "study"
+        ]
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0409"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 60,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0382",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0024",
+        "story_id": "TF_0024",
+        "date": "2026-09-01",
+        "title": "[Gasgoo Express] Xiaomi Auto Shares 100,000+ km Data; Arcfox T7 Tops 30,000 Pre-Orders",
+        "site": "Gasgoo RSS - Class 2",
+        "url": "https://autonews.gasgoo.com/articles/news/gasgoo-express-xiaomi-auto-shares-100000-km-data-arcfox-t7-tops-30000-pre-orders-2094619477546455041",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "2dbfcce524f4d9ce4423e3f8a2f22e4bf75d53250df501e836667546a93e82ca"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0024"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0024",
+          "source_run": "20260901",
+          "source_index": 344,
+          "candidate_id": "orig:20260901_123511:TF_0024",
+          "story_id": "TF_0024",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[Gasgoo Express] Xiaomi Auto Shares 100,000+ km Data; Arcfox T7 Tops 30,000 Pre-Orders",
+          "site": "Gasgoo RSS - Class 2",
+          "source_url": "https://autonews.gasgoo.com/articles/news/gasgoo-express-xiaomi-auto-shares-100000-km-data-arcfox-t7-tops-30000-pre-orders-2094619477546455041",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "2dbfcce524f4d9ce4423e3f8a2f22e4bf75d53250df501e836667546a93e82ca"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [
+          "order"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0412"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 61,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0389",
+      "representative": {
+        "observation_key": "20260831::disc:20260831:japan-balancing-market-cap-10-yen",
+        "story_id": null,
+        "date": "2026-07-30",
+        "title": "Japan EPRX lowers primary/secondary-1/composite ΔkW price cap to 10 yen from Sep. 1 delivery",
+        "site": "www.eprx.or.jp",
+        "url": "https://www.eprx.or.jp/information/post.php",
+        "binding": {
+          "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+          "coverage_payload_sha256": "74f05150024ee6e13226386b80b8e4bc341daada504146b6eeeac46e0c711335"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::disc:20260831:japan-balancing-market-cap-10-yen",
+        "20260901::disc:20260901:japan-balancing-market-cap-10-yen"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::disc:20260831:japan-balancing-market-cap-10-yen",
+          "source_run": "20260831",
+          "source_index": 266,
+          "candidate_id": "disc:20260831:japan-balancing-market-cap-10-yen",
+          "story_id": null,
+          "origin": "discovered",
+          "event_date": "2026-07-30",
+          "title": "Japan EPRX lowers primary/secondary-1/composite ΔkW price cap to 10 yen from Sep. 1 delivery",
+          "site": "www.eprx.or.jp",
+          "source_url": "https://www.eprx.or.jp/information/post.php",
+          "binding": {
+            "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+            "coverage_payload_sha256": "74f05150024ee6e13226386b80b8e4bc341daada504146b6eeeac46e0c711335"
+          }
+        },
+        {
+          "observation_key": "20260901::disc:20260901:japan-balancing-market-cap-10-yen",
+          "source_run": "20260901",
+          "source_index": 358,
+          "candidate_id": "disc:20260901:japan-balancing-market-cap-10-yen",
+          "story_id": null,
+          "origin": "discovered",
+          "event_date": "2026-09-01",
+          "title": "Japan EPRX 10-yen ΔkW cap becomes applicable to Sep. 1 delivery",
+          "site": "www.eprx.or.jp",
+          "source_url": "https://www.eprx.or.jp/information/post.php",
+          "binding": {
+            "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+            "coverage_payload_sha256": "ba639edf11e1f8e7e94cc67946673e9321e92020311de5c7eba1018e7d589c86"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "candidate_review",
+      "routing_hint_score": 4,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "price cap"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0419"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 62,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0001",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-29_C02",
+        "story_id": "US_2026-08-29_C02",
+        "date": "2026-08-29",
+        "title": "State Of Charge Goes Inside EVgo Headquarters and Lab - EVChargingStations.com",
+        "site": "Tesla NACS (via Google News)",
+        "url": "https://evchargingstations.com/chargingnews/inside-evgo-headquarters-lab",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "16d90589d99fabd89f8ed5e6e0dcb0a907b2f614ba684134c0d3410f09978fca"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-29_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-29_C02",
+          "source_run": "20260831",
+          "source_index": 1,
+          "candidate_id": "orig:20260831_143419:US_2026-08-29_C02",
+          "story_id": "US_2026-08-29_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-29",
+          "title": "State Of Charge Goes Inside EVgo Headquarters and Lab - EVChargingStations.com",
+          "site": "Tesla NACS (via Google News)",
+          "source_url": "https://evchargingstations.com/chargingnews/inside-evgo-headquarters-lab",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "16d90589d99fabd89f8ed5e6e0dcb0a907b2f614ba684134c0d3410f09978fca"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "charging"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "quarter"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0001"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 63,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0006",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C02",
+        "story_id": "US_2026-08-28_C02",
+        "date": "2026-08-28",
+        "title": "A new solution for flame-retardant tapes in EVs and energy storage applications: CleanTape® FR (Webinar)",
+        "site": "Charged EVs RSS",
+        "url": "https://chargedevs.com/newswire/a-new-solution-for-flame-retardant-tapes-in-evs-and-energy-storage-applications-cleantape-fr-webinar",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "2f158d4b341dd35b4ba75da19e690cd5875a01394157eff19a0d8324cf8f92bc"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C02",
+          "source_run": "20260831",
+          "source_index": 6,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C02",
+          "story_id": "US_2026-08-28_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "A new solution for flame-retardant tapes in EVs and energy storage applications: CleanTape® FR (Webinar)",
+          "site": "Charged EVs RSS",
+          "source_url": "https://chargedevs.com/newswire/a-new-solution-for-flame-retardant-tapes-in-evs-and-energy-storage-applications-cleantape-fr-webinar",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "2f158d4b341dd35b4ba75da19e690cd5875a01394157eff19a0d8324cf8f92bc"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [
+          "energy storage"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "webinar"
+        ],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0006"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 64,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0009",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C15",
+        "story_id": "US_2026-08-28_C15",
+        "date": "2026-08-28",
+        "title": "Indian bus operator Fresh Bus adds 400 electric buses to ChargeZone’s charging network",
+        "site": "Charged EVs RSS",
+        "url": "https://chargedevs.com/newswire/indian-bus-operator-fresh-bus-adds-400-electric-buses-to-chargezones-charging-network",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "9f46962c01c134007db53af8b4609a53588536c2bcdf31fd8b2c8f841faf10ef"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C15"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C15",
+          "source_run": "20260831",
+          "source_index": 9,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C15",
+          "story_id": "US_2026-08-28_C15",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Indian bus operator Fresh Bus adds 400 electric buses to ChargeZone’s charging network",
+          "site": "Charged EVs RSS",
+          "source_url": "https://chargedevs.com/newswire/indian-bus-operator-fresh-bus-adds-400-electric-buses-to-chargezones-charging-network",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "9f46962c01c134007db53af8b4609a53588536c2bcdf31fd8b2c8f841faf10ef"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "charging"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0009"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 65,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0010",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C09",
+        "story_id": "US_2026-08-31_C09",
+        "date": "2026-08-31",
+        "title": "K-12 school solar tops 2.4 GW, while battery storage emerges as next growth market",
+        "site": "PV Magazine USA RSS",
+        "url": "https://pv-magazine-usa.com/2026/08/31/k-12-school-solar-tops-2-4-gw-while-battery-storage-emerges-as-next-growth-market",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "cadd0df4a411edcf2c331e03ca1f0d4b5ffaf0bf9facc186eaee4c2a033ba5f7"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C01",
+        "20260901::orig:20260901_123511:US_2026-08-31_C09"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C01",
+          "source_run": "20260831",
+          "source_index": 10,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C01",
+          "story_id": "US_2026-08-28_C01",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "1 in 7 US students now goes to a solar-powered school",
+          "site": "Electrek RSS",
+          "source_url": "https://electrek.co/2026/08/28/1-in-7-us-students-now-goes-to-a-solar-powered-school",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "4a342f35839bd0582958b62e6454a3712edbd75c480320e75b2323958c70b331"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C09",
+          "source_run": "20260901",
+          "source_index": 6,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C09",
+          "story_id": "US_2026-08-31_C09",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "K-12 school solar tops 2.4 GW, while battery storage emerges as next growth market",
+          "site": "PV Magazine USA RSS",
+          "source_url": "https://pv-magazine-usa.com/2026/08/31/k-12-school-solar-tops-2-4-gw-while-battery-storage-emerges-as-next-growth-market",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "cadd0df4a411edcf2c331e03ca1f0d4b5ffaf0bf9facc186eaee4c2a033ba5f7"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "school solar"
+        ],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0010"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 66,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0013",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C07",
+        "story_id": "US_2026-08-28_C07",
+        "date": "2026-08-28",
+        "title": "Canada and Chile advance critical minerals partnership to diversify trade, grow our economy and create jobs",
+        "site": "Canada.ca News API (National News)",
+        "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/08/canada-and-chile-advance-critical-minerals-partnership-to-diversify-trade-grow-our-economy-and-create-jobs.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "ff606b868c9a3fd073ca6cf965187c481f37ff05833adda935b00a5810e6879e"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C07"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C07",
+          "source_run": "20260831",
+          "source_index": 13,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C07",
+          "story_id": "US_2026-08-28_C07",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Canada and Chile advance critical minerals partnership to diversify trade, grow our economy and create jobs",
+          "site": "Canada.ca News API (National News)",
+          "source_url": "https://www.canada.ca/en/natural-resources-canada/news/2026/08/canada-and-chile-advance-critical-minerals-partnership-to-diversify-trade-grow-our-economy-and-create-jobs.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "ff606b868c9a3fd073ca6cf965187c481f37ff05833adda935b00a5810e6879e"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "critical mineral"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0013"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 67,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0014",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C05",
+        "story_id": "US_2026-08-28_C05",
+        "date": "2026-08-28",
+        "title": "Battery boom brings round-the-clock solar closer, Ember says",
+        "site": "PV Magazine USA RSS",
+        "url": "https://pv-magazine-usa.com/2026/08/28/battery-boom-brings-round-the-clock-solar-closer-ember-says",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "8237f3004234148e69503cb8c512c86fdc70381a413817c92d4c54cc67e74d91"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C05"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C05",
+          "source_run": "20260831",
+          "source_index": 14,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C05",
+          "story_id": "US_2026-08-28_C05",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Battery boom brings round-the-clock solar closer, Ember says",
+          "site": "PV Magazine USA RSS",
+          "source_url": "https://pv-magazine-usa.com/2026/08/28/battery-boom-brings-round-the-clock-solar-closer-ember-says",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "8237f3004234148e69503cb8c512c86fdc70381a413817c92d4c54cc67e74d91"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0014"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 68,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0018",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C189",
+        "story_id": "KR_2026-08-31_C189",
+        "date": "2026-08-31",
+        "title": "전북테크노파크, 나트륨배터리 활용기술 개발 추진…국책과제 발굴 등 연구회 킥-오프",
+        "site": "전자신문",
+        "url": "https://www.etnews.com/20260831000034",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "58f2807df3f72b3041af5760f031cc3ca6a498d98d427a7bf2489c8bd8af7d61"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C188",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C189",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C77"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C188",
+          "source_run": "20260831",
+          "source_index": 64,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C188",
+          "story_id": "KR_2026-08-31_C188",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "전북TP, 도내 산middot;학middot;연과 '나트륨배터리 활용기술 개발 연구회' 발족",
+          "site": "Pressian RSS",
+          "source_url": "https://www.pressian.com/pages/articles/2026083112593323117&amp;ref=rss",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "3788f7371236f0d208907348f944c577f8fa1b19cd903ef19aa7d86a67e35927"
+          }
+        },
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C189",
+          "source_run": "20260831",
+          "source_index": 19,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C189",
+          "story_id": "KR_2026-08-31_C189",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "전북테크노파크, 나트륨배터리 활용기술 개발 추진…국책과제 발굴 등 연구회 킥-오프",
+          "site": "전자신문",
+          "source_url": "https://www.etnews.com/20260831000034",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "58f2807df3f72b3041af5760f031cc3ca6a498d98d427a7bf2489c8bd8af7d61"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C77",
+          "source_run": "20260901",
+          "source_index": 115,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C77",
+          "story_id": "KR_2026-08-31_C77",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "전북테크노파크, 나트륨배터리 활용기술 개발 추진…국책과제 발굴 등 연구회 킥-오프",
+          "site": "전자신문",
+          "source_url": "https://www.etnews.com/20260831000034",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "007e6d015a71f3d926a8628382e963b4984e1051d391b9c0e32a685029386c3a"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "나트륨",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [
+          "나트륨"
+        ],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "연구"
+        ]
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0018",
+        "XRUN_REPLAY_20260903_E0041"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 69,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0024",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C160",
+        "story_id": "KR_2026-08-31_C160",
+        "date": "2026-08-31",
+        "title": "신흥국 6개국, 전기차로 완성차 '진입장벽' 넘는다…\"자체 브랜드 잰걸음\"",
+        "site": "파이낸셜뉴스 RSS",
+        "url": "https://www.fnnews.com/news/202608311412141244",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "3113117715743210e1585a6417b380bd2e41c3bebe554aa9c1416be2bd05f790"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C160",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C161",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C162"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C160",
+          "source_run": "20260831",
+          "source_index": 36,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C160",
+          "story_id": "KR_2026-08-31_C160",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "신흥국 6개국, 전기차로 완성차 '진입장벽' 넘는다…\"자체 브랜드 잰걸음\"",
+          "site": "파이낸셜뉴스 RSS",
+          "source_url": "https://www.fnnews.com/news/202608311412141244",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "3113117715743210e1585a6417b380bd2e41c3bebe554aa9c1416be2bd05f790"
+          }
+        },
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C161",
+          "source_run": "20260831",
+          "source_index": 68,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C161",
+          "story_id": "KR_2026-08-31_C161",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "신흥국 ‘자체 전기차’ 키운다…K-부품사엔 새 공급망 기회",
+          "site": "E Today RSS",
+          "source_url": "https://www.etoday.co.kr/news/view/2620052",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "7c87d3b4ccf8a6fa3d3f061ae78034742e6acaf9b07d1e5862984e339d414f58"
+          }
+        },
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C162",
+          "source_run": "20260831",
+          "source_index": 43,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C162",
+          "story_id": "KR_2026-08-31_C162",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "신흥국도 ‘내수용 전기차’ 만든다…글로벌 車시장 판도 흔들",
+          "site": "E-Daily",
+          "source_url": "https://www.edaily.co.kr/News/Read?newsId=03503046645552896",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "fdc371eb433e5f068108673bb87ed24fbc44a8c75cc1c3ec9c79408827e33a49"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전기차"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0024",
+        "XRUN_REPLAY_20260903_E0029",
+        "XRUN_REPLAY_20260903_E0044"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 70,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0026",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C66",
+        "story_id": "KR_2026-08-31_C66",
+        "date": "2026-08-31",
+        "title": "[단독] \"中 수출제한 공등 대응\" 아세안 '배터리 블록' 뜬다",
+        "site": "더구루",
+        "url": "https://www.theguru.co.kr/news/article.html?no=106444",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "648c9f531793ed0ef4785c56f0f3f4e0e80a8a2167003757fd070642aca3fa79"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C66"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C66",
+          "source_run": "20260831",
+          "source_index": 39,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C66",
+          "story_id": "KR_2026-08-31_C66",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[단독] \"中 수출제한 공등 대응\" 아세안 '배터리 블록' 뜬다",
+          "site": "더구루",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=106444",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "648c9f531793ed0ef4785c56f0f3f4e0e80a8a2167003757fd070642aca3fa79"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0026"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 71,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0027",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C106",
+        "story_id": "KR_2026-08-31_C106",
+        "date": "2026-08-31",
+        "title": "극한 추위에도 끄덕없는 스마트폰 배터리 나올까",
+        "site": "ZDNet Korea RSS",
+        "url": "https://zdnet.co.kr/view?no=20260831134458",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "5d5b4ea579ffef4411cda949eaedc0f337aafd98752b75cb1362b76abfc4a5ec"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C106"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C106",
+          "source_run": "20260831",
+          "source_index": 41,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C106",
+          "story_id": "KR_2026-08-31_C106",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "극한 추위에도 끄덕없는 스마트폰 배터리 나올까",
+          "site": "ZDNet Korea RSS",
+          "source_url": "https://zdnet.co.kr/view?no=20260831134458",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "5d5b4ea579ffef4411cda949eaedc0f337aafd98752b75cb1362b76abfc4a5ec"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0027"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 72,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0031",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C213",
+        "story_id": "KR_2026-08-31_C213",
+        "date": "2026-08-31",
+        "title": "한일 상의, 핵심광물·에너지 공급망 협력…AI·반도체 공동 육성 - edaily.co.kr",
+        "site": "핵심광물 다자·G7 (via Google News)",
+        "url": "https://www.edaily.co.kr/News/Read?newsId=02335366645552896&mediaCodeNo=257",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "f6ebea681cb6329fb2d18926d7ff1b32cdcfd9fc232e6286917f623241cc44cd"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C213",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C93"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C213",
+          "source_run": "20260831",
+          "source_index": 47,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C213",
+          "story_id": "KR_2026-08-31_C213",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "한일 상의, 핵심광물·에너지 공급망 협력…AI·반도체 공동 육성 - edaily.co.kr",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "source_url": "https://www.edaily.co.kr/News/Read?newsId=02335366645552896&mediaCodeNo=257",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "f6ebea681cb6329fb2d18926d7ff1b32cdcfd9fc232e6286917f623241cc44cd"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C93",
+          "source_run": "20260901",
+          "source_index": 151,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C93",
+          "story_id": "KR_2026-08-31_C93",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "한일 상의, 핵심광물·에너지 공급망 협력…AI·반도체 공동 육성 - 네이트",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "source_url": "https://news.nate.com/view/20260831n05936",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "e53cae325a021ac11e5e2e9e8442aa14179c7c33888c185b6c9ba52924f825a9"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "핵심광물"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망",
+          "핵심광물"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0033"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 73,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0035",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C128",
+        "story_id": "KR_2026-08-31_C128",
+        "date": "2026-08-31",
+        "title": "루모라, 9월 자가소비 태양광 계약 시 kWh당 10원 추가 할인",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302220",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "43b4e43742a1fc6ddecd6f2618aa8263a4c8e64798932f4ca251dc3b106a04b2"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C128",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C58"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C128",
+          "source_run": "20260831",
+          "source_index": 53,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C128",
+          "story_id": "KR_2026-08-31_C128",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "루모라, 9월 자가소비 태양광 계약 시 kWh당 10원 추가 할인",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302220",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "43b4e43742a1fc6ddecd6f2618aa8263a4c8e64798932f4ca251dc3b106a04b2"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C58",
+          "source_run": "20260901",
+          "source_index": 132,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C58",
+          "story_id": "KR_2026-08-31_C58",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "루모라, 9월 자가소비 태양광 계약 시 kWh당 10원 추가 할인",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302220",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "ca5b5a48fb4b715535fb4bd9220341961edc723bd68b895e600d0010b299838e"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "계약"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0037"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 74,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0037",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C53",
+        "story_id": "KR_2026-08-31_C53",
+        "date": "2026-08-31",
+        "title": "SK온도 ESS 사업 드라이브 가동… K배터리 캐즘 탈출 준비",
+        "site": "Segye Ilbo RSS",
+        "url": "https://www.segye.com/newsView/20260831514069",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "9a2f31ca3bdc597eae63bf87a24858319b64e08180429a08105810b94c2ab27d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C53"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C53",
+          "source_run": "20260831",
+          "source_index": 56,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C53",
+          "story_id": "KR_2026-08-31_C53",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "SK온도 ESS 사업 드라이브 가동… K배터리 캐즘 탈출 준비",
+          "site": "Segye Ilbo RSS",
+          "source_url": "https://www.segye.com/newsView/20260831514069",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "9a2f31ca3bdc597eae63bf87a24858319b64e08180429a08105810b94c2ab27d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0039"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 75,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0038",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C36",
+        "story_id": "KR_2026-08-31_C36",
+        "date": "2026-08-31",
+        "title": "KTC, EV 급속충전기 파워모듈 통신 프로토콜 표준화 나선다",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371840",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "cbcd8bea1441fa0830e4984d97dff3a6999ec7d5e34634e9947b3950aa1029f6"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C36"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C36",
+          "source_run": "20260831",
+          "source_index": 61,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C36",
+          "story_id": "KR_2026-08-31_C36",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "KTC, EV 급속충전기 파워모듈 통신 프로토콜 표준화 나선다",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371840",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "cbcd8bea1441fa0830e4984d97dff3a6999ec7d5e34634e9947b3950aa1029f6"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ev ",
+          "충전"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0040"
+      ],
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

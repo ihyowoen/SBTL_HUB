@@ -1,0 +1,1537 @@
+{
+  "schema": "stage_a_review_packet_v1",
+  "batch": 16,
+  "ordinal_start": 376,
+  "ordinal_end": 400,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "events": [
+    {
+      "ordinal": 376,
+      "event_id": "XRUN_REPLAY_20260903_E0314",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C05",
+        "story_id": "JP_2026-09-01_C05",
+        "date": "2026-09-01",
+        "title": "【調査レポート】EUバッテリーパスポートの義務化～自動車業界への実務的な影響～",
+        "site": "Response.jp Battery Special",
+        "url": "https://response.jp/article/2026/09/01/415954.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "323aebf01e6a3bfe632063e2b338e8cd93e91b92272a67107f5a1164db3d3f72"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:JP_2026-09-01_C05"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C05",
+          "source_run": "20260901",
+          "source_index": 172,
+          "candidate_id": "orig:20260901_123511:JP_2026-09-01_C05",
+          "story_id": "JP_2026-09-01_C05",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "【調査レポート】EUバッテリーパスポートの義務化～自動車業界への実務的な影響～",
+          "site": "Response.jp Battery Special",
+          "source_url": "https://response.jp/article/2026/09/01/415954.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "323aebf01e6a3bfe632063e2b338e8cd93e91b92272a67107f5a1164db3d3f72"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 377,
+      "event_id": "XRUN_REPLAY_20260903_E0315",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C08",
+        "story_id": "JP_2026-09-01_C08",
+        "date": "2026-09-01",
+        "title": "九州送配電、ＤＸ推進の社員表彰／ファインプレー賞創設 9/1(3面) 9/1(3面) 九州電力送配電はＤＸ（デジタルトランスフォーメーション）の取り組みで成果を上げた社員を表彰する「ＤＸファインプレー表彰制度」を創設し、２０２６年度の表彰式を３１日に福岡市内で開催した。全社の模範と…",
+        "site": "Denki Shimbun (電気新聞)",
+        "url": "https://www.denkishimbun.com/archives/415662",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "abf94678ef9607794f112bf80b3fead09171ec29f64f648a9b4995f3f51ee9b4"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:JP_2026-09-01_C08"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:JP_2026-09-01_C08",
+          "source_run": "20260901",
+          "source_index": 173,
+          "candidate_id": "orig:20260901_123511:JP_2026-09-01_C08",
+          "story_id": "JP_2026-09-01_C08",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "九州送配電、ＤＸ推進の社員表彰／ファインプレー賞創設 9/1(3面) 9/1(3面) 九州電力送配電はＤＸ（デジタルトランスフォーメーション）の取り組みで成果を上げた社員を表彰する「ＤＸファインプレー表彰制度」を創設し、２０２６年度の表彰式を３１日に福岡市内で開催した。全社の模範と…",
+          "site": "Denki Shimbun (電気新聞)",
+          "source_url": "https://www.denkishimbun.com/archives/415662",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "abf94678ef9607794f112bf80b3fead09171ec29f64f648a9b4995f3f51ee9b4"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 378,
+      "event_id": "XRUN_REPLAY_20260903_E0320",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C03",
+        "story_id": "GL_2026-09-01_C03",
+        "date": "2026-09-01",
+        "title": "Australian Miner Larvotto Launches Major New Source of Antimony",
+        "site": "Bloomberg Industries RSS",
+        "url": "https://www.bloomberg.com/news/articles/2026-09-01/australian-miner-larvotto-launches-major-new-source-of-antimony",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "9f63ebd56a97b843e0a5107657ff29f5d75b2edc38a6582712ab2aea2e4e1351"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-09-01_C03"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C03",
+          "source_run": "20260901",
+          "source_index": 184,
+          "candidate_id": "orig:20260901_123511:GL_2026-09-01_C03",
+          "story_id": "GL_2026-09-01_C03",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "Australian Miner Larvotto Launches Major New Source of Antimony",
+          "site": "Bloomberg Industries RSS",
+          "source_url": "https://www.bloomberg.com/news/articles/2026-09-01/australian-miner-larvotto-launches-major-new-source-of-antimony",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "9f63ebd56a97b843e0a5107657ff29f5d75b2edc38a6582712ab2aea2e4e1351"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 379,
+      "event_id": "XRUN_REPLAY_20260903_E0326",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C08",
+        "story_id": "GL_2026-08-31_C08",
+        "date": "2026-08-31",
+        "title": "Cameroon’s mining moment has arrived - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/op-ed-cameroons-mining-moment-has-arrived/cameroon",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "bd81a6a5a8148ddb7071df6b657d865bd05adfc23fee0ee7fa327f05e02b4b6c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C08"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C08",
+          "source_run": "20260901",
+          "source_index": 196,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C08",
+          "story_id": "GL_2026-08-31_C08",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Cameroon’s mining moment has arrived - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/op-ed-cameroons-mining-moment-has-arrived/cameroon",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "bd81a6a5a8148ddb7071df6b657d865bd05adfc23fee0ee7fa327f05e02b4b6c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 380,
+      "event_id": "XRUN_REPLAY_20260903_E0327",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C01",
+        "story_id": "GL_2026-08-31_C01",
+        "date": "2026-08-31",
+        "title": "3D-CPF-drawing - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/smackover-seals-10-year-lithium-supply-deal-with-lg/3d-cpf-drawing",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "67bba01f38ca3bcd3311061b4296f5b6263b8bdb240a7a835dd00e2aa9901e53"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C01"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C01",
+          "source_run": "20260901",
+          "source_index": 197,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C01",
+          "story_id": "GL_2026-08-31_C01",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "3D-CPF-drawing - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/smackover-seals-10-year-lithium-supply-deal-with-lg/3d-cpf-drawing",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "67bba01f38ca3bcd3311061b4296f5b6263b8bdb240a7a835dd00e2aa9901e53"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 381,
+      "event_id": "XRUN_REPLAY_20260903_E0329",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C09",
+        "story_id": "GL_2026-08-31_C09",
+        "date": "2026-08-31",
+        "title": "Case Western Reserve University leads U.S. Department of Energy project to unlock domestic production of critical rare-earth metals",
+        "site": "Newswise SciNews",
+        "url": "https://www.newswise.com/articles/case-western-reserve-university-to-lead-u-s-department-of-energy-project-to-enhance-domestic-production-of-rare-earth-elements-critical-to-energy-defense-industries?sc=rssn",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "c34b313fa65fd4d8338263d112c55445556fa60f564e75644f09c9c660187471"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C09"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C09",
+          "source_run": "20260901",
+          "source_index": 200,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C09",
+          "story_id": "GL_2026-08-31_C09",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Case Western Reserve University leads U.S. Department of Energy project to unlock domestic production of critical rare-earth metals",
+          "site": "Newswise SciNews",
+          "source_url": "https://www.newswise.com/articles/case-western-reserve-university-to-lead-u-s-department-of-energy-project-to-enhance-domestic-production-of-rare-earth-elements-critical-to-energy-defense-industries?sc=rssn",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "c34b313fa65fd4d8338263d112c55445556fa60f564e75644f09c9c660187471"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 382,
+      "event_id": "XRUN_REPLAY_20260903_E0336",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C18",
+        "story_id": "GL_2026-08-31_C18",
+        "date": "2026-08-31",
+        "title": "Journey Ahead: JA Roadshow 2026 to spotlight integrated energy solutions",
+        "site": "PV Magazine RSS (Global)",
+        "url": "https://www.pv-magazine.com/2026/08/31/journey-ahead-ja-roadshow-2026-to-spotlight-integrated-energy-solutions",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "437614a38dfbba313db194d3df7429e82c0e276590b82bb21295b3f149bc5be2"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C18"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C18",
+          "source_run": "20260901",
+          "source_index": 209,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-31_C18",
+          "story_id": "GL_2026-08-31_C18",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Journey Ahead: JA Roadshow 2026 to spotlight integrated energy solutions",
+          "site": "PV Magazine RSS (Global)",
+          "source_url": "https://www.pv-magazine.com/2026/08/31/journey-ahead-ja-roadshow-2026-to-spotlight-integrated-energy-solutions",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "437614a38dfbba313db194d3df7429e82c0e276590b82bb21295b3f149bc5be2"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 383,
+      "event_id": "XRUN_REPLAY_20260903_E0350",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C09",
+        "story_id": "EU_2026-08-31_C09",
+        "date": "2026-08-31",
+        "title": "Interview with Hubject CEO Christian Hahn: “The real bottleneck is siloed thinking”",
+        "site": "Electrive RSS",
+        "url": "https://www.electrive.com/2026/08/31/interview-with-hubject-ceo-christian-hahn-the-real-bottleneck-is-siloed-thinking",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "272ac0e2e8dc64e8e7c7604cc076bf60bde8986d4f5f15d9ab318da9d3c24ef0"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:EU_2026-08-31_C09"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C09",
+          "source_run": "20260901",
+          "source_index": 240,
+          "candidate_id": "orig:20260901_123511:EU_2026-08-31_C09",
+          "story_id": "EU_2026-08-31_C09",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Interview with Hubject CEO Christian Hahn: “The real bottleneck is siloed thinking”",
+          "site": "Electrive RSS",
+          "source_url": "https://www.electrive.com/2026/08/31/interview-with-hubject-ceo-christian-hahn-the-real-bottleneck-is-siloed-thinking",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "272ac0e2e8dc64e8e7c7604cc076bf60bde8986d4f5f15d9ab318da9d3c24ef0"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 384,
+      "event_id": "XRUN_REPLAY_20260903_E0351",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C21",
+        "story_id": "EU_2026-08-31_C21",
+        "date": "2026-08-31",
+        "title": "The solution for the energy transition has long been sitting in our garages",
+        "site": "Electrive RSS",
+        "url": "https://www.electrive.com/2026/08/31/the-solution-for-the-energy-transition-has-long-been-sitting-in-our-garages",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "67fdea280c809deabc60b411ab1ba36ea78872cf0f1e885840c8958468e6b086"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:EU_2026-08-31_C21"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C21",
+          "source_run": "20260901",
+          "source_index": 241,
+          "candidate_id": "orig:20260901_123511:EU_2026-08-31_C21",
+          "story_id": "EU_2026-08-31_C21",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "The solution for the energy transition has long been sitting in our garages",
+          "site": "Electrive RSS",
+          "source_url": "https://www.electrive.com/2026/08/31/the-solution-for-the-energy-transition-has-long-been-sitting-in-our-garages",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "67fdea280c809deabc60b411ab1ba36ea78872cf0f1e885840c8958468e6b086"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 385,
+      "event_id": "XRUN_REPLAY_20260903_E0352",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C23",
+        "story_id": "EU_2026-08-31_C23",
+        "date": "2026-08-31",
+        "title": "Zero-emission trucking corridor from Canada to Mexico",
+        "site": "Electrive RSS",
+        "url": "https://www.electrive.com/2026/08/31/zero-emission-trucking-corridor-from-canada-to-mexico",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "1e24bcfea24a3849d8ed34a8bd1fbff7d8244984205f436a6069a9cab21f04da"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:EU_2026-08-31_C23"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C23",
+          "source_run": "20260901",
+          "source_index": 242,
+          "candidate_id": "orig:20260901_123511:EU_2026-08-31_C23",
+          "story_id": "EU_2026-08-31_C23",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Zero-emission trucking corridor from Canada to Mexico",
+          "site": "Electrive RSS",
+          "source_url": "https://www.electrive.com/2026/08/31/zero-emission-trucking-corridor-from-canada-to-mexico",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "1e24bcfea24a3849d8ed34a8bd1fbff7d8244984205f436a6069a9cab21f04da"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 386,
+      "event_id": "XRUN_REPLAY_20260903_E0357",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C16",
+        "story_id": "CN_2026-09-01_C16",
+        "date": "2026-09-01",
+        "title": "央视“点赞”特斯拉电池数据封神，国产电池真被碾压了吗？",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-09/ART-36001-8420-30700973.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "3d84fb8e8a25031bd30e5405843e7247013f6fe55b26b1c382a6405024040719"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C16"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C16",
+          "source_run": "20260901",
+          "source_index": 247,
+          "candidate_id": "orig:20260901_123511:CN_2026-09-01_C16",
+          "story_id": "CN_2026-09-01_C16",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "央视“点赞”特斯拉电池数据封神，国产电池真被碾压了吗？",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-09/ART-36001-8420-30700973.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "3d84fb8e8a25031bd30e5405843e7247013f6fe55b26b1c382a6405024040719"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 387,
+      "event_id": "XRUN_REPLAY_20260903_E0358",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C12",
+        "story_id": "CN_2026-09-01_C12",
+        "date": "2026-09-01",
+        "title": "中创新航2026上半年：市场份额全球第四，177Ah电池隐患如何解决？",
+        "site": "OFweek 产业新闻",
+        "url": "https://libattery.ofweek.com/2026-09/ART-36001-8420-30701043.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "c3c90e3a1ebc58c246c53f43815f2248bd5979dba6cf48c1c6863344db4d510f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C12"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C12",
+          "source_run": "20260901",
+          "source_index": 248,
+          "candidate_id": "orig:20260901_123511:CN_2026-09-01_C12",
+          "story_id": "CN_2026-09-01_C12",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "中创新航2026上半年：市场份额全球第四，177Ah电池隐患如何解决？",
+          "site": "OFweek 产业新闻",
+          "source_url": "https://libattery.ofweek.com/2026-09/ART-36001-8420-30701043.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "c3c90e3a1ebc58c246c53f43815f2248bd5979dba6cf48c1c6863344db4d510f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 388,
+      "event_id": "XRUN_REPLAY_20260903_E0361",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C21",
+        "story_id": "CN_2026-09-01_C21",
+        "date": "2026-09-01",
+        "title": "新宙邦再度递表港交所",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-09/ART-36008-8120-30700946.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "4fc276c075277c0c5e2aea0f7a770d55e8b67340ee10844fb2b225bbf6076c72"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C21"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C21",
+          "source_run": "20260901",
+          "source_index": 251,
+          "candidate_id": "orig:20260901_123511:CN_2026-09-01_C21",
+          "story_id": "CN_2026-09-01_C21",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "新宙邦再度递表港交所",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-09/ART-36008-8120-30700946.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4fc276c075277c0c5e2aea0f7a770d55e8b67340ee10844fb2b225bbf6076c72"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 389,
+      "event_id": "XRUN_REPLAY_20260903_E0362",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C27",
+        "story_id": "CN_2026-09-01_C27",
+        "date": "2026-09-01",
+        "title": "行业观察：液流电池项目储备规模可观，开工转化成为行业现实痛点",
+        "site": "中国能源网",
+        "url": "https://www.china5e.com/news/news-1208564-1.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b7919295d40ebb3b412b5180771195b4e0738ff915ec80e652fcf2fa8aa25d6d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C27"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C27",
+          "source_run": "20260901",
+          "source_index": 252,
+          "candidate_id": "orig:20260901_123511:CN_2026-09-01_C27",
+          "story_id": "CN_2026-09-01_C27",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "行业观察：液流电池项目储备规模可观，开工转化成为行业现实痛点",
+          "site": "中国能源网",
+          "source_url": "https://www.china5e.com/news/news-1208564-1.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b7919295d40ebb3b412b5180771195b4e0738ff915ec80e652fcf2fa8aa25d6d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 390,
+      "event_id": "XRUN_REPLAY_20260903_E0367",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C28",
+        "story_id": "CN_2026-09-01_C28",
+        "date": "2026-09-01",
+        "title": "订单翻倍却被卡脖子！印度电车想快跑：电池还得看中国脸色",
+        "site": "第一电动 企业",
+        "url": "http://www.d1ev.com/news/qiye/311973",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "5e9ac322567bc8c9541d9d3217fcad86c0b7bbaf8426f121ccce67c007e732b3"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C28"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C28",
+          "source_run": "20260901",
+          "source_index": 257,
+          "candidate_id": "orig:20260901_123511:CN_2026-09-01_C28",
+          "story_id": "CN_2026-09-01_C28",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "订单翻倍却被卡脖子！印度电车想快跑：电池还得看中国脸色",
+          "site": "第一电动 企业",
+          "source_url": "http://www.d1ev.com/news/qiye/311973",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "5e9ac322567bc8c9541d9d3217fcad86c0b7bbaf8426f121ccce67c007e732b3"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 391,
+      "event_id": "XRUN_REPLAY_20260903_E0370",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C09",
+        "story_id": "CN_2026-09-01_C09",
+        "date": "2026-09-01",
+        "title": "Robot Parts Industry Development Alliance Established, Co-Founded by JD Industrial and Schaeffler",
+        "site": "Gasgoo RSS - Class 19",
+        "url": "https://autonews.gasgoo.com/articles/news/robot-parts-industry-development-alliance-established-co-founded-by-jd-industrial-and-schaeffler-2094630697271902208",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "889cea19a2981ec4056673454f33a77302cfef960a99a75776c129f47d1006f8"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C09"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C09",
+          "source_run": "20260901",
+          "source_index": 260,
+          "candidate_id": "orig:20260901_123511:CN_2026-09-01_C09",
+          "story_id": "CN_2026-09-01_C09",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "Robot Parts Industry Development Alliance Established, Co-Founded by JD Industrial and Schaeffler",
+          "site": "Gasgoo RSS - Class 19",
+          "source_url": "https://autonews.gasgoo.com/articles/news/robot-parts-industry-development-alliance-established-co-founded-by-jd-industrial-and-schaeffler-2094630697271902208",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "889cea19a2981ec4056673454f33a77302cfef960a99a75776c129f47d1006f8"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 392,
+      "event_id": "XRUN_REPLAY_20260903_E0372",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C13",
+        "story_id": "CN_2026-08-31_C13",
+        "date": "2026-08-31",
+        "title": "全球首个标准落地，固态电池的“iPhone时刻”还有多远？",
+        "site": "OFweek储能网",
+        "url": "https://chuneng.ofweek.com/news/2026-08/ART-180221-8420-30700932.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "106e3c82bd20f3b0988f848943080d4f4a2a91e17df5f533be2b6eb9d6526af3"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-08-31_C13"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C13",
+          "source_run": "20260901",
+          "source_index": 262,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C13",
+          "story_id": "CN_2026-08-31_C13",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "全球首个标准落地，固态电池的“iPhone时刻”还有多远？",
+          "site": "OFweek储能网",
+          "source_url": "https://chuneng.ofweek.com/news/2026-08/ART-180221-8420-30700932.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "106e3c82bd20f3b0988f848943080d4f4a2a91e17df5f533be2b6eb9d6526af3"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 393,
+      "event_id": "XRUN_REPLAY_20260903_E0373",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C36",
+        "story_id": "CN_2026-08-31_C36",
+        "date": "2026-08-31",
+        "title": "香港理工大学联合港科大研发仿软骨聚合物涂层 借助应力去局域化抑制正极开裂延长电池寿命",
+        "site": "第一电动 市场",
+        "url": "http://www.d1ev.com/news/shichang/311936",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "9666fb7a119a5c9422fa3651944e482dd8eb47ae85dc0835f97eb46db746b456"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-08-31_C36"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C36",
+          "source_run": "20260901",
+          "source_index": 264,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C36",
+          "story_id": "CN_2026-08-31_C36",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "香港理工大学联合港科大研发仿软骨聚合物涂层 借助应力去局域化抑制正极开裂延长电池寿命",
+          "site": "第一电动 市场",
+          "source_url": "http://www.d1ev.com/news/shichang/311936",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "9666fb7a119a5c9422fa3651944e482dd8eb47ae85dc0835f97eb46db746b456"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 394,
+      "event_id": "XRUN_REPLAY_20260903_E0376",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C24",
+        "story_id": "CN_2026-08-31_C24",
+        "date": "2026-08-31",
+        "title": "欣旺达的业绩，为什么会这么烂？",
+        "site": "OFweek储能网",
+        "url": "https://chuneng.ofweek.com/news/2026-08/ART-180220-8420-30700824.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "4bfba90a6c97416a01b5e6143d5609487b96533fa58e631815ae93c2d0b3a010"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-08-31_C24"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C24",
+          "source_run": "20260901",
+          "source_index": 276,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C24",
+          "story_id": "CN_2026-08-31_C24",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "欣旺达的业绩，为什么会这么烂？",
+          "site": "OFweek储能网",
+          "source_url": "https://chuneng.ofweek.com/news/2026-08/ART-180220-8420-30700824.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "4bfba90a6c97416a01b5e6143d5609487b96533fa58e631815ae93c2d0b3a010"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 395,
+      "event_id": "XRUN_REPLAY_20260903_E0378",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C06",
+        "story_id": "CN_2026-08-31_C06",
+        "date": "2026-08-31",
+        "title": "OFweek 2026先进电池技术与应用高峰论坛，10月22日深圳见！",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36008-8120-30700931.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "fbbe6891150321a3f03c14a63e943297b9aaa5053e825ff390974ce968b20224"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-08-31_C06"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C06",
+          "source_run": "20260901",
+          "source_index": 279,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C06",
+          "story_id": "CN_2026-08-31_C06",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "OFweek 2026先进电池技术与应用高峰论坛，10月22日深圳见！",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36008-8120-30700931.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "fbbe6891150321a3f03c14a63e943297b9aaa5053e825ff390974ce968b20224"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 396,
+      "event_id": "XRUN_REPLAY_20260903_E0383",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0187",
+        "story_id": "TF_0187",
+        "date": "2026-08-31",
+        "title": "Declaring a National Emergency To Secure the United States Bulk-Power System - Federal Register (.gov)",
+        "site": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/08/31/2026-17843/declaring-a-national-emergency-to-secure-the-united-states-bulk-power-system",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "848e9383234456e121ed13357e84e066bd4d30ba85e3548baf303c5677ed51e8"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0187"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0187",
+          "source_run": "20260901",
+          "source_index": 289,
+          "candidate_id": "orig:20260901_123511:TF_0187",
+          "story_id": "TF_0187",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Declaring a National Emergency To Secure the United States Bulk-Power System - Federal Register (.gov)",
+          "site": "Federal Register",
+          "source_url": "https://www.federalregister.gov/documents/2026/08/31/2026-17843/declaring-a-national-emergency-to-secure-the-united-states-bulk-power-system",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "848e9383234456e121ed13357e84e066bd4d30ba85e3548baf303c5677ed51e8"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 397,
+      "event_id": "XRUN_REPLAY_20260903_E0384",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0186",
+        "story_id": "TF_0186",
+        "date": "2026-08-31",
+        "title": "Breaking Down the Savage Season 1 Finale of Furious",
+        "site": "TIME RSS",
+        "url": "https://time.com/article/2026/08/26/furious-season-1-finale-explained",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "52a0e8b19083b5b90126fed60e7ed0906e0a40ef8e36b510b4410c7388b1a1b0"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0186"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0186",
+          "source_run": "20260901",
+          "source_index": 290,
+          "candidate_id": "orig:20260901_123511:TF_0186",
+          "story_id": "TF_0186",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Breaking Down the Savage Season 1 Finale of Furious",
+          "site": "TIME RSS",
+          "source_url": "https://time.com/article/2026/08/26/furious-season-1-finale-explained",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "52a0e8b19083b5b90126fed60e7ed0906e0a40ef8e36b510b4410c7388b1a1b0"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 398,
+      "event_id": "XRUN_REPLAY_20260903_E0386",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0189",
+        "story_id": "TF_0189",
+        "date": "2026-08-31",
+        "title": "Kia confirms PV7 debut and previews the larger electric van for the first time [Video]",
+        "site": "Electrek RSS",
+        "url": "https://electrek.co/2026/08/31/kia-confirms-pv7-debut-previews-larger-ev-van-video",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "79b72b4ca83267d833f2792aa6ddc881d17272e07ad79973ec787428a535fd5c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0189"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0189",
+          "source_run": "20260901",
+          "source_index": 292,
+          "candidate_id": "orig:20260901_123511:TF_0189",
+          "story_id": "TF_0189",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Kia confirms PV7 debut and previews the larger electric van for the first time [Video]",
+          "site": "Electrek RSS",
+          "source_url": "https://electrek.co/2026/08/31/kia-confirms-pv7-debut-previews-larger-ev-van-video",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "79b72b4ca83267d833f2792aa6ddc881d17272e07ad79973ec787428a535fd5c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 399,
+      "event_id": "XRUN_REPLAY_20260903_E0387",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0184",
+        "story_id": "TF_0184",
+        "date": "2026-08-31",
+        "title": "BYD’s electric supercar will beat a Lambo in a race, and it’s cheaper than a Porsche [Video]",
+        "site": "Electrek RSS",
+        "url": "https://electrek.co/2026/08/31/byds-ev-supercar-offers-lambo-speed-for-less-than-a-porsche",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "250f2814e8e3c0ef89e9ed5e4e98fce38cf8f0f247aed7e52aef7e7c27383a93"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0184"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0184",
+          "source_run": "20260901",
+          "source_index": 293,
+          "candidate_id": "orig:20260901_123511:TF_0184",
+          "story_id": "TF_0184",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "BYD’s electric supercar will beat a Lambo in a race, and it’s cheaper than a Porsche [Video]",
+          "site": "Electrek RSS",
+          "source_url": "https://electrek.co/2026/08/31/byds-ev-supercar-offers-lambo-speed-for-less-than-a-porsche",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "250f2814e8e3c0ef89e9ed5e4e98fce38cf8f0f247aed7e52aef7e7c27383a93"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 400,
+      "event_id": "XRUN_REPLAY_20260903_E0390",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0171",
+        "story_id": "TF_0171",
+        "date": "2026-09-01",
+        "title": "캡슐·드립 커피를 정수기 하나로…코웨이, '카페 얼음정수기' 출시",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260901100647344",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "416ae4c94c493d59e1cfafe4010aedcd7d03cf65e470f044454b442acd1e1ecc"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0171"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0171",
+          "source_run": "20260901",
+          "source_index": 299,
+          "candidate_id": "orig:20260901_123511:TF_0171",
+          "story_id": "TF_0171",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "캡슐·드립 커피를 정수기 하나로…코웨이, '카페 얼음정수기' 출시",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260901100647344",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "416ae4c94c493d59e1cfafe4010aedcd7d03cf65e470f044454b442acd1e1ecc"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": -3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

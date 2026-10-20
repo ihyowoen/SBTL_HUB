@@ -1,0 +1,1865 @@
+{
+  "schema": "stage_a_review_packet_r6_v1",
+  "batch": 6,
+  "ordinal_start": 126,
+  "ordinal_end": 150,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 126,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0156",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-29_C01",
+        "story_id": "CN_2026-08-29_C01",
+        "date": "2026-08-29",
+        "title": "BYD sees export surge, yet H1 2026 sales hit by second-gen Blade Battery shortages",
+        "site": "CarNewsChina RSS",
+        "url": "https://carnewschina.com/2026/08/29/byd-sees-export-surge-yet-h1-2026-sales-hit-by-second-gen-blade-battery-shortages",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "68e6d1a7bb5b08bd84bdae548dfe99a851bd551271ecf6469ebc7451424658df"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-29_C01"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-29_C01",
+          "source_run": "20260831",
+          "source_index": 202,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-29_C01",
+          "story_id": "CN_2026-08-29_C01",
+          "origin": "original_input",
+          "event_date": "2026-08-29",
+          "title": "BYD sees export surge, yet H1 2026 sales hit by second-gen Blade Battery shortages",
+          "site": "CarNewsChina RSS",
+          "source_url": "https://carnewschina.com/2026/08/29/byd-sees-export-surge-yet-h1-2026-sales-hit-by-second-gen-blade-battery-shortages",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "68e6d1a7bb5b08bd84bdae548dfe99a851bd551271ecf6469ebc7451424658df"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "sales"
+        ],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0166"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 127,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0157",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-29_C02",
+        "story_id": "CN_2026-08-29_C02",
+        "date": "2026-08-29",
+        "title": "重庆石柱：石柱县首个用户侧储能电站过审！新能源“削峰填谷”模式落地工业园区",
+        "site": "中国能源网",
+        "url": "https://www.china5e.com/news/news-1208469-1.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "c87dc46fea6aa3f358d80a87e9cf96692625c892214223e1aa62ed72247cefba"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-29_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-29_C02",
+          "source_run": "20260831",
+          "source_index": 203,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-29_C02",
+          "story_id": "CN_2026-08-29_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-29",
+          "title": "重庆石柱：石柱县首个用户侧储能电站过审！新能源“削峰填谷”模式落地工业园区",
+          "site": "中国能源网",
+          "source_url": "https://www.china5e.com/news/news-1208469-1.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "c87dc46fea6aa3f358d80a87e9cf96692625c892214223e1aa62ed72247cefba"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0167"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 128,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0160",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C07",
+        "story_id": "CN_2026-08-28_C07",
+        "date": "2026-08-28",
+        "title": "连签四单！楚能加速构建拉美储能合作新生态！",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36001-8130-30700608.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "6e005e400468bd88949c0b1cd6add19d04932b2d3cd94d9073cad71b62ae34dd"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-28_C07",
+        "20260901::orig:20260901_123511:TF_0006"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C07",
+          "source_run": "20260831",
+          "source_index": 207,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-28_C07",
+          "story_id": "CN_2026-08-28_C07",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "连签四单！楚能加速构建拉美储能合作新生态！",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36001-8130-30700608.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "6e005e400468bd88949c0b1cd6add19d04932b2d3cd94d9073cad71b62ae34dd"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0006",
+          "source_run": "20260901",
+          "source_index": 352,
+          "candidate_id": "orig:20260901_123511:TF_0006",
+          "story_id": "TF_0006",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "连签四单！楚能加速构建拉美储能合作新生态！",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36001-8130-30700608.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "3b7dcaaccf7d036fb7be87870816a413248a166587b58d6ee1c9222b93e0bae7"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0171"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 129,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0162",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C06",
+        "story_id": "CN_2026-08-28_C06",
+        "date": "2026-08-28",
+        "title": "突发！特朗普签署行政令，电池储能系统纳入管控",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36008-8130-30700450.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "1b709f2d53f5de6583063b84b8622d23ecbd576d3c510a991786dbad8e20557c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-28_C06"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C06",
+          "source_run": "20260831",
+          "source_index": 209,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-28_C06",
+          "story_id": "CN_2026-08-28_C06",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "突发！特朗普签署行政令，电池储能系统纳入管控",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36008-8130-30700450.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "1b709f2d53f5de6583063b84b8622d23ecbd576d3c510a991786dbad8e20557c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0173"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 130,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0163",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C02",
+        "story_id": "CN_2026-08-28_C02",
+        "date": "2026-08-28",
+        "title": "VOYAH Reports 42.4% Revenue Growth, 389 Million Yuan Net Loss in H1 2026",
+        "site": "Gasgoo RSS - Class 7",
+        "url": "https://autonews.gasgoo.com/articles/news/voyah-reports-424-revenue-growth-389-million-yuan-net-loss-in-h1-2026-2093365999280930817",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "d61641a3feebac11289b3f4154e7a190174d198c482c669a05244297b3f1a6d2"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-28_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C02",
+          "source_run": "20260831",
+          "source_index": 210,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-28_C02",
+          "story_id": "CN_2026-08-28_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "VOYAH Reports 42.4% Revenue Growth, 389 Million Yuan Net Loss in H1 2026",
+          "site": "Gasgoo RSS - Class 7",
+          "source_url": "https://autonews.gasgoo.com/articles/news/voyah-reports-424-revenue-growth-389-million-yuan-net-loss-in-h1-2026-2093365999280930817",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "d61641a3feebac11289b3f4154e7a190174d198c482c669a05244297b3f1a6d2"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "loss",
+          "revenue"
+        ],
+        "scale": [
+          "%",
+          "million"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0174"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 131,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0166",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0143",
+        "story_id": "TF_0143",
+        "date": "2026-08-28",
+        "title": "China TOPCon solar module prices rise on upstream cost pressure as deals lag offers",
+        "site": "PV Magazine USA RSS",
+        "url": "https://pv-magazine-usa.com/2026/08/28/china-topcon-solar-module-prices-rise-on-upstream-cost-pressure-as-deals-lag-offers",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "908f8522e5381c5e134c9f12fcb68bd3dcfcfa89d9c0d1c9b5f9cc679ae5d92b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0143"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0143",
+          "source_run": "20260831",
+          "source_index": 213,
+          "candidate_id": "orig:20260831_143419:TF_0143",
+          "story_id": "TF_0143",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "China TOPCon solar module prices rise on upstream cost pressure as deals lag offers",
+          "site": "PV Magazine USA RSS",
+          "source_url": "https://pv-magazine-usa.com/2026/08/28/china-topcon-solar-module-prices-rise-on-upstream-cost-pressure-as-deals-lag-offers",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "908f8522e5381c5e134c9f12fcb68bd3dcfcfa89d9c0d1c9b5f9cc679ae5d92b"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0177"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 132,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0167",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0147",
+        "story_id": "TF_0147",
+        "date": "2026-08-28",
+        "title": "New report warns AI data center boom squeezes memory-chip supply, could raise everyday tech costs",
+        "site": "Fox Business Latest RSS",
+        "url": "https://www.foxbusiness.com/economy/new-report-warns-ai-data-center-boom-squeezes-memory-chip-supply-could-raise-everyday-tech-costs",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "1316deb62d1d951eddd247592698109764ef24127512eae60959cd5ef0feec63"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0147"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0147",
+          "source_run": "20260831",
+          "source_index": 214,
+          "candidate_id": "orig:20260831_143419:TF_0147",
+          "story_id": "TF_0147",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "New report warns AI data center boom squeezes memory-chip supply, could raise everyday tech costs",
+          "site": "Fox Business Latest RSS",
+          "source_url": "https://www.foxbusiness.com/economy/new-report-warns-ai-data-center-boom-squeezes-memory-chip-supply-could-raise-everyday-tech-costs",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "1316deb62d1d951eddd247592698109764ef24127512eae60959cd5ef0feec63"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "data center"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0178"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 133,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0168",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0124",
+        "story_id": "TF_0124",
+        "date": "2026-08-31",
+        "title": "중국의 황화물 전고체전지 cost down 전략 2026.08.31",
+        "site": "SNE Research",
+        "url": "https://www.sneresearch.com/kr/insight/special_view/1000/page/0",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "bd059784cb0da6e03f9af682fd00e36c2af3bc5667f6dc0b797083d2dd03dd8a"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0124",
+        "20260901::orig:20260901_123511:TF_0103"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0124",
+          "source_run": "20260831",
+          "source_index": 216,
+          "candidate_id": "orig:20260831_143419:TF_0124",
+          "story_id": "TF_0124",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "중국의 황화물 전고체전지 cost down 전략 2026.08.31",
+          "site": "SNE Research",
+          "source_url": "https://www.sneresearch.com/kr/insight/special_view/1000/page/0",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "bd059784cb0da6e03f9af682fd00e36c2af3bc5667f6dc0b797083d2dd03dd8a"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0103",
+          "source_run": "20260901",
+          "source_index": 313,
+          "candidate_id": "orig:20260901_123511:TF_0103",
+          "story_id": "TF_0103",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "중국의 황화물 전고체전지 cost down 전략 2026.08.31",
+          "site": "SNE Research",
+          "source_url": "https://www.sneresearch.com/kr/insight/special_view/1000/page/0",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "8c11e913094e387a6b5771a002db82748b9b04acee0134af31e3fdff513f5eb1"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "전고체",
+          "전지"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [
+          "전고체"
+        ],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0179"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 134,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0169",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0123",
+        "story_id": "TF_0123",
+        "date": "2026-08-31",
+        "title": "중국의 차세대 전지 산업화 전략 2026.08.31",
+        "site": "SNE Research",
+        "url": "https://www.sneresearch.com/kr/insight/special_view/999/page/0",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "e7d7f8e7dd23700aec0c65ddafaef6ac5f9b500076055b3e8239b2281ae06237"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0123",
+        "20260901::orig:20260901_123511:TF_0102"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0123",
+          "source_run": "20260831",
+          "source_index": 218,
+          "candidate_id": "orig:20260831_143419:TF_0123",
+          "story_id": "TF_0123",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "중국의 차세대 전지 산업화 전략 2026.08.31",
+          "site": "SNE Research",
+          "source_url": "https://www.sneresearch.com/kr/insight/special_view/999/page/0",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "e7d7f8e7dd23700aec0c65ddafaef6ac5f9b500076055b3e8239b2281ae06237"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0102",
+          "source_run": "20260901",
+          "source_index": 314,
+          "candidate_id": "orig:20260901_123511:TF_0102",
+          "story_id": "TF_0102",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "중국의 차세대 전지 산업화 전략 2026.08.31",
+          "site": "SNE Research",
+          "source_url": "https://www.sneresearch.com/kr/insight/special_view/999/page/0",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b94d780b07b1e6cc48bcbf29ee818f1705fc4a6cc5a6db57939b979a28df0681"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전지"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0180"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 135,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0171",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0093",
+        "story_id": "TF_0093",
+        "date": "2026-08-31",
+        "title": "드론 및 UAM 시장 전망_ 드론용 배터리 2026.08.31",
+        "site": "SNE Research",
+        "url": "https://www.sneresearch.com/kr/insight/special_view/998/page/0",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "244873a010e61857abe86bbd3b4cdcc4f52d16d73b071ea79ae2628c2b891e90"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0093",
+        "20260901::orig:20260901_123511:TF_0081"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0093",
+          "source_run": "20260831",
+          "source_index": 220,
+          "candidate_id": "orig:20260831_143419:TF_0093",
+          "story_id": "TF_0093",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "드론 및 UAM 시장 전망_ 드론용 배터리 2026.08.31",
+          "site": "SNE Research",
+          "source_url": "https://www.sneresearch.com/kr/insight/special_view/998/page/0",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "244873a010e61857abe86bbd3b4cdcc4f52d16d73b071ea79ae2628c2b891e90"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0081",
+          "source_run": "20260901",
+          "source_index": 315,
+          "candidate_id": "orig:20260901_123511:TF_0081",
+          "story_id": "TF_0081",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "드론 및 UAM 시장 전망_ 드론용 배터리 2026.08.31",
+          "site": "SNE Research",
+          "source_url": "https://www.sneresearch.com/kr/insight/special_view/998/page/0",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "452f9b13ef5fa993ab55b96a901d58abb6e3de1aced92371158bdb0805ebd869"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "전망"
+        ]
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0182"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 136,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0182",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0068",
+        "story_id": "TF_0068",
+        "date": "2026-08-31",
+        "title": "K-AIDC 속도전 막는 ‘인허가 지연·시공 병목’ 경고",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371869",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "3956096aa20cd5c96aa30e3278f9e37f70e73a3fdb042cc3e02ab8551b21e59f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0068"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0068",
+          "source_run": "20260831",
+          "source_index": 231,
+          "candidate_id": "orig:20260831_143419:TF_0068",
+          "story_id": "TF_0068",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "K-AIDC 속도전 막는 ‘인허가 지연·시공 병목’ 경고",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371869",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "3956096aa20cd5c96aa30e3278f9e37f70e73a3fdb042cc3e02ab8551b21e59f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "허가"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0193"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 137,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0185",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0117",
+        "story_id": "TF_0117",
+        "date": "2026-08-31",
+        "title": "유럽연합, 92억유로 규모 금융 지원…방산·우주·에너지 자립 정조준",
+        "site": "임팩트온",
+        "url": "https://www.impacton.net/news/articleView.html?idxno=20149",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "bd5ae6f2f407456d161fb0770c0eadc035e9c98aa3c1a38cb001c7a769809706"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0117",
+        "20260901::orig:20260901_123511:TF_0098"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0117",
+          "source_run": "20260831",
+          "source_index": 234,
+          "candidate_id": "orig:20260831_143419:TF_0117",
+          "story_id": "TF_0117",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "유럽연합, 92억유로 규모 금융 지원…방산·우주·에너지 자립 정조준",
+          "site": "임팩트온",
+          "source_url": "https://www.impacton.net/news/articleView.html?idxno=20149",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "bd5ae6f2f407456d161fb0770c0eadc035e9c98aa3c1a38cb001c7a769809706"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0098",
+          "source_run": "20260901",
+          "source_index": 326,
+          "candidate_id": "orig:20260901_123511:TF_0098",
+          "story_id": "TF_0098",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "유럽연합, 92억유로 규모 금융 지원…방산·우주·에너지 자립 정조준",
+          "site": "임팩트온",
+          "source_url": "https://www.impacton.net/news/articleView.html?idxno=20149",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "46a965a171b9cf016de68ff1d153aeb7b193a9787458ff5c52e9b4ba3a7fff1b"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "금융"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0196"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 138,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0192",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0044",
+        "story_id": "TF_0044",
+        "date": "2026-08-25",
+        "title": "One of the World's Largest Superconducting Toroidal Field Coils Successfully Passes Excitation Test",
+        "site": "Toshiba",
+        "url": "https://www.global.toshiba/ww/news/energy/2026/08/news-20260825-01.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "4decb76a58ae0a31458b69618d92b7a5a7e1d730185080a15eaf834bf6898483"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0044",
+        "20260901::orig:20260901_123511:TF_0046"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0044",
+          "source_run": "20260831",
+          "source_index": 241,
+          "candidate_id": "orig:20260831_143419:TF_0044",
+          "story_id": "TF_0044",
+          "origin": "original_input",
+          "event_date": "2026-08-25",
+          "title": "One of the World's Largest Superconducting Toroidal Field Coils Successfully Passes Excitation Test",
+          "site": "Toshiba",
+          "source_url": "https://www.global.toshiba/ww/news/energy/2026/08/news-20260825-01.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "4decb76a58ae0a31458b69618d92b7a5a7e1d730185080a15eaf834bf6898483"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0046",
+          "source_run": "20260901",
+          "source_index": 332,
+          "candidate_id": "orig:20260901_123511:TF_0046",
+          "story_id": "TF_0046",
+          "origin": "original_input",
+          "event_date": "2026-08-25",
+          "title": "One of the World's Largest Superconducting Toroidal Field Coils Successfully Passes Excitation Test",
+          "site": "Toshiba",
+          "source_url": "https://www.global.toshiba/ww/news/energy/2026/08/news-20260825-01.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "73add0e0dbfd15adfa45d2d83b7d21cc7f7101e6da06e07024971688bfb8967d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0203"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 139,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0193",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0043",
+        "story_id": "TF_0043",
+        "date": "2026-08-24",
+        "title": "大容量11.5kWhクラウド蓄電池システム「Eeeストレージ」の新製品を発売",
+        "site": "PR TIMES 二次電池",
+        "url": "https://prtimes.jp/main/html/rd/p/000001587.000012900.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "41defcc601286afa2e1e35d5c8e2f06a7612b4d4c0401e7ed970e7571ce294a9"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0043",
+        "20260901::orig:20260901_123511:TF_0045"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0043",
+          "source_run": "20260831",
+          "source_index": 242,
+          "candidate_id": "orig:20260831_143419:TF_0043",
+          "story_id": "TF_0043",
+          "origin": "original_input",
+          "event_date": "2026-08-24",
+          "title": "大容量11.5kWhクラウド蓄電池システム「Eeeストレージ」の新製品を発売",
+          "site": "PR TIMES 二次電池",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000001587.000012900.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "41defcc601286afa2e1e35d5c8e2f06a7612b4d4c0401e7ed970e7571ce294a9"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0045",
+          "source_run": "20260901",
+          "source_index": 333,
+          "candidate_id": "orig:20260901_123511:TF_0045",
+          "story_id": "TF_0045",
+          "origin": "original_input",
+          "event_date": "2026-08-24",
+          "title": "大容量11.5kWhクラウド蓄電池システム「Eeeストレージ」の新製品を発売",
+          "site": "PR TIMES 二次電池",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000001587.000012900.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "fa6ea6c6c0fc232d0513a001b9cc21d8cd2b2ffecd75a18225fcfa8513cfd4f3"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0204"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 140,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0197",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0038",
+        "story_id": "TF_0038",
+        "date": "2026-08-28",
+        "title": "Lithium price: Fitch raises forecast, warns rally has outrun fundamentals - The Northern Miner",
+        "site": "Northern Miner (via Google News)",
+        "url": "https://www.northernminer.com/news/lithium-price-fitch-raises-forecast-warns-rally-has-outrun-fundamentals/1003894418",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "ab00773a8972f7b72e8e3eda02542e554df9446e4b70a43713e6805b7a515b94"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0038"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0038",
+          "source_run": "20260831",
+          "source_index": 246,
+          "candidate_id": "orig:20260831_143419:TF_0038",
+          "story_id": "TF_0038",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Lithium price: Fitch raises forecast, warns rally has outrun fundamentals - The Northern Miner",
+          "site": "Northern Miner (via Google News)",
+          "source_url": "https://www.northernminer.com/news/lithium-price-fitch-raises-forecast-warns-rally-has-outrun-fundamentals/1003894418",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "ab00773a8972f7b72e8e3eda02542e554df9446e4b70a43713e6805b7a515b94"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [
+          "lithium"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "forecast"
+        ]
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0208"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 141,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0198",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0033",
+        "story_id": "TF_0033",
+        "date": "2026-08-26",
+        "title": "Cornish Lithium taps Halliburton for Cross Lanes geothermal project - Enlit World",
+        "site": "Enlit World (via Google News)",
+        "url": "https://www.enlit.world/library/cornish-lithium-taps-halliburton-for-geothermal-project",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "8f8292b3287dd5adfe46283ab1a25523ce14d424afe48e2d1bcf8deab9fec98e"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0033",
+        "20260901::orig:20260901_123511:TF_0033"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0033",
+          "source_run": "20260831",
+          "source_index": 247,
+          "candidate_id": "orig:20260831_143419:TF_0033",
+          "story_id": "TF_0033",
+          "origin": "original_input",
+          "event_date": "2026-08-26",
+          "title": "Cornish Lithium taps Halliburton for Cross Lanes geothermal project - Enlit World",
+          "site": "Enlit World (via Google News)",
+          "source_url": "https://www.enlit.world/library/cornish-lithium-taps-halliburton-for-geothermal-project",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "8f8292b3287dd5adfe46283ab1a25523ce14d424afe48e2d1bcf8deab9fec98e"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0033",
+          "source_run": "20260901",
+          "source_index": 342,
+          "candidate_id": "orig:20260901_123511:TF_0033",
+          "story_id": "TF_0033",
+          "origin": "original_input",
+          "event_date": "2026-08-26",
+          "title": "Cornish Lithium taps Halliburton for Cross Lanes geothermal project - enlit.world",
+          "site": "Enlit World (via Google News)",
+          "source_url": "https://www.enlit.world/library/cornish-lithium-taps-halliburton-for-geothermal-project",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "94a4d68b32d3d6a3bed4a396e19754332b2940b87d6fbf07ed76abf760483752"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "lithium"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0209"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 142,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0199",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0032",
+        "story_id": "TF_0032",
+        "date": "2026-08-24",
+        "title": "Why AI data centres are turning to off-grid gas solutions - Enlit World",
+        "site": "Enlit World (via Google News)",
+        "url": "https://www.enlit.world/library/why-ai-data-centres-are-turning-to-off-grid-gas-solutions",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "fe9d5f947711a44e1cfc2b0b9c14449232120ee1af4dc89ee2e465ab58a52598"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0032",
+        "20260901::orig:20260901_123511:TF_0032"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0032",
+          "source_run": "20260831",
+          "source_index": 248,
+          "candidate_id": "orig:20260831_143419:TF_0032",
+          "story_id": "TF_0032",
+          "origin": "original_input",
+          "event_date": "2026-08-24",
+          "title": "Why AI data centres are turning to off-grid gas solutions - Enlit World",
+          "site": "Enlit World (via Google News)",
+          "source_url": "https://www.enlit.world/library/why-ai-data-centres-are-turning-to-off-grid-gas-solutions",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "fe9d5f947711a44e1cfc2b0b9c14449232120ee1af4dc89ee2e465ab58a52598"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0032",
+          "source_run": "20260901",
+          "source_index": 343,
+          "candidate_id": "orig:20260901_123511:TF_0032",
+          "story_id": "TF_0032",
+          "origin": "original_input",
+          "event_date": "2026-08-24",
+          "title": "Why AI data centres are turning to off-grid gas solutions - enlit.world",
+          "site": "Enlit World (via Google News)",
+          "source_url": "https://www.enlit.world/library/why-ai-data-centres-are-turning-to-off-grid-gas-solutions",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "a6c3c37602cebdebf70e9bacc208bb175e6828a6d0f00d712b24ebd28d7c5552"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "grid"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "data centre"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0210"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 143,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0206",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0011",
+        "story_id": "TF_0011",
+        "date": "2026-08-27",
+        "title": "蔚能2.53亿成立新公司，电池资产管理开始往储能和电池回收延伸",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36007-8460-30700344.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "28cbe7360e2be516ddfeb94b3191116cdd61ceca55fec553bec0c3eb9abcd433"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0011"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0011",
+          "source_run": "20260831",
+          "source_index": 255,
+          "candidate_id": "orig:20260831_143419:TF_0011",
+          "story_id": "TF_0011",
+          "origin": "original_input",
+          "event_date": "2026-08-27",
+          "title": "蔚能2.53亿成立新公司，电池资产管理开始往储能和电池回收延伸",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36007-8460-30700344.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "28cbe7360e2be516ddfeb94b3191116cdd61ceca55fec553bec0c3eb9abcd433"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0217"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 144,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0207",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0012",
+        "story_id": "TF_0012",
+        "date": "2026-08-27",
+        "title": "锂矿股半年报\"回血\"：盈利修复，还是新一轮周期的起点？",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36002-12003-30700335.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "73f1b4006dd4fe50b6e28544c90cec1fd23bc22704b842436fcba83de35fa0dc"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0012"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0012",
+          "source_run": "20260831",
+          "source_index": 256,
+          "candidate_id": "orig:20260831_143419:TF_0012",
+          "story_id": "TF_0012",
+          "origin": "original_input",
+          "event_date": "2026-08-27",
+          "title": "锂矿股半年报\"回血\"：盈利修复，还是新一轮周期的起点？",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36002-12003-30700335.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "73f1b4006dd4fe50b6e28544c90cec1fd23bc22704b842436fcba83de35fa0dc"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0218"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 145,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0210",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0008",
+        "story_id": "TF_0008",
+        "date": "2026-08-27",
+        "title": "枧下窝一日反转, 碳酸锂为何更难定价了？",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36003-8420-30700324.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "2c70e6de1f624f514b2cfecd0dc29a6cf23b3b79e06510ea6f7e499ebafc0642"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0008"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0008",
+          "source_run": "20260831",
+          "source_index": 259,
+          "candidate_id": "orig:20260831_143419:TF_0008",
+          "story_id": "TF_0008",
+          "origin": "original_input",
+          "event_date": "2026-08-27",
+          "title": "枧下窝一日反转, 碳酸锂为何更难定价了？",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36003-8420-30700324.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "2c70e6de1f624f514b2cfecd0dc29a6cf23b3b79e06510ea6f7e499ebafc0642"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0221"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 146,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0217",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C31",
+        "story_id": "US_2026-08-31_C31",
+        "date": "2026-08-31",
+        "title": "hofer powertrain builds a battery module with programmable cell pressure control",
+        "site": "Charged EVs RSS",
+        "url": "https://chargedevs.com/newswire/hofer-powertrain-builds-a-battery-module-with-programmable-cell-pressure-control",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b6933666d95d462230d841054180d3fe2f465001e7e26bf60ac46c0ca8818c40"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C31"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C31",
+          "source_run": "20260901",
+          "source_index": 2,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C31",
+          "story_id": "US_2026-08-31_C31",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "hofer powertrain builds a battery module with programmable cell pressure control",
+          "site": "Charged EVs RSS",
+          "source_url": "https://chargedevs.com/newswire/hofer-powertrain-builds-a-battery-module-with-programmable-cell-pressure-control",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b6933666d95d462230d841054180d3fe2f465001e7e26bf60ac46c0ca8818c40"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery",
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0228"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 147,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0219",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C27",
+        "story_id": "US_2026-08-31_C27",
+        "date": "2026-08-31",
+        "title": "U.S. battery storage boom is driven by data centers and interconnection backlogs",
+        "site": "PV Magazine USA RSS",
+        "url": "https://pv-magazine-usa.com/2026/08/31/u-s-battery-storage-boom-is-driven-by-data-centers-and-interconnection-backlogs",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "cc68577f77b7f085fa6b0eaf86f94bc9f53aa7e94a1c938fcd221eca6dbaa5ff"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C27"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C27",
+          "source_run": "20260901",
+          "source_index": 4,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C27",
+          "story_id": "US_2026-08-31_C27",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "U.S. battery storage boom is driven by data centers and interconnection backlogs",
+          "site": "PV Magazine USA RSS",
+          "source_url": "https://pv-magazine-usa.com/2026/08/31/u-s-battery-storage-boom-is-driven-by-data-centers-and-interconnection-backlogs",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "cc68577f77b7f085fa6b0eaf86f94bc9f53aa7e94a1c938fcd221eca6dbaa5ff"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "data center"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0230"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 148,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0220",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C30",
+        "story_id": "US_2026-08-31_C30",
+        "date": "2026-08-31",
+        "title": "Wevo’s WEVOPUR 60210 FL T polyurethane potting protects battery management PCBs",
+        "site": "Charged EVs RSS",
+        "url": "https://chargedevs.com/newswire/wevos-wevopur-60210-fl-t-polyurethane-potting-protects-battery-management-pcbs",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "5debb03d4a883d5e87f6be94277649aad02458b24f5515ca7d1197a406f22343"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C30"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C30",
+          "source_run": "20260901",
+          "source_index": 7,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C30",
+          "story_id": "US_2026-08-31_C30",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Wevo’s WEVOPUR 60210 FL T polyurethane potting protects battery management PCBs",
+          "site": "Charged EVs RSS",
+          "source_url": "https://chargedevs.com/newswire/wevos-wevopur-60210-fl-t-polyurethane-potting-protects-battery-management-pcbs",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "5debb03d4a883d5e87f6be94277649aad02458b24f5515ca7d1197a406f22343"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0232"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 149,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0225",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C18",
+        "story_id": "US_2026-08-31_C18",
+        "date": "2026-08-31",
+        "title": "San Francisco residents can now choose where EV curbside chargers go",
+        "site": "Electrek RSS",
+        "url": "https://electrek.co/2026/08/31/san-francisco-residents-can-now-choose-where-ev-curbside-chargers-go",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "6b17d4a4910a656dffacf257b44344c53ff35f632048639492c884189d6355f4"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C18"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C18",
+          "source_run": "20260901",
+          "source_index": 12,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C18",
+          "story_id": "US_2026-08-31_C18",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "San Francisco residents can now choose where EV curbside chargers go",
+          "site": "Electrek RSS",
+          "source_url": "https://electrek.co/2026/08/31/san-francisco-residents-can-now-choose-where-ev-curbside-chargers-go",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "6b17d4a4910a656dffacf257b44344c53ff35f632048639492c884189d6355f4"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "charger",
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0237"
+      ],
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 150,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0226",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C14",
+        "story_id": "US_2026-08-31_C14",
+        "date": "2026-08-31",
+        "title": "Power Off, Jackery On: Jackery Marks National Preparedness Month with Home Backup Built for the Fall Storm Season",
+        "site": "GlobeNewswire Energy Industry",
+        "url": "https://www.globenewswire.com/news-release/2026/08/31/3353337/0/en/power-off-jackery-on-jackery-marks-national-preparedness-month-with-home-backup-built-for-the-fall-storm-season.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "746bcae2aba67d0edbd914abe7d2afd222a79cfddb9f0615344d98662fd73392"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C14"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C14",
+          "source_run": "20260901",
+          "source_index": 13,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C14",
+          "story_id": "US_2026-08-31_C14",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Power Off, Jackery On: Jackery Marks National Preparedness Month with Home Backup Built for the Fall Storm Season",
+          "site": "GlobeNewswire Energy Industry",
+          "source_url": "https://www.globenewswire.com/news-release/2026/08/31/3353337/0/en/power-off-jackery-on-jackery-marks-national-preparedness-month-with-home-backup-built-for-the-fall-storm-season.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "746bcae2aba67d0edbd914abe7d2afd222a79cfddb9f0615344d98662fd73392"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.",
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0238"
+      ],
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

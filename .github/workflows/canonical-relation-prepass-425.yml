@@ -1,0 +1,164 @@
+name: Canonical relation prepass for replayable 425
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/relation425/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  relation-prepass:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build conservative canonical relation candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, re, hashlib, unicodedata
+          from pathlib import Path
+          from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
+          from difflib import SequenceMatcher
+          from datetime import datetime
+
+          MAIN='df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4'
+          CANON_SHA='53219907cdb435c3822c41d097b23e475662aa8a'
+          event_path=Path('runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json')
+          src_path=Path('runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json')
+          canon_path=Path('data/cards.full.json')
+          events=json.loads(event_path.read_text())
+          src=json.loads(src_path.read_text())
+          canon_root=json.loads(canon_path.read_text())
+
+          def pick_cards(root):
+              if isinstance(root,list): return root,'$'
+              if isinstance(root,dict):
+                  for k in ('cards','items','data','stories'):
+                      if isinstance(root.get(k),list): return root[k],'$.'+k
+              raise AssertionError('unrecognized canonical root')
+          cards, cards_path=pick_cards(canon_root)
+          assert len(cards)==1514, len(cards)
+
+          tracking={'utm_source','utm_medium','utm_campaign','utm_term','utm_content','utm_id','gclid','fbclid','mc_cid','mc_eid','ref','referrer'}
+          def canon_url(s):
+              if not isinstance(s,str) or not s.startswith(('http://','https://')): return None
+              try:
+                  p=urlsplit(s.strip())
+                  q=[(k,v) for k,v in parse_qsl(p.query,keep_blank_values=True) if k.lower() not in tracking and not k.lower().startswith('utm_')]
+                  return urlunsplit((p.scheme.lower(),p.netloc.lower().rstrip('.'),p.path.rstrip('/') or '/',urlencode(q,doseq=True),''))
+              except Exception: return s.strip()
+          def norm_text(s):
+              if not isinstance(s,str): return ''
+              s=unicodedata.normalize('NFKC',s).lower()
+              s=re.sub(r'https?://\S+',' ',s)
+              s=re.sub(r'[^0-9a-z가-힣一-龥]+',' ',s)
+              return ' '.join(s.split())
+          stop={'the','a','an','and','or','of','to','in','on','for','with','at','by','from','as','is','are','be','new','says','said','will','its','it','this','that','대한','관련','및','위한','등','발표','뉴스'}
+          def toks(s): return {x for x in norm_text(s).split() if len(x)>=2 and x not in stop}
+          def date_parse(s):
+              if not isinstance(s,str): return None
+              m=re.search(r'20\d{2}-\d{2}-\d{2}',s)
+              if not m: return None
+              try:return datetime.strptime(m.group(),'%Y-%m-%d').date()
+              except:return None
+          def walk(obj,path='$'):
+              if isinstance(obj,dict):
+                  for k,v in obj.items():
+                      yield path+'.'+str(k),v
+                      yield from walk(v,path+'.'+str(k))
+              elif isinstance(obj,list):
+                  for i,v in enumerate(obj): yield from walk(v,f'{path}[{i}]')
+          def first_val(card, keys):
+              for k in keys:
+                  if isinstance(card,dict) and isinstance(card.get(k),(str,int)) and str(card[k]).strip(): return str(card[k])
+              return None
+
+          crows=[]
+          url_map={}
+          title_map={}
+          for idx,c in enumerate(cards):
+              cid=first_val(c,('id','story_id','card_id','news_id','slug')) or f'CANON_INDEX_{idx:04d}'
+              title=first_val(c,('title','headline','title_ko','headline_ko','card_title','name')) or ''
+              date=first_val(c,('date','event_date','published_date','published_at','publish_date','datePublished'))
+              urls=[]; titles=[]
+              for p,v in walk(c):
+                  if isinstance(v,str):
+                      cu=canon_url(v)
+                      if cu: urls.append(cu)
+                      lk=p.lower()
+                      if any(x in lk for x in ('title','headline')) and len(v.strip())>5: titles.append(norm_text(v))
+              if title: titles.append(norm_text(title))
+              urls=sorted(set(urls)); titles=sorted(set(x for x in titles if x))
+              row={'canonical_index':idx,'canonical_id':cid,'title':title,'date':date,'urls':urls,'titles':titles}
+              crows.append(row)
+              for u in urls:url_map.setdefault(u,[]).append(idx)
+              for t in titles:title_map.setdefault(t,[]).append(idx)
+
+          src_by_key={o['observation_key']:o for o in src['observations']}
+          out=[]; exact_events=0; hint_events=0
+          for e in events['events']:
+              rep=e['representative']; et=rep.get('title') or ''; ent=norm_text(et); eu=canon_url(rep.get('url')); ed=date_parse(rep.get('date'))
+              exact=set()
+              reasons={}
+              if eu and eu in url_map:
+                  for i in url_map[eu]: exact.add(i); reasons.setdefault(i,[]).append('exact_canonical_url')
+              if ent and ent in title_map:
+                  for i in title_map[ent]: exact.add(i); reasons.setdefault(i,[]).append('exact_normalized_title')
+              hints=[]
+              for ok in e['observation_keys']:
+                  o=src_by_key[ok]
+                  for k in ('baseline_relation','canonical_relation','relation_hint'):
+                      if o.get(k): hints.append({'observation_key':ok,'field':k,'value':o[k]})
+              if hints: hint_events+=1
+              if exact: exact_events+=1
+              etok=toks(et)
+              scored=[]
+              for i,c in enumerate(crows):
+                  if i in exact:
+                      seq=1.0; jac=1.0
+                  else:
+                      ct=c['title']; nt=norm_text(ct)
+                      if not nt: continue
+                      seq=SequenceMatcher(None,ent,nt).ratio() if ent else 0.0
+                      ctok=toks(ct); uni=etok|ctok
+                      jac=len(etok&ctok)/len(uni) if uni else 0.0
+                      if max(seq,jac)<0.42: continue
+                  cd=date_parse(c.get('date')); delta=abs((ed-cd).days) if ed and cd else None
+                  score=max(seq,jac)
+                  if delta is not None and delta<=3: score=min(1.0,score+0.05)
+                  scored.append((score,seq,jac,delta,i))
+              scored.sort(reverse=True,key=lambda x:(x[0],x[1],x[2],-(x[3] if x[3] is not None else 99999)))
+              cand=[]
+              for score,seq,jac,delta,i in scored[:8]:
+                  c=crows[i]
+                  cand.append({'canonical_id':c['canonical_id'],'canonical_index':i,'title':c['title'],'date':c['date'],'score':round(score,6),'sequence':round(seq,6),'token_jaccard':round(jac,6),'date_delta_days':delta,'exact_reasons':reasons.get(i,[])})
+              exact_ids=[crows[i]['canonical_id'] for i in sorted(exact)]
+              auto='same_event_reinforcement' if exact else None
+              out.append({'event_id':e['event_id'],'representative':rep,'observation_count':e['observation_count'],'source_runs':e['source_runs'],'exact_canonical_match_ids':exact_ids,'automatic_relation':auto,'automatic_confidence':'high' if exact else None,'source_relation_hints':hints,'top_candidates':cand,'requires_manual_relation_review':not bool(exact)})
+
+          profile={'canonical_root_type':type(canon_root).__name__,'cards_path':cards_path,'card_count':len(cards),'sample_top_level_keys':sorted(list(cards[0].keys())) if cards and isinstance(cards[0],dict) else [],'cards_with_id':sum(1 for c in crows if not c['canonical_id'].startswith('CANON_INDEX_')),'cards_with_title':sum(1 for c in crows if c['title']),'cards_with_any_url':sum(1 for c in crows if c['urls'])}
+          result={'schema':'canonical_relation_prepass_425_v1','status':'PASS_CANDIDATE_GENERATION_FORMAL_STAGE_A_BLOCKED','generated_date':'2026-09-03','current_main_sha':MAIN,'canonical_blob_sha':CANON_SHA,'canonical_card_count':1514,'event_membership_ref':str(event_path),'source_identity_ref':str(src_path),'policy':{'automatic_same_event_only_on_exact_url_or_normalized_title':True,'fuzzy_candidates_are_non_authoritative':True,'story_id_cross_run_identity_forbidden':True,'uncertain_relation_routes_to_manual_related_prepass':True,'formal_stage_a_authorized':False},'canonical_schema_profile':profile,'accounting':{'event_count':len(out),'events_with_exact_canonical_match':exact_events,'events_with_source_relation_hint':hint_events,'events_requiring_manual_relation_review':sum(1 for x in out if x['requires_manual_relation_review'])},'events':out}
+          assert len(out)==425
+          Path('runs/2026-09-03/canonical_relation_prepass_425_20260903_R1.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          summary={'schema':'canonical_relation_prepass_summary_v1','status':'PASS','generated_date':'2026-09-03','accounting':result['accounting'],'canonical_schema_profile':profile,'exact_match_events':[{'event_id':x['event_id'],'representative_title':x['representative']['title'],'exact_canonical_match_ids':x['exact_canonical_match_ids'],'exact_reasons':[c['exact_reasons'] for c in x['top_candidates'] if c['exact_reasons']]} for x in out if x['exact_canonical_match_ids']],'source_hint_events':[{'event_id':x['event_id'],'representative_title':x['representative']['title'],'hints':x['source_relation_hints'],'top_candidates':x['top_candidates'][:3]} for x in out if x['source_relation_hints']],'formal_stage_a_authorized':False}
+          Path('runs/2026-09-03/canonical_relation_prepass_summary_20260903_R1.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(result['accounting'],ensure_ascii=False))
+          print(json.dumps(profile,ensure_ascii=False))
+          PY
+      - name: Commit prepass outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/canonical_relation_prepass_425_20260903_R1.json runs/2026-09-03/canonical_relation_prepass_summary_20260903_R1.json
+          git rm -r .tmp/relation425
+          git commit -m 'audit: generate conservative canonical relation prepass for replayable 425'
+          git push

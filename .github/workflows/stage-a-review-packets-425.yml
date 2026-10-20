@@ -1,0 +1,73 @@
+name: Materialize Stage A review packets for replayable 425
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/stagea425packets/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  packets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build 17 bounded review packets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,math
+          from pathlib import Path
+          membership=json.loads(Path('runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json').read_text())
+          source=json.loads(Path('runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json').read_text())
+          pre=json.loads(Path('runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R2.json').read_text())
+          relation=json.loads(Path('runs/2026-09-03/canonical_relation_replay_closure_425_20260903_R3.json').read_text())
+          src={o['observation_key']:o for o in source['observations']}
+          mev={e['event_id']:e for e in membership['events']}
+          rel={r['replay_event_id']:r for r in relation['reanchored_relations']}
+          ordered=pre['events']
+          assert len(ordered)==425
+          outdir=Path('runs/2026-09-03/stage_a_review_packets_425'); outdir.mkdir(parents=True,exist_ok=True)
+          manifest=[]
+          for bi in range(17):
+              rows=[]
+              for idx,x in enumerate(ordered[bi*25:(bi+1)*25],start=bi*25+1):
+                  e=mev[x['event_id']]
+                  rows.append({
+                    'ordinal':idx,
+                    'event_id':x['event_id'],
+                    'representative':e.get('representative'),
+                    'observation_count':e.get('observation_count'),
+                    'source_runs':e.get('source_runs'),
+                    'observation_keys':e.get('observation_keys'),
+                    'observations':[src[k] for k in e['observation_keys']],
+                    'canonical_relation':rel.get(x['event_id']),
+                    'preselection_bucket':x['preselection_bucket'],
+                    'routing_hint_score':x.get('routing_hint_score'),
+                    'matched_features':x.get('matched_features'),
+                    'preselection_reason':x.get('r2_routing_reason') or x.get('routing_reason'),
+                    'formal_stage_a_judgment_required':True
+                  })
+              path=outdir/f'batch_{bi+1:02d}.json'
+              payload={'schema':'stage_a_review_packet_v1','batch':bi+1,'ordinal_start':bi*25+1,'ordinal_end':min((bi+1)*25,425),'event_count':len(rows),'selection_policy_version':'EMBEDDED_NEWS_VALUE_SELECTION_V4','source_prompt_version':'STAGE_A_INTEGRATED_SELECTOR_V4_20260901','main_sha':'df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4','events':rows}
+              path.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n')
+              manifest.append({'batch':bi+1,'path':str(path),'count':len(rows),'ordinal_start':bi*25+1,'ordinal_end':min((bi+1)*25,425)})
+          Path(outdir/'manifest.json').write_text(json.dumps({'schema':'stage_a_review_packet_manifest_v1','status':'PASS','event_count':425,'batch_count':17,'batches':manifest},ensure_ascii=False,indent=2)+'\n')
+          print('PACKETS',[(m['batch'],m['count']) for m in manifest])
+          PY
+      - name: Commit review packets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/stage_a_review_packets_425
+          git rm -r .tmp/stagea425packets
+          git commit -m 'audit: materialize Stage A review packets for replayable 425'
+          git push

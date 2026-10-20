@@ -1,0 +1,2049 @@
+{
+  "schema": "canonical_relation_historical_anchor_replay_r2",
+  "status": "PASS_CANDIDATE_MAPPING_MANUAL_CONFIRMATION_REQUIRED",
+  "generated_date": "2026-09-03",
+  "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "canonical_card_count": 1514,
+  "replay_event_count": 425,
+  "historical_anchor_count": 10,
+  "policy": {
+    "historical_relations_are_sanity_anchors_not_blindly_reused": true,
+    "target_ids_must_exist_current_canonical": true,
+    "mapping_uses_all_observation_titles_not_event_id_position": true,
+    "automatic_relation_authorization": false,
+    "formal_stage_a_authorized": false
+  },
+  "anchors": [
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0092",
+      "relation_type": "program_lineage",
+      "target_ids": [
+        "2026-04-22_US_04"
+      ],
+      "confidence": "medium",
+      "title": "LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake",
+      "all_targets_exist_current_canonical": true,
+      "top_candidates": [
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0227",
+          "representative": {
+            "observation_key": "20260831::disc:20260831:lg-es-smackover-lithium-offtake",
+            "story_id": null,
+            "date": "2026-08-31",
+            "title": "LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake",
+            "site": "lgcorp.com",
+            "url": "https://lgcorp.com/media/release/30523?emptySubMenu=false&hostEn=www.lgcorp.com&hostKo=www.lg.co.kr&nav=LG&nav=Media&nav=Press+Release",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "600e6edee4cb06ba4e523f0fa17fd464953ea4f45ed7bf997d592bbd9d739289"
+            }
+          },
+          "best_observation_key": "20260831::disc:20260831:lg-es-smackover-lithium-offtake",
+          "best_observation_title": "LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake",
+          "score": 1.0,
+          "sequence": 1.0,
+          "token_jaccard": 1.0,
+          "token_containment": 1.0,
+          "observation_count": 24
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0200",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:TF_0048",
+            "story_id": "TF_0048",
+            "date": "2026-08-19",
+            "title": "LG Energy Solution Announces Start of Production at All-New Lansing Battery Plant",
+            "site": "LG Energy Solution Newsroom RSS",
+            "url": "https://news.lgensol.com/company-news/press-releases/5163",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "e9a6fad352763b7310fa021b8a65ac31f4fbb059953d00419abc09f3d0cf48fd"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:TF_0048",
+          "best_observation_title": "LG Energy Solution Announces Start of Production at All-New Lansing Battery Plant",
+          "score": 0.466258,
+          "sequence": 0.466258,
+          "token_jaccard": 0.176471,
+          "token_containment": 0.3,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0104",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:GL_2026-08-30_C06",
+            "story_id": "GL_2026-08-30_C06",
+            "date": "2026-08-30",
+            "title": "POSCO Holdings accelerates Argentina lithium project with $700 million IDB financing facility - The Korea Post",
+            "site": "Chile/Argentina Lithium (via Google News)",
+            "url": "https://www.koreapost.com/news/articleView.html?idxno=49406",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "991980ec56da581cb73e1781b69774a3cba5284a241a88264dd4e6695ce93c37"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C01",
+          "best_observation_title": "A $700 Million Plan To Turn Argentina’s Lithium Into Batteries - Finimize",
+          "score": 0.421053,
+          "sequence": 0.421053,
+          "token_jaccard": 0.055556,
+          "token_containment": 0.111111,
+          "observation_count": 9
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0321",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C20",
+            "story_id": "GL_2026-08-31_C20",
+            "date": "2026-08-31",
+            "title": "Liontown Resources Executes Farm-In Agreement for Argentina Lithium Brine Project - marketscreener.com",
+            "site": "Chile/Argentina Lithium (via Google News)",
+            "url": "https://www.marketscreener.com/news/liontown-resources-executes-farm-in-agreement-for-argentina-lithium-brine-project-ce7858ddda8af521",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "f125f233ec0e210ace2ba82a36110f9f7dd63d36c09d89b3d17242dbc29778b1"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C07",
+          "best_observation_title": "Liontown enters Argentina lithium brine farm-in, diversifying future growth - The Motley Fool Australia",
+          "score": 0.406593,
+          "sequence": 0.406593,
+          "token_jaccard": 0.047619,
+          "token_containment": 0.1,
+          "observation_count": 5
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0344",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C08",
+            "story_id": "EU_2026-08-31_C08",
+            "date": "2026-08-31",
+            "title": "Grenergy plans 516.9 MWp solar plant with 3.01 GWh BESS in Chile",
+            "site": "ESS News RSS",
+            "url": "https://www.ess-news.com/2026/08/31/grenergy-plans-516-9-mwp-solar-plant-with-3-01-gwh-bess-in-chile",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "4a970e5c610142383c20298b480e82a7c03837c78c8eee1f73382367f23fc7e5"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C08",
+          "best_observation_title": "Grenergy plans 516.9 MWp solar plant with 3.01 GWh BESS in Chile",
+          "score": 0.39726,
+          "sequence": 0.39726,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0425",
+          "representative": {
+            "observation_key": "20260901::disc:20260901:china-battery-consumption-tax-effective",
+            "story_id": null,
+            "date": "2026-09-01",
+            "title": "China 2% consumption tax on lithium-ion and specified batteries takes effect",
+            "site": "shanxi.chinatax.gov.cn",
+            "url": "https://shanxi.chinatax.gov.cn/zcfg/detail/sx-11400-3815-1822938",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "0f092ddcc64d04da93adb6e4f4e7e5e761dfe89d632bbe10b8ce125e8e8a7350"
+            }
+          },
+          "best_observation_key": "20260901::disc:20260901:china-battery-consumption-tax-effective",
+          "best_observation_title": "China 2% consumption tax on lithium-ion and specified batteries takes effect",
+          "score": 0.394904,
+          "sequence": 0.394904,
+          "token_jaccard": 0.055556,
+          "token_containment": 0.111111,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0120",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C03",
+            "story_id": "GL_2026-08-28_C03",
+            "date": "2026-08-28",
+            "title": "Asst. Energy Secretary to visit - - The Mining Gazette",
+            "site": "G7 Critical Minerals Multilateral (via Google News)",
+            "url": "https://www.mininggazette.com/news/local-news/2026/08/asst-energy-secretary-to-visit",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "eaf0bb10e5e58a0d12639e889e222c47e3fc037d9c66f9e76f9645b286e2828a"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C03",
+          "best_observation_title": "Asst. Energy Secretary to visit - - The Mining Gazette",
+          "score": 0.381679,
+          "sequence": 0.381679,
+          "token_jaccard": 0.066667,
+          "token_containment": 0.166667,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0113",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C15",
+            "story_id": "GL_2026-08-28_C15",
+            "date": "2026-08-28",
+            "title": "KIER Develops Novel Solution-Based Process to Overcome Key Challenge in Direct Recycling of Spent Batteries",
+            "site": "Newswise SciNews",
+            "url": "https://www.newswise.com/articles/kier-develops-novel-solution-based-process-to-overcome-key-challenge-in-direct-recycling-of-spent-batteries?sc=rssn",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "90376e58d165c176a24d032dc40b4aadfc0135e4e70b704eb3d8a51a11458933"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C15",
+          "best_observation_title": "KIER Develops Novel Solution-Based Process to Overcome Key Challenge in Direct Recycling of Spent Batteries",
+          "score": 0.380952,
+          "sequence": 0.380952,
+          "token_jaccard": 0.045455,
+          "token_containment": 0.1,
+          "observation_count": 1
+        }
+      ],
+      "top_margin": 0.533742,
+      "auto_reanchor_allowed": false
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0103",
+      "relation_type": "distinct_follow_up",
+      "target_ids": [
+        "2026-07-16_CN_01"
+      ],
+      "confidence": "high",
+      "title": "China 2% consumption tax on lithium-ion and specified batteries takes effect",
+      "all_targets_exist_current_canonical": true,
+      "top_candidates": [
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0425",
+          "representative": {
+            "observation_key": "20260901::disc:20260901:china-battery-consumption-tax-effective",
+            "story_id": null,
+            "date": "2026-09-01",
+            "title": "China 2% consumption tax on lithium-ion and specified batteries takes effect",
+            "site": "shanxi.chinatax.gov.cn",
+            "url": "https://shanxi.chinatax.gov.cn/zcfg/detail/sx-11400-3815-1822938",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "0f092ddcc64d04da93adb6e4f4e7e5e761dfe89d632bbe10b8ce125e8e8a7350"
+            }
+          },
+          "best_observation_key": "20260901::disc:20260901:china-battery-consumption-tax-effective",
+          "best_observation_title": "China 2% consumption tax on lithium-ion and specified batteries takes effect",
+          "score": 1.0,
+          "sequence": 1.0,
+          "token_jaccard": 1.0,
+          "token_containment": 1.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0421",
+          "representative": {
+            "observation_key": "20260831::disc:20260831:china-battery-consumption-tax-qa",
+            "story_id": null,
+            "date": "2026-08-27",
+            "title": "China tax authority clarifies battery consumption-tax scope for ESS clusters and semi-solid batteries",
+            "site": "www.chinatax.gov.cn",
+            "url": "https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "e3975bb87078087cb397b8efa4f30622a78e5aa13939bbd10bf8a9880eb94f05"
+            }
+          },
+          "best_observation_key": "20260831::disc:20260831:china-battery-consumption-tax-qa",
+          "best_observation_title": "China tax authority clarifies battery consumption-tax scope for ESS clusters and semi-solid batteries",
+          "score": 0.534091,
+          "sequence": 0.534091,
+          "token_jaccard": 0.235294,
+          "token_containment": 0.444444,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0143",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C24",
+            "story_id": "EU_2026-08-28_C24",
+            "date": "2026-08-28",
+            "title": "Study highlights potential solutions to economic barriers in battery recycling",
+            "site": "Electrive RSS",
+            "url": "https://www.electrive.com/2026/08/28/study-highlights-economic-barriers-in-battery-recycling",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "801a04b5f9680e6a4c03a0a64359f0c6fd0fc94eb5f8899a9ab5794aeadbc91e"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C24",
+          "best_observation_title": "Study highlights potential solutions to economic barriers in battery recycling",
+          "score": 0.405229,
+          "sequence": 0.405229,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0177",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:TF_0143",
+            "story_id": "TF_0143",
+            "date": "2026-08-28",
+            "title": "China TOPCon solar module prices rise on upstream cost pressure as deals lag offers",
+            "site": "PV Magazine USA RSS",
+            "url": "https://pv-magazine-usa.com/2026/08/28/china-topcon-solar-module-prices-rise-on-upstream-cost-pressure-as-deals-lag-offers",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "908f8522e5381c5e134c9f12fcb68bd3dcfcfa89d9c0d1c9b5f9cc679ae5d92b"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:TF_0143",
+          "best_observation_title": "China TOPCon solar module prices rise on upstream cost pressure as deals lag offers",
+          "score": 0.405063,
+          "sequence": 0.405063,
+          "token_jaccard": 0.05,
+          "token_containment": 0.111111,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0227",
+          "representative": {
+            "observation_key": "20260831::disc:20260831:lg-es-smackover-lithium-offtake",
+            "story_id": null,
+            "date": "2026-08-31",
+            "title": "LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake",
+            "site": "lgcorp.com",
+            "url": "https://lgcorp.com/media/release/30523?emptySubMenu=false&hostEn=www.lgcorp.com&hostKo=www.lg.co.kr&nav=LG&nav=Media&nav=Press+Release",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "600e6edee4cb06ba4e523f0fa17fd464953ea4f45ed7bf997d592bbd9d739289"
+            }
+          },
+          "best_observation_key": "20260831::disc:20260831:lg-es-smackover-lithium-offtake",
+          "best_observation_title": "LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake",
+          "score": 0.394904,
+          "sequence": 0.394904,
+          "token_jaccard": 0.055556,
+          "token_containment": 0.111111,
+          "observation_count": 24
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0104",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:GL_2026-08-30_C06",
+            "story_id": "GL_2026-08-30_C06",
+            "date": "2026-08-30",
+            "title": "POSCO Holdings accelerates Argentina lithium project with $700 million IDB financing facility - The Korea Post",
+            "site": "Chile/Argentina Lithium (via Google News)",
+            "url": "https://www.koreapost.com/news/articleView.html?idxno=49406",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "991980ec56da581cb73e1781b69774a3cba5284a241a88264dd4e6695ce93c37"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C20",
+          "best_observation_title": "POSCO Holdings Secures $700 Million Financing Facility for Argentina Lithium Business - thelec.net",
+          "score": 0.388235,
+          "sequence": 0.388235,
+          "token_jaccard": 0.05,
+          "token_containment": 0.111111,
+          "observation_count": 9
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0008",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C11",
+            "story_id": "US_2026-08-28_C11",
+            "date": "2026-08-28",
+            "title": "Generational finds cell-voltage imbalance in one in 85 used EVs tested in the UK",
+            "site": "Charged EVs RSS",
+            "url": "https://chargedevs.com/newswire/generational-finds-cell-voltage-imbalance-in-one-in-85-used-evs-tested-in-the-uk",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "b35bb7e1101c31eb89fc8998fdc2740630c27cee82f3f2bdc5cedbde872e6ce3"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C11",
+          "best_observation_title": "Generational finds cell-voltage imbalance in one in 85 used EVs tested in the UK",
+          "score": 0.374194,
+          "sequence": 0.374194,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0351",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C21",
+            "story_id": "EU_2026-08-31_C21",
+            "date": "2026-08-31",
+            "title": "The solution for the energy transition has long been sitting in our garages",
+            "site": "Electrive RSS",
+            "url": "https://www.electrive.com/2026/08/31/the-solution-for-the-energy-transition-has-long-been-sitting-in-our-garages",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "67fdea280c809deabc60b411ab1ba36ea78872cf0f1e885840c8958468e6b086"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C21",
+          "best_observation_title": "The solution for the energy transition has long been sitting in our garages",
+          "score": 0.373333,
+          "sequence": 0.373333,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        }
+      ],
+      "top_margin": 0.465909,
+      "auto_reanchor_allowed": false
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0217",
+      "relation_type": "same_event_reinforcement",
+      "target_ids": [
+        "2026-08-26_US_01"
+      ],
+      "confidence": "high",
+      "title": "미국 대형 전력망 국가 비상 사태 선포 후속 보도",
+      "all_targets_exist_current_canonical": true,
+      "top_candidates": [
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0298",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C37",
+            "story_id": "KR_2026-08-31_C37",
+            "date": "2026-08-31",
+            "title": "[이충재의 에너지 프리즘] 미국 대형 전력망 국가 비상 사태 선포: 미국 AI 전력 공급망에서 배제된 중국",
+            "site": "SK-on",
+            "url": "https://askinno.com/archives/170762",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "3bee657c4808ad90bfa625f08a40cab2f3bc45daa339e614ee2cd8a68a4c0ad6"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C37",
+          "best_observation_title": "[이충재의 에너지 프리즘] 미국 대형 전력망 국가 비상 사태 선포: 미국 AI 전력 공급망에서 배제된 중국",
+          "score": 1.0,
+          "sequence": 0.554217,
+          "token_jaccard": 0.466667,
+          "token_containment": 1.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0028",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C90",
+            "story_id": "KR_2026-08-31_C90",
+            "date": "2026-08-31",
+            "title": "美 트럼프 전력망 비상사태 선포…韓 에너지 보안은 어디까지 왔나",
+            "site": "뉴시스 RSS",
+            "url": "https://www.newsis.com/view/NISX20260831_0003769699",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "0a9bf0d7185c15026aa911fe1a176b4c3f12883c417400e283bbc7f0fab8ca5d"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C90",
+          "best_observation_title": "美 트럼프 전력망 비상사태 선포…韓 에너지 보안은 어디까지 왔나",
+          "score": 0.516129,
+          "sequence": 0.516129,
+          "token_jaccard": 0.153846,
+          "token_containment": 0.285714,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0021",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C205",
+            "story_id": "KR_2026-08-31_C205",
+            "date": "2026-08-31",
+            "title": "한-미, 에너지 안보 협력 논의…전력망·ESS·공급망 대응 강화",
+            "site": "에너지신문",
+            "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227758",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "60f2abc673e4de078c393a2be516f97cfea966b647ea480efb9c427f38628510"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C211",
+          "best_observation_title": "한미, 전력망·ESS·공급망 '에너지 안보' 공조 강화",
+          "score": 0.407407,
+          "sequence": 0.407407,
+          "token_jaccard": 0.071429,
+          "token_containment": 0.142857,
+          "observation_count": 9
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0082",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:KR_2026-08-29_C05",
+            "story_id": "KR_2026-08-29_C05",
+            "date": "2026-08-29",
+            "title": "트럼프가 '국가 비상사태' 선포…덕분에 돈 벌 수 있는 주식이 있다? [주末머니]",
+            "site": "아시아경제",
+            "url": "https://view.asiae.co.kr/article/2026082815161926667",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "e6c1afd6ea313018c2b1ab9e878e4d4bc9ffc66ff0ba6b7ee9cd48d4a2eb9639"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:KR_2026-08-29_C05",
+          "best_observation_title": "트럼프가 '국가 비상사태' 선포…덕분에 돈 벌 수 있는 주식이 있다? [주末머니]",
+          "score": 0.38806,
+          "sequence": 0.38806,
+          "token_jaccard": 0.142857,
+          "token_containment": 0.285714,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0062",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C110",
+            "story_id": "KR_2026-08-31_C110",
+            "date": "2026-08-31",
+            "title": "기아, 대형 전동화 PBV ‘더 기아 PV7’ 티저 최초 공개",
+            "site": "서울경제TV",
+            "url": "https://www.sentv.co.kr/article/view/sentv202608310035",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "542169f4c4ea8085ed383a584da136dd55a6c371ed7505bd46ea7871babb7e42"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C110",
+          "best_observation_title": "기아, 대형 전동화 PBV ‘더 기아 PV7’ 티저 최초 공개",
+          "score": 0.37931,
+          "sequence": 0.37931,
+          "token_jaccard": 0.071429,
+          "token_containment": 0.142857,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0180",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:TF_0123",
+            "story_id": "TF_0123",
+            "date": "2026-08-31",
+            "title": "중국의 차세대 전지 산업화 전략 2026.08.31",
+            "site": "SNE Research",
+            "url": "https://www.sneresearch.com/kr/insight/special_view/999/page/0",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "e7d7f8e7dd23700aec0c65ddafaef6ac5f9b500076055b3e8239b2281ae06237"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:TF_0123",
+          "best_observation_title": "중국의 차세대 전지 산업화 전략 2026.08.31",
+          "score": 0.363636,
+          "sequence": 0.363636,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0397",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:TF_0143",
+            "story_id": "TF_0143",
+            "date": "2026-09-01",
+            "title": "기후부 “용수 공급 예산, 전력보다 적은 건 사업 초기 단계 때문”",
+            "site": "전기신문",
+            "url": "https://www.electimes.com/news/articleView.html?idxno=371909",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "f2138c29ed97cd43ba2ae4c78373f5f9e5c14c41b25b21356a925b2cf771c8ab"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:TF_0143",
+          "best_observation_title": "기후부 “용수 공급 예산, 전력보다 적은 건 사업 초기 단계 때문”",
+          "score": 0.360656,
+          "sequence": 0.360656,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0019",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C25",
+            "story_id": "KR_2026-08-31_C25",
+            "date": "2026-08-31",
+            "title": "ESS 기반 SK온 '절치부심'..美서 '조단위' 대규모 공급계약 미국서 두번째 ESS 대형 계약…102GWh 현지 생산능력 기반 수주 확대 SK온이 미국 에너지저장장치(ESS) 시장에서 대규모 배터리 셀 공급계약을 체결했다. 북미를 중심으로 ESS 사업 확대에 본격 나서며 올해 흑자 기조를 이어간다는 계획이다. SK온은 미국 ESS 기업 네오볼타 파워와 ESS용 배터리 셀 공급계약을 체결했다고 31일 밝혔다. 이번 계약에 따라 SK온은 2027년부터 2031년까지 5년간 총 9GWh(기가와트시) 규모의 LFP(리튬·인산·철) 파우치 배터리 셀을 네오볼타 파워에 공급한다. 공급 물량은 미국 조지아 공장에서 생산될 예정이다. 업계에서는 이번 계약 규모를 약 1조5000억원으로 추산하고 있다. 2026.08.31 14:49 김지현 기자",
+            "site": "머니투데이",
+            "url": "https://www.mt.co.kr/industry/2026/08/31/2026083111162017076",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "84d4dab551e71481b5e8104b8246840953200af69af83d8e257cfb73eecc3797"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C52",
+          "best_observation_title": "SK온, 미국서 9GWh 대형 배터리 셀 공급계약 체결… ESS 사업 확대 본격화",
+          "score": 0.342857,
+          "sequence": 0.342857,
+          "token_jaccard": 0.058824,
+          "token_containment": 0.142857,
+          "observation_count": 22
+        }
+      ],
+      "top_margin": 0.483871,
+      "auto_reanchor_allowed": false
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0233",
+      "relation_type": "same_event_reinforcement",
+      "target_ids": [
+        "2026-08-26_US_01"
+      ],
+      "confidence": "high",
+      "title": "U.S. inverter/BESS/transformer executive-order follow-up report",
+      "all_targets_exist_current_canonical": true,
+      "top_candidates": [
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0328",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C32",
+            "story_id": "GL_2026-08-31_C32",
+            "date": "2026-08-31",
+            "title": "Trump cites ‘unusual and extraordinary threat’ in executive order banning inverter, BESS & transformer imports",
+            "site": "Energy-Storage.news RSS",
+            "url": "https://www.energy-storage.news/trump-cites-unusual-and-extraordinary-threat-in-executive-order-banning-inverter-bess-transformer-imports",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "0b2aee4dc03c3a2dfb1b0776c9817db49233646e30a3559ee943ed57fbc3c088"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C32",
+          "best_observation_title": "Trump cites ‘unusual and extraordinary threat’ in executive order banning inverter, BESS & transformer imports",
+          "score": 0.625,
+          "sequence": 0.419162,
+          "token_jaccard": 0.333333,
+          "token_containment": 0.625,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0010",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C09",
+            "story_id": "US_2026-08-31_C09",
+            "date": "2026-08-31",
+            "title": "K-12 school solar tops 2.4 GW, while battery storage emerges as next growth market",
+            "site": "PV Magazine USA RSS",
+            "url": "https://pv-magazine-usa.com/2026/08/31/k-12-school-solar-tops-2-4-gw-while-battery-storage-emerges-as-next-growth-market",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "cadd0df4a411edcf2c331e03ca1f0d4b5ffaf0bf9facc186eaee4c2a033ba5f7"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C09",
+          "best_observation_title": "K-12 school solar tops 2.4 GW, while battery storage emerges as next growth market",
+          "score": 0.391608,
+          "sequence": 0.391608,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0019",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C25",
+            "story_id": "KR_2026-08-31_C25",
+            "date": "2026-08-31",
+            "title": "ESS 기반 SK온 '절치부심'..美서 '조단위' 대규모 공급계약 미국서 두번째 ESS 대형 계약…102GWh 현지 생산능력 기반 수주 확대 SK온이 미국 에너지저장장치(ESS) 시장에서 대규모 배터리 셀 공급계약을 체결했다. 북미를 중심으로 ESS 사업 확대에 본격 나서며 올해 흑자 기조를 이어간다는 계획이다. SK온은 미국 ESS 기업 네오볼타 파워와 ESS용 배터리 셀 공급계약을 체결했다고 31일 밝혔다. 이번 계약에 따라 SK온은 2027년부터 2031년까지 5년간 총 9GWh(기가와트시) 규모의 LFP(리튬·인산·철) 파우치 배터리 셀을 네오볼타 파워에 공급한다. 공급 물량은 미국 조지아 공장에서 생산될 예정이다. 업계에서는 이번 계약 규모를 약 1조5000억원으로 추산하고 있다. 2026.08.31 14:49 김지현 기자",
+            "site": "머니투데이",
+            "url": "https://www.mt.co.kr/industry/2026/08/31/2026083111162017076",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "84d4dab551e71481b5e8104b8246840953200af69af83d8e257cfb73eecc3797"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C41",
+          "best_observation_title": "SK On, U.S. firm NeoVolta Power sign ESS battery deal",
+          "score": 0.389381,
+          "sequence": 0.389381,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 22
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0352",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C23",
+            "story_id": "EU_2026-08-31_C23",
+            "date": "2026-08-31",
+            "title": "Zero-emission trucking corridor from Canada to Mexico",
+            "site": "Electrive RSS",
+            "url": "https://www.electrive.com/2026/08/31/zero-emission-trucking-corridor-from-canada-to-mexico",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "1e24bcfea24a3849d8ed34a8bd1fbff7d8244984205f436a6069a9cab21f04da"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C23",
+          "best_observation_title": "Zero-emission trucking corridor from Canada to Mexico",
+          "score": 0.382609,
+          "sequence": 0.382609,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0319",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C10",
+            "story_id": "GL_2026-09-01_C10",
+            "date": "2026-09-01",
+            "title": "US Battery Installs to Hit Record in 2026, Industry Report Says",
+            "site": "Bloomberg Top News RSS",
+            "url": "https://www.bloomberg.com/news/articles/2026-09-01/us-battery-installs-to-hit-record-in-2026-industry-report-says",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "80818f5cabae3235118255b80596e0c53c39d9f67ab8099b0d789f7bfa6b4463"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:GL_2026-09-01_C10",
+          "best_observation_title": "US Battery Installs to Hit Record in 2026, Industry Report Says",
+          "score": 0.370968,
+          "sequence": 0.370968,
+          "token_jaccard": 0.066667,
+          "token_containment": 0.125,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0206",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:TF_0041",
+            "story_id": "TF_0041",
+            "date": "2026-08-31",
+            "title": "ClearVue announces coating breakthrough for energy-generating solar glass",
+            "site": "PV Magazine RSS (Global)",
+            "url": "https://www.pv-magazine.com/2026/08/31/clearvue-announces-coating-breakthrough-for-energy-generating-solar-glass",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "4a7ffb4fe2408b165c4f0e2cf60fc9f078bb172e1bdc7a4de02f8f5b1882736f"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:TF_0041",
+          "best_observation_title": "ClearVue announces coating breakthrough for energy-generating solar glass",
+          "score": 0.37037,
+          "sequence": 0.37037,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0424",
+          "representative": {
+            "observation_key": "20260901::disc:20260901:us-data-center-ghost-demand",
+            "story_id": null,
+            "date": "2026-09-01",
+            "title": "Texas halts new data-center grid connections and audits speculative ghost demand",
+            "site": "www.reuters.com",
+            "url": "https://www.reuters.com/business/texas-halt-powering-data-centers-reflects-us-reckoning-over-ghost-demand-2026-09-01/",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "f5fb6ba145ecf32bfe7d910e002386108fafa8ed8d0c63084574b73a54d413eb"
+            }
+          },
+          "best_observation_key": "20260901::disc:20260901:us-data-center-ghost-demand",
+          "best_observation_title": "Texas halts new data-center grid connections and audits speculative ghost demand",
+          "score": 0.366197,
+          "sequence": 0.366197,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0133",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C26",
+            "story_id": "EU_2026-08-28_C26",
+            "date": "2026-08-28",
+            "title": "UK opens GBP 28 million challenge for multi‑day renewable storage",
+            "site": "ESS News RSS",
+            "url": "https://www.ess-news.com/2026/08/28/uk-opens-28m-challenge-for-multi-day-renewable-storage",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "5c6776735752886bfd8fbc4cf6f86038e97ef70f1f57b41ac6ad96c9f5880075"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C26",
+          "best_observation_title": "UK opens GBP 28 million challenge for multi‑day renewable storage",
+          "score": 0.362205,
+          "sequence": 0.362205,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        }
+      ],
+      "top_margin": 0.233392,
+      "auto_reanchor_allowed": false
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0246",
+      "relation_type": "program_lineage",
+      "target_ids": [
+        "2026-06-22_US_04",
+        "2026-07-30_KR_02"
+      ],
+      "confidence": "medium",
+      "title": "SK온 미국 9GWh ESS용 LFP 공급계약",
+      "all_targets_exist_current_canonical": true,
+      "top_candidates": [
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0019",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C25",
+            "story_id": "KR_2026-08-31_C25",
+            "date": "2026-08-31",
+            "title": "ESS 기반 SK온 '절치부심'..美서 '조단위' 대규모 공급계약 미국서 두번째 ESS 대형 계약…102GWh 현지 생산능력 기반 수주 확대 SK온이 미국 에너지저장장치(ESS) 시장에서 대규모 배터리 셀 공급계약을 체결했다. 북미를 중심으로 ESS 사업 확대에 본격 나서며 올해 흑자 기조를 이어간다는 계획이다. SK온은 미국 ESS 기업 네오볼타 파워와 ESS용 배터리 셀 공급계약을 체결했다고 31일 밝혔다. 이번 계약에 따라 SK온은 2027년부터 2031년까지 5년간 총 9GWh(기가와트시) 규모의 LFP(리튬·인산·철) 파우치 배터리 셀을 네오볼타 파워에 공급한다. 공급 물량은 미국 조지아 공장에서 생산될 예정이다. 업계에서는 이번 계약 규모를 약 1조5000억원으로 추산하고 있다. 2026.08.31 14:49 김지현 기자",
+            "site": "머니투데이",
+            "url": "https://www.mt.co.kr/industry/2026/08/31/2026083111162017076",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "84d4dab551e71481b5e8104b8246840953200af69af83d8e257cfb73eecc3797"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C25",
+          "best_observation_title": "ESS 기반 SK온 '절치부심'..美서 '조단위' 대규모 공급계약 미국서 두번째 ESS 대형 계약…102GWh 현지 생산능력 기반 수주 확대 SK온이 미국 에너지저장장치(ESS) 시장에서 대규모 배터리 셀 공급계약을 체결했다. 북미를 중심으로 ESS 사업 확대에 본격 나서며 올해 흑자 기조를 이어간다는 계획이다. SK온은 미국 ESS 기업 네오볼타 파워와 ESS용 배터리 셀 공급계약을 체결했다고 31일 밝혔다. 이번 계약에 따라 SK온은 2027년부터 2031년까지 5년간 총 9GWh(기가와트시) 규모의 LFP(리튬·인산·철) 파우치 배터리 셀을 네오볼타 파워에 공급한다. 공급 물량은 미국 조지아 공장에서 생산될 예정이다. 업계에서는 이번 계약 규모를 약 1조5000억원으로 추산하고 있다. 2026.08.31 14:49 김지현 기자",
+          "score": 1.0,
+          "sequence": 0.089412,
+          "token_jaccard": 0.077922,
+          "token_containment": 1.0,
+          "observation_count": 22
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0252",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C11",
+            "story_id": "KR_2026-09-01_C11",
+            "date": "2026-09-01",
+            "title": "'11% 급락' 개미 충격 만회했다…강력 수주 모멘텀에 '급등' SK이노베이션이 자회사 SK온의 미국 에너지저장장치(ESS)용 배터리셀 수주 소식에 강세다.1일 오전 10시 현재 유가증권시장에서 SK이노베이션은 전날보다 1만400원(8.29%) 오른 13만5,900원에 거래되고 있다. 장 초반 10% 이상 뛰어올라 13만8,500원을 터치했다. 전체 업종 가운데 '에너지'가 SK이노베이션 강세에 힘입어 가장 큰 폭으로 오른다. SK온은 지난달 27일 미국 ESS 제조기업 네오볼타 파워와 ESS용 배터리 셀 공급계약을 체결했다고 전날 밝혔다.계약에 따라 SK온은 2027년부터 2031년까지 5년간 총 9기가와트시(GWh) 규모의 리튬인산철(LFP) 파우치 배터리 셀을 공급한다.이는 SK온이 올해 미국 시장에서 처음 따낸 대규모 배터리 셀 수주로 업계에서는 공급계약 규모를 약 1조5천억원으로 추산한다.SK온은 이와 별도로 연내 네오볼타 파워와 9GWh 규모의 추가 협력 계약도 추진하고 있다. 추가 계약까지 성사되면 양사의 협력 규모는 총 18GWh로 확대될 전망이다.전유진 iM증권 연구원은 \"SK온은 올해 수주 가이던스(전망치)를 20GWh로 제시했는데 이번 계약으로 목표치의 45%를 채웠고, 연내 추가로 추진하는 9GWh까지 감안하면 사실상 올해 수주 목표 대부분을 달성하게 된다\"고 설명했다.그는 \"찬물을 끼얹었던 SK이노베이션과 SK아이이테크놀로지(SKIET) 합병에 대한 실망감을 조금은 덜어내는 이벤트\"라고 평가했다.다만 \"이번 계약만으로 SK온과 SKIET 지원에 대한 시장의 불만과 불안을 해소하기에는 역부족\"이라면서도 \"미국 ESS 시장 진출의 첫걸음을 뗐다는 점은 긍정적\"이라고 말했다.앞서 SK이노베이션은 지난달 25일 분리막 사업 자회사 SKIET를 흡수합병한다고 공시했는데 다음 날인 26일 주가가 11.04% 급락한 바 있다.이후 27일부터 이날까지 4거래일 연속 반등 시세를 보이는 가운데 전날 8.04% 급등에 이어 2거래일 동안에만 20% 가까이 상승, 급락 분을 만회하는 모습이다.",
+            "site": "한국경제TV",
+            "url": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609010432",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "76af5d4b1de8346a6a2abcdc2337210a9df165f9530801333b726d37f6eafe44"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C11",
+          "best_observation_title": "'11% 급락' 개미 충격 만회했다…강력 수주 모멘텀에 '급등' SK이노베이션이 자회사 SK온의 미국 에너지저장장치(ESS)용 배터리셀 수주 소식에 강세다.1일 오전 10시 현재 유가증권시장에서 SK이노베이션은 전날보다 1만400원(8.29%) 오른 13만5,900원에 거래되고 있다. 장 초반 10% 이상 뛰어올라 13만8,500원을 터치했다. 전체 업종 가운데 '에너지'가 SK이노베이션 강세에 힘입어 가장 큰 폭으로 오른다. SK온은 지난달 27일 미국 ESS 제조기업 네오볼타 파워와 ESS용 배터리 셀 공급계약을 체결했다고 전날 밝혔다.계약에 따라 SK온은 2027년부터 2031년까지 5년간 총 9기가와트시(GWh) 규모의 리튬인산철(LFP) 파우치 배터리 셀을 공급한다.이는 SK온이 올해 미국 시장에서 처음 따낸 대규모 배터리 셀 수주로 업계에서는 공급계약 규모를 약 1조5천억원으로 추산한다.SK온은 이와 별도로 연내 네오볼타 파워와 9GWh 규모의 추가 협력 계약도 추진하고 있다. 추가 계약까지 성사되면 양사의 협력 규모는 총 18GWh로 확대될 전망이다.전유진 iM증권 연구원은 \"SK온은 올해 수주 가이던스(전망치)를 20GWh로 제시했는데 이번 계약으로 목표치의 45%를 채웠고, 연내 추가로 추진하는 9GWh까지 감안하면 사실상 올해 수주 목표 대부분을 달성하게 된다\"고 설명했다.그는 \"찬물을 끼얹었던 SK이노베이션과 SK아이이테크놀로지(SKIET) 합병에 대한 실망감을 조금은 덜어내는 이벤트\"라고 평가했다.다만 \"이번 계약만으로 SK온과 SKIET 지원에 대한 시장의 불만과 불안을 해소하기에는 역부족\"이라면서도 \"미국 ESS 시장 진출의 첫걸음을 뗐다는 점은 긍정적\"이라고 말했다.앞서 SK이노베이션은 지난달 25일 분리막 사업 자회사 SKIET를 흡수합병한다고 공시했는데 다음 날인 26일 주가가 11.04% 급락한 바 있다.이후 27일부터 이날까지 4거래일 연속 반등 시세를 보이는 가운데 전날 8.04% 급등에 이어 2거래일 동안에만 20% 가까이 상승, 급락 분을 만회하는 모습이다.",
+          "score": 0.833333,
+          "sequence": 0.027451,
+          "token_jaccard": 0.026738,
+          "token_containment": 0.833333,
+          "observation_count": 3
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0299",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C62",
+            "story_id": "KR_2026-08-31_C62",
+            "date": "2026-08-31",
+            "title": "삼성SDI, 글로벌 톱티어 ESS기업에 LFP 배터리 공급",
+            "site": "더일렉",
+            "url": "https://www.thelec.kr/news/articleView.html?idxno=61568",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "13f35f939227eec8ecd8060a3b7d7fc9f78f0839745de54eb3defd50e2118f66"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C62",
+          "best_observation_title": "삼성SDI, 글로벌 톱티어 ESS기업에 LFP 배터리 공급",
+          "score": 0.5,
+          "sequence": 0.5,
+          "token_jaccard": 0.083333,
+          "token_containment": 0.166667,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0020",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C82",
+            "story_id": "KR_2026-08-31_C82",
+            "date": "2026-08-31",
+            "title": "[특징주] SK이노베이션, SK온의 美 ESS 공급계약 소식에 6%대 강세",
+            "site": "아주경제",
+            "url": "https://www.ajunews.com/view/20260831095734109",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "3c218ad829257e65718e5c78658346eaa4bf25af6a5990f6a2a9bf6f18ed4b81"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C82",
+          "best_observation_title": "[특징주] SK이노베이션, SK온의 美 ESS 공급계약 소식에 6%대 강세",
+          "score": 0.412698,
+          "sequence": 0.412698,
+          "token_jaccard": 0.083333,
+          "token_containment": 0.166667,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0227",
+          "representative": {
+            "observation_key": "20260831::disc:20260831:lg-es-smackover-lithium-offtake",
+            "story_id": null,
+            "date": "2026-08-31",
+            "title": "LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake",
+            "site": "lgcorp.com",
+            "url": "https://lgcorp.com/media/release/30523?emptySubMenu=false&hostEn=www.lgcorp.com&hostKo=www.lg.co.kr&nav=LG&nav=Media&nav=Press+Release",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "600e6edee4cb06ba4e523f0fa17fd464953ea4f45ed7bf997d592bbd9d739289"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C57",
+          "best_observation_title": "LG엔솔, 미국서 '탄산리튬 8만톤' 장기 공급 계약 따내",
+          "score": 0.407407,
+          "sequence": 0.407407,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 24
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0304",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C10",
+            "story_id": "KR_2026-08-31_C10",
+            "date": "2026-08-31",
+            "title": "E1 · SK가스, 9월 국내 LPG 판매가격 '동결'",
+            "site": "투데이에너지",
+            "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302252",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "1d8117b20a86702e4d8b217b9a0a6dac0f0c4c5a9d464f27b0748ebc91fb2983"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C10",
+          "best_observation_title": "E1 · SK가스, 9월 국내 LPG 판매가격 '동결'",
+          "score": 0.36,
+          "sequence": 0.36,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0306",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C20",
+            "story_id": "KR_2026-08-31_C20",
+            "date": "2026-08-31",
+            "title": "SK가스‧SK에너지 등도 9월 LPG가격 동결",
+            "site": "에너지신문",
+            "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227792",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "277a03d790fc1429b946c419f13cb018d7a7a6995645f5bc6b490c7711f64995"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C20",
+          "best_observation_title": "SK가스‧SK에너지 등도 9월 LPG가격 동결",
+          "score": 0.36,
+          "sequence": 0.36,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0046",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C54",
+            "story_id": "KR_2026-08-31_C54",
+            "date": "2026-08-31",
+            "title": "SK이터닉스, 국내 최대 99MW 의성 황학산 풍력 상업운전",
+            "site": "투데이에너지",
+            "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302195",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "6847e78e40f47d0187aa7374c234b9744a01001e0d16b08c01b5d2628aa55874"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C54",
+          "best_observation_title": "SK이터닉스, 국내 최대 99MW 의성 황학산 풍력 상업운전",
+          "score": 0.350877,
+          "sequence": 0.350877,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 2
+        }
+      ],
+      "top_margin": 0.166667,
+      "auto_reanchor_allowed": false
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0263",
+      "relation_type": "same_event_reinforcement",
+      "target_ids": [
+        "2026-08-27_KR_01"
+      ],
+      "confidence": "high",
+      "title": "LG전자 폐가전 희토류 영구자석 회수",
+      "all_targets_exist_current_canonical": true,
+      "top_candidates": [
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0031",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C40",
+            "story_id": "KR_2026-08-31_C40",
+            "date": "2026-08-31",
+            "title": "LG전자, 버려지는 가전에서 핵심광물 희토류 캔다 LG전자가 가전 부품의 폐기 단계에서 희토류 영구자석을 회수해 산업 자원으로 재활용하는 독자 기술을 개발, 국가 순환경제 생태계 구축에 나선다고 밝혔다. 희토류는 전기차, 산업용 모터, 가전 등 첨단 산업에 폭넓게 사용되는 핵심 광물로 안정적인 공급망 확보의 중요성이 커지고 있다. LG전자는 8월 27일 경기도 용인시에 위치한 수도권자원순환센터에서 기후에너지환경부, E-순환거버넌스와 ‘폐가전 냉매압축기 폐영구자석 회수 시범사업’ 업무협약을 맺었다. 2026-08-28",
+            "site": "일렉포",
+            "url": "https://elec4.co.kr/contents/article_detail?article_idx=38109&s_cate=11",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "d8a21093f45ef84990d586c0179476712b757f38b3e99925d7d0b32920c85920"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C40",
+          "best_observation_title": "LG전자, 버려지는 가전에서 핵심광물 희토류 캔다 LG전자가 가전 부품의 폐기 단계에서 희토류 영구자석을 회수해 산업 자원으로 재활용하는 독자 기술을 개발, 국가 순환경제 생태계 구축에 나선다고 밝혔다. 희토류는 전기차, 산업용 모터, 가전 등 첨단 산업에 폭넓게 사용되는 핵심 광물로 안정적인 공급망 확보의 중요성이 커지고 있다. LG전자는 8월 27일 경기도 용인시에 위치한 수도권자원순환센터에서 기후에너지환경부, E-순환거버넌스와 ‘폐가전 냉매압축기 폐영구자석 회수 시범사업’ 업무협약을 맺었다. 2026-08-28",
+          "score": 0.8,
+          "sequence": 0.112957,
+          "token_jaccard": 0.065574,
+          "token_containment": 0.8,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0284",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C61",
+            "story_id": "KR_2026-09-01_C61",
+            "date": "2026-09-01",
+            "title": "LG전자, 14인치 그램북으로 국내 중저가 PC 시장 노린다",
+            "site": "아시아경제",
+            "url": "https://view.asiae.co.kr/article/2026090109281120717",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "6111de90e3391627e5b4ddafcff4d52ff264894d7cca8752b2e5fe322c1ecf1b"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C61",
+          "best_observation_title": "LG전자, 14인치 그램북으로 국내 중저가 PC 시장 노린다",
+          "score": 0.346154,
+          "sequence": 0.346154,
+          "token_jaccard": 0.083333,
+          "token_containment": 0.2,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0253",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C102",
+            "story_id": "KR_2026-09-01_C102",
+            "date": "2026-09-01",
+            "title": "“폐휴대폰 안전하게 배출하세요”…기후부, 한 달간 회수 실천운동 추진",
+            "site": "전기신문",
+            "url": "https://www.electimes.com/news/articleView.html?idxno=371930",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "ffce397f9852056b0955e701bc2c82741d05b3daf9e875cf204cc21c15fc8fdd"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C04",
+          "best_observation_title": "\"서랍 속 폐휴대폰 안전 배출하세요\"…기후부, 회수 실천운동 전개",
+          "score": 0.301887,
+          "sequence": 0.301887,
+          "token_jaccard": 0.083333,
+          "token_containment": 0.2,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0302",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C08",
+            "story_id": "KR_2026-08-31_C08",
+            "date": "2026-08-31",
+            "title": "9월 LPG 수입가격, 프로판 5달러 · 부탄 20달러 인상",
+            "site": "투데이에너지",
+            "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302250",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "610adfba4e78157a363fd7103c66e99462df0247cad6cc7668c3c7f1415c5e43"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C08",
+          "best_observation_title": "9월 LPG 수입가격, 프로판 5달러 · 부탄 20달러 인상",
+          "score": 0.28,
+          "sequence": 0.28,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0227",
+          "representative": {
+            "observation_key": "20260831::disc:20260831:lg-es-smackover-lithium-offtake",
+            "story_id": null,
+            "date": "2026-08-31",
+            "title": "LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake",
+            "site": "lgcorp.com",
+            "url": "https://lgcorp.com/media/release/30523?emptySubMenu=false&hostEn=www.lgcorp.com&hostKo=www.lg.co.kr&nav=LG&nav=Media&nav=Press+Release",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "600e6edee4cb06ba4e523f0fa17fd464953ea4f45ed7bf997d592bbd9d739289"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C51",
+          "best_observation_title": "LG엔솔, 美 아칸소 탄산리튬 8만 톤 확보",
+          "score": 0.27907,
+          "sequence": 0.27907,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 24
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0249",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C201",
+            "story_id": "KR_2026-09-01_C201",
+            "date": "2026-09-01",
+            "title": "폐휴대폰, 집 앞에 두면 우체국이 수거…연내 '안심 방문수거' 도입",
+            "site": "전자신문",
+            "url": "https://www.etnews.com/20260901000119",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "38353ed11465c81c96a93cab1274e5e303008398a5358abb26417e26a339c6ef"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C144",
+          "best_observation_title": "방치된 폐휴대폰, 우체국 방문택배로 수거한다",
+          "score": 0.27907,
+          "sequence": 0.27907,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 3
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0300",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C36",
+            "story_id": "KR_2026-08-31_C36",
+            "date": "2026-08-31",
+            "title": "[영상] LS전선, 美에 1조원 베팅…이유는 F-35·핵잠수함?",
+            "site": "더구루",
+            "url": "https://www.theguru.co.kr/news/article.html?no=106344",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "25865217743ac943f861d97b18361a7b265783b1fa2ec7b956d1efda667b408f"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C36",
+          "best_observation_title": "[영상] LS전선, 美에 1조원 베팅…이유는 F-35·핵잠수함?",
+          "score": 0.27451,
+          "sequence": 0.27451,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0398",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:TF_0130",
+            "story_id": "TF_0130",
+            "date": "2026-09-01",
+            "title": "LGU+, AI 에이전트 ‘품질관리’ 나선다…어라이즈AI와 맞손",
+            "site": "디지털데일리",
+            "url": "https://www.ddaily.co.kr/page/view/2026090111430495906",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "a1e984b7c093a2311f1fa52473f781ee6009b0ecd452760d60d3853d2b20895c"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:TF_0130",
+          "best_observation_title": "LGU+, AI 에이전트 ‘품질관리’ 나선다…어라이즈AI와 맞손",
+          "score": 0.27451,
+          "sequence": 0.27451,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        }
+      ],
+      "top_margin": 0.453846,
+      "auto_reanchor_allowed": false
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0399",
+      "relation_type": "distinct_follow_up",
+      "target_ids": [
+        "2026-05-01_JP_01",
+        "2026-04-27_US_03"
+      ],
+      "confidence": "high",
+      "title": "Critical Metals–European Lithium acquisition scheme progress",
+      "all_targets_exist_current_canonical": true,
+      "top_candidates": [
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0011",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C08",
+            "story_id": "US_2026-08-28_C08",
+            "date": "2026-08-28",
+            "title": "Critical Metals Corp. Provides Update on Proposed Acquisition of European Lithium",
+            "site": "GlobeNewswire M&A",
+            "url": "https://www.globenewswire.com/news-release/2026/08/28/3352685/0/en/critical-metals-corp-provides-update-on-proposed-acquisition-of-european-lithium.html",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "8d799031a60d8569146b62e8532602c8348cdd0c2a600eceee6d52f4f114dfe6"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C08",
+          "best_observation_title": "Critical Metals Corp. Provides Update on Proposed Acquisition of European Lithium",
+          "score": 0.714286,
+          "sequence": 0.457143,
+          "token_jaccard": 0.454545,
+          "token_containment": 0.714286,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0425",
+          "representative": {
+            "observation_key": "20260901::disc:20260901:china-battery-consumption-tax-effective",
+            "story_id": null,
+            "date": "2026-09-01",
+            "title": "China 2% consumption tax on lithium-ion and specified batteries takes effect",
+            "site": "shanxi.chinatax.gov.cn",
+            "url": "https://shanxi.chinatax.gov.cn/zcfg/detail/sx-11400-3815-1822938",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "0f092ddcc64d04da93adb6e4f4e7e5e761dfe89d632bbe10b8ce125e8e8a7350"
+            }
+          },
+          "best_observation_key": "20260901::disc:20260901:china-battery-consumption-tax-effective",
+          "best_observation_title": "China 2% consumption tax on lithium-ion and specified batteries takes effect",
+          "score": 0.459259,
+          "sequence": 0.459259,
+          "token_jaccard": 0.066667,
+          "token_containment": 0.142857,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0003",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C03",
+            "story_id": "US_2026-08-28_C03",
+            "date": "2026-08-28",
+            "title": "Asahi Kasei’s pre-doping technology cuts first-cycle capacity loss in silicon-rich cells",
+            "site": "Charged EVs RSS",
+            "url": "https://chargedevs.com/newswire/asahi-kaseis-pre-doping-technology-cuts-first-cycle-capacity-loss-in-silicon-rich-cells",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "0f7f2c6b32edd68523fe62ac9f63fc1a94d246792443db165e0c8fedc15b3601"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C01",
+          "best_observation_title": "Asahi Kasei develops novel pre-doping lithium technology for silicon anodes",
+          "score": 0.414815,
+          "sequence": 0.414815,
+          "token_jaccard": 0.0625,
+          "token_containment": 0.142857,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0141",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C10",
+            "story_id": "EU_2026-08-28_C10",
+            "date": "2026-08-28",
+            "title": "General Atomics Microreactor selected for US Army Janus Program",
+            "site": "European Defence Review RSS",
+            "url": "https://www.edrmagazine.eu/general-atomics-microreactor-selected-for-us-army-janus-program",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "0343ec52832a2e5bbfee22ca5ad4f0d5ea065c0d26b3338da2563b43d39a9588"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C10",
+          "best_observation_title": "General Atomics Microreactor selected for US Army Janus Program",
+          "score": 0.406504,
+          "sequence": 0.406504,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0209",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:TF_0033",
+            "story_id": "TF_0033",
+            "date": "2026-08-26",
+            "title": "Cornish Lithium taps Halliburton for Cross Lanes geothermal project - Enlit World",
+            "site": "Enlit World (via Google News)",
+            "url": "https://www.enlit.world/library/cornish-lithium-taps-halliburton-for-geothermal-project",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "8f8292b3287dd5adfe46283ab1a25523ce14d424afe48e2d1bcf8deab9fec98e"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:TF_0033",
+          "best_observation_title": "Cornish Lithium taps Halliburton for Cross Lanes geothermal project - Enlit World",
+          "score": 0.402878,
+          "sequence": 0.402878,
+          "token_jaccard": 0.0625,
+          "token_containment": 0.142857,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0107",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:GL_2026-08-29_C02",
+            "story_id": "GL_2026-08-29_C02",
+            "date": "2026-08-29",
+            "title": "China Africa Digital Center Critical Minerals Strategy - rareearthexchanges.com",
+            "site": "G7 Critical Minerals Multilateral (via Google News)",
+            "url": "https://rareearthexchanges.com/news/china-africa-digital-center-minerals",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "22400293ae9d2bec3231432e886fc31d007b460522329297d680e07ce3e60771"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:GL_2026-08-29_C03",
+          "best_observation_title": "China Africa Digital Center Critical Minerals Strategy - Rare Earth Exchanges",
+          "score": 0.4,
+          "sequence": 0.4,
+          "token_jaccard": 0.0625,
+          "token_containment": 0.142857,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0323",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C10",
+            "story_id": "GL_2026-08-31_C10",
+            "date": "2026-08-31",
+            "title": "Chhattisgarh pitches itself as critical minerals hub, 5 blocks up for auction - The Times of India",
+            "site": "G7 Critical Minerals Multilateral (via Google News)",
+            "url": "https://timesofindia.indiatimes.com/city/raipur/chhattisgarh-pitches-itself-as-critical-minerals-hub-5-blocks-up-for-auction/articleshow/133659318.cms",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "5cb423e5b995ce4fb84ae107a5cbca8b62167629b65a556ef0e8e3bd18e428a3"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C10",
+          "best_observation_title": "Chhattisgarh pitches itself as critical minerals hub, 5 blocks up for auction - The Times of India",
+          "score": 0.4,
+          "sequence": 0.4,
+          "token_jaccard": 0.058824,
+          "token_containment": 0.142857,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0330",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C34",
+            "story_id": "GL_2026-08-31_C34",
+            "date": "2026-08-31",
+            "title": "US critical minerals proposals to Brazil go unanswered as China looms - The Star",
+            "site": "G7 Critical Minerals Multilateral (via Google News)",
+            "url": "https://www.thestar.com.my/aseanplus/aseanplus-news/2026/08/31/us-critical-minerals-proposals-to-brazil-go-unanswered-as-china-looms",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "8c6d18852c87f4966f3372b89e2ef5e67b1d2d35f9b1475eda67b1fed4cb0e4b"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C34",
+          "best_observation_title": "US critical minerals proposals to Brazil go unanswered as China looms - The Star",
+          "score": 0.391304,
+          "sequence": 0.391304,
+          "token_jaccard": 0.0625,
+          "token_containment": 0.142857,
+          "observation_count": 1
+        }
+      ],
+      "top_margin": 0.255027,
+      "auto_reanchor_allowed": false
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0427",
+      "relation_type": "distinct_follow_up",
+      "target_ids": [
+        "2026-07-16_CN_01"
+      ],
+      "confidence": "high",
+      "title": "China battery consumption-tax scope clarification",
+      "all_targets_exist_current_canonical": true,
+      "top_candidates": [
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0421",
+          "representative": {
+            "observation_key": "20260831::disc:20260831:china-battery-consumption-tax-qa",
+            "story_id": null,
+            "date": "2026-08-27",
+            "title": "China tax authority clarifies battery consumption-tax scope for ESS clusters and semi-solid batteries",
+            "site": "www.chinatax.gov.cn",
+            "url": "https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "e3975bb87078087cb397b8efa4f30622a78e5aa13939bbd10bf8a9880eb94f05"
+            }
+          },
+          "best_observation_key": "20260831::disc:20260831:china-battery-consumption-tax-qa",
+          "best_observation_title": "China tax authority clarifies battery consumption-tax scope for ESS clusters and semi-solid batteries",
+          "score": 0.833333,
+          "sequence": 0.546667,
+          "token_jaccard": 0.384615,
+          "token_containment": 0.833333,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0425",
+          "representative": {
+            "observation_key": "20260901::disc:20260901:china-battery-consumption-tax-effective",
+            "story_id": null,
+            "date": "2026-09-01",
+            "title": "China 2% consumption tax on lithium-ion and specified batteries takes effect",
+            "site": "shanxi.chinatax.gov.cn",
+            "url": "https://shanxi.chinatax.gov.cn/zcfg/detail/sx-11400-3815-1822938",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "0f092ddcc64d04da93adb6e4f4e7e5e761dfe89d632bbe10b8ce125e8e8a7350"
+            }
+          },
+          "best_observation_key": "20260901::disc:20260901:china-battery-consumption-tax-effective",
+          "best_observation_title": "China 2% consumption tax on lithium-ion and specified batteries takes effect",
+          "score": 0.532258,
+          "sequence": 0.532258,
+          "token_jaccard": 0.25,
+          "token_containment": 0.5,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0424",
+          "representative": {
+            "observation_key": "20260901::disc:20260901:us-data-center-ghost-demand",
+            "story_id": null,
+            "date": "2026-09-01",
+            "title": "Texas halts new data-center grid connections and audits speculative ghost demand",
+            "site": "www.reuters.com",
+            "url": "https://www.reuters.com/business/texas-halt-powering-data-centers-reflects-us-reckoning-over-ghost-demand-2026-09-01/",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "f5fb6ba145ecf32bfe7d910e002386108fafa8ed8d0c63084574b73a54d413eb"
+            }
+          },
+          "best_observation_key": "20260901::disc:20260901:us-data-center-ghost-demand",
+          "best_observation_title": "Texas halts new data-center grid connections and audits speculative ghost demand",
+          "score": 0.434109,
+          "sequence": 0.434109,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0014",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C05",
+            "story_id": "US_2026-08-28_C05",
+            "date": "2026-08-28",
+            "title": "Battery boom brings round-the-clock solar closer, Ember says",
+            "site": "PV Magazine USA RSS",
+            "url": "https://pv-magazine-usa.com/2026/08/28/battery-boom-brings-round-the-clock-solar-closer-ember-says",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "8237f3004234148e69503cb8c512c86fdc70381a413817c92d4c54cc67e74d91"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C05",
+          "best_observation_title": "Battery boom brings round-the-clock solar closer, Ember says",
+          "score": 0.425926,
+          "sequence": 0.425926,
+          "token_jaccard": 0.076923,
+          "token_containment": 0.166667,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0244",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C12",
+            "story_id": "US_2026-08-31_C12",
+            "date": "2026-08-31",
+            "title": "Minister Hodgson to make critical minerals announcement",
+            "site": "Canada.ca News API (National News)",
+            "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/08/minister-hodgson-to-make-critical-minerals-announcement.html",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "e521f26998a49f3408080590062a326952abae68e69610bd6f707e1b17f6c20f"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C12",
+          "best_observation_title": "Minister Hodgson to make critical minerals announcement",
+          "score": 0.423077,
+          "sequence": 0.423077,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0142",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C03",
+            "story_id": "EU_2026-08-28_C03",
+            "date": "2026-08-28",
+            "title": "Battery Production Equipment Providers in Europe",
+            "site": "Battery-News EN RSS",
+            "url": "https://battery-news.de/en/2026/08/28/battery-production-equipment-providers-in-europe",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "c3fbd1fe93479f2d6f58f930aaaa9151c74a06774a73009ffd61e6413b449f60"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C03",
+          "best_observation_title": "Battery Production Equipment Providers in Europe",
+          "score": 0.412371,
+          "sequence": 0.412371,
+          "token_jaccard": 0.1,
+          "token_containment": 0.2,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0099",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C22",
+            "story_id": "GL_2026-08-31_C22",
+            "date": "2026-08-31",
+            "title": "Lithium miners post big profits as battery storage demand surges - Mining.com",
+            "site": "Mining.com Battery Minerals (via Google News)",
+            "url": "https://www.mining.com/web/lithium-miners-post-big-profits-as-battery-storage-demand-surges",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "e07b17b17dd5195787361f9d74a4974d08c20b80f3ecde6a7395972dcce1dd06"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:GL_2026-08-31_C21",
+          "best_observation_title": "Lithium miners cash in as battery storage lifts demand - Miningmx",
+          "score": 0.410714,
+          "sequence": 0.410714,
+          "token_jaccard": 0.076923,
+          "token_containment": 0.166667,
+          "observation_count": 3
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0131",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C04",
+            "story_id": "EU_2026-08-28_C04",
+            "date": "2026-08-28",
+            "title": "Battery recycling remains uneconomic in Europe",
+            "site": "ESS News RSS",
+            "url": "https://www.ess-news.com/2026/08/28/battery-recycling-remains-uneconomic-in-europe",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "d9c31dad937b105f5a1be6f09016452c89abfbec82ff4659d7bb2aed2104ec7f"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C04",
+          "best_observation_title": "Battery recycling remains uneconomic in Europe",
+          "score": 0.378947,
+          "sequence": 0.378947,
+          "token_jaccard": 0.1,
+          "token_containment": 0.2,
+          "observation_count": 1
+        }
+      ],
+      "top_margin": 0.301075,
+      "auto_reanchor_allowed": false
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0433",
+      "relation_type": "distinct_follow_up",
+      "target_ids": [
+        "2026-07-20_EU_06"
+      ],
+      "confidence": "high",
+      "title": "EU Battery Passport guidance covering 71 data points",
+      "all_targets_exist_current_canonical": true,
+      "top_candidates": [
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0420",
+          "representative": {
+            "observation_key": "20260831::disc:20260831:eu-battery-passport-71-data-points",
+            "story_id": null,
+            "date": "2026-08-21",
+            "title": "European Commission publishes updated Battery Passport guidance covering 71 data points",
+            "site": "single-market-economy.ec.europa.eu",
+            "url": "https://single-market-economy.ec.europa.eu/news/guidance-support-preparations-digital-batteries-passport-2026-08-21_en",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "6aa52a95fe7657edf9dd360a795cf37cfad4923870651d01d844986faefb413f"
+            }
+          },
+          "best_observation_key": "20260831::disc:20260831:eu-battery-passport-71-data-points",
+          "best_observation_title": "European Commission publishes updated Battery Passport guidance covering 71 data points",
+          "score": 0.875,
+          "sequence": 0.748201,
+          "token_jaccard": 0.583333,
+          "token_containment": 0.875,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0230",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C27",
+            "story_id": "US_2026-08-31_C27",
+            "date": "2026-08-31",
+            "title": "U.S. battery storage boom is driven by data centers and interconnection backlogs",
+            "site": "PV Magazine USA RSS",
+            "url": "https://pv-magazine-usa.com/2026/08/31/u-s-battery-storage-boom-is-driven-by-data-centers-and-interconnection-backlogs",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "cc68577f77b7f085fa6b0eaf86f94bc9f53aa7e94a1c938fcd221eca6dbaa5ff"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C27",
+          "best_observation_title": "U.S. battery storage boom is driven by data centers and interconnection backlogs",
+          "score": 0.473282,
+          "sequence": 0.473282,
+          "token_jaccard": 0.142857,
+          "token_containment": 0.25,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0421",
+          "representative": {
+            "observation_key": "20260831::disc:20260831:china-battery-consumption-tax-qa",
+            "story_id": null,
+            "date": "2026-08-27",
+            "title": "China tax authority clarifies battery consumption-tax scope for ESS clusters and semi-solid batteries",
+            "site": "www.chinatax.gov.cn",
+            "url": "https://www.chinatax.gov.cn/chinatax/c102414/c5252006/content.html",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "e3975bb87078087cb397b8efa4f30622a78e5aa13939bbd10bf8a9880eb94f05"
+            }
+          },
+          "best_observation_key": "20260901::disc:20260901:china-battery-consumption-tax-qa",
+          "best_observation_title": "China tax authority ESS/battery-cluster and semi-solid tax-scope clarification",
+          "score": 0.415385,
+          "sequence": 0.415385,
+          "token_jaccard": 0.058824,
+          "token_containment": 0.125,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0142",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C03",
+            "story_id": "EU_2026-08-28_C03",
+            "date": "2026-08-28",
+            "title": "Battery Production Equipment Providers in Europe",
+            "site": "Battery-News EN RSS",
+            "url": "https://battery-news.de/en/2026/08/28/battery-production-equipment-providers-in-europe",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "c3fbd1fe93479f2d6f58f930aaaa9151c74a06774a73009ffd61e6413b449f60"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C03",
+          "best_observation_title": "Battery Production Equipment Providers in Europe",
+          "score": 0.4,
+          "sequence": 0.4,
+          "token_jaccard": 0.083333,
+          "token_containment": 0.2,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0005",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C09",
+            "story_id": "US_2026-08-28_C09",
+            "date": "2026-08-28",
+            "title": "Emobi and OmniTrust partner to advance Plug & Charge adoption",
+            "site": "Charged EVs RSS",
+            "url": "https://chargedevs.com/newswire/emobi-and-omnitrust-partner-to-advance-plug-charge-adoption",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "428a68b026543c67e1c0c3e597bd17dfc19d0041baf7f3b1fb48466d6e62d6ce"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C09",
+          "best_observation_title": "Emobi and OmniTrust partner to advance Plug & Charge adoption",
+          "score": 0.396396,
+          "sequence": 0.396396,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0342",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:GL_2026-08-30_C02",
+            "story_id": "GL_2026-08-30_C02",
+            "date": "2026-08-30",
+            "title": "Business Analyst Controlling Global at Vale - Mining.com",
+            "site": "Mining.com Battery Minerals (via Google News)",
+            "url": "https://www.mining.com/jobs/653090188-business-analyst-controlling-global",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "b40e708cfe0b6e261fee534ae1e1d4fd3010c459fdbca3d02956cba7e3d5dfb2"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:GL_2026-08-30_C02",
+          "best_observation_title": "Business Analyst Controlling Global at Vale - Mining.com",
+          "score": 0.396226,
+          "sequence": 0.396226,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0423",
+          "representative": {
+            "observation_key": "20260831::rescue:20260831:KR_2026-08-31_C37",
+            "story_id": "KR_2026-08-31_C37",
+            "date": "2026-08-28",
+            "title": "KT Everyone's AI service blueprint",
+            "site": null,
+            "url": null,
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "3064eb5784c45fbe490d298804366ecdaf22423b6f1163da3c152992db734bb7"
+            }
+          },
+          "best_observation_key": "20260831::rescue:20260831:KR_2026-08-31_C37",
+          "best_observation_title": "KT Everyone's AI service blueprint",
+          "score": 0.395349,
+          "sequence": 0.395349,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0131",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C04",
+            "story_id": "EU_2026-08-28_C04",
+            "date": "2026-08-28",
+            "title": "Battery recycling remains uneconomic in Europe",
+            "site": "ESS News RSS",
+            "url": "https://www.ess-news.com/2026/08/28/battery-recycling-remains-uneconomic-in-europe",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "d9c31dad937b105f5a1be6f09016452c89abfbec82ff4659d7bb2aed2104ec7f"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C04",
+          "best_observation_title": "Battery recycling remains uneconomic in Europe",
+          "score": 0.387755,
+          "sequence": 0.387755,
+          "token_jaccard": 0.083333,
+          "token_containment": 0.2,
+          "observation_count": 1
+        }
+      ],
+      "top_margin": 0.401718,
+      "auto_reanchor_allowed": false
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0437",
+      "relation_type": "same_event_reinforcement",
+      "target_ids": [
+        "2026-08-18_US_01"
+      ],
+      "confidence": "high",
+      "title": "LG Energy Solution Lansing production start",
+      "all_targets_exist_current_canonical": true,
+      "top_candidates": [
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0200",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:TF_0048",
+            "story_id": "TF_0048",
+            "date": "2026-08-19",
+            "title": "LG Energy Solution Announces Start of Production at All-New Lansing Battery Plant",
+            "site": "LG Energy Solution Newsroom RSS",
+            "url": "https://news.lgensol.com/company-news/press-releases/5163",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "e9a6fad352763b7310fa021b8a65ac31f4fbb059953d00419abc09f3d0cf48fd"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:TF_0048",
+          "best_observation_title": "LG Energy Solution Announces Start of Production at All-New Lansing Battery Plant",
+          "score": 1.0,
+          "sequence": 0.612903,
+          "token_jaccard": 0.6,
+          "token_containment": 1.0,
+          "observation_count": 2
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0227",
+          "representative": {
+            "observation_key": "20260831::disc:20260831:lg-es-smackover-lithium-offtake",
+            "story_id": null,
+            "date": "2026-08-31",
+            "title": "LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake",
+            "site": "lgcorp.com",
+            "url": "https://lgcorp.com/media/release/30523?emptySubMenu=false&hostEn=www.lgcorp.com&hostKo=www.lg.co.kr&nav=LG&nav=Media&nav=Press+Release",
+            "binding": {
+              "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+              "coverage_payload_sha256": "600e6edee4cb06ba4e523f0fa17fd464953ea4f45ed7bf997d592bbd9d739289"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C42",
+          "best_observation_title": "LG Energy Solution Secures 80,000 Tons of U.S. Lithium",
+          "score": 0.5625,
+          "sequence": 0.5625,
+          "token_jaccard": 0.272727,
+          "token_containment": 0.5,
+          "observation_count": 24
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0348",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C11",
+            "story_id": "EU_2026-08-31_C11",
+            "date": "2026-08-31",
+            "title": "Jinko ESS partners with UCB Power to localize BESS production in Brazil",
+            "site": "ESS News RSS",
+            "url": "https://www.ess-news.com/2026/08/31/jinko-ess-partners-with-ucb-power-to-localize-bess-production-in-brazil",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "169b37d5242c4e279a0e34827648de23e5e01122a72aabf68d4c99d8db73b850"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C11",
+          "best_observation_title": "Jinko ESS partners with UCB Power to localize BESS production in Brazil",
+          "score": 0.45614,
+          "sequence": 0.45614,
+          "token_jaccard": 0.071429,
+          "token_containment": 0.166667,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0006",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C02",
+            "story_id": "US_2026-08-28_C02",
+            "date": "2026-08-28",
+            "title": "A new solution for flame-retardant tapes in EVs and energy storage applications: CleanTape® FR (Webinar)",
+            "site": "Charged EVs RSS",
+            "url": "https://chargedevs.com/newswire/a-new-solution-for-flame-retardant-tapes-in-evs-and-energy-storage-applications-cleantape-fr-webinar",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "2f158d4b341dd35b4ba75da19e690cd5875a01394157eff19a0d8324cf8f92bc"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C02",
+          "best_observation_title": "A new solution for flame-retardant tapes in EVs and energy storage applications: CleanTape® FR (Webinar)",
+          "score": 0.433566,
+          "sequence": 0.433566,
+          "token_jaccard": 0.133333,
+          "token_containment": 0.333333,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0133",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C26",
+            "story_id": "EU_2026-08-28_C26",
+            "date": "2026-08-28",
+            "title": "UK opens GBP 28 million challenge for multi‑day renewable storage",
+            "site": "ESS News RSS",
+            "url": "https://www.ess-news.com/2026/08/28/uk-opens-28m-challenge-for-multi-day-renewable-storage",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "5c6776735752886bfd8fbc4cf6f86038e97ef70f1f57b41ac6ad96c9f5880075"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C26",
+          "best_observation_title": "UK opens GBP 28 million challenge for multi‑day renewable storage",
+          "score": 0.425926,
+          "sequence": 0.425926,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0129",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C23",
+            "story_id": "EU_2026-08-28_C23",
+            "date": "2026-08-28",
+            "title": "Sodium-ion: Time to prove its worth",
+            "site": "ESS News RSS",
+            "url": "https://www.ess-news.com/2026/08/28/sodium-ion-cathode-race-stays-open-as-layered-oxide-takes-lead",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "d4f26a400be9a25729b592b49228c870ff486093b7442b9c4f5853292357ccb8"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C23",
+          "best_observation_title": "Sodium-ion: Time to prove its worth",
+          "score": 0.415584,
+          "sequence": 0.415584,
+          "token_jaccard": 0.0,
+          "token_containment": 0.0,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0120",
+          "representative": {
+            "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C03",
+            "story_id": "GL_2026-08-28_C03",
+            "date": "2026-08-28",
+            "title": "Asst. Energy Secretary to visit - - The Mining Gazette",
+            "site": "G7 Critical Minerals Multilateral (via Google News)",
+            "url": "https://www.mininggazette.com/news/local-news/2026/08/asst-energy-secretary-to-visit",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+              "raw_file_bytes": 7265646,
+              "raw_row_sha256": "eaf0bb10e5e58a0d12639e889e222c47e3fc037d9c66f9e76f9645b286e2828a"
+            }
+          },
+          "best_observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C03",
+          "best_observation_title": "Asst. Energy Secretary to visit - - The Mining Gazette",
+          "score": 0.413043,
+          "sequence": 0.413043,
+          "token_jaccard": 0.090909,
+          "token_containment": 0.166667,
+          "observation_count": 1
+        },
+        {
+          "event_id": "XRUN_REPLAY_20260903_E0351",
+          "representative": {
+            "observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C21",
+            "story_id": "EU_2026-08-31_C21",
+            "date": "2026-08-31",
+            "title": "The solution for the energy transition has long been sitting in our garages",
+            "site": "Electrive RSS",
+            "url": "https://www.electrive.com/2026/08/31/the-solution-for-the-energy-transition-has-long-been-sitting-in-our-garages",
+            "binding": {
+              "kind": "uploaded_raw_story_canonical_json_sha256",
+              "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+              "raw_file_bytes": 9604884,
+              "raw_row_sha256": "67fdea280c809deabc60b411ab1ba36ea78872cf0f1e885840c8958468e6b086"
+            }
+          },
+          "best_observation_key": "20260901::orig:20260901_123511:EU_2026-08-31_C21",
+          "best_observation_title": "The solution for the energy transition has long been sitting in our garages",
+          "score": 0.40678,
+          "sequence": 0.40678,
+          "token_jaccard": 0.153846,
+          "token_containment": 0.333333,
+          "observation_count": 1
+        }
+      ],
+      "top_margin": 0.4375,
+      "auto_reanchor_allowed": false
+    }
+  ]
+}

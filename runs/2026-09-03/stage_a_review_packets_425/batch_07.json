@@ -1,0 +1,1609 @@
+{
+  "schema": "stage_a_review_packet_v1",
+  "batch": 7,
+  "ordinal_start": 151,
+  "ordinal_end": 175,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "events": [
+    {
+      "ordinal": 151,
+      "event_id": "XRUN_REPLAY_20260903_E0029",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C162",
+        "story_id": "KR_2026-08-31_C162",
+        "date": "2026-08-31",
+        "title": "신흥국도 ‘내수용 전기차’ 만든다…글로벌 車시장 판도 흔들",
+        "site": "E-Daily",
+        "url": "https://www.edaily.co.kr/News/Read?newsId=03503046645552896",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "fdc371eb433e5f068108673bb87ed24fbc44a8c75cc1c3ec9c79408827e33a49"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C162"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C162",
+          "source_run": "20260831",
+          "source_index": 43,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C162",
+          "story_id": "KR_2026-08-31_C162",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "신흥국도 ‘내수용 전기차’ 만든다…글로벌 車시장 판도 흔들",
+          "site": "E-Daily",
+          "source_url": "https://www.edaily.co.kr/News/Read?newsId=03503046645552896",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "fdc371eb433e5f068108673bb87ed24fbc44a8c75cc1c3ec9c79408827e33a49"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "전기차"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 152,
+      "event_id": "XRUN_REPLAY_20260903_E0039",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C53",
+        "story_id": "KR_2026-08-31_C53",
+        "date": "2026-08-31",
+        "title": "SK온도 ESS 사업 드라이브 가동… K배터리 캐즘 탈출 준비",
+        "site": "Segye Ilbo RSS",
+        "url": "https://www.segye.com/newsView/20260831514069",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "9a2f31ca3bdc597eae63bf87a24858319b64e08180429a08105810b94c2ab27d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C53"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C53",
+          "source_run": "20260831",
+          "source_index": 56,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C53",
+          "story_id": "KR_2026-08-31_C53",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "SK온도 ESS 사업 드라이브 가동… K배터리 캐즘 탈출 준비",
+          "site": "Segye Ilbo RSS",
+          "source_url": "https://www.segye.com/newsView/20260831514069",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "9a2f31ca3bdc597eae63bf87a24858319b64e08180429a08105810b94c2ab27d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 153,
+      "event_id": "XRUN_REPLAY_20260903_E0040",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C36",
+        "story_id": "KR_2026-08-31_C36",
+        "date": "2026-08-31",
+        "title": "KTC, EV 급속충전기 파워모듈 통신 프로토콜 표준화 나선다",
+        "site": "전기신문",
+        "url": "https://www.electimes.com/news/articleView.html?idxno=371840",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "cbcd8bea1441fa0830e4984d97dff3a6999ec7d5e34634e9947b3950aa1029f6"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C36"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C36",
+          "source_run": "20260831",
+          "source_index": 61,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C36",
+          "story_id": "KR_2026-08-31_C36",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "KTC, EV 급속충전기 파워모듈 통신 프로토콜 표준화 나선다",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371840",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "cbcd8bea1441fa0830e4984d97dff3a6999ec7d5e34634e9947b3950aa1029f6"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ev ",
+          "충전"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 154,
+      "event_id": "XRUN_REPLAY_20260903_E0041",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C188",
+        "story_id": "KR_2026-08-31_C188",
+        "date": "2026-08-31",
+        "title": "전북TP, 도내 산middot;학middot;연과 '나트륨배터리 활용기술 개발 연구회' 발족",
+        "site": "Pressian RSS",
+        "url": "https://www.pressian.com/pages/articles/2026083112593323117&amp;ref=rss",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "3788f7371236f0d208907348f944c577f8fa1b19cd903ef19aa7d86a67e35927"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C188"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C188",
+          "source_run": "20260831",
+          "source_index": 64,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C188",
+          "story_id": "KR_2026-08-31_C188",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "전북TP, 도내 산middot;학middot;연과 '나트륨배터리 활용기술 개발 연구회' 발족",
+          "site": "Pressian RSS",
+          "source_url": "https://www.pressian.com/pages/articles/2026083112593323117&amp;ref=rss",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "3788f7371236f0d208907348f944c577f8fa1b19cd903ef19aa7d86a67e35927"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "나트륨",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [
+          "나트륨"
+        ],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "연구"
+        ]
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 155,
+      "event_id": "XRUN_REPLAY_20260903_E0063",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C91",
+        "story_id": "KR_2026-08-31_C91",
+        "date": "2026-08-31",
+        "title": "車·배터리 장벽 낮춘 '한-영 FTA' 개정안⋯내일부터 국민 의견 접수",
+        "site": "E Today RSS",
+        "url": "https://www.etoday.co.kr/news/view/2619863",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "3f4c1c8bf6852b54e7cd84c428e22b2758a9f569d1c2af8ee5a0b249097d418f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C91"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C91",
+          "source_run": "20260831",
+          "source_index": 90,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C91",
+          "story_id": "KR_2026-08-31_C91",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "車·배터리 장벽 낮춘 '한-영 FTA' 개정안⋯내일부터 국민 의견 접수",
+          "site": "E Today RSS",
+          "source_url": "https://www.etoday.co.kr/news/view/2619863",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "3f4c1c8bf6852b54e7cd84c428e22b2758a9f569d1c2af8ee5a0b249097d418f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 156,
+      "event_id": "XRUN_REPLAY_20260903_E0073",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C13",
+        "story_id": "KR_2026-08-30_C13",
+        "date": "2026-08-30",
+        "title": "美 배터리 수입 다시 살아났다…삼성SDI·LG엔솔 ESS 공략 탄력",
+        "site": "더구루",
+        "url": "https://www.theguru.co.kr/news/article.html?no=106433",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "95dc65d04654ad39257507c5628f55656db679fba9885a1de739514f44ac2e46"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-30_C13"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C13",
+          "source_run": "20260831",
+          "source_index": 101,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-30_C13",
+          "story_id": "KR_2026-08-30_C13",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "美 배터리 수입 다시 살아났다…삼성SDI·LG엔솔 ESS 공략 탄력",
+          "site": "더구루",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=106433",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "95dc65d04654ad39257507c5628f55656db679fba9885a1de739514f44ac2e46"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 157,
+      "event_id": "XRUN_REPLAY_20260903_E0076",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C02",
+        "story_id": "KR_2026-08-30_C02",
+        "date": "2026-08-30",
+        "title": "3차 ESS 시장 커지나…배터리 업계 셈법도 바뀐다",
+        "site": "전자신문",
+        "url": "https://www.etnews.com/20260828000174",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "fecb87836c1bc51fd2dbe2f4d3771ac6ad27f0de6bcfdf30c1a6cbe7a47688af"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-30_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-30_C02",
+          "source_run": "20260831",
+          "source_index": 104,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-30_C02",
+          "story_id": "KR_2026-08-30_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "3차 ESS 시장 커지나…배터리 업계 셈법도 바뀐다",
+          "site": "전자신문",
+          "source_url": "https://www.etnews.com/20260828000174",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "fecb87836c1bc51fd2dbe2f4d3771ac6ad27f0de6bcfdf30c1a6cbe7a47688af"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 158,
+      "event_id": "XRUN_REPLAY_20260903_E0083",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-28_C01",
+        "story_id": "KR_2026-08-28_C01",
+        "date": "2026-08-28",
+        "title": "美ESS시장 진출 확대…이차전지株 기지개 - 매일경제TV",
+        "site": "L&F (via Google News)",
+        "url": "https://mbnmoney.mbn.co.kr/news/view?news_no=MM1005910583",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "171360df94a0b7018f634df5afd452b8e5569dcf9ac0277313c5e681b1dbdcd4"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-28_C01"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-28_C01",
+          "source_run": "20260831",
+          "source_index": 112,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-28_C01",
+          "story_id": "KR_2026-08-28_C01",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "美ESS시장 진출 확대…이차전지株 기지개 - 매일경제TV",
+          "site": "L&F (via Google News)",
+          "source_url": "https://mbnmoney.mbn.co.kr/news/view?news_no=MM1005910583",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "171360df94a0b7018f634df5afd452b8e5569dcf9ac0277313c5e681b1dbdcd4"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "전지"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 159,
+      "event_id": "XRUN_REPLAY_20260903_E0085",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C01",
+        "story_id": "JP_2026-08-31_C01",
+        "date": "2026-08-31",
+        "title": "FIP太陽光併設型蓄電池の需給調整市場への参入について",
+        "site": "PR TIMES 蓄電池",
+        "url": "https://prtimes.jp/main/html/rd/p/000000017.000175281.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "8b8b2c59ca4021b275f333e123800596cbcf32432de1db7c4609939648a1b6c0"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:JP_2026-08-31_C01"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C01",
+          "source_run": "20260831",
+          "source_index": 114,
+          "candidate_id": "orig:20260831_143419:JP_2026-08-31_C01",
+          "story_id": "JP_2026-08-31_C01",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "FIP太陽光併設型蓄電池の需給調整市場への参入について",
+          "site": "PR TIMES 蓄電池",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000017.000175281.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "8b8b2c59ca4021b275f333e123800596cbcf32432de1db7c4609939648a1b6c0"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 160,
+      "event_id": "XRUN_REPLAY_20260903_E0091",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C03",
+        "story_id": "JP_2026-08-31_C03",
+        "date": "2026-08-31",
+        "title": "Tensor Energyと系統用蓄電池事業に関する包括的な業務提携を締結",
+        "site": "PR TIMES 蓄電池",
+        "url": "https://prtimes.jp/main/html/rd/p/000000249.000076147.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "fe2fa2ee5e78b19b55ba62a04e588f3980f514db2399694b3f6e4e2a51329b90"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:JP_2026-08-31_C03"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C03",
+          "source_run": "20260831",
+          "source_index": 120,
+          "candidate_id": "orig:20260831_143419:JP_2026-08-31_C03",
+          "story_id": "JP_2026-08-31_C03",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Tensor Energyと系統用蓄電池事業に関する包括的な業務提携を締結",
+          "site": "PR TIMES 蓄電池",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000249.000076147.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "fe2fa2ee5e78b19b55ba62a04e588f3980f514db2399694b3f6e4e2a51329b90"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 161,
+      "event_id": "XRUN_REPLAY_20260903_E0092",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C14",
+        "story_id": "JP_2026-08-31_C14",
+        "date": "2026-08-31",
+        "title": "太陽光＋蓄電池に最大6千万円補助 ペロブスカイト併用で蓄電池単独申請も可",
+        "site": "Kankyo Business Online Energy News",
+        "url": "https://www.kankyo-business.jp/news/bc2fef57-2cb8-4b3c-a740-1f101cb0cd63",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "d3d643c8a36341ecfc1199e0877168f79a48cec68a287d7e872352bfe3d05851"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:JP_2026-08-31_C14"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:JP_2026-08-31_C14",
+          "source_run": "20260831",
+          "source_index": 121,
+          "candidate_id": "orig:20260831_143419:JP_2026-08-31_C14",
+          "story_id": "JP_2026-08-31_C14",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "太陽光＋蓄電池に最大6千万円補助 ペロブスカイト併用で蓄電池単独申請も可",
+          "site": "Kankyo Business Online Energy News",
+          "source_url": "https://www.kankyo-business.jp/news/bc2fef57-2cb8-4b3c-a740-1f101cb0cd63",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "d3d643c8a36341ecfc1199e0877168f79a48cec68a287d7e872352bfe3d05851"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 162,
+      "event_id": "XRUN_REPLAY_20260903_E0095",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:JP_2026-08-28_C02",
+        "story_id": "JP_2026-08-28_C02",
+        "date": "2026-08-28",
+        "title": "東急不動産と共同で宮城県白石市に系統用蓄電所を新設",
+        "site": "PR TIMES 蓄電池",
+        "url": "https://prtimes.jp/main/html/rd/p/000000010.000110152.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "9b0717f947428bb2b486a179ed9ebb738590fc160f98c3492d8936cf1450b072"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:JP_2026-08-28_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:JP_2026-08-28_C02",
+          "source_run": "20260831",
+          "source_index": 124,
+          "candidate_id": "orig:20260831_143419:JP_2026-08-28_C02",
+          "story_id": "JP_2026-08-28_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "東急不動産と共同で宮城県白石市に系統用蓄電所を新設",
+          "site": "PR TIMES 蓄電池",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000010.000110152.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "9b0717f947428bb2b486a179ed9ebb738590fc160f98c3492d8936cf1450b072"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 163,
+      "event_id": "XRUN_REPLAY_20260903_E0110",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C06",
+        "story_id": "GL_2026-08-28_C06",
+        "date": "2026-08-28",
+        "title": "Congo's EGC eyes battery-maker deals after filling cobalt quotas, executive says - TradingView",
+        "site": "DRC Cobalt Supply (via Google News)",
+        "url": "https://www.tradingview.com/news/reuters.com,2026:newsml_L6N44P0V2:0-congo-s-egc-eyes-battery-maker-deals-after-filling-cobalt-quotas-executive-says",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "dd078203d1bb8f6b57274e42dd8a64dfd9bde7dba4ab5a966c54e874908f5ebd"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C06"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C06",
+          "source_run": "20260831",
+          "source_index": 140,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C06",
+          "story_id": "GL_2026-08-28_C06",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Congo's EGC eyes battery-maker deals after filling cobalt quotas, executive says - TradingView",
+          "site": "DRC Cobalt Supply (via Google News)",
+          "source_url": "https://www.tradingview.com/news/reuters.com,2026:newsml_L6N44P0V2:0-congo-s-egc-eyes-battery-maker-deals-after-filling-cobalt-quotas-executive-says",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "dd078203d1bb8f6b57274e42dd8a64dfd9bde7dba4ab5a966c54e874908f5ebd"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery",
+          "cobalt"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 164,
+      "event_id": "XRUN_REPLAY_20260903_E0112",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C18",
+        "story_id": "GL_2026-08-28_C18",
+        "date": "2026-08-28",
+        "title": "Ontario municipality rejects Bedrock Energy’s Canada compressed air energy storage project",
+        "site": "Energy-Storage.news RSS",
+        "url": "https://www.energy-storage.news/ontario-municipality-rejects-bedrock-energys-canada-compressed-air-energy-storage-project-rejected",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "50e72985312ff16e984563bb2c85c1f1e5999583425233329bafcea464240340"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-28_C18"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-28_C18",
+          "source_run": "20260831",
+          "source_index": 142,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-28_C18",
+          "story_id": "GL_2026-08-28_C18",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Ontario municipality rejects Bedrock Energy’s Canada compressed air energy storage project",
+          "site": "Energy-Storage.news RSS",
+          "source_url": "https://www.energy-storage.news/ontario-municipality-rejects-bedrock-energys-canada-compressed-air-energy-storage-project-rejected",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "50e72985312ff16e984563bb2c85c1f1e5999583425233329bafcea464240340"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "energy storage",
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 165,
+      "event_id": "XRUN_REPLAY_20260903_E0139",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C17",
+        "story_id": "EU_2026-08-28_C17",
+        "date": "2026-08-28",
+        "title": "Mercedes appoints Pod as sole home EV charging partner",
+        "site": "The Energyst RSS",
+        "url": "https://theenergyst.com/mercedes-appoints-pod-as-sole-home-ev-charging-partner",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "d97a605e4c7fa94da2e5bc58a5c75bef71d0a3a69a2f0646200af00ba34d9466"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C17"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C17",
+          "source_run": "20260831",
+          "source_index": 175,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C17",
+          "story_id": "EU_2026-08-28_C17",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Mercedes appoints Pod as sole home EV charging partner",
+          "site": "The Energyst RSS",
+          "source_url": "https://theenergyst.com/mercedes-appoints-pod-as-sole-home-ev-charging-partner",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "d97a605e4c7fa94da2e5bc58a5c75bef71d0a3a69a2f0646200af00ba34d9466"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "charging",
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 166,
+      "event_id": "XRUN_REPLAY_20260903_E0142",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C03",
+        "story_id": "EU_2026-08-28_C03",
+        "date": "2026-08-28",
+        "title": "Battery Production Equipment Providers in Europe",
+        "site": "Battery-News EN RSS",
+        "url": "https://battery-news.de/en/2026/08/28/battery-production-equipment-providers-in-europe",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "c3fbd1fe93479f2d6f58f930aaaa9151c74a06774a73009ffd61e6413b449f60"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C03"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C03",
+          "source_run": "20260831",
+          "source_index": 178,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C03",
+          "story_id": "EU_2026-08-28_C03",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Battery Production Equipment Providers in Europe",
+          "site": "Battery-News EN RSS",
+          "source_url": "https://battery-news.de/en/2026/08/28/battery-production-equipment-providers-in-europe",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "c3fbd1fe93479f2d6f58f930aaaa9151c74a06774a73009ffd61e6413b449f60"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 167,
+      "event_id": "XRUN_REPLAY_20260903_E0143",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C24",
+        "story_id": "EU_2026-08-28_C24",
+        "date": "2026-08-28",
+        "title": "Study highlights potential solutions to economic barriers in battery recycling",
+        "site": "Electrive RSS",
+        "url": "https://www.electrive.com/2026/08/28/study-highlights-economic-barriers-in-battery-recycling",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "801a04b5f9680e6a4c03a0a64359f0c6fd0fc94eb5f8899a9ab5794aeadbc91e"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C24"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C24",
+          "source_run": "20260831",
+          "source_index": 179,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C24",
+          "story_id": "EU_2026-08-28_C24",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Study highlights potential solutions to economic barriers in battery recycling",
+          "site": "Electrive RSS",
+          "source_url": "https://www.electrive.com/2026/08/28/study-highlights-economic-barriers-in-battery-recycling",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "801a04b5f9680e6a4c03a0a64359f0c6fd0fc94eb5f8899a9ab5794aeadbc91e"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "battery",
+          "recycling"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "recycling"
+        ],
+        "negative": [],
+        "context": [
+          "study"
+        ]
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 168,
+      "event_id": "XRUN_REPLAY_20260903_E0162",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C10",
+        "story_id": "CN_2026-08-31_C10",
+        "date": "2026-08-31",
+        "title": "冲刺“下半场” | 湖北大悟抽水蓄能电站上水库大坝面板混凝土浇筑全部完成 - 碳索储能网",
+        "site": "湖北能源局 Hubei Energy (via Google News)",
+        "url": "https://mcn.solarbe.com/news/20260831/50028379.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "9d2d797de18fa1ad6951c74c97954ab607fa551823f247619df0d88c548b103d"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-31_C10"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-31_C10",
+          "source_run": "20260831",
+          "source_index": 198,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-31_C10",
+          "story_id": "CN_2026-08-31_C10",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "冲刺“下半场” | 湖北大悟抽水蓄能电站上水库大坝面板混凝土浇筑全部完成 - 碳索储能网",
+          "site": "湖北能源局 Hubei Energy (via Google News)",
+          "source_url": "https://mcn.solarbe.com/news/20260831/50028379.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "9d2d797de18fa1ad6951c74c97954ab607fa551823f247619df0d88c548b103d"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 169,
+      "event_id": "XRUN_REPLAY_20260903_E0167",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-29_C02",
+        "story_id": "CN_2026-08-29_C02",
+        "date": "2026-08-29",
+        "title": "重庆石柱：石柱县首个用户侧储能电站过审！新能源“削峰填谷”模式落地工业园区",
+        "site": "中国能源网",
+        "url": "https://www.china5e.com/news/news-1208469-1.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "c87dc46fea6aa3f358d80a87e9cf96692625c892214223e1aa62ed72247cefba"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-29_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-29_C02",
+          "source_run": "20260831",
+          "source_index": 203,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-29_C02",
+          "story_id": "CN_2026-08-29_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-29",
+          "title": "重庆石柱：石柱县首个用户侧储能电站过审！新能源“削峰填谷”模式落地工业园区",
+          "site": "中国能源网",
+          "source_url": "https://www.china5e.com/news/news-1208469-1.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "c87dc46fea6aa3f358d80a87e9cf96692625c892214223e1aa62ed72247cefba"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 170,
+      "event_id": "XRUN_REPLAY_20260903_E0173",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C06",
+        "story_id": "CN_2026-08-28_C06",
+        "date": "2026-08-28",
+        "title": "突发！特朗普签署行政令，电池储能系统纳入管控",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36008-8130-30700450.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "1b709f2d53f5de6583063b84b8622d23ecbd576d3c510a991786dbad8e20557c"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-28_C06"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C06",
+          "source_run": "20260831",
+          "source_index": 209,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-28_C06",
+          "story_id": "CN_2026-08-28_C06",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "突发！特朗普签署行政令，电池储能系统纳入管控",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36008-8130-30700450.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "1b709f2d53f5de6583063b84b8622d23ecbd576d3c510a991786dbad8e20557c"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 171,
+      "event_id": "XRUN_REPLAY_20260903_E0174",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C02",
+        "story_id": "CN_2026-08-28_C02",
+        "date": "2026-08-28",
+        "title": "VOYAH Reports 42.4% Revenue Growth, 389 Million Yuan Net Loss in H1 2026",
+        "site": "Gasgoo RSS - Class 7",
+        "url": "https://autonews.gasgoo.com/articles/news/voyah-reports-424-revenue-growth-389-million-yuan-net-loss-in-h1-2026-2093365999280930817",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "d61641a3feebac11289b3f4154e7a190174d198c482c669a05244297b3f1a6d2"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:CN_2026-08-28_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:CN_2026-08-28_C02",
+          "source_run": "20260831",
+          "source_index": 210,
+          "candidate_id": "orig:20260831_143419:CN_2026-08-28_C02",
+          "story_id": "CN_2026-08-28_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "VOYAH Reports 42.4% Revenue Growth, 389 Million Yuan Net Loss in H1 2026",
+          "site": "Gasgoo RSS - Class 7",
+          "source_url": "https://autonews.gasgoo.com/articles/news/voyah-reports-424-revenue-growth-389-million-yuan-net-loss-in-h1-2026-2093365999280930817",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "d61641a3feebac11289b3f4154e7a190174d198c482c669a05244297b3f1a6d2"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "loss",
+          "revenue"
+        ],
+        "scale": [
+          "%",
+          "million"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "weak ambiguity retained upward",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 172,
+      "event_id": "XRUN_REPLAY_20260903_E0177",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0143",
+        "story_id": "TF_0143",
+        "date": "2026-08-28",
+        "title": "China TOPCon solar module prices rise on upstream cost pressure as deals lag offers",
+        "site": "PV Magazine USA RSS",
+        "url": "https://pv-magazine-usa.com/2026/08/28/china-topcon-solar-module-prices-rise-on-upstream-cost-pressure-as-deals-lag-offers",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "908f8522e5381c5e134c9f12fcb68bd3dcfcfa89d9c0d1c9b5f9cc679ae5d92b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0143"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0143",
+          "source_run": "20260831",
+          "source_index": 213,
+          "candidate_id": "orig:20260831_143419:TF_0143",
+          "story_id": "TF_0143",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "China TOPCon solar module prices rise on upstream cost pressure as deals lag offers",
+          "site": "PV Magazine USA RSS",
+          "source_url": "https://pv-magazine-usa.com/2026/08/28/china-topcon-solar-module-prices-rise-on-upstream-cost-pressure-as-deals-lag-offers",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "908f8522e5381c5e134c9f12fcb68bd3dcfcfa89d9c0d1c9b5f9cc679ae5d92b"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 173,
+      "event_id": "XRUN_REPLAY_20260903_E0217",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0011",
+        "story_id": "TF_0011",
+        "date": "2026-08-27",
+        "title": "蔚能2.53亿成立新公司，电池资产管理开始往储能和电池回收延伸",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36007-8460-30700344.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "28cbe7360e2be516ddfeb94b3191116cdd61ceca55fec553bec0c3eb9abcd433"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0011"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0011",
+          "source_run": "20260831",
+          "source_index": 255,
+          "candidate_id": "orig:20260831_143419:TF_0011",
+          "story_id": "TF_0011",
+          "origin": "original_input",
+          "event_date": "2026-08-27",
+          "title": "蔚能2.53亿成立新公司，电池资产管理开始往储能和电池回收延伸",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36007-8460-30700344.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "28cbe7360e2be516ddfeb94b3191116cdd61ceca55fec553bec0c3eb9abcd433"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 174,
+      "event_id": "XRUN_REPLAY_20260903_E0218",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0012",
+        "story_id": "TF_0012",
+        "date": "2026-08-27",
+        "title": "锂矿股半年报\"回血\"：盈利修复，还是新一轮周期的起点？",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36002-12003-30700335.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "73f1b4006dd4fe50b6e28544c90cec1fd23bc22704b842436fcba83de35fa0dc"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0012"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0012",
+          "source_run": "20260831",
+          "source_index": 256,
+          "candidate_id": "orig:20260831_143419:TF_0012",
+          "story_id": "TF_0012",
+          "origin": "original_input",
+          "event_date": "2026-08-27",
+          "title": "锂矿股半年报\"回血\"：盈利修复，还是新一轮周期的起点？",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36002-12003-30700335.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "73f1b4006dd4fe50b6e28544c90cec1fd23bc22704b842436fcba83de35fa0dc"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 175,
+      "event_id": "XRUN_REPLAY_20260903_E0221",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0008",
+        "story_id": "TF_0008",
+        "date": "2026-08-27",
+        "title": "枧下窝一日反转, 碳酸锂为何更难定价了？",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-08/ART-36003-8420-30700324.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "2c70e6de1f624f514b2cfecd0dc29a6cf23b3b79e06510ea6f7e499ebafc0642"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0008"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0008",
+          "source_run": "20260831",
+          "source_index": 259,
+          "candidate_id": "orig:20260831_143419:TF_0008",
+          "story_id": "TF_0008",
+          "origin": "original_input",
+          "event_date": "2026-08-27",
+          "title": "枧下窝一日反转, 碳酸锂为何更难定价了？",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-08/ART-36003-8420-30700324.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "2c70e6de1f624f514b2cfecd0dc29a6cf23b3b79e06510ea6f7e499ebafc0642"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

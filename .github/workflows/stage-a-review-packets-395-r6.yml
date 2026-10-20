@@ -1,0 +1,111 @@
+name: Materialize R6 Stage A review packets for corrected 395
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/stagea395r6/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  packets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build and validate 16 R6 review batches
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,hashlib,shutil
+          from pathlib import Path
+          MAIN='df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4'
+          BLOB='53219907cdb435c3822c41d097b23e475662aa8a'
+          mp=Path('runs/2026-09-03/current_crossrun_event_membership_replay_corrected_395_20260903_R6.json')
+          sp=Path('runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json')
+          pp=Path('runs/2026-09-03/stage_a_v4_preselection_replay_395_20260903_R6.json')
+          rp=Path('runs/2026-09-03/canonical_relation_replay_closure_395_20260903_R6.json')
+          gp=Path('runs/2026-09-03/current_event_universe_replay_gate_20260903_R6.json')
+          def load(p): return json.loads(p.read_text())
+          def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+          def dump(p,o): Path(p).write_text(json.dumps(o,ensure_ascii=False,indent=2)+'\n')
+          membership,source,pre,relation,gate=map(load,(mp,sp,pp,rp,gp))
+          assert gate['status']=='PASS_CORRECTED_632_TO_395_RELATION_PRESELECTION_REGEN_REQUIRED'
+          assert membership['accounting']['event_count']==395 and membership['accounting']['observation_count']==632
+          assert pre['accounting']['event_count']==395
+          assert relation['accounting']['event_count']==395
+          src={o['observation_key']:o for o in source['observations']}
+          mev={e['event_id']:e for e in membership['events']}
+          rel={r['replay_event_id']:r for r in relation['reanchored_relations']}
+          assert len(src)==632 and len(mev)==395
+          priority={'high_potential_review':0,'candidate_review':1,'watchlist_context':2,'reject_or_support_only':3,'existing_reinforcement':4}
+          original_index={x['event_id']:i for i,x in enumerate(pre['events'])}
+          ordered=sorted(pre['events'],key=lambda x:(priority[x['preselection_bucket']],original_index[x['event_id']]))
+          assert len(ordered)==395 and len({x['event_id'] for x in ordered})==395
+          # Clean only R6 packet directories; old 425 packets remain as superseded audit history.
+          full_dir=Path('runs/2026-09-03/stage_a_review_packets_395_r6')
+          compact_dir=Path('runs/2026-09-03/stage_a_review_packets_395_r6_compact')
+          digest_dir=Path('runs/2026-09-03/stage_a_review_digests_395_r6')
+          for d in (full_dir,compact_dir,digest_dir):
+              if d.exists(): shutil.rmtree(d)
+              d.mkdir(parents=True)
+          manifests=[]; all_packet_ids=[]
+          for bi in range(16):
+              start=bi*25; stop=min((bi+1)*25,395); rows=[]; compact=[]; digest=[]
+              for idx,x in enumerate(ordered[start:stop],start=start+1):
+                  e=mev[x['event_id']]
+                  observations=[src[k] for k in e['observation_keys']]
+                  r=rel.get(x['event_id'])
+                  row={
+                    'ordinal':idx,'event_id':x['event_id'],'representative':e.get('representative'),
+                    'observation_count':e.get('observation_count'),'source_runs':e.get('source_runs'),'observation_keys':e.get('observation_keys'),
+                    'observations':observations,'canonical_relation':r,'preselection_bucket':x['preselection_bucket'],
+                    'routing_hint_score':x.get('routing_hint_score'),'matched_features':x.get('matched_features'),
+                    'preselection_reason':x.get('routing_reason'),'r6_source_event_ids':x.get('r6_source_event_ids'),
+                    'formal_stage_a_judgment_required':True
+                  }
+                  rows.append(row); all_packet_ids.append(x['event_id'])
+                  compact.append({
+                    'ordinal':idx,'event_id':x['event_id'],'title':e.get('representative',{}).get('title'),'date':e.get('representative',{}).get('date'),
+                    'site':e.get('representative',{}).get('site'),'observation_count':e.get('observation_count'),'source_runs':e.get('source_runs'),
+                    'observation_titles':[o.get('title') for o in observations],'canonical_relation':r,
+                    'preselection_bucket':x['preselection_bucket'],'routing_hint_score':x.get('routing_hint_score'),
+                    'matched_features':x.get('matched_features'),'r6_source_event_ids':x.get('r6_source_event_ids')
+                  })
+                  digest.append(f"[{idx:03d}] {x['event_id']} | {x['preselection_bucket']} | score={x.get('routing_hint_score')} | obs={e.get('observation_count')}\nTITLE: {e.get('representative',{}).get('title')}\nDATE/SITE: {e.get('representative',{}).get('date')} | {e.get('representative',{}).get('site')}\nRELATION: {r if r else 'new_unrelated_event'}\nSOURCE TITLES:\n"+'\n'.join('  - '+str(o.get('title')) for o in observations)+'\n')
+              common={'batch':bi+1,'ordinal_start':start+1,'ordinal_end':stop,'event_count':len(rows),'selection_policy_version':'EMBEDDED_NEWS_VALUE_SELECTION_V4','source_prompt_version':'STAGE_A_INTEGRATED_SELECTOR_V4_20260901','main_sha':MAIN,'canonical_blob_sha':BLOB,'r6_membership_sha256':sha(mp),'r6_preselection_sha256':sha(pp),'r6_relation_sha256':sha(rp)}
+              fp=full_dir/f'batch_{bi+1:02d}.json'; cp=compact_dir/f'batch_{bi+1:02d}.json'; dp=digest_dir/f'batch_{bi+1:02d}.txt'
+              dump(fp,{'schema':'stage_a_review_packet_r6_v1',**common,'events':rows})
+              dump(cp,{'schema':'stage_a_compact_review_packet_r6_v1',**common,'events':compact})
+              dp.write_text('STAGE A V4 R6 REVIEW DIGEST\n'+json.dumps(common,ensure_ascii=False)+'\n\n'+'\n'.join(digest))
+              manifests.append({'batch':bi+1,'count':len(rows),'ordinal_start':start+1,'ordinal_end':stop,'full_path':str(fp),'compact_path':str(cp),'digest_path':str(dp),'sha256':{'full':sha(fp),'compact':sha(cp),'digest':sha(dp)}})
+          assert len(all_packet_ids)==395 and len(set(all_packet_ids))==395 and set(all_packet_ids)==set(mev)
+          assert [m['count'] for m in manifests]==[25]*15+[20]
+          manifest={
+            'schema':'stage_a_review_packet_manifest_r6_v1','status':'PASS_EXACT_395_ACCOUNTING_READY_FOR_FORMAL_STAGE_A_REVIEW',
+            'generated_date':'2026-09-03','main_sha':MAIN,'canonical_blob_sha':BLOB,
+            'refs':{'event_gate':str(gp),'membership':str(mp),'source_index':str(sp),'relation':str(rp),'preselection':str(pp)},
+            'sha256':{'membership':sha(mp),'source_index':sha(sp),'relation':sha(rp),'preselection':sha(pp)},
+            'accounting':{'event_count':395,'batch_count':16,'batch_size':25,'last_batch_size':20,'unique_event_ids':395,'duplicate_event_ids':0,'unassigned_event_ids':0,'all_r6_events_present_exactly_once':True},
+            'ordering_policy':['high_potential_review','candidate_review','watchlist_context','reject_or_support_only','existing_reinforcement'],
+            'formal_stage_a':{'decision_batches_committed':0,'packet_generation_pass':True,'authorized_to_begin_item_level_review':True,'not_a_stage_a_decision':True},
+            'batches':manifests
+          }
+          dump(full_dir/'manifest.json',manifest); dump(compact_dir/'manifest.json',manifest)
+          print(json.dumps({'status':manifest['status'],'counts':[m['count'] for m in manifests],'sha256':manifest['sha256']},ensure_ascii=False))
+          PY
+      - name: Commit R6 review packets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/stage_a_review_packets_395_r6 runs/2026-09-03/stage_a_review_packets_395_r6_compact runs/2026-09-03/stage_a_review_digests_395_r6
+          git rm -r .tmp/stagea395r6
+          git commit -m 'audit: materialize R6 Stage A review packets for corrected 395'
+          git push

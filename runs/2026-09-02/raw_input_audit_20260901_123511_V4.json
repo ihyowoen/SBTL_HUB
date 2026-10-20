@@ -1,0 +1,170 @@
+{
+  "schema": "raw_input_audit_v4",
+  "stage": "RAW_INPUT_AUDIT",
+  "run_id": "SBTL_V4_20260901_123511",
+  "input_identity": {
+    "original_filename": "final_news_llm_input_newsletter_expanded_20260901_123511(1).json",
+    "source_run_tag": "20260901_123511",
+    "sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+    "byte_count": 9604884,
+    "source_bytes_committed_to_repo": false
+  },
+  "baseline": {
+    "base_main_commit_sha": "f2792958a85470c11030211642012865c69f56ab",
+    "base_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+    "base_full_count": 1514,
+    "document_universe_manifest_ref": "runs/2026-09-02/stage_0_0d_v4_document_universe_20260902_MAIN_f279295.json",
+    "document_universe_status": "PASS"
+  },
+  "metadata_audit": {
+    "input_schema": "final_news_llm_input_v4_newsletter_expanded",
+    "run_label": "2026-09-01 12:35 KST",
+    "generated_kst": "2026-09-01T14:35:48+09:00",
+    "story_count": 357,
+    "keep_story_count": 288,
+    "review_story_count": 0,
+    "triage_filtered_count": 69,
+    "count_consistency_pass": true,
+    "story_id_unique_count": 357,
+    "story_id_duplicate_count": 0,
+    "primary_url_exact_duplicate_groups": 0,
+    "primary_url_canonical_duplicate_groups": 0,
+    "source_count_packet_mismatch_count": 0,
+    "source_url_packet_mismatch_count": 0,
+    "usable_text_empty_count": 0,
+    "usable_text_under_200_char_count": 26
+  },
+  "distribution": {
+    "region_counts": {
+      "CN": 58,
+      "EU": 18,
+      "GL": 56,
+      "JP": 17,
+      "KR": 181,
+      "US": 27
+    },
+    "ledger_state_counts": {
+      "FIRST": 260,
+      "REPEAT": 97
+    },
+    "primary_text_source_counts": {
+      "article": 285,
+      "rss": 53,
+      "list": 19
+    },
+    "text_coverage_state_counts": {
+      "article_hydrated": 285,
+      "rss_rich": 53,
+      "list_context_only": 19
+    },
+    "published_date_min": "2026-08-19",
+    "published_date_max": "2026-09-01",
+    "age_buckets_vs_generated_run_date": {
+      "0-1d": 327,
+      "2-7d": 24,
+      "8-30d": 6
+    },
+    "future_date_count": 0
+  },
+  "hard_findings": {
+    "malformed_integrity_group_count": 6,
+    "malformed_integrity_affected_story_count": 20,
+    "malformed_integrity_groups": [
+      {
+        "integrity_group_id": "grp_0001",
+        "story_ids": ["GL_2026-08-31_C22", "GL_2026-09-01_C11"],
+        "finding": "UNRELATED_EVENTS_GROUPED_TOGETHER",
+        "disposition": "IGNORE_UPSTREAM_GROUP_AND_RECLUSTER_BY_EVENT"
+      },
+      {
+        "integrity_group_id": "grp_0002",
+        "story_ids": ["JP_2026-08-31_C05", "JP_2026-08-31_C10"],
+        "finding": "UNRELATED_EVENTS_GROUPED_TOGETHER",
+        "disposition": "IGNORE_UPSTREAM_GROUP_AND_RECLUSTER_BY_EVENT"
+      },
+      {
+        "integrity_group_id": "grp_0003",
+        "story_ids": ["JP_2026-08-31_C06", "JP_2026-08-31_C11", "JP_2026-08-31_C12", "JP_2026-09-01_C09", "JP_2026-09-01_C12", "JP_2026-09-01_C13", "JP_2026-09-01_C14"],
+        "finding": "UNRELATED_EVENTS_GROUPED_TOGETHER",
+        "disposition": "IGNORE_UPSTREAM_GROUP_AND_RECLUSTER_BY_EVENT"
+      },
+      {
+        "integrity_group_id": "grp_0004",
+        "story_ids": ["JP_2026-08-31_C18", "JP_2026-09-01_C08"],
+        "finding": "UNRELATED_EVENTS_GROUPED_TOGETHER",
+        "disposition": "IGNORE_UPSTREAM_GROUP_AND_RECLUSTER_BY_EVENT"
+      },
+      {
+        "integrity_group_id": "grp_0005",
+        "story_ids": ["KR_2026-09-01_C40", "KR_2026-09-01_C57", "KR_2026-09-01_C62", "KR_2026-09-01_C165"],
+        "finding": "UNRELATED_EVENTS_GROUPED_TOGETHER",
+        "disposition": "IGNORE_UPSTREAM_GROUP_AND_RECLUSTER_BY_EVENT"
+      },
+      {
+        "integrity_group_id": "grp_0006",
+        "story_ids": ["KR_2026-09-01_C155", "KR_2026-09-01_C156", "KR_2026-09-01_C158"],
+        "finding": "UNRELATED_EVENTS_GROUPED_TOGETHER",
+        "disposition": "IGNORE_UPSTREAM_GROUP_AND_RECLUSTER_BY_EVENT"
+      }
+    ],
+    "source_body_mismatches": [
+      {
+        "story_id": "US_2026-08-31_C19",
+        "headline": "Scalable Measurement At Your Desk: Centralized And Flexible (Webinar)",
+        "finding": "description_article belongs to a different Henkel LOCTITE SOLVE item while context/content belong to the VIO measurement webinar",
+        "disposition": "QUARANTINE_SOURCE_PACKET_UNTIL_REPAIRED_OR_MISMATCHED_FIELD_EXCLUDED"
+      }
+    ],
+    "publication_date_role_mismatches": [
+      {
+        "story_id": "US_2026-08-31_C25",
+        "headline": "The US added a record 20.2 GWh of battery storage in just 3 months",
+        "story_published_date": "2026-08-31",
+        "article_published_date": "2026-09-01",
+        "primary_date_source": "article",
+        "disposition": "RESOLVE_DATE_ROLE_BEFORE_STAGE_A"
+      }
+    ],
+    "probable_same_event_duplicate_pairs": [
+      {
+        "story_ids": ["GL_2026-08-31_C24", "GL_2026-08-31_C23"],
+        "finding": "Nova Minerals / DOE / Estelle antimony supply-chain headline variants",
+        "disposition": "CLUSTER_AS_PROBABLE_SAME_EVENT"
+      }
+    ],
+    "cross_run_story_id_collision_risk": {
+      "status": "CONFIRMED",
+      "scope": "2026-08-31 input vs 2026-09-01 input",
+      "examples": [
+        {
+          "story_id": "KR_2026-08-31_C48",
+          "run_20260901_event": "광해광업공단 국민참여 감사관 63명",
+          "run_20260831_event": "SK온 미국 9GWh ESS용 LFP 공급계약",
+          "finding": "SAME_STORY_ID_DIFFERENT_EVENT"
+        },
+        {
+          "story_id": "JP_2026-08-31_C18",
+          "run_20260901_event": "JAPEX 노르웨이 가스전 생산 시작",
+          "run_20260831_event": "도쿄전력 RP 조시 앞바다 해상풍력 환경평가 착수",
+          "finding": "SAME_STORY_ID_DIFFERENT_EVENT"
+        }
+      ],
+      "rule": "story_id is collector-run scoped only and must never serve as stable cross-run event identity"
+    }
+  },
+  "soft_findings": {
+    "ledger_repeat_count": 97,
+    "ledger_repeat_policy": "RETAIN_AS_PRIOR_OBSERVATION_SIGNAL_ONLY_NOT_FINAL_DUPLICATE_DECISION",
+    "short_usable_text_count": 26,
+    "short_text_policy": "RETAIN_FOR_0_0C_OR_EVENT_RECONCILIATION_BUT_REQUIRE_SOURCE_ADEQUACY_REVIEW_BEFORE_EVIDENCE_DRAFTING"
+  },
+  "audit_disposition": {
+    "raw_input_audit_status": "PASS_WITH_QUARANTINES",
+    "stage_0_0c_authorized": true,
+    "stage_a_authorized": false,
+    "quarantine_story_ids": ["US_2026-08-31_C19"],
+    "date_role_review_story_ids": ["US_2026-08-31_C25"],
+    "probable_duplicate_cluster_story_ids": ["GL_2026-08-31_C24", "GL_2026-08-31_C23"],
+    "next_required_stage": "0.0C_COVERAGE_DISCOVERY_THEN_AUTHORITATIVE_EVENT_RECONCILIATION"
+  }
+}

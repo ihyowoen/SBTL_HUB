@@ -26,7 +26,7 @@ assert.equal(d.fact_sources.length,10);
 const source=s.fact_sources[2];
 assert.equal(source.source_url,"https://www.yna.co.kr/amp/view/AKR20260922178700003");
 assert.equal(source.source_quote,"지난달 국내 배터리사와 19만t(톤) 규모 장기 공급에 합의한 데 이은 대형 계약이다.");
-assert.equal(source.claim,"SK온 계약은 이전 국내 배터리사 19만t 합의와 다른 거래, 국내 배터리 3사 소재 고객 기반 확대");
+assert.equal(source.claim,"지난달 익명 국내 배터리사 LFP 19만톤 장기 공급 합의에 이어 SK온 별도 본계약 체결; 국내 3사 고객 확보는 별도 공식 인용행에서 입증");
 assert.deepEqual(source.supports,["sub"]);
 const ledger=s.source_discovery_ledger.find(v=>v.source_url===source.source_url);
 assert.ok(ledger);
@@ -35,7 +35,6 @@ assert.deepEqual(ledger.visible_fields_supported,["fact","gate","sub","title"]);
 // September news confirms the sequence but not the earlier counterparty identity.
 // Its separate three-customer paragraph cannot be inferred from the retained
 // *single-sentence quote*; the issuer's three-customer quote is separately stored.
-source.claim="2026년 9월 SK온 LFP 계약이 전월 익명 국내 배터리사 19만t 공급 합의에 이은 별도 대형 계약이라는 보도. 전월 고객사 실명과 국내 배터리 3사 구성을 이 인용 자체로 확정하지 않음";
 ledger.unique_contribution="당일 SK온 LFP 1.1조원 계약을 독립 보도하고 전월 국내 배터리사 19만t 합의에 이은 별도 계약임을 설명. 전월 구매사 실명은 이 기사에서 확인되지 않음";
 const changed=f.cards.filter((c,i)=>JSON.stringify(c)!==before[i]).map(c=>c.id);
 assert.deepEqual(changed,["2026-09-22_KR_01"],"Non-target card modified");
@@ -45,7 +44,7 @@ assert.equal(d.fact_sources.length,10);
 const attest=m.editorial_attestation.additions.find(x=>x.id===s.id);
 assert.ok(attest);
 const stamp=new Date().toISOString().replace(/\.\d{3}Z$/,"Z");
-attest.evidence_review_summary+=" | R36 "+stamp+": Accepted latest reviewer finding on source_discovery_ledger.unique_contribution. Yonhap 2026-09-22 supports a separate subsequent SK On contract after unnamed 190kt domestic-battery agreement; it does not identify the August buyer. Narrowed SK Yonhap quote claim and ledger contribution only. The separate Oct 7 Samsung SDI issuer source establishes buyer identity in the separately governed Samsung card, not by inheritance. Visible sub/gate/fact/implication, prices, scores, source owners/counts, stage, IDs and Related unchanged. This is manual claim-coverage correction, NOT formal Prompt 0.6 V5.";
+attest.evidence_review_summary+=" | R36 "+stamp+": Accepted latest reviewer finding on source_discovery_ledger.unique_contribution. Yonhap 2026-09-22 supports a separate subsequent SK On contract after unnamed 190kt domestic-battery agreement; it does not identify the August buyer. Narrowed only SK On Yonhap ledger contribution; existing fact_sources claim is already bounded to the quote. The separate Oct 7 Samsung SDI issuer source establishes buyer identity in the separately governed Samsung card, not by inheritance. Visible sub/gate/fact/implication, prices, scores, source owners/counts, stage, IDs and Related unchanged. This is manual claim-coverage correction, NOT formal Prompt 0.6 V5.";
 f.updated=stamp;
 m.output_updated=stamp;
 writeFileSync(F,JSON.stringify(f,null,2)+"\n");
@@ -57,4 +56,4 @@ assert.equal(lean.total,1676);
 assert.equal(lean.cards.length,1676);
 assert.equal(lean.cards.find(c=>c.id===s.id).sub,s.sub);
 assert.equal(lean.cards.find(c=>c.id===d.id).sub,d.sub);
-console.log(JSON.stringify({status:"R36_SOURCE_COVERAGE_REPAIRED",timestamp:stamp,card_id:s.id,changed_fields:["fact_sources[2].claim","source_discovery_ledger[1].unique_contribution"],formal_prompt_06:"NOT_RUN"}));
+console.log(JSON.stringify({status:"R36_SOURCE_COVERAGE_REPAIRED",timestamp:stamp,card_id:s.id,changed_fields:["source_discovery_ledger[1].unique_contribution"],formal_prompt_06:"NOT_RUN"}));

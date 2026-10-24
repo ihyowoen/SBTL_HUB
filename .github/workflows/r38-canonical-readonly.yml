@@ -1,0 +1,32 @@
+name: R38 read-only canonical baseline export (audit only)
+
+on:
+  push:
+    branches:
+      - ops/r38-canonical-readonly-20261024
+    paths:
+      - "scripts/r38_canonical_identity_readonly.py"
+      - ".github/workflows/r38-canonical-readonly.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  canonical-export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout isolated audit branch and history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify locked baseline, export card/source identity index
+        run: python3 scripts/r38_canonical_identity_readonly.py
+      - name: Upload read-only index and input/output hashes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: R38_CANONICAL_SOURCE_IDENTITY
+          path: /tmp/r38_canonical_index/*
+          if-no-files-found: warn
+          retention-days: 30

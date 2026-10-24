@@ -58,6 +58,7 @@ def main():
     for c in full_cards:
         if not isinstance(c, dict): raise ValueError("NON_OBJECT_CARD")
         fp = c.get("event_fingerprint")
+        raw_fp = fp if isinstance(fp, str) else None
         if not isinstance(fp, dict): fp = {}
         if fp: fingerprint_count += 1
         raw_sources = c.get("fact_sources") or []
@@ -81,6 +82,9 @@ def main():
             "urls": orig_urls,
             "fact_sources_urls": list(dict.fromkeys(src_urls)),
             "event_fingerprint_urls": list(dict.fromkeys(fp_urls)),
+            "event_fingerprint_raw_string": raw_fp,
+            "fact_sources_count": len(raw_sources),
+            "fact_sources_missing_source_url_count": sum(1 for x in raw_sources if isinstance(x, dict) and not x.get("source_url")),
             "event_fingerprint": {
                 key: fp.get(key) for key in
                 ("actor","asset_or_policy","location","event_type","event_date",
@@ -101,7 +105,9 @@ def main():
         "lean_card_count":len(lean_cards),
         "id_date_title_mismatch_count": sum(a != b for a,b in zip(full_sig,lean_sig)),
         "event_fingerprint_present_cards": fingerprint_count,
-        "fact_sources_present_cards": sum(bool(x.get("fact_sources_urls")) for x in records),
+        "event_fingerprint_string_cards": sum(bool(x.get("event_fingerprint_raw_string")) for x in records),
+        "fact_sources_present_cards": sum(x.get("fact_sources_count", 0) > 0 for x in records),
+        "fact_sources_cards_with_no_url": sum(x.get("fact_sources_count", 0) > 0 and len(x.get("fact_sources_urls",[])) == 0 for x in records),
         "related_present_cards": sum(bool(x.get("related")) for x in records),
         "related_edges": edge_count,
         "legacy_dangling_related_edges": len(dangling),

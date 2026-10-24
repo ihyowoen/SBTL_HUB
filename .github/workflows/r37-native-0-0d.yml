@@ -1,0 +1,38 @@
+name: R37 stage-only native 0.0D preflight (audit only)
+
+on:
+  push:
+    branches:
+      - ops/r37-native-0-0d-20261024
+    paths:
+      - scripts/r37_native_preflight.py
+      - .github/workflows/r37-native-0-0d.yml
+
+permissions:
+  contents: read
+
+jobs:
+  r37-native-stage-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout isolated audit branch, full Git history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Print exact read-only baseline
+        run: |
+          git rev-parse HEAD
+          git rev-parse refs/remotes/origin/main
+          git rev-parse 805c2718d6daf40a219ae94242d9687e33ac3e88:data/cards.full.json
+          git rev-parse 805c2718d6daf40a219ae94242d9687e33ac3e88:public/data/cards.json
+      - name: Run exact-main native 0.0D V4 classification, deep read and validators
+        run: python3 scripts/r37_native_preflight.py
+      - name: Upload stage-only audit evidence even when BLOCKED
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: R37_NATIVE_0_0D_V4_${{ github.run_id }}
+          path: runs/2026-10-24/r37-native-0-0d-evidence/*
+          if-no-files-found: warn
+          retention-days: 30

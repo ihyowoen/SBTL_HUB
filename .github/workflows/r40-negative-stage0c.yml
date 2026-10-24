@@ -1,0 +1,38 @@
+name: R40 current-main Stage 0.0C negative gate (audit only)
+
+on:
+  push:
+    branches:
+      - ops/r40-0-0c-native-negative-20261024
+    paths:
+      - '.github/workflows/r40-negative-stage0c.yml'
+      - 'scripts/r40_negative_0_0c_gate.py'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-blocked-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout audited branch with exact main object history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Re-run R37 real locked-main Stage 0.0D native validations
+        run: python3 scripts/r37_native_preflight.py
+      - name: Attempt native Stage 0.0C acceptance (must reject without terminals)
+        run: python3 scripts/r40_negative_0_0c_gate.py
+      - name: Upload R40 gated negative receipt (including on failure)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: R40_STAGE0C_NEGATIVE_EVIDENCE_${{ github.run_id }}
+          path: |
+            runs/2026-10-24/r37-native-0-0d-evidence/*
+            runs/2026-10-24/r40-native-negative-evidence/*
+          if-no-files-found: warn

@@ -36,3 +36,17 @@ jobs:
       - name: Native Stage C lineage contract
         run: |
           python validation_scripts/stage_lineage_contract_check.py stage_c runs/2026-10-27/stage-c/STAGE_C_LATEST_ACCEPTED_NATIVE_SCHEMA_V2_20261027.json
+      - name: Exact-Full current-baseline addability 0.4
+        run: |
+          python runs/2026-10-27/stage-c/stage_0_4_current_baseline_check.py
+      - name: Native 0.4 artifact contract
+        if: success()
+        run: |
+          python validation_scripts/stage_artifact_contract_check.py 0.4 runs/2026-10-27/stage-c/STAGE_0_4_CURRENT_BASELINE_ADDABILITY_20261027.json
+      - name: Upload stage 0.4 audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage04-native-audit
+          path: runs/2026-10-27/stage-c/STAGE_0_4_CURRENT_BASELINE_ADDABILITY_20261027.json
+          if-no-files-found: warn

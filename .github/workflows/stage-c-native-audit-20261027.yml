@@ -1,0 +1,38 @@
+name: Stage C Canonical Native Audit 2026-10-27
+on:
+  push:
+    branches:
+      - ops/stage-c-native-audit-20261027
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stage-c-readonly-validators:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Confirm pinned starting main and candidate scope
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('runs/2026-10-27/stage-c/STAGE_C_LATEST_ACCEPTED_CANDIDATES_20261027.json')
+          o=json.loads(p.read_text())
+          assert o['base_main_commit_sha']=='805c2718d6daf40a219ae94242d9687e33ac3e88'
+          assert o['base_full_blob_sha']=='07a91714e56be2a8bfad10ab63822f0c5cb3f06e'
+          assert len(o['accepted_fact_safe'])==7
+          assert len({c['source_spec_id'] for c in o['accepted_fact_safe']})==7
+          assert len(o['stage_b_blocked_specs_preserved'])==1
+          print('PASS pinned main/full, seven unique Stage C candidates, LGES hold preserved')
+          PY
+      - name: Native Stage C artifact contract
+        run: |
+          python validation_scripts/stage_artifact_contract_check.py C runs/2026-10-27/stage-c/STAGE_C_LATEST_ACCEPTED_CANDIDATES_20261027.json
+      - name: Native Stage C lineage contract
+        run: |
+          python validation_scripts/stage_lineage_contract_check.py stage_c runs/2026-10-27/stage-c/STAGE_C_LATEST_ACCEPTED_CANDIDATES_20261027.json

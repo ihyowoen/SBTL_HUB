@@ -64,7 +64,49 @@ def main():
         spec=candidate['source_spec_id']
         rel=candidate['related_lineage'];typ=rel['relation_type']
         candurls=sorted({normalize_url(u) for u in candidate.get('urls',[]) if normalize_url(u)})
-        matches={z for u in candurls for z in url_index.get(u,())}
+        all_url_matches={z for u in candurls for z in url_index.get(u,())}
+        # Related Source Audit: an older card's durable source can legitimately
+        # appear in the NEW draft as evidence for the *predecessor* only.
+        # A source with that role is not evidence of a duplicate current action.
+        predecessor_context_overlaps=[]
+        for old_id in sorted(all_url_matches):
+            if old_id not in rel.get('related_ids', []):
+                continue
+            old=existing_by_id[old_id]
+            oldurls={normalize_url(u) for u in (old.get('urls') or [])}
+            overlap=sorted(set(candurls)&oldurls)
+            if not overlap or old.get('date','')>=candidate.get('date',''):
+                continue
+            current_primary=normalize_url(candidate.get('stage_a_selection_package',{}).get('primary_url',''))
+            if not current_primary or current_primary in overlap:
+                continue
+            # Positive witness: the actual collision URL is used in the draft
+            # with a source-specific *prior-state* claim; no generic exemption.
+            source_witnesses=[f for f in candidate.get('fact_sources',[])
+              if normalize_url(f.get('source_url','')) in overlap
+              and ('prior' in str(f.get('source_key','')).lower()
+                or 'predecessor' in str(f.get('evidence_role','')).lower())
+              and old_id in [c.get('id') for c in candidate.get('related_evidence_review',{}).get('matched_baseline_cards',[])]
+            # Current anchor must also have its own separate current-event URL
+            # and exact distinct date / named action from the old card.
+            is_distinct=(typ=='distinct_follow_up'
+                and len(source_witnesses)>0
+                and str(candidate.get('event_fingerprint',{}).get('named_action','')).strip()
+                and str(candidate.get('related_lineage',{}).get('fresh_follow_up_anchor','')).strip()
+                and norm_title(old.get('title',''))!=norm_title(candidate.get('title',''))
+                and any(normalize_url(f.get('source_url','')) not in oldurls
+                    and f.get('evidence_role')=='primary_event_evidence'
+                    for f in candidate.get('fact_sources',[])))
+            if is_distinct:
+                predecessor_context_overlaps.append({
+                    'predecessor_id':old_id,'matched_url_tokens':overlap,
+                    'witness_source_keys':[f.get('source_key') for f in source_witnesses],
+                    'predecessor_date':old.get('date'),
+                    'selected_current_date':candidate.get('date'),
+                    'decision':'PREDECESSOR_BACKGROUND_NOT_NEW_EVENT_URL',
+                })
+        contextual_ids={row['predecessor_id'] for row in predecessor_context_overlaps}
+        matches=all_url_matches-contextual_ids
         ids={z for sid in c_ids(candidate) for z in source_id_index.get(sid,())}
         title=norm_title(candidate.get('title',''))
         same_title=title_index.get(title,set())
@@ -107,18 +149,19 @@ def main():
         }.get(typ,'review_pool_deferred_related_uncertain')
         row['baseline_revalidation']={
            'current_full_card_count':1676,'current_full_blob':EXPECTED_FULL,'source_spec_id':spec,
-           'canonical_url_matches':sorted(matches),'source_story_id_matches':sorted(ids),'exact_title_matches':sorted(same_title),
+           'canonical_url_matches':sorted(matches),'resolved_predecessor_context_url_matches':predecessor_context_overlaps,
+           'source_story_id_matches':sorted(ids),'exact_title_matches':sorted(same_title),
            'current_batch_url_matches':sorted(self_batch_url_matches),'current_batch_title_matches':sorted(self_batch_title_matches),
            'direct_relation_targets':rel.get('related_ids',[]),'candidate_title':candidate.get('title'),
            'outcome':'PASS_EXACT_BASELINE_BOUNDED' if not problem else 'HOLD_COLLISION_OR_LINEAGE',
-           'review_basis':'Actual locked Full bytes, exact/canonical URL+title+source-story collisions, exact predecessor existence, Stage C fingerprint and prior identity adjudication. Not an exhaustive fuzzy semantic corpus search.'
+           'review_basis':'Actual locked Full bytes, exact/canonical URL+title+source-story collisions, exact predecessor existence, Stage C fingerprint and prior identity adjudication. A shared URL is an explicit accepted predecessor-context witness only when matching predecessor ID, older date, primary current URL separate, direct old card and source-role metadata prove the distinction. Not an exhaustive fuzzy semantic corpus search.'
         }
         if problem:
             held.append({'source_spec_id':spec,'candidate':row,'reason':problem,'disposition':'review_pool_deferred_related_uncertain'})
         else:accepted.append(row)
         for u in candurls:seen_urls.setdefault(u,set()).add(spec)
         seen_titles.setdefault(title,set()).add(spec)
-        item_receipts.append({'source_spec_id':spec,'baseline_collision_count':len(matches),'current_batch_collision_count':len(self_batch_url_matches),'problem_count':len(problem),'problems':problem})
+        item_receipts.append({'source_spec_id':spec,'baseline_collision_count':len(matches),'predecessor_context_overlap_count':len(predecessor_context_overlaps),'current_batch_collision_count':len(self_batch_url_matches),'problem_count':len(problem),'problems':problem})
     complete=(len(accepted)+len(held)==7)
     result={
         'schema':'STAGE_0_4_V4_BASELINE_REVALIDATION_AUDIT',

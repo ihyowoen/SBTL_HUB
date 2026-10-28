@@ -1,0 +1,2761 @@
+{
+  "stage": "B",
+  "scope": "read_only_seven_stage_B_draft_cards",
+  "base_main_commit_sha": "805c2718d6daf40a219ae94242d9687e33ac3e88",
+  "base_full_blob_sha": "07a91714e56be2a8bfad10ab63822f0c5cb3f06e",
+  "draft_cards": [
+    {
+      "id": "B_DRAFT_A_SPEC_SRC26-20260928_160143-0194",
+      "draft_id": "B_DRAFT_A_SPEC_SRC26-20260928_160143-0194",
+      "source_spec_id": "A_SPEC_SRC26-20260928_160143-0194",
+      "source_story_ids": [
+        "SRC26-20260928_160143-0194"
+      ],
+      "region": "GL",
+      "date": "2026-09-28",
+      "cat": "ESS",
+      "sub_cat": "WARATAH_FINAL_OPERATIONS",
+      "signal": "normal",
+      "title": "Waratah, 최종 상업운전 도달 발표…701MW SIPS 시험과 별개 단계",
+      "sub": "Akaysha가 9월 28일 850MW·1,680MWh Waratah의 최종 상업운전 도달을 발표했다.",
+      "gate": "최종 상업운전 도달 발표가 확인됐다. 별도의 실제 도달일, 계약상 보장 용량·대금 및 이후 규제상 수입 변경은 이 발표만으로 확정하지 않는다.",
+      "fact": "Akaysha는 NSW Waratah 배터리가 최종 상업운전에 도달했다고 밝혔다. 명목 설계는 850MW·1,680MWh이며, 배터리와 Transgrid의 SIPS 제어체계가 계통 교란에 대응하도록 설계됐다. 기존 9월 9일 Full 카드는 701MW full-SIPS 시험을 다뤘다. 이번 발표는 시험 출력에서 최종 상업운전 상태로의 변화를 다룬다.",
+      "implication": [
+        "상업운전 상태 전환은 시험 성공보다 운영 준비도에 관해 더 진전된 신호다. 지속 가용성과 실제 정산 수입은 후속 운영·규제 자료로 확인해야 한다."
+      ],
+      "urls": [
+        "https://akayshaenergy.com/news/waratah-super-battery-reaches-final-commercial-operations",
+        "https://www.energy-storage.news/australias-most-powerful-battery-storage-system-officially-completed/"
+      ],
+      "fact_sources": [
+        {
+          "source_key": "waratah_owner",
+          "source_name": "akaysha_energy",
+          "source_url": "https://akayshaenergy.com/news/waratah-super-battery-reaches-final-commercial-operations",
+          "source_owner_id_normalized": "akaysha_energy",
+          "source_published_date": "2026-09-28",
+          "claim": "850MW/1680MWh final commercial operation publicly announced September28; SIPS system role.",
+          "source_quote": "has reached final commercial operations at the Waratah Super Battery",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "direct_http_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "f1648b3a7f5aec47daab90a0533235d664edc4ff19670f89c58668ed88f4e897",
+          "raw_response_sha256": "d310e0dd7eb0a30715fbe7c2510c3b710c900b5ac0fc89103e59294bf8145a37",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "850MW/1680MWh final commercial operation publicly announced September28; SIPS system role.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        },
+        {
+          "source_key": "waratah_report",
+          "source_name": "solar_media",
+          "source_url": "https://www.energy-storage.news/australias-most-powerful-battery-storage-system-officially-completed/",
+          "source_owner_id_normalized": "solar_media",
+          "source_published_date": "2026-09-28",
+          "claim": "Contemporaneous reporting distinguishes completion from transformer outage, temporary output and SIPS testing.",
+          "source_quote": "closing out a commissioning process",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "independently_published_reporting",
+          "is_primary_source": false,
+          "fetch_method": "web_rendered_article_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "a718714fc80146012efc88f1709bc9d365d0d9c488f452635324b62682e5bb51",
+          "raw_response_sha256": null,
+          "direct_http_status": null,
+          "fetch_caveat": "HTTPError: HTTP Error 403: Forbidden",
+          "unique_contribution": "Contemporaneous reporting distinguishes completion from transformer outage, temporary output and SIPS testing.",
+          "editorial_owner_independent_of_issuer": true,
+          "independent_observation_of_underlying_event": false
+        }
+      ],
+      "source_evidence_entry_count": 2,
+      "source_unique_url_count": 2,
+      "source_unique_domain_count": 2,
+      "source_independent_owner_count": 2,
+      "visible_source_url_count": 2,
+      "missing_source_url_count": 0,
+      "missing_visible_source_url_count": 0,
+      "canonical_urls": [
+        "https://akayshaenergy.com/news/waratah-super-battery-reaches-final-commercial-operations",
+        "https://energy-storage.news/australias-most-powerful-battery-storage-system-officially-completed"
+      ],
+      "canonical_domains": [
+        "akayshaenergy.com",
+        "energy-storage.news"
+      ],
+      "independent_owners": [
+        "akaysha_energy",
+        "solar_media"
+      ],
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "Multiple editorial owners; no single-source exception needed."
+      },
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://akayshaenergy.com/news/waratah-super-battery-reaches-final-commercial-operations",
+          "https://energy-storage.news/australias-most-powerful-battery-storage-system-officially-completed"
+        ],
+        "canonical_domains": [
+          "akayshaenergy.com",
+          "energy-storage.news"
+        ],
+        "independent_owners": [
+          "akaysha_energy",
+          "solar_media"
+        ]
+      },
+      "source_discovery_ledger": [
+        {
+          "source_url": "https://akayshaenergy.com/news/waratah-super-battery-reaches-final-commercial-operations",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "waratah_owner",
+            "requested_url": "https://akayshaenergy.com/news/waratah-super-battery-reaches-final-commercial-operations",
+            "checked_at": "2026-10-27T03:14:28.617866+00:00",
+            "http_status": 200,
+            "resolved_url": "https://akayshaenergy.com/news/waratah-super-battery-reaches-final-commercial-operations",
+            "bytes": 42929,
+            "sha256": "d310e0dd7eb0a30715fbe7c2510c3b710c900b5ac0fc89103e59294bf8145a37",
+            "content_type": "text/html; charset=utf-8",
+            "links_count": 37,
+            "text_chars": 2766,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_url": "https://www.energy-storage.news/australias-most-powerful-battery-storage-system-officially-completed/",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "waratah_report",
+            "requested_url": "https://www.energy-storage.news/australias-most-powerful-battery-storage-system-officially-completed/",
+            "checked_at": "2026-10-27T03:14:28.619084+00:00",
+            "status": "UNAVAILABLE",
+            "error": "HTTPError: HTTP Error 403: Forbidden"
+          }
+        },
+        {
+          "source_url": "https://www.ess-news.com/2026/09/28/australias-850-mw-waratah-battery-reaches-full-operations",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "not_fetched_after_sufficient_same_event_evidence",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": null
+        },
+        {
+          "source_key": "waratah_owner",
+          "checked_at": "2026-10-27T03:14:28.617866+00:00",
+          "http_status": 200,
+          "resolved_url": "https://akayshaenergy.com/news/waratah-super-battery-reaches-final-commercial-operations",
+          "bytes": 42929,
+          "sha256": "d310e0dd7eb0a30715fbe7c2510c3b710c900b5ac0fc89103e59294bf8145a37",
+          "content_type": "text/html; charset=utf-8",
+          "links_count": 37,
+          "text_chars": 2766,
+          "status": "BODY_FETCHED",
+          "source_url": "https://akayshaenergy.com/news/waratah-super-battery-reaches-final-commercial-operations",
+          "origin": "stage_b_selected_body",
+          "purpose": "850MW/1680MWh final commercial operation publicly announced September28; SIPS system role."
+        },
+        {
+          "source_key": "waratah_report",
+          "checked_at": "2026-10-27T03:14:28.619084+00:00",
+          "status": "BODY_READ_VIA_WEB_RENDERER",
+          "error": "HTTPError: HTTP Error 403: Forbidden",
+          "source_url": "https://www.energy-storage.news/australias-most-powerful-battery-storage-system-officially-completed/",
+          "origin": "stage_b_selected_body",
+          "purpose": "Contemporaneous reporting distinguishes completion from transformer outage, temporary output and SIPS testing.",
+          "direct_attempt_status": "UNAVAILABLE",
+          "fallback_snapshot_sha256": "a718714fc80146012efc88f1709bc9d365d0d9c488f452635324b62682e5bb51"
+        }
+      ],
+      "source_synthesis_applied": true,
+      "source_synthesis_fields": [
+        "title",
+        "sub",
+        "gate",
+        "fact",
+        "implication"
+      ],
+      "source_synthesis_plan": {
+        "selected_anchor": "701MW 시험 → final commercial operations라는 현재 운영 상태 변화.",
+        "source_contributions": [
+          {
+            "key": "waratah_owner",
+            "contribution": "850MW/1680MWh final commercial operation publicly announced September28; SIPS system role."
+          },
+          {
+            "key": "waratah_report",
+            "contribution": "Contemporaneous reporting distinguishes completion from transformer outage, temporary output and SIPS testing."
+          }
+        ],
+        "scope_limits": [
+          "비공개 실제 최종운전 도달일",
+          "SIPS 계약상 실제 가용성·정산액 및 별도 AER 수입 변경"
+        ],
+        "no_same_release_inflation": true
+      },
+      "date_role": {
+        "event_date": "2026-09-28",
+        "representative_date": "2026-09-28",
+        "representative_date_basis": "announcement_of_attained_operational_state",
+        "announcement_date": "2026-09-28",
+        "publication_date": "2026-09-28",
+        "actual_private_or_physical_action_date": null,
+        "physical_date_disclosed": false,
+        "earliest_located_public_disclosure": "2026-09-28",
+        "observation_cutoff": "2026-10-27 Asia/Seoul",
+        "future_dates_are_targets": true,
+        "date_uncertainties": [
+          "비공개 실제 최종운전 도달일",
+          "SIPS 계약상 실제 가용성·정산액 및 별도 AER 수입 변경"
+        ],
+        "status": "PASS_WITH_DISCLOSED_DATE_LIMITS"
+      },
+      "event_fingerprint": {
+        "named_action": "701MW 시험 → final commercial operations라는 현재 운영 상태 변화.",
+        "selected_event_date": "2026-09-28",
+        "asset_or_program": "Waratah"
+      },
+      "related": [
+        "2026-09-09_GL_04"
+      ],
+      "related_lineage": {
+        "proposed_relation_type": "distinct_follow_up",
+        "target_ids": [
+          "2026-09-09_GL_04"
+        ],
+        "status": "STAGE_B_PROPOSED_EVIDENCE_REVIEWED"
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "evidence_review_scope": "Stage B evidence-supported proposed relation; Stage C factual acceptance and later Related merge not executed",
+        "same_event_checked": true,
+        "earliest_same_event_check_status": "PASS_BOUNDED_PUBLIC_DISCLOSURE_SEARCH",
+        "earliest_same_event_date": "2026-09-28",
+        "earliest_check_scope": "Locked Full1676 and current1330 identity/fingerprint comparison plus selected official and contemporaneous body evidence. No claim of exhaustive internet absence.",
+        "relation_type": "distinct_follow_up",
+        "matched_baseline_candidate_ids": [
+          "2026-09-09_GL_04"
+        ],
+        "matched_baseline_cards": [
+          {
+            "id": "2026-09-09_GL_04",
+            "date": "2026-09-09",
+            "title": "Waratah, 701MW 방전으로 full SIPS 계약수준 시험",
+            "sub": "9월 7일 850MW 최대출력 뒤 9일 701MW 방전…700MW full SIPS 계약의무 수준을 별도 시험",
+            "fact": "Waratah Super Battery는 9월 9일 약 701MW를 방전하며 700MW의 full contracted SIPS obligation 수준 시험을 수행했다. 이틀 전인 9월 7일에는 850MW 정격출력을 기록했다. 850MW는 설비의 최대출력 능력을 보여주는 사건이고, 701MW 시험은 System Integrity Protection Scheme에서 요구되는 계약수준을 충족하는지를 검증한 사건이라는 점에서 구분할 필요가 있다. 이번 결과는 대형 BESS가 단순 저장을 넘어 계통보호 자산으로 기능하는 실행단계를 보여준다.",
+            "urls": [
+              "https://www.energy-storage.news/waratah-super-battery-passes-full-power-test-australia",
+              "https://electricalnews.co.uk/waratah-battery-tests-full-grid-protection-capability/"
+            ],
+            "related": []
+          }
+        ],
+        "matched_current_batch_candidate_ids": [],
+        "fresh_follow_up_anchor_class": [
+          "execution_event_anchor"
+        ],
+        "fresh_follow_up_anchor": "701MW 시험 → final commercial operations라는 현재 운영 상태 변화.",
+        "incremental_fact": "701MW 시험 → final commercial operations라는 현재 운영 상태 변화.",
+        "changed_judgment": "Operating readiness differs from instantaneous MW/test output; no energy/revenue inferred.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": []
+      },
+      "state": "draft_for_stage_c_review",
+      "stage_c_recommended": true,
+      "unresolved_questions": [
+        "비공개 실제 최종운전 도달일",
+        "SIPS 계약상 실제 가용성·정산액 및 별도 AER 수입 변경"
+      ],
+      "production_id_assigned": false,
+      "claim_map": [
+        {
+          "field": "title",
+          "source_keys": [
+            "waratah_owner",
+            "waratah_report"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "sub",
+          "source_keys": [
+            "waratah_owner",
+            "waratah_report"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "fact",
+          "source_keys": [
+            "waratah_owner",
+            "waratah_report"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "gate",
+          "source_keys": [
+            "waratah_owner",
+            "waratah_report"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "implication",
+          "source_keys": [
+            "waratah_owner",
+            "waratah_report"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        }
+      ]
+    },
+    {
+      "id": "B_DRAFT_A_SPEC_R13_DISC_001",
+      "draft_id": "B_DRAFT_A_SPEC_R13_DISC_001",
+      "source_spec_id": "A_SPEC_R13_DISC_001",
+      "source_story_ids": [
+        "R13_DISC_001"
+      ],
+      "region": "GL",
+      "date": "2026-10-12",
+      "cat": "Materials",
+      "sub_cat": "ENERGYX_TRAFIGURA_OFFTAKE",
+      "signal": "normal",
+      "title": "EnergyX–Trafigura, 10년·10만t 리튬 구속력 있는 구매계약",
+      "sub": "칠레 Black Giant와 미국 Lonestar의 배터리급 리튬을 대상으로 장기 판로를 확보했다.",
+      "gate": "구매계약은 확인됐지만 생산 개시나 프로젝트 금융종결을 의미하지 않는다. 보도된 20억달러는 당시 가격을 적용한 평가액이며 확정 매출액으로 사용하지 않는다.",
+      "fact": "Trafigura는 10월 12일 EnergyX와 총 10만t의 배터리급 리튬 제품에 관한 10년 구속력 있는 구매계약을 체결했다고 발표했다. Black Giant의 탄산리튬과 Lonestar의 수산화리튬이 대상이다. 판매자와 Reuters는 take-or-pay 구조를 보도했다. 구매자는 두 프로젝트의 상업 생산 목표를 각각 2028년과 2029년으로 제시했다.",
+      "implication": [
+        "기존 Eni 투자와 달리 이번 변화는 제품의 장기 판로에 있다. 구매 약정은 금융조달 논리를 보강하지만 건설 자금 확보와 실제 출하가 다음 확인점이다."
+      ],
+      "urls": [
+        "https://www.trafigura.com/news-and-insights/press-releases/2026/trafigura-signs-10-year-lithium-offtake-agreement-with-energyx/",
+        "https://energyx.com/press-release/energyx-signs-10-year-lithium-deal-with-trafigura/",
+        "https://uk.marketscreener.com/news/energyx-signs-binding-2-billion-lithium-supply-deal-with-trafigura-ce785ddcd08ff425"
+      ],
+      "fact_sources": [
+        {
+          "source_key": "energyx_buyer",
+          "source_name": "energyx_trafigura_joint_event_cluster",
+          "source_url": "https://www.trafigura.com/news-and-insights/press-releases/2026/trafigura-signs-10-year-lithium-offtake-agreement-with-energyx/",
+          "source_owner_id_normalized": "energyx_trafigura_joint_event_cluster",
+          "source_published_date": "2026-10-12",
+          "claim": "Binding10yr100kt, BlackGiant lithium carbonate and Lonestar hydroxide; targets2028/2029; offtake supports bankability.",
+          "source_quote": "has signed a binding 10-year offtake agreement",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "direct_http_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "0d9c304c0a177e9fb95d81120b075a0a01c9163391c8ad018d8d525867fcf9c4",
+          "raw_response_sha256": "839fc0e8e603b404ae2e0963977f5ebbd12bee32d50d1665c1a0d580560f79b8",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Binding10yr100kt, BlackGiant lithium carbonate and Lonestar hydroxide; targets2028/2029; offtake supports bankability.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        },
+        {
+          "source_key": "energyx_seller",
+          "source_name": "energyx_trafigura_joint_event_cluster",
+          "source_url": "https://energyx.com/press-release/energyx-signs-10-year-lithium-deal-with-trafigura/",
+          "source_owner_id_normalized": "energyx_trafigura_joint_event_cluster",
+          "source_published_date": "2026-10-12",
+          "claim": "Seller confirms take-or-pay; headline dateOct12 differs from Oct13 body dateline.",
+          "source_quote": "take-or-pay",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "direct_http_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "ccb3ed096f0c6bce7f6d1dcf9a43b03938537636c9e002de1465a2171f656185",
+          "raw_response_sha256": "8b90ae2563ff466eba3cb6ef7f18a5856a2b3c7319de3ff10c875f8e0a1568cb",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Seller confirms take-or-pay; headline dateOct12 differs from Oct13 body dateline.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        },
+        {
+          "source_key": "energyx_reuters",
+          "source_name": "reuters_syndication",
+          "source_url": "https://uk.marketscreener.com/news/energyx-signs-binding-2-billion-lithium-supply-deal-with-trafigura-ce785ddcd08ff425",
+          "source_owner_id_normalized": "reuters_syndication",
+          "source_published_date": "2026-10-12",
+          "claim": "Reuters original reporting confirms take-or-pay and explains $2bn valuation is current-price based, with project finance still needed.",
+          "source_quote": "The deal's value is tied to current lithium prices",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "independently_published_reporting",
+          "is_primary_source": false,
+          "fetch_method": "web_rendered_article_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "4e9bc56888ce090494291482eacbb23d96eef9057e5015e485cf03cdf52b6453",
+          "raw_response_sha256": null,
+          "direct_http_status": null,
+          "fetch_caveat": "HTTPError: HTTP Error 403: Forbidden",
+          "unique_contribution": "Reuters original reporting confirms take-or-pay and explains $2bn valuation is current-price based, with project finance still needed.",
+          "editorial_owner_independent_of_issuer": true,
+          "independent_observation_of_underlying_event": false
+        }
+      ],
+      "source_evidence_entry_count": 3,
+      "source_unique_url_count": 3,
+      "source_unique_domain_count": 3,
+      "source_independent_owner_count": 2,
+      "visible_source_url_count": 3,
+      "missing_source_url_count": 0,
+      "missing_visible_source_url_count": 0,
+      "canonical_urls": [
+        "https://energyx.com/press-release/energyx-signs-10-year-lithium-deal-with-trafigura",
+        "https://trafigura.com/news-and-insights/press-releases/2026/trafigura-signs-10-year-lithium-offtake-agreement-with-energyx",
+        "https://uk.marketscreener.com/news/energyx-signs-binding-2-billion-lithium-supply-deal-with-trafigura-ce785ddcd08ff425"
+      ],
+      "canonical_domains": [
+        "energyx.com",
+        "trafigura.com",
+        "uk.marketscreener.com"
+      ],
+      "independent_owners": [
+        "energyx_trafigura_joint_event_cluster",
+        "reuters_syndication"
+      ],
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "Multiple editorial owners; no single-source exception needed."
+      },
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 3,
+        "source_unique_url_count": 3,
+        "source_unique_domain_count": 3,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 3,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://energyx.com/press-release/energyx-signs-10-year-lithium-deal-with-trafigura",
+          "https://trafigura.com/news-and-insights/press-releases/2026/trafigura-signs-10-year-lithium-offtake-agreement-with-energyx",
+          "https://uk.marketscreener.com/news/energyx-signs-binding-2-billion-lithium-supply-deal-with-trafigura-ce785ddcd08ff425"
+        ],
+        "canonical_domains": [
+          "energyx.com",
+          "trafigura.com",
+          "uk.marketscreener.com"
+        ],
+        "independent_owners": [
+          "energyx_trafigura_joint_event_cluster",
+          "reuters_syndication"
+        ]
+      },
+      "source_discovery_ledger": [
+        {
+          "source_url": "https://energyx.com/press-release/energyx-signs-10-year-lithium-deal-with-trafigura/",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "energyx_seller",
+            "requested_url": "https://energyx.com/press-release/energyx-signs-10-year-lithium-deal-with-trafigura/",
+            "checked_at": "2026-10-27T03:14:28.629694+00:00",
+            "http_status": 200,
+            "resolved_url": "https://energyx.com/press-release/energyx-signs-10-year-lithium-deal-with-trafigura/",
+            "bytes": 208263,
+            "sha256": "8b90ae2563ff466eba3cb6ef7f18a5856a2b3c7319de3ff10c875f8e0a1568cb",
+            "content_type": "text/html; charset=utf-8",
+            "links_count": 84,
+            "text_chars": 13214,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_url": "https://www.trafigura.com/news-and-insights/press-releases/2026/trafigura-signs-10-year-lithium-offtake-agreement-with-energyx/",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "energyx_buyer",
+            "requested_url": "https://www.trafigura.com/news-and-insights/press-releases/2026/trafigura-signs-10-year-lithium-offtake-agreement-with-energyx/",
+            "checked_at": "2026-10-27T03:14:28.628777+00:00",
+            "http_status": 200,
+            "resolved_url": "https://www.trafigura.com/news-and-insights/press-releases/2026/trafigura-signs-10-year-lithium-offtake-agreement-with-energyx/",
+            "bytes": 36548,
+            "sha256": "839fc0e8e603b404ae2e0963977f5ebbd12bee32d50d1665c1a0d580560f79b8",
+            "content_type": "text/html; charset=utf-8",
+            "links_count": 10,
+            "text_chars": 4322,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_key": "energyx_buyer",
+          "checked_at": "2026-10-27T03:14:28.628777+00:00",
+          "http_status": 200,
+          "resolved_url": "https://www.trafigura.com/news-and-insights/press-releases/2026/trafigura-signs-10-year-lithium-offtake-agreement-with-energyx/",
+          "bytes": 36548,
+          "sha256": "839fc0e8e603b404ae2e0963977f5ebbd12bee32d50d1665c1a0d580560f79b8",
+          "content_type": "text/html; charset=utf-8",
+          "links_count": 10,
+          "text_chars": 4322,
+          "status": "BODY_FETCHED",
+          "source_url": "https://www.trafigura.com/news-and-insights/press-releases/2026/trafigura-signs-10-year-lithium-offtake-agreement-with-energyx/",
+          "origin": "stage_b_selected_body",
+          "purpose": "Binding10yr100kt, BlackGiant lithium carbonate and Lonestar hydroxide; targets2028/2029; offtake supports bankability."
+        },
+        {
+          "source_key": "energyx_seller",
+          "checked_at": "2026-10-27T03:14:28.629694+00:00",
+          "http_status": 200,
+          "resolved_url": "https://energyx.com/press-release/energyx-signs-10-year-lithium-deal-with-trafigura/",
+          "bytes": 208263,
+          "sha256": "8b90ae2563ff466eba3cb6ef7f18a5856a2b3c7319de3ff10c875f8e0a1568cb",
+          "content_type": "text/html; charset=utf-8",
+          "links_count": 84,
+          "text_chars": 13214,
+          "status": "BODY_FETCHED",
+          "source_url": "https://energyx.com/press-release/energyx-signs-10-year-lithium-deal-with-trafigura/",
+          "origin": "stage_b_selected_body",
+          "purpose": "Seller confirms take-or-pay; headline dateOct12 differs from Oct13 body dateline."
+        },
+        {
+          "source_key": "energyx_reuters",
+          "checked_at": "2026-10-27T03:14:28.638491+00:00",
+          "status": "BODY_READ_VIA_WEB_RENDERER",
+          "error": "HTTPError: HTTP Error 403: Forbidden",
+          "source_url": "https://uk.marketscreener.com/news/energyx-signs-binding-2-billion-lithium-supply-deal-with-trafigura-ce785ddcd08ff425",
+          "origin": "stage_b_selected_body",
+          "purpose": "Reuters original reporting confirms take-or-pay and explains $2bn valuation is current-price based, with project finance still needed.",
+          "direct_attempt_status": "UNAVAILABLE",
+          "fallback_snapshot_sha256": "4e9bc56888ce090494291482eacbb23d96eef9057e5015e485cf03cdf52b6453"
+        }
+      ],
+      "source_synthesis_applied": true,
+      "source_synthesis_fields": [
+        "title",
+        "sub",
+        "gate",
+        "fact",
+        "implication"
+      ],
+      "source_synthesis_plan": {
+        "selected_anchor": "Eni 지분투자 → 다른 거래상대방 Trafigura의 구속력 있는 장기 구매약정.",
+        "source_contributions": [
+          {
+            "key": "energyx_buyer",
+            "contribution": "Binding10yr100kt, BlackGiant lithium carbonate and Lonestar hydroxide; targets2028/2029; offtake supports bankability."
+          },
+          {
+            "key": "energyx_seller",
+            "contribution": "Seller confirms take-or-pay; headline dateOct12 differs from Oct13 body dateline."
+          },
+          {
+            "key": "energyx_reuters",
+            "contribution": "Reuters original reporting confirms take-or-pay and explains $2bn valuation is current-price based, with project finance still needed."
+          }
+        ],
+        "scope_limits": [
+          "실제 비공개 계약 서명일",
+          "판매자 페이지 Oct12/본문 Oct13 차이",
+          "Lonestar 1단계 구매비중: 구매자30%와 Reuters 산술33% 차이; 초안에서 비중 제외",
+          "최종 금융종결·착공·첫 출하"
+        ],
+        "no_same_release_inflation": true
+      },
+      "date_role": {
+        "event_date": "2026-10-12",
+        "representative_date": "2026-10-12",
+        "representative_date_basis": "earliest_public_contract_disclosure",
+        "announcement_date": "2026-10-12",
+        "publication_date": "2026-10-12",
+        "actual_private_or_physical_action_date": null,
+        "physical_date_disclosed": false,
+        "earliest_located_public_disclosure": "2026-10-12",
+        "observation_cutoff": "2026-10-27 Asia/Seoul",
+        "future_dates_are_targets": true,
+        "date_uncertainties": [
+          "실제 비공개 계약 서명일",
+          "판매자 페이지 Oct12/본문 Oct13 차이",
+          "Lonestar 1단계 구매비중: 구매자30%와 Reuters 산술33% 차이; 초안에서 비중 제외",
+          "최종 금융종결·착공·첫 출하"
+        ],
+        "status": "PASS_WITH_DISCLOSED_DATE_LIMITS"
+      },
+      "event_fingerprint": {
+        "named_action": "Eni 지분투자 → 다른 거래상대방 Trafigura의 구속력 있는 장기 구매약정.",
+        "selected_event_date": "2026-10-12",
+        "asset_or_program": "EnergyX–Trafigura"
+      },
+      "related": [
+        "2026-07-06_GL_05"
+      ],
+      "related_lineage": {
+        "proposed_relation_type": "distinct_follow_up",
+        "target_ids": [
+          "2026-07-06_GL_05"
+        ],
+        "status": "STAGE_B_PROPOSED_EVIDENCE_REVIEWED"
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "evidence_review_scope": "Stage B evidence-supported proposed relation; Stage C factual acceptance and later Related merge not executed",
+        "same_event_checked": true,
+        "earliest_same_event_check_status": "PASS_BOUNDED_PUBLIC_DISCLOSURE_SEARCH",
+        "earliest_same_event_date": "2026-10-12",
+        "earliest_check_scope": "Locked Full1676 and current1330 identity/fingerprint comparison plus selected official and contemporaneous body evidence. No claim of exhaustive internet absence.",
+        "relation_type": "distinct_follow_up",
+        "matched_baseline_candidate_ids": [
+          "2026-07-06_GL_05"
+        ],
+        "matched_baseline_cards": [
+          {
+            "id": "2026-07-06_GL_05",
+            "date": "2026-07-06",
+            "title": "에니, 칠레 Black Giant 지분 25% 인수에 2억2500만달러 투자",
+            "sub": "에니가 운영사 지분 25%와 이사회 참여권, 생산량 최대 25% 인수 옵션을 확보했고 1·2단계는 총 8억2000만달러를 투입해 2030년 연 5만2500톤 생산을 목표로 한다.",
+            "fact": "에니는 칠레 Black Giant 리튬 프로젝트 운영사 지분 25%를 취득하기 위해 단계적으로 2억2500만달러를 투자하기로 했다. 에니는 이사회 참여권과 전체 생산량의 최대 25%를 인수할 옵션을 확보하고 프로젝트의 기술·운영에도 참여한다. EnergyX는 1·2단계 건설비를 약 8억2000만달러로 추산하며, 2028년 연 7500톤 1단계를 거쳐 2030년 연 5만2500톤 생산을 목표로 한다. 회사는 염수 파일럿 운전을 약 1만시간 수행했고 연 170톤 실증설비의 가동을 앞두고 있다.",
+            "urls": [
+              "https://www.ess-news.com/2026/07/06/italian-energy-major-acquires-25-stake-in-energyxs-chile-lithium-project",
+              "https://www.impacton.net/news/articleView.html?idxno=19510",
+              "https://www.theguru.co.kr/news/article.html?no=104042",
+              "https://www.miningweekly.com/article/italys-eni-buys-minority-stake-in-energyxs-lithium-project-in-chile-2026-07-07",
+              "https://www.mining.com/energyx-secures-225m-investment-to-advance-black-giant-lithium-project-in-chile",
+              "https://www.wsj.com/business/energy-oil/italys-eni-invests-225-million-in-u-s-startup-energyxs-chile-lithium-project-5626a7ed"
+            ],
+            "related": []
+          }
+        ],
+        "matched_current_batch_candidate_ids": [],
+        "fresh_follow_up_anchor_class": [
+          "execution_event_anchor"
+        ],
+        "fresh_follow_up_anchor": "Eni 지분투자 → 다른 거래상대방 Trafigura의 구속력 있는 장기 구매약정.",
+        "incremental_fact": "Eni 지분투자 → 다른 거래상대방 Trafigura의 구속력 있는 장기 구매약정.",
+        "changed_judgment": "Offtake bankability is a new instrument beyond Eni equity; not Nth Cycle/Trafigura contract.",
+        "rejected_relation_candidates": [
+          {
+            "target_candidate_id": "R3_07",
+            "reason": "Nth Cycle is a different seller/instrument."
+          }
+        ],
+        "reinforcement_transfer_ledger": []
+      },
+      "state": "draft_for_stage_c_review",
+      "stage_c_recommended": true,
+      "unresolved_questions": [
+        "실제 비공개 계약 서명일",
+        "판매자 페이지 Oct12/본문 Oct13 차이",
+        "Lonestar 1단계 구매비중: 구매자30%와 Reuters 산술33% 차이; 초안에서 비중 제외",
+        "최종 금융종결·착공·첫 출하"
+      ],
+      "production_id_assigned": false,
+      "claim_map": [
+        {
+          "field": "title",
+          "source_keys": [
+            "energyx_buyer",
+            "energyx_seller",
+            "energyx_reuters"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "sub",
+          "source_keys": [
+            "energyx_buyer",
+            "energyx_seller",
+            "energyx_reuters"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "fact",
+          "source_keys": [
+            "energyx_buyer",
+            "energyx_seller",
+            "energyx_reuters"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "gate",
+          "source_keys": [
+            "energyx_buyer",
+            "energyx_seller",
+            "energyx_reuters"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "implication",
+          "source_keys": [
+            "energyx_buyer",
+            "energyx_seller",
+            "energyx_reuters"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        }
+      ]
+    },
+    {
+      "id": "B_DRAFT_A_SPEC_R4_DISC_001",
+      "draft_id": "B_DRAFT_A_SPEC_R4_DISC_001",
+      "source_spec_id": "A_SPEC_R4_DISC_001",
+      "source_story_ids": [
+        "R4_DISC_001"
+      ],
+      "region": "EU",
+      "date": "2026-10-09",
+      "cat": "Policy",
+      "sub_cat": "CRMA_SECOND_LIST",
+      "signal": "normal",
+      "title": "EU, CRMA 전략 프로젝트 46개 추가 지정…자금 지급과 구분",
+      "sub": "10월 9일 집행위 결정으로 추가 사업이 전략 프로젝트 지위를 얻었다.",
+      "gate": "전략 프로젝트 지정은 자금 지급이나 개별 사업의 건설·생산 개시를 확정하지 않는다. 사업별 인허가·금융조달과 실제 집행을 별도 확인해야 한다.",
+      "fact": "유럽 집행위원회는 10월 9일 C(2026)8051 결정을 채택했다. 결정 제1조는 부속 목록의 사업을 CRMA 전략 프로젝트로 인정하며 제2조의 수신 사업자는 46개로 열거됐다. 이번 변화는 전략 지위의 부여다.",
+      "implication": [
+        "지위 부여는 공급망 사업의 제도적 추진 여건을 바꾸지만 공급량 증가가 바로 실현됐다는 증거는 아니다. 후속 금융종결·인허가·착공을 확인해야 한다."
+      ],
+      "urls": [
+        "https://single-market-economy.ec.europa.eu/document/download/56f5457c-2ed0-4c10-8c76-d66a79cb00b6_en?filename=C_2026_8051_F1_COMMISSION_DECISION_EN_V2_P1_5091203.PDF",
+        "https://luxembourg.representation.ec.europa.eu/actualites-et-evenements/actualites/commission-selects-46-new-strategic-projects-bolster-eus-supply-critical-raw-materials-2026-10-09_en",
+        "https://ae.marketscreener.com/news/european-commission-picks-46-new-strategic-critical-mineral-projects-ce785ddfd189f526"
+      ],
+      "fact_sources": [
+        {
+          "source_key": "crma_decision",
+          "source_name": "european_commission",
+          "source_url": "https://single-market-economy.ec.europa.eu/document/download/56f5457c-2ed0-4c10-8c76-d66a79cb00b6_en?filename=C_2026_8051_F1_COMMISSION_DECISION_EN_V2_P1_5091203.PDF",
+          "source_owner_id_normalized": "european_commission",
+          "source_published_date": "2026-10-09",
+          "claim": "Commission decision C(2026)8051 datedOct9, Article1 recognition, Article2 numbered46 promoters; not a grant decision.",
+          "source_quote": "The projects listed in the Annex are recognised as Strategic Projects.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "official_pdf_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "787f76487b3d55fa7bfe65633d091e061b126fbac1f23c00161e015d4ae2e31b",
+          "raw_response_sha256": "f0768137c98466c0fe53f79c241bf7d97cf7f358a2aeb9b3332bd07ddf677342",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Commission decision C(2026)8051 datedOct9, Article1 recognition, Article2 numbered46 promoters; not a grant decision.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        },
+        {
+          "source_key": "crma_press",
+          "source_name": "european_commission",
+          "source_url": "https://luxembourg.representation.ec.europa.eu/actualites-et-evenements/actualites/commission-selects-46-new-strategic-projects-bolster-eus-supply-critical-raw-materials-2026-10-09_en",
+          "source_owner_id_normalized": "european_commission",
+          "source_published_date": "2026-10-09",
+          "claim": "Official release confirms46 new projects and investment need; application denominator conflicts with decision.",
+          "source_quote": "46 new Strategic Projects",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "direct_http_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "a6bcaebd82eae54122bab400d89b776e6f6a56759dea12f03c31a4b43a2896aa",
+          "raw_response_sha256": "0567ccbeefceff9f9c4915e131ac0126090be1196062df23735dcc1731852309",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Official release confirms46 new projects and investment need; application denominator conflicts with decision.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        },
+        {
+          "source_key": "crma_reuters",
+          "source_name": "reuters_syndication",
+          "source_url": "https://ae.marketscreener.com/news/european-commission-picks-46-new-strategic-critical-mineral-projects-ce785ddfd189f526",
+          "source_owner_id_normalized": "reuters_syndication",
+          "source_published_date": "2026-10-09",
+          "claim": "Reuters independently reports designation and explicitly distinguishes facilitated funding access from automatic funds.",
+          "source_quote": "Strategic projects do not automatically receive EU funding.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "independently_published_reporting",
+          "is_primary_source": false,
+          "fetch_method": "web_rendered_article_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "5055e27c253a35ec8782ddba47d90c08c2eacd6d36d44204b69940a2c9bccf5d",
+          "raw_response_sha256": null,
+          "direct_http_status": null,
+          "fetch_caveat": "HTTPError: HTTP Error 403: Forbidden",
+          "unique_contribution": "Reuters independently reports designation and explicitly distinguishes facilitated funding access from automatic funds.",
+          "editorial_owner_independent_of_issuer": true,
+          "independent_observation_of_underlying_event": false
+        }
+      ],
+      "source_evidence_entry_count": 3,
+      "source_unique_url_count": 3,
+      "source_unique_domain_count": 3,
+      "source_independent_owner_count": 2,
+      "visible_source_url_count": 3,
+      "missing_source_url_count": 0,
+      "missing_visible_source_url_count": 0,
+      "canonical_urls": [
+        "https://ae.marketscreener.com/news/european-commission-picks-46-new-strategic-critical-mineral-projects-ce785ddfd189f526",
+        "https://luxembourg.representation.ec.europa.eu/actualites-et-evenements/actualites/commission-selects-46-new-strategic-projects-bolster-eus-supply-critical-raw-materials-2026-10-09_en",
+        "https://single-market-economy.ec.europa.eu/document/download/56f5457c-2ed0-4c10-8c76-d66a79cb00b6_en?filename=C_2026_8051_F1_COMMISSION_DECISION_EN_V2_P1_5091203.PDF"
+      ],
+      "canonical_domains": [
+        "ae.marketscreener.com",
+        "luxembourg.representation.ec.europa.eu",
+        "single-market-economy.ec.europa.eu"
+      ],
+      "independent_owners": [
+        "european_commission",
+        "reuters_syndication"
+      ],
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "Multiple editorial owners; no single-source exception needed."
+      },
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 3,
+        "source_unique_url_count": 3,
+        "source_unique_domain_count": 3,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 3,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://ae.marketscreener.com/news/european-commission-picks-46-new-strategic-critical-mineral-projects-ce785ddfd189f526",
+          "https://luxembourg.representation.ec.europa.eu/actualites-et-evenements/actualites/commission-selects-46-new-strategic-projects-bolster-eus-supply-critical-raw-materials-2026-10-09_en",
+          "https://single-market-economy.ec.europa.eu/document/download/56f5457c-2ed0-4c10-8c76-d66a79cb00b6_en?filename=C_2026_8051_F1_COMMISSION_DECISION_EN_V2_P1_5091203.PDF"
+        ],
+        "canonical_domains": [
+          "ae.marketscreener.com",
+          "luxembourg.representation.ec.europa.eu",
+          "single-market-economy.ec.europa.eu"
+        ],
+        "independent_owners": [
+          "european_commission",
+          "reuters_syndication"
+        ]
+      },
+      "source_discovery_ledger": [
+        {
+          "source_url": "https://luxembourg.representation.ec.europa.eu/actualites-et-evenements/actualites/commission-selects-46-new-strategic-projects-bolster-eus-supply-critical-raw-materials-2026-10-09_en",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "crma_press",
+            "requested_url": "https://luxembourg.representation.ec.europa.eu/actualites-et-evenements/actualites/commission-selects-46-new-strategic-projects-bolster-eus-supply-critical-raw-materials-2026-10-09_en",
+            "checked_at": "2026-10-27T03:14:28.944728+00:00",
+            "http_status": 200,
+            "resolved_url": "https://luxembourg.representation.ec.europa.eu/actualites-et-evenements/actualites/commission-selects-46-new-strategic-projects-bolster-eus-supply-critical-raw-materials-2026-10-09_en",
+            "bytes": 97587,
+            "sha256": "0567ccbeefceff9f9c4915e131ac0126090be1196062df23735dcc1731852309",
+            "content_type": "text/html; charset=utf-8",
+            "links_count": 101,
+            "text_chars": 7150,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_url": "https://single-market-economy.ec.europa.eu/document/download/56f5457c-2ed0-4c10-8c76-d66a79cb00b6_en?filename=C_2026_8051_F1_COMMISSION_DECISION_EN_V2_P1_5091203.PDF",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "crma_decision",
+            "requested_url": "https://single-market-economy.ec.europa.eu/document/download/56f5457c-2ed0-4c10-8c76-d66a79cb00b6_en?filename=C_2026_8051_F1_COMMISSION_DECISION_EN_V2_P1_5091203.PDF",
+            "checked_at": "2026-10-27T03:14:28.866376+00:00",
+            "http_status": 200,
+            "resolved_url": "https://single-market-economy.ec.europa.eu/document/download/56f5457c-2ed0-4c10-8c76-d66a79cb00b6_en?filename=C_2026_8051_F1_COMMISSION_DECISION_EN_V2_P1_5091203.PDF",
+            "bytes": 132239,
+            "sha256": "f0768137c98466c0fe53f79c241bf7d97cf7f358a2aeb9b3332bd07ddf677342",
+            "content_type": "application/pdf",
+            "pages": 7,
+            "text_chars": 11179,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_url": "https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials/strategic-projects-under-crma/selected-projects_en",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "crma_register",
+            "requested_url": "https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials/strategic-projects-under-crma/selected-projects_en",
+            "checked_at": "2026-10-27T03:14:28.931323+00:00",
+            "http_status": 200,
+            "resolved_url": "https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials/strategic-projects-under-crma/selected-projects_en",
+            "bytes": 105623,
+            "sha256": "f0fa13faa85d809e733b113e1aa9e6166e5af503bb6bf9c749c0e1158551f16a",
+            "content_type": "text/html; charset=utf-8",
+            "links_count": 148,
+            "text_chars": 4120,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_key": "crma_decision",
+          "checked_at": "2026-10-27T03:14:28.866376+00:00",
+          "http_status": 200,
+          "resolved_url": "https://single-market-economy.ec.europa.eu/document/download/56f5457c-2ed0-4c10-8c76-d66a79cb00b6_en?filename=C_2026_8051_F1_COMMISSION_DECISION_EN_V2_P1_5091203.PDF",
+          "bytes": 132239,
+          "sha256": "f0768137c98466c0fe53f79c241bf7d97cf7f358a2aeb9b3332bd07ddf677342",
+          "content_type": "application/pdf",
+          "pages": 7,
+          "text_chars": 11179,
+          "status": "BODY_FETCHED",
+          "source_url": "https://single-market-economy.ec.europa.eu/document/download/56f5457c-2ed0-4c10-8c76-d66a79cb00b6_en?filename=C_2026_8051_F1_COMMISSION_DECISION_EN_V2_P1_5091203.PDF",
+          "origin": "stage_b_selected_body",
+          "purpose": "Commission decision C(2026)8051 datedOct9, Article1 recognition, Article2 numbered46 promoters; not a grant decision."
+        },
+        {
+          "source_key": "crma_press",
+          "checked_at": "2026-10-27T03:14:28.944728+00:00",
+          "http_status": 200,
+          "resolved_url": "https://luxembourg.representation.ec.europa.eu/actualites-et-evenements/actualites/commission-selects-46-new-strategic-projects-bolster-eus-supply-critical-raw-materials-2026-10-09_en",
+          "bytes": 97587,
+          "sha256": "0567ccbeefceff9f9c4915e131ac0126090be1196062df23735dcc1731852309",
+          "content_type": "text/html; charset=utf-8",
+          "links_count": 101,
+          "text_chars": 7150,
+          "status": "BODY_FETCHED",
+          "source_url": "https://luxembourg.representation.ec.europa.eu/actualites-et-evenements/actualites/commission-selects-46-new-strategic-projects-bolster-eus-supply-critical-raw-materials-2026-10-09_en",
+          "origin": "stage_b_selected_body",
+          "purpose": "Official release confirms46 new projects and investment need; application denominator conflicts with decision."
+        },
+        {
+          "source_key": "crma_reuters",
+          "checked_at": "2026-10-27T03:14:30.042472+00:00",
+          "status": "BODY_READ_VIA_WEB_RENDERER",
+          "error": "HTTPError: HTTP Error 403: Forbidden",
+          "source_url": "https://ae.marketscreener.com/news/european-commission-picks-46-new-strategic-critical-mineral-projects-ce785ddfd189f526",
+          "origin": "stage_b_selected_body",
+          "purpose": "Reuters independently reports designation and explicitly distinguishes facilitated funding access from automatic funds.",
+          "direct_attempt_status": "UNAVAILABLE",
+          "fallback_snapshot_sha256": "5055e27c253a35ec8782ddba47d90c08c2eacd6d36d44204b69940a2c9bccf5d"
+        }
+      ],
+      "source_synthesis_applied": true,
+      "source_synthesis_fields": [
+        "title",
+        "sub",
+        "gate",
+        "fact",
+        "implication"
+      ],
+      "source_synthesis_plan": {
+        "selected_anchor": "새로운46개 사업에 관한 공식 지정 결정; 테마가 같은 기존 원료 카드와 별개 행위.",
+        "source_contributions": [
+          {
+            "key": "crma_decision",
+            "contribution": "Commission decision C(2026)8051 datedOct9, Article1 recognition, Article2 numbered46 promoters; not a grant decision."
+          },
+          {
+            "key": "crma_press",
+            "contribution": "Official release confirms46 new projects and investment need; application denominator conflicts with decision."
+          },
+          {
+            "key": "crma_reuters",
+            "contribution": "Reuters independently reports designation and explicitly distinguishes facilitated funding access from automatic funds."
+          }
+        ],
+        "scope_limits": [
+          "결정문 신청101개/완전98개 대 보도자료102개 차이: 분모 초안에서 제외",
+          "각 사업별 자금·인허가·생산 단계는 별도"
+        ],
+        "no_same_release_inflation": true
+      },
+      "date_role": {
+        "event_date": "2026-10-09",
+        "representative_date": "2026-10-09",
+        "representative_date_basis": "commission_decision_adoption_date",
+        "announcement_date": "2026-10-09",
+        "publication_date": "2026-10-09",
+        "actual_private_or_physical_action_date": "2026-10-09",
+        "physical_date_disclosed": true,
+        "earliest_located_public_disclosure": "2026-10-09",
+        "observation_cutoff": "2026-10-27 Asia/Seoul",
+        "future_dates_are_targets": true,
+        "date_uncertainties": [
+          "결정문 신청101개/완전98개 대 보도자료102개 차이: 분모 초안에서 제외",
+          "각 사업별 자금·인허가·생산 단계는 별도"
+        ],
+        "status": "PASS_WITH_DISCLOSED_DATE_LIMITS"
+      },
+      "event_fingerprint": {
+        "named_action": "새로운46개 사업에 관한 공식 지정 결정; 테마가 같은 기존 원료 카드와 별개 행위.",
+        "selected_event_date": "2026-10-09",
+        "asset_or_program": "CRMA 2차 46개"
+      },
+      "related": [],
+      "related_lineage": {
+        "proposed_relation_type": "new_unrelated_event",
+        "target_ids": [],
+        "status": "STAGE_B_PROPOSED_EVIDENCE_REVIEWED"
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "evidence_review_scope": "Stage B evidence-supported proposed relation; Stage C factual acceptance and later Related merge not executed",
+        "same_event_checked": true,
+        "earliest_same_event_check_status": "PASS_BOUNDED_PUBLIC_DISCLOSURE_SEARCH",
+        "earliest_same_event_date": "2026-10-09",
+        "earliest_check_scope": "Locked Full1676 and current1330 identity/fingerprint comparison plus selected official and contemporaneous body evidence. No claim of exhaustive internet absence.",
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_candidate_ids": [],
+        "matched_baseline_cards": [],
+        "matched_current_batch_candidate_ids": [],
+        "fresh_follow_up_anchor_class": [
+          "policy_regulatory_anchor"
+        ],
+        "fresh_follow_up_anchor": "새로운46개 사업에 관한 공식 지정 결정; 테마가 같은 기존 원료 카드와 별개 행위.",
+        "incremental_fact": "새로운46개 사업에 관한 공식 지정 결정; 테마가 같은 기존 원료 카드와 별개 행위.",
+        "changed_judgment": "Designation is new administrative selection; not proof of finance closure, construction or 2030 output.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": []
+      },
+      "state": "draft_for_stage_c_review",
+      "stage_c_recommended": true,
+      "unresolved_questions": [
+        "결정문 신청101개/완전98개 대 보도자료102개 차이: 분모 초안에서 제외",
+        "각 사업별 자금·인허가·생산 단계는 별도"
+      ],
+      "production_id_assigned": false,
+      "claim_map": [
+        {
+          "field": "title",
+          "source_keys": [
+            "crma_decision",
+            "crma_press",
+            "crma_reuters"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "sub",
+          "source_keys": [
+            "crma_decision",
+            "crma_press",
+            "crma_reuters"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "fact",
+          "source_keys": [
+            "crma_decision",
+            "crma_press",
+            "crma_reuters"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "gate",
+          "source_keys": [
+            "crma_decision",
+            "crma_press",
+            "crma_reuters"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "implication",
+          "source_keys": [
+            "crma_decision",
+            "crma_press",
+            "crma_reuters"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        }
+      ]
+    },
+    {
+      "id": "B_DRAFT_A_SPEC_R13_DISC_004",
+      "draft_id": "B_DRAFT_A_SPEC_R13_DISC_004",
+      "source_spec_id": "A_SPEC_R13_DISC_004",
+      "source_story_ids": [
+        "R13_DISC_004"
+      ],
+      "region": "EU",
+      "date": "2026-10-09",
+      "cat": "Materials",
+      "sub_cat": "BENCHMARK_Q3_CAM",
+      "signal": "normal",
+      "title": "Benchmark, 3분기 중국 LFP 양극재 평가가격 7.8% 하락 보고",
+      "sub": "10월 9일 공개한 분기 리뷰에서 DDP 중국 기준 LFP 가격을 톤당 5만6,000위안으로 제시했다.",
+      "gate": "독립 원자료 발행사의 단일 출처 예외로 범위를 제한했다. 개별 거래 전체나 한국 업체의 실현 판매단가·이익률을 뜻하지 않는다. 방법론은 2025년 7월 개정본이며 원시 거래 표본과 분기 계산 전체는 공개 본문으로 재현하지 못했다.",
+      "fact": "Benchmark는 2026년 3분기 양극재 리뷰에서 DDP 중국 기준 LFP 평가가격이 7.8% 내려 톤당 5만6,000위안에 이르렀다고 보고했다. 이는 해당 기관의 가격 평가 결과다. 공식 양극재 방법론은 LFP의 인도 조건을 DDP 중국·부가세 포함으로, 통화와 단위를 위안·톤으로 정의한다.",
+      "implication": [
+        "동일 기관의 같은 인도 조건에서 관측한 가격 하락은 조달가격 점검의 근거다. 기업별 마진 영향은 실제 계약 가격 연동과 원재료·가동률 자료가 있어야 판단할 수 있다."
+      ],
+      "urls": [
+        "https://source.benchmarkminerals.com/article/bearish-battery-feedstock-markets-weigh-on-cathode-prices-cathode-q3-2026-price-review",
+        "https://a.storyblok.com/f/333611/x/a418b401d2/benchmark-cathode-assessment-methodology.pdf"
+      ],
+      "fact_sources": [
+        {
+          "source_key": "benchmark_q3",
+          "source_name": "benchmark_mineral_intelligence",
+          "source_url": "https://source.benchmarkminerals.com/article/bearish-battery-feedstock-markets-weigh-on-cathode-prices-cathode-q3-2026-price-review",
+          "source_owner_id_normalized": "benchmark_mineral_intelligence",
+          "source_published_date": "2026-10-09",
+          "claim": "Original Q3 CAM assessment: LFP DDPChina56000RMB/t, down7.8%; original publisher narrative, not transaction census.",
+          "source_quote": "LFP cathode prices (DDP China) fell 7.8% to RMB 56,000/tonne",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "direct_http_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "e675a504a4cb51df3f43145da6f982047d24f2448fa31a901c12840686ec760b",
+          "raw_response_sha256": "41fd780cbc719d8312cc532fb020cd30b44a18e9d7c183e651f6a9caedfe684e",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Original Q3 CAM assessment: LFP DDPChina56000RMB/t, down7.8%; original publisher narrative, not transaction census.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        },
+        {
+          "source_key": "benchmark_methodology",
+          "source_name": "benchmark_mineral_intelligence",
+          "source_url": "https://a.storyblok.com/f/333611/x/a418b401d2/benchmark-cathode-assessment-methodology.pdf",
+          "source_owner_id_normalized": "benchmark_mineral_intelligence",
+          "source_published_date": "2025-07",
+          "claim": "Official linked July2025 cathode methodology defines DDPChina grades incl VAT, currency and tonne units; same owner.",
+          "source_quote": "Contract Basis: DDP, VAT included",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "official_pdf_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "1f576854b4e8e013d7bb3acdd7c8a5b34d89db767f0a316aaadb204c310c92d3",
+          "raw_response_sha256": "2469a0005497b02107b12d8e849cf9f1e02b71c92caaad7eb749effe1a57f2f2",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Official linked July2025 cathode methodology defines DDPChina grades incl VAT, currency and tonne units; same owner.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        }
+      ],
+      "source_evidence_entry_count": 2,
+      "source_unique_url_count": 2,
+      "source_unique_domain_count": 2,
+      "source_independent_owner_count": 1,
+      "visible_source_url_count": 2,
+      "missing_source_url_count": 0,
+      "missing_visible_source_url_count": 0,
+      "canonical_urls": [
+        "https://a.storyblok.com/f/333611/x/a418b401d2/benchmark-cathode-assessment-methodology.pdf",
+        "https://source.benchmarkminerals.com/article/bearish-battery-feedstock-markets-weigh-on-cathode-prices-cathode-q3-2026-price-review"
+      ],
+      "canonical_domains": [
+        "a.storyblok.com",
+        "source.benchmarkminerals.com"
+      ],
+      "independent_owners": [
+        "benchmark_mineral_intelligence"
+      ],
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "single_source_exception": {
+        "allowed": true,
+        "reason": "Original price-assessment publisher is the direct origin of this newly published dataset; independent coverage would not independently reproduce proprietary observations.",
+        "scope_limits": "Only explicitly attributed original LFP DDPChina price-level/change; no global market census, transaction-level verification, corporate margin, forecast realisation or ranking. Same-owner methodology is not an independent source.",
+        "mitigation": "Official linked methodology body checked; units/delivery/tax basis checked; proprietary raw sample and later revisions remain disclosed limits. Stage B editorial exception only; later fact-safety review pending."
+      },
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 1,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://a.storyblok.com/f/333611/x/a418b401d2/benchmark-cathode-assessment-methodology.pdf",
+          "https://source.benchmarkminerals.com/article/bearish-battery-feedstock-markets-weigh-on-cathode-prices-cathode-q3-2026-price-review"
+        ],
+        "canonical_domains": [
+          "a.storyblok.com",
+          "source.benchmarkminerals.com"
+        ],
+        "independent_owners": [
+          "benchmark_mineral_intelligence"
+        ]
+      },
+      "source_discovery_ledger": [
+        {
+          "source_url": "https://source.benchmarkminerals.com/article/bearish-battery-feedstock-markets-weigh-on-cathode-prices-cathode-q3-2026-price-review",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "benchmark_q3",
+            "requested_url": "https://source.benchmarkminerals.com/article/bearish-battery-feedstock-markets-weigh-on-cathode-prices-cathode-q3-2026-price-review",
+            "checked_at": "2026-10-27T03:14:30.087171+00:00",
+            "http_status": 200,
+            "resolved_url": "https://source.benchmarkminerals.com/article/bearish-battery-feedstock-markets-weigh-on-cathode-prices-cathode-q3-2026-price-review",
+            "bytes": 133217,
+            "sha256": "41fd780cbc719d8312cc532fb020cd30b44a18e9d7c183e651f6a9caedfe684e",
+            "content_type": "text/html; charset=utf-8",
+            "links_count": 119,
+            "text_chars": 8349,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_key": "benchmark_q3",
+          "checked_at": "2026-10-27T03:14:30.087171+00:00",
+          "http_status": 200,
+          "resolved_url": "https://source.benchmarkminerals.com/article/bearish-battery-feedstock-markets-weigh-on-cathode-prices-cathode-q3-2026-price-review",
+          "bytes": 133217,
+          "sha256": "41fd780cbc719d8312cc532fb020cd30b44a18e9d7c183e651f6a9caedfe684e",
+          "content_type": "text/html; charset=utf-8",
+          "links_count": 119,
+          "text_chars": 8349,
+          "status": "BODY_FETCHED",
+          "source_url": "https://source.benchmarkminerals.com/article/bearish-battery-feedstock-markets-weigh-on-cathode-prices-cathode-q3-2026-price-review",
+          "origin": "stage_b_selected_body",
+          "purpose": "Original Q3 CAM assessment: LFP DDPChina56000RMB/t, down7.8%; original publisher narrative, not transaction census."
+        },
+        {
+          "source_key": "benchmark_methodology",
+          "checked_at": "2026-10-27T03:18:39.522911+00:00",
+          "http_status": 200,
+          "resolved_url": "https://a.storyblok.com/f/333611/x/a418b401d2/benchmark-cathode-assessment-methodology.pdf",
+          "bytes": 2381633,
+          "sha256": "2469a0005497b02107b12d8e849cf9f1e02b71c92caaad7eb749effe1a57f2f2",
+          "content_type": "application/pdf",
+          "pages": 26,
+          "text_chars": 49276,
+          "status": "BODY_FETCHED",
+          "source_url": "https://a.storyblok.com/f/333611/x/a418b401d2/benchmark-cathode-assessment-methodology.pdf",
+          "origin": "stage_b_selected_body",
+          "purpose": "Official linked July2025 cathode methodology defines DDPChina grades incl VAT, currency and tonne units; same owner."
+        },
+        {
+          "source_url": "https://www.benchmarkminerals.com/price-assessments",
+          "attempt_status": "official_methodology_link_followed",
+          "result": "Official cathode PDF reached; same publisher, not independent corroboration."
+        }
+      ],
+      "source_synthesis_applied": true,
+      "source_synthesis_fields": [
+        "title",
+        "sub",
+        "gate",
+        "fact",
+        "implication"
+      ],
+      "source_synthesis_plan": {
+        "selected_anchor": "새 Q3 평가 데이터 공개; 광범위 원재료 하락 기사와 달리 특정 품목·인도 조건의 새 관측.",
+        "source_contributions": [
+          {
+            "key": "benchmark_q3",
+            "contribution": "Original Q3 CAM assessment: LFP DDPChina56000RMB/t, down7.8%; original publisher narrative, not transaction census."
+          },
+          {
+            "key": "benchmark_methodology",
+            "contribution": "Official linked July2025 cathode methodology defines DDPChina grades incl VAT, currency and tonne units; same owner."
+          }
+        ],
+        "scope_limits": [
+          "기초 거래 표본·분기 수치 산식 전체 비공개",
+          "2025년7월 이후 방법론 변경 여부 전체 재구성 불가",
+          "Q4 가격 전망은 미래 예상으로서 초안 제외"
+        ],
+        "no_same_release_inflation": true
+      },
+      "date_role": {
+        "event_date": "2026-10-09",
+        "representative_date": "2026-10-09",
+        "representative_date_basis": "original_dataset_review_publication",
+        "announcement_date": "2026-10-09",
+        "publication_date": "2026-10-09",
+        "actual_private_or_physical_action_date": null,
+        "physical_date_disclosed": false,
+        "earliest_located_public_disclosure": "2026-10-09",
+        "observation_cutoff": "2026-10-27 Asia/Seoul",
+        "future_dates_are_targets": true,
+        "date_uncertainties": [
+          "기초 거래 표본·분기 수치 산식 전체 비공개",
+          "2025년7월 이후 방법론 변경 여부 전체 재구성 불가",
+          "Q4 가격 전망은 미래 예상으로서 초안 제외"
+        ],
+        "status": "PASS_WITH_DISCLOSED_DATE_LIMITS"
+      },
+      "event_fingerprint": {
+        "named_action": "새 Q3 평가 데이터 공개; 광범위 원재료 하락 기사와 달리 특정 품목·인도 조건의 새 관측.",
+        "selected_event_date": "2026-10-09",
+        "asset_or_program": "Benchmark Q3 CAM"
+      },
+      "related": [],
+      "related_lineage": {
+        "proposed_relation_type": "new_unrelated_event",
+        "target_ids": [],
+        "status": "STAGE_B_PROPOSED_EVIDENCE_REVIEWED"
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "evidence_review_scope": "Stage B evidence-supported proposed relation; Stage C factual acceptance and later Related merge not executed",
+        "same_event_checked": true,
+        "earliest_same_event_check_status": "PASS_BOUNDED_PUBLIC_DISCLOSURE_SEARCH",
+        "earliest_same_event_date": "2026-10-09",
+        "earliest_check_scope": "Locked Full1676 and current1330 identity/fingerprint comparison plus selected official and contemporaneous body evidence. No claim of exhaustive internet absence.",
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_candidate_ids": [],
+        "matched_baseline_cards": [],
+        "matched_current_batch_candidate_ids": [],
+        "fresh_follow_up_anchor_class": [
+          "data_financial_anchor"
+        ],
+        "fresh_follow_up_anchor": "새 Q3 평가 데이터 공개; 광범위 원재료 하락 기사와 달리 특정 품목·인도 조건의 새 관측.",
+        "incremental_fact": "새 Q3 평가 데이터 공개; 광범위 원재료 하락 기사와 달리 특정 품목·인도 조건의 새 관측.",
+        "changed_judgment": "New data period is distinct from generic material theme; regional grade and delivery basis matter.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": []
+      },
+      "state": "draft_for_stage_c_review",
+      "stage_c_recommended": true,
+      "unresolved_questions": [
+        "기초 거래 표본·분기 수치 산식 전체 비공개",
+        "2025년7월 이후 방법론 변경 여부 전체 재구성 불가",
+        "Q4 가격 전망은 미래 예상으로서 초안 제외"
+      ],
+      "production_id_assigned": false,
+      "claim_map": [
+        {
+          "field": "title",
+          "source_keys": [
+            "benchmark_q3"
+          ],
+          "verification": "Actual original review and official methodology body read; inference/limits expressly stated."
+        },
+        {
+          "field": "sub",
+          "source_keys": [
+            "benchmark_q3"
+          ],
+          "verification": "Actual original review and official methodology body read; inference/limits expressly stated."
+        },
+        {
+          "field": "fact",
+          "source_keys": [
+            "benchmark_q3",
+            "benchmark_methodology"
+          ],
+          "verification": "Actual original review and official methodology body read; inference/limits expressly stated."
+        },
+        {
+          "field": "gate",
+          "source_keys": [
+            "benchmark_q3",
+            "benchmark_methodology"
+          ],
+          "verification": "Actual original review and official methodology body read; inference/limits expressly stated."
+        },
+        {
+          "field": "implication",
+          "source_keys": [
+            "benchmark_q3",
+            "benchmark_methodology"
+          ],
+          "verification": "Actual original review and official methodology body read; inference/limits expressly stated."
+        }
+      ]
+    },
+    {
+      "id": "B_DRAFT_A_SPEC_C0_DISC_20261014_EU_GIGA_ALBATROSS_GRID",
+      "draft_id": "B_DRAFT_A_SPEC_C0_DISC_20261014_EU_GIGA_ALBATROSS_GRID",
+      "source_spec_id": "A_SPEC_C0_DISC_20261014_EU_GIGA_ALBATROSS_GRID",
+      "source_story_ids": [
+        "C0_DISC_20261014_EU_GIGA_ALBATROSS_GRID"
+      ],
+      "region": "EU",
+      "date": "2026-10-14",
+      "cat": "ESS",
+      "sub_cat": "ALBATROSS_GRID_AGREEMENT",
+      "signal": "normal",
+      "title": "Albatross, 350MW·1,400MWh 계통접속 계약 체결",
+      "sub": "GIGA Storage와 Amprion이 10월 14일 독일 Merzen 380kV망 접속 계약에 서명했다.",
+      "gate": "선별 사건은 10월 14일 접속 계약이다. 앞선 Ready to Build와 뒤이은 금융종결은 별도 단계다. 접속 계약 체결을 실제 통전·운전 완료로 읽지 않는다. 초기 2028년 목표는 이후 2029년 초 목표로 갱신됐다.",
+      "fact": "GIGA Storage와 Amprion은 10월 14일 Dortmund에서 Albatross의 계통접속 계약에 서명했다. 계획 규모는 350MW·1,400MWh이며 Merzen 변전소의 380kV망에 접속한다. 이후 10월 26일 사업자 발표는 금융종결일을 10월 23일로 밝히고 운영 목표를 2029년 초로 제시했다.",
+      "implication": [
+        "개발 준비 상태에 구체적 계통 접속 약정이 추가됐다. 실제 접속 공사·시험·운전 개시와 이후 일정 준수가 남아 있다."
+      ],
+      "urls": [
+        "https://giga-storage.com/amprion-and-giga-storage-sign-first-grid-connection-agreement-for-large-scale-energy-storage/",
+        "https://electricalnews.co.uk/amprion-and-giga-storage-sign-albatross-380-kv-connection-agreement/",
+        "https://giga-storage.com/en/giga-storage-bereikt-financial-close-voor-energieopslagproject-albatross-in-duitsland-en-bouwt-nu-aan-14-gw-in-drie-landen/"
+      ],
+      "fact_sources": [
+        {
+          "source_key": "albatross_grid",
+          "source_name": "giga_storage",
+          "source_url": "https://giga-storage.com/amprion-and-giga-storage-sign-first-grid-connection-agreement-for-large-scale-energy-storage/",
+          "source_owner_id_normalized": "giga_storage",
+          "source_published_date": "2026-10-14",
+          "claim": "Signed Oct14 grid agreement in Dortmund;350MW1400MWh, Merzen380kV; earlier target2028.",
+          "source_quote": "With a capacity of 350 MW and 1,400 MWh",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "direct_http_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "8684716bde641be384c626fc2de10c34d8d0d809aa579bfb1f1fa202ab1234b2",
+          "raw_response_sha256": "fa425feceabf8e382cfb1d9538429f7a51f314f03be9bcba6284c3c908ec9afa",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Signed Oct14 grid agreement in Dortmund;350MW1400MWh, Merzen380kV; earlier target2028.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        },
+        {
+          "source_key": "albatross_report",
+          "source_name": "in_power",
+          "source_url": "https://electricalnews.co.uk/amprion-and-giga-storage-sign-albatross-380-kv-connection-agreement/",
+          "source_owner_id_normalized": "in_power",
+          "source_published_date": "2026-10-16",
+          "claim": "Independent editorial publication distinguishes signed agreement from physical energisation; relies on issuer for core signing fact.",
+          "source_quote": "not evidence that construction or energisation has been completed.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "independently_published_reporting",
+          "is_primary_source": false,
+          "fetch_method": "web_rendered_article_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "8b6bc7f38c74cfc23ea2347afb7ff626b401d9dbb7e27c74cd79d2330d237c23",
+          "raw_response_sha256": null,
+          "direct_http_status": null,
+          "fetch_caveat": "HTTPError: HTTP Error 406: Not Acceptable",
+          "unique_contribution": "Independent editorial publication distinguishes signed agreement from physical energisation; relies on issuer for core signing fact.",
+          "editorial_owner_independent_of_issuer": true,
+          "independent_observation_of_underlying_event": false
+        },
+        {
+          "source_key": "albatross_finance",
+          "source_name": "giga_storage",
+          "source_url": "https://giga-storage.com/en/giga-storage-bereikt-financial-close-voor-energieopslagproject-albatross-in-duitsland-en-bouwt-nu-aan-14-gw-in-drie-landen/",
+          "source_owner_id_normalized": "giga_storage",
+          "source_published_date": "2026-10-26",
+          "claim": "Later Oct26 owner release says financial closeOct23 and operation expectedearly2029; grid agreementOct14 reconfirmed.",
+          "source_quote": "Financial close took place on 23 October 2026.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "direct_http_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "112ee5f27454391382bfdccd01a48eb37907d5b7b0d9f6fda36aa05c95180885",
+          "raw_response_sha256": "90cdfd3e56c0ca0083c99b6e418a4b21417603514146aef8f247b43a27a87728",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Later Oct26 owner release says financial closeOct23 and operation expectedearly2029; grid agreementOct14 reconfirmed.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        }
+      ],
+      "source_evidence_entry_count": 3,
+      "source_unique_url_count": 3,
+      "source_unique_domain_count": 2,
+      "source_independent_owner_count": 2,
+      "visible_source_url_count": 3,
+      "missing_source_url_count": 0,
+      "missing_visible_source_url_count": 0,
+      "canonical_urls": [
+        "https://electricalnews.co.uk/amprion-and-giga-storage-sign-albatross-380-kv-connection-agreement",
+        "https://giga-storage.com/amprion-and-giga-storage-sign-first-grid-connection-agreement-for-large-scale-energy-storage",
+        "https://giga-storage.com/en/giga-storage-bereikt-financial-close-voor-energieopslagproject-albatross-in-duitsland-en-bouwt-nu-aan-14-gw-in-drie-landen"
+      ],
+      "canonical_domains": [
+        "electricalnews.co.uk",
+        "giga-storage.com"
+      ],
+      "independent_owners": [
+        "giga_storage",
+        "in_power"
+      ],
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "Multiple editorial owners; no single-source exception needed."
+      },
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 3,
+        "source_unique_url_count": 3,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 3,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://electricalnews.co.uk/amprion-and-giga-storage-sign-albatross-380-kv-connection-agreement",
+          "https://giga-storage.com/amprion-and-giga-storage-sign-first-grid-connection-agreement-for-large-scale-energy-storage",
+          "https://giga-storage.com/en/giga-storage-bereikt-financial-close-voor-energieopslagproject-albatross-in-duitsland-en-bouwt-nu-aan-14-gw-in-drie-landen"
+        ],
+        "canonical_domains": [
+          "electricalnews.co.uk",
+          "giga-storage.com"
+        ],
+        "independent_owners": [
+          "giga_storage",
+          "in_power"
+        ]
+      },
+      "source_discovery_ledger": [
+        {
+          "source_url": "https://giga-storage.com/amprion-and-giga-storage-sign-first-grid-connection-agreement-for-large-scale-energy-storage/",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "albatross_grid",
+            "requested_url": "https://giga-storage.com/amprion-and-giga-storage-sign-first-grid-connection-agreement-for-large-scale-energy-storage/",
+            "checked_at": "2026-10-27T03:14:30.531148+00:00",
+            "http_status": 200,
+            "resolved_url": "https://giga-storage.com/amprion-and-giga-storage-sign-first-grid-connection-agreement-for-large-scale-energy-storage/",
+            "bytes": 86839,
+            "sha256": "fa425feceabf8e382cfb1d9538429f7a51f314f03be9bcba6284c3c908ec9afa",
+            "content_type": "text/html; charset=UTF-8",
+            "links_count": 81,
+            "text_chars": 2892,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_url": "https://giga-storage.com/en/giga-storage-bereikt-financial-close-voor-energieopslagproject-albatross-in-duitsland-en-bouwt-nu-aan-14-gw-in-drie-landen/",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "albatross_finance",
+            "requested_url": "https://giga-storage.com/en/giga-storage-bereikt-financial-close-voor-energieopslagproject-albatross-in-duitsland-en-bouwt-nu-aan-14-gw-in-drie-landen/",
+            "checked_at": "2026-10-27T03:14:30.555773+00:00",
+            "http_status": 200,
+            "resolved_url": "https://giga-storage.com/en/giga-storage-bereikt-financial-close-voor-energieopslagproject-albatross-in-duitsland-en-bouwt-nu-aan-14-gw-in-drie-landen/",
+            "bytes": 88844,
+            "sha256": "90cdfd3e56c0ca0083c99b6e418a4b21417603514146aef8f247b43a27a87728",
+            "content_type": "text/html; charset=utf-8",
+            "links_count": 81,
+            "text_chars": 5142,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_key": "albatross_grid",
+          "checked_at": "2026-10-27T03:14:30.531148+00:00",
+          "http_status": 200,
+          "resolved_url": "https://giga-storage.com/amprion-and-giga-storage-sign-first-grid-connection-agreement-for-large-scale-energy-storage/",
+          "bytes": 86839,
+          "sha256": "fa425feceabf8e382cfb1d9538429f7a51f314f03be9bcba6284c3c908ec9afa",
+          "content_type": "text/html; charset=UTF-8",
+          "links_count": 81,
+          "text_chars": 2892,
+          "status": "BODY_FETCHED",
+          "source_url": "https://giga-storage.com/amprion-and-giga-storage-sign-first-grid-connection-agreement-for-large-scale-energy-storage/",
+          "origin": "stage_b_selected_body",
+          "purpose": "Signed Oct14 grid agreement in Dortmund;350MW1400MWh, Merzen380kV; earlier target2028."
+        },
+        {
+          "source_key": "albatross_report",
+          "checked_at": "2026-10-27T03:14:30.585066+00:00",
+          "status": "BODY_READ_VIA_WEB_RENDERER",
+          "error": "HTTPError: HTTP Error 406: Not Acceptable",
+          "source_url": "https://electricalnews.co.uk/amprion-and-giga-storage-sign-albatross-380-kv-connection-agreement/",
+          "origin": "stage_b_selected_body",
+          "purpose": "Independent editorial publication distinguishes signed agreement from physical energisation; relies on issuer for core signing fact.",
+          "direct_attempt_status": "UNAVAILABLE",
+          "fallback_snapshot_sha256": "8b6bc7f38c74cfc23ea2347afb7ff626b401d9dbb7e27c74cd79d2330d237c23"
+        },
+        {
+          "source_key": "albatross_finance",
+          "checked_at": "2026-10-27T03:14:30.555773+00:00",
+          "http_status": 200,
+          "resolved_url": "https://giga-storage.com/en/giga-storage-bereikt-financial-close-voor-energieopslagproject-albatross-in-duitsland-en-bouwt-nu-aan-14-gw-in-drie-landen/",
+          "bytes": 88844,
+          "sha256": "90cdfd3e56c0ca0083c99b6e418a4b21417603514146aef8f247b43a27a87728",
+          "content_type": "text/html; charset=utf-8",
+          "links_count": 81,
+          "text_chars": 5142,
+          "status": "BODY_FETCHED",
+          "source_url": "https://giga-storage.com/en/giga-storage-bereikt-financial-close-voor-energieopslagproject-albatross-in-duitsland-en-bouwt-nu-aan-14-gw-in-drie-landen/",
+          "origin": "stage_b_selected_body",
+          "purpose": "Later Oct26 owner release says financial closeOct23 and operation expectedearly2029; grid agreementOct14 reconfirmed."
+        }
+      ],
+      "source_synthesis_applied": true,
+      "source_synthesis_fields": [
+        "title",
+        "sub",
+        "gate",
+        "fact",
+        "implication"
+      ],
+      "source_synthesis_plan": {
+        "selected_anchor": "RtB → 당사자 서명 계통접속 약정; Oct23 finance는 이후 문맥으로만 기록.",
+        "source_contributions": [
+          {
+            "key": "albatross_grid",
+            "contribution": "Signed Oct14 grid agreement in Dortmund;350MW1400MWh, Merzen380kV; earlier target2028."
+          },
+          {
+            "key": "albatross_report",
+            "contribution": "Independent editorial publication distinguishes signed agreement from physical energisation; relies on issuer for core signing fact."
+          },
+          {
+            "key": "albatross_finance",
+            "contribution": "Later Oct26 owner release says financial closeOct23 and operation expectedearly2029; grid agreementOct14 reconfirmed."
+          }
+        ],
+        "scope_limits": [
+          "실제 물리적 접속 완료·통전·운전은 미래",
+          "초기2028/후속2029초 목표 차이; 후속 문맥 반영"
+        ],
+        "no_same_release_inflation": true
+      },
+      "date_role": {
+        "event_date": "2026-10-14",
+        "representative_date": "2026-10-14",
+        "representative_date_basis": "grid_connection_agreement_signing",
+        "announcement_date": "2026-10-14",
+        "publication_date": "2026-10-14",
+        "actual_private_or_physical_action_date": "2026-10-14",
+        "physical_date_disclosed": true,
+        "earliest_located_public_disclosure": "2026-10-14",
+        "observation_cutoff": "2026-10-27 Asia/Seoul",
+        "future_dates_are_targets": true,
+        "date_uncertainties": [
+          "실제 물리적 접속 완료·통전·운전은 미래",
+          "초기2028/후속2029초 목표 차이; 후속 문맥 반영"
+        ],
+        "status": "PASS_WITH_DISCLOSED_DATE_LIMITS"
+      },
+      "event_fingerprint": {
+        "named_action": "RtB → 당사자 서명 계통접속 약정; Oct23 finance는 이후 문맥으로만 기록.",
+        "selected_event_date": "2026-10-14",
+        "asset_or_program": "Albatross"
+      },
+      "related": [],
+      "related_lineage": {
+        "proposed_relation_type": "new_unrelated_event",
+        "target_ids": [],
+        "status": "STAGE_B_PROPOSED_EVIDENCE_REVIEWED"
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "evidence_review_scope": "Stage B evidence-supported proposed relation; Stage C factual acceptance and later Related merge not executed",
+        "same_event_checked": true,
+        "earliest_same_event_check_status": "PASS_BOUNDED_PUBLIC_DISCLOSURE_SEARCH",
+        "earliest_same_event_date": "2026-10-14",
+        "earliest_check_scope": "Locked Full1676 and current1330 identity/fingerprint comparison plus selected official and contemporaneous body evidence. No claim of exhaustive internet absence.",
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_candidate_ids": [],
+        "matched_baseline_cards": [],
+        "matched_current_batch_candidate_ids": [],
+        "fresh_follow_up_anchor_class": [
+          "execution_event_anchor"
+        ],
+        "fresh_follow_up_anchor": "RtB → 당사자 서명 계통접속 약정; Oct23 finance는 이후 문맥으로만 기록.",
+        "incremental_fact": "RtB → 당사자 서명 계통접속 약정; Oct23 finance는 이후 문맥으로만 기록.",
+        "changed_judgment": "380kV access right moves development toward construction; 2028 commissioning remains a target.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": []
+      },
+      "state": "draft_for_stage_c_review",
+      "stage_c_recommended": true,
+      "unresolved_questions": [
+        "실제 물리적 접속 완료·통전·운전은 미래",
+        "초기2028/후속2029초 목표 차이; 후속 문맥 반영"
+      ],
+      "production_id_assigned": false,
+      "claim_map": [
+        {
+          "field": "title",
+          "source_keys": [
+            "albatross_grid",
+            "albatross_report",
+            "albatross_finance"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "sub",
+          "source_keys": [
+            "albatross_grid",
+            "albatross_report",
+            "albatross_finance"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "fact",
+          "source_keys": [
+            "albatross_grid",
+            "albatross_report",
+            "albatross_finance"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "gate",
+          "source_keys": [
+            "albatross_grid",
+            "albatross_report",
+            "albatross_finance"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "implication",
+          "source_keys": [
+            "albatross_grid",
+            "albatross_report",
+            "albatross_finance"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        }
+      ]
+    },
+    {
+      "id": "B_DRAFT_A_SPEC_C0_DISC_20261005_EU_RETURN_ANTARES_COD",
+      "draft_id": "B_DRAFT_A_SPEC_C0_DISC_20261005_EU_RETURN_ANTARES_COD",
+      "source_spec_id": "A_SPEC_C0_DISC_20261005_EU_RETURN_ANTARES_COD",
+      "source_story_ids": [
+        "C0_DISC_20261005_EU_RETURN_ANTARES_COD"
+      ],
+      "region": "EU",
+      "date": "2026-10-05",
+      "cat": "ESS",
+      "sub_cat": "ANTARES_COD",
+      "signal": "normal",
+      "title": "Return, Antares 100MW·200MWh 상업운전 진입 발표",
+      "sub": "10월 5일 Waddinxveen 배터리의 상업운전 상태와 TenneT 150kV망 접속을 공식 확인했다.",
+      "gate": "공식 원문 본문을 직접 열어 접근 차단을 해소했다. 10월 5일은 확인된 발표일이며 실제 COD 발생일은 별도로 공개되지 않았다. 국가 최대 순위나 EON·ION·FON 발급 완료는 확정하지 않는다.",
+      "fact": "Return은 네덜란드 Waddinxveen의 Antares 배터리가 상업운전에 진입했다고 10월 5일 발표했다. 규모는 100MW·200MWh이며 TenneT의 150kV망에 직접 연결됐다고 밝혔다. 사업자는 건설·계통접속·시험과 시운전 과정을 거쳐 운영 단계로 전환했다고 설명했다.",
+      "implication": [
+        "선별의 새 정보는 건설·시험에서 상업운전 상태로의 전환이다. 지속 가용성과 실제 운전 실적은 후속 운영 자료로 확인해야 한다."
+      ],
+      "urls": [
+        "https://return.energy/news/antares-is-live-100-mw-200-mwh-battery-enters-commercial-operation",
+        "https://www.energy-storage.news/return-puts-netherlands-largest-bess-online/"
+      ],
+      "fact_sources": [
+        {
+          "source_key": "antares_owner",
+          "source_name": "return_energy",
+          "source_url": "https://return.energy/news/antares-is-live-100-mw-200-mwh-battery-enters-commercial-operation",
+          "source_owner_id_normalized": "return_energy",
+          "source_published_date": "2026-10-05",
+          "claim": "Official body recoveredHTTP200:Waddinxveen100MW200MWh enteredcommercialoperation,150kV TenneT, Oct5announcement.",
+          "source_quote": "The 100 MW / 200 MWh battery is now fully operational",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "direct_http_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "7fb1451c0c9ac0f494d5b1bc0788fd577e4ee2a589b97ce83a771e9d78a4e143",
+          "raw_response_sha256": "bc23ff5a74497dd6a647d769079986134ed71bc3fde26083a780997396c78c9f",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Official body recoveredHTTP200:Waddinxveen100MW200MWh enteredcommercialoperation,150kV TenneT, Oct5announcement.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        },
+        {
+          "source_key": "antares_report",
+          "source_name": "solar_media",
+          "source_url": "https://www.energy-storage.news/return-puts-netherlands-largest-bess-online/",
+          "source_owner_id_normalized": "solar_media",
+          "source_published_date": "2026-10-08",
+          "claim": "Contemporaneous independent editorial report Oct8 attributes operational status to Return Oct5; no independent metering/certification proof.",
+          "source_quote": "Return said this week (5 October).",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "independently_published_reporting",
+          "is_primary_source": false,
+          "fetch_method": "web_rendered_article_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "a718714fc80146012efc88f1709bc9d365d0d9c488f452635324b62682e5bb51",
+          "raw_response_sha256": null,
+          "direct_http_status": null,
+          "fetch_caveat": "HTTPError: HTTP Error 403: Forbidden",
+          "unique_contribution": "Contemporaneous independent editorial report Oct8 attributes operational status to Return Oct5; no independent metering/certification proof.",
+          "editorial_owner_independent_of_issuer": true,
+          "independent_observation_of_underlying_event": false
+        },
+        {
+          "source_key": "antares_technical",
+          "source_name": "ensol",
+          "source_url": "https://www.ensol.nl/project/grid-compliance-studies-voor-100-mw-200-mwh-type-d-batterij-opslagsysteem-antares/",
+          "source_owner_id_normalized": "ensol",
+          "source_published_date": null,
+          "claim": "Ensol identifies Antares100MW200MWh and grid compliance studies; describes certificate work but not certificates actually issued.",
+          "source_quote": "100 MW / 200 MWh",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "supporting_context",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": true,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "direct_http_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "d7eeb763a35400999a27ac1b0d3bb846edffaf38d8366953a86679fe456474ff",
+          "raw_response_sha256": "a62e1577b481d3fd15f46f1079ff116e0fa7f54f8b0b7f0b305e158d57749fe4",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Ensol identifies Antares100MW200MWh and grid compliance studies; describes certificate work but not certificates actually issued.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        }
+      ],
+      "source_evidence_entry_count": 3,
+      "source_unique_url_count": 3,
+      "source_unique_domain_count": 3,
+      "source_independent_owner_count": 2,
+      "visible_source_url_count": 2,
+      "missing_source_url_count": 0,
+      "missing_visible_source_url_count": 0,
+      "canonical_urls": [
+        "https://energy-storage.news/return-puts-netherlands-largest-bess-online",
+        "https://ensol.nl/project/grid-compliance-studies-voor-100-mw-200-mwh-type-d-batterij-opslagsysteem-antares",
+        "https://return.energy/news/antares-is-live-100-mw-200-mwh-battery-enters-commercial-operation"
+      ],
+      "canonical_domains": [
+        "energy-storage.news",
+        "ensol.nl",
+        "return.energy"
+      ],
+      "independent_owners": [
+        "return_energy",
+        "solar_media"
+      ],
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "Multiple editorial owners; no single-source exception needed."
+      },
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 3,
+        "source_unique_url_count": 3,
+        "source_unique_domain_count": 3,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://energy-storage.news/return-puts-netherlands-largest-bess-online",
+          "https://ensol.nl/project/grid-compliance-studies-voor-100-mw-200-mwh-type-d-batterij-opslagsysteem-antares",
+          "https://return.energy/news/antares-is-live-100-mw-200-mwh-battery-enters-commercial-operation"
+        ],
+        "canonical_domains": [
+          "energy-storage.news",
+          "ensol.nl",
+          "return.energy"
+        ],
+        "independent_owners": [
+          "return_energy",
+          "solar_media"
+        ]
+      },
+      "source_discovery_ledger": [
+        {
+          "source_url": "https://return.energy/news",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "not_fetched_after_sufficient_same_event_evidence",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": null
+        },
+        {
+          "source_url": "https://return.energy/news/antares-is-live-100-mw-200-mwh-battery-enters-commercial-operation",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "antares_owner",
+            "requested_url": "https://return.energy/news/antares-is-live-100-mw-200-mwh-battery-enters-commercial-operation",
+            "checked_at": "2026-10-27T03:14:30.632351+00:00",
+            "http_status": 200,
+            "resolved_url": "https://return.energy/news/antares-is-live-100-mw-200-mwh-battery-enters-commercial-operation",
+            "bytes": 17688,
+            "sha256": "bc23ff5a74497dd6a647d769079986134ed71bc3fde26083a780997396c78c9f",
+            "content_type": "text/html; charset=utf-8",
+            "links_count": 42,
+            "text_chars": 3436,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_url": "https://www.ensol.nl/project/grid-compliance-studies-voor-100-mw-200-mwh-type-d-batterij-opslagsysteem-antares/",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "antares_technical",
+            "requested_url": "https://www.ensol.nl/project/grid-compliance-studies-voor-100-mw-200-mwh-type-d-batterij-opslagsysteem-antares/",
+            "checked_at": "2026-10-27T03:14:30.634883+00:00",
+            "http_status": 200,
+            "resolved_url": "https://www.ensol.nl/project/grid-compliance-studies-voor-100-mw-200-mwh-type-d-batterij-opslagsysteem-antares/",
+            "bytes": 33604,
+            "sha256": "a62e1577b481d3fd15f46f1079ff116e0fa7f54f8b0b7f0b305e158d57749fe4",
+            "content_type": "text/html; charset=UTF-8",
+            "links_count": 31,
+            "text_chars": 1898,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_key": "antares_owner",
+          "checked_at": "2026-10-27T03:14:30.632351+00:00",
+          "http_status": 200,
+          "resolved_url": "https://return.energy/news/antares-is-live-100-mw-200-mwh-battery-enters-commercial-operation",
+          "bytes": 17688,
+          "sha256": "bc23ff5a74497dd6a647d769079986134ed71bc3fde26083a780997396c78c9f",
+          "content_type": "text/html; charset=utf-8",
+          "links_count": 42,
+          "text_chars": 3436,
+          "status": "BODY_FETCHED",
+          "source_url": "https://return.energy/news/antares-is-live-100-mw-200-mwh-battery-enters-commercial-operation",
+          "origin": "stage_b_selected_body",
+          "purpose": "Official body recoveredHTTP200:Waddinxveen100MW200MWh enteredcommercialoperation,150kV TenneT, Oct5announcement."
+        },
+        {
+          "source_key": "antares_report",
+          "checked_at": "2026-10-27T03:14:31.093839+00:00",
+          "status": "BODY_READ_VIA_WEB_RENDERER",
+          "error": "HTTPError: HTTP Error 403: Forbidden",
+          "source_url": "https://www.energy-storage.news/return-puts-netherlands-largest-bess-online/",
+          "origin": "stage_b_selected_body",
+          "purpose": "Contemporaneous independent editorial report Oct8 attributes operational status to Return Oct5; no independent metering/certification proof.",
+          "direct_attempt_status": "UNAVAILABLE",
+          "fallback_snapshot_sha256": "a718714fc80146012efc88f1709bc9d365d0d9c488f452635324b62682e5bb51"
+        },
+        {
+          "source_key": "antares_technical",
+          "checked_at": "2026-10-27T03:14:30.634883+00:00",
+          "http_status": 200,
+          "resolved_url": "https://www.ensol.nl/project/grid-compliance-studies-voor-100-mw-200-mwh-type-d-batterij-opslagsysteem-antares/",
+          "bytes": 33604,
+          "sha256": "a62e1577b481d3fd15f46f1079ff116e0fa7f54f8b0b7f0b305e158d57749fe4",
+          "content_type": "text/html; charset=UTF-8",
+          "links_count": 31,
+          "text_chars": 1898,
+          "status": "BODY_FETCHED",
+          "source_url": "https://www.ensol.nl/project/grid-compliance-studies-voor-100-mw-200-mwh-type-d-batterij-opslagsysteem-antares/",
+          "origin": "stage_b_selected_body",
+          "purpose": "Ensol identifies Antares100MW200MWh and grid compliance studies; describes certificate work but not certificates actually issued."
+        }
+      ],
+      "source_synthesis_applied": true,
+      "source_synthesis_fields": [
+        "title",
+        "sub",
+        "gate",
+        "fact",
+        "implication"
+      ],
+      "source_synthesis_plan": {
+        "selected_anchor": "Waddinxveen Antares의 상업운전 상태 전환; Sirius·다른 Return 포트폴리오와 별개 자산.",
+        "source_contributions": [
+          {
+            "key": "antares_owner",
+            "contribution": "Official body recoveredHTTP200:Waddinxveen100MW200MWh enteredcommercialoperation,150kV TenneT, Oct5announcement."
+          },
+          {
+            "key": "antares_report",
+            "contribution": "Contemporaneous independent editorial report Oct8 attributes operational status to Return Oct5; no independent metering/certification proof."
+          },
+          {
+            "key": "antares_technical",
+            "contribution": "Ensol identifies Antares100MW200MWh and grid compliance studies; describes certificate work but not certificates actually issued."
+          }
+        ],
+        "scope_limits": [
+          "실제 물리적 COD 일자 미공개",
+          "운영 인증서 발급일 및 실제 가용성·수익 미확인"
+        ],
+        "no_same_release_inflation": true
+      },
+      "date_role": {
+        "event_date": "2026-10-05",
+        "representative_date": "2026-10-05",
+        "representative_date_basis": "announcement_of_attained_operational_state",
+        "announcement_date": "2026-10-05",
+        "publication_date": "2026-10-05",
+        "actual_private_or_physical_action_date": null,
+        "physical_date_disclosed": false,
+        "earliest_located_public_disclosure": "2026-10-05",
+        "observation_cutoff": "2026-10-27 Asia/Seoul",
+        "future_dates_are_targets": true,
+        "date_uncertainties": [
+          "실제 물리적 COD 일자 미공개",
+          "운영 인증서 발급일 및 실제 가용성·수익 미확인"
+        ],
+        "status": "PASS_WITH_DISCLOSED_DATE_LIMITS"
+      },
+      "event_fingerprint": {
+        "named_action": "Waddinxveen Antares의 상업운전 상태 전환; Sirius·다른 Return 포트폴리오와 별개 자산.",
+        "selected_event_date": "2026-10-05",
+        "asset_or_program": "Antares"
+      },
+      "related": [],
+      "related_lineage": {
+        "proposed_relation_type": "new_unrelated_event",
+        "target_ids": [],
+        "status": "STAGE_B_PROPOSED_EVIDENCE_REVIEWED"
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "evidence_review_scope": "Stage B evidence-supported proposed relation; Stage C factual acceptance and later Related merge not executed",
+        "same_event_checked": true,
+        "earliest_same_event_check_status": "PASS_BOUNDED_PUBLIC_DISCLOSURE_SEARCH",
+        "earliest_same_event_date": "2026-10-05",
+        "earliest_check_scope": "Locked Full1676 and current1330 identity/fingerprint comparison plus selected official and contemporaneous body evidence. No claim of exhaustive internet absence.",
+        "relation_type": "new_unrelated_event",
+        "matched_baseline_candidate_ids": [],
+        "matched_baseline_cards": [],
+        "matched_current_batch_candidate_ids": [],
+        "fresh_follow_up_anchor_class": [
+          "execution_event_anchor"
+        ],
+        "fresh_follow_up_anchor": "Waddinxveen Antares의 상업운전 상태 전환; Sirius·다른 Return 포트폴리오와 별개 자산.",
+        "incremental_fact": "Waddinxveen Antares의 상업운전 상태 전환; Sirius·다른 Return 포트폴리오와 별개 자산.",
+        "changed_judgment": "Source path repaired from news index to direct dated article; COD is separate from Sirius finance/toll.",
+        "rejected_relation_candidates": [
+          {
+            "target_candidate_id": "2026-08-31_EU_02",
+            "reason": "Sirius is not Antares."
+          },
+          {
+            "candidate": "Return Sirius / German or Spanish portfolio",
+            "reason": "Different named asset/location/action; no economic-event lineage inferred from owner alone."
+          }
+        ],
+        "reinforcement_transfer_ledger": []
+      },
+      "state": "draft_for_stage_c_review",
+      "stage_c_recommended": true,
+      "unresolved_questions": [
+        "실제 물리적 COD 일자 미공개",
+        "운영 인증서 발급일 및 실제 가용성·수익 미확인"
+      ],
+      "production_id_assigned": false,
+      "claim_map": [
+        {
+          "field": "title",
+          "source_keys": [
+            "antares_owner",
+            "antares_report"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "sub",
+          "source_keys": [
+            "antares_owner",
+            "antares_report"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "fact",
+          "source_keys": [
+            "antares_owner",
+            "antares_report"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "gate",
+          "source_keys": [
+            "antares_owner",
+            "antares_report"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "implication",
+          "source_keys": [
+            "antares_owner",
+            "antares_report"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        }
+      ]
+    },
+    {
+      "id": "B_DRAFT_A_SPEC_C0_DISC_20261006_EU_BWESS_BERKSWELL_OPT",
+      "draft_id": "B_DRAFT_A_SPEC_C0_DISC_20261006_EU_BWESS_BERKSWELL_OPT",
+      "source_spec_id": "A_SPEC_C0_DISC_20261006_EU_BWESS_BERKSWELL_OPT",
+      "source_story_ids": [
+        "C0_DISC_20261006_EU_BWESS_BERKSWELL_OPT"
+      ],
+      "region": "EU",
+      "date": "2026-10-06",
+      "cat": "ESS",
+      "sub_cat": "BERKSWELL_OPTIMISATION",
+      "signal": "normal",
+      "title": "Berkswell, 200MW·857MWh에 10년 floor 최적화 계약",
+      "sub": "BW ESS와 Danske Commodities가 10월 6일 자산 전체를 대상으로 한 거래·최적화 계약을 발표했다.",
+      "gate": "BW ESS와 Danske의 글은 같은 공동 발표로 계산했다. floor 금액·수익 배분은 공개되지 않았으며 확정 수익·완전한 tolling 계약으로 확대하지 않는다. BW의 9월 착공 언급과 Farrans의 8월 31일 초기 공사 발표는 범위 차이를 미확정 상태로 남긴다.",
+      "fact": "BW ESS와 Danske Commodities는 Berkswell 200MW·857MWh 전체에 대한 10년 최적화 계약을 발표했다. floor 구조 아래 Danske Commodities가 거래·최적화를 맡는다. 8월 31일 Farrans가 발표한 현장 착공·초기 공사와 이번 상업적 계약은 서로 다른 행위다. 사업자는 운영을 2027년 4분기로 예상했다.",
+      "implication": [
+        "기존 착공 카드 이후 전 자산의 시장 운용 경로가 추가됐다. 물리적 완공과 통전·운전은 아직 다음 확인 단계이며 수익 효과는 비공개 계약 조건에 달려 있다."
+      ],
+      "urls": [
+        "https://bw-ess.com/news/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+        "https://danskecommodities.com/media/press/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+        "https://electricalnews.co.uk/danske-commodities-takes-berkswell-optimisation-role/",
+        "https://www.farrans.com/farrans-commences-construction-on-berkswell-battery-energy-storage-for-bw-ess/"
+      ],
+      "fact_sources": [
+        {
+          "source_key": "berkswell_owner",
+          "source_name": "berkswell_joint_release",
+          "source_url": "https://bw-ess.com/news/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+          "source_owner_id_normalized": "berkswell_joint_release",
+          "source_published_date": "2026-10-06",
+          "claim": "Oct6 joint announcement:10yrfloor optimisation,100%200MW857MWh; Q42027 operation expected.",
+          "source_quote": "10-year optimisation agreement covering 100%",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "direct_http_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "7735528bebd247b2f600f80df8dda73e17032234bc2a6b093824041895455689",
+          "raw_response_sha256": "543b77228e167419fb58d206c310fac847ccac5095bfde1776b4cefbcf46c720",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Oct6 joint announcement:10yrfloor optimisation,100%200MW857MWh; Q42027 operation expected.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        },
+        {
+          "source_key": "berkswell_trader",
+          "source_name": "berkswell_joint_release",
+          "source_url": "https://danskecommodities.com/media/press/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+          "source_owner_id_normalized": "berkswell_joint_release",
+          "source_published_date": "2026-10-06",
+          "claim": "Same joint release mirrored by counterparty, counted as same cluster.",
+          "source_quote": "10-year floor agreement",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "direct_http_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "0c1af5c5e64d844140563f8851ccdf2cf913c84cbf56940470010d2363883d85",
+          "raw_response_sha256": "26ac90cf12be1666d094c465405f58f16eff64370ae520259c4c32209ac1ac94",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Same joint release mirrored by counterparty, counted as same cluster.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        },
+        {
+          "source_key": "berkswell_report",
+          "source_name": "in_power",
+          "source_url": "https://electricalnews.co.uk/danske-commodities-takes-berkswell-optimisation-role/",
+          "source_owner_id_normalized": "in_power",
+          "source_published_date": "2026-10-07",
+          "claim": "Independent editorial explanation: undisclosed floor and allocation; current contract distinct from ongoing construction.",
+          "source_quote": "the floor level and detailed revenue sharing terms have not been disclosed.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "independently_published_reporting",
+          "is_primary_source": false,
+          "fetch_method": "web_rendered_article_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "8b6bc7f38c74cfc23ea2347afb7ff626b401d9dbb7e27c74cd79d2330d237c23",
+          "raw_response_sha256": null,
+          "direct_http_status": null,
+          "fetch_caveat": "HTTPError: HTTP Error 406: Not Acceptable",
+          "unique_contribution": "Independent editorial explanation: undisclosed floor and allocation; current contract distinct from ongoing construction.",
+          "editorial_owner_independent_of_issuer": true,
+          "independent_observation_of_underlying_event": false
+        },
+        {
+          "source_key": "berkswell_prior",
+          "source_name": "farrans",
+          "source_url": "https://www.farrans.com/farrans-commences-construction-on-berkswell-battery-energy-storage-for-bw-ess/",
+          "source_owner_id_normalized": "farrans",
+          "source_published_date": "2026-08-31",
+          "claim": "Farrans Aug31 primary says construction/earlyworks commenced; supports baseline chronology and disclosed owner date conflict.",
+          "source_quote": "has commenced construction on Berkswell Battery Energy Storage System (BESS)",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "supporting_context_only_not_visible_claim_support": false,
+          "source_origin_type": "official_or_source_owner_material",
+          "is_primary_source": true,
+          "fetch_method": "direct_http_body",
+          "checked_at": "2026-10-27T03:23:22.089472+00:00",
+          "fetched": true,
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "body_snapshot_sha256": "74d3aaf1438e27f6123ac05d90d5eb5ff3710daf7b50b51b27761abfe600d222",
+          "raw_response_sha256": "9d510beeb674d73e311f35896e110eb8188dcf70e6a3285ce5fa7d4aad142638",
+          "direct_http_status": 200,
+          "fetch_caveat": null,
+          "unique_contribution": "Farrans Aug31 primary says construction/earlyworks commenced; supports baseline chronology and disclosed owner date conflict.",
+          "editorial_owner_independent_of_issuer": false,
+          "independent_observation_of_underlying_event": null
+        }
+      ],
+      "source_evidence_entry_count": 4,
+      "source_unique_url_count": 4,
+      "source_unique_domain_count": 4,
+      "source_independent_owner_count": 3,
+      "visible_source_url_count": 4,
+      "missing_source_url_count": 0,
+      "missing_visible_source_url_count": 0,
+      "canonical_urls": [
+        "https://bw-ess.com/news/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+        "https://danskecommodities.com/media/press/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+        "https://electricalnews.co.uk/danske-commodities-takes-berkswell-optimisation-role",
+        "https://farrans.com/farrans-commences-construction-on-berkswell-battery-energy-storage-for-bw-ess"
+      ],
+      "canonical_domains": [
+        "bw-ess.com",
+        "danskecommodities.com",
+        "electricalnews.co.uk",
+        "farrans.com"
+      ],
+      "independent_owners": [
+        "berkswell_joint_release",
+        "farrans",
+        "in_power"
+      ],
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "Multiple editorial owners; no single-source exception needed."
+      },
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 4,
+        "source_unique_url_count": 4,
+        "source_unique_domain_count": 4,
+        "source_independent_owner_count": 3,
+        "visible_source_url_count": 4,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://bw-ess.com/news/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+          "https://danskecommodities.com/media/press/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+          "https://electricalnews.co.uk/danske-commodities-takes-berkswell-optimisation-role",
+          "https://farrans.com/farrans-commences-construction-on-berkswell-battery-energy-storage-for-bw-ess"
+        ],
+        "canonical_domains": [
+          "bw-ess.com",
+          "danskecommodities.com",
+          "electricalnews.co.uk",
+          "farrans.com"
+        ],
+        "independent_owners": [
+          "berkswell_joint_release",
+          "farrans",
+          "in_power"
+        ]
+      },
+      "source_discovery_ledger": [
+        {
+          "source_url": "https://bw-ess.com/news/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "berkswell_owner",
+            "requested_url": "https://bw-ess.com/news/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+            "checked_at": "2026-10-27T03:14:31.228090+00:00",
+            "http_status": 200,
+            "resolved_url": "https://bw-ess.com/news/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+            "bytes": 34088,
+            "sha256": "543b77228e167419fb58d206c310fac847ccac5095bfde1776b4cefbcf46c720",
+            "content_type": "text/html; charset=UTF-8",
+            "links_count": 45,
+            "text_chars": 4531,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_url": "https://danskecommodities.com/media/press/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+          "origin": "stage_a_support_candidate",
+          "attempt_status": "body_read",
+          "reason": "Selected actual body evidence and bounded alternatives below; unused candidate is not visible-claim evidence.",
+          "fetch_result": {
+            "source_key": "berkswell_trader",
+            "requested_url": "https://danskecommodities.com/media/press/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+            "checked_at": "2026-10-27T03:14:31.521088+00:00",
+            "http_status": 200,
+            "resolved_url": "https://danskecommodities.com/media/press/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+            "bytes": 68673,
+            "sha256": "26ac90cf12be1666d094c465405f58f16eff64370ae520259c4c32209ac1ac94",
+            "content_type": "text/html; charset=UTF-8",
+            "links_count": 86,
+            "text_chars": 5875,
+            "status": "BODY_FETCHED"
+          }
+        },
+        {
+          "source_key": "berkswell_owner",
+          "checked_at": "2026-10-27T03:14:31.228090+00:00",
+          "http_status": 200,
+          "resolved_url": "https://bw-ess.com/news/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+          "bytes": 34088,
+          "sha256": "543b77228e167419fb58d206c310fac847ccac5095bfde1776b4cefbcf46c720",
+          "content_type": "text/html; charset=UTF-8",
+          "links_count": 45,
+          "text_chars": 4531,
+          "status": "BODY_FETCHED",
+          "source_url": "https://bw-ess.com/news/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+          "origin": "stage_b_selected_body",
+          "purpose": "Oct6 joint announcement:10yrfloor optimisation,100%200MW857MWh; Q42027 operation expected."
+        },
+        {
+          "source_key": "berkswell_trader",
+          "checked_at": "2026-10-27T03:14:31.521088+00:00",
+          "http_status": 200,
+          "resolved_url": "https://danskecommodities.com/media/press/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+          "bytes": 68673,
+          "sha256": "26ac90cf12be1666d094c465405f58f16eff64370ae520259c4c32209ac1ac94",
+          "content_type": "text/html; charset=UTF-8",
+          "links_count": 86,
+          "text_chars": 5875,
+          "status": "BODY_FETCHED",
+          "source_url": "https://danskecommodities.com/media/press/bw-ess-and-danske-commodities-sign-10-year-optimisation-agreement-for-200-mw-857-mwh-battery-in-the-uk",
+          "origin": "stage_b_selected_body",
+          "purpose": "Same joint release mirrored by counterparty, counted as same cluster."
+        },
+        {
+          "source_key": "berkswell_report",
+          "checked_at": "2026-10-27T03:14:32.027901+00:00",
+          "status": "BODY_READ_VIA_WEB_RENDERER",
+          "error": "HTTPError: HTTP Error 406: Not Acceptable",
+          "source_url": "https://electricalnews.co.uk/danske-commodities-takes-berkswell-optimisation-role/",
+          "origin": "stage_b_selected_body",
+          "purpose": "Independent editorial explanation: undisclosed floor and allocation; current contract distinct from ongoing construction.",
+          "direct_attempt_status": "UNAVAILABLE",
+          "fallback_snapshot_sha256": "8b6bc7f38c74cfc23ea2347afb7ff626b401d9dbb7e27c74cd79d2330d237c23"
+        },
+        {
+          "source_key": "berkswell_prior",
+          "checked_at": "2026-10-27T03:14:32.110069+00:00",
+          "http_status": 200,
+          "resolved_url": "https://www.farrans.com/farrans-commences-construction-on-berkswell-battery-energy-storage-for-bw-ess/",
+          "bytes": 62999,
+          "sha256": "9d510beeb674d73e311f35896e110eb8188dcf70e6a3285ce5fa7d4aad142638",
+          "content_type": "text/html; charset=UTF-8",
+          "links_count": 131,
+          "text_chars": 4703,
+          "status": "BODY_FETCHED",
+          "source_url": "https://www.farrans.com/farrans-commences-construction-on-berkswell-battery-energy-storage-for-bw-ess/",
+          "origin": "stage_b_selected_body",
+          "purpose": "Farrans Aug31 primary says construction/earlyworks commenced; supports baseline chronology and disclosed owner date conflict."
+        }
+      ],
+      "source_synthesis_applied": true,
+      "source_synthesis_fields": [
+        "title",
+        "sub",
+        "gate",
+        "fact",
+        "implication"
+      ],
+      "source_synthesis_plan": {
+        "selected_anchor": "현장 초기 공사 → 전자산10년 floor 거래·최적화 약정.",
+        "source_contributions": [
+          {
+            "key": "berkswell_owner",
+            "contribution": "Oct6 joint announcement:10yrfloor optimisation,100%200MW857MWh; Q42027 operation expected."
+          },
+          {
+            "key": "berkswell_trader",
+            "contribution": "Same joint release mirrored by counterparty, counted as same cluster."
+          },
+          {
+            "key": "berkswell_report",
+            "contribution": "Independent editorial explanation: undisclosed floor and allocation; current contract distinct from ongoing construction."
+          },
+          {
+            "key": "berkswell_prior",
+            "contribution": "Farrans Aug31 primary says construction/earlyworks commenced; supports baseline chronology and disclosed owner date conflict."
+          }
+        ],
+        "scope_limits": [
+          "floor수준·계산법·수익배분·위험분담 미공개",
+          "Farrans8월31일 초기공사/BW9월 착공 표현차이",
+          "실제 운영·매출은 미래"
+        ],
+        "no_same_release_inflation": true
+      },
+      "date_role": {
+        "event_date": "2026-10-06",
+        "representative_date": "2026-10-06",
+        "representative_date_basis": "public_announcement_of_optimisation_agreement",
+        "announcement_date": "2026-10-06",
+        "publication_date": "2026-10-06",
+        "actual_private_or_physical_action_date": null,
+        "physical_date_disclosed": false,
+        "earliest_located_public_disclosure": "2026-10-06",
+        "observation_cutoff": "2026-10-27 Asia/Seoul",
+        "future_dates_are_targets": true,
+        "date_uncertainties": [
+          "floor수준·계산법·수익배분·위험분담 미공개",
+          "Farrans8월31일 초기공사/BW9월 착공 표현차이",
+          "실제 운영·매출은 미래"
+        ],
+        "status": "PASS_WITH_DISCLOSED_DATE_LIMITS"
+      },
+      "event_fingerprint": {
+        "named_action": "현장 초기 공사 → 전자산10년 floor 거래·최적화 약정.",
+        "selected_event_date": "2026-10-06",
+        "asset_or_program": "Berkswell"
+      },
+      "related": [
+        "2026-08-31_GL_05"
+      ],
+      "related_lineage": {
+        "proposed_relation_type": "distinct_follow_up",
+        "target_ids": [
+          "2026-08-31_GL_05"
+        ],
+        "status": "STAGE_B_PROPOSED_EVIDENCE_REVIEWED"
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "evidence_review_scope": "Stage B evidence-supported proposed relation; Stage C factual acceptance and later Related merge not executed",
+        "same_event_checked": true,
+        "earliest_same_event_check_status": "PASS_BOUNDED_PUBLIC_DISCLOSURE_SEARCH",
+        "earliest_same_event_date": "2026-10-06",
+        "earliest_check_scope": "Locked Full1676 and current1330 identity/fingerprint comparison plus selected official and contemporaneous body evidence. No claim of exhaustive internet absence.",
+        "relation_type": "distinct_follow_up",
+        "matched_baseline_candidate_ids": [
+          "2026-08-31_GL_05"
+        ],
+        "matched_baseline_cards": [
+          {
+            "id": "2026-08-31_GL_05",
+            "date": "2026-08-31",
+            "title": "영국 Berkswell 200MW/857MWh BESS 착공",
+            "sub": "Farrans가 West Midlands 프로젝트 건설 개시",
+            "fact": "Farrans는 8월 31일 영국 West Midlands의 Berkswell BESS 건설 착수를 발표했다. 프로젝트 규모는 200MW/857MWh다.",
+            "urls": [
+              "https://www.farrans.com/farrans-commences-construction-on-berkswell-battery-energy-storage-for-bw-ess/"
+            ],
+            "related": []
+          }
+        ],
+        "matched_current_batch_candidate_ids": [],
+        "fresh_follow_up_anchor_class": [
+          "execution_event_anchor"
+        ],
+        "fresh_follow_up_anchor": "현장 초기 공사 → 전자산10년 floor 거래·최적화 약정.",
+        "incremental_fact": "현장 초기 공사 → 전자산10년 floor 거래·최적화 약정.",
+        "changed_judgment": "Revenue-risk allocation is distinct from construction; floor amount/realised earnings are not disclosed.",
+        "rejected_relation_candidates": [],
+        "reinforcement_transfer_ledger": []
+      },
+      "state": "draft_for_stage_c_review",
+      "stage_c_recommended": true,
+      "unresolved_questions": [
+        "floor수준·계산법·수익배분·위험분담 미공개",
+        "Farrans8월31일 초기공사/BW9월 착공 표현차이",
+        "실제 운영·매출은 미래"
+      ],
+      "production_id_assigned": false,
+      "claim_map": [
+        {
+          "field": "title",
+          "source_keys": [
+            "berkswell_owner",
+            "berkswell_trader",
+            "berkswell_report",
+            "berkswell_prior"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "sub",
+          "source_keys": [
+            "berkswell_owner",
+            "berkswell_trader",
+            "berkswell_report",
+            "berkswell_prior"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "fact",
+          "source_keys": [
+            "berkswell_owner",
+            "berkswell_trader",
+            "berkswell_report",
+            "berkswell_prior"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "gate",
+          "source_keys": [
+            "berkswell_owner",
+            "berkswell_trader",
+            "berkswell_report",
+            "berkswell_prior"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        },
+        {
+          "field": "implication",
+          "source_keys": [
+            "berkswell_owner",
+            "berkswell_trader",
+            "berkswell_report",
+            "berkswell_prior"
+          ],
+          "verification": "Body-grounded editorial synthesis; future checks and inferences explicitly framed in visible text."
+        }
+      ]
+    }
+  ],
+  "blocked_spec_ids_preserved": [
+    "A_SPEC_R17_DISC_001"
+  ],
+  "no_original_b_writes": true
+}

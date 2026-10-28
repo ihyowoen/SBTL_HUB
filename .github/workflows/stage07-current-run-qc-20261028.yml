@@ -27,6 +27,9 @@ jobs:
       - name: Run exactly scoped current-7 preflight against 1676 original Full
         run: |
           python runs/2026-10-28/stage07-preflight/stage_0_7_current_run_strict_preflight.py
+      - name: Controlled upstream source-backed date-Related reconciliation and exact Full QC
+        run: |
+          PYTHONPATH=. python runs/2026-10-28/stage07-preflight/stage_0_7_controlled_repair_qc.py
       - name: Preserve only scoped QC receipts (do not export Full)
         if: always()
         uses: actions/upload-artifact@v4
@@ -35,4 +38,5 @@ jobs:
           path: |
             runs/2026-10-28/stage07-preflight/CURRENT_RUN_IDS_20261028.json
             runs/2026-10-28/stage07-preflight/STAGE_0_7_STRICT_PREFLIGHT_REPORT_20261028.json
+            runs/2026-10-28/stage07-preflight/STAGE_0_7_CONTROLLED_REPAIR_NATIVE_REPORT_20261028.json
           if-no-files-found: warn

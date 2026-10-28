@@ -1,0 +1,78 @@
+name: Stage 0.6 V5 exact source-grounded audit 2026-10-28
+on:
+  push:
+    branches: [ops/stage-c-native-audit-20261027]
+    paths:
+      - 'runs/2026-10-28/stage06-bounded/**'
+      - '.github/workflows/stage06-v5-exact-audit-20261028.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-stage06:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Lock GitHub main and Full baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin 805c2718d6daf40a219ae94242d9687e33ac3e88
+          test "$(git rev-parse 805c2718d6daf40a219ae94242d9687e33ac3e88:data/cards.full.json)" = "07a91714e56be2a8bfad10ab63822f0c5cb3f06e"
+          git cat-file -e 805c2718d6daf40a219ae94242d9687e33ac3e88:docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md
+          echo "PINNED_MAIN_FULL_AND_PROMPT_OK"
+      - name: Native Stage 0.5 schema
+        run: |
+          python validation_scripts/stage_artifact_contract_check.py 0.5 runs/2026-10-28/stage06-bounded/STAGE_0_5_BOUNDED_NATIVE_CANDIDATE_20261028.json
+      - name: Native Stage 0.5 source audit
+        run: |
+          python validation_scripts/evidence_qc_v8_check.py runs/2026-10-28/stage06-bounded/STAGE_0_5_BOUNDED_NATIVE_CANDIDATE_20261028.json --json-report runs/2026-10-28/stage06-bounded/STAGE_0_5_NATIVE_SOURCE_QC_20261028.json
+      - name: Native Stage 0.6 schema
+        run: |
+          python validation_scripts/stage_artifact_contract_check.py 0.6 runs/2026-10-28/stage06-bounded/STAGE_0_6_BOUNDED_NATIVE_CANDIDATE_20261028.json
+      - name: Native Stage 0.6 V5 strict across bound stages and operation copy
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from validation_scripts.card_run_v4_binding_hardening import validate_content_enrichment_delta
+          p=Path('runs/2026-10-28/stage06-bounded')
+          files=[
+           ('B','STAGE_B_0_2R_BOUNDED_20261028.json','draft_cards'),
+           ('C','STAGE_C_0_3R_BOUNDED_20261028.json','accepted_fact_safe'),
+           ('0.4','STAGE_0_4_BOUNDED_20261028.json','addable_merge_safe'),
+           ('0.5','STAGE_0_5_BOUNDED_NATIVE_CANDIDATE_20261028.json','evidence_complete_and_source_claim_covered'),
+           ('0.6','STAGE_0_6_BOUNDED_NATIVE_CANDIDATE_20261028.json','content_enriched_and_language_polished'),
+          ]
+          rows={}
+          for key,filename,bucket in files:
+           o=json.loads((p/filename).read_text(encoding='utf-8'))
+           assert o['base_main_commit_sha']=='805c2718d6daf40a219ae94242d9687e33ac3e88'
+           assert o['base_full_blob_sha']=='07a91714e56be2a8bfad10ab63822f0c5cb3f06e'
+           rows[key]={r['source_spec_id']:r for r in o[bucket]}
+           assert len(rows[key])==7
+          ids=set(rows['0.6'])
+          assert all(set(x)==ids for x in rows.values()),'scope drift'
+          for sid in rows['0.6']:
+           r={k:[v[sid]] for k,v in rows.items()}
+           validate_content_enrichment_delta(r,sid,operation_card=r['0.6'][0],locked_prompt_version='PROMPT_0_6_V5_20260919')
+           print('PASS_0_6_NATIVE_V5_OPERATION_MATERIALIZATION',sid)
+          assert len(ids)==7
+          print('PASS_0_6_EXACT_STAGE_CHAIN_AND_OPERATION_7_OF_7')
+          PY
+      - name: Preserve audit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage06-native-20261028
+          if-no-files-found: warn
+          path: |
+            runs/2026-10-28/stage06-bounded/STAGE_0_5_NATIVE_SOURCE_QC_20261028.json
+            runs/2026-10-28/stage06-bounded/STAGE_0_2R_0_3R_BOUNDED_REPAIR_RECEIPT_20261028.json
+            runs/2026-10-28/stage06-bounded/STAGE_0_5_BOUNDED_NATIVE_CANDIDATE_20261028.json
+            runs/2026-10-28/stage06-bounded/STAGE_0_6_BOUNDED_NATIVE_CANDIDATE_20261028.json

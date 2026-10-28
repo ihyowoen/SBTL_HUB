@@ -1,0 +1,38 @@
+name: Stage 0.7 V4 scoped final-QC audit (read-only 2026-10-28)
+on:
+  push:
+    branches:
+      - ops/stage-c-native-audit-20261027
+    paths:
+      - 'runs/2026-10-28/stage07-preflight/**'
+      - '.github/workflows/stage07-current-run-qc-20261028.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  stage07-current-run-only:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify pinned base Full and canonical Prompt 0.7
+        run: |
+          git fetch --no-tags origin 805c2718d6daf40a219ae94242d9687e33ac3e88
+          test "$(git rev-parse 805c2718d6daf40a219ae94242d9687e33ac3e88:data/cards.full.json)" = "07a91714e56be2a8bfad10ab63822f0c5cb3f06e"
+          git cat-file -e 805c2718d6daf40a219ae94242d9687e33ac3e88:docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md
+      - name: Run exactly scoped current-7 preflight against 1676 original Full
+        run: |
+          python runs/2026-10-28/stage07-preflight/stage_0_7_current_run_strict_preflight.py
+      - name: Preserve only scoped QC receipts (do not export Full)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage07-scoped-preflight-readonly
+          path: |
+            runs/2026-10-28/stage07-preflight/CURRENT_RUN_IDS_20261028.json
+            runs/2026-10-28/stage07-preflight/STAGE_0_7_STRICT_PREFLIGHT_REPORT_20261028.json
+          if-no-files-found: warn

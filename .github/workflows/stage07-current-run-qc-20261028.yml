@@ -30,6 +30,9 @@ jobs:
       - name: Controlled upstream source-backed date-Related reconciliation and exact Full QC
         run: |
           PYTHONPATH=. python runs/2026-10-28/stage07-preflight/stage_0_7_controlled_repair_qc.py
+      - name: Editorially gate only the scoped current seven and validate Stage 0.7 artifact
+        run: |
+          PYTHONPATH=. python runs/2026-10-28/stage07-preflight/stage_0_7_editorial_final_qc.py
       - name: Preserve only scoped QC receipts (do not export Full)
         if: always()
         uses: actions/upload-artifact@v4
@@ -39,4 +42,6 @@ jobs:
             runs/2026-10-28/stage07-preflight/CURRENT_RUN_IDS_20261028.json
             runs/2026-10-28/stage07-preflight/STAGE_0_7_STRICT_PREFLIGHT_REPORT_20261028.json
             runs/2026-10-28/stage07-preflight/STAGE_0_7_CONTROLLED_REPAIR_NATIVE_REPORT_20261028.json
+            runs/2026-10-28/stage07-preflight/STAGE_0_7_FINAL_EDITORIAL_DISPOSITION_20261028.json
+            runs/2026-10-28/stage07-preflight/STAGE_0_7_FINAL_EDITORIAL_SCHEMA_RECEIPT_20261028.json
           if-no-files-found: warn

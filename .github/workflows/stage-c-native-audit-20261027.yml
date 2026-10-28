@@ -109,6 +109,18 @@ jobs:
             runs/2026-10-27/stage-c/STAGE_0_6_V5_CASE_SPECIFIC_AUDIT_20261028.json
             runs/2026-10-27/stage-c/STAGE_0_6_V5_NATIVE_PASS_ONLY_20261028.json
           if-no-files-found: warn
+      - name: Export isolated 0.6 validator modules for reproducible local audit
+        if: always()
+        run: |
+          tar czf /tmp/stage06-validator-modules.tar.gz validation_scripts
+          cp /tmp/stage06-validator-modules.tar.gz runs/2026-10-27/stage-c/stage06-validator-modules.tar.gz
+      - name: Upload isolated 0.6 validator modules
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage06-local-validator-modules
+          path: runs/2026-10-27/stage-c/stage06-validator-modules.tar.gz
+          if-no-files-found: error
       - name: Upload stage 0.4 audit evidence
         if: always()
         uses: actions/upload-artifact@v4

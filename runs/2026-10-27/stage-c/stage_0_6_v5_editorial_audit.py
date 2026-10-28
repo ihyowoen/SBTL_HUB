@@ -75,6 +75,20 @@ def main():
       "original_url":source["source_url"],
       "not_a_new_fact_source_or_editorial_owner":True,
     }
+  # Nearest-stage source permission must agree with its discovery aliases.
+  # The frozen 0.5 row includes unscoped discovery records for URLs that were
+  # eventually selected by Stage B; V5 fail-closed precedence treats those as
+  # explicit exclusions. Clarify only positive aliases of verified fact_sources
+  # in this derived evidence-only view. Original 0.5 stays byte-for-byte intact.
+  active={s.get("source_url"):s for s in row["fact_sources"]
+          if s.get("source_url") and s.get("supporting_context_only_not_visible_claim_support") is not True
+          and s.get("source_quote_status") in {"official_material_quote_verified","body_quote_verified","document_quote_verified"}
+          and s.get("fetched") is True}
+  for d in row.get("source_discovery_ledger",[]):
+   src=active.get(d.get("source_url"))
+   if src and d.get("attempt_status") not in ("not_fetched_after_sufficient_same_event_evidence","failed"):
+    d["visible_supports"]=list(src.get("supports",[]))
+    d["source_role_clarification"]="Same source URL later selected as verified fact_source; existing original ledger retains its historic discovery attempt text."
   augmented_05=copy.deepcopy(row)
   change=DELTA.get(spec,{})
   for k,v in change.items():

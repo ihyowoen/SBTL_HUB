@@ -43,6 +43,9 @@ jobs:
         if: success()
         run: |
           python validation_scripts/stage_artifact_contract_check.py 0.4 runs/2026-10-27/stage-c/STAGE_0_4_CURRENT_BASELINE_ADDABILITY_20261027.json
+      - name: Native 0.5 source owner and URL evidence QC
+        run: |
+          python validation_scripts/evidence_qc_v8_check.py runs/2026-10-27/stage-c/STAGE_0_4_CURRENT_BASELINE_ADDABILITY_20261027.json --json-report runs/2026-10-27/stage-c/STAGE_0_5_SOURCE_AUDIT_20261028.json
       - name: Upload stage 0.4 audit evidence
         if: always()
         uses: actions/upload-artifact@v4

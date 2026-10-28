@@ -73,6 +73,7 @@ def main():
       "original_url":source["source_url"],
       "not_a_new_fact_source_or_editorial_owner":True,
     }
+  augmented_05=copy.deepcopy(row)
   change=DELTA.get(spec,{})
   for k,v in change.items():
    assert k in {"sub","gate","fact","implication"}
@@ -108,7 +109,7 @@ def main():
   }
   try:
    validate_content_enrichment_delta(
-      {"C":[original],"0.4":[original],"0.5":[original],"0.6":[row]},
+      {"C":[original],"0.4":[original],"0.5":[augmented_05],"0.6":[row]},
       f"Stage0.6 {spec}", locked_prompt_version="PROMPT_0_6_V5_20260919")
   except Exception as e:
    held.append({"source_spec_id":spec,"status":"HOLD_NATIVE_V5_DEEP_GATE",

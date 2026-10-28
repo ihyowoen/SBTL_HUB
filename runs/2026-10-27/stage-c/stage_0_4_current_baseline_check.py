@@ -86,7 +86,7 @@ def main():
               if normalize_url(f.get('source_url','')) in overlap
               and ('prior' in str(f.get('source_key','')).lower()
                 or 'predecessor' in str(f.get('evidence_role','')).lower())
-              and old_id in [c.get('id') for c in candidate.get('related_evidence_review',{}).get('matched_baseline_cards',[])]
+              and old_id in [c.get('id') for c in candidate.get('related_evidence_review',{}).get('matched_baseline_cards',[])]]
             # Current anchor must also have its own separate current-event URL
             # and exact distinct date / named action from the old card.
             is_distinct=(typ=='distinct_follow_up'

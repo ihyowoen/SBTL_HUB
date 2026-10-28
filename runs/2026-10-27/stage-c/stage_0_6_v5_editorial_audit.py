@@ -26,8 +26,8 @@ DELTA={
  "A_SPEC_R13_DISC_001":{"implication":"기존 Eni 투자와 달리 이번 변화는 제품의 장기 판로에 있다. 미국 수출입은행(EXIM Bank) 등의 프로젝트 금융에서 장기 구매약정이 대출 요건으로 작용하므로, 실제 금융집행·착공·첫 출하를 각각 확인해야 한다."},
  "A_SPEC_R4_DISC_001":{"fact":"유럽 집행위원회는 10월 9일 C(2026)8051 결정을 채택했다. 결정 제1조는 부속 목록의 사업을 CRMA 전략 프로젝트로 인정하며 제2조의 수신 사업자는 46개로 열거됐다. 이번 변화는 전략 지위의 부여다. 집행위 발표 기준 배터리 원료와 관련된 프로젝트에는 리튬 7건·니켈 12건·코발트 10건이 포함된다."},
  "A_SPEC_SRC26-20260928_160143-0194":{"fact":"Akaysha는 NSW Waratah 배터리가 최종 상업운전에 도달했다고 밝혔다. 명목 설계는 850MW·1,680MWh이며, 배터리와 Transgrid의 SIPS 제어체계가 계통 교란에 대응하도록 설계됐다. 9월 9일에는 701MW 출력으로 full-SIPS 계약 수준을 시험했다. 이번 발표는 시험 출력에서 최종 상업운전 상태로의 변화를 다룬다. 다만 앞서 변압기 고장과 수개월간의 출력 제한이 있었으므로, 운영 신뢰성은 실제 가동률로 추가 확인해야 한다."},
- "A_SPEC_R13_DISC_004":{"fact":"Benchmark는 2026년 3분기 양극재 리뷰에서 DDP 중국 기준 LFP 평가가격이 7.8% 내려 톤당 5만6,000위안에 이르렀다고 보고했다. 이는 해당 기관의 가격 평가 결과다. 공식 양극재 방법론은 LFP의 인도 조건을 DDP 중국·부가세 포함으로, 통화와 단위를 위안·톤으로 정의한다. 같은 리뷰에서 탄산리튬 가격은 전분기 대비 20.8% 하락한 반면 무수 인산철 가격은 4.6% 상승해 원재료별 가격 방향이 엇갈렸다."},
- "A_SPEC_C0_DISC_20261014_EU_GIGA_ALBATROSS_GRID":{"fact":"GIGA Storage와 Amprion은 10월 14일 Dortmund에서 Albatross의 계통접속 계약에 서명했다. 계획 규모는 350MW·1,400MWh이며 Merzen 변전소의 380kV망에 접속한다. 이후 10월 26일 사업자 발표는 금융종결일을 10월 23일로 밝히고 운영 목표를 2029년 초로 제시했다. 같은 후속 발표에는 차입금 2억6,000만유로(€260 million)의 금융조달 패키지가 공개됐으나 계통접속 계약 자체의 집행 금액은 아니다."},
+ "A_SPEC_R13_DISC_004":{"fact":"Benchmark는 2026년 3분기 양극재 리뷰에서 DDP 중국 기준 LFP 평가가격이 7.8% 내려 톤당 56,000위안에 이르렀다고 보고했다. 이는 해당 기관의 가격 평가 결과다. 공식 양극재 방법론은 LFP의 인도 조건을 DDP 중국·부가세 포함으로, 통화와 단위를 위안·톤으로 정의한다. 같은 리뷰에서 탄산리튬 가격은 전분기 대비 20.8% 하락한 반면 무수 인산철 가격은 4.6% 상승해 원재료별 가격 방향이 엇갈렸다."},
+ "A_SPEC_C0_DISC_20261014_EU_GIGA_ALBATROSS_GRID":{"fact":"GIGA Storage와 Amprion은 10월 14일 Dortmund에서 Albatross의 계통접속 계약에 서명했다. 계획 규모는 350MW·1,400MWh이며 Merzen 변전소의 380kV망에 접속한다. 이후 10월 26일 사업자 발표는 금융종결일을 10월 23일로 밝히고 운영 목표를 2029년 초로 제시했다. 같은 후속 발표에는 차입금 €260 million의 금융조달 패키지가 공개됐으나 계통접속 계약 자체의 집행 금액은 아니다."},
  "A_SPEC_C0_DISC_20261006_EU_BWESS_BERKSWELL_OPT":{"fact":"BW ESS와 Danske Commodities는 Berkswell 200MW·857MWh 전체에 대한 10년 최적화 계약을 발표했다. floor 구조 아래 Danske Commodities가 거래·최적화를 맡는다. 8월 31일 Farrans가 발표한 현장 착공·초기 공사와 이번 상업적 계약은 서로 다른 행위다. 사업자는 운영을 2027년 4분기로 예상했다. 또한 약 4시간 저장 기능과 Sungrow PowerTitan 3 적용을 예정하고 있으나 실제 성능·납품 완료가 확인된 것은 아니다."}
 }
 DIMS=("prior_state","changed_state","quantitative_anchor","boundary_or_uncertainty","transmission_path","next_watchpoint")
@@ -79,7 +79,7 @@ def main():
   change=DELTA.get(spec,{})
   for k,v in change.items():
    assert k in {"sub","gate","fact","implication"}
-   row[k]=v
+   row[k]=[v] if k=="implication" else v
   fields=list(change)
   dims={k:False for k in DIMS}; mapping={}
   if spec in PLAN:
@@ -111,7 +111,7 @@ def main():
   }
   try:
    validate_content_enrichment_delta(
-      {"C":[original],"0.4":[original],"0.5":[augmented_05],"0.6":[row]},
+      {"B":[original],"C":[original],"0.4":[original],"0.5":[augmented_05],"0.6":[row]},
       f"Stage0.6 {spec}", locked_prompt_version="PROMPT_0_6_V5_20260919")
   except Exception as e:
    held.append({"source_spec_id":spec,"status":"HOLD_NATIVE_V5_DEEP_GATE",

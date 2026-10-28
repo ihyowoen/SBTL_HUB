@@ -46,6 +46,39 @@ jobs:
       - name: Native 0.5 source owner and URL evidence QC
         run: |
           python validation_scripts/evidence_qc_v8_check.py runs/2026-10-27/stage-c/STAGE_0_4_CURRENT_BASELINE_ADDABILITY_20261027.json --json-report runs/2026-10-27/stage-c/STAGE_0_5_SOURCE_AUDIT_20261028.json
+      - name: Create 0.5 fact/source traceability from verified Stage C
+        run: |
+          python runs/2026-10-27/stage-c/stage_0_5_evidence_claim_qc.py
+      - name: Native 0.5 evidence and claim handoff contract
+        run: |
+          python validation_scripts/stage_artifact_contract_check.py 0.5 runs/2026-10-27/stage-c/STAGE_0_5_EVIDENCE_SOURCE_CLAIM_QC_20261028.json
+      - name: Native 0.5 owner and URL source audit
+        run: |
+          python validation_scripts/evidence_qc_v8_check.py runs/2026-10-27/stage-c/STAGE_0_5_EVIDENCE_SOURCE_CLAIM_QC_20261028.json --json-report runs/2026-10-27/stage-c/STAGE_0_5_NATIVE_SOURCE_AUDIT_20261028.json
+      - name: Native-approved final 0.5 artifact status
+        run: |
+          python - <<'PY'
+          import json, pathlib, hashlib, subprocess
+          p=pathlib.Path("runs/2026-10-27/stage-c/STAGE_0_5_EVIDENCE_SOURCE_CLAIM_QC_20261028.json")
+          o=json.loads(p.read_text())
+          assert o["status"]=="PENDING_NATIVE_STAGE_0_5_VALIDATION"
+          assert len(o["evidence_complete_and_source_claim_covered"])==7
+          assert not o["addable_hold_source_gap"] and not o["addable_hold_claim_gap"]
+          o["status"]="PASS_EVIDENCE_COMPLETE_AND_SOURCE_CLAIM_COVERED_AFTER_NATIVE_CHECKS"
+          p.write_text(json.dumps(o,ensure_ascii=False,indent=2)+"\n")
+          subprocess.run(["python","validation_scripts/stage_artifact_contract_check.py","0.5",str(p)],check=True)
+          subprocess.run(["python","validation_scripts/evidence_qc_v8_check.py",str(p)],check=True)
+          print("NATIVE 0.5 FINAL PASS SHA256",hashlib.sha256(p.read_bytes()).hexdigest())
+          PY
+      - name: Upload native 0.5 claim-audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage05-native-evidence
+          path: |
+            runs/2026-10-27/stage-c/STAGE_0_5_EVIDENCE_SOURCE_CLAIM_QC_20261028.json
+            runs/2026-10-27/stage-c/STAGE_0_5_NATIVE_SOURCE_AUDIT_20261028.json
+          if-no-files-found: warn
       - name: Upload stage 0.4 audit evidence
         if: always()
         uses: actions/upload-artifact@v4

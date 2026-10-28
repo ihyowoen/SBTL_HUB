@@ -50,6 +50,8 @@ def verify():
  return data
 
 def main():
+ sys.path.insert(0,str(pathlib.Path.cwd()))
+ sys.path.insert(0,str(pathlib.Path.cwd()/"validation_scripts"))
  data=verify()
  try:
   from validation_scripts.card_run_v4_binding_hardening import validate_content_enrichment_delta

@@ -28,13 +28,13 @@ jobs:
           echo "PINNED_MAIN_FULL_AND_PROMPT_OK"
       - name: Native Stage 0.5 schema
         run: |
-          python validation_scripts/stage_artifact_contract_check.py 0.5 runs/2026-10-28/stage06-bounded/STAGE_0_5_BOUNDED_NATIVE_CANDIDATE_20261028.json
+          python validation_scripts/stage_artifact_contract_check.py 0.5 runs/2026-10-28/stage06-bounded/STAGE_0_5_BOUNDED_NATIVE_CANDIDATE_20261028_V2.json
       - name: Native Stage 0.5 source audit
         run: |
-          python validation_scripts/evidence_qc_v8_check.py runs/2026-10-28/stage06-bounded/STAGE_0_5_BOUNDED_NATIVE_CANDIDATE_20261028.json --json-report runs/2026-10-28/stage06-bounded/STAGE_0_5_NATIVE_SOURCE_QC_20261028.json
+          python validation_scripts/evidence_qc_v8_check.py runs/2026-10-28/stage06-bounded/STAGE_0_5_BOUNDED_NATIVE_CANDIDATE_20261028_V2.json --json-report runs/2026-10-28/stage06-bounded/STAGE_0_5_NATIVE_SOURCE_QC_20261028.json
       - name: Native Stage 0.6 schema
         run: |
-          python validation_scripts/stage_artifact_contract_check.py 0.6 runs/2026-10-28/stage06-bounded/STAGE_0_6_BOUNDED_NATIVE_CANDIDATE_20261028.json
+          python validation_scripts/stage_artifact_contract_check.py 0.6 runs/2026-10-28/stage06-bounded/STAGE_0_6_BOUNDED_NATIVE_CANDIDATE_20261028_V2.json
       - name: Native Stage 0.6 V5 strict across bound stages and operation copy
         run: |
           python - <<'PY'
@@ -43,11 +43,11 @@ jobs:
           from validation_scripts.card_run_v4_binding_hardening import validate_content_enrichment_delta
           p=Path('runs/2026-10-28/stage06-bounded')
           files=[
-           ('B','STAGE_B_0_2R_BOUNDED_20261028.json','draft_cards'),
-           ('C','STAGE_C_0_3R_BOUNDED_20261028.json','accepted_fact_safe'),
-           ('0.4','STAGE_0_4_BOUNDED_20261028.json','addable_merge_safe'),
-           ('0.5','STAGE_0_5_BOUNDED_NATIVE_CANDIDATE_20261028.json','evidence_complete_and_source_claim_covered'),
-           ('0.6','STAGE_0_6_BOUNDED_NATIVE_CANDIDATE_20261028.json','content_enriched_and_language_polished'),
+           ('B','STAGE_B_0_2R_BOUNDED_20261028_V2.json','draft_cards'),
+           ('C','STAGE_C_0_3R_BOUNDED_20261028_V2.json','accepted_fact_safe'),
+           ('0.4','STAGE_0_4_BOUNDED_20261028_V2.json','addable_merge_safe'),
+           ('0.5','STAGE_0_5_BOUNDED_NATIVE_CANDIDATE_20261028_V2.json','evidence_complete_and_source_claim_covered'),
+           ('0.6','STAGE_0_6_BOUNDED_NATIVE_CANDIDATE_20261028_V2.json','content_enriched_and_language_polished'),
           ]
           rows={}
           for key,filename,bucket in files:
@@ -74,5 +74,5 @@ jobs:
           path: |
             runs/2026-10-28/stage06-bounded/STAGE_0_5_NATIVE_SOURCE_QC_20261028.json
             runs/2026-10-28/stage06-bounded/STAGE_0_2R_0_3R_BOUNDED_REPAIR_RECEIPT_20261028.json
-            runs/2026-10-28/stage06-bounded/STAGE_0_5_BOUNDED_NATIVE_CANDIDATE_20261028.json
-            runs/2026-10-28/stage06-bounded/STAGE_0_6_BOUNDED_NATIVE_CANDIDATE_20261028.json
+            runs/2026-10-28/stage06-bounded/STAGE_0_5_BOUNDED_NATIVE_CANDIDATE_20261028_V2.json
+            runs/2026-10-28/stage06-bounded/STAGE_0_6_BOUNDED_NATIVE_CANDIDATE_20261028_V2.json

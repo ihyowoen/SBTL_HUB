@@ -1,0 +1,39 @@
+{
+  "scope": "Case-specific event/asset-level preliminary Related research on locked Full 1,676, not the formal Stage A V4 Related PASS",
+  "as_of_kst": "2026-10-29",
+  "full_locked_blob": "07a91714e56be2a8bfad10ab63822f0c5cb3f06e",
+  "formal_stage_a_related_verdict": "HOLD",
+  "cases": [
+    {
+      "package_id": "NIO_GEELY_20260927_DUAL_EQUITY",
+      "primary_owner_url": "https://ir.nio.com/news-releases/news-release-details/nio-announces-definitive-agreements-strategic-transaction-geely",
+      "units_under_review": ["NIO_GEELY_20260927_DUAL_EQUITY::NIO_POWER_SUBSCRIPTION", "NIO_GEELY_20260927_DUAL_EQUITY::HAOHAN_SUBSCRIPTION"],
+      "current_execution_stage": "two_signed_definitive_conditional_subscription_agreements_not_two_closings",
+      "related_full_cards": [
+        {"card_id": "2026-08-12_CN_01", "current_full_event": "NIO Wuhan 36 charging/swap stations handed to state-owner/private-operator structure", "comparison": "different asset/instrument/act; earlier NIO swap-network operating strategy context", "treatment": "CONTEXT_ONLY_NO_SAME_TRANSACTION_EVIDENCE"},
+        {"card_id": "GL05", "current_full_event": "NIO-BYD charging ecosystem alliance (2026-03-17)", "comparison": "BYD charging-collaboration agreement vs Geely reciprocal equity subscriptions", "treatment": "DIFFERENT_COUNTERPARTY_AND_INSTRUMENT"},
+        {"card_id": "R8_02", "current_full_event": "Geely high-power charging technology unveiling (2026-03-23)", "comparison": "Geely product/technology announcement vs NIO-Geely corporate equity transaction", "treatment": "DIFFERENT_EVENT"},
+        {"card_id": "R4_12", "current_full_event": "Fast-charging vs NIO battery-swapping technology debate (2026-03-19)", "comparison": "industry commentary vs signed equity transaction", "treatment": "CONTEXT_ONLY"},
+        {"card_id": "2026-04-27_CN_10", "current_full_event": "onsemi-Geely SiC implementation in Haohan superhybrid system", "comparison": "similar Haohan product family name is not proof that the Haohan Energy charging-company equity subject is same transaction", "treatment": "DIFFERENT_INSTRUMENT_AND_COUNTERPARTY"}
+      ],
+      "false_lexical_hits_to_exclude_from_related_shortlist": ["2026-08-10_US_03 (NioCorp not NIO Inc.)", "2026-08-04_US_01 (NioCorp not NIO Inc.)", "2026-06-08_GL_03 (Korean substring 니오 inside unrelated prose)", "2026-04-13_US_03 (NIO substring not actor proof)"],
+      "exact_same_dual_equity_transaction_in_five_named_full_cards": "NOT_FOUND",
+      "limits": "This is a bounded check of five high-relevance Full cards, not proof all other Full cards and current candidate observations have no same event. Four current Source IDs require chronology/dedup grouping and comprehensive candidate-to-candidate Related prepass.",
+      "next_stage_a_gates": ["check condition precedent and source ownership per child transaction", "score independent cardability and non-closing caps", "finalize date_role as announcement/signing versus completion", "run full current-batch Related prepass and native V4 contract"]
+    },
+    {
+      "package_id": "NYSERDA_BULK_BESS_AWARDS_20260923",
+      "primary_owner_url": "https://www.nyserda.ny.gov/About/Newsroom/2026-Announcements/2026-09-23-NYSERDA-Awards-Eight-Bulk-Energy-Storage-Projects-13-LSR-Projects",
+      "units_under_review": ["NYSERDA_BULK_BESS_AWARDS_20260923::LIGHTHOUSE", "NYSERDA_BULK_BESS_AWARDS_20260923::ZENOBE_BURNS", "NYSERDA_BULK_BESS_AWARDS_20260923::EASTWATER", "NYSERDA_BULK_BESS_AWARDS_20260923::KCE_NY_5", "NYSERDA_BULK_BESS_AWARDS_20260923::BLUE_SPRUCE", "NYSERDA_BULK_BESS_AWARDS_20260923::PALLADIUM", "NYSERDA_BULK_BESS_AWARDS_20260923::HOLTSVILLE", "NYSERDA_BULK_BESS_AWARDS_20260923::KCE_NY_37"],
+      "source_authority_claim": "NYSERDA's one 2026-09-23 announcement lists eight contracted awards totaling 950MW, not COD and not disbursed support."
+      ,"named_asset_exact_text_search_in_locked_full_titles_and_card_fields": "NO_EXACT_NAME_MATCH_FOUND_FOR_ALL_EIGHT_2026_09_AWARD_ASSETS",
+      "related_full_cards": [
+        {"card_id": "R15_02", "current_full_event": "Existing Key Capture Energy New York ESS plant operation by March 2026", "comparison": "operational earlier facility vs newly contracted NYSERDA awards; must check its project name/parcel to exclude KCE NY 5 or 37 conclusively", "treatment": "SAME_DEVELOPER_CONTEXT_ASSET_MATCH_UNPROVEN"},
+        {"card_id": "2026-04-22_US_02", "current_full_event": "SK / Key Capture Energy strategic financing partner exploration", "comparison": "corporate equity/capital search vs site-specific NYSERDA contracts", "treatment": "DIFFERENT_ACTION_STILL_DEVELOPER_CONTEXT"},
+        {"card_id": "2026-04-24_KR_03", "current_full_event": "Key Capture Energy investment or stake-sale option", "comparison": "corporate financing vs NYSERDA award", "treatment": "DIFFERENT_ACTION_STILL_DEVELOPER_CONTEXT"}
+      ],
+      "limits": "No exact string match is not semantic duplicate clearance, and an award to one of the eight facilities is not eight independent publishable cards. 2026-09-23 award vs older KCE facility site identity remains open.",
+      "next_stage_a_gates": ["resolve KCE NY 5 and NY 37 site/permit/awarded-company IDs against previously operating facilities", "separate ESS 950MW from parallel renewable awards and aggregate private investment", "assess project-level vs program-level independent cardability", "run policy/execution V4 scoring, source diversity and native Related contracts"]
+    }
+  ]
+}

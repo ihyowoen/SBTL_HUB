@@ -1,0 +1,45 @@
+{
+  "as_of_kst": "2026-10-29",
+  "validator": "independent_create_only_identity_accounting_QC_not_native_stage_a_validator",
+  "result": "PASS_ACCOUNTING_AND_EVIDENCE_BOUND_GRAPH_ONLY",
+  "native_stage_a_artifact_contract": "NOT_EXECUTED_NO_FORMAL_STAGE_A_ARTIFACT",
+  "native_stage_a_lineage_contract": "NOT_EXECUTED_NO_FORMAL_STAGE_A_ARTIFACT",
+  "baseline_source_count": 1330,
+  "baseline_source_id_unique_count": 1330,
+  "prior_0_1P_individually_judged_source_ids_unchanged": 45,
+  "original_0_1P_pending_source_ids_unchanged": 1285,
+  "pending_source_ids_with_additional_evidence_link": 25,
+  "pending_source_ids_without_this_case_bound_evidence": 1260,
+  "new_strict_promotions": 0,
+  "final_exclusions": 0,
+  "source_ids_dropped": 0,
+  "packages_with_identity_evidence": 15,
+  "distinct_underlying_action_asset_units_in_these_packages": 27,
+  "underlying_units_are_not_article_count": true,
+  "watch_source_ids_identity_reopened_without_formal_pool_change": 2,
+  "locked_full_count": 1676,
+  "locked_full_git_blob": "07a91714e56be2a8bfad10ab63822f0c5cb3f06e",
+  "full_keyword_lookups_done_per_case": 15,
+  "lexical_shortlists_are_not_same_event_or_related_decisions": true,
+  "key_boundary_checks": [
+    "NIO: two conditional equity subscriptions, not a single executed sale; RMB16bn post-money valuation differs from RMB640m cash consideration",
+    "NYSERDA: eight distinct award assets and aggregate 950MW, no already operating assets inferred; separate non-ESS renewable awards",
+    "Jupiter: four financing closes April-July for 10 assets, $1,369m rounded amounts, issuer 3,600MWh not input 3,800MWh",
+    "KPX: two different amended tender spreadsheets, not a new awarded ESS procurement",
+    "WATCH Hasang: signed contract remains in WATCH until formal Stage A reclassification"
+  ],
+  "input_sha256": {
+    "STAGE_A_REASSESSMENT_LEDGER_1330_20261027.source.csv": "5e78420916b0c1d70ff56bf928779cd969b94fbb15dd4119c841872997486116",
+    "STAGE_A_1285_IDENTITY_PENDING_QUEUE_20261028.csv": "bbb3185c0cf2f2d271d44b3e84ef7abd45f6584087a27d378999ffe215cda688",
+    "IDENTITY_DECOMPOSITION_INPUT_20261029.json": "41c8340b40984fd14c48a75e40e9cc4565a9fa7ec30c5f3e3e21e6f43d1add10",
+    "STAGE_A_FIVE_CASE_SOURCE_BOUND_REVIEW_20261028.json": "75668674630998c01d0f0f38ae86eee3fe4a590def94d3708ccd410bdb1185b0",
+    "STAGE_A_THREE_PRIMARY_OWNER_EVENT_CASES_INCREMENT_20261028.json": "aa9a7661813782f867ce85507eeeffd0a5f5a6cfee09e490cca4c52ce2e1542c",
+    "STAGE_A_CROSS_POOL_EXECUTION_POLICY_CASES_20261028.json": "5a5cd24dc35700cea1828c124b149cb83040d648eb6b97fe71adbc8f7881fca6"
+  },
+  "output_sha256": {
+    "STAGE_A_15_CASE_EVENT_DECOMPOSITION_V2_20261029.json": "93d97af2a0d4705994ec376235742dbefd0c2f6034981711a801c7a8046b1d7f",
+    "STAGE_A_25_SOURCE_TO_CASE_EDGES_V2_20261029.csv": "3c2d54c2e15890d5f9cf3bd9d828326fc007e6c42a8d9a06b5dedb702665f8e2",
+    "STAGE_A_1330_SOURCE_NO_LOSS_IDENTITY_OVERLAY_V2_20261029.csv": "fc2dc1b65e628655302f627484f20d15e901c4ebeb2855bb4825f393a5098498"
+  },
+  "next_single_bottleneck": "Complete case-specific semantic Related and four Stage A V4 gates, starting with NIO two-equity package and NYSERDA eight-award package; then create a full-source-native Stage A artifact if eligible."
+}

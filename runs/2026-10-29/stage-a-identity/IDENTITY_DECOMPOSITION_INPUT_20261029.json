@@ -1,0 +1,156 @@
+{
+  "schema": "stage_a_evidence_bound_identity_decomposition_v1",
+  "as_of_kst": "2026-10-29",
+  "scope": "Append-only, case-bound refinement of Stage A identity research. No formal economic_event_cluster_id is assigned to the source CSV and no native 0.1P passing bucket is claimed.",
+  "prior_case_groups": {
+    "five": "STAGE_A_FIVE_CASE_SOURCE_BOUND_REVIEW_20261028.json",
+    "three": "STAGE_A_THREE_PRIMARY_OWNER_EVENT_CASES_INCREMENT_20261028.json",
+    "cross": "STAGE_A_CROSS_POOL_EXECUTION_POLICY_CASES_20261028.json"
+  },
+  "cases": [
+    {
+      "package_id": "EVE_IAA_AGREEMENTS_20260919",
+      "prior_group": "five", "prior_index": 0,
+      "owner_url": "https://www.evebattery.com/en/news-1900",
+      "source_locator": "EVE company announcement (page date 2026-09-29, internal dateline 2026-09-19)",
+      "units": [{"id": "AGREEMENTS_IAA", "action": "strategic_cooperation_agreements", "date": "2026-09-19", "date_role": "issuer_internal_dateline_not_individual_contract_signing", "status": "agreement_scope_not_demonstrated_as_firm_orders", "actor_asset": "EVE Energy commercial vehicle cell programs; multiple counterparties", "bounded_fact": "Aggregate cooperation agreements described as more than 30 GWh; per-party binding orders and shipment schedule not verified."}],
+      "hold_reason": "Separate cooperation frameworks from binding purchase orders, clarify differing publication/internal dates and Full overlap."
+    },
+    {
+      "package_id": "ECOPROBM_CATL_TALKS_202609",
+      "prior_group": "five", "prior_index": 1,
+      "owner_url": "https://www.thelec.kr/news/articleView.html?idxno=62506",
+      "source_locator": "Originating reported interview/article; no issuer signed-contract filing verified",
+      "units": [{"id": "NEGOTIATION", "action": "reported_cathode_supply_negotiations", "date": null, "date_role": "negotiation_date_unverified", "status": "reported_nonbinding_talks", "actor_asset": "Ecopro BM and CATL cathode supply", "bounded_fact": "Conditional potential 2028 supply timing is not execution of a firm volume or contract value."}],
+      "hold_reason": "Issuer execution corroboration, strategic non-execution route and V4 cap unresolved."
+    },
+    {
+      "package_id": "NIO_GEELY_20260927_DUAL_EQUITY",
+      "prior_group": "five", "prior_index": 2,
+      "owner_url": "https://ir.nio.com/news-releases/news-release-details/nio-announces-definitive-agreements-strategic-transaction-geely",
+      "source_locator": "NIO issuer 2026-09-27 release, substantive paragraphs 1–3; source dates distinguish signing disclosure and closing",
+      "representative_source_id": "SRC26-20260928_160143-0004",
+      "units": [
+        {"id": "NIO_POWER_SUBSCRIPTION", "action": "definitive_conditional_equity_subscription_agreement", "date": "2026-09-27", "date_role": "signed_agreements_disclosed_not_equity_closing", "status": "signed_agreement_conditional_to_close", "actor_asset": "Geely subsidiary / NIO Power: transfer 100% Yiyi Internet Technology equity plus RMB640m cash for newly issued shares", "bounded_fact": "On closing 30.0% Geely, 63.6% NIO China, 6.4% Wuhan investor; post-money RMB16bn is valuation, not cash paid. Geely stake can decrease to no less than 20% subject to milestones."},
+        {"id": "HAOHAN_SUBSCRIPTION", "action": "separate_definitive_conditional_equity_subscription_agreement", "date": "2026-09-27", "date_role": "signed_agreements_disclosed_not_equity_closing", "status": "signed_agreement_conditional_to_close", "actor_asset": "NIO China / Geely Haohan Energy: cash for newly issued Haohan shares", "bounded_fact": "NIO China to hold 10% on completion; proceeds earmarked for certain charging assets from NIO. Separate capitalization and counterparty direction from NIO Power transaction."}
+      ],
+      "nonexecuted_terms": ["Geely option for an additional RMB640m to potentially raise stake to 34%: optional, not invested or committed as already executed", "Preliminary swap-technology integration and model adoption plans: further discussions, not implementation"],
+      "hold_reason": "Two signings, not one unitary completed equity sale; baseline Related, actual consideration allocation, closing conditions, stage caps and native 0.1P unresolved."
+    },
+    {
+      "package_id": "NYSERDA_BULK_BESS_AWARDS_20260923",
+      "prior_group": "five", "prior_index": 3,
+      "owner_url": "https://www.nyserda.ny.gov/About/Newsroom/2026-Announcements/2026-09-23-NYSERDA-Awards-Eight-Bulk-Energy-Storage-Projects-13-LSR-Projects",
+      "source_locator": "NYSERDA official 2026-09-23 announcement, 'New York’s First Bulk Energy Storage Awards' list",
+      "units": [
+        {"id": "LIGHTHOUSE", "actor_asset": "Lighthouse Energy Storage, Chautauqua County", "action": "bulk_storage_award", "date": "2026-09-23", "date_role": "award_announcement_not_cod", "status": "contracted_award"},
+        {"id": "ZENOBE_BURNS", "actor_asset": "Zenobe Burns, Allegany County", "action": "bulk_storage_award", "date": "2026-09-23", "date_role": "award_announcement_not_cod", "status": "contracted_award"},
+        {"id": "EASTWATER", "actor_asset": "Eastwater Energy Storage, Monroe County", "action": "bulk_storage_award", "date": "2026-09-23", "date_role": "award_announcement_not_cod", "status": "contracted_award"},
+        {"id": "KCE_NY_5", "actor_asset": "KCE NY 5, Ulster County", "action": "bulk_storage_award", "date": "2026-09-23", "date_role": "award_announcement_not_cod", "status": "contracted_award"},
+        {"id": "BLUE_SPRUCE", "actor_asset": "Blue Spruce Storage, Bronx County", "action": "bulk_storage_award", "date": "2026-09-23", "date_role": "award_announcement_not_cod", "status": "contracted_award"},
+        {"id": "PALLADIUM", "actor_asset": "Palladium Storage, Bronx County", "action": "bulk_storage_award", "date": "2026-09-23", "date_role": "award_announcement_not_cod", "status": "contracted_award"},
+        {"id": "HOLTSVILLE", "actor_asset": "Holtsville Energy Storage, Suffolk County", "action": "bulk_storage_award", "date": "2026-09-23", "date_role": "award_announcement_not_cod", "status": "contracted_award"},
+        {"id": "KCE_NY_37", "actor_asset": "KCE NY 37, Suffolk County", "action": "bulk_storage_award", "date": "2026-09-23", "date_role": "award_announcement_not_cod", "status": "contracted_award"}
+      ],
+      "package_fact": "Eight named awards are 950 MW aggregate, four-to-eight hour systems, selected among 46 bids/~6 GW; all pending permits and operation before contract payments; expected in service by end-2030. Separate 13 renewable awards (>719MW); 1.7GW and $3.7bn describe combined portfolio, not ESS alone.",
+      "hold_reason": "Determine award-level fresh-event Related across Full 1676 and whether one package-level program card is appropriate; don't infer eight independent cards or eight operational plants."
+    },
+    {
+      "package_id": "BORZESTI_918MWH_CEE_202609",
+      "prior_group": "five", "prior_index": 4,
+      "owner_url": "https://www.energy-storage.news/catl-supply-918mwh-romania-bess-another-500mwh-projects-progress-elsewhere-in-cee/",
+      "source_locator": "Trade press and separate Renovatio reports; developer-original supply/EPC instrument not authenticated",
+      "units": [{"id": "BORZESTI", "actor_asset": "RNV/Greenvolt Borzesti Romania 918 MWh BESS, Renovatio EPC, CATL supplier reported", "action": "reported_project_supply_epc", "date": null, "date_role": "binding_contract_date_unverified", "status": "reported_not_primary_verified"}],
+      "hold_reason": "Authenticate developer/CATL contract, separate other Central/Eastern European assets, complete exact Full comparison."
+    },
+    {
+      "package_id": "GLOBAL_LITHIUM_TITAN_SID_20260921",
+      "prior_group": "three", "prior_index": 0,
+      "owner_url": "https://announcements.asx.com.au/asxpdf/20260922/pdf/074c1zncq39vxj.pdf",
+      "source_locator": "Global Lithium official ASX release 2026-09-22 and signed 2026-09-21 SID",
+      "units": [{"id": "SID", "actor_asset": "Titan Australia Mining proposed 100% Global Lithium share acquisition", "action": "binding_scheme_implementation_deed_signed", "date": "2026-09-21", "date_role": "signed_scheme_not_completed_acquisition", "status": "signed_conditional_scheme", "bounded_fact": "A$1.15/share and approximately A$333m equity value; shareholder, court and regulatory approvals remain. Separate up to A$120m bridging facility not purchase consideration."}],
+      "hold_reason": "No closing claim; first-event freshness and earlier Manna / Full lineage and Stage A score gates pending."
+    },
+    {
+      "package_id": "GRIDSTOR_WHITE_TANK_FINANCING_202609",
+      "prior_group": "three", "prior_index": 1,
+      "owner_url": "https://gridstor.com/ing-capital-keybanc-capital-markets-zions-capital-markets-and-gridstor-announce-close-of-220-million-debt-financing-agreement/",
+      "source_locator": "GridStor release body dateline 2026-09-09; webpage says 2026-09-21",
+      "units": [{"id": "FINANCING_CLOSE", "actor_asset": "GridStor White Tank Arizona 100MW/400MWh BESS", "action": "project_debt_financing_closed_usd220m", "date": null, "date_role": "closing_day_unresolved_two_publication_dates", "status": "closed_financing_date_unresolved", "bounded_fact": "Project financing closed; first service H1 2027 projected, not COD. Prior 20-year APS tolling is distinct action."}],
+      "hold_reason": "Obtain actual close date and baseline same-project prior-stage lineage before V4 admissibility."
+    },
+    {
+      "package_id": "JUPITER_FOUR_FINANCINGS_PORTFOLIO_20260916",
+      "prior_group": "three", "prior_index": 2,
+      "owner_url": "https://jupiterpower.io/jupiter-power-secures-1-4-billion-in-project-financing-for-ten-utility-scale-battery-energy-storage-projects/",
+      "source_locator": "Jupiter company 2026-09-16 aggregate disclosure, each separate closing paragraph",
+      "units": [
+        {"id": "APR_CLOSE", "actor_asset": "Callisto II and Pamela Heights I (Texas)", "action": "senior_secured_project_facility_closed", "date": "2026-04", "date_role": "month_of_closing_not_sep_16", "status": "closed_financing", "usd_million": 258},
+        {"id": "MAY_CLOSE", "actor_asset": "Grand Basin and Voyager I (Michigan)", "action": "project_financing_package_closed", "date": "2026-05", "date_role": "month_of_closing_not_sep_16", "status": "closed_financing", "usd_million": 294},
+        {"id": "JUN_CLOSE", "actor_asset": "Tidwell Prairie I, St. Gall II and Tibbits (TX/MI)", "action": "secured_notes_and_letter_of_credit_closed", "date": "2026-06", "date_role": "month_of_closing_not_sep_16", "status": "closed_financing", "usd_million": 281},
+        {"id": "JUL_CLOSE", "actor_asset": "Tidwell Prairie II, Bee Branch and Barton Branch (Texas)", "action": "construction_financing_facility_closed", "date": "2026-07", "date_role": "month_of_closing_not_sep_16", "status": "closed_financing", "usd_million": 536}
+      ],
+      "package_fact": "Issuer aggregates approximately $1.4bn across four closes and 10 named assets, 1500MW/3600MWh (NOT the discovery headline's 3800MWh). Monthly rounded totals add to $1369m; no September closing established.",
+      "hold_reason": "Four earlier closes may have been reported separately: first-publication, decision-value freshness, per-asset Related and card granularity unresolved."
+    },
+    {
+      "package_id": "KEPCO_KPS_HASANG_STAKE_20260922",
+      "prior_group": "cross", "prior_index": 0,
+      "owner_url": "https://www.hankyung.com/article/202609233254P",
+      "source_locator": "KEPCO KPS issuer-origin syndicated release, dated 2026-09-23",
+      "units": [{"id": "SIGNED_STAKE_AGREEMENT", "actor_asset": "KEPCO KPS / PT BNE 41MW operating Hasang hydropower Indonesia", "action": "share_acquisition_contract_signed_40percent", "date": "2026-09-22", "date_role": "signed_contract_not_share_register_close", "status": "signed_acquisition_contract", "bounded_fact": "35 percentage points to be bought from LX International, five points from PT EJP; the plant itself began operation earlier, distinct from share transaction."}],
+      "hold_reason": "This is WATCH score26, requires Stage A pool reclassification before 0.1P; independent 0.1/0.1S structural value and ownership close outstanding."
+    },
+    {
+      "package_id": "RWE_MOERDIJK_FID_20260921",
+      "prior_group": "cross", "prior_index": 1,
+      "owner_url": "https://www.rwe.com/en/press/rwe-generation/2026-09-21-rwe-to-build-400-mw-battery-to-ease-grid-congestion-in-noord-brabant/",
+      "source_locator": "RWE issuer 2026-09-21 investment decision announcement",
+      "units": [{"id": "FID", "actor_asset": "RWE Moerdijk Netherlands 400MW/1100MWh BESS", "action": "final_investment_decision", "date": "2026-09-21", "date_role": "fid_not_cod", "status": "fid_announced", "bounded_fact": "Commissioning planned Q2 2028, not already built."}],
+      "hold_reason": "Full and prior-stage overlap, V4 score/caps and native artifacts not completed."
+    },
+    {
+      "package_id": "FORM_ENERGY_CREDIT_20260921",
+      "prior_group": "cross", "prior_index": 2,
+      "owner_url": "https://www.globenewswire.com/news-release/2026/09/21/3365616/0/en/form-energy-announces-closing-of-270m-credit-facility.html",
+      "source_locator": "Form Energy issuer-origin 2026-09-21 newswire",
+      "units": [{"id": "CREDIT_CLOSE", "actor_asset": "Form Energy Form Factory 1 manufacturing finance", "action": "credit_facility_closed_usd270m", "date": "2026-09-21", "date_role": "credit_close_not_accordion_draw", "status": "closed_credit_facility", "bounded_fact": "Optional accordion allows total credit up to $1bn, not current debt commitment or drawn capital. August $750m Series G separate equity event."}],
+      "hold_reason": "Independent financial significance, Form antecedent Related, source diversity and V4 gate unresolved."
+    },
+    {
+      "package_id": "ZHEJIANG_ESS_SPOT_NOTICE_20260923",
+      "prior_group": "cross", "prior_index": 3,
+      "owner_url": "https://zjb.nea.gov.cn/dtyw/jgdt/202609/t20260923_309533.html",
+      "source_locator": "Zhejiang NEA office 2026-09-23 notice description; underlying joint instrument not obtained",
+      "units": [{"id": "ISSUANCE", "actor_asset": "Zhejiang independent grid-side energy storage spot and ancillary services self-scheduling", "action": "joint_market_participation_notice_announced", "date": null, "date_role": "notice_posted_sep_23_effective_date_unverified", "status": "regulator_reports_notice_issued", "bounded_fact": "Spot/frequency-regulation participation framework described; no claim every BESS enrolled or began trading."}],
+      "hold_reason": "Need underlying instrument, legal effective date, Stage A policy-route/caps and Full Related."
+    },
+    {
+      "package_id": "KPX_ESS_SHEET_FORMULA_20261014",
+      "prior_group": "cross", "prior_index": 4,
+      "owner_url": "https://kpx.or.kr/board.es?act=view&bid=0042&list_no=78312&mid=a11201000000&nPage=1&tag=",
+      "source_locator": "KPX 2026-10-14 appendix 3 workbook errata; two tender workbooks in one bulletin",
+      "units": [
+        {"id": "MAINLAND_FORMULA", "actor_asset": "2026 mainland ESS central contract market bidder Data Sheet", "action": "cell_g60_formula_corrected", "date": "2026-10-14", "date_role": "worksheet_errata_not_new_award", "status": "formula_errata", "bounded_fact": "IFERROR(G59/G23,0) became IFERROR(G59/G20,0)."},
+        {"id": "JEJU_FORMULA", "actor_asset": "2026 Jeju ESS central contract market bidder Data Sheet", "action": "cell_g61_formula_corrected", "date": "2026-10-14", "date_role": "worksheet_errata_not_new_award", "status": "formula_errata", "bounded_fact": "IFERROR(G60/G24,0) became IFERROR(G60/G21,0)."}
+      ],
+      "hold_reason": "Related tender lineage and economic materiality of bid spreadsheet fix not resolved; original/amended workbook independent binary proof pending."
+    },
+    {
+      "package_id": "EREX_SANBU_BESS_COD_20261020",
+      "new_case_original_source_ids": ["R39-SOURCE-20261020-JP-EREX-SANBU-COD"],
+      "owner_url": "https://prtimes.jp/main/html/rd/p/000000179.000029914.html",
+      "source_locator": "Issuer-authored PR Times 2026-10-20, sections 1–2 specifications",
+      "units": [{"id": "SANBU_COD", "actor_asset": "Chiba Sanbu-gun Shibayama grid BESS (1,989.6kW/8,147kWh LFP)", "action": "commercial_operation_started", "date": "2026-10-20", "date_role": "named_asset_cod_not_jan_2026_plan", "status": "operating_as_reported_by_issuer", "bounded_fact": "eRex identifies own role as operation/control aggregator, not necessarily battery asset owner; first different project entered COD April 2026."}],
+      "hold_reason": "Small project, previous Jan disclosure progression, Full overlap, Stage A systemic scale and independent-cardability evaluation pending."
+    },
+    {
+      "package_id": "HITACHI_CANADA_PRESSBOARD_20261016",
+      "new_case_original_source_ids": ["R39-SOURCE-20261016-CA-HITACHI-PRESSBOARD-INVESTMENT"],
+      "owner_url": "https://www.hitachienergy.com/us/en/news-and-events/press-releases/2026/10/hitachi-energy-invests-479-million-cad-to-bring-critical-transformer-manufacturing-capability-to-canada",
+      "source_locator": "Hitachi Energy company statement 2026-10-16, first 4 paragraphs",
+      "units": [{"id": "PRESSBOARD_FACTORY_ANNOUNCEMENT", "actor_asset": "Hitachi Energy planned transformer insulation/pressboard manufacturing factory London Ontario Canada", "action": "announced_cad479m_factory_investment", "date": "2026-10-16", "date_role": "investment_announcement_not_factory_cod", "status": "planned_capex_not_operating", "bounded_fact": "First Canadian pressboard line/first Hitachi Energy Americas; facility projected 2028. Federal CAD20m, Ontario up-to CAD20m, Natural Resources Canada CAD10m support are separately described and not proof all paid."}],
+      "hold_reason": "Determine binding investment decision, direct battery/ESS decision-value relevance, Full overlaps and Stage A score/caps before promotion."
+    }
+  ]
+}

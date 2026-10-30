@@ -1,0 +1,115 @@
+{
+  "artifact_type": "STAGE_A_SOURCE_BOUND_CASE_EVIDENCE_NOT_NATIVE_0_1P",
+  "as_of_kst": "2026-10-30",
+  "baseline_source_sha256": "5e78420916b0c1d70ff56bf928779cd969b94fbb15dd4119c841872997486116",
+  "locked_full_git_blob": "07a91714e56be2a8bfad10ab63822f0c5cb3f06e",
+  "native_0_1P_promotion_count": 0,
+  "candidate_case_count": 5,
+  "source_id_count": 6,
+  "economic_or_award_units": 6,
+  "cases": [
+    {
+      "case_id": "NTH_CYCLE_GLENCORE_PROJECT_SHIELD_TERM_SHEET_20260922",
+      "source_ids": ["SRC26-20260923_132732-0147"],
+      "underlying_economic_units": ["NTH_GLencore_FEEDSTOCK_PLUS_MHP_LITHIUM_OFFTAKE_TERM_SHEET"],
+      "representative_event_date": "2026-09-22",
+      "date_role": "issuer_release_and_signing_ceremony_date",
+      "instrument_status": "binding_term_sheet_not_final_definitive_agreements",
+      "primary_source_url": "https://nthcycle.com/newsroom/nth-cycle-announces-binding-term-sheet-for-strategic-partnership-with-glencore-ltd.-with-a-10-year-projected-value-of-over-1-billion",
+      "primary_source_locator": "Sep22 company release body, lines 39-58 on web readback",
+      "primary_source_facts": [
+        "Glencore to provide the planned Project SHIELD facility's black mass input and to take MHP/battery-grade lithium carbonate output under a binding commercial term sheet.",
+        "Estimated ten-year offtake value exceeds USD 1 billion based on Q2 2026 forecast prices; not current earned revenue, fixed guaranteed cash, or delivered material.",
+        "The parties target final definitive feedstock and offtake agreements by end of 2026."
+      ],
+      "separate_predecessor_full_card_id": "R3_07",
+      "same_event_full_verdict": "NO_NTH_CYCLE_TRAFIGURA_MARCH_IS_DIFFERENT_COUNTERPARTY_AND_AGREEMENT",
+      "related_prepass": "POTENTIAL_NTH_CYCLE_OWNED_PROJECT_SHIELD_LINEAGE_NEEDS_SEMANTIC_REVIEW",
+      "four_judgment_scope": "credible_specific_behavior_plus_material_scale_provisionally; native_score_and_cardability_not_closed",
+      "hold_reason": "Definitive purchase/sale agreements, site completion, finance, and project-level contracted volume not verified."
+    },
+    {
+      "case_id": "ORIANA_MSEDCL_900MW_TWO_LOA_20260918",
+      "source_ids": ["SRC26-20260923_132732-0166"],
+      "underlying_economic_units": [
+        "ORIANA_MSEDCL_STANDALONE_500MW_1000MWH_LOA_20260918",
+        "ORIANA_MSEDCL_MSKVY_400MW_800MWH_LOA_20260918"
+      ],
+      "representative_event_date": "2026-09-18",
+      "date_role": "two_LOA_dates_as_in_exchange_filing; filing_2026-09-21",
+      "instrument_status": "two_LOA_received; separate_BESPAs_not_yet_executed",
+      "primary_source_url": "https://orianapower.com/wp-content/uploads/2026/09/ORIANA-BESS-MSEDCL-21-09-2026.pdf",
+      "primary_source_locator": "company NSE Regulation 30 filing, 4 pages, pp 1-3, paragraphs 15-29 and Annexure 61-102",
+      "primary_source_facts": [
+        "LOA 500MW/1000MWh at INR 238000 per MW-month, MSETCL substation; estimated INR 2142 crore over 15 years.",
+        "LOA 400MW/800MWh at INR 240000 per MW-month, MSEDCL substation; estimated INR 1728 crore over 15 years.",
+        "Combined 900MW/1800MWh, estimated INR 3870 crore over 15 years and expected VGF INR 324 crore; not a lump-sum battery purchase price.",
+        "Both BESPAs still to be executed and scheduled commissioning dates follow future BESPA terms."
+      ],
+      "same_event_full_verdict": "NO_NAMED_ORIANA_MSEDCL_MATCH_FOUND_IN_FULL_TITLE_SCREEN",
+      "related_prepass": "NEEDS_FULL_FACT_URL_AND_RELATED_SEMANTIC_NATIVE_CHECK",
+      "four_judgment_scope": "two_awards_share_purchaser_but_distinct_capacity_location_tariff; source_id_one_to_many_events",
+      "hold_reason": "Official 0.1P four judgments and baseline Related not complete; avoid asserting signed BESPA or commissioned systems."
+    },
+    {
+      "case_id": "GOTION_SAUDI_THREE_SITE_6GWH_SUPPLIER_20260911",
+      "source_ids": ["SRC26-20260923_132732-0295"],
+      "underlying_economic_units": ["GOTION_6GWH_BESS_TECH_SUPPLY_FOR_EXISTING_SAUDI_PROGRAM"],
+      "representative_event_date": "2026-09-11",
+      "date_role": "Gotion_company_announcement_date; procurement_execution_date_not_established",
+      "instrument_status": "supplier_6GWh_order_announced; detailed_binding_terms_unavailable",
+      "primary_source_url": "https://www.gotion.com.cn/newsInfo/979",
+      "primary_source_locator": "Chinese issuer release dated Sep11, main paragraphs 88-101 on web readback",
+      "parent_project_source_url": "https://acwapower.com/en/media-center/latest-news/acwa-signs-agreements-for-6-000-mwh-of-battery-storage-in-saudi-arabia/",
+      "primary_source_facts": [
+        "Gotion reports winning the core 6GWh BESS equipment supply for three Saudi storage sites; projects under substantive construction.",
+        "ACWA signed on Aug20 three 15-year storage services agreements for Haden, Muwayh, AlKahfah at 500MW/2000MWh each; equipment supplier attribution is a later different type of contract milestone.",
+        "Saudi first-group procurement is 2GW/8GWh in locked Full; do not add 6GWh as entirely separate Saudi capacity."
+      ],
+      "related_prior_full_card_id": "2026-08-20_GL_01",
+      "same_event_full_verdict": "LIKELY_SAME_PARENT_PROGRAM_SEPARATE_SUPPLIER_AWARD_MILESTONE_NOT_A_NEW_6GWH_PROJECT",
+      "related_prepass": "REQUIRES_EXACT_PROJECT_NAME_AND_SCOPE_CONFIRMATION_BEFORE_PARENT_CHILD_EDGE",
+      "four_judgment_scope": "incremental_supplier_information_may_support_older_card_update_or_related_add; no_new_standalone_capacity",
+      "hold_reason": "Company issuer does not name three sites in this article, and equipment contract award/volume delivery terms require independent matching."
+    },
+    {
+      "case_id": "ESR_AQUILA_CLEAN_ENERGY_APAC_SIGNED_ACQUISITION_20260924",
+      "source_ids": ["SRC26-20260926_120143-0163"],
+      "underlying_economic_units": ["ESR_100PCT_AQUILA_APAC_ACQUISITION_SIGNED_NOT_CLOSED"],
+      "representative_event_date": "2026-09-24",
+      "date_role": "ESR_original_issuer_signing_announcement",
+      "instrument_status": "signed_100_percent_purchase_agreement_subject_to_customary_closing_conditions",
+      "primary_source_url": "https://www.esr.com/news/esr-acquires-aquila-clean-energy/",
+      "primary_source_locator": "company issuer body Sep24, text lines 41-50 on web readback",
+      "primary_source_facts": [
+        "ESR signed to acquire 100% of Aquila Clean Energy APAC from Aquila Group.",
+        "Aquila APAC has 1.6GW solar, wind and battery storage assets in operation, construction or advanced development; not 1.6GW of commissioned BESS.",
+        "Closing is expected by Q1 2027 subject to conditions; no completed acquisition asserted."
+      ],
+      "same_event_full_verdict": "NO_NAMED_ESR_AQUILA_MATCH_FOUND_IN_FULL_TITLE_SCREEN",
+      "related_prepass": "NEEDS_FULL_SOURCE_FACT_SEMANTIC_MATCH",
+      "four_judgment_scope": "specific_MA_execution_announcement_and_renewables_supply_position; detailed_storage_fraction_unknown",
+      "hold_reason": "Closing not achieved and battery share of mixed 1.6GW portfolio unknown."
+    },
+    {
+      "case_id": "GLENCORE_VAULTCO_EXIM_MINERALS_COMMITMENT_20260923",
+      "source_ids": ["SRC26-20260926_120143-0202", "SRC26-20260926_120143-0211"],
+      "underlying_economic_units": ["GLENCORE_500M_US_EXIM_BACKED_VAULTCO_PARTNER_COMMITMENT"],
+      "representative_event_date": "2026-09-23",
+      "date_role": "Glencore_issuer_public_announcement",
+      "instrument_status": "Glencore_founder_partner_selection_and_reported_500m_financing_commitment_not_executed_loan_disbursement",
+      "primary_source_url": "https://www.glencore.com/media-and-insights/news/glencore-partners-with-us-exim-bank-to-build-strategic-minerals-reserve-fund",
+      "primary_source_locator": "Glencore corporate release dated Sep23, body lines 242-258 on web readback",
+      "government_program_source_url": "https://www.exim.gov/news/fact-sheet/project-vault",
+      "primary_source_facts": [
+        "Glencore was selected as founding partner of VaultCo, a public-private U.S. strategic minerals reserve mechanism supported by EXIM.",
+        "Glencore's Sep23 issuer release headlines a USD 500 million minerals commitment; other headlines mention 1 billion in combined Glencore/Mercuria commitments, not USD 1 billion assigned to Glencore alone.",
+        "EXIM had already approved up to USD 10 billion for Project Vault in February 2026; Sep23 partner procurement milestone is not a brand-new USD 10 billion loan approval."
+      ],
+      "same_event_full_verdict": "NO_NAMED_VAULTCO_GLencore_MATCH_FOUND_IN_FULL_TITLE_SCREEN",
+      "related_prepass": "EARLIER_EXIM_PROJECT_VAULT_GOVERNMENT_EVENT_MUST_BE_LINKED_IF_PRESENT",
+      "four_judgment_scope": "specific_private_supplier_partner_stage; financing terms and ownership not independently demonstrated",
+      "hold_reason": "Glencore release does not establish bank loan disbursement or definitive stockpile commodity quantity; distinguish existing federal loan authorization and counterpart commitments."
+    }
+  ]
+}

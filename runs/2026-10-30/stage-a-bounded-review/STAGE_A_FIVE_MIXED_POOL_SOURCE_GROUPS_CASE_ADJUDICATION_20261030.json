@@ -1,0 +1,203 @@
+{
+  "artifact_type": "STAGE_A_0_1P_CROSS_POOL_CONFLICT_BOUNDED_EVIDENCE_NOT_NATIVE_PASS",
+  "date_kst": "2026-10-30",
+  "source_baseline_sha256": "5e78420916b0c1d70ff56bf928779cd969b94fbb15dd4119c841872997486116",
+  "full_git_blob": "07a91714e56be2a8bfad10ab63822f0c5cb3f06e",
+  "full_count": 1676,
+  "original_population": 1330,
+  "mixed_pool_groups_detected_in_full_source_graph": 14,
+  "mixed_pool_groups_with_source_body_evidence_in_this_file": 5,
+  "unique_source_ids_covered_in_this_file": 10,
+  "economically_distinct_claims_reconstructed_in_this_file": 6,
+  "original_source_ids_all_preserved": true,
+  "source_id_to_event_relation": "One source URL may describe more than one separate economic event, notably China's 34 + 40 ten-thousand-tonnes/year headline (340,000 + 400,000 tonnes/year planned/design); all Source IDs remain traceable to both separate claim fragments, and the figures are not one operating total.",
+  "formal_0_1P_unadjudicated_count_remains": 1285,
+  "formal_new_strict_promotions": 0,
+  "native_stage_a_validator_status": "NOT_EXECUTED_INCOMPLETE_UNIVERSE",
+  "native_stage_a_lineage_status": "NOT_EXECUTED_INCOMPLETE_UNIVERSE",
+  "no_new_review_round": true,
+  "source_observation_groups": [
+    {
+      "group_id": "SOURCE_URL_OBSERVATION_5d3fdcc933c7f7a4",
+      "source_url": "https://chuneng.ofweek.com/news/2026-09/ART-180225-8420-30704503.html",
+      "source_ids": ["SRC26-20260923_132732-0180", "SRC26-20260926_120143-0304"],
+      "original_pools": ["watchlist_context_pool", "candidate_review_pool"],
+      "original_scores": [26, 58],
+      "linked_claim_ids": ["NVIDIA_DSX_READY_BESS_3_CDU_3_20260921"],
+      "observational_equivalence": "SAME_ARTICLE_URL_AND_HEADLINE; NOT_PROVEN_ECONOMIC_EVENT_DUPLICATE_DISPOSITION"
+    },
+    {
+      "group_id": "SOURCE_URL_OBSERVATION_f44871dd75510fb2",
+      "source_url": "https://www.electrive.com/2026/09/25/soregies-acquires-bp-pulse-fast-charging-network-in-france",
+      "source_ids": ["SRC26-20260926_120143-0236", "SRC26-20260928_160143-0208"],
+      "original_pools": ["watchlist_context_pool", "candidate_review_pool"],
+      "original_scores": [26, 64],
+      "linked_claim_ids": ["SOREGIES_BP_PULSE_FRANCE_SIGNED_ACQUISITION_20260922"],
+      "observational_equivalence": "SAME_ARTICLE_URL_AND_HEADLINE; TWO_SOURCE_OBSERVATIONS_PRESERVED"
+    },
+    {
+      "group_id": "SOURCE_URL_OBSERVATION_92f1ea991802c759",
+      "source_url": "https://www.impacton.net/news/articleView.html?idxno=30033",
+      "source_ids": ["SRC26-20260923_132732-0034", "SRC26-20260926_120143-0112"],
+      "original_pools": ["candidate_review_pool", "watchlist_context_pool"],
+      "original_scores": [44, 26],
+      "linked_claim_ids": ["PORSCHE_CYLIB_RECYCLED_CAM_PILOT_20260917"],
+      "observational_equivalence": "SAME_ARTICLE_URL_AND_HEADLINE; PILOT_SCOPE_CHECKED_AGAINST_PORSCHE_PRIMARY"
+    },
+    {
+      "group_id": "SOURCE_URL_OBSERVATION_94295fcc406594a2",
+      "source_url": "https://view.asiae.co.kr/article/2026092307304929997",
+      "source_ids": ["SRC26-20260923_132732-0089", "SRC26-20260926_120143-0138"],
+      "original_pools": ["candidate_review_pool", "watchlist_context_pool"],
+      "original_scores": [44, 26],
+      "linked_claim_ids": ["LG_ELECTRONICS_SK_ENMOVE_COOLING_MOU_20260921"],
+      "observational_equivalence": "SAME_ARTICLE_URL_AND_HEADLINE; MOU_NOT_COMMERCIAL_DELIVERY"
+    },
+    {
+      "group_id": "SOURCE_URL_OBSERVATION_fc68908b1bcbea62",
+      "source_url": "https://libattery.ofweek.com/2026-09/ART-36002-8120-30704728.html",
+      "source_ids": ["SRC26-20260926_120143-0295", "SRC26-20260928_160143-0284"],
+      "original_pools": ["watchlist_context_pool", "candidate_review_pool"],
+      "original_scores": [26, 57],
+      "linked_claim_ids": ["RONBAY_BIJIE_LFP_PHASE1_START_20260922", "HUNAN_YUNENG_WENGAN_LFP_EIA_PUBLIC_NOTICE_20260918"],
+      "observational_equivalence": "ONE_COMBINED_SOURCE_ARTICLE_WITH_TWO_SEPARATE_COMPANIES_ASSETS_AND_DIFFERENT_EXECUTION_STAGES; NEVER_SINGLE_740KT_OPERATING_EVENT"
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "NVIDIA_DSX_READY_BESS_3_CDU_3_20260921",
+      "source_observation_group_id": "SOURCE_URL_OBSERVATION_5d3fdcc933c7f7a4",
+      "source_ids": ["SRC26-20260923_132732-0180", "SRC26-20260926_120143-0304"],
+      "economic_identity": "NVIDIA's DSX Ready product-qualification program launched 2026-09-21 with three BESS supplier offerings and three separate cooling distribution unit suppliers.",
+      "not_claimed": "No evidence of six BESS suppliers, exclusive vendors, binding battery offtake, deployed AI-factory sites, or Chinese companies being technically ineligible.",
+      "participants_by_category": {
+        "BESS": ["Hitachi Energy", "LG Energy Solution", "Tesla"],
+        "CDU_NOT_BESS": ["LG Electronics", "LiquidStack", "Vertiv"]
+      },
+      "before_after": {"prior_state": "BESS and liquid cooling systems existed as separate AI data-centre infrastructure product classes.", "new_verified_fact": "NVIDIA introduced DSX Ready and identified category-specific launch qualifications, with LGES's BESS separately acknowledged by LG on Sep22.", "changed_judgment": "Supplier qualification is a concrete AI-infrastructure market-access signal for named product offerings, but does not constitute actual commercial order or site certification.", "uncertainty_resolved": "Exact September 2026 initial BESS/CDU vendor partition and qualification stage.", "remaining_uncertainty": "Product-level formal test conditions, subsequent additions, end-user procurement, site engineering, firm volume.", "incremental_information": "Specific technical market qualification for storage/cooling products; original story's six-ESS-company framing corrected.", "decision_relevance": "AI data-centre demand-to-BESS interface and supplier eligibility."},
+      "execution_credibility_gate": {"status": "PASS", "reason": "Issuer NVIDIA documents introduction and qualified products by two explicit categories; PASS concerns qualification launch, not revenue or site stability."},
+      "independent_cardability_gate": {"status": "PASS", "reason": "First-party, time-specific qualification of named BESS solutions materially differs from general AI ESS demand headlines; any candidate still requires full Related/lineage QC."},
+      "decision_value": {"original_metadata_scores": [26, 58], "provisional_reassessed_score": 60, "decision_value_breakdown": {"market_structure_competition": 19, "supply_demand_price_utilisation": 18, "technology_performance_safety": 14, "cashflow_asset_value": 3, "law_policy_market_access": 0, "systemic_scale": 2, "persistence_irreversibility": 2, "decision_urgency_actionability": 2}, "classification": "material_industry_signal_55_69", "systemic_scale_denominator": null, "denominator_gap": "No verified percentage of total AI data-centre BESS procurement or deployed capacity.", "technology_evidence_level": "independent_test_or_customer_qualification", "policy_stage": null, "novelty_cap_basis": "none", "review_provisional_not_source_metadata_replacement": true},
+      "publication_urgency": {"status": "near_term", "reason": "September launch qualification can inform vendor monitoring now; await awarded orders and site deployments before demand estimates."},
+      "selection_route": "structural_non_execution_route",
+      "anchor_classes": ["strategic_behavior_anchor", "technology_commercialization_anchor"],
+      "why_execution_event_not_required": "Product qualification changes eligible AI-factory infrastructure offering status without an equipment sale.",
+      "date_role": {"representative_publication": "2026-09-21", "issuer_launch": "2026-09-21", "LGES_confirmation": "2026-09-22", "original_OFweek_page_date": "2026-09-23", "customer_contract_date": null},
+      "related_prepass": {"status": "HOLD", "same_event_checked_in_locked_full_title_fact_screen": true, "matching_specific_DSX_Ready_card_found": false, "duplicate_disposition": "uncertain_needs_review", "reason": "No direct full title/fact DSX event hit, but all-source predecessor/program lineage still requires native prepass."},
+      "evidence": [
+        {"owner": "NVIDIA", "role": "issuer_first_party_launch", "url": "https://blogs.nvidia.com/blog/dsx-ready-ai-factories-power-cooling/", "locator": "2026-09-21 program launch; section Power and Cooling Qualification, category vendor list and site-level caveat"},
+        {"owner": "LG Energy Solution via LG Corp", "role": "independent_participant_first_party", "url": "https://lgcorp.com/media/release/30596", "locator": "2026-09-22 issuer confirmation of AC-coupled BESS product qualification"}
+      ],
+      "evidence_needed_for_stage_b": ["Official model-level NVIDIA qualification parameters and dates as of September 2026", "Named site/order adoption and payable purchase commitments before describing revenue or shipments", "Any previous full-card source or incremental successor relationship"]
+    },
+    {
+      "case_id": "SOREGIES_BP_PULSE_FRANCE_SIGNED_ACQUISITION_20260922",
+      "source_observation_group_id": "SOURCE_URL_OBSERVATION_f44871dd75510fb2",
+      "source_ids": ["SRC26-20260926_120143-0236", "SRC26-20260928_160143-0208"],
+      "economic_identity": "Sorégies signed an agreement with bp to acquire its French bp pulse EV charging activity, including 32 existing sites and 14 in development, subject to future transaction closure.",
+      "not_claimed": "Acquisition closed, price paid, 14 development sites operational, or asset ownership transferred on September 22.",
+      "before_after": {"prior_state": "BP operated French ultra-fast charging network; Sorégies had a regional charging activity.", "new_verified_fact": "Agreement signed to acquire 32 operating sites (>600 charging points), 14 sites in development (~200 future chargers), platform and personnel.", "changed_judgment": "Proposed national-scale network consolidation, but not complete change of title or current capacity for development sites.", "uncertainty_resolved": "Contract signed, counterparty, French geographic scope, asset categories, conditional closing.", "remaining_uncertainty": "Deal closing, price, actual transferred chargers, antitrust/other conditions and timing.", "incremental_information": "A corporate M&A commitment in EV charging infrastructure, not BESS equipment demand.", "decision_relevance": "EV charging infrastructure ownership only tangentially related to SBTL's material/ESS core."},
+      "execution_credibility_gate": {"status": "PASS", "reason": "Sorégies transaction counsel's statement and Sorégies corporate announcement independently support signed agreement; not closed transfer."},
+      "independent_cardability_gate": {"status": "REVIEW", "reason": "A concrete M&A signing, but SBTL battery materials and ESS-specific decision usefulness is indirect; existing grid/EV infrastructure context must be compared before independent card."},
+      "decision_value": {"original_metadata_scores": [26, 64], "provisional_reassessed_score": 42, "decision_value_breakdown": {"market_structure_competition": 16, "supply_demand_price_utilisation": 15, "technology_performance_safety": 0, "cashflow_asset_value": 7, "law_policy_market_access": 0, "systemic_scale": 1, "persistence_irreversibility": 2, "decision_urgency_actionability": 1}, "classification": "standard_monitoring_40_54", "systemic_scale_denominator": null, "denominator_gap": "No independently comparable current French fast-charging station denominator in evidence.", "technology_evidence_level": "not_applicable", "policy_stage": null, "novelty_cap_basis": "none", "review_provisional_not_source_metadata_replacement": true},
+      "publication_urgency": {"status": "monitor", "reason": "Follow closing/conditions and whether material battery procurement or ESS integration follows."},
+      "selection_route": "execution_anchor_route",
+      "anchor_classes": ["execution_event_anchor"],
+      "date_role": {"announcement_and_contract_signature_basis": "2026-09-22", "legal_adviser_publication": "2026-09-23", "original_electrive_publication": "2026-09-25", "closing": null, "closing_expected_as_of_signing": "before end-2026 subject to conditions"},
+      "related_prepass": {"status": "HOLD", "same_event_checked_in_locked_full_title_fact_screen": true, "matching_soregies_card_found": false, "duplicate_disposition": "uncertain_needs_review", "reason": "Broader charging market/context predecessor and same-event full-source comparison not completed."},
+      "evidence": [
+        {"owner": "Jeantet, Sorégies transaction legal adviser", "role": "direct_participant_adviser_first_party", "url": "https://www.jeantet.fr/2026/09/jeantet-accompagne-soregies-dans-lacquisition-de-lactivite-de-bornes-de-recharge-ultra-rapides-de-bp-en-france/", "locator": "2026-09-22 dated statement; signed agreement, 32+14 asset split, closing conditions"},
+        {"owner": "Groupe Sorégies", "role": "issuer_corporate_first_party", "url": "https://fr.linkedin.com/posts/soregies_mobilit%C3%A9-%C3%A9lectrique-sor%C3%A9gies-change-d%C3%A9chelle-activity-7508171530246459392-UrhK", "locator": "Company statement cites 32 operational sites and 14 in development; closure expected end November subject to conditions"}
+      ],
+      "evidence_needed_for_stage_b": ["Executed closing/transfer certificate or updated corporate notice", "Purchase price/operational site verified if financial claims made", "Specific SBTL-industry relevance stronger than EV charging general context"]
+    },
+    {
+      "case_id": "PORSCHE_CYLIB_RECYCLED_CAM_PILOT_20260917",
+      "source_observation_group_id": "SOURCE_URL_OBSERVATION_92f1ea991802c759",
+      "source_ids": ["SRC26-20260923_132732-0034", "SRC26-20260926_120143-0112"],
+      "economic_identity": "Porsche and cylib manufactured experimental battery cells with cathode active material 100% sourced from recovered raw materials; test stage as of Sep17, not commercial series-production.",
+      "not_claimed": "100% recycled content in every battery-cell component, mass-market Porsche packs made entirely of recycled materials, commercial mass production, or 2028 sales.",
+      "before_after": {"prior_state": "Existing Full card 2026-07-21_EU_05 records cylib acquiring a Wernberg-Köblitz recycling plant, not Porsche experimental cathode cells.", "new_verified_fact": "Porsche first-party pilot produced and began testing cells whose cathode active material fully replaces primary input with recovered lithium/nickel/cobalt/manganese.", "changed_judgment": "Recycling closed-loop technology demonstrates pilot-scale technical capability, not qualification for future series-production.", "uncertainty_resolved": "Meaning of 100% (cathode active materials) and real current technical stage (pilot cells testing).", "remaining_uncertainty": "Independent long-duration cell cycling, industrial scale, final supply contract, 2028 feedstock delivery and commercial economics.", "incremental_information": "A different Porsche/cylib pilot materials milestone from Full's recycling-facility ownership transaction.", "decision_relevance": "Recycled battery active-material commercialization pathway; note no pouch-film implication proved."},
+      "execution_credibility_gate": {"status": "PASS", "reason": "Porsche issuer states manufacture of experimental cells and their ongoing tests, not only aspirational goal."},
+      "independent_cardability_gate": {"status": "REVIEW", "reason": "Distinct from existing July cylib plant card and a significant pilot, but category relevance and mature independent performance validation need review before promoting a standalone card."},
+      "decision_value": {"original_metadata_scores": [44, 26], "provisional_reassessed_score": 48, "decision_value_breakdown": {"market_structure_competition": 17, "supply_demand_price_utilisation": 13, "technology_performance_safety": 10, "cashflow_asset_value": 3, "law_policy_market_access": 0, "systemic_scale": 2, "persistence_irreversibility": 2, "decision_urgency_actionability": 1}, "classification": "standard_monitoring_40_54", "systemic_scale_denominator": null, "denominator_gap": "No industrial throughput or commercialization share demonstrated by small pilot.", "technology_evidence_level": "pilot_precommercial", "policy_stage": null, "novelty_cap_basis": "none", "review_provisional_not_source_metadata_replacement": true},
+      "publication_urgency": {"status": "monitor", "reason": "Next independent cycle-life/quality or series cell production approval would change adoption state."},
+      "selection_route": "execution_anchor_route",
+      "anchor_classes": ["execution_event_anchor", "technology_commercialization_anchor"],
+      "date_role": {"original_porsche_company_announcement": "2026-09-17", "actual_pilot_cell_manufacture_date": null, "recycling_feedstock_process_since": "2026-05", "potential_material_access_from": "2028", "commercial_COD": null},
+      "related_prepass": {"status": "HOLD", "same_event_checked_in_locked_full_title_fact_screen": true, "matched_full_cards": [{"id": "2026-07-21_EU_05", "relation": "program_lineage_or_distinct_follow_up", "explanation": "Existing cylib recycling-site acquisition is not Porsche pilot cell manufacture."}], "duplicate_disposition": "uncertain_needs_review", "reason": "Existing brand-linked program relation must be fully resolved, not treated as same event or dismissed."},
+      "evidence": [{"owner": "Porsche AG", "role": "first_party_company_release", "url": "https://newsroom.porsche.com/en/2026/company/porsche-cylib-battery-recycling-43269.html", "locator": "Sep17 At a glance and body: 100%-recycled cathode active material in pilot cells; commercial uncertainty and 2028 feedstock availability"}],
+      "evidence_needed_for_stage_b": ["Independent tests for full life-cycle and performance", "Commercialization decision/production-line validation", "Related lineage to Full cylib Wernberg transaction, without same-event collapse"]
+    },
+    {
+      "case_id": "LG_ELECTRONICS_SK_ENMOVE_COOLING_MOU_20260921",
+      "source_observation_group_id": "SOURCE_URL_OBSERVATION_94295fcc406594a2",
+      "source_ids": ["SRC26-20260923_132732-0089", "SRC26-20260926_120143-0138"],
+      "economic_identity": "LG Electronics and SK Enmove signed Sep21 joint early-stage R&D MOU on refrigerants, refrigeration oils and immersion cooling, including future feasibility study in ESS and EV components.",
+      "not_claimed": "Battery-system cooling products delivered, liquid-cooling ESS deployment, production agreement, revenue contract or separate ESS-specific joint venture.",
+      "before_after": {"prior_state": "The two companies already collaborated on AI data-centre immersion cooling since 2025.", "new_verified_fact": "New joint R&D MOU expanded product/application studies to refrigerants/oils and possible ESS/EV component heat management.", "changed_judgment": "Research scope expanded; commercial battery-specific deployment remains prospective.", "uncertainty_resolved": "Formal MOU and its signature and press dates.", "remaining_uncertainty": "Prototype validation, binding spend, industrial application and ESS customer/project.", "incremental_information": "Refrigerant/oil technology research extension of prior AIDC immersion relationship, not entirely new partnership.", "decision_relevance": "Potential ESS safety/thermal-management adjacency, indirect today."},
+      "execution_credibility_gate": {"status": "PASS", "reason": "LG Electronics confirms Sep21 signed MOU. PASS only for MOU execution, not product commercialization."},
+      "independent_cardability_gate": {"status": "REVIEW", "reason": "Preexisting cooperation and future application exploratory scope may be better reinforcement; no independent ESS technology commercialization event yet."},
+      "decision_value": {"original_metadata_scores": [44, 26], "provisional_reassessed_score": 28, "decision_value_breakdown": {"market_structure_competition": 11, "supply_demand_price_utilisation": 10, "technology_performance_safety": 4, "cashflow_asset_value": 1, "law_policy_market_access": 0, "systemic_scale": 1, "persistence_irreversibility": 1, "decision_urgency_actionability": 0}, "classification": "context_reinforcement_25_39", "systemic_scale_denominator": null, "denominator_gap": "No current ESS cooling deployments or customer denominator.", "technology_evidence_level": "company_target_or_unsupported_claim", "policy_stage": null, "novelty_cap_basis": "company_target_without_validation_or_effect", "review_provisional_not_source_metadata_replacement": true},
+      "publication_urgency": {"status": "monitor", "reason": "Track first ESS/EV actual pilot validation or purchase contract rather than headline MOU alone."},
+      "selection_route_under_review": "structural_non_execution_route",
+      "anchor_classes_under_review": ["strategic_behavior_anchor", "follow_up_probability_anchor"],
+      "date_role": {"MOU_signed": "2026-09-21", "issuer_press_date": "2026-09-23", "earlier_cooperation_since": "2025", "ESS_commercialization_date": null},
+      "related_prepass": {"status": "HOLD", "same_event_checked_in_locked_full_title_fact_screen": true, "matching_2026_specific_MOU_card_found": false, "duplicate_disposition": "uncertain_needs_review", "reason": "Earlier 2025 immersion-cooling program relationship needs underlying source lineage proof and material increment assessment."},
+      "evidence": [{"owner": "LG Electronics", "role": "direct_party_first_party", "url": "https://www.lge.co.kr/story/newsroom/236190", "locator": "Sep23 newsroom release: Sep21 MOU, 2025 prior AIDC cooperation, ESS/EV cooling future feasibility only"}],
+      "evidence_needed_for_stage_b": ["Source confirming what 2025 arrangement covered and whether September adds binding new work packages", "Technical test/qualification or live ESS project before standalone commercialization claim"]
+    },
+    {
+      "case_id": "RONBAY_BIJIE_LFP_PHASE1_START_20260922",
+      "source_observation_group_id": "SOURCE_URL_OBSERVATION_fc68908b1bcbea62",
+      "source_ids": ["SRC26-20260926_120143-0295", "SRC26-20260928_160143-0284"],
+      "economic_identity": "Ningbo Ronbay's Bijie Phase I LFP cathode facility announced initial production and first products on Sep22, with 340,000 tonnes/year designed Phase I capacity, not proven full-rate output.",
+      "not_claimed": "340,000t actually produced in September, all Phase I lines simultaneously at rated output, Hunan Yuneng 400,000t production, or one operating 740,000t/yr site.",
+      "before_after": {"prior_state": "Ronbay's April 2026 issuer investment filing covered planned 340,000t LFP Phase I and a separate precursor expansion, but not live output.", "new_verified_fact": "On Sep22 local launch ceremony and first products documented by Guizhou Daily; full Phase I nameplate 340,000t/year with RMB2.291bn Phase I investment.", "changed_judgment": "A named new LFP cathode production operation has commenced, not established full utilization.", "uncertainty_resolved": "Company, plant location, launch stage, design capacity and separate asset from Hunan Yuneng EIA.", "remaining_uncertainty": "Operating line count by exact Sep22 timestamp, commercial orders, current tonnage and ramp, official completion/acceptance and comparable market denominator.", "incremental_information": "Progress from prior issuer investment resolution to first production, a different stage with a new event date.", "decision_relevance": "Chinese LFP cathode supply availability; distinguish physical operating ramp from planned nominal capacity."},
+      "execution_credibility_gate": {"status": "PASS", "reason": "Contemporaneous Guizhou Daily on-site first product and company April investment announcement corroborate production start and design scope; no support for nameplate throughput already achieved."},
+      "independent_cardability_gate": {"status": "PASS", "reason": "First output from identifiable LFP Phase I supply asset is a material independent execution milestone distinct from preplanned investments and other company's environmental filing."},
+      "decision_value": {"original_metadata_scores": [26, 57], "provisional_reassessed_score": 57, "decision_value_breakdown": {"market_structure_competition": 20, "supply_demand_price_utilisation": 23, "technology_performance_safety": 0, "cashflow_asset_value": 7, "law_policy_market_access": 0, "systemic_scale": 2, "persistence_irreversibility": 3, "decision_urgency_actionability": 2}, "classification": "material_industry_signal_55_69", "systemic_scale_denominator": null, "denominator_gap": "No audited comparably dated LFP realized throughput denominator; project nameplate not actual output.", "technology_evidence_level": "not_applicable", "policy_stage": null, "novelty_cap_basis": "none", "review_provisional_not_source_metadata_replacement": true},
+      "publication_urgency": {"status": "near_term", "reason": "Sep22 first output is a real supply-side milestone; verify line count and shipments for accurate strength."},
+      "selection_route": "execution_anchor_route",
+      "anchor_classes": ["execution_event_anchor"],
+      "date_role": {"operation_and_first_products": "2026-09-22", "Guizhou_Daily_publication": "2026-09-23", "April_investment_filing": "2026-04-16", "full_utilization_date": null},
+      "related_prepass": {"status": "HOLD", "same_event_checked_in_locked_full_title_fact_screen": true, "matching_Ronbay_Bijie_September_operation_card_found": false, "duplicate_disposition": "uncertain_needs_review", "reason": "April company filing is predecessor; full batch and Related lineage not complete; this should not duplicate the Hunan EIA sub-event."},
+      "evidence": [
+        {"owner": "Guizhou Daily local newspaper", "role": "contemporaneous_onsite_report", "url": "https://szb.eyesnews.cn/pad/cont/202609/23/content_189234.html", "locator": "2026-09-23 article: 2026-09-22 first products, Phase I 340k tonnes design and RMB2.291bn"},
+        {"owner": "Ningbo Ronbay issuer board", "role": "earlier_first_party_financial_filing", "url": "https://epaper.stcn.com/att/202604/16/ZQ16B018-CC_eBook.pdf", "locator": "2026-04-16 company resolution for Bijie Phase I 340k tonnes project, earlier planned stage"}
+      ],
+      "evidence_needed_for_stage_b": ["On-site production-line startup acceptance and operating output by original news date", "Related chain from Apr16 pre-commencement company announcement", "Actual utilization and contracts separately from 340kt/year nominal design"]
+    },
+    {
+      "case_id": "HUNAN_YUNENG_WENGAN_LFP_EIA_PUBLIC_NOTICE_20260918",
+      "source_observation_group_id": "SOURCE_URL_OBSERVATION_fc68908b1bcbea62",
+      "source_ids": ["SRC26-20260926_120143-0295", "SRC26-20260928_160143-0284"],
+      "economic_identity": "Hunan Yuneng subsidiary Yuneng Wengfa's planned 400,000t/year LFP line advanced to first environmental-impact consultation notice in Weng'an on Sep18, within an earlier disclosed RMB24bn 800,000t LFP multi-year program.",
+      "not_claimed": "400,000t/year production commissioned, EIA approval already granted, 400,000t new above the July planned 800,000t without overlap, or Hunan site producing simultaneously with Ronbay.",
+      "before_after": {"prior_state": "Hunan Yuneng's July17 issuer disclosure planned a five-year Weng'an RMB24bn vertically integrated project including 800,000t/year LFP, subject to staged spend and environmental approvals.", "new_verified_fact": "September18 first EIA public consultation announced for proposed 400,000t/year LFP line, corroborated in industry coverage; original government notice URL still not recovered.", "changed_judgment": "Administrative preconstruction progress, not permission or production; increment over July disclosed master investment is limited.", "uncertainty_resolved": "Separates producer Hunan Yuneng, site Weng'an, 400k prospective first-phase EIA scope, and prior 800k announced aggregate.", "remaining_uncertainty": "Original provincial/municipal EIA notice URL and official document text, application versus approval, construction start, revised binding capex, period overlap.", "incremental_information": "Subproject environmental-disclosure milestone rather than full operating LFP capacity; requires program lineage, not a 740kt total operating card.", "decision_relevance": "China planned LFP cathode supply-side option; potential future capacity rather than near-term current utilization."},
+      "execution_credibility_gate": {"status": "REVIEW", "reason": "Industry sources report first EIA consultation on Sep18 and company primary confirms prior larger planned project, but original public-notice document's URL/body not retrieved for strict legal stage verification."},
+      "independent_cardability_gate": {"status": "REVIEW", "reason": "Potential routine environmental-notice progression within July disclosed 800kt investment; independence depends on new regulatory conditions, time to build and actual project controls."},
+      "decision_value": {"original_metadata_scores": [26, 57], "provisional_reassessed_score": 38, "decision_value_breakdown": {"market_structure_competition": 16, "supply_demand_price_utilisation": 14, "technology_performance_safety": 0, "cashflow_asset_value": 3, "law_policy_market_access": 1, "systemic_scale": 2, "persistence_irreversibility": 1, "decision_urgency_actionability": 1}, "classification": "context_reinforcement_25_39", "systemic_scale_denominator": null, "denominator_gap": "Prospective subproject is within 800kt announced plan; no fresh actual output denominator.", "technology_evidence_level": "not_applicable", "policy_stage": null, "novelty_cap_basis": "routine_progression_no_material_uncertainty", "review_provisional_not_source_metadata_replacement": true},
+      "publication_urgency": {"status": "monitor", "reason": "Find original public notice and actual EIA approval/construction before treating as independently executed production."},
+      "selection_route_under_review": "structural_non_execution_route",
+      "anchor_classes_under_review": ["follow_up_probability_anchor"],
+      "date_role": {"reported_EIA_initial_notice": "2026-09-18", "issuer_prior_investment_filing": "2026-07-17", "actual_EIA_approval": null, "construction_start": null, "production_start": null},
+      "related_prepass": {"status": "HOLD", "same_event_checked_in_locked_full_title_fact_screen": true, "matching_Hunan_EIA_card_found": false, "duplicate_disposition": "uncertain_needs_review", "reason": "July company investment decision is direct predecessor to verify; 400kt notice is a subproject of earlier 800kt intention, not additive to that number."},
+      "evidence": [
+        {"owner": "Hunan Yuneng issuer board", "role": "first_party_predecessor_disclosure", "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12453129&stockid=301358", "locator": "July17 board disclosure: planned 800k LFP in RMB24bn, 5-year Weng'an program, regulatory/financing risks"},
+        {"owner": "China Nonferrous Metals Industry Association lithium section via Mysteel", "role": "secondary_september_EIA_notice_report_UNVERIFIED_ORIGINAL_GOV_NOTICE", "url": "https://news.mysteel.com/a/26092214/8DDC4C47BCBFA72F.html", "locator": "Sep22 report attributes Sep18 first EIA public notice for 400kt LFP, not approval or operation"}
+      ],
+      "evidence_needed_for_stage_b": ["Original Weng'an environmental authority first EIA announcement URL and full application", "Relation of 400kt disclosed subproject to July 800kt group project and announced finance", "Date of actual EIA approval, construction permit, line operation; zero actual output until verified"]
+    }
+  ],
+  "source_level_no_loss": {
+    "five_groups": 5,
+    "distinct_unique_source_ids": 10,
+    "each_unique_source_observation_attached_to_its_original_group": true,
+    "both_China_sub_events_reference_both_original_source_ids": true,
+    "original_source_metadata_score_and_pool_unchanged": true,
+    "none_of_the_other_nine_mixed_pool_groups_reclassified": true,
+    "formal_stage_a_natively_promoted_count": 0
+  },
+  "next_single_bottleneck": "Complete source-body evidence and earliest-event/Related audits for the nine remaining mixed-pool repeated-URL groups, then expand the full 1,285 original-ID event identity and four-judgment ledger without any original Source ID loss."
+}

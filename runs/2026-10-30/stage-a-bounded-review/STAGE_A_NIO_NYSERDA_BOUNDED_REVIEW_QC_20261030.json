@@ -1,0 +1,36 @@
+{
+  "status": "PASS_BOUNDED_ARTIFACT_QC_NOT_NATIVE_STAGE_A_PASS",
+  "scope": "original 1,330 read-only; four NIO/one NYSERDA source IDs; two event packages; 10 underlying units",
+  "baseline_source_sha256": "5e78420916b0c1d70ff56bf928779cd969b94fbb15dd4119c841872997486116",
+  "full_git_blob": "07a91714e56be2a8bfad10ab63822f0c5cb3f06e",
+  "baseline_full_count": 1676,
+  "original_source_count": 1330,
+  "original_source_unique_count": 1330,
+  "original_blank_cluster_count": 1285,
+  "new_0_1P_source_bounded_review_count": 5,
+  "all_source_ids_preserved_unchanged": true,
+  "output_source_id_delta_equals_input_selected_ids": true,
+  "original_pool_unchanged": true,
+  "case_count": 2,
+  "economic_units_count": 10,
+  "ess_contracted_mw_check": 950,
+  "ess_derived_mwh_check": 4360,
+  "manual_scores_math_and_caps": "PASS",
+  "current_batch_title_url_lexical_matches": {
+    "NIO_Geely": [
+      "SRC26-20260928_160143-0003",
+      "SRC26-20260928_160143-0004",
+      "SRC26-20260928_160143-0216",
+      "WK26-VOL03-013"
+    ],
+    "NYSERDA_ESS": [
+      "SRC26-20260926_120143-0199"
+    ]
+  },
+  "cross_batch_semantic_exhaustiveness": "NOT_PROVEN",
+  "native_stage_a_contract": "NOT_EXECUTED",
+  "native_stage_a_lineage": "NOT_EXECUTED",
+  "formal_stage_a_promotion_count": 0,
+  "formal_stage_a_unadjudicated_count": 1285,
+  "new_artifact_sha256": "12848f7f14c4b39b0000245cfb23d9c0aac067049c6441c20fbf66672d78c20b"
+}

@@ -1,0 +1,86 @@
+{
+  "artifact_type": "STAGE_A_BOUNDED_ECONOMIC_EVENT_IDENTITY_FROM_64_POINT_MULTISOURCE_HEADLINES",
+  "source_baseline_sha256": "5e78420916b0c1d70ff56bf928779cd969b94fbb15dd4119c841872997486116",
+  "full_blob": "07a91714e56be2a8bfad10ab63822f0c5cb3f06e",
+  "date_kst": "2026-10-30",
+  "original_universe": 1330,
+  "subjects": 6,
+  "unique_original_ids_touched": 18,
+  "unique_metadata_64_ids_new": 15,
+  "other_metadata_ids_same_subject_distinct_stage": 3,
+  "event_or_reporting_acts": 9,
+  "formal_new_promotions": 0,
+  "formal_unadjudicated_remains": 1285,
+  "native_stage_a_contract": "NOT_RUN_VALID_COMPLETE_UNIVERSE_ARTIFACT_ABSENT",
+  "native_stage_a_lineage": "NOT_RUN_VALID_COMPLETE_UNIVERSE_ARTIFACT_ABSENT",
+  "scoring_order": ["market_structure_competition", "supply_demand_price_utilisation", "technology_performance_safety", "cashflow_asset_value", "law_policy_market_access", "systemic_scale", "persistence_irreversibility", "decision_urgency_actionability"],
+  "evidence_groups": [
+    {
+      "subject": "EnerVenue China nickel-hydrogen storage customer award and separate Changzhou production launch",
+      "source_ids": ["SRC26-20260923_132732-0126", "SRC26-20260923_132732-0127", "SRC26-20260926_120143-0259", "SRC26-20260926_120143-0161", "SRC26-20260928_160143-0187"],
+      "case_ids": ["ENERVENUE_11MWH_CHINA_ORDER_SEP23", "ENERVENUE_CHANGZHOU_AMC_LINE_START_SEP24"],
+      "source_owner_evidence": [
+        {"owner":"EnerVenue original issuer Sep23 announcement","url":"https://www.enervenue.com/press/enervenues-first-multi-megawatt-hour-commercial-order","stage":"first commercial order; 26 containers/11MWh; delivery future"},
+        {"owner":"EnerVenue original issuer Sep24 production launch","url":"https://www.enervenue.com/press/news-enervenue-opens-aqueous-metal-cell-production-line-changzhou","stage":"Changzhou automated manufacturing begins, design capability vs actual utilization"}
+      ]
+    },
+    {
+      "subject": "Global Lithium Titan Australia Mining conditional scheme acquisition",
+      "source_ids": ["SRC26-20260923_132732-0135", "SRC26-20260923_132732-0136", "SRC26-20260923_132732-0140", "SRC26-20260923_132732-0141", "SRC26-20260926_120143-0185"],
+      "case_ids": ["GLOBAL_LITHIUM_TITAN_SIGNED_SCHEME_DEED_SEP22"],
+      "source_owner_evidence": [
+        {"owner":"Global Lithium issuer release redistributed by Investor Insight","url":"https://investorinsight.com.au/global-lithium-enters-into-binding-scheme-implementation-deed-with-titan/","stage":"Sep22 signed SID for proposed 100% acquisition at A$1.15/share ~A$333m fully diluted; not closed"},
+        {"owner":"ASX announcement document indexed (original PDF not downloaded)","url":"https://hotcopper.com.au/asx/gl1/announcements/","stage":"issuer 165-page SID filing 22Sep available by listing; direct full-page official PDF readback remains HOLD"}
+      ]
+    },
+    {
+      "subject": "Delta Capacity Finland Karppio/AKKU One project-stage separation",
+      "source_ids": ["SRC26-20260926_120143-0230", "SRC26-20260928_160143-0202", "SRC26-20260923_132732-0165"],
+      "case_ids": ["DELTA_SUNGROW_FINLAND_SUPPLY_RECONFIRM_600MWH_SEP24", "DELTA_AKKU_ONE_CONSTRUCTION_PRIOR_FULL_REINFORCEMENT_SEP16"],
+      "source_owner_evidence": [
+        {"owner":"Sungrow original Sep24 600MWh dual-project supply announcement","url":"https://www.sungrowpower.com/eu/en/delta-karppio-akkuone","stage":"125MW/300MWh Karppio +125MW/300MWh AKKU One; total 600MWh and 1GWh framework already fulfilled; not 600MWh commercial operation"},
+        {"owner":"Sungrow prior Karppio Sep9 execution statement","url":"https://www.sungrowpower.com/eu/en/sungrow-karppio-delta-ess","stage":"first Karppio construction/supply announcement predates Sep24 news"},
+        {"owner":"Delta Capacity and Covenergo original AKKU One construction source","url":"https://www.deltacapacity.com/post/covenergo-and-delta-capacity-partner-on-125-mw---300-mwh-akku-one-bess-project-in-lapinlahti-finlan","stage":"AKKU One prior construction case already Full 2026-09-16_EU_01"},
+        {"owner":"Delta Capacity later Oct28 financial close source","url":"https://www.deltacapacity.com/post/delta-capacity-covenergo-and-strioga-family-foundation-reach-financial-close-on-two-standalone-bat","stage":"distinct later financial close for both sites, cannot backdate as September finance close"}
+      ]
+    },
+    {
+      "subject": "CATL Kuehne+Nagel MoU separate from earlier DHL MoU",
+      "source_ids": ["SRC26-20260926_120143-0367", "SRC26-20260928_160143-0290"],
+      "case_ids": ["CATL_KUEHNE_NAGEL_STRATEGIC_LOGISTICS_MOU_SEP18"],
+      "source_owner_evidence": [
+        {"owner":"CATL original issuer news dated Sep18","url":"https://www.catl.com/en/news/7012.html","stage":"signed logistics/battery-swapping cooperation MoU"},
+        {"owner":"Kuehne+Nagel counterparty press release dated Sep24","url":"https://newsroom.kuehne-nagel.com/kuehnenagel-and-catl-partner-to-advance-battery-logistics-and-fleet-electrification/","stage":"same MoU, later publication date"}
+      ]
+    },
+    {
+      "subject": "FinDreams Battery Sichuan Guoruan broad cooperation framework",
+      "source_ids": ["SRC26-20260923_132732-0195", "SRC26-20260923_132732-0197"],
+      "case_ids": ["FINDREAMS_SICHUAN_GUORUAN_MOU_SEP20"],
+      "source_owner_evidence": [
+        {"owner":"Gasgoo original reporter (not party official)","url":"https://autonews.gasgoo.com/articles/ev/2102406072202903553","stage":"agreement signed Shenzhen Sep20, media Sep22, no concrete binding supply volume"},
+        {"owner":"NE Time relays alleged FinDreams posting; first-party original not fetched","url":"https://www.ne-time.cn/web/article/39835","stage":"future work on engineering machinery, ESS, battery systems, robotics"}
+      ]
+    },
+    {
+      "subject": "United States PG&E and Massachusetts two distinct September microgrid/ESS award programs",
+      "source_ids": ["SRC26-20260923_132732-0154"],
+      "case_ids": ["PGE_CALIFORNIA_6_NEW_MICROGRID_AWARDS_SEP17", "MASSACHUSETTS_36_STORAGE_GRANTS_SEP18"],
+      "source_owner_evidence": [
+        {"owner":"PG&E original company release Sep17","url":"https://investor.pgecorp.com/news-events/press-releases/press-release-details/2026/PGE-Advances-Deployment-of-Community-Microgrids-Announces-New-Grant-Agreements-and-Second-Round-of-Funding-Awards/default.aspx","stage":"six NEW second-window community microgrid selections with $30m, separate prior first-window $43m in 2025"},
+        {"owner":"Massachusetts Department of Energy Resources original Sep18 announcement","url":"https://www.mass.gov/news/healey-driscoll-administration-awards-more-than-40-million-to-power-critical-facilities-during-outages","stage":"36 projects across three categories receiving >$40m grants; total ~10MW/44MWh battery storage capacity"}
+      ]
+    }
+  ],
+  "provisional_case_judgments": [
+    {"case_id":"ENERVENUE_11MWH_CHINA_ORDER_SEP23","original_id_set_group":0,"execution":"PASS","independent_cardability":"REVIEW","event_date":"2026-09-23","date_role":"issuer order announcement Sep23; no customer contract signature disclosed","news_value":51,"scores":[17,14,7,7,0,2,2,2],"technology_evidence_level":"pilot_precommercial","novelty":"first_11mwh_commercial_signed_order","before_after":"26 Energy Prism containers 11MWh for unknown north-China petroleum operator, first three shipments DEC2026, 23 MAR2027; not delivered/operating and no buyer name","source_scope":"three 64-point original records, NOT separate orders","related":"HOLD no prior same project Full determined","missing":"buyer name, contract, first actual deliveries and site COD"},
+    {"case_id":"ENERVENUE_CHANGZHOU_AMC_LINE_START_SEP24","original_id_set_group":0,"execution":"PASS","independent_cardability":"REVIEW","event_date":"2026-09-24","date_role":"EnerVenue issuer says actual Changzhou high-volume line production started Sep24","news_value":66,"scores":[20,21,11,7,0,2,3,2],"technology_evidence_level":"pilot_precommercial","novelty":"physical manufacturing line start distinct from order","before_after":"250MWh/year Phase I design capacity with 1GWh/year 2027 ambition, not evidence of already achieved utilization or verified long-duration cycling","source_scope":"two 56-point original records, distinct from 11MWh purchase contract","related":"HOLD manufacturing site not same as end-customer contract","missing":"production yield and accepted output, actual monthly sales, independent qualification"},
+    {"case_id":"GLOBAL_LITHIUM_TITAN_SIGNED_SCHEME_DEED_SEP22","original_id_set_group":1,"execution":"PASS","independent_cardability":"REVIEW","event_date":"2026-09-22","date_role":"signed scheme implementation deed Sep22, conditional court/shareholder completion thereafter","news_value":57,"scores":[20,21,0,9,0,2,3,2],"technology_evidence_level":"not_applicable","novelty":"definitive_signed_but_conditional_acquisition","before_after":"Titan proposed 100% of GL1 via A$1.15/share cash scheme, fully diluted equity A$333m; headline US$237m conversion not second deal; no title transfer closed","source_scope":"five separate media original Source IDs report one economic takeover instrument","related":"HOLD Full same-event search no explicit prior matching asset; stage lineage needs native verify","missing":"direct 165-page ASX SID and shareholder/court outcome, Manna asset rights/cash-flow terms"},
+    {"case_id":"DELTA_SUNGROW_FINLAND_SUPPLY_RECONFIRM_600MWH_SEP24","original_id_set_group":2,"execution":"PASS","independent_cardability":"REVIEW","event_date":"2026-09-24","date_role":"issuer secondary/updated dual-asset supply disclosure Sep24, earlier Karppio Sep9 and AKKU One Sep16 stages","news_value":54,"scores":[21,20,0,7,0,2,2,2],"technology_evidence_level":"not_applicable","novelty":"additional_dual_project_supply_detail_not_same_as_prior_construction","before_after":"Sungrow 600MWh total=Karppio 300MWh+AKKU One 300MWh, under prior 1GWh supplier framework, NOT separate 600MWh third site; Oct28 financing close is a later distinct act","source_scope":"two 64-point original duplicate headlines share September24 contract/source","related":"HOLD compare Full 2026-09-10_EU_01 Karppio tolling and 2026-09-16_EU_01 AKKU One construction; not independent new site","missing":"Sungrow deal instrument exact signature date and allocation versus previously contracted volumes"},
+    {"case_id":"DELTA_AKKU_ONE_CONSTRUCTION_PRIOR_FULL_REINFORCEMENT_SEP16","original_id_set_group":2,"execution":"PASS","independent_cardability":"FAIL","event_date":"2026-09-16","date_role":"earliest Full formal representative date Sep16 from Delta company source; later third-party Sep23 article reinforcement","news_value":50,"scores":[19,20,0,6,0,2,2,1],"technology_evidence_level":"not_applicable","novelty":"already_in_full_2026_09_16_eu_01","before_after":"AKKU One site 125MW/300MWh physical construction was already canonical Full card 2026-09-16_EU_01; fresh headline does not create an additional construction event","source_scope":"one 56-point original source ID is a same-stage follow-up, not new card","related":"HOLD formal Related edge remains unapproved, even though Full match exact ID established","missing":"formal same-event lineage native check; evaluate only new material progress if follow-up"},
+    {"case_id":"CATL_KUEHNE_NAGEL_STRATEGIC_LOGISTICS_MOU_SEP18","original_id_set_group":3,"execution":"PASS","independent_cardability":"REVIEW","event_date":null,"date_role":"CATL public page dated Sep18; Kuehne counterparty public page dated Sep24; precise signing date not explicitly independently evidenced","news_value":28,"scores":[12,10,0,2,0,2,1,1],"technology_evidence_level":"not_applicable","novelty":"new_counterparty_mou_no_executed_bess_purchase","before_after":"CATL–Kuehne MoU covers European battery logistics and proposed future China heavy-duty Qiji swapping pilot; distinct from CATL–DHL Sep14 EU road freight MoU","source_scope":"two 64-point original observations refer one bilateral MoU","related":"HOLD compare CATL–DHL prior as distinct logistics counterparties, no merged contract","missing":"specific customer/project/battery orders, actual original signature date and Qiji pilot launch"},
+    {"case_id":"FINDREAMS_SICHUAN_GUORUAN_MOU_SEP20","original_id_set_group":4,"execution":"REVIEW","independent_cardability":"REVIEW","event_date":"2026-09-20","date_role":"Gasgoo reported Shenzhen strategic framework signed Sep20, dated Sep22; direct contracting-party posting not fetched","news_value":26,"scores":[11,9,0,2,0,2,1,1],"technology_evidence_level":"not_applicable","novelty":"strategic_cooperation_framework_without_binding_order","before_after":"Prospective ESS, power battery, robot and drilling-electrification cooperation; no named technology shipment, revenue or agreed quantity","source_scope":"Chinese/English articles are one bilateral cooperation framework","related":"HOLD direct issuer documents and same-event Full comparisons incomplete","missing":"primary FinDreams and Sichuan Guoruan signed document, first binding plant/customer order"},
+    {"case_id":"PGE_CALIFORNIA_6_NEW_MICROGRID_AWARDS_SEP17","original_id_set_group":5,"execution":"PASS","independent_cardability":"REVIEW","event_date":"2026-09-17","date_role":"PG&E new tranche award release Sep17, projects not yet commissioned","news_value":47,"scores":[16,14,0,5,6,2,2,2],"technology_evidence_level":"not_applicable","novelty":"six_new_site_selections_predevelopment","before_after":"six newly selected communities, $30m round2 incentive total, distinct from 2025 $43m nine round1 sites; mixed microgrid technologies not all six independent BESS facilities","source_scope":"one joint US industry article includes this separate California program","related":"HOLD previous 2025 sites and new site event identity not merged","missing":"each grant agreement, exact battery MWh where applicable and installed COD"},
+    {"case_id":"MASSACHUSETTS_36_STORAGE_GRANTS_SEP18","original_id_set_group":5,"execution":"PASS","independent_cardability":"REVIEW","event_date":"2026-09-18","date_role":"Mass DOER original grant awards Sep18, distinct from California PG&E program Sep17","news_value":52,"scores":[17,15,0,6,7,2,3,2],"technology_evidence_level":"not_applicable","novelty":"independent_state_storage_grants_not_same_as_ca_microgrids","before_after":"state >$40m awards to 36 projects across resilience/safety/LDES, ~10MW/44MWh named BESS; not 36 commissioned projects and each site battery size different","source_scope":"same single compiled source includes independent Massachusetts policy-grant act","related":"HOLD grant list site IDs and old Full state program overlap require native match","missing":"grant agreement/legal eligibility details, actual construction/commissioning data"}
+  ]
+}

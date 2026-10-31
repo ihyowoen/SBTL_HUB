@@ -1,0 +1,33 @@
+{
+  "scope": "PASS_54_CASE_ANCHORED_PRE_NATIVE_JUDGMENTS_AND_1330_LOSSLESS_RECONCILIATION_ONLY",
+  "native_stage_artifact_contract_A_executed": false,
+  "native_stage_lineage_contract_stage_a_executed": false,
+  "baseline_sha256": "0646b280eac1963e6889410529d1b1f92a2b485077982677527612c176201104",
+  "prior16_sha256": "1faf426f340e8c8c2bd2570c6d84697cd062397e25bee478c2e139b2aba2cb1e",
+  "new_batch_sha256": "8167bff64e8f0993719df2e8144ce3bdb8c3c4aa2bdd2c15458c27ec47946fb8",
+  "overlay_v5_sha256": "f9bf41c00f6761cdc61150d6fbdde51a3b525d71dbd60d1d809c2853d318d4f5",
+  "original_1330_source_ids_preserved": true,
+  "source_ids_with_new_individual_inputs": 54,
+  "previous_16_pre_native_inputs_preserved": true,
+  "combined_pre_native_source_inputs": 70,
+  "case_groups": 13,
+  "economic_event_unit_definitions": 23,
+  "new_input_source_pool_counts": {
+    "watchlist_context_pool": 5,
+    "candidate_review_pool": 49,
+    "existing_reinforcement": 0,
+    "strict_passed_spec": 0
+  },
+  "new_source_dispositions": {
+    "REVIEW_STRUCTURAL_EVENT_UNDER_NATIVE_0_1P_GATE": 13,
+    "RELATED_PROCEDURAL_OR_MULTIEVENT_SOURCE_NOT_DEFINITIVE_DUPLICATE": 4,
+    "EXISTING_FULL_2026-09-16_US_02_SUPPORT_NO_NEW_CARD": 1,
+    "SOURCE_SUPPORT_OR_RELATED_OBSERVATION_NO_SECOND_NEW_CARD": 36
+  },
+  "previous_45_formally_individually_reviewed_preserved": 45,
+  "formal_individual_pending_unchanged": 1285,
+  "original_strict_8_unchanged": 8,
+  "new_formal_strict_pass": 0,
+  "full_card_data_mutations": 0,
+  "caveat": "Issuer or original agency event-level anchors inspected; not all 54 secondary source article bodies were independently read; no native Stage A output or Stage B approval."
+}

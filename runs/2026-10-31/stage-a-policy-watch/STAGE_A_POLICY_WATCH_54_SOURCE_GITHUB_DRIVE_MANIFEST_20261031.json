@@ -1,0 +1,66 @@
+{
+  "artifact_type": "STAGE_A_54_SOURCE_PRE_NATIVE_GITHUB_DRIVE_CUSTODY_MANIFEST",
+  "as_of_kst": "2026-10-31",
+  "original_1330_csv_sha256": "5e78420916b0c1d70ff56bf928779cd969b94fbb15dd4119c841872997486116",
+  "parent_overlay_v4_sha256": "0646b280eac1963e6889410529d1b1f92a2b485077982677527612c176201104",
+  "prior16_pre_native_sha256": "1faf426f340e8c8c2bd2570c6d84697cd062397e25bee478c2e139b2aba2cb1e",
+  "scope_only_result": "PASS_54_CASE_ANCHORED_PRE_NATIVE_JUDGMENTS_AND_1330_LOSSLESS_RECONCILIATION_ONLY",
+  "source_ids": 1330,
+  "new_pre_native_source_ids": 54,
+  "cumulative_pre_native_source_ids": 70,
+  "formally_individual_adjudicated_unchanged": 45,
+  "formal_pending_unchanged": 1285,
+  "original_strict_pass_unchanged": 8,
+  "new_native_pass": 0,
+  "native_stage_a_artifact_validator_executed": false,
+  "native_stage_a_lineage_validator_executed": false,
+  "production_canonical_changed": false,
+  "upload_readback": {
+    "method": "Google Drive create-only plus raw fetch and SHA256 byte verification",
+    "status": "PASS_ALL_7"
+  },
+  "files": [
+    {
+      "filename": "STAGE_A_POLICY_WATCH_54_SOURCE_NO_LOSS_20261031.zip",
+      "bytes": 224198,
+      "sha256": "e738217c0f6f92cb11aa928f5e5b3c2804538f9d1730d91b3370a0633d154ec3",
+      "google_drive_url": "https://drive.google.com/file/d/1HgCw_87NePCQhPJmZkGJpXI8xfvq1IoC/view"
+    },
+    {
+      "filename": "STAGE_A_CHECKPOINT_11_20261031.md",
+      "bytes": 9080,
+      "sha256": "35b3de0214fbd0c2140d1bfbc5dbbd9215c356688ba0628274c4ac418774f5fd",
+      "google_drive_url": "https://drive.google.com/file/d/1zHGiwY--opEsAsZNJeIx0tlrSSskWCTY/view"
+    },
+    {
+      "filename": "STAGE_A_0_1P_POLICY_MARKET_WATCH_RESCUE_CASES_20261031.json",
+      "bytes": 315092,
+      "sha256": "8167bff64e8f0993719df2e8144ce3bdb8c3c4aa2bdd2c15458c27ec47946fb8",
+      "google_drive_url": "https://drive.google.com/file/d/1fteD-43is9sCtG5k6KF0_5Kg4-aDFdR1/view"
+    },
+    {
+      "filename": "STAGE_A_1330_SOURCE_INTEGRATED_EVIDENCE_OVERLAY_V5_POLICY_WATCH_20261031.json",
+      "bytes": 1654478,
+      "sha256": "f9bf41c00f6761cdc61150d6fbdde51a3b525d71dbd60d1d809c2853d318d4f5",
+      "google_drive_url": "https://drive.google.com/file/d/1pCYdO-8k-2OT0Xk2TWsbsG6bdgMn1uwf/view"
+    },
+    {
+      "filename": "STAGE_A_0_1P_POLICY_WATCH_INDEPENDENT_QC_20261031.json",
+      "bytes": 1678,
+      "sha256": "9566f0c10afa2c18fc64efd06dfaeccecc7b630f2fbe790115b908fd56af0693",
+      "google_drive_url": "https://drive.google.com/file/d/1g6zGEvx8mVHAgaHWZc8MOrt0XQre2eic/view"
+    },
+    {
+      "filename": "build_stage_a_policy_watch_rescue_20261031.py",
+      "bytes": 30742,
+      "sha256": "cdb077755899dfacc8255ca43c358916ec8e4c02f8e5bd9062f0c2606168d1d0",
+      "google_drive_url": "https://drive.google.com/file/d/1JdHqIPdIqOA1o0iGbvjJRkdx7Od96vfF/view"
+    },
+    {
+      "filename": "verify_stage_a_policy_watch_rescue_independent_20261031.py",
+      "bytes": 8305,
+      "sha256": "abcbc8423ff0229709f6932985045d6cf412247b5b71f1cefb4987a96c6334d4",
+      "google_drive_url": "https://drive.google.com/file/d/1kZo-dmAYzxkXzXvgFsUYsFIDzWh0oMey/view"
+    }
+  ]
+}

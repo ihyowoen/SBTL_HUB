@@ -1,0 +1,22 @@
+{
+  "artifact_type": "SBTL_STAGE_A_LAST16_PRE_NATIVE_CUSTODY_RECEIPT",
+  "as_of_kst": "2026-10-31",
+  "source_ids_reviewed_for_four_judgment_input": 16,
+  "case_groups": 14,
+  "previously_0_1P_reviewed": 45,
+  "remaining_native_0_1P_pending": 1285,
+  "previous_strict_passes": 8,
+  "new_native_passes": 0,
+  "stage_a_native_status": "HOLD",
+  "scoped_input_json_sha256": "1faf426f340e8c8c2bd2570c6d84697cd062397e25bee478c2e139b2aba2cb1e",
+  "scoped_qc_json_sha256": "a40ccb76de8c01dae1b4b3164b716ba1c1ab6ed632b1d7e60144077a98f3a748",
+  "drive_zip_sha256": "b9095c86d630e799ba7f76463b44cf16e505b126048eb101efba722fd7c20a6f",
+  "drive_zip_url": "https://drive.google.com/file/d/1qNxybYoXAkdn5PoS1tkUzQi5hmH-FTpW/view",
+  "drive_checkpoint_url": "https://drive.google.com/file/d/1z5RZrszs81C3AY8mXx8MbfCVgxMr8Jtm/view",
+  "drive_raw_readback_sha256_match": true,
+  "github_main_lock": "805c2718d6daf40a219ae94242d9687e33ac3e88",
+  "full_blob_lock": "07a91714e56be2a8bfad10ab63822f0c5cb3f06e",
+  "native_artifact_contract_executed_on_scoped_input": false,
+  "native_lineage_contract_executed_on_scoped_input": false,
+  "source_note": "Audit receipt only. The actual four-judgment input is in the byte-verified Drive ZIP. This receipt must not be projected into strict_passed_spec or considered an accepted full Stage A artifact."
+}

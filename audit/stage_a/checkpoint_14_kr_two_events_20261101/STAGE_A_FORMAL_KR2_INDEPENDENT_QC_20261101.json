@@ -1,0 +1,113 @@
+{
+  "result": "PASS_INDEPENDENT_DELTA_AND_BOTH_NATIVE_CONTRACTS",
+  "audit_scope": "Structural/lineage no-loss QC, not Stage B fact-safe certification",
+  "base_sha256": "1d2c8ccbd01b40aef7de512969281043a59cdb866d2a6dfbdd52bf997edf95c1",
+  "artifact_sha256": "32cde5ebdfe5dbb751c8fba2f1cc62c2ef6a3d0647efa00f8c10ff2498cbb69e",
+  "preserved_original_source_ids": 1330,
+  "changed_source_count": 30,
+  "changed_source_row_indices": [
+    222,
+    230,
+    232,
+    234,
+    235,
+    250,
+    256,
+    260,
+    270,
+    271,
+    280,
+    281,
+    283,
+    284,
+    429,
+    535,
+    538,
+    570,
+    604,
+    605,
+    606,
+    608,
+    609,
+    612,
+    618,
+    622,
+    631,
+    1018,
+    1271,
+    1279
+  ],
+  "new_event_strict_source_ids": [
+    "SRC26-20260923_132732-0020",
+    "SRC26-20260923_132732-0033"
+  ],
+  "support_only_source_ids": [
+    "SRC26-20260923_132732-0028",
+    "SRC26-20260923_132732-0030",
+    "SRC26-20260923_132732-0032",
+    "SRC26-20260923_132732-0048",
+    "SRC26-20260923_132732-0054",
+    "SRC26-20260923_132732-0058",
+    "SRC26-20260923_132732-0068",
+    "SRC26-20260923_132732-0069",
+    "SRC26-20260923_132732-0078",
+    "SRC26-20260923_132732-0079",
+    "SRC26-20260923_132732-0081",
+    "SRC26-20260923_132732-0082",
+    "SRC26-20260923_132732-0227",
+    "SRC26-20260926_120143-0037",
+    "SRC26-20260926_120143-0040",
+    "SRC26-20260926_120143-0072",
+    "SRC26-20260926_120143-0106",
+    "SRC26-20260926_120143-0107",
+    "SRC26-20260926_120143-0108",
+    "SRC26-20260926_120143-0110",
+    "SRC26-20260926_120143-0111",
+    "SRC26-20260926_120143-0114",
+    "SRC26-20260926_120143-0120",
+    "SRC26-20260926_120143-0124",
+    "SRC26-20260926_120143-0133",
+    "SRC26-20260928_160143-0152",
+    "WK26-VOL03-023",
+    "WK26-VOL03-032"
+  ],
+  "unchanged_hold_source_rows": [
+    48,
+    228,
+    244,
+    614,
+    916
+  ],
+  "recovered_missing_review_source_rows": [
+    232,
+    280,
+    605,
+    631
+  ],
+  "counts": {
+    "strict_passed_spec": 10,
+    "candidate_review_pool": 605,
+    "watchlist_context_pool": 658,
+    "reject_or_support_only_pool": 28,
+    "existing_reinforcement": 29,
+    "review_resolution_ledger": 1291,
+    "formal_completed": 76,
+    "formal_pending": 1254,
+    "universe": 1330
+  },
+  "independent_native_checks": {
+    "stage_artifact_contract_check": {
+      "return_code": 0,
+      "output": "{\n  \"status\": \"PASS\",\n  \"stage\": \"A\",\n  \"item_count\": 10,\n  \"missing_count\": 0,\n  \"findings\": []\n}",
+      "error": ""
+    },
+    "stage_lineage_contract_check": {
+      "return_code": 0,
+      "output": "RESULT: PASS_STAGE_A_SCHEMA_CONTRACT",
+      "error": ""
+    }
+  },
+  "global_stage_a_status": "HOLD",
+  "stage_b_executed": false,
+  "main_full_related_production_mutated": false
+}

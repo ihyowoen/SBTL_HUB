@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "checks": {
+    "base_file_matches_anchored_sha": true,
+    "full_file_matches_anchored_sha": true,
+    "receipt_matches_current_file": true,
+    "original_source_1330_identity_and_order": true,
+    "exactly_six_source_rows_have_decision_change": true,
+    "99_prior_formal_decisions_untouched": true,
+    "six_formal_additions_match_exact_source_ids": true,
+    "prior_18_strict_specs_identical": true,
+    "strict_20_no_stage_b_fact_or_card_write": true,
+    "two_independent_strict_representatives": true,
+    "strict_ids_and_events_distinct_from_existing_full": true,
+    "commercial_contract_primary_owner_and_contract_stage": true,
+    "magnet_mou_official_owner_and_estimate_not_actual": true,
+    "every_affected_source_contains_multiple_economic_act_edges": true,
+    "mixed_ESS_source_keeps_LNF_and_tender_distinct": true,
+    "mixed_magnet_source_keeps_MOU_and_tender_distinct": true,
+    "same_impacton_article_source_ids_both_preserved": true,
+    "factorial_existing_strict_and_historical_deal_not_double_promoted": true,
+    "kpx_registration_followup_not_award": true,
+    "pool_and_review_partition_exact": true,
+    "sum_disjoint_final_pool_partition_1330": true,
+    "remaining_1225_and_cumulative_105": true,
+    "pre_native_54_fully_formal": true,
+    "cp17_correction_independent_QC_pass": true,
+    "DAPA_query_docSeq_not_bbsSeq_separated": true,
+    "cp17_corrected_units_not_claimed_as_formal_events": true,
+    "global_hold_production_main_unmodified": true
+  },
+  "counts_independent": {
+    "source_ids": 1330,
+    "old_formal": 99,
+    "new_formal": 6,
+    "cumulative_formal": 105,
+    "pending": 1225,
+    "strict": 20,
+    "corrected_cp17_source_review_units": 1130,
+    "pre_native_source_ids_all_resolved": 54
+  },
+  "sha256": {
+    "baseline_native": "d36893b263dfed269388d40680a7896ebee0b68127619cded66baeb951084fef",
+    "formal_cp18": "4b9039f9f045e92ae5485ddab4ab0ab40bb19da8fdf59bb02c6c0b5adba44b66",
+    "full_reference": "d22f0d4e39e035b9537b3e9abdf48abe6b7eb80f7e477e87aff1284f9e27e0d9",
+    "corrected_cp17": "3384589e886c79fdd07e34c258583b498928ae1fad9e151827f5653713692b38",
+    "cp17_independent_qc": "c408d010ddfe91cb1943fd9327fc8922dc99899543e3f1a7083b2ee91b18b3d0",
+    "receipt": "41b9799536c7c90a85805c9e513397efc03c10a8b216f53190f54b62f5757018"
+  },
+  "interpretation": "Source-level and partition-level independent QC. Native artifact+lineage checks separately required. Two strict selectors do not authorize Stage B or publication."
+}

@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "checks": {
+    "locked_stage_sha_matches": true,
+    "locked_full_sha_matches": true,
+    "full_reference_1676_unchanged": true,
+    "original_all_1330_unchanged": true,
+    "original_99_formal_unchanged": true,
+    "pending_1231_exact_set": true,
+    "source_id_unique": true,
+    "source_fields_preserved_exactly": true,
+    "unique_review_units": true,
+    "all_ids_in_exactly_one_source_review_unit": true,
+    "no_urls_merged_across_different_query_identity": true,
+    "weak_source_urls_are_isolated": true,
+    "no_formal_adjudications_in_output": true,
+    "global_hold_stage_b_closed": true,
+    "low_score_rescue_not_dropped": true,
+    "no_full_url_query_path_collision_row_30_40_41": true,
+    "independent_source_observation_arithmetic": true,
+    "worksheet_all_groups_one_research_row_each": true,
+    "worksheet_has_no_prejudged_economic_events": true,
+    "provisional_title_links_never_merge_url_units": true,
+    "inputs_still_byte_identical_after_qc": true
+  },
+  "counts_independent": {
+    "all_source_ids": 1330,
+    "previous_formal_source_ids": 99,
+    "pending_source_ids": 1231,
+    "source_review_units": 1129,
+    "candidate_cross_url_title_links": 14
+  },
+  "stage_sha256": "d36893b263dfed269388d40680a7896ebee0b68127619cded66baeb951084fef",
+  "full_sha256": "d22f0d4e39e035b9537b3e9abdf48abe6b7eb80f7e477e87aff1284f9e27e0d9",
+  "triage_sha256": "6aa7d16aee1e0e5772a90336fab143156787899116fad88741e57701999a8a86",
+  "interpretation": "Coverage and article-key safety only; not an economic-event or fact audit."
+}

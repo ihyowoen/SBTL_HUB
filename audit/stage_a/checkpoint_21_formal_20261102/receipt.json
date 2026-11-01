@@ -1,0 +1,1973 @@
+{
+  "status": "PENDING_NATIVE_AND_INDEPENDENT_QC",
+  "base_sha256": "b0b06dae8fd3ac19950772479ba087e0c8b661f3388899b9bbd370f789cd21c1",
+  "output_sha256": "0ccb219ab7acb7ec8142e35280dcdc89225062e96864e6707c1fb1d2cd8ae469",
+  "locked_full_sha256": "d22f0d4e39e035b9537b3e9abdf48abe6b7eb80f7e477e87aff1284f9e27e0d9",
+  "new_formal": 42,
+  "results": {
+    "STRICT": 5,
+    "SUPPORT": 9,
+    "WATCH": 28
+  },
+  "cumulative_formal": 195,
+  "remaining": 1135,
+  "cumulative_strict": 47,
+  "stage_b_executed": false,
+  "canonical_main_full_related_mutations": 0,
+  "source_decisions": [
+    {
+      "source_id": "SRC26-20260920_142928-0074",
+      "row": 74,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_CONTAINER_SCALE",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_CONTAINER_SCALE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000018.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000018.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000018.000181124.html",
+          "status": 200,
+          "sha256": "85933299ba91b7badef4f42a92657b55a41be6845f881c557446c4c0afc57640",
+          "retrieved_utc": "2026-11-01T15:02:16.543562+00:00",
+          "text_chars": 3593
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000018.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000018.000181124.html",
+        "rows": [
+          74,
+          458
+        ],
+        "retrieved_utc": "2026-11-01T15:02:16.543562+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000018.000181124.html",
+        "sha256": "85933299ba91b7badef4f42a92657b55a41be6845f881c557446c4c0afc57640",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3593
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260920_142928-0075",
+      "row": 75,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_LAND_CONNECTION",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_LAND_CONNECTION",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000017.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000017.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000017.000181124.html",
+          "status": 200,
+          "sha256": "082afc84e1a7d44c3a158742d38f3888f44a01551f567fc7576a38200cf4825b",
+          "retrieved_utc": "2026-11-01T15:02:16.634316+00:00",
+          "text_chars": 3591
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000017.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000017.000181124.html",
+        "rows": [
+          75,
+          459
+        ],
+        "retrieved_utc": "2026-11-01T15:02:16.634316+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000017.000181124.html",
+        "sha256": "082afc84e1a7d44c3a158742d38f3888f44a01551f567fc7576a38200cf4825b",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3591
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260920_142928-0076",
+      "row": 76,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_FIRE_SAFETY",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_FIRE_SAFETY",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000016.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000016.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000016.000181124.html",
+          "status": 200,
+          "sha256": "c0c54373f01e4ee80bad0009ed5e0f3018013db4defea446c3e7e74e00acc555",
+          "retrieved_utc": "2026-11-01T15:02:16.700132+00:00",
+          "text_chars": 3519
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000016.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000016.000181124.html",
+        "rows": [
+          76,
+          460
+        ],
+        "retrieved_utc": "2026-11-01T15:02:16.700132+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000016.000181124.html",
+        "sha256": "c0c54373f01e4ee80bad0009ed5e0f3018013db4defea446c3e7e74e00acc555",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3519
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260920_142928-0077",
+      "row": 77,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_C_RATE",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_C_RATE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000015.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000015.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000015.000181124.html",
+          "status": 200,
+          "sha256": "3d7c115b336a9b84d1fe508c1352da8c904f57ac5a66d512f7d128aa89ccc2b7",
+          "retrieved_utc": "2026-11-01T15:02:16.896452+00:00",
+          "text_chars": 3678
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000015.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000015.000181124.html",
+        "rows": [
+          77,
+          461
+        ],
+        "retrieved_utc": "2026-11-01T15:02:16.896452+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000015.000181124.html",
+        "sha256": "3d7c115b336a9b84d1fe508c1352da8c904f57ac5a66d512f7d128aa89ccc2b7",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3678
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260920_142928-0091",
+      "row": 91,
+      "result": "STRICT",
+      "event_family": "CA_MARATHON_CONDITIONAL_11M_LOAN_20260918",
+      "economic_act_edges": [
+        {
+          "event": "UP_TO_CAD11M_CONDITIONAL_PROCESSING_LOAN",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "CAD410M_PROCESSING_SUBSET_OF_CAD992M_PROJECT",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "PERMITTED_CONSTRUCTION_READY_NOT_OPERATING",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://www.investontario.ca/press-release/invest-ontario-supports-construction-generation-minings-marathon-copper-palladium-processing-facility"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://www.investontario.ca/press-release/invest-ontario-supports-construction-generation-minings-marathon-copper-palladium-processing-facility",
+          "final_url": "https://www.investontario.ca/press-release/invest-ontario-supports-construction-generation-minings-marathon-copper-palladium-processing-facility",
+          "status": 200,
+          "sha256": "d4033a4f87f382ac742a42491e52135edce9c82ca241166f5c0f8b25c1a127b2",
+          "retrieved_utc": "2026-11-01T15:02:17.502270+00:00",
+          "text_chars": 8091
+        }
+      ],
+      "source_url": "https://www.investontario.ca/press-release/invest-ontario-supports-construction-generation-minings-marathon-copper-palladium-processing-facility",
+      "source_body_retrieval": {
+        "url": "https://www.investontario.ca/press-release/invest-ontario-supports-construction-generation-minings-marathon-copper-palladium-processing-facility",
+        "rows": [
+          91
+        ],
+        "retrieved_utc": "2026-11-01T15:02:17.502270+00:00",
+        "status": 200,
+        "final_url": "https://www.investontario.ca/press-release/invest-ontario-supports-construction-generation-minings-marathon-copper-palladium-processing-facility",
+        "sha256": "d4033a4f87f382ac742a42491e52135edce9c82ca241166f5c0f8b25c1a127b2",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 8091
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260923_132732-0051",
+      "row": 253,
+      "result": "WATCH",
+      "event_family": "CA_NEXTSTAR_STORAGE_MILESTONE_AWARD",
+      "economic_act_edges": [
+        {
+          "event": "SEP22_AWARD",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "WINDSOR_OPENING_PRIOR_STAGE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "EMPLOYMENT_TARGET_NOT_ACTUAL_ADDITIONAL_OUTPUT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://news.lgensol.com/company-news/press-releases/5388"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://news.lgensol.com/company-news/press-releases/5388",
+          "final_url": "https://news.lgensol.com/company-news/press-releases/5388/",
+          "status": 200,
+          "sha256": "153f19e9c43f992522bcb0021dd9ff2bed0904606f9f9b370514c88d9708b776",
+          "retrieved_utc": "2026-11-01T15:02:26.276282+00:00",
+          "text_chars": 5256
+        }
+      ],
+      "source_url": "https://news.lgensol.com/company-news/press-releases/5388",
+      "source_body_retrieval": {
+        "url": "https://news.lgensol.com/company-news/press-releases/5388",
+        "rows": [
+          253,
+          617
+        ],
+        "retrieved_utc": "2026-11-01T15:02:26.276282+00:00",
+        "status": 200,
+        "final_url": "https://news.lgensol.com/company-news/press-releases/5388/",
+        "sha256": "153f19e9c43f992522bcb0021dd9ff2bed0904606f9f9b370514c88d9708b776",
+        "content_type": "text/html; charset=UTF-8",
+        "text_chars": 5256
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260923_132732-0124",
+      "row": 326,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_CASHFLOW",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_CASHFLOW",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000024.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000024.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000024.000181124.html",
+          "status": 200,
+          "sha256": "5e7dc9a3d2f941cf21a7dfa4555579419561d6082071eca03c3b48f4c4f50051",
+          "retrieved_utc": "2026-11-01T15:02:30.940559+00:00",
+          "text_chars": 3568
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000024.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000024.000181124.html",
+        "rows": [
+          326
+        ],
+        "retrieved_utc": "2026-11-01T15:02:30.940559+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000024.000181124.html",
+        "sha256": "5e7dc9a3d2f941cf21a7dfa4555579419561d6082071eca03c3b48f4c4f50051",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3568
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260923_132732-0125",
+      "row": 327,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_IRR",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_IRR",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000023.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000023.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000023.000181124.html",
+          "status": 200,
+          "sha256": "2778790ce06205094b94b5bac7e578c421bed5d045bfec16db49acd4ed66c1ea",
+          "retrieved_utc": "2026-11-01T15:02:31.085823+00:00",
+          "text_chars": 3741
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000023.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000023.000181124.html",
+        "rows": [
+          327
+        ],
+        "retrieved_utc": "2026-11-01T15:02:31.085823+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000023.000181124.html",
+        "sha256": "2778790ce06205094b94b5bac7e578c421bed5d045bfec16db49acd4ed66c1ea",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3741
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260923_132732-0256",
+      "row": 458,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_CONTAINER_SCALE",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_CONTAINER_SCALE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000018.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000018.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000018.000181124.html",
+          "status": 200,
+          "sha256": "85933299ba91b7badef4f42a92657b55a41be6845f881c557446c4c0afc57640",
+          "retrieved_utc": "2026-11-01T15:02:16.543562+00:00",
+          "text_chars": 3593
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000018.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000018.000181124.html",
+        "rows": [
+          74,
+          458
+        ],
+        "retrieved_utc": "2026-11-01T15:02:16.543562+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000018.000181124.html",
+        "sha256": "85933299ba91b7badef4f42a92657b55a41be6845f881c557446c4c0afc57640",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3593
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260923_132732-0257",
+      "row": 459,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_LAND_CONNECTION",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_LAND_CONNECTION",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000017.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000017.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000017.000181124.html",
+          "status": 200,
+          "sha256": "082afc84e1a7d44c3a158742d38f3888f44a01551f567fc7576a38200cf4825b",
+          "retrieved_utc": "2026-11-01T15:02:16.634316+00:00",
+          "text_chars": 3591
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000017.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000017.000181124.html",
+        "rows": [
+          75,
+          459
+        ],
+        "retrieved_utc": "2026-11-01T15:02:16.634316+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000017.000181124.html",
+        "sha256": "082afc84e1a7d44c3a158742d38f3888f44a01551f567fc7576a38200cf4825b",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3591
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260923_132732-0258",
+      "row": 460,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_FIRE_SAFETY",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_FIRE_SAFETY",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000016.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000016.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000016.000181124.html",
+          "status": 200,
+          "sha256": "c0c54373f01e4ee80bad0009ed5e0f3018013db4defea446c3e7e74e00acc555",
+          "retrieved_utc": "2026-11-01T15:02:16.700132+00:00",
+          "text_chars": 3519
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000016.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000016.000181124.html",
+        "rows": [
+          76,
+          460
+        ],
+        "retrieved_utc": "2026-11-01T15:02:16.700132+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000016.000181124.html",
+        "sha256": "c0c54373f01e4ee80bad0009ed5e0f3018013db4defea446c3e7e74e00acc555",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3519
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260923_132732-0259",
+      "row": 461,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_C_RATE",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_C_RATE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000015.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000015.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000015.000181124.html",
+          "status": 200,
+          "sha256": "3d7c115b336a9b84d1fe508c1352da8c904f57ac5a66d512f7d128aa89ccc2b7",
+          "retrieved_utc": "2026-11-01T15:02:16.896452+00:00",
+          "text_chars": 3678
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000015.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000015.000181124.html",
+        "rows": [
+          77,
+          461
+        ],
+        "retrieved_utc": "2026-11-01T15:02:16.896452+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000015.000181124.html",
+        "sha256": "3d7c115b336a9b84d1fe508c1352da8c904f57ac5a66d512f7d128aa89ccc2b7",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3678
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0083",
+      "row": 581,
+      "result": "STRICT",
+      "event_family": "KR_US_LGES_B2U_PRIORITY_BATTERY_REPURPOSING_20260922",
+      "economic_act_edges": [
+        {
+          "event": "PRIORITY_BATTERY_ACCESS_STRATEGIC_AGREEMENT",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "REPURPOSING_BEFORE_RECYCLING_FUTURE_US_BESS",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "SEPT24_PAGE_DATE_NOT_AGREEMENT_DATE",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://news.lgensol.com/company-news/press-releases/5260"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://news.lgensol.com/company-news/press-releases/5260",
+          "final_url": "https://news.lgensol.com/company-news/press-releases/5260/",
+          "status": 200,
+          "sha256": "c51b676eea9c57a4d62aeca68d82eee8f321e09cdec0be6f6420ee34a262fa5f",
+          "retrieved_utc": "2026-11-01T15:02:48.725502+00:00",
+          "text_chars": 5675
+        }
+      ],
+      "source_url": "https://news.lgensol.com/company-news/press-releases/5260",
+      "source_body_retrieval": {
+        "url": "https://news.lgensol.com/company-news/press-releases/5260",
+        "rows": [
+          581,
+          1126
+        ],
+        "retrieved_utc": "2026-11-01T15:02:48.725502+00:00",
+        "status": 200,
+        "final_url": "https://news.lgensol.com/company-news/press-releases/5260/",
+        "sha256": "c51b676eea9c57a4d62aeca68d82eee8f321e09cdec0be6f6420ee34a262fa5f",
+        "content_type": "text/html; charset=UTF-8",
+        "text_chars": 5675
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0119",
+      "row": 617,
+      "result": "WATCH",
+      "event_family": "CA_NEXTSTAR_STORAGE_MILESTONE_AWARD",
+      "economic_act_edges": [
+        {
+          "event": "SEP22_AWARD",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "WINDSOR_OPENING_PRIOR_STAGE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "EMPLOYMENT_TARGET_NOT_ACTUAL_ADDITIONAL_OUTPUT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://news.lgensol.com/company-news/press-releases/5388"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://news.lgensol.com/company-news/press-releases/5388",
+          "final_url": "https://news.lgensol.com/company-news/press-releases/5388/",
+          "status": 200,
+          "sha256": "153f19e9c43f992522bcb0021dd9ff2bed0904606f9f9b370514c88d9708b776",
+          "retrieved_utc": "2026-11-01T15:02:26.276282+00:00",
+          "text_chars": 5256
+        }
+      ],
+      "source_url": "https://news.lgensol.com/company-news/press-releases/5388",
+      "source_body_retrieval": {
+        "url": "https://news.lgensol.com/company-news/press-releases/5388",
+        "rows": [
+          253,
+          617
+        ],
+        "retrieved_utc": "2026-11-01T15:02:26.276282+00:00",
+        "status": 200,
+        "final_url": "https://news.lgensol.com/company-news/press-releases/5388/",
+        "sha256": "153f19e9c43f992522bcb0021dd9ff2bed0904606f9f9b370514c88d9708b776",
+        "content_type": "text/html; charset=UTF-8",
+        "text_chars": 5256
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0143",
+      "row": 641,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_CAPEX",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_CAPEX",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000030.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000030.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000030.000181124.html",
+          "status": 200,
+          "sha256": "0664792cc11f2ea987411e1b95617452e0d7ec5be6fecf5421deb55edb4b4e29",
+          "retrieved_utc": "2026-11-01T15:02:51.507436+00:00",
+          "text_chars": 3573
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000030.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000030.000181124.html",
+        "rows": [
+          641,
+          1030
+        ],
+        "retrieved_utc": "2026-11-01T15:02:51.507436+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000030.000181124.html",
+        "sha256": "0664792cc11f2ea987411e1b95617452e0d7ec5be6fecf5421deb55edb4b4e29",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3573
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0148",
+      "row": 646,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_VPP",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_VPP",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000029.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000029.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000029.000181124.html",
+          "status": 200,
+          "sha256": "0e92fc9ff773b720ff9f39c8199337e2f4a546905d8eca0d43f7de60f48bc7da",
+          "retrieved_utc": "2026-11-01T15:02:51.734202+00:00",
+          "text_chars": 3749
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000029.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000029.000181124.html",
+        "rows": [
+          646,
+          1031
+        ],
+        "retrieved_utc": "2026-11-01T15:02:51.734202+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000029.000181124.html",
+        "sha256": "0e92fc9ff773b720ff9f39c8199337e2f4a546905d8eca0d43f7de60f48bc7da",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3749
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0149",
+      "row": 647,
+      "result": "WATCH",
+      "event_family": "JP_WATT_TUNE_REVENUE_SHARE_TARIFF",
+      "economic_act_edges": [
+        {
+          "event": "PUBLIC_SERVICE_TARIFF_8PCT_PLUS_300K_YEN",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "AREA_SPECIFIC_AGGREGATION_DESIGN_NOT_MARKET_ADMISSION",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000014.000183612.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000014.000183612.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000014.000183612.html",
+          "status": 200,
+          "sha256": "06101406b01e1a63ed680cbbfa4d405784e461207d43738f4638779f1aa108bb",
+          "retrieved_utc": "2026-11-01T15:02:51.752526+00:00",
+          "text_chars": 4792
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000014.000183612.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000014.000183612.html",
+        "rows": [
+          647,
+          1032
+        ],
+        "retrieved_utc": "2026-11-01T15:02:51.752526+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000014.000183612.html",
+        "sha256": "06101406b01e1a63ed680cbbfa4d405784e461207d43738f4638779f1aa108bb",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 4792
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0150",
+      "row": 648,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_SOLAR_COLOCATION",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_SOLAR_COLOCATION",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000028.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000028.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000028.000181124.html",
+          "status": 200,
+          "sha256": "c55f2f02cec9bafc82ac1b60961958a434b0d3286a87ee0552bcf88ed1052c40",
+          "retrieved_utc": "2026-11-01T15:02:51.801847+00:00",
+          "text_chars": 3733
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000028.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000028.000181124.html",
+        "rows": [
+          648
+        ],
+        "retrieved_utc": "2026-11-01T15:02:51.801847+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000028.000181124.html",
+        "sha256": "c55f2f02cec9bafc82ac1b60961958a434b0d3286a87ee0552bcf88ed1052c40",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3733
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0151",
+      "row": 649,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_UTILIZATION",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_UTILIZATION",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000027.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000027.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000027.000181124.html",
+          "status": 200,
+          "sha256": "d974153c14cba8df836f13578a4f8bcb35a70b69730f8a4b2377448510ec9509",
+          "retrieved_utc": "2026-11-01T15:02:51.814297+00:00",
+          "text_chars": 3566
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000027.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000027.000181124.html",
+        "rows": [
+          649
+        ],
+        "retrieved_utc": "2026-11-01T15:02:51.814297+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000027.000181124.html",
+        "sha256": "d974153c14cba8df836f13578a4f8bcb35a70b69730f8a4b2377448510ec9509",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3566
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0153",
+      "row": 651,
+      "result": "WATCH",
+      "event_family": "JP_NATURE_TESLA_SMART_CHARGE_SERVICE",
+      "economic_act_edges": [
+        {
+          "event": "SMART_CHARGING_SUBSCRIPTION_AVAILABLE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "BATTERY_EV_PRIORITY_CONTROL_NOT_V2H",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000181.000019285.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000181.000019285.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000181.000019285.html",
+          "status": 200,
+          "sha256": "e44e2fc9294112c9f1b6c613c08c402afd9d2d36e7aac23011601eb4428b8739",
+          "retrieved_utc": "2026-11-01T15:02:51.888475+00:00",
+          "text_chars": 5686
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000181.000019285.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000181.000019285.html",
+        "rows": [
+          651
+        ],
+        "retrieved_utc": "2026-11-01T15:02:51.888475+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000181.000019285.html",
+        "sha256": "e44e2fc9294112c9f1b6c613c08c402afd9d2d36e7aac23011601eb4428b8739",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 5686
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0232",
+      "row": 730,
+      "result": "WATCH",
+      "event_family": "NL_PAPENDAL_ENECO_315KW_OPERATION",
+      "economic_act_edges": [
+        {
+          "event": "315KW_BATTERY_OPERATION_CONFIRMED",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "THREE_YEAR_LEASE_COST_OFFSET_FOR_MARKET_ACCESS",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "59_CHARGERS_PRIOR_YEAR_STAGE_NOT_NEW_BATTERY_MWH",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://news.eneco.com/papendal-takes-eneco-battery-into-operation-with-smart-energy-management"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://news.eneco.com/papendal-takes-eneco-battery-into-operation-with-smart-energy-management",
+          "final_url": "https://news.eneco.com/papendal-takes-eneco-battery-into-operation-with-smart-energy-management",
+          "status": 200,
+          "sha256": "a3c11f84daa58658c416d671403aad0dbe9cfdbc3774c9cc50d70a9c38844ccf",
+          "retrieved_utc": "2026-11-01T15:02:55.304951+00:00",
+          "text_chars": 6131
+        }
+      ],
+      "source_url": "https://news.eneco.com/papendal-takes-eneco-battery-into-operation-with-smart-energy-management",
+      "source_body_retrieval": {
+        "url": "https://news.eneco.com/papendal-takes-eneco-battery-into-operation-with-smart-energy-management",
+        "rows": [
+          730,
+          1070
+        ],
+        "retrieved_utc": "2026-11-01T15:02:55.304951+00:00",
+        "status": 200,
+        "final_url": "https://news.eneco.com/papendal-takes-eneco-battery-into-operation-with-smart-energy-management",
+        "sha256": "a3c11f84daa58658c416d671403aad0dbe9cfdbc3774c9cc50d70a9c38844ccf",
+        "content_type": "text/html; charset=UTF-8",
+        "text_chars": 6131
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0260",
+      "row": 758,
+      "result": "SUPPORT",
+      "event_family": "HU_CATL_DEBRECEN_TWO_CELL_LINES_TRIAL_20260922",
+      "economic_act_edges": [
+        {
+          "event": "TWO_CELL_LINES_TRIAL_SEP22_NOT_SERIES",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "AUGUST_OCCUPANCY_PERMIT_PRIOR_STAGE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "MODULE_PRODUCTION_SINCE_2024_NOT_NEW_CELL_OUTPUT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://www.catl.com/en/news/7000.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://www.catl.com/en/news/7000.html",
+          "final_url": "https://www.catl.com/en/news/7000.html",
+          "status": 200,
+          "sha256": "549332e8484fa06c8bc68f483bd918ecc024c3bb80372b0a2b484ae2890cad85",
+          "retrieved_utc": "2026-11-01T15:03:26.810227+00:00",
+          "text_chars": 5552
+        }
+      ],
+      "source_url": "https://battery-news.de/en/2026/09/23/catl-starts-trial-production-of-battery-cells-in-debrecen",
+      "source_body_retrieval": {
+        "url": "https://battery-news.de/en/2026/09/23/catl-starts-trial-production-of-battery-cells-in-debrecen",
+        "rows": [
+          758
+        ],
+        "retrieved_utc": "2026-11-01T15:02:56.042289+00:00",
+        "status": 200,
+        "final_url": "https://battery-news.de/en/2026/09/23/catl-starts-trial-production-of-battery-cells-in-debrecen/",
+        "sha256": "173ed1f45723f894fc3c2afb764f960767c328399c97adbb4ecce27e43e496b4",
+        "content_type": "text/html; charset=UTF-8",
+        "text_chars": 3098
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0271",
+      "row": 769,
+      "result": "SUPPORT",
+      "event_family": "CN_GEELY_AI_SMART_CHARGING_20260923",
+      "economic_act_edges": [
+        {
+          "event": "SEP23_AI_CHARGING_ANNOUNCEMENT",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "POWERMIND_TEMPERATURE_CONTROL_COMPANY_CLAIM",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "FUTURE_NETWORK_TARGET_NOT_EXECUTION",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://www.geelyautogroup.com/en/media/202609231/"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://www.geelyautogroup.com/en/media/202609231/",
+          "final_url": "https://www.geelyautogroup.com/en/media/202609231/",
+          "status": 200,
+          "sha256": "8b8fd229cf4991a24f860d080e0c43e6c94609d27068924691ce5e0cc7383592",
+          "retrieved_utc": "2026-11-01T15:03:24.868480+00:00",
+          "text_chars": 3515
+        }
+      ],
+      "source_url": "https://libattery.ofweek.com/2026-09/ART-36001-8140-30704659.html",
+      "source_body_retrieval": {
+        "url": "https://libattery.ofweek.com/2026-09/ART-36001-8140-30704659.html",
+        "rows": [
+          769,
+          1139
+        ],
+        "retrieved_utc": "2026-11-01T15:02:57.024902+00:00",
+        "status": 200,
+        "final_url": "https://libattery.ofweek.com/2026-09/ART-36001-8140-30704659.html",
+        "sha256": "311d199fb3b9199c4fba82ac03a61f918c1a7cf12081975702d3c4e08dfe14eb",
+        "content_type": "text/html;charset=GBK",
+        "text_chars": 5710
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0280",
+      "row": 778,
+      "result": "SUPPORT",
+      "event_family": "CN_GEELY_AI_SMART_CHARGING_20260923",
+      "economic_act_edges": [
+        {
+          "event": "SEP23_AI_CHARGING_ANNOUNCEMENT",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "POWERMIND_TEMPERATURE_CONTROL_COMPANY_CLAIM",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "FUTURE_NETWORK_TARGET_NOT_EXECUTION",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://www.geelyautogroup.com/en/media/202609231/"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://www.geelyautogroup.com/en/media/202609231/",
+          "final_url": "https://www.geelyautogroup.com/en/media/202609231/",
+          "status": 200,
+          "sha256": "8b8fd229cf4991a24f860d080e0c43e6c94609d27068924691ce5e0cc7383592",
+          "retrieved_utc": "2026-11-01T15:03:24.868480+00:00",
+          "text_chars": 3515
+        }
+      ],
+      "source_url": "https://libattery.ofweek.com/2026-09/ART-36008-8140-30704744.html",
+      "source_body_retrieval": {
+        "url": "https://libattery.ofweek.com/2026-09/ART-36008-8140-30704744.html",
+        "rows": [
+          778,
+          1138
+        ],
+        "retrieved_utc": "2026-11-01T15:02:57.958765+00:00",
+        "status": 200,
+        "final_url": "https://libattery.ofweek.com/2026-09/ART-36008-8140-30704744.html",
+        "sha256": "3fb470db6bbfbc1be4f570e13c83e45a7701c875e19cf2cacace08d00b4a2b20",
+        "content_type": "text/html;charset=GBK",
+        "text_chars": 4982
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0293",
+      "row": 791,
+      "result": "SUPPORT",
+      "event_family": "HU_CATL_DEBRECEN_TWO_CELL_LINES_TRIAL_20260922",
+      "economic_act_edges": [
+        {
+          "event": "TWO_CELL_LINES_TRIAL_SEP22_NOT_SERIES",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "AUGUST_OCCUPANCY_PERMIT_PRIOR_STAGE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "MODULE_PRODUCTION_SINCE_2024_NOT_NEW_CELL_OUTPUT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://www.catl.com/en/news/7000.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://www.catl.com/en/news/7000.html",
+          "final_url": "https://www.catl.com/en/news/7000.html",
+          "status": 200,
+          "sha256": "549332e8484fa06c8bc68f483bd918ecc024c3bb80372b0a2b484ae2890cad85",
+          "retrieved_utc": "2026-11-01T15:03:26.810227+00:00",
+          "text_chars": 5552
+        }
+      ],
+      "source_url": "https://libattery.ofweek.com/2026-09/ART-36001-8130-30704641.html",
+      "source_body_retrieval": {
+        "url": "https://libattery.ofweek.com/2026-09/ART-36001-8130-30704641.html",
+        "rows": [
+          791,
+          1149
+        ],
+        "retrieved_utc": "2026-11-01T15:02:59.131614+00:00",
+        "status": 200,
+        "final_url": "https://libattery.ofweek.com/2026-09/ART-36001-8130-30704641.html",
+        "sha256": "2317edc002e98fd9e2476956b7212d1101fac2134a57f229c66c4957e5b648b9",
+        "content_type": "text/html;charset=GBK",
+        "text_chars": 4297
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260926_120143-0316",
+      "row": 814,
+      "result": "SUPPORT",
+      "event_family": "HU_CATL_DEBRECEN_TWO_CELL_LINES_TRIAL_20260922",
+      "economic_act_edges": [
+        {
+          "event": "TWO_CELL_LINES_TRIAL_SEP22_NOT_SERIES",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "AUGUST_OCCUPANCY_PERMIT_PRIOR_STAGE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "MODULE_PRODUCTION_SINCE_2024_NOT_NEW_CELL_OUTPUT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://www.catl.com/en/news/7000.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://www.catl.com/en/news/7000.html",
+          "final_url": "https://www.catl.com/en/news/7000.html",
+          "status": 200,
+          "sha256": "549332e8484fa06c8bc68f483bd918ecc024c3bb80372b0a2b484ae2890cad85",
+          "retrieved_utc": "2026-11-01T15:03:26.810227+00:00",
+          "text_chars": 5552
+        }
+      ],
+      "source_url": "https://libattery.ofweek.com/2026-09/ART-36003-8460-30704601.html",
+      "source_body_retrieval": {
+        "url": "https://libattery.ofweek.com/2026-09/ART-36003-8460-30704601.html",
+        "rows": [
+          814
+        ],
+        "retrieved_utc": "2026-11-01T15:03:00.573880+00:00",
+        "status": 200,
+        "final_url": "https://libattery.ofweek.com/2026-09/ART-36003-8460-30704601.html",
+        "sha256": "d8f0d97121155f5a9aaa1f1fe87f4cf4e2110d2bfde61637143f1cee625877ee",
+        "content_type": "text/html;charset=GBK",
+        "text_chars": 4750
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260928_160143-0161",
+      "row": 1027,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_OM_COST",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_OM_COST",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000032.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000032.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000032.000181124.html",
+          "status": 200,
+          "sha256": "c439e6ce2e4cf5760d068ab1e643160d68c89b011b0b8b42e436c19be7eac534",
+          "retrieved_utc": "2026-11-01T15:03:13.903537+00:00",
+          "text_chars": 3503
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000032.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000032.000181124.html",
+        "rows": [
+          1027
+        ],
+        "retrieved_utc": "2026-11-01T15:03:13.903537+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000032.000181124.html",
+        "sha256": "c439e6ce2e4cf5760d068ab1e643160d68c89b011b0b8b42e436c19be7eac534",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3503
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260928_160143-0162",
+      "row": 1028,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_SECOND_LIFE",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_SECOND_LIFE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000031.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000031.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000031.000181124.html",
+          "status": 200,
+          "sha256": "034e66511deb3c28e151ce61b62fd07abbdd16431d417895227e76f1e8b6ea73",
+          "retrieved_utc": "2026-11-01T15:03:13.932120+00:00",
+          "text_chars": 3578
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000031.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000031.000181124.html",
+        "rows": [
+          1028
+        ],
+        "retrieved_utc": "2026-11-01T15:03:13.932120+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000031.000181124.html",
+        "sha256": "034e66511deb3c28e151ce61b62fd07abbdd16431d417895227e76f1e8b6ea73",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3578
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260928_160143-0164",
+      "row": 1030,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_CAPEX",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_CAPEX",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000030.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000030.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000030.000181124.html",
+          "status": 200,
+          "sha256": "0664792cc11f2ea987411e1b95617452e0d7ec5be6fecf5421deb55edb4b4e29",
+          "retrieved_utc": "2026-11-01T15:02:51.507436+00:00",
+          "text_chars": 3573
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000030.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000030.000181124.html",
+        "rows": [
+          641,
+          1030
+        ],
+        "retrieved_utc": "2026-11-01T15:02:51.507436+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000030.000181124.html",
+        "sha256": "0664792cc11f2ea987411e1b95617452e0d7ec5be6fecf5421deb55edb4b4e29",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3573
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260928_160143-0165",
+      "row": 1031,
+      "result": "WATCH",
+      "event_family": "JP_JAPAN_BRANDING_WEBINAR_VPP",
+      "economic_act_edges": [
+        {
+          "event": "WEBINAR_ANNOUNCEMENT_VPP",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "HISTORICAL_DATA_CONTEXT_NOT_NEW_ECONOMIC_ACT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000029.000181124.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000029.000181124.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000029.000181124.html",
+          "status": 200,
+          "sha256": "0e92fc9ff773b720ff9f39c8199337e2f4a546905d8eca0d43f7de60f48bc7da",
+          "retrieved_utc": "2026-11-01T15:02:51.734202+00:00",
+          "text_chars": 3749
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000029.000181124.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000029.000181124.html",
+        "rows": [
+          646,
+          1031
+        ],
+        "retrieved_utc": "2026-11-01T15:02:51.734202+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000029.000181124.html",
+        "sha256": "0e92fc9ff773b720ff9f39c8199337e2f4a546905d8eca0d43f7de60f48bc7da",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3749
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260928_160143-0166",
+      "row": 1032,
+      "result": "WATCH",
+      "event_family": "JP_WATT_TUNE_REVENUE_SHARE_TARIFF",
+      "economic_act_edges": [
+        {
+          "event": "PUBLIC_SERVICE_TARIFF_8PCT_PLUS_300K_YEN",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "AREA_SPECIFIC_AGGREGATION_DESIGN_NOT_MARKET_ADMISSION",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000014.000183612.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000014.000183612.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000014.000183612.html",
+          "status": 200,
+          "sha256": "06101406b01e1a63ed680cbbfa4d405784e461207d43738f4638779f1aa108bb",
+          "retrieved_utc": "2026-11-01T15:02:51.752526+00:00",
+          "text_chars": 4792
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000014.000183612.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000014.000183612.html",
+        "rows": [
+          647,
+          1032
+        ],
+        "retrieved_utc": "2026-11-01T15:02:51.752526+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000014.000183612.html",
+        "sha256": "06101406b01e1a63ed680cbbfa4d405784e461207d43738f4638779f1aa108bb",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 4792
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260928_160143-0204",
+      "row": 1070,
+      "result": "WATCH",
+      "event_family": "NL_PAPENDAL_ENECO_315KW_OPERATION",
+      "economic_act_edges": [
+        {
+          "event": "315KW_BATTERY_OPERATION_CONFIRMED",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "THREE_YEAR_LEASE_COST_OFFSET_FOR_MARKET_ACCESS",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "59_CHARGERS_PRIOR_YEAR_STAGE_NOT_NEW_BATTERY_MWH",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://news.eneco.com/papendal-takes-eneco-battery-into-operation-with-smart-energy-management"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://news.eneco.com/papendal-takes-eneco-battery-into-operation-with-smart-energy-management",
+          "final_url": "https://news.eneco.com/papendal-takes-eneco-battery-into-operation-with-smart-energy-management",
+          "status": 200,
+          "sha256": "a3c11f84daa58658c416d671403aad0dbe9cfdbc3774c9cc50d70a9c38844ccf",
+          "retrieved_utc": "2026-11-01T15:02:55.304951+00:00",
+          "text_chars": 6131
+        }
+      ],
+      "source_url": "https://news.eneco.com/papendal-takes-eneco-battery-into-operation-with-smart-energy-management",
+      "source_body_retrieval": {
+        "url": "https://news.eneco.com/papendal-takes-eneco-battery-into-operation-with-smart-energy-management",
+        "rows": [
+          730,
+          1070
+        ],
+        "retrieved_utc": "2026-11-01T15:02:55.304951+00:00",
+        "status": 200,
+        "final_url": "https://news.eneco.com/papendal-takes-eneco-battery-into-operation-with-smart-energy-management",
+        "sha256": "a3c11f84daa58658c416d671403aad0dbe9cfdbc3774c9cc50d70a9c38844ccf",
+        "content_type": "text/html; charset=UTF-8",
+        "text_chars": 6131
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260928_160143-0260",
+      "row": 1126,
+      "result": "SUPPORT",
+      "event_family": "KR_US_LGES_B2U_PRIORITY_BATTERY_REPURPOSING_20260922",
+      "economic_act_edges": [
+        {
+          "event": "PRIORITY_BATTERY_ACCESS_STRATEGIC_AGREEMENT",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "REPURPOSING_BEFORE_RECYCLING_FUTURE_US_BESS",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "SEPT24_PAGE_DATE_NOT_AGREEMENT_DATE",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://news.lgensol.com/company-news/press-releases/5260"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://news.lgensol.com/company-news/press-releases/5260",
+          "final_url": "https://news.lgensol.com/company-news/press-releases/5260/",
+          "status": 200,
+          "sha256": "c51b676eea9c57a4d62aeca68d82eee8f321e09cdec0be6f6420ee34a262fa5f",
+          "retrieved_utc": "2026-11-01T15:02:48.725502+00:00",
+          "text_chars": 5675
+        }
+      ],
+      "source_url": "https://news.lgensol.com/company-news/press-releases/5260",
+      "source_body_retrieval": {
+        "url": "https://news.lgensol.com/company-news/press-releases/5260",
+        "rows": [
+          581,
+          1126
+        ],
+        "retrieved_utc": "2026-11-01T15:02:48.725502+00:00",
+        "status": 200,
+        "final_url": "https://news.lgensol.com/company-news/press-releases/5260/",
+        "sha256": "c51b676eea9c57a4d62aeca68d82eee8f321e09cdec0be6f6420ee34a262fa5f",
+        "content_type": "text/html; charset=UTF-8",
+        "text_chars": 5675
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260928_160143-0261",
+      "row": 1127,
+      "result": "WATCH",
+      "event_family": "JP_OBIHIRO_NISSAN_MOBISAVI_WARRANTY_ANNOUNCED",
+      "economic_act_edges": [
+        {
+          "event": "SEP24_ANNOUNCEMENT_OCT1_SERVICE_START",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "DEALER_EXTENSION_NOT_OEM_CELL_LIFE_VALIDATION",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000011.000159145.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000011.000159145.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000011.000159145.html",
+          "status": 200,
+          "sha256": "419781216fab5f5882df069ba65b9e4effe8d51bc505fdaf7c4cd38b6e585735",
+          "retrieved_utc": "2026-11-01T15:03:19.986131+00:00",
+          "text_chars": 3333
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000011.000159145.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000011.000159145.html",
+        "rows": [
+          1127
+        ],
+        "retrieved_utc": "2026-11-01T15:03:19.986131+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000011.000159145.html",
+        "sha256": "419781216fab5f5882df069ba65b9e4effe8d51bc505fdaf7c4cd38b6e585735",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3333
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260928_160143-0272",
+      "row": 1138,
+      "result": "SUPPORT",
+      "event_family": "CN_GEELY_AI_SMART_CHARGING_20260923",
+      "economic_act_edges": [
+        {
+          "event": "SEP23_AI_CHARGING_ANNOUNCEMENT",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "POWERMIND_TEMPERATURE_CONTROL_COMPANY_CLAIM",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "FUTURE_NETWORK_TARGET_NOT_EXECUTION",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://www.geelyautogroup.com/en/media/202609231/"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://www.geelyautogroup.com/en/media/202609231/",
+          "final_url": "https://www.geelyautogroup.com/en/media/202609231/",
+          "status": 200,
+          "sha256": "8b8fd229cf4991a24f860d080e0c43e6c94609d27068924691ce5e0cc7383592",
+          "retrieved_utc": "2026-11-01T15:03:24.868480+00:00",
+          "text_chars": 3515
+        }
+      ],
+      "source_url": "https://libattery.ofweek.com/2026-09/ART-36008-8140-30704744.html",
+      "source_body_retrieval": {
+        "url": "https://libattery.ofweek.com/2026-09/ART-36008-8140-30704744.html",
+        "rows": [
+          778,
+          1138
+        ],
+        "retrieved_utc": "2026-11-01T15:02:57.958765+00:00",
+        "status": 200,
+        "final_url": "https://libattery.ofweek.com/2026-09/ART-36008-8140-30704744.html",
+        "sha256": "3fb470db6bbfbc1be4f570e13c83e45a7701c875e19cf2cacace08d00b4a2b20",
+        "content_type": "text/html;charset=GBK",
+        "text_chars": 4982
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260928_160143-0273",
+      "row": 1139,
+      "result": "SUPPORT",
+      "event_family": "CN_GEELY_AI_SMART_CHARGING_20260923",
+      "economic_act_edges": [
+        {
+          "event": "SEP23_AI_CHARGING_ANNOUNCEMENT",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "POWERMIND_TEMPERATURE_CONTROL_COMPANY_CLAIM",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "FUTURE_NETWORK_TARGET_NOT_EXECUTION",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://www.geelyautogroup.com/en/media/202609231/"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://www.geelyautogroup.com/en/media/202609231/",
+          "final_url": "https://www.geelyautogroup.com/en/media/202609231/",
+          "status": 200,
+          "sha256": "8b8fd229cf4991a24f860d080e0c43e6c94609d27068924691ce5e0cc7383592",
+          "retrieved_utc": "2026-11-01T15:03:24.868480+00:00",
+          "text_chars": 3515
+        }
+      ],
+      "source_url": "https://libattery.ofweek.com/2026-09/ART-36001-8140-30704659.html",
+      "source_body_retrieval": {
+        "url": "https://libattery.ofweek.com/2026-09/ART-36001-8140-30704659.html",
+        "rows": [
+          769,
+          1139
+        ],
+        "retrieved_utc": "2026-11-01T15:02:57.024902+00:00",
+        "status": 200,
+        "final_url": "https://libattery.ofweek.com/2026-09/ART-36001-8140-30704659.html",
+        "sha256": "311d199fb3b9199c4fba82ac03a61f918c1a7cf12081975702d3c4e08dfe14eb",
+        "content_type": "text/html;charset=GBK",
+        "text_chars": 5710
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "SRC26-20260928_160143-0283",
+      "row": 1149,
+      "result": "SUPPORT",
+      "event_family": "HU_CATL_DEBRECEN_TWO_CELL_LINES_TRIAL_20260922",
+      "economic_act_edges": [
+        {
+          "event": "TWO_CELL_LINES_TRIAL_SEP22_NOT_SERIES",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "AUGUST_OCCUPANCY_PERMIT_PRIOR_STAGE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "MODULE_PRODUCTION_SINCE_2024_NOT_NEW_CELL_OUTPUT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://www.catl.com/en/news/7000.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://www.catl.com/en/news/7000.html",
+          "final_url": "https://www.catl.com/en/news/7000.html",
+          "status": 200,
+          "sha256": "549332e8484fa06c8bc68f483bd918ecc024c3bb80372b0a2b484ae2890cad85",
+          "retrieved_utc": "2026-11-01T15:03:26.810227+00:00",
+          "text_chars": 5552
+        }
+      ],
+      "source_url": "https://libattery.ofweek.com/2026-09/ART-36001-8130-30704641.html",
+      "source_body_retrieval": {
+        "url": "https://libattery.ofweek.com/2026-09/ART-36001-8130-30704641.html",
+        "rows": [
+          791,
+          1149
+        ],
+        "retrieved_utc": "2026-11-01T15:02:59.131614+00:00",
+        "status": 200,
+        "final_url": "https://libattery.ofweek.com/2026-09/ART-36001-8130-30704641.html",
+        "sha256": "2317edc002e98fd9e2476956b7212d1101fac2134a57f229c66c4957e5b648b9",
+        "content_type": "text/html;charset=GBK",
+        "text_chars": 4297
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "R17_DISC_003",
+      "row": 1165,
+      "result": "WATCH",
+      "event_family": "JP_MARUBENI_SUNVILLAGE_FOUR_MARKET_ENTRY",
+      "economic_act_edges": [
+        {
+          "event": "FOUR_SITES_MARKET_ENTRY_SEPTEMBER",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "OCT13_RETROSPECTIVE_ANNOUNCEMENT",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "179MW_OPERATOR_ORDERBOOK_NOT_FOUR_SITE_TOTAL",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000048.000051303.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000048.000051303.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000048.000051303.html",
+          "status": 200,
+          "sha256": "81f101cfc971c72fb6c3de0448c93f0f96c46449ff9849531a8c74aabe89ef90",
+          "retrieved_utc": "2026-11-01T15:03:20.393752+00:00",
+          "text_chars": 3323
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000048.000051303.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000048.000051303.html",
+        "rows": [
+          1165
+        ],
+        "retrieved_utc": "2026-11-01T15:03:20.393752+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000048.000051303.html",
+        "sha256": "81f101cfc971c72fb6c3de0448c93f0f96c46449ff9849531a8c74aabe89ef90",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 3323
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "WK26-VOL03-031",
+      "row": 1278,
+      "result": "STRICT",
+      "event_family": "HU_CATL_DEBRECEN_TWO_CELL_LINES_TRIAL_20260922",
+      "economic_act_edges": [
+        {
+          "event": "TWO_CELL_LINES_TRIAL_SEP22_NOT_SERIES",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "AUGUST_OCCUPANCY_PERMIT_PRIOR_STAGE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "MODULE_PRODUCTION_SINCE_2024_NOT_NEW_CELL_OUTPUT",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://www.catl.com/en/news/7000.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://www.catl.com/en/news/7000.html",
+          "final_url": "https://www.catl.com/en/news/7000.html",
+          "status": 200,
+          "sha256": "549332e8484fa06c8bc68f483bd918ecc024c3bb80372b0a2b484ae2890cad85",
+          "retrieved_utc": "2026-11-01T15:03:26.810227+00:00",
+          "text_chars": 5552
+        }
+      ],
+      "source_url": "https://www.catl.com/en/news/7000.html",
+      "source_body_retrieval": {
+        "url": "https://www.catl.com/en/news/7000.html",
+        "rows": [
+          1278
+        ],
+        "retrieved_utc": "2026-11-01T15:03:26.810227+00:00",
+        "status": 200,
+        "final_url": "https://www.catl.com/en/news/7000.html",
+        "sha256": "549332e8484fa06c8bc68f483bd918ecc024c3bb80372b0a2b484ae2890cad85",
+        "content_type": "text/html",
+        "text_chars": 5552
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "WK26-VOL03-040",
+      "row": 1287,
+      "result": "STRICT",
+      "event_family": "CN_PYLONTECH_588_601AH_MASS_PRODUCTION_20260921",
+      "economic_act_edges": [
+        {
+          "event": "HEFEI_588AH_601AH_CELL_MASS_PRODUCTION_SEP21",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "OVER_100MWH_OUTPUT_COMPANY_REPORTED",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "PYOCEAN_PROJECT_DELIVERY_FUTURE",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://www.prnewswire.com/news-releases/pylontech-starts-mass-production-of-588ah-and-601ah-lfp-cells-for-ess-302886245.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://www.prnewswire.com/news-releases/pylontech-starts-mass-production-of-588ah-and-601ah-lfp-cells-for-ess-302886245.html",
+          "final_url": "https://www.prnewswire.com/news-releases/pylontech-starts-mass-production-of-588ah-and-601ah-lfp-cells-for-ess-302886245.html",
+          "status": 200,
+          "sha256": "cf47224aa1bc9cf6075b1f3fcce8814a76f9128a6fef9a43d13f3d0b1318b176",
+          "retrieved_utc": "2026-11-01T15:03:27.675920+00:00",
+          "text_chars": 13098
+        }
+      ],
+      "source_url": "https://www.prnewswire.com/news-releases/pylontech-starts-mass-production-of-588ah-and-601ah-lfp-cells-for-ess-302886245.html",
+      "source_body_retrieval": {
+        "url": "https://www.prnewswire.com/news-releases/pylontech-starts-mass-production-of-588ah-and-601ah-lfp-cells-for-ess-302886245.html",
+        "rows": [
+          1287
+        ],
+        "retrieved_utc": "2026-11-01T15:03:27.675920+00:00",
+        "status": 200,
+        "final_url": "https://www.prnewswire.com/news-releases/pylontech-starts-mass-production-of-588ah-and-601ah-lfp-cells-for-ess-302886245.html",
+        "sha256": "cf47224aa1bc9cf6075b1f3fcce8814a76f9128a6fef9a43d13f3d0b1318b176",
+        "content_type": "text/html",
+        "text_chars": 13098
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "WK26-VOL03-043",
+      "row": 1290,
+      "result": "STRICT",
+      "event_family": "US_FORM_ENERGY_270M_CREDIT_CLOSE_20260921",
+      "economic_act_edges": [
+        {
+          "event": "270M_REVOLVER_PLUS_TAX_CREDIT_ADVANCE_FACILITY_CLOSED",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "UP_TO_1BN_ACCORDION_NOT_DRAWN",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "AUGUST_750M_EQUITY_PRIOR_DISTINCT_NOT_NEW_SEP21_EQUITY",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://www.globenewswire.com/news-release/2026/09/21/3365616/0/en/form-energy-announces-closing-of-270m-credit-facility.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/09/21/3365616/0/en/form-energy-announces-closing-of-270m-credit-facility.html",
+          "final_url": "https://www.globenewswire.com/news-release/2026/09/21/3365616/0/en/form-energy-announces-closing-of-270m-credit-facility.html",
+          "status": 200,
+          "sha256": "e4f77936ea92a23e672844a22a503044de72df6b0fc6e4dbc10dfb7254f3bd21",
+          "retrieved_utc": "2026-11-01T15:03:27.764623+00:00",
+          "text_chars": 4148
+        }
+      ],
+      "source_url": "https://www.globenewswire.com/news-release/2026/09/21/3365616/0/en/form-energy-announces-closing-of-270m-credit-facility.html",
+      "source_body_retrieval": {
+        "url": "https://www.globenewswire.com/news-release/2026/09/21/3365616/0/en/form-energy-announces-closing-of-270m-credit-facility.html",
+        "rows": [
+          1290
+        ],
+        "retrieved_utc": "2026-11-01T15:03:27.764623+00:00",
+        "status": 200,
+        "final_url": "https://www.globenewswire.com/news-release/2026/09/21/3365616/0/en/form-energy-announces-closing-of-270m-credit-facility.html",
+        "sha256": "e4f77936ea92a23e672844a22a503044de72df6b0fc6e4dbc10dfb7254f3bd21",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 4148
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    },
+    {
+      "source_id": "C0_DISC_20261016_JP_FANTASISTA_NAGAHAMA_START",
+      "row": 1325,
+      "result": "WATCH",
+      "event_family": "JP_FANTASISTA_NAGAHAMA_CONSTRUCTION",
+      "economic_act_edges": [
+        {
+          "event": "OCT16_CONSTRUCTION_START",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "OCT14_ANNOUNCEMENT_PRIOR_STAGE",
+          "role": "distinct_act_or_stage_preserved"
+        },
+        {
+          "event": "APRIL2027_OPERATION_FUTURE",
+          "role": "distinct_act_or_stage_preserved"
+        }
+      ],
+      "first_party_owner_urls": [
+        "https://prtimes.jp/main/html/rd/p/000000066.000093934.html"
+      ],
+      "primary_retrieval": [
+        {
+          "url": "https://prtimes.jp/main/html/rd/p/000000066.000093934.html",
+          "final_url": "https://prtimes.jp/main/html/rd/p/000000066.000093934.html",
+          "status": 200,
+          "sha256": "d5a43e7df8a954dc389d2e763a0416278d2d25b1f5471a4effa13ea0fafdd958",
+          "retrieved_utc": "2026-11-01T15:03:29.312474+00:00",
+          "text_chars": 2370
+        }
+      ],
+      "source_url": "https://prtimes.jp/main/html/rd/p/000000066.000093934.html",
+      "source_body_retrieval": {
+        "url": "https://prtimes.jp/main/html/rd/p/000000066.000093934.html",
+        "rows": [
+          1325
+        ],
+        "retrieved_utc": "2026-11-01T15:03:29.312474+00:00",
+        "status": 200,
+        "final_url": "https://prtimes.jp/main/html/rd/p/000000066.000093934.html",
+        "sha256": "d5a43e7df8a954dc389d2e763a0416278d2d25b1f5471a4effa13ea0fafdd958",
+        "content_type": "text/html; charset=utf-8",
+        "text_chars": 2370
+      },
+      "stage_b_authorized": false,
+      "human_adjudicated": true
+    }
+  ]
+}

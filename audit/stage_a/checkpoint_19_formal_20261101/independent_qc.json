@@ -1,0 +1,53 @@
+{
+  "qc_status": "INDEPENDENT_QC_PASS",
+  "original_source_ids_preserved": 1330,
+  "source_identity_fields_unchanged": [
+    "source_row_index",
+    "story_id",
+    "candidate_id",
+    "headline_raw",
+    "primary_url",
+    "origin"
+  ],
+  "new_formal_source_id_decisions": 21,
+  "new_strict_events": 10,
+  "same_event_support": 6,
+  "watch": 3,
+  "out_of_scope_reject": 2,
+  "formal_cumulative": 126,
+  "pending_formal": 1204,
+  "strict_cumulative": 30,
+  "all_previous_formal_decisions_unchanged": 105,
+  "all_previous_strict_selectors_unchanged": 20,
+  "partition_counts": {
+    "strict_passed_spec": 30,
+    "candidate_review_pool": 563,
+    "watchlist_context_pool": 660,
+    "reject_or_support_only_pool": 47,
+    "existing_reinforcement": 30
+  },
+  "source_to_event_edges_preserved": 21,
+  "owner_original_available": true,
+  "vaultco_two_partner_commitments_independently_labeled": true,
+  "protected_metric_kept": true,
+  "native_validators": {
+    "artifact_contract": {
+      "pass": true,
+      "return_code": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"stage\": \"A\",\n  \"item_count\": 30,\n  \"missing_count\": 0,\n  \"findings\": []\n}"
+    },
+    "lineage_contract": {
+      "pass": true,
+      "return_code": 0,
+      "stdout": "RESULT: PASS_STAGE_A_SCHEMA_CONTRACT"
+    }
+  },
+  "sha256": {
+    "cp18": "4b9039f9f045e92ae5485ddab4ab0ab40bb19da8fdf59bb02c6c0b5adba44b66",
+    "full_locked_1676": "d22f0d4e39e035b9537b3e9abdf48abe6b7eb80f7e477e87aff1284f9e27e0d9",
+    "cp19": "bf30369c00bd528b4ab32c628a388b48a56471ac5e8f34fd22631bcb8eaead7d"
+  },
+  "main_full_related_production_mutation": false,
+  "stage_b_executed": false,
+  "global_stage_a": "HOLD"
+}

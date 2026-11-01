@@ -1,0 +1,242 @@
+{
+  "artifact_type": "STAGE_A_USJP_FOUR_EVENTS_FORMAL_0_1P_RECEIPT",
+  "status": "PENDING_NATIVE_VALIDATION_AFTER_BUILD",
+  "base_sha256": "32cde5ebdfe5dbb751c8fba2f1cc62c2ef6a3d0647efa00f8c10ff2498cbb69e",
+  "output_sha256": "8bd11020fea3c8874837fa2a30b5bab619e0174a7e92b43661d5c5b225a230c6",
+  "original_sources": 1330,
+  "new_formalized": 10,
+  "formalized_total": 86,
+  "formal_pending": 1244,
+  "strict_count": 14,
+  "new_strict_count": 4,
+  "new_support_only_count": 5,
+  "new_existing_full_reinforcement": 1,
+  "event_records": {
+    "authority": "PROMPT_0_1P_V4_20260829",
+    "previous_checkpoint_id": 14,
+    "source_ids_formalized_this_batch": 10,
+    "source_ids_formalized_cumulative_since_45": 41,
+    "formal_individual_completed_total": 86,
+    "formal_individual_pending": 1244,
+    "independent_new_event_families": 4,
+    "new_strict_passes": 4,
+    "new_same_event_support_sources": 5,
+    "new_existing_full_reinforcements": 1,
+    "new_cards_created": 0,
+    "stage_b_executed": false,
+    "global_editorial_stage_a_status": "HOLD_OPEN_1244_UNADJUDICATED",
+    "native_stage_b_recommendation_scope": "Strict-only technical next-call, not global editorial release or Stage B execution.",
+    "unchanged_source_universe": 1330,
+    "separate_economic_units_within_row86": [
+      "GEORGIA_ROBINS_128MW_COMMERCIAL_OPERATION_BY_SEPT15",
+      "EOS_DOE_EXISTING_FULL_2026_09_10_US_01",
+      "FLEXGEN_LIGHTSHIFT_EXISTING_FULL_2026_09_16_US_02"
+    ],
+    "mixed_source_split_holds": [
+      {
+        "source_row_index": 8,
+        "source_id": "SRC26-20260920_142928-0008",
+        "original_url": "https://insideevs.com/news/808779/factorial-solid-state-ev-battery-coalition-mitsui-kinzoku",
+        "reason": "InsideEVs September18 interview about the new Mitsui JDA also discusses older PowerCo, Hyundai, SK On and POSCO Future M cooperation, Karma Automotive 2028 prospective rollout, and reported target energy density. Source-level non-JDA economic units require independent lineage/date and qualification checks before formal disposition.",
+        "formal_source_disposition": "PENDING",
+        "stage_a_pool_unchanged": true
+      }
+    ],
+    "mixed_source_distinct_full_sibling_cards": [
+      "2026-09-10_US_01",
+      "2026-09-16_US_02"
+    ],
+    "source_decisions": [
+      {
+        "source_id": "SRC26-20260920_142928-0016",
+        "row": 16,
+        "headline_raw_original": "EVE Energy signs 206 GWh battery framework with storage supplier Fluence",
+        "source_url_original": "https://pv-magazine-usa.com/2026/09/18/eve-energy-signs-206-gwh-battery-framework-with-storage-supplier-fluence",
+        "case_id": "CN_EVE_POWER_FLUENCE_206GWH_FRAMEWORK_20260918",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_NO_NEW_CARD",
+        "related_strict_source_id": "WK26-VOL03-017",
+        "owner_urls": [
+          "https://static.cninfo.com.cn/finalpage/2026-09-18/1225571033.PDF",
+          "https://ir.fluenceenergy.com/news-releases/news-release-details/fluence-secures-long-term-battery-supply-through-multiyear"
+        ],
+        "source_specific_editorial_correction": null
+      },
+      {
+        "source_id": "SRC26-20260920_142928-0078",
+        "row": 78,
+        "headline_raw_original": "パナソニック エナジー、大阪・門真市に電池開発の新拠点…「エナジーイノベーションスクエア」が本格稼働",
+        "source_url_original": "https://response.jp/article/2026/09/18/416804.html",
+        "case_id": "JP_PANASONIC_ENERGY_KADOMA_RND_HUB_OPEN_20260916",
+        "result": "NEW_STRICT_STAGE_A_SELECTOR_ONLY_NOT_STAGE_B",
+        "full_identity": "NO_EXACT_SAME_EVENT_IN_FULL1676",
+        "related_full_distinct_events": [],
+        "score": 55,
+        "owner_urls": [
+          "https://news.panasonic.com/global/press/en260916-3",
+          "https://news.panasonic.com/jp/press/jn260916-2"
+        ],
+        "economic_act_units": [
+          "KADOMA_ENERGY_INNOVATION_SQUARE_RND_FACILITY_LAUNCHED"
+        ],
+        "must_not_claim": "Do not treat 24,500㎡ R&D floor space or approximately 500 staff as GWh production CAPA, 500 new hires, completed next-generation battery qualification or current factory shipments."
+      },
+      {
+        "source_id": "SRC26-20260920_142928-0086",
+        "row": 86,
+        "headline_raw_original": "US ROUNDUP: Eos draws US$87 million DOE loan, FlexGen-Lightshift expand to 16 projects, Georgia Power energises 128MW facility",
+        "source_url_original": "https://www.energy-storage.news/us-roundup-eos-draws-us87-million-doe-loan-flexgen-lightshift-expand-to-16-projects-georgia-power-energises-128mw-facility",
+        "case_id": "US_GEORGIA_POWER_ROBINS_128MW_COD_BY_20260915",
+        "result": "NEW_STRICT_STAGE_A_SELECTOR_ONLY_NOT_STAGE_B",
+        "full_identity": "NO_EXACT_SAME_EVENT_IN_FULL1676",
+        "related_full_distinct_events": [],
+        "score": 60,
+        "owner_urls": [
+          "https://www.georgiapower.com/news-hub/press-releases/georgia-power-robins-battery-storage-achieves-commercial-operation.html",
+          "https://www.georgiapower.com/news-hub/press-releases/construction-now-underway-on-765-mw-of-new-battery-energy-storage-systems-across-georgia.html"
+        ],
+        "economic_act_units": [
+          "GEORGIA_ROBINS_128MW_COMMERCIAL_OPERATION_BY_SEPT15",
+          "EOS_DOE_EXISTING_FULL_2026_09_10_US_01",
+          "FLEXGEN_LIGHTSHIFT_EXISTING_FULL_2026_09_16_US_02"
+        ],
+        "must_not_claim": "Do not equate release date 2026-09-15 with exact first COD; do not infer officially registered 512MWh from 128MW × up-to-four-hour duration, or count Eos/FlexGen sibling news as additional new cards."
+      },
+      {
+        "source_id": "SRC26-20260920_142928-0115",
+        "row": 115,
+        "headline_raw_original": "FlexGen, Lightshift plan 55 MW/200 MWh of new US batteries",
+        "source_url_original": "https://www.ess-news.com/2026/09/18/flexgen-lightshift-plan-55-mw-200-mwh-of-new-us-batteries",
+        "case_id": "US_FLEXGEN_LIGHTSHIFT_EXISTING_FULL_20260916",
+        "result": "FORMAL_EXISTING_FULL_REINFORCEMENT_NO_NEW_CARD",
+        "related_full_id": "2026-09-16_US_02",
+        "owner_urls": [
+          "https://www.flexgen.com/resources/blog/flexgen-partners-lightshift-energy-its-16-battery-energy-storage-projects-pjm-iso-ne"
+        ],
+        "must_not_claim": "16 projects consist of six operating and ten under construction, not 16 newly commissioned."
+      },
+      {
+        "source_id": "SRC26-20260920_142928-0116",
+        "row": 116,
+        "headline_raw_original": "EVE Energy signs 206 GWh battery framework with US storage supplier Fluence",
+        "source_url_original": "https://www.ess-news.com/2026/09/18/eve-energy-signs-206-gwh-battery-framework-with-us-storage-supplier-fluence",
+        "case_id": "CN_EVE_POWER_FLUENCE_206GWH_FRAMEWORK_20260918",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_NO_NEW_CARD",
+        "related_strict_source_id": "WK26-VOL03-017",
+        "owner_urls": [
+          "https://static.cninfo.com.cn/finalpage/2026-09-18/1225571033.PDF",
+          "https://ir.fluenceenergy.com/news-releases/news-release-details/fluence-secures-long-term-battery-supply-through-multiyear"
+        ],
+        "source_specific_editorial_correction": null
+      },
+      {
+        "source_id": "SRC26-20260920_142928-0119",
+        "row": 119,
+        "headline_raw_original": "Panasonic Energy Consolidates Battery Development at New Kadoma Site",
+        "source_url_original": "https://battery-news.de/en/2026/09/18/panasonic-energy-consolidates-battery-development-at-new-kadoma-site",
+        "case_id": "JP_PANASONIC_ENERGY_KADOMA_RND_HUB_OPEN_20260916",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_NO_NEW_CARD",
+        "related_strict_source_id": "SRC26-20260920_142928-0078",
+        "owner_urls": [
+          "https://news.panasonic.com/global/press/en260916-3",
+          "https://news.panasonic.com/jp/press/jn260916-2"
+        ],
+        "source_specific_editorial_correction": null
+      },
+      {
+        "source_id": "SRC26-20260920_142928-0126",
+        "row": 126,
+        "headline_raw_original": "Solid-state batteries: Factorial leverages Japanese electrolyte expertise",
+        "source_url_original": "https://www.electrive.com/2026/09/18/solid-state-batteries-factorial-leverages-japanese-electrolyte-expertise",
+        "case_id": "US_JP_FACTORIAL_MITSUI_SULFIDE_JDA_20260917",
+        "result": "NEW_STRICT_STAGE_A_SELECTOR_ONLY_NOT_STAGE_B",
+        "full_identity": "NO_EXACT_SAME_EVENT_IN_FULL1676",
+        "related_full_distinct_events": [
+          "2026-07-24_US_01",
+          "2026-06-17_US_02"
+        ],
+        "score": 60,
+        "owner_urls": [
+          "https://factorialenergy.gcs-web.com/news-releases/news-release-details/mitsui-kinzoku-partners-factorial-scale-all-solid-state-battery",
+          "https://www.mitsui-kinzoku.com/en/news_a/?TabModule903=0&dispmid=1140&itemid=1993"
+        ],
+        "economic_act_units": [
+          "SIGNED_SULFIDE_ELECTROLYTE_JOINT_DEVELOPMENT_AGREEMENT",
+          "MASS_PRODUCTION_AND_QUALIFICATION_STILL_FUTURE"
+        ],
+        "must_not_claim": "Do not claim sulfide solid-state cells achieved mass production, guaranteed energy-density performance, commercial delivery or qualification solely because JDA and collaboration were announced."
+      },
+      {
+        "source_id": "SRC26-20260920_142928-0133",
+        "row": 133,
+        "headline_raw_original": "206GWh！亿纬锂能获全球单笔最大储能电池订单",
+        "source_url_original": "https://libattery.ofweek.com/2026-09/ART-36001-8120-30703880.html",
+        "case_id": "CN_EVE_POWER_FLUENCE_206GWH_FRAMEWORK_20260918",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_NO_NEW_CARD",
+        "related_strict_source_id": "WK26-VOL03-017",
+        "owner_urls": [
+          "https://static.cninfo.com.cn/finalpage/2026-09-18/1225571033.PDF",
+          "https://ir.fluenceenergy.com/news-releases/news-release-details/fluence-secures-long-term-battery-supply-through-multiyear"
+        ],
+        "source_specific_editorial_correction": "Chinese headline describes all 206GWh as largest confirmed order; issuer filing says 16GWh commitment +190GWh reservation subject to future POs."
+      },
+      {
+        "source_id": "SRC26-20260920_142928-0158",
+        "row": 158,
+        "headline_raw_original": "206GWh！锂电巨头签下储能超级大单",
+        "source_url_original": "https://chuneng.ofweek.com/news/2026-09/ART-180226-8120-30703843.html",
+        "case_id": "CN_EVE_POWER_FLUENCE_206GWH_FRAMEWORK_20260918",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_NO_NEW_CARD",
+        "related_strict_source_id": "WK26-VOL03-017",
+        "owner_urls": [
+          "https://static.cninfo.com.cn/finalpage/2026-09-18/1225571033.PDF",
+          "https://ir.fluenceenergy.com/news-releases/news-release-details/fluence-secures-long-term-battery-supply-through-multiyear"
+        ],
+        "source_specific_editorial_correction": "Chinese headline describes a 206GWh mega order; issuer filing says nonfinal framework and follow-on purchase orders not signed for all volumes."
+      },
+      {
+        "source_id": "WK26-VOL03-017",
+        "row": 1265,
+        "headline_raw_original": "Fluence, EVE와 206GWh 프레임 묶었다",
+        "source_url_original": "https://static.cninfo.com.cn/finalpage/2026-09-18/1225571033.PDF",
+        "case_id": "CN_EVE_POWER_FLUENCE_206GWH_FRAMEWORK_20260918",
+        "result": "NEW_STRICT_STAGE_A_SELECTOR_ONLY_NOT_STAGE_B",
+        "full_identity": "NO_EXACT_SAME_EVENT_IN_FULL1676",
+        "related_full_distinct_events": [
+          "2026-09-16_GL_01"
+        ],
+        "score": 61,
+        "owner_urls": [
+          "https://static.cninfo.com.cn/finalpage/2026-09-18/1225571033.PDF",
+          "https://ir.fluenceenergy.com/news-releases/news-release-details/fluence-secures-long-term-battery-supply-through-multiyear"
+        ],
+        "economic_act_units": [
+          "2027_VOLUME_COMMITMENT_16GWH_FRAMEWORK_ONLY",
+          "2028_2031_RESERVED_190GWH_FRAMEWORK_ONLY",
+          "FLUENCE_CONFIRMATION_RELEASE_SEPT24_SAME_AGREEMENT"
+        ],
+        "must_not_claim": "206GWh headline is NOT a firm purchase order, bankable sales, current capacity addition or U.S.-market-only delivery; 16GWh 2027 commitment is still subject to later purchase order details, and 190GWh is explicitly reserved, not binding throughput."
+      }
+    ],
+    "owner_urls_by_case": {
+      "GEORGIA": [
+        "https://www.georgiapower.com/news-hub/press-releases/georgia-power-robins-battery-storage-achieves-commercial-operation.html",
+        "https://www.georgiapower.com/news-hub/press-releases/construction-now-underway-on-765-mw-of-new-battery-energy-storage-systems-across-georgia.html"
+      ],
+      "EVE": [
+        "https://static.cninfo.com.cn/finalpage/2026-09-18/1225571033.PDF",
+        "https://ir.fluenceenergy.com/news-releases/news-release-details/fluence-secures-long-term-battery-supply-through-multiyear"
+      ],
+      "FACTORIAL": [
+        "https://factorialenergy.gcs-web.com/news-releases/news-release-details/mitsui-kinzoku-partners-factorial-scale-all-solid-state-battery",
+        "https://www.mitsui-kinzoku.com/en/news_a/?TabModule903=0&dispmid=1140&itemid=1993"
+      ],
+      "PANASONIC": [
+        "https://news.panasonic.com/global/press/en260916-3",
+        "https://news.panasonic.com/jp/press/jn260916-2"
+      ]
+    },
+    "canonical_main_full_related_mutations": 0
+  },
+  "stage_b_executed": false,
+  "global_stage_a_status": "HOLD"
+}

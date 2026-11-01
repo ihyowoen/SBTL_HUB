@@ -1,0 +1,529 @@
+{
+  "status": "PENDING_NATIVE_AND_INDEPENDENT_QC",
+  "artifact_type": "STAGE_A_CP19_OWNER_PRIMARY_DOCUMENT_BATCH_FORMAL",
+  "base_sha256": "4b9039f9f045e92ae5485ddab4ab0ab40bb19da8fdf59bb02c6c0b5adba44b66",
+  "output_sha256": "bf30369c00bd528b4ab32c628a388b48a56471ac5e8f34fd22631bcb8eaead7d",
+  "locked_full_sha256": "d22f0d4e39e035b9537b3e9abdf48abe6b7eb80f7e477e87aff1284f9e27e0d9",
+  "new_formal": 21,
+  "new_strict": 10,
+  "new_support": 6,
+  "new_watch": 3,
+  "new_reject": 2,
+  "cumulative_formal": 126,
+  "remaining": 1204,
+  "cumulative_strict": 30,
+  "source_decisions": [
+    {
+      "row": 226,
+      "source_id": "SRC26-20260923_132732-0024",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_OWNER_ECONOMIC_ACT",
+      "event_family": "KR_BATTERY_SODIUM_ASSB_TECHNOLOGY_ROADMAP_20260922",
+      "source_url": "https://www.sedaily.com/article/20094280",
+      "first_party_owner_urls": [
+        "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172230/view"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP22_ADOPTED_BATTERY_INDUSTRY_TECHNOLOGY_ROADMAP",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PLANNED_GOV_RND_KRW400BN_NOT_SPENT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PLANNED_PRIVATE_KRW8TN_NOT_SPENT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "SODIUM_ASSB_TECH_TARGETS_NOT_REALIZED",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 302,
+      "source_id": "SRC26-20260923_132732-0100",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_OWNER_ECONOMIC_ACT",
+      "event_family": "KR_BATTERY_SODIUM_ASSB_TECHNOLOGY_ROADMAP_20260922",
+      "source_url": "https://www.sedaily.com/article/20094124",
+      "first_party_owner_urls": [
+        "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172230/view"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP22_ADOPTED_BATTERY_INDUSTRY_TECHNOLOGY_ROADMAP",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PLANNED_GOV_RND_KRW400BN_NOT_SPENT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PLANNED_PRIVATE_KRW8TN_NOT_SPENT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "SODIUM_ASSB_TECH_TARGETS_NOT_REALIZED",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 349,
+      "source_id": "SRC26-20260923_132732-0147",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_OWNER_ECONOMIC_ACT",
+      "event_family": "US_NTH_CYCLE_GLENCORE_BINDING_FEEDSTOCK_OFFTAKE_TERM_SHEET_20260922",
+      "source_url": "https://www.mining.com/nth-cycle-signs-10-year-1-billion-offtake-deal-with-glencore",
+      "first_party_owner_urls": [
+        "https://www.sec.gov/Archives/edgar/data/2102713/000119312526397915/d159150d425.htm"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP22_NTH_GLENCORE_BINDING_TERM_SHEET",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PROJECT_SHIELD_PLANNED_100PCT_FEEDSTOCK_AND_OFFTAKE_NOT_DELIVERED",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "TEN_YEAR_USD1BN_FORECAST_VALUE_NOT_BOOKED_REVENUE",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "DEC2026_TARGET_FINAL_CONTRACT_NOT_SIGNED",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 423,
+      "source_id": "SRC26-20260923_132732-0221",
+      "result": "FORMAL_WATCH_ORIGINAL_STAGE_OR_PROTECTED_METRIC",
+      "event_family": "US_OSHA_TUVSUD_UL2580_UL2743_PRELIM_NRTL_20260921",
+      "source_url": "https://www.federalregister.gov/documents/2026/09/21/2026-19268/tuv-sud-america-inc-application-for-expansion-of-recognition",
+      "first_party_owner_urls": [
+        "https://www.federalregister.gov/documents/2026/09/21/2026-19268/tuv-sud-america-inc-application-for-expansion-of-recognition"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "US_OSHA_TUVSUD_UL2580_UL2743_PRELIM_NRTL_20260921",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 425,
+      "source_id": "SRC26-20260923_132732-0223",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "event_family": "US_PHMSA_5800_1_BATTERY_THERMAL_RUNAWAY_UAS_REPORT_FORM_DRAFT_20260921",
+      "source_url": "https://www.federalregister.gov/documents/2026/09/21/2026-19276/hazardous-materials-information-collection-activities",
+      "first_party_owner_urls": [
+        "https://www.federalregister.gov/documents/2026/09/21/2026-19276/hazardous-materials-information-collection-activities",
+        "https://www.phmsa.dot.gov/regulations/federal-register-documents/2026-19276"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP21_PHMSA_DOT5800_1_REVISED_FORM_COMMENT_REQUEST",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PROPOSED_THERMAL_RUNAWAY_AND_UAS_REPORT_FIELDS_NOT_EFFECTIVE",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "DEC21_COMMENTS_AND_FUTURE_OMB_APPROVAL_REQUIRED",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 700,
+      "source_id": "SRC26-20260926_120143-0202",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "event_family": "US_EXIM_VAULTCO_GLENCORE_MERCURIA_2X500M_PARTNER_COMMITMENTS_20260923",
+      "source_url": "https://www.mining.com/glencore-to-help-build-us-minerals-stockpile-with-500m-exim-financing",
+      "first_party_owner_urls": [
+        "https://www.glencore.com/media-and-insights/news/glencore-partners-with-us-exim-bank-to-build-strategic-minerals-reserve-fund",
+        "https://mercuria.com/mercuria-commits-500-million-to-vaultco-u-s-critical-mineral-stockpile-in-partnership-with-the-u-s-export-import-bank/",
+        "https://www.exim.gov/news/fact-sheet/project-vault"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP23_GLENCORE_USD500M_VAULTCO_FOUNDING_PARTNER",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "SEP23_MERCURIA_USD500M_VAULTCO_ANCHOR_COMMITMENT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "FEB02_OLD_EXIM_LOAN_APPROVAL_UP_TO_USD10BN_NOT_NEW",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "NO_VERIFIED_INVENTORY_STOCKPILE_DELIVERY",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 709,
+      "source_id": "SRC26-20260926_120143-0211",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_OWNER_ECONOMIC_ACT",
+      "event_family": "US_EXIM_VAULTCO_GLENCORE_MERCURIA_2X500M_PARTNER_COMMITMENTS_20260923",
+      "source_url": "https://www.globalbankingandfinance.com/glencore-create-us-strategic-critical-minerals-reserve-exim",
+      "first_party_owner_urls": [
+        "https://www.glencore.com/media-and-insights/news/glencore-partners-with-us-exim-bank-to-build-strategic-minerals-reserve-fund",
+        "https://mercuria.com/mercuria-commits-500-million-to-vaultco-u-s-critical-mineral-stockpile-in-partnership-with-the-u-s-export-import-bank/",
+        "https://www.exim.gov/news/fact-sheet/project-vault"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP23_GLENCORE_USD500M_VAULTCO_FOUNDING_PARTNER",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "SEP23_MERCURIA_USD500M_VAULTCO_ANCHOR_COMMITMENT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "FEB02_OLD_EXIM_LOAN_APPROVAL_UP_TO_USD10BN_NOT_NEW",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "NO_VERIFIED_INVENTORY_STOCKPILE_DELIVERY",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 851,
+      "source_id": "SRC26-20260926_120143-0353",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_OWNER_ECONOMIC_ACT",
+      "event_family": "US_EXIM_VAULTCO_GLENCORE_MERCURIA_2X500M_PARTNER_COMMITMENTS_20260923",
+      "source_url": "https://mining.com.au/glencore-mercuria-join-us-critical-minerals-stockpile-initiative",
+      "first_party_owner_urls": [
+        "https://www.glencore.com/media-and-insights/news/glencore-partners-with-us-exim-bank-to-build-strategic-minerals-reserve-fund",
+        "https://mercuria.com/mercuria-commits-500-million-to-vaultco-u-s-critical-mineral-stockpile-in-partnership-with-the-u-s-export-import-bank/",
+        "https://www.exim.gov/news/fact-sheet/project-vault"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP23_GLENCORE_USD500M_VAULTCO_FOUNDING_PARTNER",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "SEP23_MERCURIA_USD500M_VAULTCO_ANCHOR_COMMITMENT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "FEB02_OLD_EXIM_LOAN_APPROVAL_UP_TO_USD10BN_NOT_NEW",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "NO_VERIFIED_INVENTORY_STOCKPILE_DELIVERY",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 852,
+      "source_id": "SRC26-20260926_120143-0354",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_OWNER_ECONOMIC_ACT",
+      "event_family": "US_EXIM_VAULTCO_GLENCORE_MERCURIA_2X500M_PARTNER_COMMITMENTS_20260923",
+      "source_url": "https://www.miningmx.com/top-story/67466-glencore-joins-us-critical-minerals-reserve-in-500m-exim-deal",
+      "first_party_owner_urls": [
+        "https://www.glencore.com/media-and-insights/news/glencore-partners-with-us-exim-bank-to-build-strategic-minerals-reserve-fund",
+        "https://mercuria.com/mercuria-commits-500-million-to-vaultco-u-s-critical-mineral-stockpile-in-partnership-with-the-u-s-export-import-bank/",
+        "https://www.exim.gov/news/fact-sheet/project-vault"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP23_GLENCORE_USD500M_VAULTCO_FOUNDING_PARTNER",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "SEP23_MERCURIA_USD500M_VAULTCO_ANCHOR_COMMITMENT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "FEB02_OLD_EXIM_LOAN_APPROVAL_UP_TO_USD10BN_NOT_NEW",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "NO_VERIFIED_INVENTORY_STOCKPILE_DELIVERY",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 855,
+      "source_id": "SRC26-20260926_120143-0357",
+      "result": "FORMAL_REJECT_OUT_OF_SCOPE_NO_CARD",
+      "event_family": "EU_DEMOCRATIC_RESILIENCE_FIMI_TRAINING_NOT_BATTERY_20260925",
+      "source_url": "https://commission.europa.eu/news-and-media/news/train-trainers-programme-successfully-delivered-its-first-edition-2026-09-25_en",
+      "first_party_owner_urls": [
+        "https://commission.europa.eu/news-and-media/news/train-trainers-programme-successfully-delivered-its-first-edition-2026-09-25_en"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "EU_DEMOCRATIC_RESILIENCE_FIMI_TRAINING_NOT_BATTERY_20260925",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1133,
+      "source_id": "SRC26-20260928_160143-0267",
+      "result": "FORMAL_REJECT_OUT_OF_SCOPE_NO_CARD",
+      "event_family": "EU_DEMOCRATIC_RESILIENCE_FIMI_TRAINING_NOT_BATTERY_20260925",
+      "source_url": "https://commission.europa.eu/news-and-media/news/train-trainers-programme-successfully-delivered-its-first-edition-2026-09-25_en",
+      "first_party_owner_urls": [
+        "https://commission.europa.eu/news-and-media/news/train-trainers-programme-successfully-delivered-its-first-edition-2026-09-25_en"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "EU_DEMOCRATIC_RESILIENCE_FIMI_TRAINING_NOT_BATTERY_20260925",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1200,
+      "source_id": "WK26-VOL02-013",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "event_family": "US_HR9340_HOUSE_RATEPAYER_PROTECTION_ACT_PASSED_20260916",
+      "source_url": "https://energycommerce.house.gov/posts/ratepayer-protection-act-passes-house-with-strong-bipartisan-support",
+      "first_party_owner_urls": [
+        "https://energycommerce.house.gov/posts/ratepayer-protection-act-passes-house-with-strong-bipartisan-support"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP16_HR9340_PASSED_HOUSE_417_TO_3",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PROPOSED_STATE_PUC_100MW_COST_ALLOCATION_CONSIDERATION",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "NO_ENACTMENT_OR_TARIFF_YET",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1236,
+      "source_id": "WK26-VOL04-014",
+      "result": "FORMAL_WATCH_ORIGINAL_STAGE_OR_PROTECTED_METRIC",
+      "event_family": "KR_2026_SEP_BATTERY_EXPORT_720M_YOY14PCT_OFFICIAL_METRIC_20261001",
+      "source_url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172254/view",
+      "first_party_owner_urls": [
+        "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172254/view"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "KR_2026_SEP_BATTERY_EXPORT_720M_YOY14PCT_OFFICIAL_METRIC_20261001",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1244,
+      "source_id": "WK26-VOL04-022",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "event_family": "KR_JEONNAM_BATTERY_RAW_MATERIALS_NATIONAL_SPECIAL_ZONE_DESIGNATION_20260930",
+      "source_url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172252/view",
+      "first_party_owner_urls": [
+        "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172252/view"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP30_JEONNAM_BATTERY_RAW_MATERIALS_ZONE_DESIGNATED",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PLANNED_LITHIUM_REFINERY_CAPEX_KRW5_3724TN_BY2036_NOT_SPENT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "OTHER_SECTOR_ROBOT_AND_DEFENSE_ZONES_DISTINCT",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1255,
+      "source_id": "WK26-VOL03-005",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "event_family": "UK_TESLA_POWERWALL2_FIRE_RISK_REPLACEMENT_OFFICIAL_20260928",
+      "source_url": "https://www.gov.uk/product-safety-alerts-reports-recalls/product-safety-report-tesla-powerwall-2-2609-0219",
+      "first_party_owner_urls": [
+        "https://www.gov.uk/product-safety-alerts-reports-recalls/product-safety-report-tesla-powerwall-2-2609-0219"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP28_UK_OPSS_POWERWALL2_DEFECT_REPORT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "TESLA_ACTUAL_REMOTE_DISCHARGE_AND_FREE_REPLACEMENT_PROGRAM_INITIATED",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "UNIDENTIFIED_THIRD_PARTY_CELL_MAKER_NOT_ATTRIBUTED",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1267,
+      "source_id": "WK26-VOL03-019",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "event_family": "US_DOE_SPARK_31_TRANSMISSION_PROJECTS_20260924",
+      "source_url": "https://www.energy.gov/articles/energy-department-announces-speed-power-investments-across-26-states-lower-electricity",
+      "first_party_owner_urls": [
+        "https://www.energy.gov/articles/energy-department-announces-speed-power-investments-across-26-states-lower-electricity"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP24_DOE_SPARK_31_PROJECT_PREAWARD_SELECTION_26_STATES",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PLANNED_TOTAL_USD5_25BN_SPLIT_DOE1_9BN_RECIPIENT3_35BN",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PROSPECTIVE_23GW_GRID_HEADROOM_NOT_INSTALLED_BESS",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1277,
+      "source_id": "WK26-VOL03-029",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "event_family": "KR_BATTERY_SODIUM_ASSB_TECHNOLOGY_ROADMAP_20260922",
+      "source_url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172230/view",
+      "first_party_owner_urls": [
+        "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172230/view"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP22_ADOPTED_BATTERY_INDUSTRY_TECHNOLOGY_ROADMAP",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PLANNED_GOV_RND_KRW400BN_NOT_SPENT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PLANNED_PRIVATE_KRW8TN_NOT_SPENT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "SODIUM_ASSB_TECH_TARGETS_NOT_REALIZED",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1280,
+      "source_id": "WK26-VOL03-033",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "event_family": "US_NTH_CYCLE_GLENCORE_BINDING_FEEDSTOCK_OFFTAKE_TERM_SHEET_20260922",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2102713/000119312526397915/d159150d425.htm",
+      "first_party_owner_urls": [
+        "https://www.sec.gov/Archives/edgar/data/2102713/000119312526397915/d159150d425.htm"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP22_NTH_GLENCORE_BINDING_TERM_SHEET",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "PROJECT_SHIELD_PLANNED_100PCT_FEEDSTOCK_AND_OFFTAKE_NOT_DELIVERED",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "TEN_YEAR_USD1BN_FORECAST_VALUE_NOT_BOOKED_REVENUE",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "DEC2026_TARGET_FINAL_CONTRACT_NOT_SIGNED",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1294,
+      "source_id": "WK26-VOL03-047",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "event_family": "US_MOSS_LANDING_SEP18_CLEANUP_REIGNITION_1300_MODULES_20260918",
+      "source_url": "https://www.epa.gov/ca/moss-landing-vistra-battery-fire-updates",
+      "first_party_owner_urls": [
+        "https://www.epa.gov/ca/moss-landing-vistra-battery-fire-updates"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP18_MOSS_LANDING_300_CLEANUP_REIGNITION",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "EST_1300_MODULES_BURNED_NEW_EVENT",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "SHELTER_IN_PLACE_THEN_RELEASE_NO_INJURIES_REPORTED",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1299,
+      "source_id": "R27_DISC_004",
+      "result": "FORMAL_WATCH_ORIGINAL_STAGE_OR_PROTECTED_METRIC",
+      "event_family": "CA_ELECTRA_WMC_FIVE_YEAR_NONBINDING_TERM_SHEET_20261013",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1907184/000117184326006595/exh_991.htm",
+      "first_party_owner_urls": [
+        "https://www.sec.gov/Archives/edgar/data/1907184/000117184326006595/exh_991.htm"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "CA_ELECTRA_WMC_FIVE_YEAR_NONBINDING_TERM_SHEET_20261013",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1324,
+      "source_id": "C0_DISC_20261005_EU_INDUSTRIAL_BATTERY_DRAFT",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "event_family": "EU_G_TBT_N_EU1242_INDUSTRIAL_BATTERY_PERFORMANCE_DRAFT_20261005",
+      "source_url": "https://technical-barriers-trade.ec.europa.eu/en/notification/40734",
+      "first_party_owner_urls": [
+        "https://technical-barriers-trade.ec.europa.eu/en/notification/40734"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "OCT05_EU_WTO_TBT_BATTERY_DELEGATED_DRAFT_NOTIFICATION",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "DEC04_COMMENT_DEADLINE_NOT_ADOPTION",
+          "role": "distinct_child_or_stage_preserved"
+        },
+        {
+          "event": "MULTI_SUBJECT_PERFORMANCE_SAFETY_PASSPORT_PROPOSALS_NO_CURRENT_DUTY",
+          "role": "distinct_child_or_stage_preserved"
+        }
+      ]
+    }
+  ],
+  "no_stage_b": true,
+  "global_status": "HOLD",
+  "no_main_full_related_mutation": true
+}

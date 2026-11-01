@@ -1,0 +1,56 @@
+{
+  "independent_qc": "PASS",
+  "verified_immutable_source_ids": 1330,
+  "exact_changed_source_rows": 27,
+  "new_strict": 12,
+  "same_event_support": 14,
+  "existing_full_reinforcement": 1,
+  "cumulative_formal": 153,
+  "cumulative_strict": 42,
+  "pending_formal": 1177,
+  "unchanged_previous_formal": 126,
+  "unchanged_previous_strict": 30,
+  "immutable_fields": [
+    "source_row_index",
+    "story_id",
+    "candidate_id",
+    "headline_raw",
+    "primary_url",
+    "origin"
+  ],
+  "pool_counts": {
+    "strict_passed_spec": 42,
+    "candidate_review_pool": 538,
+    "watchlist_context_pool": 658,
+    "reject_or_support_only_pool": 61,
+    "existing_reinforcement": 31
+  },
+  "stage_precision_controls": {
+    "finland_project_300mwh_not_added_to_total_600mwh": true,
+    "jupiter_gwh_3_6_company_original_not_3_8_media": true,
+    "nio_conditional_cross_equity_not_closed": true,
+    "global_lithium_AUD333m_scheme_not_closed": true,
+    "vw_3_jvs_conditional_and_separate_5_3pct_sale": true,
+    "geely_life_gain_company_claim_not_independent": true,
+    "eve_30gwh_strategic_cooperation_not_verified_firm_purchase": true,
+    "catl_foil_same_full_event_no_new_card": true
+  },
+  "native_contracts": {
+    "artifact": {
+      "status": "PASS",
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"stage\": \"A\",\n  \"item_count\": 42,\n  \"missing_count\": 0,\n  \"findings\": []\n}"
+    },
+    "lineage": {
+      "status": "PASS",
+      "stdout": "RESULT: PASS_STAGE_A_SCHEMA_CONTRACT"
+    }
+  },
+  "hashes": {
+    "cp19": "bf30369c00bd528b4ab32c628a388b48a56471ac5e8f34fd22631bcb8eaead7d",
+    "full1676": "d22f0d4e39e035b9537b3e9abdf48abe6b7eb80f7e477e87aff1284f9e27e0d9",
+    "cp20": "b0b06dae8fd3ac19950772479ba087e0c8b661f3388899b9bbd370f789cd21c1"
+  },
+  "global_stage_a": "HOLD",
+  "stage_b_executed": false,
+  "canonical_main_full_related_mutations": 0
+}

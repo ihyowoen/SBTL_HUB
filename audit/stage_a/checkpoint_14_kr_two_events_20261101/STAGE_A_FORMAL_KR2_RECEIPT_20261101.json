@@ -1,0 +1,503 @@
+{
+  "status": "PENDING_NATIVE_VALIDATION_AFTER_0_1P_BUILD",
+  "artifact_type": "STAGE_A_FORMAL_KR_RESOURCE_AND_ESS_0_1P_RECEIPT",
+  "base_sha256": "1d2c8ccbd01b40aef7de512969281043a59cdb866d2a6dfbdd52bf997edf95c1",
+  "output_sha256": "32cde5ebdfe5dbb751c8fba2f1cc62c2ef6a3d0647efa00f8c10ff2498cbb69e",
+  "original_sources": 1330,
+  "new_formalized": 30,
+  "formalized_total": 76,
+  "formal_pending": 1254,
+  "strict_count": 10,
+  "new_strict_count": 2,
+  "new_support_only_count": 28,
+  "newly_recovered_source_rows": [
+    232,
+    280,
+    605,
+    631
+  ],
+  "separate_hold_source_rows": [
+    48,
+    228,
+    244,
+    614,
+    916
+  ],
+  "event_records": {
+    "authority": "PROMPT_0_1P_V4_20260829",
+    "source_ids_formalized_this_batch": 30,
+    "source_ids_formalized_cumulative_since_45": 31,
+    "formal_individual_completed_total": 76,
+    "formal_individual_pending": 1254,
+    "independent_event_families": 2,
+    "new_strict_passes": 2,
+    "new_support_only_sources": 28,
+    "new_cards_created": 0,
+    "stage_b_executed": false,
+    "same_event_no_multicard": true,
+    "original_source_universe_count": 1330,
+    "newly_found_source_rows_outside_prior54": [
+      232,
+      280,
+      605,
+      631
+    ],
+    "formal_source_decisions": [
+      {
+        "source_id": "SRC26-20260923_132732-0020",
+        "original_source_row_index": 222,
+        "source_url_original": "https://www.fnnews.com/news/202609230858109682",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "economic_act_units": [
+          "FIRST_RESOURCE_BASIC_PLAN_ADOPTED",
+          "FIFTH_PETROLEUM_RESERVE_PLAN_ADJUSTED",
+          "MINERAL_DESIGNATION_PLAN_ADOPTED_NOTICE_PENDING",
+          "FIRST_MINERAL_RESERVE_PLAN_ADOPTED"
+        ],
+        "result": "NEW_STRICT_STAGE_A_SPEC_NOT_STAGE_B_AUTHORIZED",
+        "score": 65,
+        "full_identity": "NEW_DATE_SPECIFIC_ACT_NOT_IN_FULL1676",
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0028",
+        "original_source_row_index": 230,
+        "source_url_original": "https://v.daum.net/v/20260923103328379",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0030",
+        "original_source_row_index": 232,
+        "source_url_original": "https://news.bbsi.co.kr/news/articleView.html?idxno=4108362",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0032",
+        "original_source_row_index": 234,
+        "source_url_original": "https://www.energy-news.co.kr/news/articleView.html?idxno=228520",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0048",
+        "original_source_row_index": 250,
+        "source_url_original": "https://www.etoday.co.kr/news/view/2628919",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0054",
+        "original_source_row_index": 256,
+        "source_url_original": "https://www.sedaily.com/article/20094478",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0068",
+        "original_source_row_index": 270,
+        "source_url_original": "https://www.electimes.com/news/articleView.html?idxno=372773",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0078",
+        "original_source_row_index": 280,
+        "source_url_original": "https://www.asiatoday.co.kr/kn/view.php?key=20260923010008806",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0079",
+        "original_source_row_index": 281,
+        "source_url_original": "https://www.newsis.com/view/NISX20260923_0003801250",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0081",
+        "original_source_row_index": 283,
+        "source_url_original": "https://www.ajunews.com/view/20260923082719811",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0082",
+        "original_source_row_index": 284,
+        "source_url_original": "https://v.daum.net/v/20260923093013256",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0227",
+        "original_source_row_index": 429,
+        "source_url_original": "https://www.ddaily.co.kr/page/view/2026092313401206669",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260926_120143-0072",
+        "original_source_row_index": 570,
+        "source_url_original": "http://www.e2news.com/news/articleView.html?idxno=334577",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260926_120143-0106",
+        "original_source_row_index": 604,
+        "source_url_original": "https://v.daum.net/v/20260923103328379",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260926_120143-0107",
+        "original_source_row_index": 605,
+        "source_url_original": "https://news.bbsi.co.kr/news/articleView.html?idxno=4108362",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260926_120143-0108",
+        "original_source_row_index": 606,
+        "source_url_original": "https://www.livebiz.today/news/articleView.html?idxno=205101",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260926_120143-0110",
+        "original_source_row_index": 608,
+        "source_url_original": "https://www.techdaily.co.kr/news/articleView.html?idxno=29709",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260926_120143-0111",
+        "original_source_row_index": 609,
+        "source_url_original": "https://www.energy-news.co.kr/news/articleView.html?idxno=228520",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260926_120143-0114",
+        "original_source_row_index": 612,
+        "source_url_original": "https://www.ferrotimes.com/news/articleView.html?idxno=50559",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260926_120143-0120",
+        "original_source_row_index": 618,
+        "source_url_original": "https://www.sedaily.com/article/20094478",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260926_120143-0124",
+        "original_source_row_index": 622,
+        "source_url_original": "https://www.electimes.com/news/articleView.html?idxno=372773",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260926_120143-0133",
+        "original_source_row_index": 631,
+        "source_url_original": "https://www.asiatoday.co.kr/kn/view.php?key=20260923010008806",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260928_160143-0152",
+        "original_source_row_index": 1018,
+        "source_url_original": "http://www.energytimes.kr/news/articleView.html?idxno=71020",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "WK26-VOL03-023",
+        "original_source_row_index": 1271,
+        "source_url_original": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+        "case_id": "KR_RESOURCE_SECURITY_PLAN_20260923",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0020",
+        "score": 11,
+        "official_basis": [
+          "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+          "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0033",
+        "original_source_row_index": 235,
+        "source_url_original": "https://www.energy-news.co.kr/news/articleView.html?idxno=228515",
+        "case_id": "KR_ESS_CENTRAL_TENDER_1180MW_20260922",
+        "economic_act_units": [
+          "MAINLAND_1100MW_TENDER_NOTICE_2026_05",
+          "JEJU_80MW_TENDER_NOTICE_2026_06_OPTIONAL_25Y"
+        ],
+        "result": "NEW_STRICT_STAGE_A_SPEC_NOT_STAGE_B_AUTHORIZED",
+        "score": 67,
+        "full_identity": "NEW_DATE_SPECIFIC_ACT_NOT_IN_FULL1676",
+        "official_basis": [
+          "https://www.mcee.go.kr/home/web/board/read.do?boardId=1893270&boardMasterId=939&menuId=10598",
+          "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78164&mid=a10501010000&nPage=1",
+          "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78165&mid=a11201000000"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0058",
+        "original_source_row_index": 260,
+        "source_url_original": "https://www.mt.co.kr/industry/2026/09/23/2026092308594553868",
+        "case_id": "KR_ESS_CENTRAL_TENDER_1180MW_20260922",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0033",
+        "score": 11,
+        "official_basis": [
+          "https://www.mcee.go.kr/home/web/board/read.do?boardId=1893270&boardMasterId=939&menuId=10598",
+          "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78164&mid=a10501010000&nPage=1",
+          "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78165&mid=a11201000000"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260923_132732-0069",
+        "original_source_row_index": 271,
+        "source_url_original": "http://www.e2news.com/news/articleView.html?idxno=334545",
+        "case_id": "KR_ESS_CENTRAL_TENDER_1180MW_20260922",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0033",
+        "score": 11,
+        "official_basis": [
+          "https://www.mcee.go.kr/home/web/board/read.do?boardId=1893270&boardMasterId=939&menuId=10598",
+          "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78164&mid=a10501010000&nPage=1",
+          "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78165&mid=a11201000000"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260926_120143-0037",
+        "original_source_row_index": 535,
+        "source_url_original": "https://www.todayenergy.kr/news/articleView.html?idxno=303498",
+        "case_id": "KR_ESS_CENTRAL_TENDER_1180MW_20260922",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0033",
+        "score": 11,
+        "official_basis": [
+          "https://www.mcee.go.kr/home/web/board/read.do?boardId=1893270&boardMasterId=939&menuId=10598",
+          "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78164&mid=a10501010000&nPage=1",
+          "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78165&mid=a11201000000"
+        ]
+      },
+      {
+        "source_id": "SRC26-20260926_120143-0040",
+        "original_source_row_index": 538,
+        "source_url_original": "https://www.todayenergy.kr/news/articleView.html?idxno=303497",
+        "case_id": "KR_ESS_CENTRAL_TENDER_1180MW_20260922",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0033",
+        "score": 11,
+        "official_basis": [
+          "https://www.mcee.go.kr/home/web/board/read.do?boardId=1893270&boardMasterId=939&menuId=10598",
+          "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78164&mid=a10501010000&nPage=1",
+          "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78165&mid=a11201000000"
+        ]
+      },
+      {
+        "source_id": "WK26-VOL03-032",
+        "original_source_row_index": 1279,
+        "source_url_original": "https://www.mcee.go.kr/home/web/board/read.do?boardId=1893270&boardMasterId=939&menuId=10598",
+        "case_id": "KR_ESS_CENTRAL_TENDER_1180MW_20260922",
+        "result": "FORMAL_SAME_EVENT_SUPPORT_ONLY_NO_NEW_CARD",
+        "related_representative_source_id": "SRC26-20260923_132732-0033",
+        "score": 11,
+        "official_basis": [
+          "https://www.mcee.go.kr/home/web/board/read.do?boardId=1893270&boardMasterId=939&menuId=10598",
+          "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78164&mid=a10501010000&nPage=1",
+          "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78165&mid=a11201000000"
+        ]
+      }
+    ],
+    "distinct_mixed_or_stage_split_hold": [
+      {
+        "source_row_index": 48,
+        "source_id": "SRC26-20260920_142928-0048",
+        "original_url": "https://www.ajunews.com/view/20260918145751867",
+        "reason": "September 19 pre-notice supplier localisation/strategic preparation predates the Sep22 tender notice; distinguish corporate conduct from prospective tender."
+      },
+      {
+        "source_row_index": 228,
+        "source_id": "SRC26-20260923_132732-0026",
+        "original_url": "https://www.fnnews.com/news/202609231019457034",
+        "reason": "September 23 article evaluates LG Energy Solution competitive strategy, which may have separate original-company actions beyond this tender."
+      },
+      {
+        "source_row_index": 244,
+        "source_id": "SRC26-20260923_132732-0042",
+        "original_url": "https://www.impacton.net/news/articleView.html?idxno=30025",
+        "reason": "Mixed ESS tender and end-of-life vehicle rare-earth recovery policy: separate material economic acts; original publisher page currently inaccessible."
+      },
+      {
+        "source_row_index": 614,
+        "source_id": "SRC26-20260926_120143-0116",
+        "original_url": "https://www.impacton.net/news/articleView.html?idxno=30025",
+        "reason": "Repeated collection of the same mixed article as 244; retain both Source IDs, and separately resolve rare-earth recovery action."
+      },
+      {
+        "source_row_index": 916,
+        "source_id": "SRC26-20260928_160143-0050",
+        "original_url": "https://www.etnews.com/20260928000202",
+        "reason": "September 28 actual bidder registration-window opening is a procedural stage after September 22 notice; do not silently collapse a potential follow-up."
+      }
+    ],
+    "owner_urls_by_event": {
+      "RESOURCE": [
+        "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+        "https://www.motir.go.kr/kor/article/ATCL03465409b/171730/view"
+      ],
+      "ESS": [
+        "https://www.mcee.go.kr/home/web/board/read.do?boardId=1893270&boardMasterId=939&menuId=10598",
+        "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78164&mid=a10501010000&nPage=1",
+        "https://www.kpx.or.kr/board.es?act=view&bid=0042&list_no=78165&mid=a11201000000"
+      ]
+    },
+    "official_notice_implementation_boundary": "MOTIR new mineral designation notice still pending; ESS bidder awards/contracts/build not yet implied.",
+    "global_editorial_stage_a_status": "HOLD_OPEN_1254_UNADJUDICATED",
+    "native_stage_b_recommendation_scope": "Strict-only schema next-call recommendation is not workflow authorization while global 0.1P HOLD remains; no Stage B has been executed.",
+    "canonical_main_full_related_mutations": 0
+  },
+  "stage_b_executed": false,
+  "global_stage_a_status": "HOLD"
+}

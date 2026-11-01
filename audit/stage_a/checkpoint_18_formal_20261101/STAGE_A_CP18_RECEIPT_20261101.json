@@ -1,0 +1,129 @@
+{
+  "artifact_type": "STAGE_A_CP18_COMPLETE_PRENATIVE54_AND_RELATED_20261101",
+  "status": "PENDING_NATIVE_AND_INDEPENDENT_QC",
+  "base_sha256": "d36893b263dfed269388d40680a7896ebee0b68127619cded66baeb951084fef",
+  "output_sha256": "4b9039f9f045e92ae5485ddab4ab0ab40bb19da8fdf59bb02c6c0b5adba44b66",
+  "base_formal_ids": 99,
+  "new_formal_ids": 6,
+  "formal_total": 105,
+  "formal_pending": 1225,
+  "new_strict": 2,
+  "new_support": 3,
+  "new_watch": 1,
+  "strict_total": 20,
+  "original54_completed": true,
+  "cp17_url_correction": {
+    "description": "The earlier CP17 article URL key incorrectly treated bbsSeq=443 as document identity and ignored docSeq; DAPA rows1297/1309 are separate administrative notices.",
+    "corrected_source_review_units": 1130,
+    "corrected_duplicate_observation_reduction": 101,
+    "source_observations_preserved": 1231,
+    "no_formal_merge_of_dapa_rows": true
+  },
+  "source_decisions": [
+    {
+      "row": 8,
+      "source_id": "SRC26-20260920_142928-0008",
+      "result": "FORMAL_SUPPORT_EXISTING_FACTORIAL_JDA_HISTORICAL_KARMA_DISTINCT",
+      "economic_act_edges": [
+        {
+          "event": "US_JP_FACTORIAL_MITSUI_SULFIDE_JDA_20260917",
+          "role": "same_JDA_interview_source"
+        },
+        {
+          "event": "FACTORIAL_KARMA_20260205",
+          "role": "earlier_partner_deal_mentioned_in_interview",
+          "warning": "Owner original named late2027 Kaveya vs interview 2028 date; not a new September order."
+        }
+      ],
+      "source_url": "https://insideevs.com/news/808779/factorial-solid-state-ev-battery-coalition-mitsui-kinzoku"
+    },
+    {
+      "row": 48,
+      "source_id": "SRC26-20260920_142928-0048",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_act_edges": [
+        {
+          "event": "KR_SKON_LNF_LFP_CATHODE_SUPPLY_CONTRACT_20260917",
+          "role": "signed_supply_contract_supporting_article"
+        },
+        {
+          "event": "KR_ESS_CENTRAL_TENDER_1180MW_20260922",
+          "role": "preannouncement_forecast_only_not_official_notice",
+          "warning": "September19 560MW estimate contradicted September22 confirmed 1180MW announcement."
+        }
+      ],
+      "source_url": "https://www.ajunews.com/view/20260918145751867"
+    },
+    {
+      "row": 228,
+      "source_id": "SRC26-20260923_132732-0026",
+      "result": "FORMAL_SUPPORT_ONLY_MIXED_EVENT_SOURCE",
+      "economic_act_edges": [
+        {
+          "event": "KR_SKON_LNF_LFP_CATHODE_SUPPLY_CONTRACT_20260917",
+          "role": "older_signed_sourcing_event_in_later_market_report"
+        },
+        {
+          "event": "KR_ESS_CENTRAL_TENDER_1180MW_20260922",
+          "role": "separate_government_tender_announcement"
+        },
+        {
+          "event": "LGES_DOMESTIC_LFP_SUPPLY_CHAIN_STRATEGY_UNAWARDED",
+          "role": "future_strategy_no_vendor_contract_or_award_verified"
+        }
+      ],
+      "source_url": "https://www.fnnews.com/news/202609231019457034"
+    },
+    {
+      "row": 244,
+      "source_id": "SRC26-20260923_132732-0042",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_act_edges": [
+        {
+          "event": "KR_EOL_EV_HEV_MOTOR_RE_MAGNET_PILOT_MOU_20260922",
+          "role": "independent_mou_event"
+        },
+        {
+          "event": "KR_ESS_CENTRAL_TENDER_1180MW_20260922",
+          "role": "separate_policy_news_in_same_article"
+        }
+      ],
+      "source_url": "https://www.impacton.net/news/articleView.html?idxno=30025"
+    },
+    {
+      "row": 614,
+      "source_id": "SRC26-20260926_120143-0116",
+      "result": "FORMAL_SUPPORT_ONLY_MIXED_EVENT_SOURCE",
+      "economic_act_edges": [
+        {
+          "event": "KR_EOL_EV_HEV_MOTOR_RE_MAGNET_PILOT_MOU_20260922",
+          "role": "same_article_duplicate_source_observation"
+        },
+        {
+          "event": "KR_ESS_CENTRAL_TENDER_1180MW_20260922",
+          "role": "same_article_separate_tender_claim"
+        }
+      ],
+      "source_url": "https://www.impacton.net/news/articleView.html?idxno=30025"
+    },
+    {
+      "row": 916,
+      "source_id": "SRC26-20260928_160143-0050",
+      "result": "FORMAL_WATCH_PROCEDURAL_FOLLOWUP_NO_NEW_AWARD",
+      "economic_act_edges": [
+        {
+          "event": "KR_ESS_CENTRAL_TENDER_REGISTRATION_WINDOW_20260928",
+          "role": "preannounced_procedural_followup_watch"
+        },
+        {
+          "event": "KR_ESS_CENTRAL_TENDER_1180MW_20260922",
+          "role": "parent_tender_notice_no_additional_1180MW"
+        }
+      ],
+      "source_url": "https://www.etnews.com/20260928000202"
+    }
+  ],
+  "no_stage_b": true,
+  "global_stage_a_status": "HOLD",
+  "no_main_full_related_write": true
+}

@@ -1,0 +1,250 @@
+{
+  "artifact_type": "STAGE_A_0_1P_THREE_EVENT_FAMILY_SOURCE_LINK_CROSSWALK_PRE_NATIVE",
+  "as_of_kst": "2026-11-01",
+  "parent_v5_google_drive_file_id": "1pCYdO-8k-2OT0Xk2TWsbsG6bdgMn1uwf",
+  "original_1330_source_ids_preserved": true,
+  "parent_native_pending_count": 1285,
+  "scope": "Additive source-to-event association only; no bulk approval, no deletion, no formal Stage A change, no production update.",
+  "source_id_matches_title_only_no_all_bodies_claim": true,
+  "case_groups": 3,
+  "matched_source_ids": 19,
+  "previously_bounded_case_source_ids": 2,
+  "previously_without_additional_evidence": 17,
+  "excluded_near_matches": [
+    {
+      "row_index": 1113,
+      "reason": "LG share-price follow-on, not direct BESS DSX announcement"
+    },
+    {
+      "row_index": 1253,
+      "reason": "Samsung cylindrical/data-center LFP product scope, not SBB 2.0 LSFT same event"
+    }
+  ],
+  "native_0_1P_approved": 0,
+  "stage_a_status": "HOLD",
+  "cases": [
+    {
+      "case_id": "NVIDIA_DSX_READY_BESS_20260921",
+      "event_date": "2026-09-21",
+      "owner_or_original_reporting_url": "https://blogs.nvidia.com/blog/dsx-ready-ai-factories-power-cooling/",
+      "verified_event_fact": "NVIDIA DSX Ready qualification program; initial BESS solutions from Hitachi Energy, LG Energy Solution and Tesla; separate CDU-qualified products.",
+      "claim_boundary": "Qualification of bounded products; not battery-cell certification, site-level commissioning, procurement contract or all-vendor exclusion.",
+      "materiality_route": "AI data-center BESS qualification/market access",
+      "related_lineage_caveat": "Two IDs (382,802) were previously linked to NVIDIA_DSX_READY_BESS_3_CDU_3_20260921; do not create a duplicate case.",
+      "source_ids": [
+        {
+          "source_row_index": 370,
+          "source_id": "SRC26-20260923_132732-0168",
+          "original_title": "Nvidia launches BESS qualification program for AI data centers, names just Tesla, LG, Hitachi",
+          "original_url": "https://www.ess-news.com/2026/09/22/nvidia-launches-bess-qualification-program-for-ai-data-centers-names-just-tesla-lg-hitachi",
+          "original_score": 58,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 382,
+          "source_id": "SRC26-20260923_132732-0180",
+          "original_title": "特斯拉和Vertiv都拿到英伟达“准入证”，六家储能企业中没有中国公司",
+          "original_url": "https://chuneng.ofweek.com/news/2026-09/ART-180225-8420-30704503.html",
+          "original_score": 26,
+          "prior_evidence_scope": "BOUNDED_CASE_SOURCE_EVIDENCE",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 519,
+          "source_id": "SRC26-20260926_120143-0021",
+          "original_title": "Nvidia launches BESS qualification program for AI data centers, names just Tesla, LG, Hitachi",
+          "original_url": "https://pv-magazine-usa.com/2026/09/24/nvidia-launches-bess-qualification-program-for-ai-data-centers-names-just-tesla-lg-hitachi",
+          "original_score": 58,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 679,
+          "source_id": "SRC26-20260926_120143-0181",
+          "original_title": "Nvidia selects three BESS solutions for new AI facilities qualification programme",
+          "original_url": "https://www.energy-storage.news/nvidia-selects-three-bess-solutions-new-ai-facilities-qualification-programme",
+          "original_score": 58,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 768,
+          "source_id": "SRC26-20260926_120143-0270",
+          "original_title": "【储能】英伟达给储能发\"算力驾照\"：首批仅3家过关",
+          "original_url": "https://chuneng.ofweek.com/news/2026-09/ART-180221-8120-30704676.html",
+          "original_score": 58,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 802,
+          "source_id": "SRC26-20260926_120143-0304",
+          "original_title": "特斯拉和Vertiv都拿到英伟达“准入证”，六家储能企业中没有中国公司",
+          "original_url": "https://chuneng.ofweek.com/news/2026-09/ART-180225-8420-30704503.html",
+          "original_score": 58,
+          "prior_evidence_scope": "BOUNDED_CASE_SOURCE_EVIDENCE",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        }
+      ]
+    },
+    {
+      "case_id": "SAMSUNG_SDI_SBB2_LFP_LSFT_20260928",
+      "event_date": "2026-09-28",
+      "owner_or_original_reporting_url": "https://news.samsungsdi.com/ko/click?seq=499",
+      "verified_event_fact": "Samsung SDI reported LFP-based SBB 2.0 met UL Solutions Large Scale Fire Test criteria.",
+      "claim_boundary": "Company-reported LSFT result for system/product; not universal certification of every cell, installed fleet, or commercial operation.",
+      "materiality_route": "ESS product fire safety/qualification",
+      "related_lineage_caveat": "Same SBB 2.0 LSFT event across these four headlines; separate UPS LSFT and other chemistry test events require own date/stage check.",
+      "source_ids": [
+        {
+          "source_row_index": 899,
+          "source_id": "SRC26-20260928_160143-0033",
+          "original_title": "삼성SDI, 삼원계 이어 LFP까지…ESS 화재 안전성 잇단 인증",
+          "original_url": "https://view.asiae.co.kr/article/2026092808155560970",
+          "original_score": 58,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 901,
+          "source_id": "SRC26-20260928_160143-0035",
+          "original_title": "삼성SDI, LFP 탑재 ESS 글로벌 화재 안전 테스트 통과",
+          "original_url": "https://www.sedaily.com/article/20095430",
+          "original_score": 58,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 902,
+          "source_id": "SRC26-20260928_160143-0036",
+          "original_title": "삼성SDI, LFP 배터리 탑재 ESS 대형 화재 테스트 통과",
+          "original_url": "https://www.thelec.kr/news/articleView.html?idxno=62809",
+          "original_score": 58,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 1257,
+          "source_id": "WK26-VOL03-007",
+          "original_title": "삼성SDI LFP SBB 2.0, 대형 화재 테스트 기준 충족",
+          "original_url": "https://www.yna.co.kr/view/AKR20260928020300003",
+          "original_score": 58,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        }
+      ]
+    },
+    {
+      "case_id": "IMIP_NPI_WATER_SHORTAGE_OUTPUT_CUT_20260922",
+      "event_date": "2026-09-22",
+      "owner_or_original_reporting_url": "https://www.kitco.com/news/off-the-wire/2026-09-22/indonesia-nickel-hub-imip-says-nickel-pig-iron-production-cut-because",
+      "verified_event_fact": "IMIP spokesperson confirmed to Reuters that water scarcity reduced nickel pig iron output at some smelters.",
+      "claim_boundary": "Exact tenant-level cut unspecified; ~100,000 tonnes is not a confirmed company-wide realized output loss. NPI is mainly stainless-steel input; battery-grade nickel loss cannot be inferred.",
+      "materiality_route": "Indonesian nickel processing operations/physical supply",
+      "related_lineage_caveat": "September 15 Nickel Industries ENC HPAL ramp constraint and later IMIP NPI curtailment must not be conflated.",
+      "source_ids": [
+        {
+          "source_row_index": 265,
+          "source_id": "SRC26-20260923_132732-0063",
+          "original_title": "니켈값 더 오르나...인니 니켈 허브, 엘니뇨 가뭄에 감산 들어가",
+          "original_url": "https://www.theguru.co.kr/news/article.html?no=107494",
+          "original_score": 57,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 334,
+          "source_id": "SRC26-20260923_132732-0132",
+          "original_title": "Indonesia nickel hub to cut output on El Niño-driven drought - petromindo.com",
+          "original_url": "https://www.petromindo.com/news/article/indonesia-nickel-hub-to-cut-output-on-el-nino-driven-drought",
+          "original_score": 57,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 335,
+          "source_id": "SRC26-20260923_132732-0133",
+          "original_title": "Indonesia Cuts Nickel Output but Struggles to Lift Global Prices - Межа. Новини України.",
+          "original_url": "https://mezha.net/eng/news/260f69dd_indonesia_cuts_nickel",
+          "original_score": 57,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 350,
+          "source_id": "SRC26-20260923_132732-0148",
+          "original_title": "Indonesia nickel hub to cut production on El Niño-driven drought - Mining Weekly",
+          "original_url": "https://www.miningweekly.com/article/indonesia-nickel-hub-to-cut-production-on-el-nio-driven-drought-2026-09-22",
+          "original_score": 57,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 357,
+          "source_id": "SRC26-20260923_132732-0155",
+          "original_title": "Nickel Extends Gains on Indonesia Supply Cut - TradingView",
+          "original_url": "https://www.tradingview.com/news/te_news:585529:0-nickel-extends-gains-on-indonesia-supply-cut",
+          "original_score": 57,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 360,
+          "source_id": "SRC26-20260923_132732-0158",
+          "original_title": "Indonesia nickel hub to cut output on El Niño-driven drought - The Edge Singapore",
+          "original_url": "https://www.theedgesingapore.com/news/commodities/indonesia-nickel-hub-cut-output-el-nio-driven-drought",
+          "original_score": 57,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 361,
+          "source_id": "SRC26-20260923_132732-0159",
+          "original_title": "El Niño triggers industrial water crisis: Indonesia's Morowali park cuts nickel pig iron output by ~100,000 tons - finance.biggo.com",
+          "original_url": "https://finance.biggo.com/news/24a4373b-cd39-4fb7-ab06-37ba3ad6e3b5",
+          "original_score": 57,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 716,
+          "source_id": "SRC26-20260926_120143-0218",
+          "original_title": "Indonesia nickel hub to cut output on El Niño-driven drought - Petromindo",
+          "original_url": "https://www.petromindo.com/news/article/indonesia-nickel-hub-to-cut-output-on-el-nino-driven-drought",
+          "original_score": 57,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        },
+        {
+          "source_row_index": 717,
+          "source_id": "SRC26-20260926_120143-0219",
+          "original_title": "Indonesia Cuts Nickel Output but Struggles to Lift Global Prices - Межа. Новини України.",
+          "original_url": "https://mezha.net/eng/news/260f69dd_indonesia_cuts_nickel",
+          "original_score": 57,
+          "prior_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+          "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+          "association_status": "TITLE_LEVEL_PROVISIONAL_UNDER_NATIVE_GATE"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,565 @@
+{
+  "status": "PENDING_NATIVE_AND_INDEPENDENT_QC",
+  "artifact_type": "STAGE_A_CP20_FIRST_PARTY_27_ID_BATCH",
+  "base_cp19_sha256": "bf30369c00bd528b4ab32c628a388b48a56471ac5e8f34fd22631bcb8eaead7d",
+  "locked_full_sha256": "d22f0d4e39e035b9537b3e9abdf48abe6b7eb80f7e477e87aff1284f9e27e0d9",
+  "output_sha256": "b0b06dae8fd3ac19950772479ba087e0c8b661f3388899b9bbd370f789cd21c1",
+  "new_formal": 27,
+  "new_strict": 12,
+  "new_support": 14,
+  "new_existing_full_reinforcement": 1,
+  "cumulative_formal": 153,
+  "remaining": 1177,
+  "cumulative_strict": 42,
+  "source_decisions": [
+    {
+      "row": 97,
+      "source_id": "SRC26-20260920_142928-0097",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_event_cluster_id": "US_JUPITER_POWER_CLOSED_1P4BN_TEN_BESS_FOUR_FINANCING_TRANSACTIONS_DISCLOSED_20260916",
+      "original_source_url": "https://www.energy-storage.news/jupiter-power-closes-us1-4-billion-financing-for-10-us-bess-projects-totalling-3-8gwh",
+      "first_party_owner_urls": [
+        "https://jupiterpower.io/jupiter-power-secures-1-4-billion-in-project-financing-for-ten-utility-scale-battery-energy-storage-projects/"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP16_JUPITER_DISCLOSED_1P4BN_FOUR_FINANCINGS_CLOSED_APR_JUL",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "TEN_PROJECTS_1500MW_3600MWH_NOT_3800MWH",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "CLOSED_FINANCE_NOT_10_COD_OR_SUBSIDY",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 146,
+      "source_id": "SRC26-20260920_142928-0146",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_event_cluster_id": "EU_EVE_IAA_COMMERCIAL_VEHICLE_30GWH_STRATEGIC_COOP_ORDER_20260919",
+      "original_source_url": "https://autonews.gasgoo.com/articles/news/at-the-2026-iaa-show-eve-energy-signs-over-30-gwh-commercial-vehicle-battery-orders-2101166120928477185",
+      "first_party_owner_urls": [
+        "https://www.evebattery.com/en/news-1900"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP19_IAA_EVE_MULTI_PARTNER_STRATEGIC_COOP_AGREEMENTS",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "COMPANY_AGGREGATE_ABOVE_30GWH_COOP_ORDERS_UNVERIFIED_FIRM_POs",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "SEP29_FOLLOWUP_PRESS_RELEASE_DATE_NOT_NEW_ORDER_DATE",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 165,
+      "source_id": "SRC26-20260920_142928-0165",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_event_cluster_id": "EU_CATL_DHL_GREEN_FREIGHT_CORRIDOR_MOU_20260914",
+      "original_source_url": "https://carnewschina.com/2026/09/18/catl-and-dhl-collaborate-on-scalable-charging-and-battery-swapping-solutions-for-european-logistics",
+      "first_party_owner_urls": [
+        "https://www.catl.com/en/news/6999.html"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP14_CATL_DHL_EUROPE_GREEN_CORRIDOR_SIGNED_MOU",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "2024_GLOBAL_DHL_MOU_PRIOR_BASELINE",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "EV_CHARGING_ESS_SWAP_PILOTS_NOT_DEPLOYED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 337,
+      "source_id": "SRC26-20260923_132732-0135",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "AU_GLOBAL_LITHIUM_TITAN_BINDING_SCHEME_AUD333M_20260922",
+      "original_source_url": "https://www.mining.com/global-lithium-soars-50-on-a333m-titan-takeover",
+      "first_party_owner_urls": [
+        "https://newswire.iguana2.com/2fee0049d633f441/announcements/gl1.asx/6A1344840/GL1_Global_Lithium_enters_into_binding_SID_with_Titan.pdf"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP22_SIGNED_BINDING_AUD333M_GLOBAL_LITHIUM_TITAN_SCHEME_NOT_CLOSED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 338,
+      "source_id": "SRC26-20260923_132732-0136",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "AU_GLOBAL_LITHIUM_TITAN_BINDING_SCHEME_AUD333M_20260922",
+      "original_source_url": "https://auto.economictimes.indiatimes.com/news/industry/ev-battery-maker-titan-to-buy-australias-global-lithium-in-237-million-deal/134407839",
+      "first_party_owner_urls": [
+        "https://newswire.iguana2.com/2fee0049d633f441/announcements/gl1.asx/6A1344840/GL1_Global_Lithium_enters_into_binding_SID_with_Titan.pdf"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP22_SIGNED_BINDING_AUD333M_GLOBAL_LITHIUM_TITAN_SCHEME_NOT_CLOSED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 342,
+      "source_id": "SRC26-20260923_132732-0140",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "AU_GLOBAL_LITHIUM_TITAN_BINDING_SCHEME_AUD333M_20260922",
+      "original_source_url": "https://www.northernminer.com/news/global-lithium-soars-50-on-a333m-titan-takeover/1003895024",
+      "first_party_owner_urls": [
+        "https://newswire.iguana2.com/2fee0049d633f441/announcements/gl1.asx/6A1344840/GL1_Global_Lithium_enters_into_binding_SID_with_Titan.pdf"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP22_SIGNED_BINDING_AUD333M_GLOBAL_LITHIUM_TITAN_SCHEME_NOT_CLOSED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 343,
+      "source_id": "SRC26-20260923_132732-0141",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "AU_GLOBAL_LITHIUM_TITAN_BINDING_SCHEME_AUD333M_20260922",
+      "original_source_url": "https://www.miningweekly.com/article/ev-battery-maker-titan-to-buy-australias-global-lithium-in-237m-deal-2026-09-22",
+      "first_party_owner_urls": [
+        "https://newswire.iguana2.com/2fee0049d633f441/announcements/gl1.asx/6A1344840/GL1_Global_Lithium_enters_into_binding_SID_with_Titan.pdf"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP22_SIGNED_BINDING_AUD333M_GLOBAL_LITHIUM_TITAN_SCHEME_NOT_CLOSED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 367,
+      "source_id": "SRC26-20260923_132732-0165",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_event_cluster_id": "FI_AKKU_ONE_COVENERGO_DELTA_125MW_300MWH_CONSTRUCTION_START_20260917",
+      "original_source_url": "https://www.energy-storage.news/covenergo-and-delta-capacity-begin-construction-on-300mwh-akku-one-bess-in-finland",
+      "first_party_owner_urls": [
+        "https://www.deltacapacity.com/post/covenergo-and-delta-capacity-partner-on-125-mw---300-mwh-akku-one-bess-project-in-lapinlahti-finlan"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP17_AKKU_ONE_125MW_300MWH_CONSTRUCTION_STARTED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "Q4_2027_TARGET_COD_NOT_ACTUAL_OPERATION",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "ALREADY_COUNTED_WITHIN_SUNGROW_DELTA_600MWH_SUPPLY_NOT_EXTRA_MWH",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 497,
+      "source_id": "SRC26-20260923_132732-0295",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_event_cluster_id": "SA_GOTION_6GWH_THREE_SITE_BESS_ORDER_20260911",
+      "original_source_url": "https://www.gotion.com.cn/newsInfo/979",
+      "first_party_owner_urls": [
+        "https://www.gotion.com.cn/newsInfo/979"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP11_GOTION_SAUDI_THREE_SITE_BESS_6GWH_AWARDED_SUPPLY",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "CONSTRUCTION_STARTED_NOT_GOTION_DELIVERY_OR_COD",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 498,
+      "source_id": "SRC26-20260926_120143-0000",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "CN_GEELY_AI_2250KW_SMART_CHARGING_AND_20PCT_RESTORATION_CLAIMS_20260923",
+      "original_source_url": "https://electrek.co/2026/09/25/geely-ai-fast-charging-heals-ev-batteries-pulse-restoration",
+      "first_party_owner_urls": [
+        "https://www.geelyautogroup.com/en/media/202609231/",
+        "https://newsroom.geely.com/geely-auto-group-ultra-fast-ai-powered-geely-smart-charging"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "GEELY_PULSE_RESTORATION_20PCT_CYCLE_LIFE_COMPANY_CLAIM_NOT_VALIDATED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 683,
+      "source_id": "SRC26-20260926_120143-0185",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_event_cluster_id": "AU_GLOBAL_LITHIUM_TITAN_BINDING_SCHEME_AUD333M_20260922",
+      "original_source_url": "https://www.australianmining.com.au/global-lithium-agrees-333-million-takeover-by-titan",
+      "first_party_owner_urls": [
+        "https://newswire.iguana2.com/2fee0049d633f441/announcements/gl1.asx/6A1344840/GL1_Global_Lithium_enters_into_binding_SID_with_Titan.pdf"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP22_SIGNED_BINDING_AUD333M_GLOBAL_LITHIUM_TITAN_SCHEME_NOT_CLOSED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "UP_TO_AUD120M_BRIDGE_FACILITY_FOUR_TRANCHES_NOT_FULLY_DRAWN",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "COURT_SHAREHOLDER_FIRB_ACCC_APPROVALS_PENDING",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 728,
+      "source_id": "SRC26-20260926_120143-0230",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_event_cluster_id": "FI_SUNGROW_DELTA_600MWH_FRAMEWORK_EXECUTION_TWO_PROJECTS_20260924",
+      "original_source_url": "https://www.ess-news.com/2026/09/25/delta-capacity-advances-second-major-finland-bess-this-month-with-sungrow-supply-deal",
+      "first_party_owner_urls": [
+        "https://www.sungrowpower.com/eu/en/delta-karppio-akkuone"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP24_600MWH_COMBINED_DELIVERY_ALLOCATION_KARPPIO_AND_AKKU_ONE",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "PREEXISTING_1GWH_FRAMEWORK_REPORTED_FULFILLED_NOT_NEW_1GWH",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "FINLAND_250MW_600MWH_2027_COD_NOT_YET",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 741,
+      "source_id": "SRC26-20260926_120143-0243",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "CN_GEELY_AI_2250KW_SMART_CHARGING_AND_20PCT_RESTORATION_CLAIMS_20260923",
+      "original_source_url": "https://www.electrive.com/2026/09/24/geely-counters-byd-with-2-25-mw-charging-system",
+      "first_party_owner_urls": [
+        "https://www.geelyautogroup.com/en/media/202609231/",
+        "https://newsroom.geely.com/geely-auto-group-ultra-fast-ai-powered-geely-smart-charging"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP23_GEELY_PUBLIC_AI_SMART_CHARGING_PLATFORM_AND_2250KW_PEAK_CLAIM",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 772,
+      "source_id": "SRC26-20260926_120143-0274",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_event_cluster_id": "CN_GEELY_AI_2250KW_SMART_CHARGING_AND_20PCT_RESTORATION_CLAIMS_20260923",
+      "original_source_url": "https://autonews.gasgoo.com/articles/news/geely-unveils-next-generation-ai-smart-charging-technology-2103053916983209984",
+      "first_party_owner_urls": [
+        "https://www.geelyautogroup.com/en/media/202609231/",
+        "https://newsroom.geely.com/geely-auto-group-ultra-fast-ai-powered-geely-smart-charging"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP23_GEELY_PUBLIC_AI_SMART_CHARGING_PLATFORM_AND_2250KW_PEAK_CLAIM",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "GEELY_PULSE_RESTORATION_20PCT_CYCLE_LIFE_COMPANY_CLAIM_NOT_VALIDATED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "ULTRA_SHORT_BLADE_6C_AND_10_TO70PCT_4M30S_SELF_REPORTED_TEST_NOT_CERTIFIED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 784,
+      "source_id": "SRC26-20260926_120143-0286",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "CN_GEELY_AI_2250KW_SMART_CHARGING_AND_20PCT_RESTORATION_CLAIMS_20260923",
+      "original_source_url": "https://autonews.gasgoo.com/articles/news/geely-unveils-ai-charging-technology-with-claimed-22-mw-peak-output-2103027424488267777",
+      "first_party_owner_urls": [
+        "https://www.geelyautogroup.com/en/media/202609231/",
+        "https://newsroom.geely.com/geely-auto-group-ultra-fast-ai-powered-geely-smart-charging"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP23_GEELY_PUBLIC_AI_SMART_CHARGING_PLATFORM_AND_2250KW_PEAK_CLAIM",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 812,
+      "source_id": "SRC26-20260926_120143-0314",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "CN_GEELY_AI_2250KW_SMART_CHARGING_AND_20PCT_RESTORATION_CLAIMS_20260923",
+      "original_source_url": "https://carnewschina.com/2026/09/23/geely-challenges-byd-with-2-2-mw-charging-technology",
+      "first_party_owner_urls": [
+        "https://www.geelyautogroup.com/en/media/202609231/",
+        "https://newsroom.geely.com/geely-auto-group-ultra-fast-ai-powered-geely-smart-charging"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP23_GEELY_PUBLIC_AI_SMART_CHARGING_PLATFORM_AND_2250KW_PEAK_CLAIM",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 865,
+      "source_id": "SRC26-20260926_120143-0367",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_event_cluster_id": "GL_CATL_KUEHNE_NAGEL_BATTERY_LOGISTICS_SWAP_MOU_20260918",
+      "original_source_url": "https://www.catl.com/en/news/7012.html",
+      "first_party_owner_urls": [
+        "https://www.catl.com/en/news/7012.html"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP18_CATL_KUEHNE_NAGEL_SIGNED_LOGISTICS_MOU",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "QJIJI_TRUCK_BATTERY_SWAP_PILOT_FUTURE_ONLY",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "POTENTIAL_LOGISTICS_SITE_ESS_NO_INSTALLED_VOLUME",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 869,
+      "source_id": "SRC26-20260928_160143-0003",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "CN_NIO_GEELY_RECIPROCAL_POWER_EQUITY_DEFINITIVE_AGREEMENTS_20260927",
+      "original_source_url": "https://electrek.co/2026/09/27/nio-power-geely-30-stake-battery-swap-rmb16-billion",
+      "first_party_owner_urls": [
+        "https://ir.nio.com/news-releases/news-release-details/nio-announces-definitive-agreements-strategic-transaction-geely"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SIGNED_GEELY_IN_KIND_YIYI_PLUS_RMB640M_FOR_INITIAL_30PCT_NIO_POWER_CONDITIONAL",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 870,
+      "source_id": "SRC26-20260928_160143-0004",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "CN_NIO_GEELY_RECIPROCAL_POWER_EQUITY_DEFINITIVE_AGREEMENTS_20260927",
+      "original_source_url": "https://www.nasdaq.com/press-release/nio-announces-definitive-agreements-strategic-transaction-geely-holding-group-battery",
+      "first_party_owner_urls": [
+        "https://ir.nio.com/news-releases/news-release-details/nio-announces-definitive-agreements-strategic-transaction-geely"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SIGNED_GEELY_IN_KIND_YIYI_PLUS_RMB640M_FOR_INITIAL_30PCT_NIO_POWER_CONDITIONAL",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "SIGNED_NIO_CHINA_10PCT_HAOHAN_EQUITY_SWAP_CONDITIONAL",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 881,
+      "source_id": "SRC26-20260928_160143-0015",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "CN_GEELY_AI_2250KW_SMART_CHARGING_AND_20PCT_RESTORATION_CLAIMS_20260923",
+      "original_source_url": "https://electrek.co/2026/09/25/geely-ai-fast-charging-heals-ev-batteries-pulse-restoration",
+      "first_party_owner_urls": [
+        "https://www.geelyautogroup.com/en/media/202609231/",
+        "https://newsroom.geely.com/geely-auto-group-ultra-fast-ai-powered-geely-smart-charging"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "GEELY_PULSE_RESTORATION_20PCT_CYCLE_LIFE_COMPANY_CLAIM_NOT_VALIDATED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1068,
+      "source_id": "SRC26-20260928_160143-0202",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "FI_SUNGROW_DELTA_600MWH_FRAMEWORK_EXECUTION_TWO_PROJECTS_20260924",
+      "original_source_url": "https://www.ess-news.com/2026/09/25/delta-capacity-advances-second-major-finland-bess-this-month-with-sungrow-supply-deal",
+      "first_party_owner_urls": [
+        "https://www.sungrowpower.com/eu/en/delta-karppio-akkuone"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP24_600MWH_COMBINED_DELIVERY_ALLOCATION_KARPPIO_AND_AKKU_ONE",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1082,
+      "source_id": "SRC26-20260928_160143-0216",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "CN_NIO_GEELY_RECIPROCAL_POWER_EQUITY_DEFINITIVE_AGREEMENTS_20260927",
+      "original_source_url": "https://carnewschina.com/2026/09/28/geely-invests-in-nio-to-launche-evs-compatible-with-its-battery-swapping-network",
+      "first_party_owner_urls": [
+        "https://ir.nio.com/news-releases/news-release-details/nio-announces-definitive-agreements-strategic-transaction-geely"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "GEELY_SWAP_COMPATIBLE_FUTURE_VEHICLES_PRELIMINARY_ONLY",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1156,
+      "source_id": "SRC26-20260928_160143-0290",
+      "result": "FORMAL_SUPPORT_ONLY_SAME_EVENT_NO_SECOND_CARD",
+      "economic_event_cluster_id": "GL_CATL_KUEHNE_NAGEL_BATTERY_LOGISTICS_SWAP_MOU_20260918",
+      "original_source_url": "https://www.catl.com/en/news/7012.html",
+      "first_party_owner_urls": [
+        "https://www.catl.com/en/news/7012.html"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP18_CATL_KUEHNE_NAGEL_SIGNED_LOGISTICS_MOU",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1167,
+      "source_id": "R17_DISC_005",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_event_cluster_id": "AU_CANADIAN_SOLAR_ESTORAGE_OX2_MUSWELLBROOK_200MWH_SUPPLY_20261006",
+      "original_source_url": "https://investors.canadiansolar.com/news-releases/news-release-details/e-storage-supply-and-commission-100-mw200-mwh-battery-storage",
+      "first_party_owner_urls": [
+        "https://investors.canadiansolar.com/news-releases/news-release-details/e-storage-supply-and-commission-100-mw200-mwh-battery-storage"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "OCT06_OX2_MUSWELLBROOK_100MW_200MWH_SIGNED_SUPPLY",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "SIGNED_20_YEAR_LTSA_DISTINCT_SERVICE_CHILD",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "Q3_2027_SHIPMENT_Q3_2028_COD_PLANNED_ONLY",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1184,
+      "source_id": "WK26-VOL01-018",
+      "result": "FORMAL_REINFORCEMENT_LOCKED_FULL_NO_NEW_CARD",
+      "economic_event_cluster_id": "CN_CATL_COPPER_FOIL_PARTNERSHIP_SEP06_ALREADY_IN_FULL",
+      "original_source_url": "https://www.catl.com/en/news/6993.html",
+      "first_party_owner_urls": [
+        "https://www.catl.com/en/news/6993.html"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP06_ALREADY_REPRESENTED_CATL_COPPER_FOIL_AGREEMENT",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1259,
+      "source_id": "WK26-VOL03-009",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_event_cluster_id": "EU_VW_POWERCO_GOTION_THREE_CONDITIONAL_LFP_JVS_AND_5P3_STAKE_20260928",
+      "original_source_url": "https://www.volkswagen-group.com/en/press-releases/volkswagen-group-powerco-and-gotion-deepen-strategic-partnership-20710",
+      "first_party_owner_urls": [
+        "https://www.volkswagen-group.com/en/press-releases/volkswagen-group-powerco-and-gotion-deepen-strategic-partnership-20710"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SEP28_PLANNED_VALENCIA_POWERCO_51PCT_LFP_JV",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "SEP28_PLANNED_SURANY_GOTION_51PCT_LFP_JV",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "SEP28_PLANNED_KENITRA_MOROCCO_GOTION_51PCT_CAM_JV",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "PROSPECTIVE_EUR470M_POWERCO_PLUS_EUR1P1BN_GOTION_CONTRIBUTIONS",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "SEPARATE_SIGNED_5P3PCT_VW_GOTION_EQUITY_SALE_NOT_CLOSED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    },
+    {
+      "row": 1263,
+      "source_id": "WK26-VOL03-013",
+      "result": "FORMAL_STRICT_EVENT_SELECTOR_ONLY",
+      "economic_event_cluster_id": "CN_NIO_GEELY_RECIPROCAL_POWER_EQUITY_DEFINITIVE_AGREEMENTS_20260927",
+      "original_source_url": "https://ir.nio.com/news-releases/news-release-details/nio-announces-definitive-agreements-strategic-transaction-geely",
+      "first_party_owner_urls": [
+        "https://ir.nio.com/news-releases/news-release-details/nio-announces-definitive-agreements-strategic-transaction-geely"
+      ],
+      "economic_act_edges": [
+        {
+          "event": "SIGNED_GEELY_IN_KIND_YIYI_PLUS_RMB640M_FOR_INITIAL_30PCT_NIO_POWER_CONDITIONAL",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "SIGNED_NIO_CHINA_10PCT_HAOHAN_EQUITY_SWAP_CONDITIONAL",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "OPTIONAL_SECOND_RMB640M_GEELEY_CASH_FOR_34PCT_NOT_EXERCISED",
+          "role": "stage_specific_separate_economic_act_preserved"
+        },
+        {
+          "event": "GEELY_SWAP_COMPATIBLE_FUTURE_VEHICLES_PRELIMINARY_ONLY",
+          "role": "stage_specific_separate_economic_act_preserved"
+        }
+      ]
+    }
+  ],
+  "no_stage_b": true,
+  "global_status": "HOLD",
+  "no_main_full_related_mutation": true
+}

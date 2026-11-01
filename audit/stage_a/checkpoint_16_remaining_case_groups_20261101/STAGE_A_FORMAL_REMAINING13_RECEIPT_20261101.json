@@ -1,0 +1,296 @@
+{
+  "artifact_type": "STAGE_A_CHECKPOINT_16_REMAINING_PRENATIVE_CASES_FORMAL_0_1P_RECEIPT",
+  "status": "PENDING_NATIVE_VALIDATION_AFTER_BUILD",
+  "base_sha256": "8bd11020fea3c8874837fa2a30b5bab619e0174a7e92b43661d5c5b225a230c6",
+  "output_sha256": "d36893b263dfed269388d40680a7896ebee0b68127619cded66baeb951084fef",
+  "original_sources": 1330,
+  "new_formalized": 13,
+  "formalized_total": 99,
+  "formal_pending": 1231,
+  "strict_count": 18,
+  "new_strict_count": 4,
+  "new_support_only_count": 3,
+  "new_watch_context_count": 6,
+  "case_groups": 7,
+  "remaining_unadjudicated_source_rows_from_pre_native_54": [
+    8,
+    48,
+    244,
+    614,
+    916
+  ],
+  "event_records": {
+    "authority": "PROMPT_0_1P_V4_20260829",
+    "previous_checkpoint_id": 15,
+    "source_ids_formalized_this_batch": 13,
+    "formal_individual_completed_total": 99,
+    "formal_individual_pending": 1231,
+    "source_ids_formalized_cumulative_since_45": 54,
+    "source_ids_from_original54_formally_decided": 49,
+    "source_rows_original54_remaining_unresolved": [
+      8,
+      48,
+      244,
+      614,
+      916
+    ],
+    "related_outside54_mixed_or_procedural_source_row228_pending": true,
+    "source_row8_mixed_Factorial_interview_preserved_unchanged": true,
+    "case_groups_this_batch": 7,
+    "strict_case_groups": 4,
+    "watch_case_groups": 3,
+    "source_disposition_counts": {
+      "strict": 4,
+      "support_only": 3,
+      "watch_context": 6
+    },
+    "source_decisions": [
+      {
+        "row": 19,
+        "source_id": "SRC26-20260920_142928-0019",
+        "case_id": "US_GOOGLE_ESVOLTA_GRANULAR_CERT_STORAGE_PILOT_20260917",
+        "result": "FORMAL_STRICT_SELECTOR_ONLY_NOT_STAGE_B",
+        "original_headline": "Google-backed pilot unlocks first environmental certificate revenue stream for battery storage",
+        "original_url": "https://pv-magazine-usa.com/2026/09/18/google-backed-pilot-unlocks-first-environmental-certificate-revenue-stream-for-battery-storage",
+        "owner_urls": [
+          "https://www.esvolta.com/post/battery-storage-shift-pilot-demonstrates-how-hourly-renewable-certificates-can-power-the-next-phase",
+          "https://www.quintrace.com/press-releases/battery-storage-shift-pilot"
+        ],
+        "score": 55,
+        "event_units": [
+          "GOOGLE_SPONSORED_STORAGE_SHIFT_PILOT_CONTRACTS",
+          "TWO_EXISTING_BESS_REPORT_9_2GWH_WINDOW_DISPATCH",
+          "HOURLY_GRANULAR_CERTIFICATE_TRACKING_DEMONSTRATION"
+        ],
+        "must_not_claim": "9.2GWh is the reported combined charge/discharge window activity, not independently proven net certified renewable MWh or payments; no generally binding SBTi/GHG Protocol standard, traded market volume, Google ownership of battery sites, or new 340MW commissioning."
+      },
+      {
+        "row": 79,
+        "source_id": "SRC26-20260920_142928-0079",
+        "case_id": "JP_HIRASOL_IZUMIZAKI_NEGAPOSI_MARKET_PREQUAL_20260916",
+        "result": "FORMAL_STRICT_SELECTOR_ONLY_NOT_STAGE_B",
+        "original_headline": "系統用蓄電所「ネガポジ運用」で入札可能な調整力2倍に ヒラソル・エナジー",
+        "original_url": "https://www.kankyo-business.jp/news/62dd3e36-244f-45ef-aa89-9ef8ffec4d0e",
+        "owner_urls": [
+          "https://prtimes.jp/main/html/rd/p/000000027.000085634.html"
+        ],
+        "score": 55,
+        "event_units": [
+          "EXISTING_1900KW_ESS_MARKET_PREQUALIFICATION_PASS",
+          "FOUR_OVERLAPPING_BALANCING_PRODUCTS_3800KW_COMBINED_BID_CAP"
+        ],
+        "must_not_claim": "3,800kW is a maximum approved adjustable bidding capability, not doubled battery nameplate 1,900kW, guaranteed continuous offered MW, four additive product volumes, actual contracted award, market earnings, or new September COD."
+      },
+      {
+        "row": 120,
+        "source_id": "SRC26-20260920_142928-0120",
+        "case_id": "AU_FLOW_POWER_BENNETTS_STAGE2_PROPOSAL_20260918",
+        "result": "FORMAL_WATCH_CONTEXT_NO_NEW_CARD",
+        "representative_source_id": "SRC26-20260920_142928-0120",
+        "original_headline": "Flow Power begins 223 MWh Australian battery, plans 1.2 GWh expansion",
+        "original_url": "https://www.ess-news.com/2026/09/18/flow-power-begins-223-mwh-australian-battery-plans-1-2-gwh-expansion",
+        "owner_urls": [
+          "https://flowpower.com.au/flow-power-celebrates-bennetts-creek-battery-construction-milestone/",
+          "https://flowpower.com.au/flow-power-reaches-financial-close-on-bennetts-creek-battery-energy-storage-system/",
+          "https://flowpower.com.au/bennetts-creek-battery-roadworks/",
+          "https://flowpower.com.au/bennetts-creek-battery/"
+        ],
+        "reason": "September14 was a ceremony at an already-started 100MW/223MWh construction site (Flow Power May14 already said work commenced; Dec2025 financial close); Sept18 also announced up-to-300MW/1.2GWh Stage2 only at preliminary environmental/planning phase. Live company project page currently says 100MW/233MWh versus dated Sept18 223MWh: unresolved owner version difference.",
+        "future_trigger": "Stage2 development approval application filed/approved, new financial close or signed EPC, Stage1 final authoritative engineering MWh, actual 2028 COD."
+      },
+      {
+        "row": 122,
+        "source_id": "SRC26-20260920_142928-0122",
+        "case_id": "UK_OFGEM_CMP470_OTCF_MINDED_TO_CONSULT_20260917",
+        "result": "FORMAL_STRICT_SELECTOR_ONLY_NOT_STAGE_B",
+        "original_headline": "UK regulator plans BESS fees to cut grid connection queue",
+        "original_url": "https://www.ess-news.com/2026/09/18/uk-regulator-plans-bess-fees-to-cut-grid-connection-queue",
+        "owner_urls": [
+          "https://www.ofgem.gov.uk/consultation/connection-and-use-system-code-cusc-cmp470-introducing-oversubscribed-technologies-commitment-fee-otcf",
+          "https://www.ofgem.gov.uk/press-release/ofgem-moves-free-grid-capacity-tackling-excess-battery-projects"
+        ],
+        "score": 54,
+        "event_units": [
+          "CMP470_OF_GEM_MINDED_TO_APPROVE_CONSULTATION",
+          "DRAFT_BESS_SECURITY_3000_TO_25000_GBP_PER_MW",
+          "FINAL_CUSC_RULE_AND_NESO_ACTIVATION_PENDING"
+        ],
+        "must_not_claim": "Do not claim £3,000/MW or £25,000/MW fee is already levied, approved, collected, universally applies, or that 90GW are all queued/unbuilt. Around 90GW includes about 83GW shortlisted and 7GW already operational; 29GW is a 2035 need projection."
+      },
+      {
+        "row": 123,
+        "source_id": "SRC26-20260920_142928-0123",
+        "case_id": "US_GOOGLE_ESVOLTA_GRANULAR_CERT_STORAGE_PILOT_20260917",
+        "result": "FORMAL_SUPPORT_SAME_EVENT_NO_EXTRA_CARD",
+        "representative_source_id": "SRC26-20260920_142928-0019",
+        "original_headline": "Google, esVolta pilot uses battery storage to ‘time-shift’ renewable energy credits",
+        "original_url": "https://www.ess-news.com/2026/09/18/google-esvolta-pilot-uses-battery-storage-to-time-shift-renewable-energy-credits",
+        "owner_urls": [
+          "https://www.esvolta.com/post/battery-storage-shift-pilot-demonstrates-how-hourly-renewable-certificates-can-power-the-next-phase",
+          "https://www.quintrace.com/press-releases/battery-storage-shift-pilot"
+        ]
+      },
+      {
+        "row": 138,
+        "source_id": "SRC26-20260920_142928-0138",
+        "case_id": "UK_OFGEM_CMP470_OTCF_MINDED_TO_CONSULT_20260917",
+        "result": "FORMAL_SUPPORT_SAME_EVENT_NO_EXTRA_CARD",
+        "representative_source_id": "SRC26-20260920_142928-0122",
+        "original_headline": "90GW储能排队，英国为什么开始收“占位费”？",
+        "original_url": "https://chuneng.ofweek.com/news/2026-09/ART-180221-8420-30703893.html",
+        "owner_urls": [
+          "https://www.ofgem.gov.uk/consultation/connection-and-use-system-code-cusc-cmp470-introducing-oversubscribed-technologies-commitment-fee-otcf",
+          "https://www.ofgem.gov.uk/press-release/ofgem-moves-free-grid-capacity-tackling-excess-battery-projects"
+        ]
+      },
+      {
+        "row": 172,
+        "source_id": "SRC26-20260920_142928-0172",
+        "case_id": "CN_OPIS_TOPCON_PV_CELL_PRICE_WEEKLY_20260915",
+        "result": "FORMAL_WATCH_CONTEXT_NO_NEW_CARD",
+        "representative_source_id": "SRC26-20260920_142928-0172",
+        "original_headline": "China TOPCon solar cell prices fall for third week as export buying fades and wafer costs ease",
+        "original_url": "https://pv-magazine-usa.com/2026/09/18/china-topcon-solar-cell-prices-fall-for-third-week-as-export-buying-fades-and-wafer-costs-ease",
+        "owner_urls": [
+          "https://pv-magazine-usa.com/2026/09/18/china-topcon-solar-cell-prices-fall-for-third-week-as-export-buying-fades-and-wafer-costs-ease/"
+        ],
+        "reason": "PV magazine reports OPIS September15 solar TOPCon photovoltaic cell price M10 FOB $0.0469/W and 210R $0.0458/W. This is a time-specific proprietary PV price assessment, not a lithium-ion ESS battery-cell USD/Wh benchmark, independently verified shipment price or new corporate economic act.",
+        "future_trigger": "Official OPIS comparable period-by-period methodology and demonstrated separate ESS/PV hybrid procurement price pass-through."
+      },
+      {
+        "row": 173,
+        "source_id": "SRC26-20260920_142928-0173",
+        "case_id": "CA_CITT_CHINA_PV_DUTY_ORDER_RESCINDED_20260917",
+        "result": "FORMAL_STRICT_SELECTOR_ONLY_NOT_STAGE_B",
+        "original_headline": "Tribunal Terminates Expiry Review—Photovoltaic Modules and Laminates from China",
+        "original_url": "https://www.canada.ca/en/international-trade-tribunal/news/2026/09/tribunal-terminates-expiry-reviewphotovoltaic-modules-and-laminates-from-china.html",
+        "owner_urls": [
+          "https://www.canada.ca/en/international-trade-tribunal/news/2026/09/tribunal-terminates-expiry-reviewphotovoltaic-modules-and-laminates-from-china.html",
+          "https://www.cbsa-asfc.gc.ca/sima-lmsi/er-rre/sml2026/sml2026-xo-eng.html"
+        ],
+        "score": 63,
+        "event_units": [
+          "SEPT17_FINAL_CITT_RESCISSION_OF_PV_ORDER",
+          "CBSA_NO_NEW_PV_AD_CVD_LIABILITY",
+          "ELIGIBLE_PV_RELEASES_SINCE_MARCH25_REFUND_RULE"
+        ],
+        "must_not_claim": "Do not extend this PV-specific rescission to lithium battery cells, inverters or complete ESS; do not claim all Canadian import tariffs disappeared, pre-March25 releases qualify for refunds or retroactive repayment was already fully disbursed."
+      },
+      {
+        "row": 176,
+        "source_id": "SRC26-20260920_142928-0176",
+        "case_id": "KR_LG_AI_DATACENTER_TURBO_CHILLER_LAUNCH_20260920",
+        "result": "FORMAL_WATCH_CONTEXT_NO_NEW_CARD",
+        "representative_source_id": "SRC26-20260920_142928-0176",
+        "original_headline": "LG전자, 'AI 데이터센터' 특화 터보 칠러 출시…“전력 소비량 30% 절감”",
+        "original_url": "https://www.etnews.com/20260920000063",
+        "owner_urls": [
+          "https://www.lge.co.kr/story/newsroom/236187"
+        ],
+        "reason": "LG stated the turbo chiller was released on September20; owner newsroom posted September21. Four original media articles describe one AI-data-centre cooling appliance release, not ESS procurement. Manufacturer's conditional around-30% annual chiller electricity saving compares water versus refrigerant free cooling; no independently measured site PUE, battery dispatch, sales booking or new datacentre BESS.",
+        "future_trigger": "Independent operating annual cooling kWh validation and signed data-centre deployments materially linking battery or grid demand."
+      },
+      {
+        "row": 177,
+        "source_id": "SRC26-20260920_142928-0177",
+        "case_id": "KR_LG_AI_DATACENTER_TURBO_CHILLER_LAUNCH_20260920",
+        "result": "FORMAL_WATCH_CONTEXT_NO_NEW_CARD",
+        "representative_source_id": "SRC26-20260920_142928-0176",
+        "original_headline": "LG전자, AI 데이터센터용 터보 칠러 출시…냉각 포트폴리오 확대",
+        "original_url": "https://www.ajunews.com/view/20260920101426290",
+        "owner_urls": [
+          "https://www.lge.co.kr/story/newsroom/236187"
+        ],
+        "reason": "LG stated the turbo chiller was released on September20; owner newsroom posted September21. Four original media articles describe one AI-data-centre cooling appliance release, not ESS procurement. Manufacturer's conditional around-30% annual chiller electricity saving compares water versus refrigerant free cooling; no independently measured site PUE, battery dispatch, sales booking or new datacentre BESS.",
+        "future_trigger": "Independent operating annual cooling kWh validation and signed data-centre deployments materially linking battery or grid demand."
+      },
+      {
+        "row": 178,
+        "source_id": "SRC26-20260920_142928-0178",
+        "case_id": "KR_LG_AI_DATACENTER_TURBO_CHILLER_LAUNCH_20260920",
+        "result": "FORMAL_WATCH_CONTEXT_NO_NEW_CARD",
+        "representative_source_id": "SRC26-20260920_142928-0176",
+        "original_headline": "LG전자, AI 데이터센터 '전력 다이어트'…고효율 터보 칠러 출격",
+        "original_url": "https://www.fnnews.com/news/202609200957509302",
+        "owner_urls": [
+          "https://www.lge.co.kr/story/newsroom/236187"
+        ],
+        "reason": "LG stated the turbo chiller was released on September20; owner newsroom posted September21. Four original media articles describe one AI-data-centre cooling appliance release, not ESS procurement. Manufacturer's conditional around-30% annual chiller electricity saving compares water versus refrigerant free cooling; no independently measured site PUE, battery dispatch, sales booking or new datacentre BESS.",
+        "future_trigger": "Independent operating annual cooling kWh validation and signed data-centre deployments materially linking battery or grid demand."
+      },
+      {
+        "row": 179,
+        "source_id": "SRC26-20260920_142928-0179",
+        "case_id": "KR_LG_AI_DATACENTER_TURBO_CHILLER_LAUNCH_20260920",
+        "result": "FORMAL_WATCH_CONTEXT_NO_NEW_CARD",
+        "representative_source_id": "SRC26-20260920_142928-0176",
+        "original_headline": "LG전자, AI 데이터센터용 터보 칠러 출시…전력소비 30%↓",
+        "original_url": "https://www.yna.co.kr/view/AKR20260920014600003",
+        "owner_urls": [
+          "https://www.lge.co.kr/story/newsroom/236187"
+        ],
+        "reason": "LG stated the turbo chiller was released on September20; owner newsroom posted September21. Four original media articles describe one AI-data-centre cooling appliance release, not ESS procurement. Manufacturer's conditional around-30% annual chiller electricity saving compares water versus refrigerant free cooling; no independently measured site PUE, battery dispatch, sales booking or new datacentre BESS.",
+        "future_trigger": "Independent operating annual cooling kWh validation and signed data-centre deployments materially linking battery or grid demand."
+      },
+      {
+        "row": 468,
+        "source_id": "SRC26-20260923_132732-0266",
+        "case_id": "US_GOOGLE_ESVOLTA_GRANULAR_CERT_STORAGE_PILOT_20260917",
+        "result": "FORMAL_SUPPORT_SAME_EVENT_NO_EXTRA_CARD",
+        "representative_source_id": "SRC26-20260920_142928-0019",
+        "original_headline": "Google-backed pilot demonstrates hourly carbon accounting for US BESS using granular certificates",
+        "original_url": "https://www.energy-storage.news/google-backed-pilot-demonstrates-hourly-carbon-accounting-for-us-bess-using-granular-certificates",
+        "owner_urls": [
+          "https://www.esvolta.com/post/battery-storage-shift-pilot-demonstrates-how-hourly-renewable-certificates-can-power-the-next-phase",
+          "https://www.quintrace.com/press-releases/battery-storage-shift-pilot"
+        ]
+      }
+    ],
+    "owner_urls_by_case": {
+      "US_GOOGLE_ESVOLTA_GRANULAR_CERT_STORAGE_PILOT_20260917": [
+        "https://www.esvolta.com/post/battery-storage-shift-pilot-demonstrates-how-hourly-renewable-certificates-can-power-the-next-phase",
+        "https://www.quintrace.com/press-releases/battery-storage-shift-pilot"
+      ],
+      "UK_OFGEM_CMP470_OTCF_MINDED_TO_CONSULT_20260917": [
+        "https://www.ofgem.gov.uk/consultation/connection-and-use-system-code-cusc-cmp470-introducing-oversubscribed-technologies-commitment-fee-otcf",
+        "https://www.ofgem.gov.uk/press-release/ofgem-moves-free-grid-capacity-tackling-excess-battery-projects"
+      ],
+      "CA_CITT_CHINA_PV_DUTY_ORDER_RESCINDED_20260917": [
+        "https://www.canada.ca/en/international-trade-tribunal/news/2026/09/tribunal-terminates-expiry-reviewphotovoltaic-modules-and-laminates-from-china.html",
+        "https://www.cbsa-asfc.gc.ca/sima-lmsi/er-rre/sml2026/sml2026-xo-eng.html"
+      ],
+      "JP_HIRASOL_IZUMIZAKI_NEGAPOSI_MARKET_PREQUAL_20260916": [
+        "https://prtimes.jp/main/html/rd/p/000000027.000085634.html"
+      ],
+      "AU_FLOW_POWER_BENNETTS_STAGE2_PROPOSAL_20260918": [
+        "https://flowpower.com.au/flow-power-celebrates-bennetts-creek-battery-construction-milestone/",
+        "https://flowpower.com.au/flow-power-reaches-financial-close-on-bennetts-creek-battery-energy-storage-system/",
+        "https://flowpower.com.au/bennetts-creek-battery-roadworks/",
+        "https://flowpower.com.au/bennetts-creek-battery/"
+      ],
+      "KR_LG_AI_DATACENTER_TURBO_CHILLER_LAUNCH_20260920": [
+        "https://www.lge.co.kr/story/newsroom/236187"
+      ],
+      "CN_OPIS_TOPCON_PV_CELL_PRICE_WEEKLY_20260915": [
+        "https://pv-magazine-usa.com/2026/09/18/china-topcon-solar-cell-prices-fall-for-third-week-as-export-buying-fades-and-wafer-costs-ease/"
+      ]
+    },
+    "flow_power_announcement_vs_live_capacity_disagreement": {
+      "dated_release_MWh": 223,
+      "live_site_MWh": 233,
+      "resolution": "HOLD_MWH_ENGINEERING_SPEC_CHECK",
+      "no_new_September_construction": true
+    },
+    "ofgem_final_status": "CONSULTATION_CLOSED_AWAITING_DECISION_NO_APPROVED_FEE",
+    "canada_product_scope": "PV_MODULES_AND_LAMINATES_ONLY_NOT_BATTERY_ESS",
+    "hirasol_bidding_vs_nameplate": "3800KW_BID_ELIGIBILITY_NOT_1900KW_PHYSICAL_UPGRADE",
+    "esvolta_energy_accounting": "9_2GWH_CHARGE_DISCHARGE_WINDOW_ACTIVITY_NOT_NET_CERTIFIED_CREDIT_VOLUME_OR_REVENUE",
+    "new_cards_created": 0,
+    "stage_b_executed": false,
+    "global_editorial_stage_a_status": "HOLD_OPEN_1231_UNADJUDICATED",
+    "native_stage_b_recommendation_scope": "Strict-only technical next-call, not global editorial release or Stage B execution.",
+    "canonical_main_full_related_mutations": 0
+  },
+  "stage_b_executed": false,
+  "global_stage_a_status": "HOLD"
+}

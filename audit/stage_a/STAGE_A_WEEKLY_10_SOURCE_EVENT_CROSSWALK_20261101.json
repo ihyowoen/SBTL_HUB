@@ -1,0 +1,175 @@
+{
+  "artifact_type": "STAGE_A_WEEKLY_SOURCE_TO_EVENT_CROSSWALK_PRE_NATIVE_20261101",
+  "baseline_original_csv_sha256": "5e78420916b0c1d70ff56bf928779cd969b94fbb15dd4119c841872997486116",
+  "parent_overlay_v5_drive_id": "1pCYdO-8k-2OT0Xk2TWsbsG6bdgMn1uwf",
+  "as_of_kst": "2026-11-01",
+  "scope": "Add 10 original weekly review Source IDs to owner-anchored event lineage; no production or stage mutation.",
+  "newly_linked_previously_unanchored_source_count": 10,
+  "previously_anchored_source_count": 0,
+  "source_ids_preserved": true,
+  "formal_promotions": 0,
+  "stage_a_status": "HOLD",
+  "pending_source_by_source_native_review": 1285,
+  "red_team_findings": [
+    "The weekly summary set is not a separate economic universe; source IDs stay independent but events may be identical to existing cases.",
+    "Enovix Korea doubled capacity is forward-looking mid-2027, not accomplished in Sept 2026.",
+    "Amprius $75m maximum OTA and ~$22m obligated are distinct funding states.",
+    "Cabot $125m combines ~$50m modified DOE award plus ~$75m planned company money.",
+    "PJM proposed procurement and later FERC order are separate legal stages; row 1202's URL points to earlier proposal.",
+    "Existing 54/16/other case input classification must not be silently promoted or deleted."
+  ],
+  "entries": [
+    {
+      "source_row_index": 1178,
+      "source_id": "WK26-VOL01-005",
+      "original_title": "Enovix, 한국 드론배터리 CAPA 2배로",
+      "source_url": "https://ir.enovix.com/news-releases/news-release-details/enovixs-taa-compliant-battery-manufacturing-strengthens-position",
+      "original_metadata_score": 56,
+      "event_ids": [
+        "ENOVIX_KOREA_DRONE_CAPA_PLAN_20260820",
+        "ENOVIX_TAA_COMPLIANCE_STATEMENT_20260901"
+      ],
+      "pre_native_route": "RELATED_UPDATE_TWO_DATES_NOT_CAPA_ACTUAL",
+      "bounded_fact_and_claim_guard": "Aug 20: Korea drone battery first-phase capacity-doubling plan, expected mid-2027; Sept 1 TAA manufacturing-compliance statement. Existing output and new capacity completion not proven.",
+      "owner_original_anchor": "https://ir.enovix.com/news-releases/news-release-details/enovixs-taa-compliant-battery-manufacturing-strengthens-position",
+      "native_0_1P_approved": false,
+      "source_body_review_scope": "original anchor inspected; headline/body of secondary source not necessarily independently re-read"
+    },
+    {
+      "source_row_index": 1202,
+      "source_id": "WK26-VOL02-015",
+      "original_title": "PJM, 전력 6.8GW 모자라자 15년 계약 카드 꺼냈다",
+      "source_url": "https://insidelines.pjm.com/pjm-reliability-backstop-proposal-outlines-steps-to-secure-new-supply-and-maintain-reliability/",
+      "original_metadata_score": 52,
+      "event_ids": [
+        "PJM_RELIABILITY_BACKSTOP_PROPOSAL_20260731"
+      ],
+      "pre_native_route": "PRIOR_PROPOSAL_NOT_EXECUTED_15Y_CONTRACT",
+      "bounded_fact_and_claim_guard": "PJM July 31 proposal for RBP after 6,831MW 2028/29 capacity gap. September 29 FERC acceptance and later amended filing are separate legal events requiring distinct sources.",
+      "owner_original_anchor": "https://insidelines.pjm.com/pjm-reliability-backstop-proposal-outlines-steps-to-secure-new-supply-and-maintain-reliability/",
+      "native_0_1P_approved": false,
+      "source_body_review_scope": "original anchor inspected; headline/body of secondary source not necessarily independently re-read"
+    },
+    {
+      "source_row_index": 1260,
+      "source_id": "WK26-VOL03-010",
+      "original_title": "미 DoW, 한국 업체 EV 라인을 드론 배터리로 돌린다",
+      "source_url": "https://amprius.com/amprius-secures-75-million-grant-for-american-high-energy-density-battery-production/",
+      "original_metadata_score": 52,
+      "event_ids": [
+        "AMPRIUS_DOW_ACCELLERATE_AGREEMENT_20260923"
+      ],
+      "pre_native_route": "SIGNED_MILESTONE_AGREEMENT_NOT_FULL_PAYMENT",
+      "bounded_fact_and_claim_guard": "Sep 23 signed OTA; maximum US government award $75m, ~$22m initially obligated for base; U.S. EV battery line partner conversion for small UAS high-energy-density pouch cells planned early 2028; partner unnamed.",
+      "owner_original_anchor": "https://ir.amprius.com/sec-filings/all-sec-filings/content/0001899287-26-000065/ampx-20260923.htm",
+      "native_0_1P_approved": false,
+      "source_body_review_scope": "original anchor inspected; headline/body of secondary source not necessarily independently re-read"
+    },
+    {
+      "source_row_index": 1265,
+      "source_id": "WK26-VOL03-017",
+      "original_title": "Fluence, EVE와 206GWh 프레임 묶었다",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-09-18/1225571033.PDF",
+      "original_metadata_score": 52,
+      "event_ids": [
+        "EVE_FLUENCE_206GWH_FRAMEWORK_20260918"
+      ],
+      "pre_native_route": "LINK_EXISTING_CASE_NO_ADDITIONAL_CARD",
+      "bounded_fact_and_claim_guard": "2027 16GWh commitment differs from 2028-31 190GWh reserved. All 206GWh not firm purchase orders.",
+      "owner_original_anchor": "https://fluenceenergy.gcs-web.com/news-releases/news-release-details/fluence-secures-long-term-battery-supply-through-multiyear",
+      "native_0_1P_approved": false,
+      "source_body_review_scope": "original anchor inspected; headline/body of secondary source not necessarily independently re-read"
+    },
+    {
+      "source_row_index": 1266,
+      "source_id": "WK26-VOL03-018",
+      "original_title": "중국서 11MWh 첫 수주 붙이고 생산라인 돌렸다",
+      "source_url": "https://www.enervenue.com/press/news-enervenue-opens-aqueous-metal-cell-production-line-changzhou",
+      "original_metadata_score": 44,
+      "event_ids": [
+        "ENERVENUE_11MWH_CHINA_ORDER_SEP23",
+        "ENERVENUE_CHANGZHOU_AMC_LINE_START_SEP24"
+      ],
+      "pre_native_route": "SPLIT_COMBINED_WEEKLY_SUMMARY_INTO_TWO_EXISTING_CASES",
+      "bounded_fact_and_claim_guard": "Sep23 11MWh signed commercial order; Sep24 250MWh/year nominal AMC line started production. No delivery or full utilization inferred.",
+      "owner_original_anchor": "https://www.enervenue.com/press/news-enervenue-opens-aqueous-metal-cell-production-line-changzhou",
+      "native_0_1P_approved": false,
+      "source_body_review_scope": "original anchor inspected; headline/body of secondary source not necessarily independently re-read"
+    },
+    {
+      "source_row_index": 1271,
+      "source_id": "WK26-VOL03-023",
+      "original_title": "핵심광물 38→51종…비축은 최대 1년치",
+      "source_url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+      "original_metadata_score": 50,
+      "event_ids": [
+        "KR_RESOURCE_SECURITY_PLAN_20260923"
+      ],
+      "pre_native_route": "LINK_EXISTING_20_SOURCE_CASE",
+      "bounded_fact_and_claim_guard": "Sept23 government decision: priority resource/mineral lists and stockpile targets changed; targeted reserve months not completed deliveries.",
+      "owner_original_anchor": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172235/view",
+      "native_0_1P_approved": false,
+      "source_body_review_scope": "original anchor inspected; headline/body of secondary source not necessarily independently re-read"
+    },
+    {
+      "source_row_index": 1279,
+      "source_id": "WK26-VOL03-032",
+      "original_title": "ESS, 이번엔 1,180MW 풀렸다",
+      "source_url": "https://www.mcee.go.kr/home/web/board/read.do?boardId=1893270&boardMasterId=939&menuId=10598",
+      "original_metadata_score": 50,
+      "event_ids": [
+        "KR_ESS_CENTRAL_TENDER_1180MW_20260922"
+      ],
+      "pre_native_route": "LINK_EXISTING_10_SOURCE_CASE",
+      "bounded_fact_and_claim_guard": "Sept22 ESS tender notice 1180MW (mainland 1100, Jeju 80), not awarded/installed capacity.",
+      "owner_original_anchor": "https://www.mcee.go.kr/home/web/board/read.do?boardId=1893270&boardMasterId=939&menuId=10598",
+      "native_0_1P_approved": false,
+      "source_body_review_scope": "original anchor inspected; headline/body of secondary source not necessarily independently re-read"
+    },
+    {
+      "source_row_index": 1282,
+      "source_id": "WK26-VOL03-035",
+      "original_title": "AI 데이터센터 BESS도 이제 qualification 받는다",
+      "source_url": "https://blogs.nvidia.com/blog/dsx-ready-ai-factories-power-cooling/",
+      "original_metadata_score": 58,
+      "event_ids": [
+        "NVIDIA_DSX_READY_BESS_20260921"
+      ],
+      "pre_native_route": "LINK_PREVIOUS_19_SOURCE_CROSSWALK_CASE",
+      "bounded_fact_and_claim_guard": "Sep21 DSX Ready qualified BESS products (Hitachi Energy/LGES/Tesla), not data-center procurement or installation.",
+      "owner_original_anchor": "https://blogs.nvidia.com/blog/dsx-ready-ai-factories-power-cooling/",
+      "native_0_1P_approved": false,
+      "source_body_review_scope": "original anchor inspected; headline/body of secondary source not necessarily independently re-read"
+    },
+    {
+      "source_row_index": 1293,
+      "source_id": "WK26-VOL03-046",
+      "original_title": "전고체, 소재 개발에서 셀 제조 공정으로 내려왔다",
+      "source_url": "https://www.mitsui-kinzoku.com/en/news_a/?dispmid=1140&itemid=1993",
+      "original_metadata_score": 51,
+      "event_ids": [
+        "FACTORIAL_MITSUI_SULFIDE_JDA_20260917"
+      ],
+      "pre_native_route": "LINK_EXISTING_CASE_NOT_COMMERCIAL_MASS_PRODUCTION",
+      "bounded_fact_and_claim_guard": "Sulfide electrolyte manufacturing JDA, not proven cell mass production nor July aerospace battery order.",
+      "owner_original_anchor": "https://factorialenergy.gcs-web.com/news-releases/news-release-details/mitsui-kinzoku-partners-factorial-scale-all-solid-state-battery",
+      "native_0_1P_approved": false,
+      "source_body_review_scope": "original anchor inspected; headline/body of secondary source not necessarily independently re-read"
+    },
+    {
+      "source_row_index": 1295,
+      "source_id": "WK26-VOL03-048",
+      "original_title": "배터리 도전재도 현지화…Cabot $125m 증설",
+      "source_url": "https://investor.cabot-corp.com/news-releases/news-release-details/cabot-corporation-expand-north-american-battery-materials",
+      "original_metadata_score": 56,
+      "event_ids": [
+        "CABOT_DOE_GRANT_MODIFIED_TWO_SITE_ADDITIVES_20260917"
+      ],
+      "pre_native_route": "MODIFIED_GRANT_PLUS_PLANNED_CAPEX",
+      "bounded_fact_and_claim_guard": "Sept17 modified $50m DOE grant plus about $75m Cabot planned investment in Franklin LA and Pampa TX, redirecting prior Michigan project; total ~$125m program not $125m government award or completed production.",
+      "owner_original_anchor": "https://investor.cabot-corp.com/news-releases/news-release-details/cabot-corporation-expand-north-american-battery-materials",
+      "native_0_1P_approved": false,
+      "source_body_review_scope": "original anchor inspected; headline/body of secondary source not necessarily independently re-read"
+    }
+  ]
+}

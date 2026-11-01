@@ -1,0 +1,85 @@
+{
+  "result": "PASS_1330_NOLOSS_10_SOURCE_DECISIONS_BOTH_NATIVE_CONTRACTS",
+  "scope": "Independent delta arithmetic and native schema checks; not Stage B accepted-fact-safe",
+  "base_sha256": "32cde5ebdfe5dbb751c8fba2f1cc62c2ef6a3d0647efa00f8c10ff2498cbb69e",
+  "output_sha256": "8bd11020fea3c8874837fa2a30b5bab619e0174a7e92b43661d5c5b225a230c6",
+  "original_source_universe": 1330,
+  "exactly_changed_rows": [
+    16,
+    78,
+    86,
+    115,
+    116,
+    119,
+    126,
+    133,
+    158,
+    1265
+  ],
+  "strict_source_rows": [
+    78,
+    86,
+    126,
+    1265
+  ],
+  "support_source_rows": [
+    16,
+    116,
+    119,
+    133,
+    158
+  ],
+  "full_reinforcement_rows": [
+    115
+  ],
+  "unmodified_mixed_article_hold_rows": [
+    8
+  ],
+  "case_source_rows": {
+    "US_GEORGIA_ROBINS": [
+      86
+    ],
+    "CN_EVE_FLUENCE": [
+      16,
+      116,
+      133,
+      158,
+      1265
+    ],
+    "US_JP_FACTORIAL_MITSUI": [
+      126
+    ],
+    "JP_PANASONIC_KADOMA": [
+      78,
+      119
+    ],
+    "US_FLEXGEN_EXISTING_FULL": [
+      115
+    ]
+  },
+  "counts": {
+    "strict_passed_spec": 14,
+    "candidate_review_pool": 598,
+    "watchlist_context_pool": 655,
+    "reject_or_support_only_pool": 33,
+    "existing_reinforcement": 30,
+    "formal_completed": 86,
+    "formal_pending": 1244,
+    "review_resolution_count": 1286
+  },
+  "native_checks": {
+    "artifact_contract": {
+      "return_code": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"stage\": \"A\",\n  \"item_count\": 14,\n  \"missing_count\": 0,\n  \"findings\": []\n}",
+      "stderr": ""
+    },
+    "lineage_contract": {
+      "return_code": 0,
+      "stdout": "RESULT: PASS_STAGE_A_SCHEMA_CONTRACT",
+      "stderr": ""
+    }
+  },
+  "stage_a_global_status": "HOLD",
+  "stage_b_executed": false,
+  "main_full_related_production_mutated": false
+}

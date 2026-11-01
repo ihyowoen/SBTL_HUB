@@ -1,0 +1,76 @@
+{
+  "result": "PASS_1330_NOLOSS_13_FORMAL_SOURCE_DECISIONS_4_STRICT_BOTH_NATIVE_CHECKS",
+  "scope": "Independent ledger/source order and immutable-old-artifact check; native schema checks do not authenticate Stage B content",
+  "base_sha256": "8bd11020fea3c8874837fa2a30b5bab619e0174a7e92b43661d5c5b225a230c6",
+  "output_sha256": "d36893b263dfed269388d40680a7896ebee0b68127619cded66baeb951084fef",
+  "full_reference_sha256": "d22f0d4e39e035b9537b3e9abdf48abe6b7eb80f7e477e87aff1284f9e27e0d9",
+  "original_sources_preserved": 1330,
+  "only_changed_source_row_indices": [
+    19,
+    79,
+    120,
+    122,
+    123,
+    138,
+    172,
+    173,
+    176,
+    177,
+    178,
+    179,
+    468
+  ],
+  "strict_representative_rows": [
+    19,
+    79,
+    122,
+    173
+  ],
+  "same_event_support_source_rows": [
+    123,
+    138,
+    468
+  ],
+  "formal_watch_source_rows": [
+    120,
+    172,
+    176,
+    177,
+    178,
+    179
+  ],
+  "still_pending_original54_rows": [
+    8,
+    48,
+    244,
+    614,
+    916
+  ],
+  "cases": 7,
+  "prior_formal": 86,
+  "new_formal": 13,
+  "cumulative_formal": 99,
+  "formal_pending": 1231,
+  "pool_counts": {
+    "strict_passed_spec": 18,
+    "candidate_review_pool": 586,
+    "watchlist_context_pool": 660,
+    "reject_or_support_only_pool": 36,
+    "existing_reinforcement": 30
+  },
+  "native_checks": {
+    "artifact_contract": {
+      "return_code": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"stage\": \"A\",\n  \"item_count\": 18,\n  \"missing_count\": 0,\n  \"findings\": []\n}",
+      "stderr": ""
+    },
+    "lineage_contract": {
+      "return_code": 0,
+      "stdout": "RESULT: PASS_STAGE_A_SCHEMA_CONTRACT",
+      "stderr": ""
+    }
+  },
+  "global_stage_a_status": "HOLD",
+  "stage_b_executed": false,
+  "main_full_related_production_mutated": false
+}

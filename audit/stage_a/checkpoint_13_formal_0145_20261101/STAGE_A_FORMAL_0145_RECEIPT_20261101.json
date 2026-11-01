@@ -1,0 +1,119 @@
+{
+  "artifact_type": "STAGE_A_0145_FORMAL_NO_NEW_CARD_INDIVIDUAL_0_1P_RECEIPT",
+  "status": "PENDING_NATIVE_CHECK_AFTER_FORMAL_NON_PROMOTION",
+  "locked_main_commit": "805c2718d6daf40a219ae94242d9687e33ac3e88",
+  "locked_full_count": 1676,
+  "original_stage_a_with70_sha256": "e42097f6f17495ff24550b2c72dba9d5874e7a835090c95cae4881750116d109",
+  "formal_stage_a_output_sha256": "1d2c8ccbd01b40aef7de512969281043a59cdb866d2a6dfbdd52bf997edf95c1",
+  "source": {
+    "gate_version": "PROMPT_0_1P_V4_20260829",
+    "status": "FORMAL_INDIVIDUAL_NON_PROMOTION_COMPLETE",
+    "candidate_id": "SRC26-20260920_142928-0145",
+    "original_source_row_index": 145,
+    "original_source_url_preserved": "https://autonews.gasgoo.com/articles/news/china-automotive-new-energy-signs-agreement-with-leapmotor-to-promote-battery-technologies-2101180788380209153",
+    "original_headline_preserved": "China Automotive New Energy Signs Agreement with Leapmotor to Promote Battery Technologies",
+    "economic_event": "China Automotive New Energy Battery Technology and Leapmotor R&D cooperation signed September 17",
+    "date_role": {
+      "economic_agreement_date": "2026-09-17",
+      "gasgoo_publication_date": "2026-09-19",
+      "source_observation_collection_date": "2026-09-20",
+      "first_located_same_event_publication": "2026-09-17"
+    },
+    "execution_credibility_gate": {
+      "status": "PASS",
+      "reason": "The signed agreement is reported as executed, but it was already recorded in Full."
+    },
+    "independent_cardability_gate": {
+      "status": "FAIL",
+      "reason": "No increment beyond locked Full event; repeated source is support-only."
+    },
+    "decision_news_value_score": 15,
+    "decision_value_breakdown": {
+      "market_structure_competition": 5,
+      "supply_demand_price_utilisation": 3,
+      "technology_performance_safety": 4,
+      "cashflow_asset_value": 1,
+      "law_policy_market_access": 0,
+      "systemic_scale": 1,
+      "persistence_irreversibility": 1,
+      "decision_urgency_actionability": 0
+    },
+    "publication_urgency": "monitor",
+    "novelty_cap_basis": "repeated_announcement_no_new_fact",
+    "related_prepass": {
+      "status": "PASS",
+      "same_event_checked": true,
+      "matched_baseline_candidate_ids": [
+        "2026-09-17_CN_01"
+      ],
+      "matched_current_batch_candidate_ids": [],
+      "relation_candidates": [
+        {
+          "target_candidate_id": "2026-09-17_CN_01",
+          "proposed_relation_type": "same_event_duplicate",
+          "confidence": "high",
+          "reason": "2026-09-19 Gasgoo observation reports the same China Automotive New Energy Battery Technology–Leapmotor advanced battery technology cooperation agreement signed on 2026-09-17. Locked Full 2026-09-17_CN_01 already records the same parties, R&D instrument, four chemistry/technology scopes, and signing date. FAW Qixin Power investment LOI is a distinct parallel instrument and is not an additional battery R&D contract in this Source ID.",
+          "anchor_class_to_verify": null,
+          "incremental_anchor_question": null
+        }
+      ],
+      "duplicate_disposition": "same_event_duplicate",
+      "earliest_same_event_check_status": "PASS",
+      "fresh_anchor_questions": [
+        "Preserve any genuinely new owner-language or material source contribution before an explicit downstream add_source request; none proven by this source."
+      ],
+      "earliest_same_event_date": "2026-09-17",
+      "earliest_check_scope": "Locked Full 1676, Gasgoo Sept19 article, Reuters Sept17 original, FAW event stage split",
+      "previous_prepass_edges_preserved_for_audit": [
+        {
+          "status": "HOLD",
+          "same_event_checked": false,
+          "matched_baseline_candidate_ids": [],
+          "matched_current_batch_candidate_ids": [],
+          "relation_candidates": [],
+          "duplicate_disposition": "uncertain_needs_review",
+          "earliest_same_event_check_status": "HOLD",
+          "fresh_anchor_questions": [
+            "Against the retained Full/current-batch candidates, what new material fact or changed judgment establishes independent cardability rather than republication/reinforcement?"
+          ],
+          "search_shortlist_baseline_ids": [],
+          "search_shortlist_is_lineage": false,
+          "unverified_legacy_reference": "",
+          "unverified_legacy_existing_ids": [],
+          "preliminary_relation_proposal": "uncertain_needs_review",
+          "fingerprint_reason": "Full metadata retrieval is a search shortlist only; actor/asset/instrument/date and earliest-event coverage are not all established."
+        }
+      ]
+    },
+    "new_verified_fact_beyond_full": "NONE_ESTABLISHED",
+    "event_units_preserved": [
+      "BATTERY_RND_AGREEMENT_ALREADY_FULL",
+      "SEPARATE_POWERTRAIN_INVESTMENT_LOI_NOT_COUNTED_AS_BATTERY_RND"
+    ],
+    "confidence_boundary": "Formal selector duplicate disposition, not Stage B source-quote audit or permission to update Full.",
+    "sources": [
+      "https://autonews.gasgoo.com/articles/news/china-automotive-new-energy-signs-agreement-with-leapmotor-to-promote-battery-technologies-2101180788380209153",
+      "https://autonews.gasgoo.com/articles/ev/2101180788380209153",
+      "https://www.reuters.com/world/asia-pacific/leapmotor-plans-join-series-funding-faw-subsidiary-2026-09-17/"
+    ],
+    "full_reference_id": "2026-09-17_CN_01",
+    "full_reference_fingerprint_sha256": "103171caad621b0a5f6061e4c05c356386babee3824b41dad1afa88033c605e6",
+    "final_disposition": "EXISTING_REINFORCEMENT_NO_NEW_CARD",
+    "strict_pass_gate": "NOT_APPLICABLE_NON_PROMOTION",
+    "stage_b_authorized": false
+  },
+  "new_formal_individual_reviews": 1,
+  "cumulative_formal_individual_reviews": 46,
+  "formal_pending": 1284,
+  "strict_passed_spec_count": 8,
+  "new_strict_passes": 0,
+  "source_observations_unchanged": 1330,
+  "pool_counts": {
+    "strict_passed_spec": 8,
+    "candidate_review_pool": 635,
+    "watchlist_context_pool": 658,
+    "existing_reinforcement": 29
+  },
+  "stage_b_new_entry_authorized": false,
+  "upstream_lineage_change": "ONLY_SOURCE_0145_RECLASSIFIED_IN_STAGE_A_NON_PROMOTION"
+}

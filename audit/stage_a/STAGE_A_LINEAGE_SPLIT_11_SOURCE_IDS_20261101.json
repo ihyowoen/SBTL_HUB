@@ -1,0 +1,229 @@
+{
+  "artifact_type": "STAGE_A_EVENT_LINEAGE_SPLIT_11_SOURCE_IDS_PRE_NATIVE",
+  "date_kst": "2026-11-01",
+  "original_ledger_sha256": "5e78420916b0c1d70ff56bf928779cd969b94fbb15dd4119c841872997486116",
+  "baseline_overlay_v5_drive_id": "1pCYdO-8k-2OT0Xk2TWsbsG6bdgMn1uwf",
+  "linked_unique_source_ids": 11,
+  "previously_without_additional_evidence": 7,
+  "previously_subject_grouped": 4,
+  "economic_event_units": 6,
+  "formal_stage_a_promotions": 0,
+  "stage_a_status": "HOLD",
+  "scope_caveats": [
+    "No original source rows modified or dropped.",
+    "Source-to-case split based on original owner statements and the indicated source body; not all secondaries fully independently read.",
+    "Existing EnerVenue two-case subject group refined, not duplicated.",
+    "Related/current Full exact match and both native validators remain pending."
+  ],
+  "event_units": [
+    {
+      "id": "EU_RWE_MOERDIJK_BESS_FID_20260921",
+      "event_date": "2026-09-21",
+      "stage": "FID_NOT_CONSTRUCTION",
+      "anchor": "https://www.rwe.com/en/press/rwe-generation/2026-09-21-rwe-to-build-400-mw-battery-to-ease-grid-congestion-in-noord-brabant/",
+      "facts": "RWE approved 400MW/1100MWh Moerdijk BESS; construction planned later; expected 2028 Q2 operation.",
+      "caveat": "Shared source row 365 discusses both RWE FID and GIGA Green Turtle construction; retain two events.",
+      "source_row_indices": [
+        365
+      ]
+    },
+    {
+      "id": "EU_GIGA_GREEN_TURTLE_CONSTRUCTION_20260917",
+      "event_date": "2026-09-17",
+      "stage": "CONSTRUCTION_STARTED_NOT_COD",
+      "anchor": "https://giga-storage.com/en/Construction-starts-on-Green-Turtle--Belgium%27s-largest-energy-storage-facility/",
+      "facts": "GIGA Green Turtle 700MW/2800MWh, preparatory earthworks began mid-August; September 17 construction-stage confirmation; 640 Tesla Megapack 3 units; operation planned for March 2028.",
+      "caveat": "July financing, mid-August preparatory works, Sept launch and 2028 COD are separate date roles.",
+      "source_row_indices": [
+        365,
+        726,
+        1066
+      ]
+    },
+    {
+      "id": "ENERVENUE_CHANGZHOU_AMC_LINE_START_SEP24",
+      "event_date": "2026-09-24",
+      "stage": "LINE_PRODUCTION_STARTED_NOT_FULL_UTILISATION",
+      "anchor": "https://www.enervenue.com/press/news-enervenue-opens-aqueous-metal-cell-production-line-changzhou",
+      "facts": "EnerVenue announced start of Changzhou aqueous metal/nickel-hydrogen cell production, phase-1 250MWh/year nameplate, planned ramp through November; 1GWh 2027 target.",
+      "caveat": "Do not treat 250MWh/year rated capacity as actual 2026 shipments, 30,000 cycle claim as independent validation, or this as 11MWh first commercial order.",
+      "source_row_indices": [
+        659,
+        898,
+        1053
+      ]
+    },
+    {
+      "id": "ENERVENUE_11MWH_CHINA_ORDER_SEP23",
+      "event_date": "2026-09-23",
+      "stage": "COMMERCIAL_ORDER_NOT_DELIVERY",
+      "anchor": "https://www.enervenue.com/press/enervenues-first-multi-megawatt-hour-commercial-order",
+      "facts": "EnerVenue reported first signed 11MWh multi-MWh commercial order (26 containers) for a China oilfield site; first shipments planned December.",
+      "caveat": "Order does not mean delivery/installation/recognized revenue; separate from Sept 24 factory opening.",
+      "source_row_indices": [
+        328,
+        329
+      ]
+    },
+    {
+      "id": "GLOBAL_AUG_BESS_COMMISSIONED_BENCHMARK_20260922",
+      "event_date": "2026-09-22",
+      "measurement_period": "2026-08",
+      "stage": "PUBLISHED_DATA_NOT_NEW_PROJECT_COMMITMENT",
+      "anchor": "https://www.energy-storage.news/21gwh-bess-deployed-globally-august-one-fifth-saudi-arabia-european-activity-soars/",
+      "facts": "Monthly article based on Benchmark data reports August global grid-scale BESS COD 6516MW/20855MWh, China 12757MWh, Middle East 4000MWh, Europe 2290MWh.",
+      "caveat": "Original proprietary Benchmark dataset not separately retrieved; publisher-reproduced series is source for exact values; commercial operation capacity, not installations commissioned in September.",
+      "source_row_indices": [
+        369
+      ]
+    },
+    {
+      "id": "AEMO_FY26_NEM_9P1GW_SCORECARD_20260720",
+      "event_date": "2026-07-20",
+      "measurement_period": "FY2025-26",
+      "stage": "PRIOR_JULY_OFFICIAL_DATA_SEPT_REPUBLICATION",
+      "anchor": "https://www.aemo.com.au/newsroom/media-release/nem-connections-scorecard-reflects-record-result-for-fy26",
+      "facts": "AEMO on July 20 reported 9.1GW new generation+storage reached full output in FY26, and pipeline 75.4GW.",
+      "caveat": "Do not book 9.1GW as September-only newly connected BESS, nor all as storage. Later Aug 25 ESOO reliability outlook is a different publication/event; source bodies need distinct assignment.",
+      "source_row_indices": [
+        675,
+        1131
+      ]
+    }
+  ],
+  "source_crosswalk": [
+    {
+      "source_row_index": 328,
+      "source_id": "SRC26-20260923_132732-0126",
+      "headline_original": "Startup EnerVenue Wins First Major Battery Storage Deal in China",
+      "url_original": "https://www.bloomberg.com/news/articles/2026-09-23/startup-enervenue-wins-first-major-battery-storage-deal-in-china",
+      "previous_evidence_scope": "SUBJECT_CASE_DISAGGREGATION_REVIEWED",
+      "linked_event_ids": [
+        "ENERVENUE_11MWH_CHINA_ORDER_SEP23"
+      ],
+      "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+      "link_type": "REFINED_PRE_EXISTING_SUBJECT_LINK"
+    },
+    {
+      "source_row_index": 329,
+      "source_id": "SRC26-20260923_132732-0127",
+      "headline_original": "EnerVenue Signs Order with Chinese Oil Producer",
+      "url_original": "https://www.bloomberg.com/news/videos/2026-09-23/enervenue-signs-order-with-chinese-oil-producer-video",
+      "previous_evidence_scope": "SUBJECT_CASE_DISAGGREGATION_REVIEWED",
+      "linked_event_ids": [
+        "ENERVENUE_11MWH_CHINA_ORDER_SEP23"
+      ],
+      "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+      "link_type": "REFINED_PRE_EXISTING_SUBJECT_LINK"
+    },
+    {
+      "source_row_index": 365,
+      "source_id": "SRC26-20260923_132732-0163",
+      "headline_original": "RWE and Giga Storage move to construction on gigawatt-hour Netherlands and Belgium batteries",
+      "url_original": "https://www.energy-storage.news/rwe-and-giga-storage-move-to-construction-on-gigawatt-hour-netherlands-and-belgium-batteries",
+      "previous_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+      "linked_event_ids": [
+        "EU_RWE_MOERDIJK_BESS_FID_20260921",
+        "EU_GIGA_GREEN_TURTLE_CONSTRUCTION_20260917"
+      ],
+      "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+      "link_type": "NEW_PROVISIONAL_LINK"
+    },
+    {
+      "source_row_index": 369,
+      "source_id": "SRC26-20260923_132732-0167",
+      "headline_original": "21GWh BESS deployed globally in August: One-fifth in Saudi Arabia, European activity soars",
+      "url_original": "https://www.energy-storage.news/21gwh-bess-deployed-globally-august-one-fifth-saudi-arabia-european-activity-soars",
+      "previous_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+      "linked_event_ids": [
+        "GLOBAL_AUG_BESS_COMMISSIONED_BENCHMARK_20260922"
+      ],
+      "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+      "link_type": "NEW_PROVISIONAL_LINK"
+    },
+    {
+      "source_row_index": 659,
+      "source_id": "SRC26-20260926_120143-0161",
+      "headline_original": "EnerVenue opens world’s first high volume production line for nickel-hydrogen battery - Mining Weekly",
+      "url_original": "https://www.miningweekly.com/article/enervenue-opens-worlds-first-high-volume-production-line-for-nickel-hydrogen-battery-2026-09-25",
+      "previous_evidence_scope": "SUBJECT_CASE_DISAGGREGATION_REVIEWED",
+      "linked_event_ids": [
+        "ENERVENUE_CHANGZHOU_AMC_LINE_START_SEP24"
+      ],
+      "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+      "link_type": "REFINED_PRE_EXISTING_SUBJECT_LINK"
+    },
+    {
+      "source_row_index": 675,
+      "source_id": "SRC26-20260926_120143-0177",
+      "headline_original": "AEMO connects record 9.1GW of renewables and storage to Australia’s NEM in FY26, warns reliability depends on timely investment",
+      "url_original": "https://www.energy-storage.news/aemo-connects-record-9-1gw-of-renewables-and-storage-to-australias-nem-in-fy26-warns-reliability-depends-on-timely-investment",
+      "previous_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+      "linked_event_ids": [
+        "AEMO_FY26_NEM_9P1GW_SCORECARD_20260720"
+      ],
+      "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+      "link_type": "NEW_PROVISIONAL_LINK"
+    },
+    {
+      "source_row_index": 726,
+      "source_id": "SRC26-20260926_120143-0228",
+      "headline_original": "Giga Storage starts construction on 2.8 GWh Belgian BESS",
+      "url_original": "https://www.ess-news.com/2026/09/25/giga-storage-starts-construction-on-2-8-gwh-belgian-bess",
+      "previous_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+      "linked_event_ids": [
+        "EU_GIGA_GREEN_TURTLE_CONSTRUCTION_20260917"
+      ],
+      "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+      "link_type": "NEW_PROVISIONAL_LINK"
+    },
+    {
+      "source_row_index": 898,
+      "source_id": "SRC26-20260928_160143-0032",
+      "headline_original": "에너베뉴, 30년 수명 수성 금속 전지 대량생산 라인 가동",
+      "url_original": "https://www.todayenergy.kr/news/articleView.html?idxno=303526",
+      "previous_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+      "linked_event_ids": [
+        "ENERVENUE_CHANGZHOU_AMC_LINE_START_SEP24"
+      ],
+      "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+      "link_type": "NEW_PROVISIONAL_LINK"
+    },
+    {
+      "source_row_index": 1053,
+      "source_id": "SRC26-20260928_160143-0187",
+      "headline_original": "EnerVenue opens world’s first high volume production line for nickel-hydrogen battery - Mining Weekly",
+      "url_original": "https://www.miningweekly.com/article/enervenue-opens-worlds-first-high-volume-production-line-for-nickel-hydrogen-battery-2026-09-25",
+      "previous_evidence_scope": "SUBJECT_CASE_DISAGGREGATION_REVIEWED",
+      "linked_event_ids": [
+        "ENERVENUE_CHANGZHOU_AMC_LINE_START_SEP24"
+      ],
+      "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+      "link_type": "REFINED_PRE_EXISTING_SUBJECT_LINK"
+    },
+    {
+      "source_row_index": 1066,
+      "source_id": "SRC26-20260928_160143-0200",
+      "headline_original": "Giga Storage starts construction on 2.8 GWh Belgian BESS",
+      "url_original": "https://www.ess-news.com/2026/09/25/giga-storage-starts-construction-on-2-8-gwh-belgian-bess",
+      "previous_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+      "linked_event_ids": [
+        "EU_GIGA_GREEN_TURTLE_CONSTRUCTION_20260917"
+      ],
+      "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+      "link_type": "NEW_PROVISIONAL_LINK"
+    },
+    {
+      "source_row_index": 1131,
+      "source_id": "SRC26-20260928_160143-0265",
+      "headline_original": "Australia connects record 9.1GW of renewables and storage as NEM pipeline reaches 75.4GW",
+      "url_original": "https://www.pv-tech.org/australia-connects-record-9-1gw-of-renewables-and-storage-as-nem-pipeline-reaches-75-4gw",
+      "previous_evidence_scope": "NO_ADDITIONAL_EVIDENCE_ON_THIS_ID",
+      "linked_event_ids": [
+        "AEMO_FY26_NEM_9P1GW_SCORECARD_20260720"
+      ],
+      "native_state": "NATIVE_INDIVIDUAL_0_1P_PENDING",
+      "link_type": "NEW_PROVISIONAL_LINK"
+    }
+  ]
+}

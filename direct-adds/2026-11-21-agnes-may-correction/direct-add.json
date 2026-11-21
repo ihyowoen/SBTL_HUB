@@ -1,0 +1,40 @@
+{
+  "schema": "manual_direct_add_v2",
+  "status": "PASS",
+  "direct_add_id": "20261121_AGNES_MAY_PRELIMINARY_CARD_CORRECTION",
+  "review_mode": "already_reviewed_bounded_direct_add",
+  "formal_full_run_claimed": false,
+  "base_main_commit_sha": "805c2718d6daf40a219ae94242d9687e33ac3e88",
+  "base_full_blob_sha": "07a91714e56be2a8bfad10ab63822f0c5cb3f06e",
+  "expected_before": 1676,
+  "expected_after": 1676,
+  "output_updated": "2026-11-21T00:12:19Z",
+  "operations": {
+    "add": [],
+    "update": [
+      "2026-05-27_EU_01"
+    ],
+    "id_migration": []
+  },
+  "editorial_attestation": {
+    "policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "additions": [],
+    "updates": [
+      {
+        "id": "2026-05-27_EU_01",
+        "change_type": "content_correction",
+        "changed_fields": [
+          "fact",
+          "fact_sources",
+          "gate",
+          "implication",
+          "sub",
+          "title",
+          "urls"
+        ],
+        "reason": "Correct the false implication that the May 27 BNetzA interim position finalized a blanket fee exemption, resolved retroactivity, or demonstrated recovered investment confidence; preserve the May event and all existing identity/taxonomy/Related fields.",
+        "evidence_review_summary": "BNetzA May 27 release (Erzeuger/Betreiber von Stromspeichern/Dynamische Netzentgelte) and slides 49 and 57-60 substantiate conditional projected capacity funding tariff, distinct dynamic tariff, and no funding work charge. BNetzA May briefing event page Fall 1/Fall 2 explicitly distinguishes already operating §118(6)-exempt storage from uncommissioned storage requiring both pre-effective FID and commissioning by 2029-08-04. The Energy-Storage.News shorthand is removed as legal authority; original Modo URL is retained only for its modelled 2030 four-hour 0.5 pp sensitivity (visible publication May 28). November StromVKG FAQ is later context and not attributed to May. No formal-run claim."
+      }
+    ]
+  }
+}

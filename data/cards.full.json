@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-20T01:50:43Z",
+  "updated": "2026-11-21T00:12:19Z",
   "total": 1676,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
@@ -326385,58 +326385,181 @@
       "cat": "Policy",
       "sub_cat": "계통요금",
       "signal": "high",
-      "title": "독일 규제기관, 저장 계통요금 체계 예비안 공개…2029년 면제 유지·소급 배제",
-      "sub": "BNetzA가 AgNes 예비안에서 2029년 8월 이전 가동 BESS 면제를 확정하고 에너지 기반 요금 없이 MW당 연 4~7천유로 용량요금을 제시해 저장 투자신뢰를 회복했다.",
-      "gate": "면제 조기 종료·소급 적용 우려가 해소되며 저장 투자 불확실성이 걷힌 결정으로 평가된다. 에너지 기반 요금 부재·낮은 용량요금이 사업성 방어의 근거다. 다만 예비안 단계로 최종안은 연말로 예정돼 있다.",
-      "fact": "BNetzA는 5월 27일 계통요금 전면개편(AgNes) 예비안을 공개해, 2029년 8월 4일 이전 가동 BESS의 면제를 확정하고 소급 적용을 배제했으며 위원장 Klaus Müller가 이를 확인했다. 향후 저장은 에너지 기반 요금 없이 MW당 연 4~7천유로 용량요금을 부담하며(규정 발효 후 FID 적용), 업계는 이를 사실상 최선의 결과로 평가했다.",
+      "title": "독일 BNetzA, AgNes 저장 계통요금 잠정안…미가동 설비 보호엔 사전 FID·가동 요건",
+      "sub": "독일 연방네트워크청(BNetzA)은 5월 27일 저장 계통요금 개편의 잠정 입장을 공개했다. 미가동 설비의 경과보호에는 AgNes 결정 발효 전 최종투자결정(FID)과 2029년 8월 4일까지 가동이 모두 필요하다는 구상이다.",
+      "gate": "5월 발표는 정식 협의 개시나 확정 결정이 아닌 중간 검토였다. 당시 이미 가동 중이며 독일 에너지산업법(EnWG) 제118조 제6항 면제를 적용받는 설비는 해당 법정 기간의 남은 기간(최초 가동부터 최대 20년) 보호로 구분했다. 미가동 설비는 발효 전 FID와 2029년 8월 4일까지 가동을 모두 충족해야 한다는 잠정 입장이어서, 가동 기한만 맞춘다고 보호되는 것은 아니다.",
+      "fact": "BNetzA는 2026년 5월 27일 AgNes 중간 검토에서 계통연계 저장설비에 대해 발전설비와 같은 수준의 계약상 계통접속용량 기준 요금을 검토했다. 발전설비 초기 예상치인 연 4~7유로/kW(연 4,000~7,000유로/MW)를 저장설비에도 준용하는 구상으로, 확정 요율은 아니다. 전력망 재원 조달 목적의 사용량 요금은 부과하지 않는 방안이었으며, 별도로 검토 중인 동적 계통요금까지 면제한다는 뜻은 아니다.",
       "implication": [
-        "면제 유지·소급 배제로 독일 BESS 투자 신뢰가 회복되는 흐름이 관찰된다",
-        "용량요금 4~7천유로/MW 수준이 프로젝트 IRR에 미치는 영향이 변수가 될 수 있다",
-        "예비안에서 연말 최종안으로의 확정 여부가 점검 대상이다"
+        "경과보호 여부는 기존 면제 적용 여부 또는 미가동 설비의 FID·가동 요건을 나눠 확인해야 한다. 개별 프로젝트의 적격성은 5월 발표만으로 확정할 수 없다.",
+        "Modo Energy의 당시 모델에서 연 7,000유로/MW를 적용한 2030년 가동 4시간 저장 프로젝트의 IRR 영향은 약 0.5%p였다. 이 수치는 가정에 따른 분석 사례로, 실제 투자수익률이나 투자심리 회복을 입증하지 않는다.",
+        "재원 조달용 용량요금과 별도로 동적 계통요금이 검토됐으므로, 실제 요금과 적용 요건은 최종 결정에서 확인해야 한다."
       ],
       "urls": [
-        "https://modoenergy.com/research/germany-grid-fees-agnes-netzentgelte-bess-batteries-bnetza-update-capacity-fees-may-2026",
-        "https://www.energy-storage.news/german-government-confirms-august-2029-grid-fee-exemption-date-for-storage-but-sets-2027-fid-deadline/"
+        "https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2026/20260527_Agnes.html?nn=660040",
+        "https://www.bundesnetzagentur.de/DE/Beschlusskammern/GBK/GBK_Termine/Termine/2026/05_27_05_Informationstermin_AgNes_Zwischenstand_Ueberlegungen.html?nn=1107460",
+        "https://www.bundesnetzagentur.de/DE/Beschlusskammern/GBK/GBK_Termine/Downloads/2026/05_2026/1_Bundesnetzagentur.pdf?__blob=publicationFile&v=6",
+        "https://modoenergy.com/research/germany-grid-fees-agnes-netzentgelte-bess-batteries-bnetza-update-capacity-fees-may-2026"
       ],
       "related": [],
       "fact_sources": [
         {
-          "source_name": "Energy-Storage.News",
-          "source_url": "https://www.energy-storage.news/german-government-confirms-august-2029-grid-fee-exemption-date-for-storage-but-sets-2027-fid-deadline/",
-          "claim": "독일 BNetzA가 2029년 8월 4일 이전 가동 BESS의 계통요금 면제를 확정하고 소급 적용은 배제했으며, BNetzA 위원장 Klaus Müller가 이를 확인했다",
-          "source_quote": "Germany's energy system regulator has confirmed that BESS projects coming online by 4 August 2029 will be exempt from charging and discharging grid fees; Bundesnetzagentur president Klaus Muller confirmed the news.",
-          "source_quote_status": "body_quote_verified",
+          "source_name": "Bundesnetzagentur",
+          "source_url": "https://www.bundesnetzagentur.de/DE/Beschlusskammern/GBK/GBK_Termine/Termine/2026/05_27_05_Informationstermin_AgNes_Zwischenstand_Ueberlegungen.html?nn=1107460",
+          "source_owner": "Bundesnetzagentur",
+          "claim": "5월 27일 공개는 정식 협의 개시나 완성된 결정 초안 발표가 아닌 AgNes 중간 검토다.",
+          "source_quote": "nicht um die Einleitung einer förmlichen Konsultation",
+          "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
             "title",
-            "fact"
+            "sub",
+            "gate"
           ],
-          "fetched_at": "2026-06-13",
-          "fetch_method": "web_search",
           "source_published_date": "2026-05-27",
-          "source_published_date_basis": "card_news_date_fallback",
           "visible_quote_date": "2026-05-27",
-          "visible_quote_date_type": "news_published_date",
-          "audit_fetched_at": "2026-06-13"
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_article_body_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-11-21T00:12:19Z"
         },
         {
-          "source_name": "Modo Energy",
-          "source_url": "https://modoenergy.com/research/germany-grid-fees-agnes-netzentgelte-bess-batteries-bnetza-update-capacity-fees-may-2026",
-          "claim": "BNetzA가 5월 27일 AgNes 예비안을 공개했으며 에너지 기반 요금 없이 MW당 연 4~7천유로 용량요금을 확정해 저장에 사실상 최선의 결과로 평가된다",
-          "source_quote": "On 27 May 2026 the regulator BNetzA published its preliminary views on the AgNes framework: a capacity fee of EUR 4-7k/MW/year with no energy-based component, representing a near-best-case outcome for battery energy storage.",
-          "source_quote_status": "body_quote_verified",
-          "evidence_role": "secondary_event_evidence",
+          "source_name": "Bundesnetzagentur",
+          "source_url": "https://www.bundesnetzagentur.de/DE/Beschlusskammern/GBK/GBK_Termine/Termine/2026/05_27_05_Informationstermin_AgNes_Zwischenstand_Ueberlegungen.html?nn=1107460",
+          "source_owner": "Bundesnetzagentur",
+          "claim": "EnWG §118(6) 면제를 이미 적용받는 가동 설비의 법정 보호기간은 최대 20년이다. 미가동 설비의 별도 경로는 같은 원문 Fall 2 참조.",
+          "source_quote": "genannten Zeitraum (maximal 20 Jahre)",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "source_published_date": "2026-05-27",
+          "visible_quote_date": "2026-05-27",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_article_body_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-11-21T00:12:19Z"
+        },
+        {
+          "source_name": "Bundesnetzagentur",
+          "source_url": "https://www.bundesnetzagentur.de/DE/Beschlusskammern/GBK/GBK_Termine/Termine/2026/05_27_05_Informationstermin_AgNes_Zwischenstand_Ueberlegungen.html?nn=1107460",
+          "source_owner": "Bundesnetzagentur",
+          "claim": "가동 전 저장 설비는 AgNes 결정 발효 전 FID와 2029-08-04까지 가동을 둘 다 충족해야 한다는 당국 설명이다.",
+          "source_quote": "eine FID getroffen haben und bis zum 04.08.2029 in Betrieb genommen werden.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "implication"
+          ],
+          "source_published_date": "2026-05-27",
+          "visible_quote_date": "2026-05-27",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_article_body_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-11-21T00:12:19Z"
+        },
+        {
+          "source_name": "Bundesnetzagentur",
+          "source_url": "https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2026/20260527_Agnes.html?nn=660040",
+          "source_owner": "Bundesnetzagentur",
+          "claim": "발전설비의 초기 연 4~7 €/kW 예상치(연 4,000~7,000 €/MW)를 계통연계 저장 용량요금의 기준으로 제안했다. 저장 적용 연계는 보도자료 저장설비 단락 참조.",
+          "source_quote": "4 bis 7 Euro/kW (Kilowatt)/Jahr",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "source_published_date": "2026-05-27",
+          "visible_quote_date": "2026-05-27",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_article_body_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-11-21T00:12:19Z"
+        },
+        {
+          "source_name": "Bundesnetzagentur",
+          "source_url": "https://www.bundesnetzagentur.de/DE/Beschlusskammern/GBK/GBK_Termine/Downloads/2026/05_2026/1_Bundesnetzagentur.pdf?__blob=publicationFile&v=6",
+          "source_owner": "Bundesnetzagentur",
+          "claim": "계통연계 저장의 재원 조달용 용량요금은 계약상 계통접속용량을 기준으로 하고 발전설비와 같은 요율을 적용한다는 5월 발표자료 슬라이드 57의 제안이다.",
+          "source_quote": "der vertraglichen Netzanschlusskapazität des Stromspeichers",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "source_published_date": "2026-05-27",
+          "visible_quote_date": "2026-05-27",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_pdf_text_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-11-21T00:12:19Z"
+        },
+        {
+          "source_name": "Bundesnetzagentur",
+          "source_url": "https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2026/20260527_Agnes.html?nn=660040",
+          "source_owner": "Bundesnetzagentur",
+          "claim": "재원 조달 목적의 사용량 요금은 없다는 5월 구상이며 동적 요금 검토와 별개다.",
+          "source_quote": "Arbeitspreise zur Finanzierung werden für Speicher nicht anfallen.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "source_published_date": "2026-05-27",
+          "visible_quote_date": "2026-05-27",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_article_body_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-11-21T00:12:19Z"
+        },
+        {
+          "source_name": "Bundesnetzagentur",
+          "source_url": "https://www.bundesnetzagentur.de/SharedDocs/Pressemitteilungen/DE/2026/20260527_Agnes.html?nn=660040",
+          "source_owner": "Bundesnetzagentur",
+          "claim": "저장 설비 동적 요금은 별도 제도 구상이다.",
+          "source_quote": "Für Speicher sollen dynamische Netzentgelte frühestens 2030 eingeführt werden",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
           "supports": [
             "fact",
             "implication"
           ],
-          "fetched_at": "2026-06-13",
-          "fetch_method": "web_search",
           "source_published_date": "2026-05-27",
-          "source_published_date_basis": "card_news_date_fallback",
           "visible_quote_date": "2026-05-27",
-          "visible_quote_date_type": "news_published_date",
-          "audit_fetched_at": "2026-06-13"
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_article_body_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-11-21T00:12:19Z"
+        },
+        {
+          "source_name": "Modo Energy",
+          "source_url": "https://modoenergy.com/research/germany-grid-fees-agnes-netzentgelte-bess-batteries-bnetza-update-capacity-fees-may-2026",
+          "source_owner": "Modo Energy",
+          "claim": "2026년 4월 Modo 모델 기준 연 €7,000/MW, 2030년 가동 4시간 저장의 IRR 민감도 약 0.5%p. 실측 또는 확정 요금이 아님.",
+          "source_quote": "around 0.5 percentage points IRR for a four-hour asset with COD in 2030.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "implication"
+          ],
+          "source_published_date": "2026-05-28",
+          "visible_quote_date": "2026-05-28",
+          "source_origin_type": "independently_published_reporting",
+          "fetch_method": "web_article_body_readback",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-11-21T00:12:19Z"
         }
       ],
       "related_lineage": {

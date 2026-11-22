@@ -57,11 +57,11 @@ jobs:
         run: python research/germany_ess_g514/G5_14_R23_ORIGINAL_CATALOG_AUDIT.py
       - name: Run bounded synthetic tests (not country output)
         run: |
-          python research/germany_ess_g514/G5_14_R18_BATTERY_RAW_REAGGREGATION_20261120.py --self-test --out g514_synthetic
+          python research/germany_ess_g514/G5_14_R23_BATTERY_RAW_REAGGREGATION_20261123.py --self-test --out g514_synthetic
       - name: Execute 29+29 archived MaStR XML original national census
         run: |
           set -o pipefail
-          python -u research/germany_ess_g514/G5_14_R18_BATTERY_RAW_REAGGREGATION_20261120.py --source official-remote --out g514_output 2>&1 | tee g514_full_run.log
+          python -u research/germany_ess_g514/G5_14_R23_BATTERY_RAW_REAGGREGATION_20261123.py --source official-remote --out g514_output 2>&1 | tee g514_full_run.log
           sha256sum research/germany_ess_g514/*.py g514_output/*.json g514_output/*.csv > g514_output/source_artifact_sha256.txt
           echo "CENSUS_COMPLETED__SOURCE_2026_10_01"
       - name: Preserve small-machine QC and source logs

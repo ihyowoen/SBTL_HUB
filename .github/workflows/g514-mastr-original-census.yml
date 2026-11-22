@@ -53,6 +53,8 @@ jobs:
           pathlib.Path("g514_output/official_source_inventory.json").write_text(json.dumps(result,indent=2))
           print("OFFICIAL ZIP inventory",json.dumps({k:{kk:v[kk] for kk in ("count","compressed_bytes")} for k,v in groups.items()}))
           PY
+      - name: Original country codebook probe
+        run: python research/germany_ess_g514/G5_14_R23_ORIGINAL_CATALOG_AUDIT.py
       - name: Run bounded synthetic tests (not country output)
         run: |
           python research/germany_ess_g514/G5_14_R18_BATTERY_RAW_REAGGREGATION_20261120.py --self-test --out g514_synthetic

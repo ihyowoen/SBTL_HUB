@@ -13,10 +13,20 @@ class HttpRangeFile(io.RawIOBase):
     def __init__(self, url):
         self.url = url
         req = urllib.request.Request(url, method="HEAD", headers={"Accept-Encoding": "identity", "User-Agent": "Research-MaStR-2026/1.0"})
-        with urllib.request.urlopen(req, timeout=75) as response:
-            self.length = int(response.headers["Content-Length"])
-            self.etag = response.headers.get("ETag")
-            self.accept_ranges = response.headers.get("Accept-Ranges", "")
+        last_error = None
+        for attempt in range(8):
+            try:
+                with urllib.request.urlopen(req, timeout=75) as response:
+                    self.length = int(response.headers["Content-Length"])
+                    self.etag = response.headers.get("ETag")
+                    self.accept_ranges = response.headers.get("Accept-Ranges", "")
+                break
+            except (OSError, ValueError) as exc:
+                last_error = exc
+                if attempt < 7:
+                    time.sleep(min(2 * (attempt + 1), 15))
+        else:
+            raise RuntimeError(f"Eight attempts could not open official ZIP header: {last_error}")
         if self.accept_ranges.lower() != "bytes":
             raise ValueError("Source does not support HTTP byte ranges")
         self.pos = 0
@@ -56,7 +66,7 @@ class HttpRangeFile(io.RawIOBase):
                      "User-Agent": "Research-MaStR-2026/1.0"},
         )
         error = None
-        for retry in range(3):
+        for retry in range(6):
             try:
                 with urllib.request.urlopen(req, timeout=110) as response:
                     data = response.read()
@@ -75,7 +85,7 @@ class HttpRangeFile(io.RawIOBase):
                 return
             except (OSError, ValueError) as exc:
                 error = exc
-                if retry < 2:
+                if retry < 5:
                     time.sleep(2 * (retry + 1))
         raise RuntimeError(f"Unable to read official source range: {error}")
 

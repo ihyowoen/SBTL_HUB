@@ -1,78 +1,109 @@
-name: G5.14 Germany ESS MaStR original source census (isolated research branch)
-
+name: G5.14 frozen MaStR bounded checkpoint census
 on:
   push:
     branches: [research/g514-mastr-census-20261123]
     paths:
       - .github/workflows/g514-mastr-original-census.yml
-      - research/germany_ess_g514/**
   workflow_dispatch:
-
+    inputs:
+      prior_cache_key:
+        description: Exact prior checkpoint cache key (required for continuation)
+        required: true
+        type: string
 permissions:
   contents: read
-
 concurrency:
   group: g514-mastr-official-audit
   cancel-in-progress: false
-
 jobs:
   census:
+    if: github.ref == 'refs/heads/research/g514-mastr-census-20261123'
     runs-on: ubuntu-24.04
-    timeout-minutes: 55
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install deterministic XML parser dependency
-        run: python -m pip install lxml==5.4.0
-      - name: Inspect original ZIP header and exact member inventory
+      - run: python -m pip install lxml==5.4.0
+      - name: Recover pinned original receipt without contacting BNetzA
         run: |
+          mkdir -p g514_evidence
+          base64 -d research/g514_resume_tools/R23_PINNED_INVENTORY_ARCHIVE.zip.b64 > g514_evidence/R23_SOURCE.zip
+          echo '5d613791ccd32f8f7cd427ed7b8f4d813fb56f6efd266657a2d92ed9e347c299  g514_evidence/R23_SOURCE.zip' | sha256sum -c -
           python - <<'PY'
-          import sys, json, zipfile, re, pathlib
-          sys.path.insert(0, "research/germany_ess_g514")
-          from G5_14_R16_MASTR_RANGE_VERIFY_20261119 import HttpRangeFile
-          url="https://download.marktstammdatenregister.de/Stichtag/Gesamtdatenexport_20261001_26.1.zip"
-          h=HttpRangeFile(url)
-          with zipfile.ZipFile(h) as z:
-              names=z.namelist()
-              groups={}
-              for group in ["AnlagenStromSpeicher","EinheitenStromSpeicher","Katalogwerte"]:
-                  infos=[x for x in z.infolist() if re.fullmatch(group+r"(?:_\d+)?\.xml",x.filename,re.I)]
-                  groups[group]={"count":len(infos),"compressed_bytes":sum(i.compress_size for i in infos),
-                                 "uncompressed_bytes":sum(i.file_size for i in infos),
-                                 "members":[{"name":i.filename,"crc32":f"{i.CRC:08x}","compressed":i.compress_size} for i in infos]}
-          assert h.length==3218297640,(h.length,"frozen official MaStR size mismatch")
-          assert groups["AnlagenStromSpeicher"]["count"]==29
-          assert groups["EinheitenStromSpeicher"]["count"]==29
-          pathlib.Path("g514_output").mkdir(exist_ok=True)
-          result={"status":"ORIGINAL_SOURCE_ZIP_HEADER_VERIFIED",
-                  "url":url,"bytes":h.length,"etag":h.etag,"range_requests":h.range_requests,
-                  "total_members":len(names),"groups":groups,
-                  "warning":"The 2026-10-01 vintage is not ISE's 2026-10-13."}
-          pathlib.Path("g514_output/official_source_inventory.json").write_text(json.dumps(result,indent=2))
-          print("OFFICIAL ZIP inventory",json.dumps({k:{kk:v[kk] for kk in ("count","compressed_bytes")} for k,v in groups.items()}))
+          import zipfile, pathlib, hashlib
+          with zipfile.ZipFile('g514_evidence/R23_SOURCE.zip') as z:
+              assert z.testzip() is None
+              b=z.read('g514_output/official_source_inventory.json')
+          assert hashlib.sha256(b).hexdigest()=='804ef23894cbc829a31a51e435d7e730861a9c9f1e03639a950d3c15d631915b'
+          pathlib.Path('g514_evidence/inventory.json').write_bytes(b)
           PY
-      - name: Original country codebook probe
-        run: python research/germany_ess_g514/G5_14_R23_ORIGINAL_CATALOG_AUDIT.py
-      - name: Run bounded synthetic tests (not country output)
+      - name: Restore exact prior checkpoint if continuing
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/cache/restore@v4
+        with:
+          path: g514_state
+          key: ${{ inputs.prior_cache_key }}
+          fail-on-cache-miss: true
+      - name: Reject duplicate initial invocation
+        if: github.event_name == 'push'
+        uses: actions/cache/restore@v4
+        id: initial
+        with:
+          path: g514_state
+          key: g514-20261001-r26-first-guard
+          lookup-only: true
+      - name: Single bounded source operation
+        if: github.event_name == 'workflow_dispatch' || steps.initial.outputs.cache-hit != 'true'
+        id: process
         run: |
-          python research/germany_ess_g514/G5_14_R23_BATTERY_RAW_REAGGREGATION_20261123.py --self-test --out g514_synthetic
-      - name: Execute 29+29 archived MaStR XML original national census
+          set +e
+          python -u research/g514_resume_tools/G5_14_R26_MASTR_CHECKPOINT.py --parser research/germany_ess_g514/G5_14_R23_BATTERY_RAW_REAGGREGATION_20261123.py --inventory g514_evidence/inventory.json --work g514_state --max-members 4 --max-requests 50 > g514_evidence/source.log 2>&1
+          rc=$?
+          cat g514_evidence/source.log
+          echo "$rc" > g514_evidence/process_exit.txt
+          if [ -f g514_state/RUN_RECEIPT.json ]; then cp g514_state/RUN_RECEIPT.json g514_evidence/; fi
+          if [ -f g514_state/RESULT.json ]; then cp g514_state/RESULT.json g514_evidence/; fi
+          test -f g514_evidence/RUN_RECEIPT.json
+      - name: Preserve checkpoint under immutable run key
+        if: always() && steps.process.outcome == 'success'
+        uses: actions/cache/save@v4
+        id: save
+        with:
+          path: g514_state
+          key: g514-20261001-r26-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Preserve first-run guard
+        if: always() && github.event_name == 'push' && steps.process.outcome == 'success' && steps.save.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: g514_evidence/process_exit.txt
+          key: g514-20261001-r26-first-guard
+      - name: Record durable checkpoint key and evidence
+        if: always()
         run: |
-          set -o pipefail
-          python -u research/germany_ess_g514/G5_14_R23_BATTERY_RAW_REAGGREGATION_20261123.py --source official-remote --out g514_output 2>&1 | tee g514_full_run.log
-          sha256sum research/germany_ess_g514/*.py g514_output/*.json g514_output/*.csv > g514_output/source_artifact_sha256.txt
-          echo "CENSUS_COMPLETED__SOURCE_2026_10_01"
-      - name: Preserve small-machine QC and source logs
+          mkdir -p g514_evidence
+          printf '%s\n' 'g514-20261001-r26-${{ github.run_id }}-${{ github.run_attempt }}' > g514_evidence/checkpoint_key.txt
+          printf '%s\n' '${{ steps.save.outcome }}' > g514_evidence/cache_save_outcome.txt
+          (cd g514_evidence && sha256sum *.json *.txt *.log *.zip 2>/dev/null > SHA256SUMS.txt) || true
+      - name: Upload receipt and source log
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: germany-g514-20261001-native-mastr-QC
-          path: |
-            g514_output/*.json
-            g514_output/*.csv
-            g514_output/*.txt
-            g514_full_run.log
-          if-no-files-found: warn
+          name: g514-r26-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: g514_evidence/
           retention-days: 90
+      - name: Require genuine full census for full success
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('g514_evidence/RUN_RECEIPT.json')
+          assert p.exists(), 'No actual source receipt; no completion claim'
+          x=json.loads(p.read_text())
+          assert not x['fixture']
+          print('Actual completed members:',x['completed_members'])
+          assert x['full_complete'] and x['completed_members']=={'catalog':1,'sse':29,'see':29}, 'Bounded partial or blocked; inspect saved receipt'
+          assert Path('g514_evidence/RESULT.json').exists()
+          PY

@@ -5,11 +5,6 @@ on:
     paths:
       - .github/workflows/g514-mastr-original-census.yml
   workflow_dispatch:
-    inputs:
-      prior_cache_key:
-        description: Exact prior checkpoint cache key (required for continuation)
-        required: true
-        type: string
 permissions:
   contents: read
 concurrency:
@@ -17,7 +12,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   census:
-    if: github.ref == 'refs/heads/research/g514-mastr-census-20261123'
+    if: github.ref == 'refs/heads/research/g514-mastr-census-20261123' && github.run_attempt == 1
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -39,51 +34,69 @@ jobs:
           assert hashlib.sha256(b).hexdigest()=='804ef23894cbc829a31a51e435d7e730861a9c9f1e03639a950d3c15d631915b'
           pathlib.Path('g514_evidence/inventory.json').write_bytes(b)
           PY
-      - name: Restore exact prior checkpoint if continuing
-        if: github.event_name == 'workflow_dispatch'
+      - name: Reject any already-preserved successor to this exact predecessor
         uses: actions/cache/restore@v4
+        id: successor
         with:
           path: g514_state
-          key: ${{ inputs.prior_cache_key }}
-          fail-on-cache-miss: true
-      - name: Reject duplicate initial invocation
-        if: github.event_name == 'push'
-        uses: actions/cache/restore@v4
-        id: initial
-        with:
-          path: g514_state
-          key: g514-20261001-r26-first-guard
+          key: g514-20261001-r26-successor-45916624461-1
           lookup-only: true
+      - name: Fail closed if successor already exists
+        run: test '${{ steps.successor.outputs.cache-hit }}' != 'true'
+      - name: Restore exact previous state (no restart on miss)
+        uses: actions/cache/restore@v4
+        id: previous
+        with:
+          path: g514_state
+          key: g514-20261001-r26-45916624461-1
+          fail-on-cache-miss: true
+      - name: Verify restored predecessor identity and committed members
+        run: |
+          python - <<'PY'
+          import json, sqlite3, pathlib
+          p=pathlib.Path('g514_state')
+          r=json.loads((p/'RUN_RECEIPT.json').read_text())
+          assert r['fixture'] is False and not r['full_complete']
+          assert r['completed_members']=={'catalog':1,'sse':3}
+          assert r['identity']['etag']=='"e83d3f664451dd1:0"'
+          assert r['identity']['checkpoint_code_sha256']=='ca574c9c13b6a411fb7f14ef83af086ba3f0aab7861e2630f648ed57e57953b5'
+          assert r['identity']['parser_sha256']=='32d263b354b115aeed39e8777fae8d5d8b9c325492a4f871e204978041e9ad73'
+          with sqlite3.connect('file:g514_state/checkpoint.sqlite?mode=ro', uri=True) as db:
+              assert dict(db.execute('select kind,count(*) from r26_members group by kind'))=={'catalog':1,'sse':3}
+              assert db.execute('select count(*) from sse').fetchone()[0]==300000
+              assert db.execute('select count(*) from r26_catalog').fetchone()[0]==1737
+              assert json.loads(db.execute("select value from r26_meta where key='identity'").fetchone()[0])==r['identity']
+          pathlib.Path('g514_evidence/restored_predecessor.json').write_text(json.dumps(r,indent=2))
+          PY
       - name: Single bounded source operation
-        if: github.event_name == 'workflow_dispatch' || steps.initial.outputs.cache-hit != 'true'
         id: process
         run: |
           set +e
-          python -u research/g514_resume_tools/G5_14_R26_MASTR_CHECKPOINT.py --parser research/germany_ess_g514/G5_14_R23_BATTERY_RAW_REAGGREGATION_20261123.py --inventory g514_evidence/inventory.json --work g514_state --max-members 4 --max-requests 50 > g514_evidence/source.log 2>&1
+          python -u research/g514_resume_tools/G5_14_R26_MASTR_CHECKPOINT.py --parser research/germany_ess_g514/G5_14_R23_BATTERY_RAW_REAGGREGATION_20261123.py --inventory g514_evidence/inventory.json --work g514_state --max-members 12 --max-requests 50 > g514_evidence/source.log 2>&1
           rc=$?
           cat g514_evidence/source.log
           echo "$rc" > g514_evidence/process_exit.txt
           if [ -f g514_state/RUN_RECEIPT.json ]; then cp g514_state/RUN_RECEIPT.json g514_evidence/; fi
           if [ -f g514_state/RESULT.json ]; then cp g514_state/RESULT.json g514_evidence/; fi
           test -f g514_evidence/RUN_RECEIPT.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('g514_evidence/RUN_RECEIPT.json').read_text()); assert x['fixture'] is False
+          assert x['completed_members'].get('catalog',0)==1 and x['completed_members'].get('sse',0)>=3
+          PY
       - name: Preserve checkpoint under immutable run key
         if: always() && steps.process.outcome == 'success'
         uses: actions/cache/save@v4
         id: save
         with:
           path: g514_state
-          key: g514-20261001-r26-${{ github.run_id }}-${{ github.run_attempt }}
-      - name: Preserve first-run guard
-        if: always() && github.event_name == 'push' && steps.process.outcome == 'success' && steps.save.outcome == 'success'
-        uses: actions/cache/save@v4
-        with:
-          path: g514_evidence/process_exit.txt
-          key: g514-20261001-r26-first-guard
+          key: g514-20261001-r26-successor-45916624461-1
       - name: Record durable checkpoint key and evidence
         if: always()
         run: |
           mkdir -p g514_evidence
-          printf '%s\n' 'g514-20261001-r26-${{ github.run_id }}-${{ github.run_attempt }}' > g514_evidence/checkpoint_key.txt
+          printf '%s\n' 'g514-20261001-r26-successor-45916624461-1' > g514_evidence/checkpoint_key.txt
           printf '%s\n' '${{ steps.save.outcome }}' > g514_evidence/cache_save_outcome.txt
           (cd g514_evidence && sha256sum *.json *.txt *.log *.zip 2>/dev/null > SHA256SUMS.txt) || true
       - name: Upload receipt and source log
